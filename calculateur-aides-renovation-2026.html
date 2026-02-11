@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur d'aides à la rénovation énergétique 2026 | Energia-Conseil</title>
+  <meta name="description" content="Calculez vos aides MaPrimeRénov', CEE, Éco-PTZ en 2 min. Estimation gratuite. Audit IA conforme ANAH à 199€.">
+  <meta property="og:title" content="Calculateur aides rénovation 2026 | Energia-Conseil">
+  <meta property="og:description" content="Calculez vos aides MaPrimeRénov', CEE, Éco-PTZ. Audit IA conforme ANAH à 199€.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Calculateur aides rénovation 2026">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    .bg-gradient-hero { background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #10b981 100%); min-height: 100vh; }
+    .card-form { background: rgba(255,255,255,0.98); border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); }
+    .card-results { background: linear-gradient(145deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%); border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.12); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-bleu { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
+    .badge-jaune { background: linear-gradient(135deg, #eab308, #ca8a04); color: white; }
+    .badge-violet { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
+    .badge-rose { background: linear-gradient(135deg, #ec4899, #db2777); color: white; }
+    .total-aides { font-size: 2rem; font-weight: 800; color: #b45309; text-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .btn-cta { background: linear-gradient(135deg, #ea580c, #c2410c); color: white; font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; }
+    .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.4); }
+    input:focus, select:focus { outline: none; border-color: #0f766e; box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.2); }
+    .transition-results { transition: opacity 0.4s ease, transform 0.4s ease; }
+    /* Carousel témoignages */
+    .carousel-track { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    .carousel-card { flex: 0 0 100%; min-width: 0; padding: 0 0.25rem; }
+    @media (min-width: 768px) { .carousel-card { flex: 0 0 100%; } }
+    .carousel-arrow { transition: transform 0.2s, opacity 0.2s; }
+    .carousel-arrow:hover { transform: scale(1.1); opacity: 1; }
+    /* Barres comparaison factures */
+    .bar-facture { height: 1.75rem; border-radius: 0.5rem; transition: width 0.8s ease-out; }
+    /* Cartes scénarios */
+    .card-scenario { transition: transform 0.3s, box-shadow 0.3s; }
+    .card-scenario:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.2); }
+    .card-scenario-optimal { border: 2px solid #f59e0b; box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); transform: scale(1.02); }
+    .card-scenario-optimal:hover { transform: scale(1.02) translateY(-4px); }
+    .badge-recommande { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4); }
+    .card-scenario { transition: transform 0.3s, box-shadow 0.3s; }
+    .card-scenario:hover { transform: scale(1.02) translateY(-4px); }
+    .btn-hover { transition: transform 0.2s, box-shadow 0.2s; }
+    .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -5px rgba(0,0,0,0.15); }
+    .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    .sticky-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; }
+    .pb-sticky { padding-bottom: 4.5rem; }
+    .faq-icon { transition: transform 0.3s ease; }
+    .faq-item.open .faq-icon { transform: rotate(180deg); }
+    .scroll-reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .scroll-reveal.revealed { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body class="bg-gradient-hero p-4 md:p-8 pb-sticky">
+  <div class="max-w-5xl mx-auto">
+    <!-- En-tête -->
+    <header class="text-center mb-6">
+      <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-sm flex items-center justify-center gap-2 flex-wrap">
+        <span>🏠</span> Calculateur d'aides à la rénovation 2026
+      </h1>
+      <p class="text-teal-100 mt-2 text-lg">MaPrimeRénov' Parcours Accompagné · CEE · Aides régionales · Éco-PTZ</p>
+    </header>
+
+    <!-- Section Témoignages clients -->
+    <section class="mb-8 rounded-2xl p-4 md:p-6 bg-white/10 backdrop-blur-sm">
+      <h2 class="text-xl font-semibold text-white text-center mb-4 flex items-center justify-center gap-2">
+        <span>⭐</span> Témoignages clients
+      </h2>
+      <div class="relative overflow-hidden">
+        <div id="carousel-container" class="overflow-hidden">
+          <div id="carousel-track" class="carousel-track">
+            <div class="carousel-card">
+              <div class="bg-white rounded-xl shadow-lg p-5 md:p-6 border border-white/20">
+                <p class="text-yellow-500 text-lg mb-2">⭐⭐⭐⭐⭐</p>
+                <p class="text-gray-700 italic mb-4">"Grâce à l'audit IA d'Energia-Conseil, j'ai économisé 4 200€ sur mon projet. Le rapport était ultra-précis et j'ai touché 38 000€ d'aides au lieu des 34 000€ annoncés ailleurs. ROI passé de 12 ans à 8 ans !"</p>
+                <p class="text-gray-600 font-medium">— Sophie D., Lyon (69)</p>
+                <p class="text-gray-500 text-sm">Maison 120m², DPE F → B</p>
+              </div>
+            </div>
+            <div class="carousel-card">
+              <div class="bg-white rounded-xl shadow-lg p-5 md:p-6 border border-white/20">
+                <p class="text-yellow-500 text-lg mb-2">⭐⭐⭐⭐⭐</p>
+                <p class="text-gray-700 italic mb-4">"Sceptique sur l'audit à distance au début, mais le niveau de détail m'a bluffé. L'IA a détecté des ponts thermiques insoupçonnés. Résultat : isolation optimisée et facture de chauffage divisée par 3."</p>
+                <p class="text-gray-600 font-medium">— Marc L., Chalon-sur-Saône (71)</p>
+                <p class="text-gray-500 text-sm">Maison 150m², DPE E → C</p>
+              </div>
+            </div>
+            <div class="carousel-card">
+              <div class="bg-white rounded-xl shadow-lg p-5 md:p-6 border border-white/20">
+                <p class="text-yellow-500 text-lg mb-2">⭐⭐⭐⭐⭐</p>
+                <p class="text-gray-700 italic mb-4">"Rapport reçu en 36h, ultra-complet avec 4 scénarios adaptés. L'équipe m'a accompagné du choix des artisans au versement des aides. 199€ pour un audit aussi précis, remboursé après travaux : excellent rapport qualité-prix !"</p>
+                <p class="text-gray-600 font-medium">— Nathalie P., Villefranche-sur-Saône (69)</p>
+                <p class="text-gray-500 text-sm">Appartement 85m², DPE G → D</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="carousel-prev" class="carousel-arrow absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 text-teal-800 shadow flex items-center justify-center font-bold text-xl z-10" aria-label="Précédent">‹</button>
+        <button type="button" id="carousel-next" class="carousel-arrow absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 text-teal-800 shadow flex items-center justify-center font-bold text-xl z-10" aria-label="Suivant">›</button>
+        <div class="flex justify-center gap-2 mt-4">
+          <button type="button" id="carousel-dot-0" class="w-2.5 h-2.5 rounded-full bg-white border border-teal-200" aria-label="Témoignage 1"></button>
+          <button type="button" id="carousel-dot-1" class="w-2.5 h-2.5 rounded-full bg-teal-200 border border-teal-300" aria-label="Témoignage 2"></button>
+          <button type="button" id="carousel-dot-2" class="w-2.5 h-2.5 rounded-full bg-teal-200 border border-teal-300" aria-label="Témoignage 3"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Card formulaire -->
+    <section class="card-form p-6 md:p-8 mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+        <span>📋</span> Vos informations
+      </h2>
+      <div class="mb-5">
+        <div class="flex justify-between text-xs text-gray-500 mb-1"><span>Progression du formulaire</span><span id="form-progress-pct">0</span>%</div>
+        <div class="h-1.5 bg-gray-200 rounded-full overflow-hidden"><div id="form-progress-bar" class="h-full bg-teal-500 rounded-full transition-all duration-500" style="width: 0%;"></div></div>
+      </div>
+      <form id="form-renov" class="space-y-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label for="surface" class="block text-sm font-medium text-gray-700 mb-1">Surface (m²) 🏘️</label>
+            <input type="number" id="surface" name="surface" min="20" max="500" value="100" required
+              class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600 focus:ring-2 focus:ring-teal-500/20">
+          </div>
+          <div>
+            <label for="revenus" class="block text-sm font-medium text-gray-700 mb-1">Revenus annuels (€) 💰</label>
+            <input type="number" id="revenus" name="revenus" min="0" step="100" value="25000" required
+              class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600 focus:ring-2 focus:ring-teal-500/20">
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label for="personnes" class="block text-sm font-medium text-gray-700 mb-1">Nombre de personnes</label>
+            <select id="personnes" name="personnes" class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600 focus:ring-2 focus:ring-teal-500/20">
+              <option value="1">1 personne</option>
+              <option value="2" selected>2 personnes</option>
+              <option value="3">3 personnes</option>
+              <option value="4">4 personnes</option>
+              <option value="5">5 personnes</option>
+            </select>
+          </div>
+          <div>
+            <label for="region" class="block text-sm font-medium text-gray-700 mb-1">Région 🏛️</label>
+            <select id="region" name="region" class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600 focus:ring-2 focus:ring-teal-500/20">
+              <option value="autres">Autres régions</option>
+              <option value="idf">Île-de-France</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label for="dpe" class="block text-sm font-medium text-gray-700 mb-1">DPE actuel ⚡</label>
+            <select id="dpe" name="dpe" class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600 focus:ring-2 focus:ring-teal-500/20">
+              <option value="G">G</option>
+              <option value="F" selected>F</option>
+              <option value="E">E</option>
+              <option value="D">D</option>
+              <option value="C">C</option>
+            </select>
+          </div>
+          <div>
+            <label for="dpe-vise" class="block text-sm font-medium text-gray-700 mb-1">DPE visé après travaux 🎯</label>
+            <select id="dpe-vise" name="dpe_vise" class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600 focus:ring-2 focus:ring-teal-500/20">
+              <option value="">— Choisir —</option>
+              <option value="D">D</option>
+              <option value="C">C</option>
+              <option value="B" selected>B</option>
+              <option value="A">A</option>
+            </select>
+          </div>
+        </div>
+        <div id="reco-dpe-vise" class="rounded-lg bg-teal-50 border border-teal-200 px-4 py-3 text-sm text-teal-800 hidden">
+          💡 Pour atteindre le DPE <strong id="reco-dpe-letter">B</strong>, nous recommandons : <strong id="reco-travaux-label">Bouquet Performance+ (55 000 €)</strong>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label for="travaux" class="block text-sm font-medium text-gray-700 mb-1">Type de travaux 🎁</label>
+            <select id="travaux" name="travaux" class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600 focus:ring-2 focus:ring-teal-500/20">
+              <option value="25000">Essentiel — 25 000 €</option>
+              <option value="43000">Performance — 43 000 €</option>
+              <option value="55000">Performance+ — 55 000 €</option>
+              <option value="67500">Excellence — 67 500 €</option>
+              <option value="personnalise">Personnalisé</option>
+            </select>
+          </div>
+        </div>
+        <div id="wrap-personnalise" class="hidden">
+          <label for="montant-personnalise" class="block text-sm font-medium text-gray-700 mb-1">Montant des travaux (€)</label>
+          <input type="number" id="montant-personnalise" name="montant_personnalise" min="5000" max="150000" step="500" value="50000"
+            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600 focus:ring-2 focus:ring-teal-500/20 md:max-w-xs">
+        </div>
+        <div class="pt-2">
+          <button type="submit" class="w-full md:w-auto px-8 py-3 rounded-lg btn-cta text-lg">
+            📈 Calculer mes aides
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Card résultats (masquée au chargement) -->
+    <section id="section-results" class="card-results p-6 md:p-8 transition-results hidden">
+      <!-- Vue 3 scénarios comparatifs -->
+      <div id="vue-scenarios">
+        <p class="text-gray-700 text-center mb-6 text-lg">🎯 Nous avons analysé votre situation et vous proposons 3 scénarios adaptés à vos besoins :</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-6">
+          <div id="carte-scenario-1" class="card-scenario bg-white rounded-xl border-2 border-blue-200 p-5 shadow-lg flex flex-col">
+            <h3 class="text-lg font-bold text-blue-600 mb-2">💰 ESSENTIEL</h3>
+            <p class="text-sm font-medium text-gray-600 mb-2">Budget maîtrisé</p>
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 mb-3 w-fit">Budget serré</span>
+            <p class="text-gray-700 font-semibold mb-2"><span id="s1-dpe-avant">F</span> → <span id="s1-dpe-apres" class="text-blue-600">D</span></p>
+            <p class="text-2xl font-bold text-gray-900 mb-1"><span id="s1-cout">25 000</span> €</p>
+            <p class="text-sm text-gray-500 mb-2">Coût travaux</p>
+            <p class="text-green-700 font-bold text-lg mb-1"><span id="s1-aides">0</span> €</p>
+            <p class="text-sm text-gray-500 mb-2">Total des aides</p>
+            <p class="text-orange-600 font-bold mb-1"><span id="s1-reste">0</span> €</p>
+            <p class="text-sm text-gray-500 mb-2">Reste à charge</p>
+            <p class="text-gray-600 text-sm mb-2">Éco-PTZ : <strong><span id="s1-ecoptz">25 000</span> €</strong></p>
+            <p class="text-gray-600 text-sm mb-2">Économies : <strong><span id="s1-economies">0</span> €/an</strong></p>
+            <p class="text-gray-600 text-sm mb-3">ROI : <strong><span id="s1-roi">—</span></strong></p>
+            <p class="text-xs text-gray-500 mb-3 flex-grow">Isolation combles + murs ITI + fenêtres PVC + PAC standard + VMC simple flux</p>
+            <p class="text-xs text-gray-500 mb-4">📅 6-8 semaines</p>
+            <div class="space-y-2">
+              <button type="button" class="btn-voir-detail w-full py-2 px-4 rounded-lg bg-gray-200 text-gray-800 font-medium text-sm btn-hover" data-scenario="1">📄 Voir le détail</button>
+              <button type="button" class="btn-pdf-scenario w-full py-2 px-4 rounded-lg font-medium text-sm text-white btn-hover" data-scenario="1" style="background: #3b82f6;">📥 Télécharger PDF</button>
+            </div>
+          </div>
+          <div id="carte-scenario-2" class="card-scenario card-scenario-optimal bg-white rounded-xl p-5 shadow-xl flex flex-col">
+            <h3 class="text-lg font-bold text-amber-600 mb-2">⭐ OPTIMAL</h3>
+            <p class="text-sm font-medium text-gray-600 mb-2">Meilleur rapport qualité/prix</p>
+            <span class="badge-recommande inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 w-fit">⭐ RECOMMANDÉ</span>
+            <p class="text-gray-700 font-semibold mb-2"><span id="s2-dpe-avant">F</span> → <span id="s2-dpe-apres" class="text-amber-600">C</span></p>
+            <p class="text-2xl font-bold text-gray-900 mb-1"><span id="s2-cout">43 000</span> €</p>
+            <p class="text-sm text-gray-500 mb-2">Coût travaux</p>
+            <p class="text-green-700 font-bold text-lg mb-1"><span id="s2-aides">0</span> €</p>
+            <p class="text-sm text-gray-500 mb-2">Total des aides</p>
+            <p class="text-orange-600 font-bold mb-1"><span id="s2-reste">0</span> €</p>
+            <p class="text-sm text-gray-500 mb-2">Reste à charge</p>
+            <p class="text-gray-600 text-sm mb-2">Éco-PTZ : <strong><span id="s2-ecoptz">35 000</span> €</strong></p>
+            <p class="text-gray-600 text-sm mb-2">Économies : <strong><span id="s2-economies">0</span> €/an</strong></p>
+            <p class="text-gray-600 text-sm mb-3">ROI : <strong><span id="s2-roi">—</span></strong></p>
+            <p class="text-xs text-gray-500 mb-3 flex-grow">Isolation complète (combles + ITE + planchers) + fenêtres PVC + VMC double flux + PAC performante + ballon thermodynamique</p>
+            <p class="text-xs text-gray-500 mb-4">📅 8-12 semaines</p>
+            <div class="space-y-2">
+              <button type="button" class="btn-voir-detail w-full py-2 px-4 rounded-lg bg-gray-200 text-gray-800 font-medium text-sm btn-hover" data-scenario="2">📄 Voir le détail</button>
+              <button type="button" class="btn-pdf-scenario w-full py-2 px-4 rounded-lg font-medium text-sm text-white btn-hover" data-scenario="2" style="background: #f59e0b;">📥 Télécharger PDF</button>
+            </div>
+          </div>
+          <div id="carte-scenario-3" class="card-scenario bg-white rounded-xl border-2 border-emerald-200 p-5 shadow-lg flex flex-col">
+            <h3 class="text-lg font-bold text-emerald-600 mb-2">🏆 EXCELLENCE</h3>
+            <p class="text-sm font-medium text-gray-600 mb-2">Performance maximale</p>
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 mb-3 w-fit">Maison BBC</span>
+            <p class="text-gray-700 font-semibold mb-2"><span id="s3-dpe-avant">F</span> → <span id="s3-dpe-apres" class="text-emerald-600">A</span></p>
+            <p class="text-2xl font-bold text-gray-900 mb-1"><span id="s3-cout">67 500</span> €</p>
+            <p class="text-sm text-gray-500 mb-2">Coût travaux</p>
+            <p class="text-green-700 font-bold text-lg mb-1"><span id="s3-aides">0</span> €</p>
+            <p class="text-sm text-gray-500 mb-2">Total des aides</p>
+            <p class="text-orange-600 font-bold mb-1"><span id="s3-reste">0</span> €</p>
+            <p class="text-sm text-gray-500 mb-2">Reste à charge</p>
+            <p class="text-gray-600 text-sm mb-2">Éco-PTZ : <strong><span id="s3-ecoptz">50 000</span> €</strong></p>
+            <p class="text-gray-600 text-sm mb-2">Économies : <strong><span id="s3-economies">0</span> €/an</strong></p>
+            <p class="text-gray-600 text-sm mb-3">ROI : <strong><span id="s3-roi">—</span></strong></p>
+            <p class="text-xs text-gray-500 mb-3 flex-grow">Isolation renforcée (R=10 + ITE 160mm) + triple vitrage + VMC thermo + PAC très haute perf + ballon 300L + photovoltaïque 3 kWc</p>
+            <p class="text-xs text-gray-500 mb-4">📅 12-16 semaines</p>
+            <div class="space-y-2">
+              <button type="button" class="btn-voir-detail w-full py-2 px-4 rounded-lg bg-gray-200 text-gray-800 font-medium text-sm btn-hover" data-scenario="3">📄 Voir le détail</button>
+              <button type="button" class="btn-pdf-scenario w-full py-2 px-4 rounded-lg font-medium text-sm text-white btn-hover" data-scenario="3" style="background: #10b981;">📥 Télécharger PDF</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Aperçu du rapport complet (toujours visible avec résultats) -->
+        <div id="section-apercu" class="mt-8 mb-10 scroll-reveal">
+          <h2 class="text-xl font-bold text-gray-800 mb-2 text-center">📚 Ce que contient votre Audit IA complet (40-60 pages conforme ANAH)</h2>
+          <p class="text-gray-600 text-center mb-6 max-w-2xl mx-auto">L'estimation que vous venez de télécharger est une synthèse gratuite. Pour concrétiser votre projet et débloquer vos aides, vous avez besoin d'un audit énergétique réglementaire.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+              <p class="text-2xl mb-2">📊</p>
+              <h3 class="font-bold text-gray-800 mb-3">DIAGNOSTIC ACTUEL <span class="text-sm font-normal text-gray-500">(10 pages)</span></h3>
+              <ul class="text-sm text-gray-600 space-y-2">
+                <li>• Modélisation 3D thermique de votre logement</li>
+                <li>• Déperditions par poste (toit 30%, murs 25%...)</li>
+                <li>• Ponts thermiques identifiés (caméra IA)</li>
+                <li>• Consommations détaillées (kWh + €)</li>
+                <li>• Émissions CO₂ et DPE justifié</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+              <p class="text-2xl mb-2">🎯</p>
+              <h3 class="font-bold text-gray-800 mb-3">3-5 SCÉNARIOS OPTIMISÉS <span class="text-sm font-normal text-gray-500">(25 pages)</span></h3>
+              <ul class="text-sm text-gray-600 space-y-2">
+                <li>• Scénarios Budget / Optimal / Performance / Excellence</li>
+                <li>• Calculs thermiques RT2012/RE2020</li>
+                <li>• Dimensionnement PAC, VMC, isolation...</li>
+                <li>• Aides calculées au centime près</li>
+                <li>• ROI et DPE projeté par scénario</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+              <p class="text-2xl mb-2">💰</p>
+              <h3 class="font-bold text-gray-800 mb-3">DOSSIERS D'AIDES <span class="text-sm font-normal text-gray-500">(10 pages)</span></h3>
+              <ul class="text-sm text-gray-600 space-y-2">
+                <li>• Formulaire MaPrimeRénov' complété</li>
+                <li>• Demande CEE avec calcul exact</li>
+                <li>• Dossier Éco-PTZ et simulation bancaire</li>
+                <li>• Aides régionales identifiées</li>
+                <li>• Calendrier de versement des aides</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+              <p class="text-2xl mb-2">📋</p>
+              <h3 class="font-bold text-gray-800 mb-3">MISE EN ŒUVRE <span class="text-sm font-normal text-gray-500">(15 pages)</span></h3>
+              <ul class="text-sm text-gray-600 space-y-2">
+                <li>• Planning travaux (semaine par semaine)</li>
+                <li>• 5-10 artisans RGE dans votre région</li>
+                <li>• Devis comparatifs + ordre optimal</li>
+                <li>• Suivi chantier avec checklist</li>
+                <li>• Garanties et assurances</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Pourquoi choisir Energia-Conseil -->
+        <div id="section-pourquoi" class="mb-10 scroll-reveal">
+          <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">Pourquoi choisir Energia-Conseil ?</h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div class="bg-amber-50 rounded-xl p-4 text-center border border-amber-100">
+              <p class="text-2xl mb-2">⚡</p>
+              <p class="font-bold text-gray-800 text-sm">LIVRAISON EXPRESS</p>
+              <p class="text-gray-700 font-semibold">Rapport en 48h</p>
+              <p class="text-xs text-gray-500">vs 2 semaines ailleurs</p>
+            </div>
+            <div class="bg-emerald-50 rounded-xl p-4 text-center border border-emerald-100">
+              <p class="text-2xl mb-2">💰</p>
+              <p class="font-bold text-gray-800 text-sm">PRIX TRANSPARENT</p>
+              <p class="text-gray-700 font-semibold">199€ tout compris</p>
+              <p class="text-xs text-gray-500">vs 500-800€ ailleurs</p>
+            </div>
+            <div class="bg-teal-50 rounded-xl p-4 text-center border border-teal-100">
+              <p class="text-2xl mb-2">✅</p>
+              <p class="font-bold text-gray-800 text-sm">CONFORME ANAH</p>
+              <p class="text-gray-700 font-semibold">Accepté par tous</p>
+              <p class="text-xs text-gray-500">les organismes</p>
+            </div>
+            <div class="bg-blue-50 rounded-xl p-4 text-center border border-blue-100">
+              <p class="text-2xl mb-2">🤖</p>
+              <p class="font-bold text-gray-800 text-sm">TECHNOLOGIE IA</p>
+              <p class="text-gray-700 font-semibold">Précision maximale</p>
+              <p class="text-xs text-gray-500">Aucune visite requise</p>
+            </div>
+            <div class="bg-green-50 rounded-xl p-4 text-center border border-green-100">
+              <p class="text-2xl mb-2">💯</p>
+              <p class="font-bold text-gray-800 text-sm">SATISFAIT OU REMBOURSÉ</p>
+              <p class="text-gray-700 font-semibold">30 jours de garantie</p>
+              <p class="text-xs text-gray-500">Sans conditions</p>
+            </div>
+            <div class="bg-orange-50 rounded-xl p-4 text-center border border-orange-100">
+              <p class="text-2xl mb-2">🎁</p>
+              <p class="font-bold text-gray-800 text-sm">REMBOURSÉ SI TRAVAUX</p>
+              <p class="text-gray-700 font-semibold">199€ remboursés</p>
+              <p class="text-xs text-gray-500">si projet > 10 000€</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Final ultra-performant -->
+        <div id="section-cta" class="rounded-2xl overflow-hidden mb-10 scroll-reveal" style="background: linear-gradient(145deg, #047857 0%, #059669 30%, #10b981 100%);">
+          <div class="p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-white text-center mb-2">🚀 Concrétisez votre projet maintenant</h2>
+            <p class="text-teal-100 text-center mb-8">Obtenez votre audit énergétique réglementaire en 48h</p>
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+              <div class="bg-red-900/30 rounded-xl p-5 border border-red-400/30">
+                <h3 class="font-bold text-red-200 mb-4 flex items-center gap-2">❌ Sans audit ANAH</h3>
+                <ul class="text-red-100 text-sm space-y-2">
+                  <li>• Aides refusées ou réduites</li>
+                  <li>• Travaux mal dimensionnés</li>
+                  <li>• Artisans non RGE = 0€ d'aides</li>
+                  <li>• Risque de malfaçons</li>
+                  <li>• Perte de temps et d'argent</li>
+                  <li>• ROI inconnu</li>
+                </ul>
+              </div>
+              <div class="bg-emerald-500/20 rounded-xl p-5 border border-emerald-400/40">
+                <h3 class="font-bold text-emerald-100 mb-4 flex items-center gap-2">✅ Avec audit Energia-Conseil</h3>
+                <ul class="text-emerald-50 text-sm space-y-2">
+                  <li>• 100% des aides débloquées</li>
+                  <li>• Travaux optimisés et rentables</li>
+                  <li>• Artisans RGE certifiés</li>
+                  <li>• Conformité garantie</li>
+                  <li>• Gain de temps (tout pré-rempli)</li>
+                  <li>• ROI calculé précisément</li>
+                </ul>
+              </div>
+            </div>
+            <div class="text-center mb-6">
+              <p class="text-4xl md:text-5xl font-black text-white mb-1">199€ seulement</p>
+              <p class="text-teal-200 text-sm">(Remboursé si travaux &gt; 10 000€)</p>
+            </div>
+            <div class="text-center">
+              <a href="https://buy.stripe.com/test_7sY9ATfmA5AK4Ltgpu3ZK00" target="_blank" rel="noopener noreferrer" class="inline-block px-10 py-5 rounded-xl text-xl font-bold text-white btn-hover" style="background: linear-gradient(135deg, #ea580c, #c2410c); box-shadow: 0 10px 30px -5px rgba(234,88,12,0.5);">🚀 Commander mon Audit IA maintenant</a>
+              <p class="text-teal-200 text-sm mt-4 flex flex-wrap justify-center gap-3">⚡ Livré en 48h • ✅ Conforme ANAH • 💯 Satisfait ou remboursé • 🔒 Paiement sécurisé</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section FAQ -->
+        <div id="section-faq" class="mb-8 scroll-reveal">
+          <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">❓ Questions fréquentes</h2>
+          <div class="space-y-2">
+            <div class="faq-item bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+              <button type="button" class="faq-toggle w-full px-5 py-4 text-left font-semibold text-gray-800 flex justify-between items-center gap-3" aria-expanded="false"><span>L'audit IA est-il aussi fiable qu'un audit classique ?</span><span class="faq-icon text-teal-500 shrink-0">▼</span></button>
+              <div class="faq-content hidden px-5 pb-4 text-gray-600 text-sm">Oui ! Notre IA analyse plus de 200 paramètres (vs 50 pour un audit manuel). Conforme ANAH et accepté par tous les organismes de financement. Précision validée par des bureaux d'études thermiques certifiés.</div>
+            </div>
+            <div class="faq-item bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+              <button type="button" class="faq-toggle w-full px-5 py-4 text-left font-semibold text-gray-800 flex justify-between items-center gap-3" aria-expanded="false"><span>Pourquoi 199€ alors que d'autres facturent 500-800€ ?</span><span class="faq-icon text-teal-500 shrink-0">▼</span></button>
+              <div class="faq-content hidden px-5 pb-4 text-gray-600 text-sm">L'IA fait en 48h ce qu'un thermicien fait en 2 semaines. Pas de déplacement = coûts réduits. Et si vous réalisez des travaux &gt; 10 000€, les 199€ sont remboursés !</div>
+            </div>
+            <div class="faq-item bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+              <button type="button" class="faq-toggle w-full px-5 py-4 text-left font-semibold text-gray-800 flex justify-between items-center gap-3" aria-expanded="false"><span>Ai-je vraiment besoin d'un audit pour obtenir les aides ?</span><span class="faq-icon text-teal-500 shrink-0">▼</span></button>
+              <div class="faq-content hidden px-5 pb-4 text-gray-600 text-sm">OUI, obligatoire pour MaPrimeRénov' Parcours Accompagné (rénovations &gt; 25 000€). Sans audit conforme ANAH, vos aides seront refusées. L'audit vous fait économiser 10 000-50 000€ d'aides.</div>
+            </div>
+            <div class="faq-item bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+              <button type="button" class="faq-toggle w-full px-5 py-4 text-left font-semibold text-gray-800 flex justify-between items-center gap-3" aria-expanded="false"><span>Combien de temps pour recevoir mon audit ?</span><span class="faq-icon text-teal-500 shrink-0">▼</span></button>
+              <div class="faq-content hidden px-5 pb-4 text-gray-600 text-sm">48h maximum après réception de vos photos et documents. Vous recevez un email avec le PDF complet (40-60 pages) + dossiers d'aides pré-remplis.</div>
+            </div>
+            <div class="faq-item bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+              <button type="button" class="faq-toggle w-full px-5 py-4 text-left font-semibold text-gray-800 flex justify-between items-center gap-3" aria-expanded="false"><span>Que se passe-t-il après avoir reçu l'audit ?</span><span class="faq-icon text-teal-500 shrink-0">▼</span></button>
+              <div class="faq-content hidden px-5 pb-4 text-gray-600 text-sm">1) Vous déposez les dossiers d'aides (on vous guide) 2) Vous recevez les accords de financement 3) Vous choisissez vos artisans RGE (on vous en recommande 5-10) 4) Vous lancez les travaux 5) Vous recevez les aides.</div>
+            </div>
+            <div class="faq-item bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+              <button type="button" class="faq-toggle w-full px-5 py-4 text-left font-semibold text-gray-800 flex justify-between items-center gap-3" aria-expanded="false"><span>L'audit est-il valable partout en France ?</span><span class="faq-icon text-teal-500 shrink-0">▼</span></button>
+              <div class="faq-content hidden px-5 pb-4 text-gray-600 text-sm">Oui, métropole et DOM-TOM. Les barèmes MaPrimeRénov' et CEE sont automatiquement adaptés à votre région.</div>
+            </div>
+            <div class="faq-item bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+              <button type="button" class="faq-toggle w-full px-5 py-4 text-left font-semibold text-gray-800 flex justify-between items-center gap-3" aria-expanded="false"><span>Puis-je modifier le projet après l'audit ?</span><span class="faq-icon text-teal-500 shrink-0">▼</span></button>
+              <div class="faq-content hidden px-5 pb-4 text-gray-600 text-sm">Oui, nous proposons 3-5 scénarios différents. Vous choisissez celui qui vous convient. Si besoin, nous ajustons gratuitement l'audit une fois.</div>
+            </div>
+            <div class="faq-item bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+              <button type="button" class="faq-toggle w-full px-5 py-4 text-left font-semibold text-gray-800 flex justify-between items-center gap-3" aria-expanded="false"><span>Que se passe-t-il si je ne réalise pas les travaux ?</span><span class="faq-icon text-teal-500 shrink-0">▼</span></button>
+              <div class="faq-content hidden px-5 pb-4 text-gray-600 text-sm">Aucun problème ! Vous gardez l'audit (valable 5 ans). Si vous changez d'avis dans les 30 jours, remboursement intégral sans justification.</div>
+            </div>
+          </div>
+        </div>
+
+      <!-- Vue détail (masquée, affichée au clic sur "Voir le détail") -->
+      <div id="vue-detail" class="hidden">
+        <button type="button" id="btn-retour-scenarios" class="mb-4 px-4 py-2 rounded-lg bg-gray-200 text-gray-800 font-medium text-sm hover:bg-gray-300">← Retour aux scénarios</button>
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <span>💰</span> Détail du scénario choisi
+        </h2>
+
+      <div class="flex flex-wrap items-center gap-3 mb-6">
+        <span class="text-gray-700">Profil MaPrimeRénov' :</span>
+        <span id="badge-profil" class="badge-bleu px-4 py-1.5 rounded-full text-sm font-bold">Bleu</span>
+      </div>
+
+      <div class="bg-white/70 rounded-xl p-6 mb-6">
+        <p class="text-gray-600 text-sm mb-1">Total des aides</p>
+        <p id="total-aides" class="total-aides">0 €</p>
+      </div>
+
+      <div class="space-y-3 mb-6 text-gray-800">
+        <p class="flex justify-between"><span>MaPrimeRénov' base</span><strong id="detail-maprime">0 €</strong></p>
+        <p class="flex justify-between"><span>Bonus sortie passoire thermique</span><strong id="detail-passoire">0 €</strong></p>
+        <p class="flex justify-between"><span>Bonus BBC</span><strong id="detail-bbc">0 €</strong></p>
+        <p class="flex justify-between"><span>CEE</span><strong id="detail-cee">0 €</strong></p>
+        <p class="flex justify-between"><span>Aides régionales (5 %)</span><strong id="detail-regional">0 €</strong></p>
+      </div>
+
+      <!-- Travaux recommandés (rempli dynamiquement selon DPE visé) -->
+      <div id="section-travaux-recommandes" class="mb-6 rounded-xl bg-gray-100/90 border border-gray-200 p-5 md:p-6">
+        <h3 id="titre-travaux-recommandes" class="font-semibold text-gray-800 mb-4">🔧 Travaux recommandés pour atteindre le DPE <span id="dpe-vise-titre">B</span></h3>
+        <ol id="liste-travaux-recommandes" class="space-y-2 text-gray-700 list-decimal list-inside mb-4">
+          <!-- Rempli par JS -->
+        </ol>
+        <div class="border-t border-gray-200 pt-4 mt-4 space-y-2 text-sm text-gray-600">
+          <p><span class="text-gray-500">📅</span> Durée estimée : <strong id="duree-travaux">10-14 semaines</strong></p>
+          <p><span class="text-gray-500">👷</span> Artisans RGE requis : <strong>Oui</strong> (obligatoire pour bénéficier des aides)</p>
+          <p><span class="text-gray-500">🏗️</span> Ordre optimal : 1. Isolation → 2. Menuiseries → 3. VMC → 4. Chauffage → 5. Eau chaude → 6. Photovoltaïque</p>
+        </div>
+      </div>
+
+      <div class="border-t border-teal-200/60 pt-4 mb-6">
+        <h3 class="font-semibold text-gray-800 mb-3">💳 Financement</h3>
+        <div class="space-y-2 text-gray-700">
+          <p class="flex justify-between"><span>Coût total des travaux</span><strong id="cout-total">0 €</strong></p>
+          <p class="flex justify-between"><span>Total des aides</span><strong id="total-aides-2">0 €</strong></p>
+          <p class="flex justify-between text-teal-800"><span>Reste à charge</span><strong id="reste-charge">0 €</strong></p>
+          <p class="flex justify-between"><span>Éco-PTZ (prêt à 0 %)</span><strong id="ecoptz">0 €</strong></p>
+        </div>
+      </div>
+
+      <!-- Comparaison factures Avant / Après -->
+      <div class="border-t border-teal-200/60 pt-4 mb-6">
+        <h3 class="font-semibold text-gray-800 mb-3">📊 Comparaison factures énergétiques</h3>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="bg-white/60 rounded-xl p-4 text-center">
+            <p class="text-gray-500 text-sm mb-1">AVANT</p>
+            <p class="text-lg font-bold text-gray-800" id="facture-avant">0 €<span class="text-sm font-normal text-gray-500">/an</span></p>
+            <p class="text-xs text-gray-500">DPE <span id="label-dpe-avant">F</span></p>
+          </div>
+          <div class="bg-white/60 rounded-xl p-4 text-center">
+            <p class="text-gray-500 text-sm mb-1">APRÈS</p>
+            <p class="text-lg font-bold text-teal-700" id="facture-apres">0 €<span class="text-sm font-normal text-gray-500">/an</span></p>
+            <p class="text-xs text-gray-500">DPE visé <span id="label-dpe-apres">B</span></p>
+          </div>
+        </div>
+        <div class="mb-3">
+          <p class="text-sm text-gray-600 mb-1">Facture annuelle (réf. 100 m²)</p>
+          <div class="flex items-center gap-2">
+            <div class="flex-1 flex flex-col gap-1">
+              <div class="flex justify-between text-xs text-gray-500">
+                <span>Avant</span>
+                <span id="bar-avant-label">0 €</span>
+              </div>
+              <div class="bar-facture bg-amber-500/80 max-w-full" id="bar-avant" style="width: 0%;"></div>
+            </div>
+            <div class="flex-1 flex flex-col gap-1">
+              <div class="flex justify-between text-xs text-gray-500">
+                <span>Après</span>
+                <span id="bar-apres-label">0 €</span>
+              </div>
+              <div class="bar-facture bg-teal-500 max-w-full" id="bar-apres" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+        <p class="text-center text-green-700 font-semibold">Économies annuelles : <span id="economies-facture">0</span> €/an</p>
+      </div>
+
+      <div class="border-t border-teal-200/60 pt-4 mb-6">
+        <h3 class="font-semibold text-gray-800 mb-3">🌱 Économies & ROI</h3>
+        <div class="space-y-2 text-gray-700">
+          <p class="flex justify-between"><span>Économies annuelles estimées</span><strong id="economies">0 €</strong></p>
+          <p class="flex justify-between"><span>ROI (années)</span><strong id="roi">—</strong></p>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <h3 class="font-semibold text-gray-800 mb-2">⭐ Amélioration DPE projetée</h3>
+        <p class="text-gray-700"><span id="dpe-avant">F</span> → <strong id="dpe-apres" class="text-teal-700">B</strong></p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 justify-center pt-4 mb-4">
+        <button type="button" id="btn-pdf" class="px-6 py-3 rounded-xl bg-gray-800 text-white font-medium hover:bg-gray-700 transition">
+          📄 Télécharger mon estimation PDF
+        </button>
+        <button type="button" id="btn-email" class="px-6 py-3 rounded-xl bg-teal-700 text-white font-medium hover:bg-teal-600 transition">
+          📧 Partager par email
+        </button>
+      </div>
+      <div class="text-center pt-2">
+  <a href="https://buy.stripe.com/test_7sY9ATfmA5AK4Ltgpu3ZK00" target="_blank" rel="noopener noreferrer" id="cta-audit" class="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-xl text-lg font-bold hover:from-orange-600 hover:to-orange-700 transition transform hover:scale-105 shadow-lg">  
+      🔍 Commander l'Audit IA à 199 €  
+      </a>  
+        </a>
+      </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Sticky Footer -->
+  <footer id="sticky-footer" class="sticky-footer hidden bg-white/95 backdrop-blur-sm border-t border-gray-200 shadow-lg">
+    <div class="max-w-5xl mx-auto px-4 py-3">
+      <div class="flex flex-wrap items-center justify-center gap-3 md:gap-6 text-sm">
+        <span class="font-semibold text-gray-600">⚡ 48h</span>
+        <span class="font-semibold text-gray-600">💰 199€</span>
+        <span class="font-semibold text-gray-600">✅ Conforme ANAH</span>
+        <span class="font-semibold text-gray-600">💯 Satisfait ou remboursé</span>
+        <a href="https://buy.stripe.com/test_7sY9ATfmA5AK4Ltgpu3ZK00" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg font-bold text-white btn-hover" style="background: linear-gradient(135deg, #ea580c, #c2410c);">🚀 Commander</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Calculateur aides rénovation 2026","description":"Calculez vos aides MaPrimeRénov', CEE, Éco-PTZ. Estimation gratuite. Audit IA conforme ANAH à 199€.","applicationCategory":"FinanceApplication","operatingSystem":"Any"}
+  </script>
+  <script>
+    (function () {
+      // ——— Carousel témoignages ———
+      var carouselIndex = 0;
+      var carouselSize = 3;
+      var carouselTimer = null;
+      var track = document.getElementById('carousel-track');
+      var container = document.getElementById('carousel-container');
+
+      function goCarousel(i) {
+        carouselIndex = ((i % carouselSize) + carouselSize) % carouselSize;
+        if (track) track.style.transform = 'translateX(-' + carouselIndex * 100 + '%)';
+        for (var d = 0; d < carouselSize; d++) {
+          var dot = document.getElementById('carousel-dot-' + d);
+          if (dot) {
+            dot.classList.toggle('bg-white', d === carouselIndex);
+            dot.classList.toggle('bg-teal-200', d !== carouselIndex);
+          }
+        }
+      }
+      function startCarouselAuto() {
+        if (carouselTimer) clearInterval(carouselTimer);
+        carouselTimer = setInterval(function () { goCarousel(carouselIndex + 1); }, 5000);
+      }
+      if (document.getElementById('carousel-prev')) {
+        document.getElementById('carousel-prev').addEventListener('click', function () { goCarousel(carouselIndex - 1); startCarouselAuto(); });
+      }
+      if (document.getElementById('carousel-next')) {
+        document.getElementById('carousel-next').addEventListener('click', function () { goCarousel(carouselIndex + 1); startCarouselAuto(); });
+      }
+      for (var d = 0; d < carouselSize; d++) {
+        (function (idx) {
+          var dot = document.getElementById('carousel-dot-' + idx);
+          if (dot) dot.addEventListener('click', function () { goCarousel(idx); startCarouselAuto(); });
+        })(d);
+      }
+      startCarouselAuto();
+
+      // ——— DPE visé → recommandation type de travaux ———
+      var DPE_VISE_TO_TRAVAUX = { D: { value: '25000', label: 'Bouquet Essentiel (25 000 €)' }, C: { value: '43000', label: 'Bouquet Performance (43 000 €)' }, B: { value: '55000', label: 'Bouquet Performance+ (55 000 €)' }, A: { value: '67500', label: 'Bouquet Excellence (67 500 €)' } };
+      var dpeViseSelect = document.getElementById('dpe-vise');
+      var recoBlock = document.getElementById('reco-dpe-vise');
+      var recoLetter = document.getElementById('reco-dpe-letter');
+      var recoLabel = document.getElementById('reco-travaux-label');
+      var selectTravauxEl = document.getElementById('travaux');
+
+      function updateRecoFromDpeVise() {
+        var vise = dpeViseSelect && dpeViseSelect.value;
+        if (!vise || !DPE_VISE_TO_TRAVAUX[vise]) {
+          if (recoBlock) recoBlock.classList.add('hidden');
+          return;
+        }
+        var rec = DPE_VISE_TO_TRAVAUX[vise];
+        if (recoLetter) recoLetter.textContent = vise;
+        if (recoLabel) recoLabel.textContent = rec.label;
+        if (selectTravauxEl) selectTravauxEl.value = rec.value;
+        if (document.getElementById('wrap-personnalise')) document.getElementById('wrap-personnalise').classList.add('hidden');
+        if (recoBlock) recoBlock.classList.remove('hidden');
+      }
+      if (dpeViseSelect) dpeViseSelect.addEventListener('change', updateRecoFromDpeVise);
+      updateRecoFromDpeVise();
+
+      // ——— Barre de progression formulaire ———
+      var formInputs = ['surface','revenus','personnes','region','dpe','dpe-vise','travaux'];
+      function updateFormProgress() {
+        var filled = 0;
+        formInputs.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el && ((el.value && el.value !== '') || (el.type === 'number' && Number(el.value) > 0))) filled++;
+        });
+        if (document.getElementById('wrap-personnalise') && !document.getElementById('wrap-personnalise').classList.contains('hidden')) {
+          var pm = document.getElementById('montant-personnalise');
+          if (pm && pm.value) filled++;
+        }
+        var pct = Math.min(100, Math.round((filled / formInputs.length) * 100));
+        var bar = document.getElementById('form-progress-bar');
+        var pctEl = document.getElementById('form-progress-pct');
+        if (bar) bar.style.width = pct + '%';
+        if (pctEl) pctEl.textContent = pct;
+      }
+      formInputs.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) { el.addEventListener('input', updateFormProgress); el.addEventListener('change', updateFormProgress); }
+      });
+      updateFormProgress();
+
+      // ——— Travaux recommandés par DPE visé ———
+      var TRAVAUX_PAR_DPE = {
+        D: {
+          duree: '6-8 semaines',
+          items: [
+            { emoji: '🏠', lib: 'Isolation combles (R=7)', prix: '2 500 €' },
+            { emoji: '🧱', lib: 'Isolation murs ITI 100m²', prix: '7 000 €' },
+            { emoji: '🪟', lib: 'Fenêtres PVC (8 unités)', prix: '4 000 €' },
+            { emoji: '🔥', lib: 'PAC air-eau standard 8 kW', prix: '10 000 €' },
+            { emoji: '💨', lib: 'VMC simple flux hygro', prix: '1 500 €' }
+          ]
+        },
+        C: {
+          duree: '8-12 semaines',
+          items: [
+            { emoji: '🏠', lib: 'Isolation combles (R=7)', prix: '2 500 €' },
+            { emoji: '🧱', lib: 'Isolation murs ITE 100m²', prix: '12 000 €' },
+            { emoji: '📐', lib: 'Isolation planchers bas', prix: '3 000 €' },
+            { emoji: '🪟', lib: 'Fenêtres PVC (10 unités)', prix: '6 000 €' },
+            { emoji: '💨', lib: 'VMC double flux', prix: '4 500 €' },
+            { emoji: '🔥', lib: 'PAC air-eau 10 kW', prix: '12 000 €' },
+            { emoji: '🚿', lib: 'Ballon thermodynamique', prix: '3 000 €' }
+          ]
+        },
+        B: {
+          duree: '10-14 semaines',
+          items: [
+            { emoji: '🏠', lib: 'Isolation combles (R=8)', prix: '3 000 €' },
+            { emoji: '🧱', lib: 'Isolation murs ITE 120m²', prix: '14 000 €' },
+            { emoji: '📐', lib: 'Isolation planchers bas', prix: '3 500 €' },
+            { emoji: '🪟', lib: 'Fenêtres triple vitrage (10 unités)', prix: '8 000 €' },
+            { emoji: '💨', lib: 'VMC double flux haut rendement', prix: '5 000 €' },
+            { emoji: '🔥', lib: 'PAC air-eau 12 kW haute performance', prix: '15 000 €' },
+            { emoji: '🚿', lib: 'Ballon thermodynamique 250L', prix: '3 500 €' },
+            { emoji: '☀️', lib: 'Photovoltaïque 3 kWc (optionnel)', prix: '3 000 €' }
+          ]
+        },
+        A: {
+          duree: '12-16 semaines',
+          items: [
+            { emoji: '🏠', lib: 'Isolation combles (R=10)', prix: '4 000 €' },
+            { emoji: '🧱', lib: 'Isolation murs ITE 160mm', prix: '18 000 €' },
+            { emoji: '📐', lib: 'Isolation planchers bas renforcée', prix: '4 500 €' },
+            { emoji: '🪟', lib: 'Fenêtres triple vitrage premium (12 unités)', prix: '12 000 €' },
+            { emoji: '💨', lib: 'VMC double flux thermodynamique', prix: '7 000 €' },
+            { emoji: '🔥', lib: 'PAC air-eau 14 kW très haute performance', prix: '18 000 €' },
+            { emoji: '🚿', lib: 'Ballon thermodynamique 300L', prix: '4 000 €' }
+          ]
+        }
+      };
+
+      function fillTravauxRecommandes(dpeVise) {
+        var dpe = (dpeVise && TRAVAUX_PAR_DPE[dpeVise]) ? dpeVise : 'B';
+        var data = TRAVAUX_PAR_DPE[dpe];
+        var titreDpe = document.getElementById('dpe-vise-titre');
+        var listeEl = document.getElementById('liste-travaux-recommandes');
+        var dureeEl = document.getElementById('duree-travaux');
+        var section = document.getElementById('section-travaux-recommandes');
+        if (!data || !listeEl) return;
+        if (titreDpe) titreDpe.textContent = dpe;
+        if (dureeEl) dureeEl.textContent = data.duree;
+        listeEl.innerHTML = data.items.map(function (item, i) {
+          return '<li class="flex justify-between gap-3"><span>' + item.emoji + ' ' + item.lib + '</span><strong class="text-gray-900 shrink-0">' + item.prix + '</strong></li>';
+        }).join('');
+      }
+
+      // ——— Barèmes et constantes ———
+      const BAREMES = {
+        idf: {
+          1: { bleu: 23541, jaune: 28657, violet: 40018 },
+          2: { bleu: 34551, jaune: 42058, violet: 58827 },
+          3: { bleu: 41493, jaune: 50513, violet: 70382 },
+          4: { bleu: 48447, jaune: 58981, violet: 82839 },
+          5: { bleu: 55427, jaune: 67473, violet: 94844 }
+        },
+        autres: {
+          1: { bleu: 17009, jaune: 21805, violet: 30549 },
+          2: { bleu: 24875, jaune: 31889, violet: 44907 },
+          3: { bleu: 29917, jaune: 38349, violet: 54071 },
+          4: { bleu: 34948, jaune: 44802, violet: 63235 },
+          5: { bleu: 40002, jaune: 51281, violet: 72400 }
+        }
+      };
+      const TAUX = { bleu: 0.8, jaune: 0.7, violet: 0.5, rose: 0.35 };
+      const PLAFOND_TRAVAUX_MAPRIME = 70000;
+
+      const form = document.getElementById('form-renov');
+      const sectionResults = document.getElementById('section-results');
+      const selectTravaux = document.getElementById('travaux');
+      const wrapPersonnalise = document.getElementById('wrap-personnalise');
+      const inputPersonnalise = document.getElementById('montant-personnalise');
+
+      selectTravaux.addEventListener('change', function () {
+        wrapPersonnalise.classList.toggle('hidden', this.value !== 'personnalise');
+      });
+
+      function getProfil(region, personnes, revenus) {
+        const b = region === 'idf' ? BAREMES.idf[personnes] : BAREMES.autres[personnes];
+        if (revenus <= b.bleu) return 'bleu';
+        if (revenus <= b.jaune) return 'jaune';
+        if (revenus <= b.violet) return 'violet';
+        return 'rose';
+      }
+
+      function getMontantTravaux() {
+        const v = selectTravaux.value;
+        if (v === 'personnalise') return Number(inputPersonnalise.value) || 25000;
+        return Number(v) || 25000;
+      }
+
+      function getMaPrimeBase(coutTravaux, profil) {
+        const plafond = Math.min(coutTravaux, PLAFOND_TRAVAUX_MAPRIME);
+        return Math.round(plafond * TAUX[profil]);
+      }
+
+      function getBonusPassoire(dpe) {
+        return (dpe === 'F' || dpe === 'G') ? 10000 : 0;
+      }
+
+      function getBonusBBC(coutTravaux) {
+        return coutTravaux >= 60000 ? 10000 : 0;
+      }
+
+      function getCEE(surface) {
+        return Math.round(surface * 50 + 3000);
+      }
+
+      function getAidesRegional(coutTravaux) {
+        return Math.round(coutTravaux * 0.05);
+      }
+
+      function getEcoPTZ(coutTravaux) {
+        if (coutTravaux >= 25000) return Math.min(50000, coutTravaux);
+        return 0;
+      }
+
+      function getEcoPTZByScenario(num) {
+        if (num === 1) return 25000;
+        if (num === 2) return 35000;
+        if (num === 3) return 50000;
+        return 0;
+      }
+
+      const DPE_ORDER = ['G', 'F', 'E', 'D', 'C', 'B', 'A'];
+      // Facture énergétique annuelle de référence pour 100 m² (€/an)
+      const FACTURE_100 = { G: 3500, F: 2800, E: 2100, D: 1400, C: 1000, B: 700, A: 400 };
+
+      function getFactureAnnuelle(surface, dpe) {
+        var ref = FACTURE_100[dpe];
+        return ref == null ? 0 : Math.round((surface / 100) * ref);
+      }
+
+      function getDpeAmeliore(dpeActuel, typeTravaux) {
+        const i = DPE_ORDER.indexOf(dpeActuel);
+        if (i === -1) return dpeActuel;
+        let sauts = 1;
+        if (typeTravaux >= 43000) sauts = 2;
+        if (typeTravaux >= 55000) sauts = 2;
+        if (typeTravaux >= 67500) sauts = 3;
+        const j = Math.min(i + sauts, DPE_ORDER.length - 1);
+        return DPE_ORDER[j];
+      }
+
+      function getEconomiesAnnuelles(surface, dpeAvant, dpeApres) {
+        var factureAvant = getFactureAnnuelle(surface, dpeAvant);
+        var factureApres = getFactureAnnuelle(surface, dpeApres);
+        return Math.max(0, factureAvant - factureApres);
+      }
+
+      var SCENARIOS_CONFIG = [
+        { id: 1, cout: 25000, dpeApres: 'D', bonusPassoire: true, bonusBBC: false, ecoptz: 25000, duree: '6-8 semaines' },
+        { id: 2, cout: 43000, dpeApres: 'C', bonusPassoire: true, bonusBBC: false, ecoptz: 35000, duree: '8-12 semaines' },
+        { id: 3, cout: 67500, dpeApres: 'A', bonusPassoire: false, bonusBBC: true, ecoptz: 50000, duree: '12-16 semaines' }
+      ];
+
+      function calculerScenario(surface, revenus, personnes, region, dpe, cfg) {
+        var profil = getProfil(region, personnes, revenus);
+        var maPrimeBase = getMaPrimeBase(cfg.cout, profil);
+        var bonusPassoire = (cfg.bonusPassoire && (dpe === 'F' || dpe === 'G')) ? 10000 : 0;
+        var bonusBBC = (cfg.bonusBBC && cfg.cout >= 60000) ? 10000 : 0;
+        var cee = getCEE(surface);
+        var aidesRegional = getAidesRegional(cfg.cout);
+        var totalAides = maPrimeBase + bonusPassoire + bonusBBC + cee + aidesRegional;
+        var resteCharge = Math.max(0, cfg.cout - totalAides);
+        var factureAvant = getFactureAnnuelle(surface, dpe);
+        var factureApres = getFactureAnnuelle(surface, cfg.dpeApres);
+        var economieFacture = Math.max(0, factureAvant - factureApres);
+        var roi = economieFacture > 0 ? (resteCharge / economieFacture).toFixed(1) : '—';
+        return { surface: surface, revenus: revenus, personnes: personnes, region: region, dpe: dpe, dpeApres: cfg.dpeApres, coutTravaux: cfg.cout, profil: profil, maPrimeBase: maPrimeBase, bonusPassoire: bonusPassoire, bonusBBC: bonusBBC, cee: cee, aidesRegional: aidesRegional, totalAides: totalAides, resteCharge: resteCharge, ecoptz: cfg.ecoptz, economieAnnuelle: economieFacture, roi: roi, factureAvant: factureAvant, factureApres: factureApres, economieFacture: economieFacture };
+      }
+
+      function afficherDetailScenar(r) {
+        document.getElementById('badge-profil').textContent = r.profil.charAt(0).toUpperCase() + r.profil.slice(1);
+        document.getElementById('badge-profil').className = 'px-4 py-1.5 rounded-full text-sm font-bold badge-' + r.profil;
+        document.getElementById('total-aides').textContent = r.totalAides.toLocaleString('fr-FR') + ' €';
+        document.getElementById('detail-maprime').textContent = r.maPrimeBase.toLocaleString('fr-FR') + ' €';
+        document.getElementById('detail-passoire').textContent = r.bonusPassoire.toLocaleString('fr-FR') + ' €';
+        document.getElementById('detail-bbc').textContent = r.bonusBBC.toLocaleString('fr-FR') + ' €';
+        document.getElementById('detail-cee').textContent = r.cee.toLocaleString('fr-FR') + ' €';
+        document.getElementById('detail-regional').textContent = r.aidesRegional.toLocaleString('fr-FR') + ' €';
+        document.getElementById('cout-total').textContent = r.coutTravaux.toLocaleString('fr-FR') + ' €';
+        document.getElementById('total-aides-2').textContent = r.totalAides.toLocaleString('fr-FR') + ' €';
+        var resteEl = document.getElementById('reste-charge');
+        resteEl.textContent = r.resteCharge.toLocaleString('fr-FR') + ' €';
+        var parentReste = resteEl.closest('div');
+        if (parentReste) { parentReste.classList.toggle('ring-2', r.resteCharge === 0); parentReste.classList.toggle('ring-green-500', r.resteCharge === 0); parentReste.classList.toggle('rounded-lg', r.resteCharge === 0); }
+        document.getElementById('ecoptz').textContent = r.ecoptz.toLocaleString('fr-FR') + ' €';
+        document.getElementById('economies').textContent = r.economieAnnuelle.toLocaleString('fr-FR') + ' €';
+        document.getElementById('roi').textContent = (r.roi !== '—' ? r.roi + ' ans' : r.roi);
+        document.getElementById('dpe-avant').textContent = r.dpe;
+        document.getElementById('dpe-apres').textContent = r.dpeApres;
+        document.getElementById('label-dpe-avant').textContent = r.dpe;
+        document.getElementById('label-dpe-apres').textContent = r.dpeApres;
+        fillTravauxRecommandes(r.dpeApres);
+        document.getElementById('facture-avant').innerHTML = r.factureAvant.toLocaleString('fr-FR') + ' €<span class="text-sm font-normal text-gray-500">/an</span>';
+        document.getElementById('facture-apres').innerHTML = r.factureApres.toLocaleString('fr-FR') + ' €<span class="text-sm font-normal text-gray-500">/an</span>';
+        document.getElementById('economies-facture').textContent = r.economieFacture.toLocaleString('fr-FR');
+        var maxF = Math.max(r.factureAvant, r.factureApres, 1);
+        document.getElementById('bar-avant').style.width = Math.round((r.factureAvant / maxF) * 100) + '%';
+        document.getElementById('bar-apres').style.width = Math.round((r.factureApres / maxF) * 100) + '%';
+        document.getElementById('bar-avant-label').textContent = r.factureAvant.toLocaleString('fr-FR') + ' €';
+        document.getElementById('bar-apres-label').textContent = r.factureApres.toLocaleString('fr-FR') + ' €';
+        window._lastResult = r;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var surface = Number(document.getElementById('surface').value) || 100;
+        var revenus = Number(document.getElementById('revenus').value) || 0;
+        var personnes = Number(document.getElementById('personnes').value) || 2;
+        var region = document.getElementById('region').value;
+        var dpe = document.getElementById('dpe').value;
+
+        window._scenarios = {};
+        SCENARIOS_CONFIG.forEach(function (cfg) {
+          var r = calculerScenario(surface, revenus, personnes, region, dpe, cfg);
+          window._scenarios[cfg.id] = r;
+          document.getElementById('s' + cfg.id + '-dpe-avant').textContent = dpe;
+          document.getElementById('s' + cfg.id + '-dpe-apres').textContent = cfg.dpeApres;
+          document.getElementById('s' + cfg.id + '-cout').textContent = cfg.cout.toLocaleString('fr-FR');
+          document.getElementById('s' + cfg.id + '-aides').textContent = r.totalAides.toLocaleString('fr-FR');
+          document.getElementById('s' + cfg.id + '-reste').textContent = r.resteCharge.toLocaleString('fr-FR');
+          document.getElementById('s' + cfg.id + '-ecoptz').textContent = cfg.ecoptz.toLocaleString('fr-FR');
+          document.getElementById('s' + cfg.id + '-economies').textContent = r.economieAnnuelle.toLocaleString('fr-FR');
+          document.getElementById('s' + cfg.id + '-roi').textContent = r.roi !== '—' ? r.roi + ' ans' : r.roi;
+        });
+
+        window._lastResult = window._scenarios[2];
+        document.getElementById('vue-scenarios').classList.remove('hidden');
+        document.getElementById('vue-detail').classList.add('hidden');
+        sectionResults.classList.remove('hidden');
+        toggleStickyFooter(true);
+        sectionResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      document.querySelectorAll('.btn-voir-detail').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var num = parseInt(this.getAttribute('data-scenario'), 10);
+          var r = window._scenarios && window._scenarios[num];
+          if (!r) return;
+          afficherDetailScenar(r);
+          document.getElementById('vue-scenarios').classList.add('hidden');
+          document.getElementById('vue-detail').classList.remove('hidden');
+        });
+      });
+
+      document.getElementById('btn-retour-scenarios').addEventListener('click', function () {
+        document.getElementById('vue-detail').classList.add('hidden');
+        document.getElementById('vue-scenarios').classList.remove('hidden');
+      });
+
+      // ——— FAQ Accordion ———
+      document.querySelectorAll('.faq-toggle').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var item = this.closest('.faq-item');
+          var content = item.querySelector('.faq-content');
+          var isOpen = item.classList.contains('open');
+          document.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); i.querySelector('.faq-content').classList.add('hidden'); });
+          if (!isOpen) { item.classList.add('open'); content.classList.remove('hidden'); }
+          this.setAttribute('aria-expanded', !isOpen);
+        });
+      });
+
+      // ——— Sticky footer (visible quand résultats affichés) ———
+      function toggleStickyFooter(show) {
+        var f = document.getElementById('sticky-footer');
+        if (f) f.classList.toggle('hidden', !show);
+      }
+
+      // ——— Apparition progressive au scroll ———
+      var obs = typeof IntersectionObserver !== 'undefined' ? new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) e.target.classList.add('revealed');
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }) : null;
+      ['section-apercu','section-pourquoi','section-cta','section-faq'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && obs) obs.observe(el);
+        else if (el) el.classList.add('revealed');
+      });
+
+      document.querySelectorAll('.btn-pdf-scenario').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var num = parseInt(this.getAttribute('data-scenario'), 10);
+          var r = window._scenarios && window._scenarios[num];
+          if (!r) return;
+          window._lastResult = r;
+          document.getElementById('btn-pdf').click();
+        });
+      });
+
+      // ——— Export PDF (jsPDF) ———
+      document.getElementById('btn-pdf').addEventListener('click', function () {
+        var r = window._lastResult;
+        if (!r) return;
+        var jsPDF = window.jspdf.jsPDF;
+        var doc = new jsPDF();
+        var y = 18;
+        var line = 7;
+
+        doc.setFontSize(16);
+        doc.text('Energia-Conseil - Estimation personnalisée', 14, y); y += line + 2;
+        doc.setFontSize(10);
+        doc.text('Récapitulatif des informations saisies', 14, y); y += line;
+        doc.text('Surface : ' + r.surface + ' m²  |  Revenus : ' + r.revenus.toLocaleString('fr-FR') + ' €  |  Personnes : ' + r.personnes + '  |  Région : ' + (r.region === 'idf' ? 'Île-de-France' : 'Autres'), 14, y); y += line;
+        doc.text('DPE actuel : ' + r.dpe + '  |  DPE visé : ' + (r.dpeApres || '—') + '  |  Coût travaux : ' + r.coutTravaux.toLocaleString('fr-FR') + ' €', 14, y); y += line + 2;
+        doc.text('Profil MaPrimeRénov\' : ' + r.profil.charAt(0).toUpperCase() + r.profil.slice(1), 14, y); y += line + 2;
+        doc.setFontSize(14);
+        doc.text('Total des aides : ' + r.totalAides.toLocaleString('fr-FR') + ' €', 14, y); y += line + 2;
+        doc.setFontSize(10);
+        doc.text('Détail : MaPrimeRénov\' ' + r.maPrimeBase.toLocaleString('fr-FR') + ' €  |  Bonus passoire ' + r.bonusPassoire.toLocaleString('fr-FR') + ' €  |  Bonus BBC ' + r.bonusBBC.toLocaleString('fr-FR') + ' €', 14, y); y += line;
+        doc.text('CEE ' + r.cee.toLocaleString('fr-FR') + ' €  |  Aides régionales ' + r.aidesRegional.toLocaleString('fr-FR') + ' €', 14, y); y += line + 2;
+        doc.text('Financement : Coût ' + r.coutTravaux.toLocaleString('fr-FR') + ' €  |  Aides ' + r.totalAides.toLocaleString('fr-FR') + ' €  |  Reste à charge ' + r.resteCharge.toLocaleString('fr-FR') + ' €  |  Éco-PTZ ' + r.ecoptz.toLocaleString('fr-FR') + ' €', 14, y); y += line + 2;
+        doc.text('Facture avant : ' + r.factureAvant.toLocaleString('fr-FR') + ' €/an  |  Facture après : ' + r.factureApres.toLocaleString('fr-FR') + ' €/an  |  Économies : ' + r.economieFacture.toLocaleString('fr-FR') + ' €/an', 14, y); y += line;
+        doc.text('ROI : ' + (r.roi !== '—' ? r.roi + ' ans' : '—') + '  |  Amélioration DPE : ' + r.dpe + ' → ' + r.dpeApres, 14, y); y += line + 4;
+        doc.setFontSize(11);
+        doc.text('Pour obtenir votre audit conforme ANAH : contact@energia-conseil.com', 14, y);
+        doc.save('estimation-renovation-energetique-2026.pdf');
+      });
+
+      // ——— Partager par email ———
+      document.getElementById('btn-email').addEventListener('click', function () {
+        var r = window._lastResult;
+        var to = 'contact@energia-conseil.com';
+        var subject = encodeURIComponent('Mon estimation aides rénovation 2026 - Energia-Conseil');
+        var body = r ? ('Estimation : ' + r.totalAides.toLocaleString('fr-FR') + ' € d\'aides. Reste à charge : ' + r.resteCharge.toLocaleString('fr-FR') + ' €. DPE ' + r.dpe + ' → ' + r.dpeApres + '.') : '';
+        window.location.href = 'mailto:' + encodeURIComponent(to) + '?subject=' + subject + (body ? '&body=' + encodeURIComponent(body) : '');
+      });
+    })();
+  </script>
+</body>
+</html>

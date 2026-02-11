@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modélisation 3D Thermique Interactive - Maison Dupont | Energia-Conseil</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script type="importmap">
+  {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+  </script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'DM Sans',sans-serif;overflow:hidden;background:linear-gradient(135deg,#0f766e 0%,#10b981 100%)}
+    #app{display:flex;width:100vw;height:100vh;flex-direction:row}
+    #header{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(15,118,110,0.95);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;z-index:100;color:white}
+    #header h1{font-size:1rem;font-weight:600}
+    #mode-btns{display:flex;gap:0.35rem;flex-wrap:wrap}
+    .mode-btn{padding:0.4rem 0.6rem;border:none;border-radius:0.4rem;background:rgba(255,255,255,0.2);color:white;cursor:pointer;font-size:0.75rem;font-family:inherit;transition:all 0.2s}
+    .mode-btn:hover{background:rgba(255,255,255,0.35)}
+    .mode-btn.active{background:#10b981;color:white}
+    #canvas-wrap{flex:0 0 70%;height:100%;padding-top:56px;position:relative}
+    @media(max-width:1024px){#canvas-wrap{flex:0 0 60%}}
+    @media(max-width:768px){#app{flex-direction:column}#canvas-wrap{flex:1;min-height:55vh;padding-top:0}}
+    #canvas-wrap canvas{display:block;width:100%!important;height:100%!important}
+    #sidebar{flex:0 0 30%;min-width:300px;max-height:100vh;overflow-y:auto;background:rgba(255,255,255,0.98);backdrop-filter:blur(12px);box-shadow:-8px 0 24px rgba(0,0,0,0.1);padding:1rem}
+    @media(max-width:1024px){#sidebar{flex:0 0 40%}}
+    @media(max-width:768px){#sidebar{flex:1;min-height:45vh;max-height:45vh}}
+    .sidebar-section{margin-bottom:1rem}
+    .sidebar-section h3{font-size:0.9rem;color:#0f766e;margin-bottom:0.5rem;cursor:pointer;display:flex;justify-content:space-between}
+    .sidebar-section.collapsed .section-body{display:none}
+    .data-row{display:flex;justify-content:space-between;padding:0.35rem 0;font-size:0.85rem;border-bottom:1px solid #eee}
+    .data-row strong{color:#047857}
+    .color-legend{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0}
+    .color-item{display:flex;align-items:center;gap:0.2rem;font-size:0.7rem}
+    .color-box{width:12px;height:12px;border-radius:2px}
+    #sliders .slider-row{margin:0.5rem 0}
+    #sliders label{font-size:0.8rem;display:block;margin-bottom:0.2rem}
+    #sliders input[type=range]{width:100%;max-width:200px}
+    .btn-action{padding:0.5rem 1rem;border:none;border-radius:0.5rem;background:#0f766e;color:white;cursor:pointer;font-family:inherit;font-size:0.85rem;margin:0.25rem;width:100%;max-width:200px;transition:all 0.2s}
+    .btn-action:hover{background:#059669;transform:translateY(-1px)}
+    a.btn-action{display:inline-block;text-decoration:none}
+    #counters{position:fixed;top:60px;right:320px;z-index:50;background:rgba(0,0,0,0.7);color:white;padding:0.5rem 0.75rem;border-radius:0.5rem;font-size:0.75rem;display:grid;grid-template-columns:1fr 1fr;gap:0.25rem}
+    #tooltip{position:fixed;background:rgba(0,0,0,0.9);color:white;padding:0.6rem 0.8rem;border-radius:0.5rem;font-size:0.8rem;max-width:260px;pointer-events:none;z-index:200;display:none;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
+    #tooltip.visible{display:block;animation:fadeIn 0.2s}
+    #popup{position:fixed;inset:10%;background:white;border-radius:1rem;box-shadow:0 20px 60px rgba(0,0,0,0.3);z-index:150;display:none;padding:1.5rem;overflow-y:auto}
+    #popup.visible{display:block}
+    #popup-close{position:absolute;top:1rem;right:1rem;cursor:pointer;font-size:1.5rem}
+    #loading{position:fixed;inset:0;background:linear-gradient(135deg,#0f766e,#10b981);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:300;color:white}
+    #loading.hidden{opacity:0;pointer-events:none;transition:opacity 0.5s}
+    #loading-bar{width:200px;height:4px;background:rgba(255,255,255,0.3);border-radius:2px;margin-top:1rem;overflow:hidden}
+    #loading-progress{height:100%;background:white;width:0%;transition:width 0.2s}
+    #footer{position:fixed;bottom:0;left:0;right:0;height:36px;background:rgba(0,0,0,0.4);color:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;font-size:0.75rem;z-index:90}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .pulse{animation:pulse 0.5s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <p>Génération de la modélisation 3D thermique...</p>
+    <div id="loading-bar"><div id="loading-progress"></div></div>
+    <p id="loading-pct">0%</p>
+  </div>
+
+  <header id="header">
+    <h1>🏠 Modélisation 3D Thermique - Maison Dupont</h1>
+    <div id="mode-btns">
+      <button class="mode-btn active" data-mode="thermique">🌡️ Thermique</button>
+      <button class="mode-btn" data-mode="realiste">🏠 Réaliste</button>
+      <button class="mode-btn" data-mode="ponts">⚡ Ponts</button>
+      <button class="mode-btn" data-mode="flux">🎯 Flux air</button>
+      <button class="mode-btn" data-mode="coupe">✂️ Coupe</button>
+      <button class="mode-btn" data-mode="apres">✅ Après</button>
+      <button class="mode-btn" data-mode="comparative">📊 Comparatif</button>
+    </div>
+  </header>
+
+  <div id="app">
+    <div id="canvas-wrap"></div>
+    <aside id="sidebar">
+      <div class="sidebar-section">
+        <h3>📋 Informations</h3>
+        <div class="section-body">
+          <div class="data-row"><span>Maison Dupont</span></div>
+          <div class="data-row"><span>📍 Lyon (69)</span></div>
+          <div class="data-row"><span>📐 150 m²</span></div>
+          <div class="data-row"><span>📅 Construite 1975</span></div>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <h3>⚡ Données thermiques</h3>
+        <div class="section-body">
+          <div class="data-row"><span>Consommation</span><strong id="val-consommation">380 kWh/m²/an</strong></div>
+          <div class="data-row"><span>DPE</span><strong id="val-dpe">F</strong></div>
+          <div class="data-row"><span>Facture</span><strong id="val-facture">4 200 €/an</strong></div>
+          <div class="data-row"><span>CO₂</span><strong id="val-co2">12 t/an</strong></div>
+          <div class="data-row"><span>Temp. sans ch.</span><strong>8°C</strong></div>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <h3>📊 Déperditions</h3>
+        <div class="section-body">
+          <canvas id="chart-donut" width="200" height="200"></canvas>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <h3>🌡️ Contrôles</h3>
+        <div class="section-body" id="sliders">
+          <div class="slider-row">
+            <label>Température ext. : <span id="temp-val">-10</span>°C</label>
+            <input type="range" id="temp-slider" min="-10" max="35" value="-10">
+          </div>
+          <div class="slider-row">
+            <label>Heure : <span id="heure-val">12</span>h</label>
+            <input type="range" id="heure-slider" min="0" max="23" value="12">
+          </div>
+          <div class="slider-row">
+            <label>Saison :</label>
+            <div><button class="mode-btn" data-saison="hiver">Hiver</button>
+            <button class="mode-btn" data-saison="printemps">Print.</button>
+            <button class="mode-btn" data-saison="ete">Été</button>
+            <button class="mode-btn" data-saison="automne">Automne</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <h3>🔧 Actions</h3>
+        <div class="section-body">
+          <button class="btn-action">📊 Voir les 3 scénarios</button>
+          <button class="btn-action">📄 Télécharger PDF</button>
+          <a href="https://buy.stripe.com/test_00w28q49zaeE4Ug2CdeQM08" target="_blank" rel="noopener noreferrer" class="btn-action">🚀 Commander l'audit</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div id="counters">
+    <span>⚡ XXX W</span><span>🌡️ 18°C</span>
+    <span>💰 XX €/h</span><span>☁️ XX kg/h</span>
+  </div>
+
+  <div id="tooltip"></div>
+  <div id="popup"><span id="popup-close">×</span><div id="popup-content"></div></div>
+  <footer id="footer">Powered by Energia-Conseil IA • [R] Reset • [A] Auto-rotate • [1-7] Modes</footer>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    const DIM = { L: 12, l: 10, hRdc: 2.5, hEtage: 2.5, pente: 35 * Math.PI / 180 };
+    let scene, camera, renderer, controls;
+    let houseGroup, heatParticles, smokeParticles, sunLight;
+    let pontThermiques = [];
+    let mode = 'thermique', vueApres = false, tempExt = -10, heure = 12;
+    const vertCible = new THREE.Color(0x22c55e);
+
+    function setLoading(pct) {
+      document.getElementById('loading-progress').style.width = pct + '%';
+      document.getElementById('loading-pct').textContent = Math.round(pct) + '%';
+    }
+
+    function createTexture(w, h, draw) {
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      const ctx = c.getContext('2d');
+      draw(ctx, w, h);
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      return tex;
+    }
+
+    function createBetonTexture() {
+      return createTexture(256, 256, (ctx, w, h) => {
+        ctx.fillStyle = '#5a5a5a';
+        ctx.fillRect(0, 0, w, h);
+        for (let i = 0; i < 200; i++) {
+          ctx.fillStyle = `rgba(90,90,90,${0.2 + Math.random() * 0.3})`;
+          ctx.fillRect(Math.random() * w, Math.random() * h, 2, 2);
+        }
+      });
+    }
+
+    function createBrickTexture() {
+      return createTexture(256, 128, (ctx, w, h) => {
+        ctx.fillStyle = '#a0522d';
+        ctx.fillRect(0, 0, w, h);
+        ctx.strokeStyle = '#8b7355';
+        ctx.lineWidth = 2;
+        for (let row = 0; row < 4; row++) {
+          for (let col = 0; col < 8; col++) {
+            const x = col * 32 + (row % 2) * 16;
+            const y = row * 32;
+            ctx.strokeRect(x, y, 30, 28);
+          }
+        }
+      });
+    }
+
+    function createGrassTexture() {
+      return createTexture(256, 256, (ctx, w, h) => {
+        const g = ctx.createLinearGradient(0, 0, 0, h);
+        g.addColorStop(0, '#4a7c3c');
+        g.addColorStop(1, '#3a6b2e');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+        for (let i = 0; i < 500; i++) {
+          ctx.fillStyle = `rgba(60,100,40,${0.3 + Math.random() * 0.4})`;
+          ctx.fillRect(Math.random() * w, Math.random() * h, 1, 3);
+        }
+      });
+    }
+
+    function createTuileTexture() {
+      return createTexture(128, 64, (ctx, w, h) => {
+        const g = ctx.createLinearGradient(0, 0, w, 0);
+        g.addColorStop(0, '#b8503c');
+        g.addColorStop(0.5, '#8b3a2a');
+        g.addColorStop(1, '#b8503c');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+        for (let i = 0; i < 20; i++) {
+          ctx.strokeStyle = `rgba(100,40,30,${0.5})`;
+          ctx.beginPath();
+          ctx.moveTo(i * 6, 0);
+          ctx.lineTo(i * 6, h);
+          ctx.stroke();
+        }
+      });
+    }
+
+    function createFenetreAvecCadre(lar, hau, thermColor, realColor, type = 'fenetre') {
+      const group = new THREE.Group();
+      const isPorte = type === 'porte';
+      const cadreColor = isPorte ? 0x4a3728 : 0xf5f5dc;
+      const cadre = new THREE.Mesh(
+        new THREE.BoxGeometry(lar + 0.16, hau + 0.16, 0.08),
+        new THREE.MeshStandardMaterial({ color: cadreColor, roughness: 0.7, metalness: 0 })
+      );
+      cadre.position.z = 0.04;
+      cadre.castShadow = true;
+      group.add(cadre);
+      const vitre = new THREE.Mesh(
+        new THREE.BoxGeometry(lar, hau, 0.02),
+        isPorte
+          ? new THREE.MeshStandardMaterial({ color: thermColor, roughness: 0.8, metalness: 0 })
+          : new THREE.MeshPhysicalMaterial({
+              color: thermColor,
+              transparent: true,
+              opacity: mode === 'realiste' ? 0.15 : 0.4,
+              transmission: 0.9,
+              thickness: 0.004,
+              roughness: 0.05,
+              metalness: 0,
+              clearcoat: 1,
+              side: THREE.DoubleSide
+            })
+      );
+      const nomElem = isPorte ? (type === 'porteFenetre' ? 'Porte-fenêtre' : 'Porte') : 'Fenêtre';
+      vitre.userData = { nom: nomElem, perte: 15, kwh: 2250, isVitre: !isPorte };
+      group.add(vitre);
+      const appui = new THREE.Mesh(
+        new THREE.BoxGeometry(lar + 0.2, 0.08, 0.2),
+        new THREE.MeshStandardMaterial({ color: 0xd3d3d3 })
+      );
+      appui.position.set(0, -hau / 2 - 0.04, 0.1);
+      group.add(appui);
+      const coffre = new THREE.Mesh(
+        new THREE.BoxGeometry(lar + 0.2, 0.3, 0.3),
+        new THREE.MeshStandardMaterial({ color: 0xf5f5dc })
+      );
+      coffre.position.set(0, hau / 2 + 0.15, 0.05);
+      group.add(coffre);
+      group.traverse(c => { if (c.isMesh && !c.userData.nom) c.userData = { nom: nomElem, perte: 15, kwh: 2250 }; });
+      return group;
+    }
+
+    function init() {
+      setLoading(5);
+      const wrap = document.getElementById('canvas-wrap');
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x87ceeb);
+      scene.fog = new THREE.Fog(0x87ceeb, 50, 150);
+
+      camera = new THREE.PerspectiveCamera(60, wrap.clientWidth / wrap.clientHeight, 0.1, 1000);
+      camera.position.set(22, 14, 22);
+      camera.lookAt(0, 3, 0);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      wrap.appendChild(renderer.domElement);
+
+      setLoading(12);
+      const ambient = new THREE.AmbientLight(0x404040, 0.4);
+      scene.add(ambient);
+      const hemi = new THREE.HemisphereLight(0x87ceeb, 0x3a5a2a, 0.6);
+      scene.add(hemi);
+      sunLight = new THREE.DirectionalLight(0xffffee, 1.8);
+      sunLight.position.set(18, 28, 18);
+      sunLight.castShadow = true;
+      sunLight.shadow.mapSize.set(4096, 4096);
+      sunLight.shadow.camera.near = 1;
+      sunLight.shadow.camera.far = 120;
+      sunLight.shadow.camera.left = -30;
+      sunLight.shadow.camera.right = 30;
+      sunLight.shadow.camera.top = 30;
+      sunLight.shadow.camera.bottom = -30;
+      sunLight.shadow.bias = -0.0001;
+      scene.add(sunLight);
+
+      setLoading(18);
+      houseGroup = new THREE.Group();
+      scene.add(houseGroup);
+
+      const texBeton = createBetonTexture();
+      texBeton.repeat.set(2, 2);
+      const texBrique = createBrickTexture();
+      texBrique.repeat.set(2, 4);
+      const texTuile = createTuileTexture();
+      texTuile.repeat.set(4, 8);
+
+      // 1. SOUBASSEMENT 12.4×10.4×0.6
+      const soubGeo = new THREE.BoxGeometry(12.4, 0.6, 10.4);
+      const soubMat = new THREE.MeshStandardMaterial({
+        color: 0x5a5a5a,
+        map: texBeton,
+        roughness: 0.9,
+        metalness: 0.05
+      });
+      const soub = new THREE.Mesh(soubGeo, soubMat);
+      soub.position.y = -0.3;
+      soub.receiveShadow = true;
+      soub.castShadow = true;
+      soub.userData = { nom: 'Plancher bas', perte: 10, kwh: 1500, etat: 'Dalle béton non isolée', reco: 'Isolation R=5' };
+      houseGroup.add(soub);
+      [[-2, 0.1, -5.3], [2, 0.1, -5.3]].forEach(([x, y, z]) => {
+        const soup = new THREE.Mesh(
+          new THREE.BoxGeometry(0.4, 0.3, 0.05),
+          new THREE.MeshStandardMaterial({ color: 0x4a4a4a, metalness: 0.5, roughness: 0.5 })
+        );
+        soup.position.set(x, y, z);
+        houseGroup.add(soup);
+      });
+
+      setLoading(25);
+      const murEp = 0.25;
+      const enduitCreme = 0xe8dcc4;
+      const murs = [
+        { pos: [0, 2.5, -5 - murEp/2], scale: [12 + murEp*2, 5, murEp], tag: 'sud', thermColor: 0xfb923c },
+        { pos: [0, 2.5, 5 + murEp/2], scale: [12 + murEp*2, 5, murEp], tag: 'nord', thermColor: 0xef4444 },
+        { pos: [6 + murEp/2, 2.5, 0], scale: [murEp, 5, 10 + murEp*2], tag: 'est', thermColor: 0xfb923c },
+        { pos: [-6 - murEp/2, 2.5, 0], scale: [murEp, 5, 10 + murEp*2], tag: 'ouest', thermColor: 0xfb923c }
+      ];
+      murs.forEach(m => {
+        const mat = new THREE.MeshStandardMaterial({
+          color: m.thermColor,
+          roughness: 0.85,
+          metalness: 0.05
+        });
+        const mesh = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), mat);
+        mesh.scale.set(...m.scale);
+        mesh.position.set(...m.pos);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        mesh.userData = { nom: `Mur ${m.tag}`, perte: m.tag === 'nord' ? 30 : 25, kwh: 3750 };
+        houseGroup.add(mesh);
+      });
+
+      setLoading(35);
+      const fenConfig = [
+        { pos: [-5, 1.1, -5.15], size: [2, 2.2], wall: 'sud', type: 'porteFenetre' },
+        { pos: [-3, 1.05, -5.15], size: [1, 2.1], wall: 'sud', type: 'porte' },
+        { pos: [0, 1.2, -5.15], size: [1.2, 1.5], wall: 'sud', type: 'fenetre' },
+        { pos: [3, 1.2, -5.15], size: [1.2, 1.5], wall: 'sud', type: 'fenetre' },
+        { pos: [-3, 1.1, 5.15], size: [0.8, 1.2], wall: 'nord', type: 'fenetre' },
+        { pos: [3, 0.4, 5.15], size: [0.5, 0.6], wall: 'nord', type: 'fenetre' },
+        { pos: [6.15, 1.2, -2], size: [1.2, 1.5], wall: 'est', type: 'fenetre' },
+        { pos: [-6.15, 1.2, -3], size: [1, 1.2], wall: 'ouest', type: 'fenetre' },
+        { pos: [-3, 3.75, -5.15], size: [1.2, 1.5], wall: 'sud', type: 'fenetre' },
+        { pos: [0, 3.75, -5.15], size: [1.2, 1.5], wall: 'sud', type: 'fenetre' },
+        { pos: [3, 3.75, -5.15], size: [1.2, 1.5], wall: 'sud', type: 'fenetre' },
+        { pos: [-3, 3.75, 5.15], size: [1, 1.2], wall: 'nord', type: 'fenetre' },
+        { pos: [3, 3.75, 5.15], size: [1, 1.2], wall: 'nord', type: 'fenetre' },
+        { pos: [6.15, 3.75, -2], size: [1.2, 1.5], wall: 'est', type: 'fenetre' },
+        { pos: [-6.15, 3.75, 1], size: [0.6, 0.8], wall: 'ouest', type: 'fenetre' }
+      ];
+      fenConfig.forEach((f, i) => {
+        const fenGroup = createFenetreAvecCadre(f.size[0], f.size[1], 0xef4444, 0x87ceeb, f.type || 'fenetre');
+        fenGroup.position.set(...f.pos);
+        if (f.wall === 'nord') fenGroup.rotation.y = Math.PI;
+        else if (f.wall === 'est') fenGroup.rotation.y = -Math.PI / 2;
+        else if (f.wall === 'ouest') fenGroup.rotation.y = Math.PI / 2;
+        houseGroup.add(fenGroup);
+      });
+
+      setLoading(48);
+      const ridgeH = (DIM.l / 2) * Math.tan(DIM.pente);
+      const slopeLen = (DIM.l / 2) / Math.cos(DIM.pente) + 0.5;
+      const toitMatS = new THREE.MeshStandardMaterial({
+        color: 0xdc2626,
+        side: THREE.DoubleSide,
+        map: texTuile,
+        roughness: 0.4,
+        metalness: 0.1
+      });
+      const toit1 = new THREE.Mesh(new THREE.PlaneGeometry(slopeLen, 12.5), toitMatS);
+      toit1.rotation.order = 'YXZ';
+      toit1.rotation.y = Math.PI / 2;
+      toit1.rotation.x = DIM.pente;
+      toit1.position.set(-DIM.l / 4, 5 + ridgeH / 2, 0);
+      toit1.castShadow = true;
+      toit1.receiveShadow = true;
+      toit1.userData = { nom: 'Toit Sud', perte: 30, kwh: 4500 };
+      houseGroup.add(toit1);
+      const toitMatN = toitMatS.clone();
+      toitMatN.color.setHex(0xb91c1c);
+      const toit2 = new THREE.Mesh(new THREE.PlaneGeometry(slopeLen, 12.5), toitMatN);
+      toit2.rotation.order = 'YXZ';
+      toit2.rotation.y = -Math.PI / 2;
+      toit2.rotation.x = DIM.pente;
+      toit2.position.set(DIM.l / 4, 5 + ridgeH / 2, 0);
+      toit2.castShadow = true;
+      toit2.userData = { nom: 'Toit Nord', perte: 32, kwh: 4800 };
+      houseGroup.add(toit2);
+
+      const faitage = new THREE.Mesh(
+        new THREE.BoxGeometry(12.5, 0.2, 0.5),
+        new THREE.MeshStandardMaterial({ color: 0x8b4513 })
+      );
+      faitage.position.set(0, 7.5, 0);
+      faitage.castShadow = true;
+      houseGroup.add(faitage);
+
+      setLoading(55);
+      const chemBase = new THREE.Mesh(
+        new THREE.BoxGeometry(0.8, 2.5, 0.8),
+        new THREE.MeshStandardMaterial({ map: texBrique, color: 0xa0522d })
+      );
+      chemBase.position.set(2, 7.5, 0);
+      chemBase.castShadow = true;
+      houseGroup.add(chemBase);
+      const chemCap = new THREE.Mesh(
+        new THREE.BoxGeometry(1, 0.3, 1),
+        new THREE.MeshStandardMaterial({ color: 0x8b9199, metalness: 0.7, roughness: 0.3 })
+      );
+      chemCap.position.set(2, 8.65, 0);
+      houseGroup.add(chemCap);
+
+      [[-6, 5.2, -5.3], [6, 5.2, -5.3], [-6, 5.2, 5.3], [6, 5.2, 5.3]].forEach(([x, y, z], i) => {
+        const g = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.08, 0.08, i < 2 ? 10.6 : 12.6),
+          new THREE.MeshStandardMaterial({ color: 0x6b7280, metalness: 0.7, roughness: 0.3 })
+        );
+        g.rotation.z = i < 2 ? 0 : Math.PI / 2;
+        g.position.set(x, y, z);
+        houseGroup.add(g);
+      });
+      [[-6.2, 2.5, -5.5], [6.2, 2.5, -5.5], [-6.2, 2.5, 5.5], [6.2, 2.5, 5.5]].forEach(([x, y, z]) => {
+        const d = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.06, 0.06, 5.2),
+          new THREE.MeshStandardMaterial({ color: 0x6b7280, metalness: 0.7, roughness: 0.3 })
+        );
+        d.position.set(x, y, z);
+        houseGroup.add(d);
+      });
+
+      const corners = [[-6,-0.1,-5],[6,-0.1,-5],[-6,-0.1,5],[6,-0.1,5],[-6,5,-5],[6,5,-5],[-6,5,5],[6,5,5]];
+      const pontMat = new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 1 });
+      corners.forEach(([x,y,z]) => {
+        const p = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.15, 0.15), pontMat.clone());
+        p.position.set(x, y, z);
+        p.userData = { nom: 'Pont thermique', perte: 5 };
+        houseGroup.add(p);
+        pontThermiques.push(p);
+      });
+
+      setLoading(62);
+      const pac = new THREE.Mesh(
+        new THREE.BoxGeometry(1.2, 0.8, 0.4),
+        new THREE.MeshStandardMaterial({ color: 0x3a3a3a, metalness: 0.5, roughness: 0.4 })
+      );
+      pac.position.set(5.8, 1.2, 5.5);
+      pac.visible = false;
+      pac.name = 'pac';
+      houseGroup.add(pac);
+      const panneauxGroup = new THREE.Group();
+      for (let i = 0; i < 12; i++) {
+        const p = new THREE.Mesh(
+          new THREE.BoxGeometry(1.6, 1, 0.04),
+          new THREE.MeshStandardMaterial({ color: 0x1e3a8a, metalness: 0.9, roughness: 0.1 })
+        );
+        p.position.set(-3 + (i % 4) * 2, 6.8 + Math.floor(i / 4) * 1.2, -4);
+        p.rotation.x = -DIM.pente;
+        panneauxGroup.add(p);
+      }
+      panneauxGroup.visible = false;
+      panneauxGroup.name = 'panneaux';
+      houseGroup.add(panneauxGroup);
+
+      setLoading(68);
+      const pc = 600;
+      const positions = new Float32Array(pc * 3);
+      for (let i = 0; i < pc; i++) {
+        positions[i*3] = (Math.random()-0.5)*12;
+        positions[i*3+1] = 5.5 + Math.random()*4;
+        positions[i*3+2] = (Math.random()-0.5)*10;
+      }
+      const pGeo = new THREE.BufferGeometry();
+      pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      heatParticles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xff4422, size: 0.1, transparent: true, opacity: 0.6 }));
+      houseGroup.add(heatParticles);
+
+      const smokePos = new Float32Array(80 * 3);
+      for (let i = 0; i < 80; i++) {
+        smokePos[i*3] = 2 + (Math.random()-0.5)*0.5;
+        smokePos[i*3+1] = 9 + Math.random()*3;
+        smokePos[i*3+2] = (Math.random()-0.5)*0.5;
+      }
+      const smokeGeo = new THREE.BufferGeometry();
+      smokeGeo.setAttribute('position', new THREE.BufferAttribute(smokePos, 3));
+      smokeParticles = new THREE.Points(smokeGeo, new THREE.PointsMaterial({ color: 0xdddddd, size: 0.15, transparent: true, opacity: 0.5 }));
+      houseGroup.add(smokeParticles);
+
+      setLoading(75);
+      const texHerbe = createGrassTexture();
+      texHerbe.repeat.set(10, 10);
+      const sol = new THREE.Mesh(
+        new THREE.PlaneGeometry(50, 50),
+        new THREE.MeshStandardMaterial({ map: texHerbe, color: 0x4a7c3c, roughness: 0.9 })
+      );
+      sol.rotation.x = -Math.PI / 2;
+      sol.receiveShadow = true;
+      scene.add(sol);
+
+      const allee = new THREE.Mesh(
+        new THREE.BoxGeometry(2, 0.05, 8),
+        new THREE.MeshStandardMaterial({ color: 0xc9b896, roughness: 0.95 })
+      );
+      allee.rotation.x = -Math.PI / 2;
+      allee.position.set(-1, 0.03, -6);
+      allee.receiveShadow = true;
+      scene.add(allee);
+
+      const terrasse = new THREE.Mesh(
+        new THREE.BoxGeometry(4, 0.05, 3),
+        new THREE.MeshStandardMaterial({ color: 0xd3d3d3, roughness: 0.8 })
+      );
+      terrasse.rotation.x = -Math.PI / 2;
+      terrasse.position.set(-3, 0.03, -4.5);
+      scene.add(terrasse);
+
+      [[-8, 0, -8], [10, 0, 8], [9, 0, -6]].forEach(([x, y, z], i) => {
+        const tronc = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.15 + i*0.05, 0.2 + i*0.05, 3 + i),
+          new THREE.MeshStandardMaterial({ color: 0x5d4037, roughness: 0.95 })
+        );
+        tronc.position.set(x, 1.5 + i*0.5, z);
+        tronc.castShadow = true;
+        scene.add(tronc);
+        const feuilles = new THREE.Mesh(
+          new THREE.SphereGeometry(1.5 + i*0.3, 12, 12),
+          new THREE.MeshStandardMaterial({ color: 0x2d5016, roughness: 0.9 })
+        );
+        feuilles.position.set(x, 4 + i*0.5, z);
+        feuilles.castShadow = true;
+        scene.add(feuilles);
+      });
+
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.target.set(0, 3, 0);
+      controls.minDistance = 8;
+      controls.maxDistance = 80;
+
+      setLoading(90);
+      // Chart.js
+      const ctx = document.getElementById('chart-donut').getContext('2d');
+      let chartDonut = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Toiture', 'Murs', 'Fenêtres', 'Ponts', 'Plancher', 'VMC', 'Autres'],
+          datasets: [{ data: [30, 25, 15, 10, 10, 8, 2], backgroundColor: ['#dc2626','#fb923c','#ef4444','#fbbf24','#4ade80','#94a3b8','#cbd5e1'] }]
+        },
+        options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom' } } }
+      });
+
+      setLoading(95);
+      // Raycaster hover
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2();
+      wrap.addEventListener('mousemove', e => {
+        const r = renderer.domElement.getBoundingClientRect();
+        mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+        mouse.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+      });
+      wrap.addEventListener('click', e => {
+        raycaster.setFromCamera(mouse, camera);
+        const objs = [];
+        houseGroup.traverse(c => { if (c.isMesh && c.userData?.nom) objs.push(c); });
+        const hits = raycaster.intersectObjects(objs, true);
+        if (hits.length) {
+          const u = hits[0].object.userData;
+          document.getElementById('popup-content').innerHTML = `<h3>${u.nom}</h3><p>Perte: ${u.perte}% • ${u.kwh||0} kWh/an</p><p>${u.etat||''}</p><p><em>${u.reco||''}</em></p>`;
+          document.getElementById('popup').classList.add('visible');
+        }
+      });
+
+      function updateTooltip() {
+        raycaster.setFromCamera(mouse, camera);
+        const objs = [];
+        houseGroup.traverse(c => { if (c.isMesh && c.userData?.nom) objs.push(c); });
+        const hits = raycaster.intersectObjects(objs, true);
+        const tt = document.getElementById('tooltip');
+        if (hits.length && hits[0].object.userData.nom) {
+          const u = hits[0].object.userData;
+          tt.innerHTML = `<strong>${u.nom}</strong><br/>${u.perte}% • ${u.kwh||0} kWh/an`;
+          tt.classList.add('visible');
+          tt.style.left = (mouse.x*0.5+0.5)*window.innerWidth - 100 + 'px';
+          tt.style.top = (-mouse.y*0.5+0.5)*window.innerHeight - 60 + 'px';
+        } else tt.classList.remove('visible');
+      }
+
+      document.getElementById('popup-close').onclick = () => document.getElementById('popup').classList.remove('visible');
+
+      // Modes
+      document.querySelectorAll('.mode-btn[data-mode]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.mode-btn[data-mode]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          mode = btn.dataset.mode;
+          vueApres = mode === 'apres';
+          appliquerMode();
+        });
+      });
+
+      document.getElementById('temp-slider').oninput = e => { tempExt = +e.target.value; document.getElementById('temp-val').textContent = tempExt; appliquerMode(); };
+      document.getElementById('heure-slider').oninput = e => { heure = +e.target.value; document.getElementById('heure-val').textContent = heure; updateSunPosition(); };
+
+      window.addEventListener('resize', () => {
+        const w = wrap.clientWidth, h = wrap.clientHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      });
+
+      setLoading(98);
+      const clock = new THREE.Clock();
+      function updateSunPosition() {
+        if (!sunLight) return;
+        const theta = (heure / 24) * 2 * Math.PI - Math.PI / 2;
+        const alt = Math.max(0.1, Math.cos((heure - 12) * Math.PI / 12));
+        const r = 35;
+        sunLight.position.set(r * Math.cos(theta), 15 + 20 * alt, r * Math.sin(theta));
+        sunLight.intensity = 0.5 + 1.3 * alt;
+      }
+      updateSunPosition();
+      function animate() {
+        requestAnimationFrame(animate);
+        const dt = clock.getDelta();
+        const pos = heatParticles.geometry.attributes.position.array;
+        for (let i = 0; i < pos.length; i += 3) {
+          pos[i+1] += 0.025 + Math.random()*0.015;
+          if (pos[i+1] > 12) pos[i+1] = 5;
+        }
+        heatParticles.geometry.attributes.position.needsUpdate = true;
+        if (mode === 'ponts' && pontThermiques.length) {
+          pontThermiques.forEach((p, i) => {
+            if (p.material.opacity !== undefined) p.material.opacity = 0.6 + 0.4 * Math.sin(clock.getElapsedTime() * 2 + i * 0.5);
+          });
+        }
+        if (smokeParticles && smokeParticles.geometry) {
+          const pos = smokeParticles.geometry.attributes.position.array;
+          const t = clock.getElapsedTime();
+          for (let i = 0; i < pos.length; i += 3) {
+            pos[i] += 0.02 * Math.sin(t + i * 0.1);
+            pos[i+1] += 0.04 + 0.02 * Math.sin(t * 0.5 + i * 0.05);
+            pos[i+2] += 0.01 * Math.cos(t + i * 0.08);
+            if (pos[i+1] > 12) { pos[i+1] = 7.8; pos[i] = (Math.random() - 0.5) * 0.3; pos[i+2] = (Math.random() - 0.5) * 0.3; }
+          }
+          smokeParticles.geometry.attributes.position.needsUpdate = true;
+        }
+        updateSunPosition();
+        updateTooltip();
+        renderer.render(scene, camera);
+        controls.update();
+      }
+      animate();
+
+      setLoading(100);
+      setTimeout(() => document.getElementById('loading').classList.add('hidden'), 400);
+    }
+
+    function appliquerMode() {
+      const intensite = 1 - (tempExt + 10) / 45;
+      houseGroup.traverse(c => {
+        if (!c.isMesh || !c.material) return;
+        if (vueApres) {
+          c.material.color?.copy(vertCible);
+          if (c.material.opacity !== undefined) c.material.opacity = 0.6;
+        } else if (mode === 'thermique') {
+          if (c.userData?.perte) {
+            if (c.userData.nom?.includes('Plancher') || c.userData.nom?.includes('Dalle')) c.material.color?.setHex(0xfbbf24);
+            else if (c.userData.nom?.includes('Toit')) c.material.color?.setHex(0xdc2626);
+            else if (c.userData.nom?.includes('Fenêtre') || c.userData.nom?.includes('Porte')) c.material.color?.setHex(0xef4444);
+            else if (c.userData.nom?.includes('Mur nord')) c.material.color?.setHex(0xef4444);
+            else if (c.userData.nom?.includes('Mur')) c.material.color?.setHex(0xfb923c);
+            else if (c.userData.nom?.includes('Pont')) c.material.color?.setHex(0xff0000);
+          }
+        } else if (mode === 'realiste') {
+          if (c.userData?.nom?.includes('Dalle') || c.userData?.nom?.includes('Plancher')) c.material.color?.setHex(0x5a5a5a);
+          else if (c.userData?.nom?.includes('Toit')) c.material.color?.setHex(0xb8503c);
+          else if ((c.userData?.nom?.includes('Fenêtre') || c.userData?.nom?.includes('Porte-fenêtre')) && (c.userData?.isVitre || c.material?.transmission > 0)) { c.material.color?.setHex(0x87ceeb); c.material.opacity = 0.4; }
+          else if (c.userData?.nom === 'Porte') c.material.color?.setHex(0x4a3728);
+          else if (c.userData?.nom?.includes('Mur')) c.material.color?.setHex(0xe8dcc4);
+          else if (c.userData?.nom?.includes('Pont')) c.material.color?.setHex(0x991b1b);
+        } else if (mode === 'ponts') {
+          if (c.userData?.nom?.includes('Pont')) { c.material.color?.setHex(0xff0000); c.material.visible = true; }
+          else { c.material.color?.setHex(0xcccccc); }
+        } else if (mode === 'flux' || mode === 'coupe' || mode === 'comparative') {
+          if (c.userData?.perte) {
+            if (c.userData.nom?.includes('Plancher') || c.userData.nom?.includes('Dalle')) c.material.color?.setHex(0xfbbf24);
+            else if (c.userData.nom?.includes('Toit')) c.material.color?.setHex(0xdc2626);
+            else if (c.userData.nom?.includes('Fenêtre') || c.userData.nom?.includes('Porte')) c.material.color?.setHex(0xef4444);
+            else if (c.userData.nom?.includes('Mur')) c.material.color?.setHex(0xfb923c);
+            else if (c.userData.nom?.includes('Pont')) c.material.color?.setHex(0xff0000);
+          }
+        }
+      });
+      heatParticles.visible = !vueApres && (mode === 'thermique' || mode === 'ponts');
+      heatParticles.material.opacity = vueApres ? 0.1 : (0.4 + intensite * 0.4);
+      houseGroup.traverse(c => {
+        if (c.name === 'pac') c.visible = vueApres;
+        if (c.name === 'panneaux') c.visible = vueApres;
+      });
+
+      if (vueApres) {
+        document.getElementById('val-consommation').textContent = '80 kWh/m²/an';
+        document.getElementById('val-dpe').textContent = 'B';
+        document.getElementById('val-facture').textContent = '1 000 €/an';
+        document.getElementById('val-co2').textContent = '2 t/an';
+      } else {
+        document.getElementById('val-consommation').textContent = '380 kWh/m²/an';
+        document.getElementById('val-dpe').textContent = 'F';
+        document.getElementById('val-facture').textContent = '4 200 €/an';
+        document.getElementById('val-co2').textContent = '12 t/an';
+      }
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'r' || e.key === 'R') { camera.position.set(20, 15, 20); controls.target.set(0, 3, 0); }
+      if (e.key === 'a' || e.key === 'A') controls.autoRotate = !controls.autoRotate;
+      if (e.key >= '1' && e.key <= '7') {
+        const modes = ['thermique','realiste','ponts','flux','coupe','apres','comparative'];
+        document.querySelector(`.mode-btn[data-mode="${modes[+e.key-1]}"]`)?.click();
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>
