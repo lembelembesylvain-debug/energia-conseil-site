@@ -12,7 +12,7 @@ function App() {
             <a href="#prix" className="hover:text-green-200 transition">Prix</a>  
           </nav>  
           <a href="https://buy.stripe.com/7sY9ATfmA5AK4Ltgpu3ZK00" target="_blank" rel="noopener noreferrer" className="bg-white text-green-600 px-6 py-2 rounded-full font-bold hover:bg-green-50 transition">  
-            Commander  
+            COMMANDER MON AUDIT IA - 199€   
           </a>  
         </div>  
       </header>  
