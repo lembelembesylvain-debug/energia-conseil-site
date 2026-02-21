@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Config upload (clés Supabase)
+public/config.upload.js
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
