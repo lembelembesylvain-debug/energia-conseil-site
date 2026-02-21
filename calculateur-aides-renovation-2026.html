@@ -216,6 +216,7 @@
             <p class="text-sm text-gray-500 mb-2">Coût travaux</p>
             <p class="text-green-700 font-bold text-lg mb-1"><span id="s1-aides">0</span> €</p>
             <p class="text-sm text-gray-500 mb-2">Total des aides</p>
+            <p id="s1-ecretement" class="text-amber-600 text-xs font-medium mb-2 hidden"></p>
             <p class="text-orange-600 font-bold mb-1"><span id="s1-reste">0</span> €</p>
             <p class="text-sm text-gray-500 mb-2">Reste à charge</p>
             <p class="text-gray-600 text-sm mb-2">Éco-PTZ : <strong><span id="s1-ecoptz">25 000</span> €</strong></p>
@@ -237,6 +238,7 @@
             <p class="text-sm text-gray-500 mb-2">Coût travaux</p>
             <p class="text-green-700 font-bold text-lg mb-1"><span id="s2-aides">0</span> €</p>
             <p class="text-sm text-gray-500 mb-2">Total des aides</p>
+            <p id="s2-ecretement" class="text-amber-600 text-xs font-medium mb-2 hidden"></p>
             <p class="text-orange-600 font-bold mb-1"><span id="s2-reste">0</span> €</p>
             <p class="text-sm text-gray-500 mb-2">Reste à charge</p>
             <p class="text-gray-600 text-sm mb-2">Éco-PTZ : <strong><span id="s2-ecoptz">35 000</span> €</strong></p>
@@ -258,6 +260,7 @@
             <p class="text-sm text-gray-500 mb-2">Coût travaux</p>
             <p class="text-green-700 font-bold text-lg mb-1"><span id="s3-aides">0</span> €</p>
             <p class="text-sm text-gray-500 mb-2">Total des aides</p>
+            <p id="s3-ecretement" class="text-amber-600 text-xs font-medium mb-2 hidden"></p>
             <p class="text-orange-600 font-bold mb-1"><span id="s3-reste">0</span> €</p>
             <p class="text-sm text-gray-500 mb-2">Reste à charge</p>
             <p class="text-gray-600 text-sm mb-2">Éco-PTZ : <strong><span id="s3-ecoptz">50 000</span> €</strong></p>
@@ -462,6 +465,7 @@
       <div class="bg-white/70 rounded-xl p-6 mb-6">
         <p class="text-gray-600 text-sm mb-1">Total des aides</p>
         <p id="total-aides" class="total-aides">0 €</p>
+        <p id="detail-ecretement" class="text-amber-600 text-sm font-medium mt-2 hidden"></p>
       </div>
 
       <div class="space-y-3 mb-6 text-gray-800">
@@ -747,6 +751,8 @@
         }
       };
       const TAUX = { bleu: 0.8, jaune: 0.6, violet: 0.45, rose: 0.10 };
+      // Plafonds écrêtement 2026 (max % du coût TTC que peuvent atteindre les aides)
+      const PLAFOND_ECRETEMENT = { bleu: 1.0, jaune: 0.8, violet: 0.6, rose: 0.4 };
       // Plafonds MaPrimeRénov' 2026 selon gain de classes DPE (HT)
       const PLAFOND_GAIN_1 = 20000;
       const PLAFOND_GAIN_2 = 30000;
@@ -881,19 +887,33 @@
         var bonusBBC = (cfg.bonusBBC && cfg.cout >= 60000) ? 10000 : 0;
         var cee = getCEE(surface, profil, cfg.id);
         var aidesRegional = getAidesRegional(cfg.cout);
-        var totalAides = maPrimeBase + bonusPassoire + bonusBBC + cee + aidesRegional;
+        var totalAidesBrut = maPrimeBase + bonusPassoire + bonusBBC + cee + aidesRegional;
+        var plafondEcretement = cfg.cout * (PLAFOND_ECRETEMENT[profil] || 1);
+        var totalAides = Math.min(totalAidesBrut, plafondEcretement);
+        var ecretementApplique = totalAidesBrut > plafondEcretement;
+        var ecretementPct = Math.round((PLAFOND_ECRETEMENT[profil] || 1) * 100);
         var resteCharge = Math.max(0, cfg.cout - totalAides);
         var factureAvant = getFactureAnnuelle(surface, dpe);
         var factureApres = getFactureAnnuelle(surface, cfg.dpeApres);
         var economieFacture = Math.max(0, factureAvant - factureApres);
         var roi = economieFacture > 0 ? (resteCharge / economieFacture).toFixed(1) : '—';
-        return { surface: surface, revenus: revenus, personnes: personnes, region: region, dpe: dpe, dpeApres: cfg.dpeApres, coutTravaux: cfg.cout, profil: profil, maPrimeBase: maPrimeBase, bonusPassoire: bonusPassoire, bonusBBC: bonusBBC, cee: cee, aidesRegional: aidesRegional, totalAides: totalAides, resteCharge: resteCharge, ecoptz: cfg.ecoptz, economieAnnuelle: economieFacture, roi: roi, factureAvant: factureAvant, factureApres: factureApres, economieFacture: economieFacture };
+        return { surface: surface, revenus: revenus, personnes: personnes, region: region, dpe: dpe, dpeApres: cfg.dpeApres, coutTravaux: cfg.cout, profil: profil, maPrimeBase: maPrimeBase, bonusPassoire: bonusPassoire, bonusBBC: bonusBBC, cee: cee, aidesRegional: aidesRegional, totalAides: totalAides, resteCharge: resteCharge, ecoptz: cfg.ecoptz, economieAnnuelle: economieFacture, roi: roi, factureAvant: factureAvant, factureApres: factureApres, economieFacture: economieFacture, ecretementApplique: ecretementApplique, ecretementPct: ecretementPct };
       }
 
       function afficherDetailScenar(r) {
         document.getElementById('badge-profil').textContent = r.profil.charAt(0).toUpperCase() + r.profil.slice(1);
         document.getElementById('badge-profil').className = 'px-4 py-1.5 rounded-full text-sm font-bold badge-' + r.profil;
         document.getElementById('total-aides').textContent = r.totalAides.toLocaleString('fr-FR') + ' €';
+        var elDetailEcretement = document.getElementById('detail-ecretement');
+        if (elDetailEcretement) {
+          if (r.ecretementApplique) {
+            elDetailEcretement.textContent = '⚠️ Aides écrêtées à ' + r.ecretementPct + '% du coût TTC (réglementation 2026)';
+            elDetailEcretement.classList.remove('hidden');
+          } else {
+            elDetailEcretement.textContent = '';
+            elDetailEcretement.classList.add('hidden');
+          }
+        }
         document.getElementById('detail-maprime').textContent = r.maPrimeBase.toLocaleString('fr-FR') + ' €';
         document.getElementById('detail-bbc').textContent = r.bonusBBC.toLocaleString('fr-FR') + ' €';
         document.getElementById('detail-cee').textContent = r.cee.toLocaleString('fr-FR') + ' €';
@@ -939,6 +959,16 @@
           document.getElementById('s' + cfg.id + '-dpe-apres').textContent = cfg.dpeApres;
           document.getElementById('s' + cfg.id + '-cout').textContent = cfg.cout.toLocaleString('fr-FR');
           document.getElementById('s' + cfg.id + '-aides').textContent = r.totalAides.toLocaleString('fr-FR');
+          var elEcretement = document.getElementById('s' + cfg.id + '-ecretement');
+          if (elEcretement) {
+            if (r.ecretementApplique) {
+              elEcretement.textContent = '⚠️ Aides écrêtées à ' + r.ecretementPct + '% du coût TTC (réglementation 2026)';
+              elEcretement.classList.remove('hidden');
+            } else {
+              elEcretement.textContent = '';
+              elEcretement.classList.add('hidden');
+            }
+          }
           document.getElementById('s' + cfg.id + '-reste').textContent = r.resteCharge.toLocaleString('fr-FR');
           document.getElementById('s' + cfg.id + '-ecoptz').textContent = cfg.ecoptz.toLocaleString('fr-FR');
           document.getElementById('s' + cfg.id + '-economies').textContent = r.economieAnnuelle.toLocaleString('fr-FR');
@@ -1029,7 +1059,13 @@
         doc.text('Total des aides : ' + r.totalAides.toLocaleString('fr-FR') + ' €', 14, y); y += line + 2;
         doc.setFontSize(10);
         doc.text('Détail : MaPrimeRénov\' ' + r.maPrimeBase.toLocaleString('fr-FR') + ' €  |  Bonus BBC ' + r.bonusBBC.toLocaleString('fr-FR') + ' €', 14, y); y += line;
-        doc.text('CEE ' + r.cee.toLocaleString('fr-FR') + ' €  |  Aides régionales ' + r.aidesRegional.toLocaleString('fr-FR') + ' €', 14, y); y += line + 2;
+        doc.text('CEE ' + r.cee.toLocaleString('fr-FR') + ' €  |  Aides régionales ' + r.aidesRegional.toLocaleString('fr-FR') + ' €', 14, y); y += line;
+        if (r.ecretementApplique) {
+          doc.setTextColor(180, 83, 9);
+          doc.text('Aides écrêtées à ' + r.ecretementPct + '% du coût TTC (réglementation 2026)', 14, y); y += line;
+          doc.setTextColor(0, 0, 0);
+        }
+        y += 2;
         doc.text('Financement : Coût ' + r.coutTravaux.toLocaleString('fr-FR') + ' €  |  Aides ' + r.totalAides.toLocaleString('fr-FR') + ' €  |  Reste à charge ' + r.resteCharge.toLocaleString('fr-FR') + ' €  |  Éco-PTZ ' + r.ecoptz.toLocaleString('fr-FR') + ' €', 14, y); y += line + 2;
         doc.text('Facture avant : ' + r.factureAvant.toLocaleString('fr-FR') + ' €/an  |  Facture après : ' + r.factureApres.toLocaleString('fr-FR') + ' €/an  |  Économies : ' + r.economieFacture.toLocaleString('fr-FR') + ' €/an', 14, y); y += line;
         doc.text('ROI : ' + (r.roi !== '—' ? r.roi + ' ans' : '—') + '  |  Amélioration DPE : ' + r.dpe + ' → ' + r.dpeApres, 14, y); y += line + 4;
