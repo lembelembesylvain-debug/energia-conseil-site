@@ -466,7 +466,6 @@
 
       <div class="space-y-3 mb-6 text-gray-800">
         <p class="flex justify-between"><span>MaPrimeRénov' base</span><strong id="detail-maprime">0 €</strong></p>
-        <p class="flex justify-between"><span>Bonus sortie passoire thermique</span><strong id="detail-passoire">0 €</strong></p>
         <p class="flex justify-between"><span>Bonus BBC</span><strong id="detail-bbc">0 €</strong></p>
         <p class="flex justify-between"><span>CEE</span><strong id="detail-cee">0 €</strong></p>
         <p class="flex justify-between"><span>Aides régionales (5 %)</span><strong id="detail-regional">0 €</strong></p>
@@ -556,8 +555,7 @@
       <div class="text-center pt-2">
   <a href="https://buy.stripe.com/test_7sY9ATfmA5AK4Ltgpu3ZK00" target="_blank" rel="noopener noreferrer" id="cta-audit" class="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-xl text-lg font-bold hover:from-orange-600 hover:to-orange-700 transition transform hover:scale-105 shadow-lg">  
       🔍 Commander l'Audit IA à 199 €  
-      </a>  
-        </a>
+      </a>
       </div>
       </div>
     </section>
@@ -748,8 +746,11 @@
           5: { bleu: 40002, jaune: 51281, violet: 72400 }
         }
       };
-      const TAUX = { bleu: 0.8, jaune: 0.7, violet: 0.5, rose: 0.35 };
-      const PLAFOND_TRAVAUX_MAPRIME = 70000;
+      const TAUX = { bleu: 0.8, jaune: 0.6, violet: 0.45, rose: 0.10 };
+      // Plafonds MaPrimeRénov' 2026 selon gain de classes DPE (HT)
+      const PLAFOND_GAIN_1 = 20000;
+      const PLAFOND_GAIN_2 = 30000;
+      const PLAFOND_GAIN_3_PLUS = 40000;
 
       const form = document.getElementById('form-renov');
       const sectionResults = document.getElementById('section-results');
@@ -775,21 +776,54 @@
         return Number(v) || 25000;
       }
 
-      function getMaPrimeBase(coutTravaux, profil) {
-        const plafond = Math.min(coutTravaux, PLAFOND_TRAVAUX_MAPRIME);
-        return Math.round(plafond * TAUX[profil]);
+      function getPlafondParGainClasses(gainClasses) {
+        if (gainClasses >= 3) return PLAFOND_GAIN_3_PLUS;
+        if (gainClasses >= 2) return PLAFOND_GAIN_2;
+        return PLAFOND_GAIN_1;
       }
 
-      function getBonusPassoire(dpe) {
-        return (dpe === 'F' || dpe === 'G') ? 10000 : 0;
+      function getMaPrimeBase(coutTravaux, profil, dpeAvant, dpeApres) {
+        const iAvant = DPE_ORDER.indexOf(dpeAvant);
+        const iApres = DPE_ORDER.indexOf(dpeApres);
+        const gainClasses = (iAvant >= 0 && iApres >= 0) ? Math.max(0, iApres - iAvant) : 1;
+        const plafondBase = getPlafondParGainClasses(gainClasses);
+        const plafond = Math.min(coutTravaux, plafondBase);
+        return Math.round(plafond * TAUX[profil]);
       }
 
       function getBonusBBC(coutTravaux) {
         return coutTravaux >= 60000 ? 10000 : 0;
       }
 
-      function getCEE(surface) {
-        return Math.round(surface * 50 + 3000);
+      // Barèmes CEE précarité 2026 (€)
+      const CEE_2026 = {
+        pac: { bleu: 5000, jaune: 4000, violet: 3000, rose: 0 },
+        combles: { bleu: 20, jaune: 20, violet: 15, rose: 15 },
+        ite: { bleu: 30, jaune: 30, violet: 20, rose: 20 },
+        plancher: { bleu: 20, jaune: 20, violet: 15, rose: 15 },
+        fenetres: { bleu: 100, jaune: 100, violet: 60, rose: 60 },
+        vmcDoubleFlux: { bleu: 600, jaune: 600, violet: 400, rose: 400 },
+        ballonThermo: { bleu: 400, jaune: 400, violet: 200, rose: 200 }
+      };
+      // Travaux CEE par scénario (multiplieurs surface ou quantités fixes)
+      const CEE_OEUVRE_SCENARIO = {
+        1: { pac: 1, comblesM2: 1, iteM2: 0, plancherM2: 0, fenetres: 8, vmcDF: 0, ballon: 0 },
+        2: { pac: 1, comblesM2: 1, iteM2: 1, plancherM2: 1, fenetres: 10, vmcDF: 1, ballon: 1 },
+        3: { pac: 1, comblesM2: 1, iteM2: 1.2, plancherM2: 1, fenetres: 12, vmcDF: 1, ballon: 1 }
+      };
+
+      function getCEE(surface, profil, scenarioId) {
+        var o = CEE_OEUVRE_SCENARIO[scenarioId] || CEE_OEUVRE_SCENARIO[1];
+        var c = CEE_2026;
+        var total = 0;
+        if (o.pac) total += (c.pac[profil] || 0);
+        if (o.comblesM2) total += surface * o.comblesM2 * (c.combles[profil] || 0);
+        if (o.iteM2) total += surface * o.iteM2 * (c.ite[profil] || 0);
+        if (o.plancherM2) total += surface * o.plancherM2 * (c.plancher[profil] || 0);
+        if (o.fenetres) total += o.fenetres * (c.fenetres[profil] || 0);
+        if (o.vmcDF) total += (c.vmcDoubleFlux[profil] || 0);
+        if (o.ballon) total += (c.ballonThermo[profil] || 0);
+        return Math.round(total);
       }
 
       function getAidesRegional(coutTravaux) {
@@ -835,17 +869,17 @@
       }
 
       var SCENARIOS_CONFIG = [
-        { id: 1, cout: 25000, dpeApres: 'D', bonusPassoire: true, bonusBBC: false, ecoptz: 25000, duree: '6-8 semaines' },
-        { id: 2, cout: 43000, dpeApres: 'C', bonusPassoire: true, bonusBBC: false, ecoptz: 35000, duree: '8-12 semaines' },
-        { id: 3, cout: 67500, dpeApres: 'A', bonusPassoire: false, bonusBBC: true, ecoptz: 50000, duree: '12-16 semaines' }
+        { id: 1, cout: 25000, dpeApres: 'D', bonusBBC: false, ecoptz: 25000, duree: '6-8 semaines' },
+        { id: 2, cout: 43000, dpeApres: 'C', bonusBBC: false, ecoptz: 35000, duree: '8-12 semaines' },
+        { id: 3, cout: 67500, dpeApres: 'A', bonusBBC: true, ecoptz: 50000, duree: '12-16 semaines' }
       ];
 
       function calculerScenario(surface, revenus, personnes, region, dpe, cfg) {
         var profil = getProfil(region, personnes, revenus);
-        var maPrimeBase = getMaPrimeBase(cfg.cout, profil);
-        var bonusPassoire = (cfg.bonusPassoire && (dpe === 'F' || dpe === 'G')) ? 10000 : 0;
+        var maPrimeBase = getMaPrimeBase(cfg.cout, profil, dpe, cfg.dpeApres);
+        var bonusPassoire = 0;
         var bonusBBC = (cfg.bonusBBC && cfg.cout >= 60000) ? 10000 : 0;
-        var cee = getCEE(surface);
+        var cee = getCEE(surface, profil, cfg.id);
         var aidesRegional = getAidesRegional(cfg.cout);
         var totalAides = maPrimeBase + bonusPassoire + bonusBBC + cee + aidesRegional;
         var resteCharge = Math.max(0, cfg.cout - totalAides);
@@ -861,7 +895,6 @@
         document.getElementById('badge-profil').className = 'px-4 py-1.5 rounded-full text-sm font-bold badge-' + r.profil;
         document.getElementById('total-aides').textContent = r.totalAides.toLocaleString('fr-FR') + ' €';
         document.getElementById('detail-maprime').textContent = r.maPrimeBase.toLocaleString('fr-FR') + ' €';
-        document.getElementById('detail-passoire').textContent = r.bonusPassoire.toLocaleString('fr-FR') + ' €';
         document.getElementById('detail-bbc').textContent = r.bonusBBC.toLocaleString('fr-FR') + ' €';
         document.getElementById('detail-cee').textContent = r.cee.toLocaleString('fr-FR') + ' €';
         document.getElementById('detail-regional').textContent = r.aidesRegional.toLocaleString('fr-FR') + ' €';
@@ -995,7 +1028,7 @@
         doc.setFontSize(14);
         doc.text('Total des aides : ' + r.totalAides.toLocaleString('fr-FR') + ' €', 14, y); y += line + 2;
         doc.setFontSize(10);
-        doc.text('Détail : MaPrimeRénov\' ' + r.maPrimeBase.toLocaleString('fr-FR') + ' €  |  Bonus passoire ' + r.bonusPassoire.toLocaleString('fr-FR') + ' €  |  Bonus BBC ' + r.bonusBBC.toLocaleString('fr-FR') + ' €', 14, y); y += line;
+        doc.text('Détail : MaPrimeRénov\' ' + r.maPrimeBase.toLocaleString('fr-FR') + ' €  |  Bonus BBC ' + r.bonusBBC.toLocaleString('fr-FR') + ' €', 14, y); y += line;
         doc.text('CEE ' + r.cee.toLocaleString('fr-FR') + ' €  |  Aides régionales ' + r.aidesRegional.toLocaleString('fr-FR') + ' €', 14, y); y += line + 2;
         doc.text('Financement : Coût ' + r.coutTravaux.toLocaleString('fr-FR') + ' €  |  Aides ' + r.totalAides.toLocaleString('fr-FR') + ' €  |  Reste à charge ' + r.resteCharge.toLocaleString('fr-FR') + ' €  |  Éco-PTZ ' + r.ecoptz.toLocaleString('fr-FR') + ' €', 14, y); y += line + 2;
         doc.text('Facture avant : ' + r.factureAvant.toLocaleString('fr-FR') + ' €/an  |  Facture après : ' + r.factureApres.toLocaleString('fr-FR') + ' €/an  |  Économies : ' + r.economieFacture.toLocaleString('fr-FR') + ' €/an', 14, y); y += line;
