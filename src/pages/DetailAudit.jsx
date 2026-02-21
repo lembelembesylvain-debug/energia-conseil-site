@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'  
-import { useParams, useNavigate } from 'react-router-dom'  
+import { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import { generateFullAudit } from '../lib/generateAuditPDF'
 const ENERGIA_GREEN = '#0f766e'  
  
 function val(value) {  
@@ -25,8 +26,35 @@ const PHOTO_TYPE_LABELS = {
 }  
   
 export default function DetailAudit() {
-  const generatePDF = () => {
-    window.print()
+  const generatePDF = async () => {
+    const clientData = {
+      nom: client?.name ?? audit?.client_name,
+      prenom: client?.prenom ?? '',
+      email: client?.email ?? audit?.email,
+      telephone: client?.telephone ?? audit?.telephone,
+      adresse: client?.address ?? audit?.client_address,
+      code_postal: audit?.code_postal,
+      ville: audit?.ville,
+      nb_personnes: audit?.nb_personnes,
+      revenus: audit?.revenus,
+      surface_habitable: audit?.surface_habitable,
+      surface: audit?.surface_habitable,
+      annee_construction: audit?.annee_construction,
+      type_chauffage: audit?.type_chauffage,
+      dpe_actuel: audit?.dpe_actuel,
+      isolation_actuelle: audit?.isolation_actuelle,
+      consommation_annuelle: audit?.consommation_annuelle,
+      facture_annuelle: audit?.facture_annuelle,
+      aides_montant: audit?.aides_montant,
+      date: audit?.created_at ? formatDate(audit.created_at) : null,
+    }
+    const photosAnalysis = {} // Analyse IA des photos (à enrichir si disponible)
+    try {
+      await generateFullAudit(clientData, photosAnalysis)
+    } catch (err) {
+      console.error('Erreur génération PDF:', err)
+      window.print()
+    }
   }
 
   const { id } = useParams()  
