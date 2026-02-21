@@ -752,7 +752,12 @@
       };
       const TAUX = { bleu: 0.8, jaune: 0.6, violet: 0.45, rose: 0.10 };
       // Plafonds écrêtement 2026 (max % du coût TTC que peuvent atteindre les aides)
-      const PLAFOND_ECRETEMENT = { bleu: 1.0, jaune: 0.8, violet: 0.6, rose: 0.4 };
+      const PLAFOND_ECRETEMENT = {
+        bleu: 0.9,  // 90% (pas 100% - reste à charge 10% minimum)
+        jaune: 0.8,
+        violet: 0.6,
+        rose: 0.4
+      };
       // Plafonds MaPrimeRénov' 2026 selon gain de classes DPE (HT)
       const PLAFOND_GAIN_1 = 20000;
       const PLAFOND_GAIN_2 = 30000;
