@@ -750,6 +750,39 @@
       }
     }
 
+    /** Captures screenshots 3D pour le rapport PDF (Three.js renderer.toDataURL) */
+    function captureVue(setupFn) {
+      return new Promise(resolve => {
+        const savedMode = mode;
+        const savedVueApres = vueApres;
+        const savedTarget = controls.target.clone();
+        const savedPos = camera.position.clone();
+        setupFn();
+        appliquerMode();
+        camera.position.set(22, 14, 22);
+        controls.target.set(0, 3, 0);
+        controls.update();
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            renderer.render(scene, camera);
+            const dataUrl = renderer.domElement.toDataURL('image/png');
+            mode = savedMode;
+            vueApres = savedVueApres;
+            camera.position.copy(savedPos);
+            controls.target.copy(savedTarget);
+            appliquerMode();
+            controls.update();
+            resolve(dataUrl);
+          });
+        });
+      });
+    }
+    window.captureThermique = () => captureVue(() => { mode = 'thermique'; vueApres = false; });
+    window.capturePontsThermiques = () => captureVue(() => { mode = 'ponts'; vueApres = false; });
+    window.captureAvantTravaux = () => captureVue(() => { mode = 'thermique'; vueApres = false; });
+    window.captureApresTravaux = () => captureVue(() => { mode = 'apres'; vueApres = true; });
+    window.capture3DReady = () => !!renderer;
+
     document.addEventListener('keydown', e => {
       if (e.key === 'r' || e.key === 'R') { camera.position.set(20, 15, 20); controls.target.set(0, 3, 0); }
       if (e.key === 'a' || e.key === 'A') controls.autoRotate = !controls.autoRotate;

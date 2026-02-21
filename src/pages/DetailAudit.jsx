@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { generateFullAudit } from '../lib/generateAuditPDF'
@@ -26,6 +26,29 @@ const PHOTO_TYPE_LABELS = {
 }  
   
 export default function DetailAudit() {
+  const iframe3DRef = useRef(null)
+
+  const captureImages3D = async () => {
+    const iframe = iframe3DRef.current
+    if (!iframe?.contentWindow) return null
+    const win = iframe.contentWindow
+    if (typeof win.capture3DReady !== 'function' || !win.capture3DReady()) return null
+    try {
+      const [thermique, ponts, avant, apres] = await Promise.all([
+        win.captureThermique?.(),
+        win.capturePontsThermiques?.(),
+        win.captureAvantTravaux?.(),
+        win.captureApresTravaux?.(),
+      ])
+      if (thermique && ponts && avant && apres) {
+        return { thermique, ponts, avant, apres }
+      }
+    } catch (e) {
+      console.warn('Capture 3D impossible:', e)
+    }
+    return null
+  }
+
   const generatePDF = async () => {
     const clientData = {
       nom: client?.name ?? audit?.client_name,
@@ -48,9 +71,11 @@ export default function DetailAudit() {
       aides_montant: audit?.aides_montant,
       date: audit?.created_at ? formatDate(audit.created_at) : null,
     }
-    const photosAnalysis = {} // Analyse IA des photos (à enrichir si disponible)
+    const photosAnalysis = {}
+    let images3D = null
     try {
-      await generateFullAudit(clientData, photosAnalysis)
+      images3D = await captureImages3D()
+      await generateFullAudit(clientData, photosAnalysis, images3D || {})
     } catch (err) {
       console.error('Erreur génération PDF:', err)
       window.print()
@@ -139,7 +164,17 @@ export default function DetailAudit() {
   }  
   
   return (  
-    <div className="min-h-screen bg-slate-50">  
+    <div className="min-h-screen bg-slate-50">
+      <iframe
+        ref={iframe3DRef}
+        src="/maison-3d-thermique-interactive.html"
+        title="Vue 3D thermique"
+        className="border-0"
+        style={{
+          position: 'fixed', left: -9999, top: 0, width: 800, height: 600,
+          opacity: 0, pointerEvents: 'none', zIndex: -1,
+        }}
+      />
       <header className="px-6 py-4 shadow-sm bg-white sticky top-0 z-10">  
         <div className="max-w-4xl mx-auto flex items-center justify-between">  
           <h1 className="text-2xl font-bold" style={{ color: ENERGIA_GREEN }}>
