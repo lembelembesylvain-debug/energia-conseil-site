@@ -34,6 +34,8 @@
     .priorite-list .ok{color:#059669;font-weight:500}
     #tooltip{position:fixed;background:rgba(0,0,0,0.92);color:white;padding:0.6rem 0.9rem;border-radius:0.5rem;font-size:0.8rem;max-width:260px;pointer-events:none;z-index:200;display:none;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
     #tooltip.visible{display:block}
+    #mode-info{position:absolute;top:0.5rem;left:50%;transform:translateX(-50%);z-index:40;background:rgba(255,255,255,0.96);padding:0.6rem 1rem;border-radius:0.5rem;font-size:0.8rem;color:#047857;box-shadow:0 2px 12px rgba(0,0,0,0.15);display:none;max-width:90%;text-align:center}
+    #mode-info.visible{display:block}
     #loading{position:fixed;inset:0;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:300;color:white}
     #loading.hidden{opacity:0;pointer-events:none;transition:opacity 0.5s}
     #loading-bar{width:220px;height:4px;background:rgba(255,255,255,0.3);border-radius:2px;margin-top:1rem;overflow:hidden}
@@ -60,22 +62,24 @@
         <div class="data-row"><span>Adresse</span><strong>30 Bd Pasteur, 42130 Boën</strong></div>
         <div class="data-row"><span>Surface</span><strong>85 m²</strong></div>
         <div class="data-row"><span>Type</span><strong>Maison R+1 (années 70)</strong></div>
+        <div class="data-row"><span>Facture actuelle</span><strong>2 500 €/an (fioul)</strong></div>
         <div class="data-row highlight"><span>DPE actuel</span><strong>F (280 kWh/m²/an)</strong></div>
         <div class="data-row highlight"><span>DPE cible</span><strong>C (90 kWh/m²/an)</strong></div>
         <div class="data-row highlight"><span>Gain</span><strong>+3 classes ✅</strong></div>
       </div>
       <div class="sidebar-section">
         <h3>💰 INVESTISSEMENT</h3>
-        <div class="data-row"><span>Total TTC</span><strong>53 705 €</strong></div>
-        <div class="data-row"><span>Aides (84%)</span><strong>44 980 €</strong></div>
+        <div class="data-row"><span>Total TTC</span><strong>54 165 €</strong></div>
+        <div class="data-row"><span>Aides (84%)</span><strong>45 440 €</strong></div>
         <div class="data-row"><span>Reste à charge</span><strong>8 725 €</strong></div>
         <div class="data-row"><span>Mensualité</span><strong>115 €/mois</strong></div>
-        <div class="data-row"><span>Économies</span><strong>1 200 €/an</strong></div>
-        <div class="data-row highlight"><span>Coût net</span><strong>15 €/mois</strong></div>
+        <div class="data-row"><span>Économies</span><strong>1 900 €/an</strong></div>
+        <div class="data-row highlight"><span>Coût net</span><strong>-43 €/mois</strong></div>
+        <div class="data-row" style="font-size:0.72rem;margin-top:0.4rem;background:#ecfdf5;padding:0.5rem;border-radius:0.3rem;border:none">✅ Vos économies (158€/mois) sont SUPÉRIEURES à la mensualité (115€/mois). Vous gagnez 43€/mois dès le 1er jour !</div>
       </div>
       <div class="sidebar-section">
         <h3>📈 RÉSULTATS</h3>
-        <div class="data-row"><span>ROI</span><strong>7,3 ans</strong></div>
+        <div class="data-row"><span>ROI</span><strong>4,6 ans</strong></div>
         <div class="data-row"><span>Plus-value</span><strong>+35 000 €</strong></div>
         <div class="data-row"><span>CO₂ évité</span><strong>-80%</strong></div>
       </div>
@@ -89,6 +93,21 @@
         <div class="data-row"><span>Ventilation</span><strong style="color:#16a34a">10%</strong></div>
       </div>
       <div class="sidebar-section">
+        <h3>🔧 TRAVAUX PRÉVUS (10 postes)</h3>
+        <div class="priorite-list" style="font-size:0.7rem;max-height:120px;overflow-y:auto">
+          <span>1. Combles perdus 45m² - Laine roche R=7 - 2 500€</span>
+          <span>2. ITE 105m² - Polystyrène R=3.7 - 15 750€</span>
+          <span>3. Sous-sol 45m² - Laine roche R=4 - 2 300€</span>
+          <span>4. 6 Fenêtres PVC double vitrage - 6 000€</span>
+          <span>5. VMC simple flux hygroréglable - 1 500€</span>
+          <span>6. Désembouage circuit - 800€</span>
+          <span>7. PAC Air/Eau 7kW - 12 000€</span>
+          <span>8. Ballon thermodynamique 200L - 2 200€</span>
+          <span>9. Dépose chaudière fioul + cuve - 800€ HT</span>
+          <span>10. Coordination & M.O. - 7 355€</span>
+        </div>
+      </div>
+      <div class="sidebar-section">
         <h3>1️⃣ ORDRE PRIORITÉ</h3>
         <div class="priorite-list">
           <span class="ok">1️⃣ Combles (ROI 2-3 ans) ✅</span>
@@ -99,7 +118,9 @@
         </div>
       </div>
     </aside>
-    <div id="canvas-wrap"></div>
+    <div id="canvas-wrap">
+      <div id="mode-info"></div>
+    </div>
   </div>
 
   <div id="mode-bar">
@@ -531,6 +552,16 @@
       ballonMesh.visible = zones.ballon;
       vmcMesh.visible = zones.vmc;
       panneauxGroup.visible = zones.pv;
+
+      const modeInfo = document.getElementById('mode-info');
+      if (modeInfo) {
+        if (mode === 'pac') {
+          modeInfo.textContent = 'Remplace : Chaudière fioul (économies 1 900€/an vs 600€ fioul restant)';
+          modeInfo.classList.add('visible');
+        } else {
+          modeInfo.classList.remove('visible');
+        }
+      }
     }
 
     init();
