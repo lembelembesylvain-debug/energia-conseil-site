@@ -83,6 +83,12 @@
     }
     .btn-analyze:hover { background: #0d9488; }
     .btn-analyze:disabled { background: #9ca3af; cursor: not-allowed; box-shadow: none; }
+    #resultatIA {
+      background: #e0f7f5; border: 2px solid #14B8A6; border-radius: 8px;
+      padding: 15px; margin: 15px 0;
+    }
+    #resultatIA h3 { margin: 0 0 10px 0; color: #14B8A6; font-size: 0.95rem; }
+    #resultatIA p { margin: 5px 0; font-size: 0.85rem; }
     /* Tooltip */
     #tooltip { position: fixed; background: rgba(0,0,0,0.9); color: white; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.8rem; max-width: 280px; pointer-events: none; z-index: 50; display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
     #tooltip.visible { display: block; }
@@ -188,6 +194,10 @@
     let tempFactor = 1; // 0=hiver, 0.5=mi-saison, 1=été
     let materielsThermiques = {};
 
+    // ========== OPENAI VISION API ==========
+    const OPENAI_API_KEY = 'DEMO_KEY_A_CONFIGURER';
+    const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
+
     // ========== UPLOAD PHOTOS ==========
     const MAX_PHOTOS = 15;
     const MAX_SIZE_MB = 10;
@@ -264,21 +274,104 @@
       });
     }
     if (fileInput) fileInput.addEventListener('change', (e) => { handleFiles(e.target.files); e.target.value = ''; });
-    if (btnAnalyze) {
-      btnAnalyze.addEventListener('click', () => {
-        if (uploadedPhotos.length < 5) {
-          alert('Ajoutez au moins 5 photos pour l\'analyse IA.');
-          return;
+
+    async function analyserPhotosAvecIA() {
+      if (uploadedPhotos.length < 5) {
+        alert('Minimum 5 photos requises pour l\'analyse IA.');
+        return;
+      }
+      if (OPENAI_API_KEY === 'DEMO_KEY_A_CONFIGURER' || !OPENAI_API_KEY) {
+        alert('⚠️ Clé API OpenAI non configurée. Remplacer DEMO_KEY_A_CONFIGURER par votre clé dans le code.\n\nFonctionnalité disponible dès que la clé est configurée.');
+        return;
+      }
+      btnAnalyze.textContent = '🔍 Analyse en cours...';
+      btnAnalyze.disabled = true;
+      try {
+        const images = uploadedPhotos.slice(0, 10).map(photo => ({
+          type: 'image_url',
+          image_url: { url: photo.data }
+        }));
+        const promptText = `Analyse ces photos d'une maison et retourne un JSON valide avec EXACTEMENT cette structure (pas de markdown, pas de \`\`\`):
+{"type_batiment":"pavillon_4_pans"|"maison_2_pans"|"longere"|"maison_maitre"|"fermette"|"maison_ville"|"corps_ferme"|"toit_plat"|"maison_L"|"maison_U"|"monopente"|"pavillon_70","annee_construction":"1700-1900"|"1900-1960"|"1970-1990"|"1990-2010"|"2010-2026","facade_materiau":"crepis_beige"|"crepis_blanc"|"brique_rouge"|"pierre_apparente"|"bois","facade_couleur":"#XXXXXX","toiture_type":"tuiles_rouges"|"tuiles_grises"|"ardoise"|"toit_plat"|"tuiles_canal","toiture_couleur":"#XXXXXX","fenetres_type":"simple_vitrage"|"double_vitrage_ancien"|"double_vitrage_recent"|"pvc"|"bois"|"alu","isolation_visible":"aucune"|"faible"|"moyenne"|"bonne","etat_general":"mauvais"|"moyen"|"bon"|"excellent","dpe_estime":"G"|"F"|"E"|"D"|"C"|"B"|"A","zone_climatique_estimee":"H1a"|"H1b"|"H1c"|"H2a"|"H2b"|"H2c"|"H2d"|"H3","travaux_prioritaires":["isolation_combles","ITE","ITI","fenetres","pac","vmc"],"description":"Description courte de la maison"}
+Sois précis et base-toi uniquement sur ce que tu vois dans les photos. Réponds UNIQUEMENT avec le JSON, sans texte avant ou après.`;
+        const response = await fetch(OPENAI_API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${OPENAI_API_KEY}`
+          },
+          body: JSON.stringify({
+            model: 'gpt-4o',
+            messages: [{
+              role: 'user',
+              content: [{ type: 'text', text: promptText }, ...images]
+            }],
+            max_tokens: 1000
+          })
+        });
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error?.message || `Erreur API ${response.status}`);
         }
-        btnAnalyze.disabled = true;
-        btnAnalyze.textContent = '⏳ Analyse en cours...';
-        setTimeout(() => {
-          btnAnalyze.disabled = false;
-          btnAnalyze.textContent = '🔍 Analyser avec IA';
-          alert(`Analyse IA (démo) : ${uploadedPhotos.length} photos prises en compte.\n\nPhase 2 : intégration API vision disponible.`);
-        }, 1500);
-      });
+        const data = await response.json();
+        let content = (data.choices?.[0]?.message?.content || '').trim();
+        if (!content) throw new Error('Réponse vide de l\'API');
+        const codeBlock = content.match(/```(?:json)?\s*([\s\S]*?)```/);
+        if (codeBlock) content = codeBlock[1].trim();
+        else {
+          const objMatch = content.match(/\{[\s\S]*\}/);
+          if (objMatch) content = objMatch[0];
+        }
+        const resultat = JSON.parse(content);
+        appliquerAnalyseIA(resultat);
+        alert(`✅ Analyse terminée !\n\nType détecté : ${resultat.type_batiment}\nDPE estimé : ${resultat.dpe_estime}\nTravaux prioritaires : ${(resultat.travaux_prioritaires || []).join(', ')}\n\nLes résultats sont affichés dans le panneau.`);
+      } catch (err) {
+        console.error('Erreur analyse IA:', err);
+        alert('Erreur lors de l\'analyse : ' + (err.message || 'Veuillez réessayer.'));
+      } finally {
+        btnAnalyze.textContent = '🔍 Analyser avec IA';
+        btnAnalyze.disabled = false;
+      }
     }
+
+    function appliquerAnalyseIA(resultat) {
+      const selectBatiment = document.getElementById('buildingType');
+      if (selectBatiment) {
+        selectBatiment.value = resultat.type_batiment || selectBatiment.value;
+        selectBatiment.dispatchEvent(new Event('change'));
+      }
+      const selectZone = document.getElementById('climateZone');
+      if (selectZone) {
+        selectZone.value = resultat.zone_climatique_estimee || selectZone.value;
+        selectZone.dispatchEvent(new Event('change'));
+      }
+      const valDpe = document.getElementById('val-dpe');
+      if (valDpe && resultat.dpe_estime) valDpe.textContent = `${resultat.dpe_estime} (estimé IA)`;
+      afficherResultatsAnalyse(resultat);
+    }
+
+    function afficherResultatsAnalyse(resultat) {
+      const existing = document.getElementById('resultatIA');
+      if (existing) existing.remove();
+      const panneauIA = document.createElement('div');
+      panneauIA.id = 'resultatIA';
+      const travaux = Array.isArray(resultat.travaux_prioritaires) ? resultat.travaux_prioritaires.join(', ') : '';
+      panneauIA.innerHTML = `
+        <h3>🤖 Analyse IA</h3>
+        <p><strong>Type :</strong> ${resultat.type_batiment || '-'}</p>
+        <p><strong>Année :</strong> ${resultat.annee_construction || '-'}</p>
+        <p><strong>Façade :</strong> ${resultat.facade_materiau || '-'}</p>
+        <p><strong>Toiture :</strong> ${resultat.toiture_type || '-'}</p>
+        <p><strong>DPE estimé :</strong> ${resultat.dpe_estime || '-'}</p>
+        <p><strong>État :</strong> ${resultat.etat_general || '-'}</p>
+        <p><strong>Travaux prioritaires :</strong> ${travaux || '-'}</p>
+        ${resultat.description ? `<p><em>${resultat.description}</em></p>` : ''}
+      `;
+      const uploadSection = document.querySelector('.upload-section');
+      if (uploadSection) uploadSection.after(panneauIA);
+    }
+
+    if (btnAnalyze) btnAnalyze.addEventListener('click', () => analyserPhotosAvecIA());
 
     // ========== INIT SCÈNE ==========
     function init() {
