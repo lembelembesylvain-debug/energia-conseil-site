@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapport Énergétique 3D - Mr BRUNEL Emrick | ENERGIA CONSEIL</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="importmap">
+  {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+  </script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'DM Sans',sans-serif;overflow:hidden;background:linear-gradient(135deg,#0f766e 0%,#0d9488 50%,#14b8a6 100%)}
+    #header{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(15,118,110,0.97);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:0.4rem 1rem;z-index:100;color:white;text-align:center}
+    .btn-print{position:absolute;top:15px;right:20px;background:white;color:#14B8A6;border:2px solid white;padding:12px 24px;border-radius:8px;font-weight:bold;cursor:pointer;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.2);transition:all 0.3s;font-family:inherit}
+    .btn-print:hover{background:#f0f0f0}
+    #header h1{font-size:1rem;font-weight:700;margin-bottom:0.15rem}
+    #header p{font-size:0.8rem;opacity:0.95}
+    #content{display:flex;flex:1;padding-top:60px;overflow:hidden}
+    #sidebar{flex:0 0 280px;min-width:240px;background:rgba(255,255,255,0.98);backdrop-filter:blur(12px);box-shadow:4px 0 20px rgba(0,0,0,0.08);overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:1rem}
+    .sidebar-section{background:#f8fafc;border-radius:0.6rem;padding:0.9rem;border:1px solid #e2e8f0}
+    .sidebar-section h3{font-size:0.85rem;color:#0f766e;margin-bottom:0.6rem;font-weight:600}
+    .data-row{display:flex;justify-content:space-between;padding:0.35rem 0;font-size:0.8rem;border-bottom:1px solid #e2e8f0}
+    .data-row:last-child{border-bottom:none}
+    .data-row strong{color:#047857;font-weight:600}
+    .data-row.highlight{background:#ecfdf5;margin:0 -0.5rem;padding:0.35rem 0.5rem;border-radius:0.3rem}
+    .alerte-indivision{background:#fff3cd!important;border:2px solid #f59e0b!important;padding:0.8rem;border-radius:0.5rem;margin-bottom:0.5rem;font-size:0.78rem;color:#92400e}
+    #canvas-wrap{flex:1;position:relative;min-width:0}
+    #canvas-wrap canvas{display:block;width:100%!important;height:100%!important}
+    #mode-bar{position:absolute;bottom:0;left:0;right:0;height:48px;background:rgba(15,118,110,0.95);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;gap:0.4rem;flex-wrap:wrap;padding:0.5rem;z-index:50}
+    .mode-btn{padding:0.35rem 0.6rem;border:none;border-radius:0.4rem;background:rgba(255,255,255,0.2);color:white;cursor:pointer;font-size:0.7rem;font-family:inherit;transition:all 0.2s;white-space:nowrap}
+    .mode-btn:hover{background:rgba(255,255,255,0.35)}
+    .mode-btn.active{background:#14b8a6;color:white;box-shadow:0 2px 8px rgba(20,184,166,0.5)}
+    .priorite-list{font-size:0.75rem;margin-top:0.5rem;line-height:1.6;color:#334155}
+    .priorite-list span{display:block;margin-bottom:0.2rem}
+    .priorite-list .ok{color:#059669;font-weight:500}
+    #tooltip{position:fixed;background:rgba(0,0,0,0.92);color:white;padding:0.6rem 0.9rem;border-radius:0.5rem;font-size:0.8rem;max-width:260px;pointer-events:none;z-index:200;display:none;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
+    #tooltip.visible{display:block}
+    #mode-info{position:absolute;top:0.5rem;left:50%;transform:translateX(-50%);z-index:40;background:rgba(255,255,255,0.96);padding:0.6rem 1rem;border-radius:0.5rem;font-size:0.8rem;color:#047857;box-shadow:0 2px 12px rgba(0,0,0,0.15);display:none;max-width:90%;text-align:center}
+    #mode-info.visible{display:block}
+    #loading{position:fixed;inset:0;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:300;color:white}
+    #loading.hidden{opacity:0;pointer-events:none;transition:opacity 0.5s}
+    #loading-bar{width:220px;height:4px;background:rgba(255,255,255,0.3);border-radius:2px;margin-top:1rem;overflow:hidden}
+    #loading-progress{height:100%;background:white;width:0%;transition:width 0.2s}
+    @media(max-width:900px){#content{flex-direction:column}#sidebar{flex:0 0 auto;max-height:40vh}}
+    @media print{canvas,button,#header,#canvas-wrap,#mode-bar,#content,#sidebar,#loading,#tooltip,#mode-info,.btn-print{display:none!important}#printContent{display:block!important}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}body{background:white!important;margin:0!important;padding:0!important;overflow:visible!important}@page{margin:15mm;size:A4}.page-break{page-break-after:always}}
+    @media screen{#printContent{display:none!important}}
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <p>Génération du rapport 3D thermique...</p>
+    <div id="loading-bar"><div id="loading-progress"></div></div>
+  </div>
+
+  <header id="header">
+    <button class="btn-print" onclick="window.print()">🖨️ Imprimer / Sauvegarder PDF</button>
+    <h1>🏠 Rapport Énergétique 3D - ENERGIA CONSEIL</h1>
+    <p>Mr BRUNEL Emrick (Indivision COUBLE) - 48 Impasse des Lagunes, Bussières (42510) • Projet : Rénovation ciblée DPE F/G → D/E</p>
+  </header>
+
+  <div id="content">
+    <aside id="sidebar">
+      <div class="sidebar-section alerte-indivision">
+        <strong>⚠️ BIEN EN INDIVISION</strong><br>
+        Ce bien appartient à une indivision (COUBLE).<br>
+        Tous les copropriétaires doivent signer le devis et valider le projet.<br>
+        Prévoir procuration si copropriétaire absent.
+      </div>
+      <div class="sidebar-section">
+        <h3>📋 VOTRE PROJET</h3>
+        <div class="data-row"><span>Client</span><strong>Mr BRUNEL Emrick</strong></div>
+        <div class="data-row"><span>Pour</span><strong>Indivision COUBLE</strong></div>
+        <div class="data-row"><span>Adresse</span><strong>48 Impasse Lagunes, 42510 Bussières</strong></div>
+        <div class="data-row"><span>Surface</span><strong>72 m²</strong></div>
+        <div class="data-row"><span>Type</span><strong>Maison individuelle</strong></div>
+        <div class="data-row highlight"><span>DPE actuel</span><strong>F/G</strong></div>
+        <div class="data-row highlight"><span>DPE cible</span><strong>D/E</strong></div>
+        <div class="data-row highlight"><span>Gain</span><strong>+2/3 classes ✅</strong></div>
+      </div>
+      <div class="sidebar-section">
+        <h3>💰 INVESTISSEMENT</h3>
+        <div class="data-row"><span>Total TTC</span><strong>29 962 €</strong></div>
+        <div class="data-row"><span>Aides (23%)</span><strong>6 770 €</strong></div>
+        <div class="data-row"><span>Reste à charge</span><strong>23 192 €</strong></div>
+        <div class="data-row"><span>Mensualité</span><strong>290 €/mois</strong></div>
+        <div class="data-row"><span>Économies</span><strong>1 370 €/an</strong></div>
+        <div class="data-row highlight"><span>Coût net</span><strong>176 €/mois</strong></div>
+      </div>
+      <div class="sidebar-section">
+        <h3>📈 RÉSULTATS</h3>
+        <div class="data-row"><span>ROI</span><strong>16,9 ans</strong></div>
+        <div class="data-row"><span>Plus-value</span><strong>+10 000 €</strong></div>
+        <div class="data-row"><span>CO₂ évité</span><strong>-60%</strong></div>
+      </div>
+      <div class="sidebar-section">
+        <h3>📊 DÉPERDITIONS ACTUELLES</h3>
+        <div class="data-row"><span>Toiture/Combles</span><strong style="color:#dc2626">30%</strong></div>
+        <div class="data-row"><span>Murs</span><strong style="color:#ea580c">20%</strong></div>
+        <div class="data-row"><span>Fenêtres</span><strong style="color:#ca8a04">20%</strong></div>
+        <div class="data-row"><span>Plancher</span><strong style="color:#16a34a">10%</strong></div>
+        <div class="data-row"><span>Ponts thermiques</span><strong style="color:#16a34a">10%</strong></div>
+        <div class="data-row"><span>Ventilation</span><strong style="color:#16a34a">10%</strong></div>
+      </div>
+      <div class="sidebar-section">
+        <h3>🔧 TRAVAUX PRÉVUS (7 postes)</h3>
+        <div class="priorite-list" style="font-size:0.7rem;max-height:140px;overflow-y:auto">
+          <span>1. Rampants combles 72m² - Laine roche R=6 - 3 000€</span>
+          <span>2. 5 Splits PAC air/air - Chauffage + Clim - 8 000€</span>
+          <span>3. Ballon thermodynamique 200L - 2 200€</span>
+          <span>4. Porte-fenêtre PVC + volet solaire - 2 500€</span>
+          <span>5. 4 Fenêtres PVC + volets solaires - 6 000€</span>
+          <span>6. VMC hygroréglable - 1 500€</span>
+          <span>7. Coordination & M.O. - 5 200€</span>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <h3>1️⃣ ORDRE PRIORITÉ</h3>
+        <div class="priorite-list">
+          <span class="ok">1️⃣ Rampants (isolation faible) ✅</span>
+          <span class="ok">2️⃣ Fenêtres + volets solaires ✅</span>
+          <span class="ok">3️⃣ PAC air/air + Ballon ✅</span>
+          <span class="ok">4️⃣ VMC (obligatoire) ✅</span>
+        </div>
+      </div>
+    </aside>
+    <div id="canvas-wrap">
+      <div id="mode-info"></div>
+    </div>
+  </div>
+
+  <div id="mode-bar">
+    <button class="mode-btn" data-mode="vue">🏠 Vue</button>
+    <button class="mode-btn active" data-mode="diagnostic">🔥 Diagnostic</button>
+    <button class="mode-btn" data-mode="combles">🏚️ Combles</button>
+    <button class="mode-btn" data-mode="murs">🏗️ Murs</button>
+    <button class="mode-btn" data-mode="rampants">🛏️ Rampants</button>
+    <button class="mode-btn" data-mode="fenetres">🪟 Fenêtres</button>
+    <button class="mode-btn" data-mode="plancher">❄️ Plancher</button>
+    <button class="mode-btn" data-mode="vmc">💨 VMC</button>
+    <button class="mode-btn" data-mode="ballon">💧 Ballon</button>
+    <button class="mode-btn" data-mode="pac">🌡️ PAC</button>
+    <button class="mode-btn" data-mode="pv">☀️ PV</button>
+    <button class="mode-btn" data-mode="thermique">📷 Thermique</button>
+  </div>
+
+  <div id="tooltip"></div>
+
+  <div id="printContent">
+    <div class="page-break" style="padding:40px;text-align:center;">
+      <h1 style="color:#14B8A6;">ENERGIA CONSEIL - Audit Mr BRUNEL Emrick (Indivision COUBLE)</h1>
+      <p>48 Impasse des Lagunes, 42510 Bussières | 72 m² | Rénovation ciblée DPE F/G → D/E</p>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    // Données client - Maison 72m², zone H2a, années 90-2000
+    const DIM = { L: 8, l: 4.5, hRdc: 2.5, pente: 32 * Math.PI / 180 };
+    let scene, camera, renderer, controls;
+    let houseGroup, heatParticles, pontThermiques = [];
+    let mode = 'diagnostic';
+    let pacMesh, ballonMesh, vmcMesh, panneauxGroup;
+    const MODE_INFO = {
+      rampants: '72m² - Laine roche 200mm R=6 - 3 000€ - Économies 400€/an',
+      fenetres: '5 unités (1 PF + 4 fen.) - PVC Uw=1.3 + volets solaires - 8 500€ - Économies 270€/an',
+      vmc: 'VMC hygroréglable 72m² - 1 500€ - Économies 100€/an',
+      ballon: 'Ballon thermodynamique 200L COP 3.5 - 2 200€ - Économies 400€/an',
+      pac: 'PAC AIR/AIR (5 splits) - Chauffage + Clim - 8 000€ - Économies 600€/an - Ne produit PAS d\'eau chaude (ballon séparé)',
+      pv: 'Photovoltaïque non prévu. Peut être ajouté ultérieurement.'
+    };
+
+    function setLoading(pct) {
+      const el = document.getElementById('loading-progress');
+      if (el) el.style.width = pct + '%';
+    }
+
+    function createTexture(w, h, draw) {
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      const ctx = c.getContext('2d');
+      draw(ctx, w, h);
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      return tex;
+    }
+
+    function createTuileTexture() {
+      return createTexture(128, 64, (ctx, w, h) => {
+        const g = ctx.createLinearGradient(0, 0, w, 0);
+        g.addColorStop(0, '#b8503c');
+        g.addColorStop(0.5, '#8b3a2a');
+        g.addColorStop(1, '#b8503c');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+        for (let i = 0; i < 20; i++) {
+          ctx.strokeStyle = `rgba(100,40,30,0.5)`;
+          ctx.beginPath();
+          ctx.moveTo(i * 6, 0);
+          ctx.lineTo(i * 6, h);
+          ctx.stroke();
+        }
+      });
+    }
+
+    function createGrassTexture() {
+      return createTexture(256, 256, (ctx, w, h) => {
+        const g = ctx.createLinearGradient(0, 0, 0, h);
+        g.addColorStop(0, '#3d7c47');
+        g.addColorStop(1, '#2d6b35');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+      });
+    }
+
+    function init() {
+      setLoading(5);
+      const wrap = document.getElementById('canvas-wrap');
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x0d9488);
+      scene.fog = new THREE.Fog(0x0d9488, 40, 120);
+
+      camera = new THREE.PerspectiveCamera(55, wrap.clientWidth / wrap.clientHeight, 0.1, 1000);
+      camera.position.set(16, 11, 16);
+      camera.lookAt(0, 2.5, 0);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      wrap.appendChild(renderer.domElement);
+
+      const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+      scene.add(ambient);
+      const hemi = new THREE.HemisphereLight(0x87ceeb, 0x3a5a2a, 0.5);
+      scene.add(hemi);
+      const sun = new THREE.DirectionalLight(0xffffee, 1.2);
+      sun.position.set(15, 25, 15);
+      sun.castShadow = true;
+      sun.shadow.mapSize.set(2048, 2048);
+      sun.shadow.camera.near = 1;
+      sun.shadow.camera.far = 80;
+      sun.shadow.camera.left = -20;
+      sun.shadow.camera.right = 20;
+      sun.shadow.camera.top = 20;
+      sun.shadow.camera.bottom = -20;
+      scene.add(sun);
+
+      houseGroup = new THREE.Group();
+      scene.add(houseGroup);
+
+      const texTuile = createTuileTexture();
+      texTuile.repeat.set(3, 5);
+      const texHerbe = createGrassTexture();
+      texHerbe.repeat.set(8, 8);
+
+      const murEp = 0.2;
+
+      const soubGeo = new THREE.BoxGeometry(DIM.L + 0.2, 0.5, DIM.l + 0.2);
+      const soubMat = new THREE.MeshStandardMaterial({ color: 0x4ade80, roughness: 0.9 });
+      const soub = new THREE.Mesh(soubGeo, soubMat);
+      soub.position.y = -0.25;
+      soub.receiveShadow = true;
+      soub.castShadow = true;
+      soub.userData = { nom: 'Plancher', perte: 10, zone: 'plancher' };
+      houseGroup.add(soub);
+
+      const mursConfig = [
+        { pos: [0, 2.5, -DIM.l/2 - murEp/2], scale: [DIM.L + murEp*2, 5, murEp], tag: 'sud', perte: 20 },
+        { pos: [0, 2.5, DIM.l/2 + murEp/2], scale: [DIM.L + murEp*2, 5, murEp], tag: 'nord', perte: 20 },
+        { pos: [DIM.L/2 + murEp/2, 2.5, 0], scale: [murEp, 5, DIM.l + murEp*2], tag: 'est', perte: 20 },
+        { pos: [-DIM.L/2 - murEp/2, 2.5, 0], scale: [murEp, 5, DIM.l + murEp*2], tag: 'ouest', perte: 20 }
+      ];
+      mursConfig.forEach(m => {
+        const mat = new THREE.MeshStandardMaterial({ color: 0xfb923c, roughness: 0.85 });
+        const mesh = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), mat);
+        mesh.scale.set(...m.scale);
+        mesh.position.set(...m.pos);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        mesh.userData = { nom: `Mur ${m.tag}`, perte: m.perte, zone: 'murs' };
+        houseGroup.add(mesh);
+      });
+
+      setLoading(30);
+      const fenConfig = [
+        { pos: [-2.2, 1.1, -DIM.l/2 - murEp/2 - 0.02], rot: 0, size: [1.4, 1.5] },
+        { pos: [0, 1.1, -DIM.l/2 - murEp/2 - 0.02], rot: 0, size: [1.2, 1.4] },
+        { pos: [2.2, 1.1, -DIM.l/2 - murEp/2 - 0.02], rot: 0, size: [1.2, 1.4] },
+        { pos: [-1.5, 1, DIM.l/2 + murEp/2 + 0.02], rot: Math.PI, size: [1, 1.2] },
+        { pos: [DIM.L/2 + murEp/2 + 0.02, 1.2, -0.5], rot: -Math.PI/2, size: [1, 1.2] }
+      ];
+      fenConfig.forEach((f, i) => {
+        const vitre = new THREE.Mesh(
+          new THREE.BoxGeometry(f.size[0], f.size[1], 0.06),
+          new THREE.MeshPhysicalMaterial({ color: 0xeab308, transparent: true, opacity: 0.5, roughness: 0.1 })
+        );
+        vitre.position.set(...f.pos);
+        vitre.rotation.y = f.rot;
+        vitre.userData = { nom: i === 0 ? 'Porte-fenêtre' : 'Fenêtre', perte: 20, zone: 'fenetres' };
+        houseGroup.add(vitre);
+      });
+
+      setLoading(45);
+      const ridgeH = (DIM.l / 2) * Math.tan(DIM.pente);
+      const slopeLen = (DIM.l / 2) / Math.cos(DIM.pente) + 0.25;
+      const toitMatS = new THREE.MeshStandardMaterial({
+        color: 0xdc2626,
+        side: THREE.DoubleSide,
+        map: texTuile,
+        roughness: 0.5,
+        metalness: 0.1
+      });
+      const toit1 = new THREE.Mesh(new THREE.PlaneGeometry(slopeLen, DIM.L + 0.4), toitMatS);
+      toit1.rotation.order = 'YXZ';
+      toit1.rotation.y = Math.PI / 2;
+      toit1.rotation.x = DIM.pente;
+      toit1.position.set(-DIM.l/4, 5 + ridgeH/2, 0);
+      toit1.castShadow = true;
+      toit1.receiveShadow = true;
+      toit1.userData = { nom: 'Rampants (combles)', perte: 30, zone: 'combles' };
+      houseGroup.add(toit1);
+      const toitMatN = toitMatS.clone();
+      toitMatN.color.setHex(0xb91c1c);
+      const toit2 = new THREE.Mesh(new THREE.PlaneGeometry(slopeLen, DIM.L + 0.4), toitMatN);
+      toit2.rotation.order = 'YXZ';
+      toit2.rotation.y = -Math.PI / 2;
+      toit2.rotation.x = DIM.pente;
+      toit2.position.set(DIM.l/4, 5 + ridgeH/2, 0);
+      toit2.castShadow = true;
+      toit2.userData = { nom: 'Rampants nord', perte: 30, zone: 'combles' };
+      houseGroup.add(toit2);
+
+      const faitage = new THREE.Mesh(
+        new THREE.BoxGeometry(DIM.L + 0.4, 0.15, 0.35),
+        new THREE.MeshStandardMaterial({ color: 0x6b7280 })
+      );
+      faitage.position.set(0, 5.9, 0);
+      faitage.castShadow = true;
+      houseGroup.add(faitage);
+
+      const corners = [[-DIM.L/2,-0.05,-DIM.l/2],[DIM.L/2,-0.05,-DIM.l/2],[-DIM.L/2,-0.05,DIM.l/2],[DIM.L/2,-0.05,DIM.l/2],
+        [-DIM.L/2,4.6,-DIM.l/2],[DIM.L/2,4.6,-DIM.l/2],[-DIM.L/2,4.6,DIM.l/2],[DIM.L/2,4.6,DIM.l/2]];
+      const pontMat = new THREE.MeshBasicMaterial({ color: 0x4ade80, transparent: true, opacity: 0.9 });
+      corners.forEach(([x,y,z]) => {
+        const p = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 0.1), pontMat.clone());
+        p.position.set(x, y, z);
+        p.userData = { nom: 'Pont thermique', perte: 10, zone: 'ponts' };
+        houseGroup.add(p);
+        pontThermiques.push(p);
+      });
+
+      setLoading(60);
+      pacMesh = new THREE.Mesh(
+        new THREE.BoxGeometry(1.1, 0.65, 0.4),
+        new THREE.MeshStandardMaterial({ color: 0x374151, metalness: 0.5, roughness: 0.4 })
+      );
+      pacMesh.position.set(DIM.L/2 + 0.5, 0.7, DIM.l/2 + 0.25);
+      pacMesh.visible = false;
+      pacMesh.name = 'pac';
+      houseGroup.add(pacMesh);
+
+      ballonMesh = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.3, 0.3, 1, 16),
+        new THREE.MeshStandardMaterial({ color: 0x4b5563, metalness: 0.6, roughness: 0.3 })
+      );
+      ballonMesh.position.set(-DIM.L/2 - 0.45, 0.5, 0);
+      ballonMesh.visible = false;
+      ballonMesh.name = 'ballon';
+      houseGroup.add(ballonMesh);
+
+      vmcMesh = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.12, 0.18, 0.22, 12),
+        new THREE.MeshStandardMaterial({ color: 0x6b7280 })
+      );
+      vmcMesh.position.set(0, 6.1, 0);
+      vmcMesh.visible = false;
+      vmcMesh.name = 'vmc';
+      houseGroup.add(vmcMesh);
+
+      panneauxGroup = new THREE.Group();
+      panneauxGroup.visible = false;
+      panneauxGroup.name = 'pv';
+      houseGroup.add(panneauxGroup);
+
+      const pc = 350;
+      const positions = new Float32Array(pc * 3);
+      for (let i = 0; i < pc; i++) {
+        positions[i*3] = (Math.random()-0.5) * DIM.L;
+        positions[i*3+1] = 4.5 + Math.random() * 2.5;
+        positions[i*3+2] = (Math.random()-0.5) * DIM.l;
+      }
+      const pGeo = new THREE.BufferGeometry();
+      pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      heatParticles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xff4422, size: 0.07, transparent: true, opacity: 0.6 }));
+      houseGroup.add(heatParticles);
+
+      setLoading(75);
+      const sol = new THREE.Mesh(
+        new THREE.PlaneGeometry(50, 50),
+        new THREE.MeshStandardMaterial({ map: texHerbe, color: 0x3d7c47, roughness: 0.95 })
+      );
+      sol.rotation.x = -Math.PI / 2;
+      sol.receiveShadow = true;
+      scene.add(sol);
+
+      const allee = new THREE.Mesh(
+        new THREE.BoxGeometry(1.5, 0.04, 5),
+        new THREE.MeshStandardMaterial({ color: 0xb8a88a, roughness: 0.95 })
+      );
+      allee.rotation.x = -Math.PI / 2;
+      allee.position.set(-0.4, 0.02, -DIM.l/2 - 0.4);
+      scene.add(allee);
+
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.target.set(0, 2.5, 0);
+      controls.minDistance = 5;
+      controls.maxDistance = 45;
+
+      setLoading(85);
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2();
+      wrap.addEventListener('mousemove', e => {
+        const r = renderer.domElement.getBoundingClientRect();
+        mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+        mouse.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+      });
+
+      let lastMouseX = 0, lastMouseY = 0;
+      document.addEventListener('mousemove', e => { lastMouseX = e.clientX; lastMouseY = e.clientY; });
+
+      function updateTooltip() {
+        raycaster.setFromCamera(mouse, camera);
+        const objs = [];
+        houseGroup.traverse(c => { if (c.isMesh && c.userData?.nom) objs.push(c); });
+        const hits = raycaster.intersectObjects(objs, true);
+        const tt = document.getElementById('tooltip');
+        if (hits.length && hits[0].object.userData.nom) {
+          const u = hits[0].object.userData;
+          tt.innerHTML = `<strong>${u.nom}</strong><br/>Déperdition : ${u.perte}%`;
+          tt.classList.add('visible');
+          tt.style.left = lastMouseX + 15 + 'px';
+          tt.style.top = lastMouseY + 15 + 'px';
+        } else tt.classList.remove('visible');
+      }
+
+      document.querySelectorAll('.mode-btn[data-mode]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.mode-btn[data-mode]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          mode = btn.dataset.mode;
+          appliquerMode();
+        });
+      });
+
+      window.addEventListener('resize', () => {
+        const w = wrap.clientWidth, h = wrap.clientHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      });
+
+      setLoading(95);
+      function animate() {
+        requestAnimationFrame(animate);
+        if (heatParticles.visible) {
+          const pos = heatParticles.geometry.attributes.position.array;
+          for (let i = 0; i < pos.length; i += 3) {
+            pos[i+1] += 0.02 + Math.random() * 0.01;
+            if (pos[i+1] > 9) pos[i+1] = 4.5;
+          }
+          heatParticles.geometry.attributes.position.needsUpdate = true;
+        }
+        updateTooltip();
+        renderer.render(scene, camera);
+        controls.update();
+      }
+      animate();
+
+      appliquerMode();
+      setLoading(100);
+      setTimeout(() => document.getElementById('loading').classList.add('hidden'), 400);
+    }
+
+    function appliquerMode() {
+      const zones = { combles: false, murs: false, rampants: false, fenetres: false, plancher: false, vmc: false, ballon: false, pac: false, pv: false };
+      const defaut = { toit: 0xdc2626, murs: 0xfb923c, fenetres: 0xeab308, plancher: 0x4ade80, ponts: 0x4ade80 };
+
+      switch (mode) {
+        case 'vue': zones.vue = true; break;
+        case 'combles': case 'rampants': zones.combles = true; zones.rampants = true; break;
+        case 'murs': zones.murs = true; break;
+        case 'fenetres': zones.fenetres = true; break;
+        case 'plancher': zones.plancher = true; break;
+        case 'vmc': zones.vmc = true; break;
+        case 'ballon': zones.ballon = true; break;
+        case 'pac': zones.pac = true; break;
+        case 'pv': zones.pv = true; break;
+      }
+
+      houseGroup.traverse(c => {
+        if (!c.isMesh || !c.material) return;
+        const zone = c.userData?.zone;
+        const nom = c.userData?.nom || '';
+
+        if (mode === 'vue') {
+          if (nom.includes('Toit') || nom.includes('Rampants')) c.material.color?.setHex(0x8b4513);
+          else if (nom.includes('Mur')) c.material.color?.setHex(0xe8dcc4);
+          else if (nom.includes('Fenêtre') || nom.includes('Porte-fenêtre')) { c.material.color?.setHex(0x87ceeb); c.material.opacity = 0.4; }
+          else if (nom.includes('Plancher')) c.material.color?.setHex(0x6b7280);
+          else if (nom.includes('Pont')) c.material.color?.setHex(0x6b7280);
+        } else {
+          if (zone === 'combles' && (zones.combles || zones.rampants)) c.material.color?.setHex(0xdc2626);
+          else if (zone === 'murs' && zones.murs) c.material.color?.setHex(0xfb923c);
+          else if (zone === 'fenetres' && zones.fenetres) c.material.color?.setHex(0xeab308);
+          else if (zone === 'plancher' && zones.plancher) c.material.color?.setHex(0x16a34a);
+          else if (zone === 'ponts') c.material.color?.setHex(defaut.ponts);
+          else if (mode === 'diagnostic' || mode === 'thermique') {
+            if (zone === 'combles') c.material.color?.setHex(defaut.toit);
+            else if (zone === 'murs') c.material.color?.setHex(defaut.murs);
+            else if (zone === 'fenetres') c.material.color?.setHex(defaut.fenetres);
+            else if (zone === 'plancher') c.material.color?.setHex(defaut.plancher);
+            else if (zone === 'ponts') c.material.color?.setHex(defaut.ponts);
+          } else {
+            const highlight = (zone === 'combles' && (zones.combles || zones.rampants)) || (zone === 'murs' && zones.murs) || (zone === 'fenetres' && zones.fenetres) || (zone === 'plancher' && zones.plancher);
+            c.material.color?.setHex(highlight ? (zone === 'combles' ? 0xdc2626 : zone === 'murs' ? 0xfb923c : zone === 'fenetres' ? 0xeab308 : 0x16a34a) : 0x94a3b8);
+          }
+        }
+      });
+
+      heatParticles.visible = (mode === 'diagnostic' || mode === 'thermique') && !zones.vue;
+      pacMesh.visible = zones.pac;
+      ballonMesh.visible = zones.ballon;
+      vmcMesh.visible = zones.vmc;
+      panneauxGroup.visible = false;
+
+      const modeInfo = document.getElementById('mode-info');
+      if (modeInfo) {
+        if (MODE_INFO[mode]) {
+          modeInfo.textContent = MODE_INFO[mode];
+          modeInfo.classList.add('visible');
+        } else {
+          modeInfo.classList.remove('visible');
+        }
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
