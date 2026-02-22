@@ -13,6 +13,8 @@
     body{font-family:'DM Sans',sans-serif;overflow:hidden;background:linear-gradient(135deg,#0f766e 0%,#0d9488 50%,#14b8a6 100%)}
     #app{display:flex;width:100vw;height:100vh;flex-direction:row}
     #header{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(15,118,110,0.97);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:0.4rem 1rem;z-index:100;color:white;text-align:center}
+    .btn-print{position:absolute;top:15px;right:20px;background:white;color:#14B8A6;border:2px solid white;padding:12px 24px;border-radius:8px;font-weight:bold;cursor:pointer;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.2);transition:all 0.3s;font-family:inherit}
+    .btn-print:hover{background:#f0f0f0}
     #header h1{font-size:1rem;font-weight:700;margin-bottom:0.15rem}
     #header p{font-size:0.8rem;opacity:0.95}
     #content{display:flex;flex:1;padding-top:60px;overflow:hidden}
@@ -41,6 +43,21 @@
     #loading-bar{width:220px;height:4px;background:rgba(255,255,255,0.3);border-radius:2px;margin-top:1rem;overflow:hidden}
     #loading-progress{height:100%;background:white;width:0%;transition:width 0.2s}
     @media(max-width:900px){#content{flex-direction:column}#sidebar{flex:0 0 auto;max-height:40vh}}
+    @media print{
+      canvas,button,#header,#canvas-wrap,#mode-bar,#content,#sidebar,#loading,#tooltip,#mode-info,.btn-print{display:none!important}
+      #printContent{display:block!important}
+      *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+      body{background:white!important;margin:0!important;padding:0!important;overflow:visible!important}
+      @page{margin:15mm;size:A4}
+      .page-break{page-break-after:always}
+      #printContent h1{color:#14B8A6;font-size:24px;margin-top:20px;margin-bottom:15px}
+      #printContent h2{color:#14B8A6;font-size:18px;margin-top:15px;margin-bottom:10px}
+      #printContent table{width:100%;border-collapse:collapse;margin:15px 0}
+      #printContent th{background:#14B8A6!important;color:white!important;padding:10px;text-align:left;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      #printContent td{padding:8px;border-bottom:1px solid #ddd}
+      #printContent .encadre{background:#e0f7f5!important;border:2px solid #14B8A6!important;padding:15px;margin:15px 0;border-radius:8px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    }
+    @media screen{#printContent{display:none!important}}
   </style>
 </head>
 <body>
@@ -50,6 +67,7 @@
   </div>
 
   <header id="header">
+    <button class="btn-print" onclick="window.print()">🖨️ Imprimer / Sauvegarder PDF</button>
     <h1>🏠 Rapport Énergétique 3D - ENERGIA CONSEIL</h1>
     <p>Mme TARI Martine - 30 Bd Pasteur, Boën-sur-Lignon (42130) • Projet : Rénovation Globale DPE F → C</p>
   </header>
@@ -142,6 +160,191 @@
   </div>
 
   <div id="tooltip"></div>
+
+  <div id="printContent">
+    <div class="page-break" style="min-height:100vh;position:relative;padding:40px;">
+      <div style="text-align:center;margin-top:80px;">
+        <h1 style="font-size:32px;color:#14B8A6;">ENERGIA CONSEIL</h1>
+        <h2 style="font-size:28px;margin-top:40px;">AUDIT ÉNERGÉTIQUE IA</h2>
+        <h2 style="font-size:24px;">RAPPORT COMPLET</h2>
+        <div style="margin-top:60px;font-size:18px;">
+          <p><strong>Mme TARI Martine Marie</strong></p>
+          <p>30 Boulevard Pasteur</p>
+          <p>42130 BOËN-SUR-LIGNON</p>
+        </div>
+        <p style="margin-top:80px;font-size:16px;">Rapport généré le 22 février 2026</p>
+      </div>
+      <div class="encadre" style="position:absolute;bottom:50px;left:50px;right:50px;">
+        <h3 style="text-align:center;margin:0;">💳 FINANCEMENT FACILITÉ - 0€ D'APPORT</h3>
+        <p style="text-align:center;margin:10px 0 0 0;">✅ Acceptation rapide : 48-72h &nbsp; ✅ Meilleur taux : 4% &nbsp; ✅ Mensualité : 119€/mois &nbsp; ✅ Coût net : -39€/mois (vous gagnez de l'argent !)<br><strong>Courtier partenaire : Fabien [Nom]</strong></p>
+      </div>
+    </div>
+    <div class="page-break" style="padding:40px;">
+      <h1>Synthèse exécutive</h1>
+      <h2>Situation actuelle</h2>
+      <ul>
+        <li>DPE : <strong>F</strong> (passoire thermique)</li>
+        <li>Consommation : 280 kWh/m²/an</li>
+        <li>Facture fioul annuelle : <strong>~2 500€</strong> (2 000L × 1,25€/L)</li>
+        <li>Facture électricité (eau chaude) : ~500€</li>
+        <li><strong>TOTAL : ~3 000€/an</strong></li>
+        <li>Émissions CO₂ : ~5 tonnes/an</li>
+      </ul>
+      <h2>Recommandation - Scénario OPTIMAL</h2>
+      <ul>
+        <li>DPE visé : <strong>C</strong> (+3 classes)</li>
+        <li>Rénovation globale performante (10 postes)</li>
+        <li>Économies : <strong>1 900€/an</strong></li>
+        <li>ROI : <strong>4,6 ans</strong></li>
+      </ul>
+      <div class="encadre">
+        <h3>💳 FINANCEMENT COURTIER - 0€ D'APPORT</h3>
+        <p>Notre partenaire courtier <strong>Fabien</strong> finance l'intégralité du reste à charge.</p>
+        <ul>
+          <li>✅ Montant financé : <strong>9 025€</strong></li>
+          <li>✅ Mensualité : <strong>119€/mois</strong> sur 10 ans</li>
+          <li>✅ Taux : <strong>4%</strong> (meilleur marché)</li>
+          <li>✅ Acceptation : <strong>48-72h</strong></li>
+        </ul>
+        <p style="background:white;padding:10px;border-left:4px solid #14B8A6;margin-top:15px;"><strong>💡 COÛT NET : -39€/mois</strong><br>Vos économies fioul (158€/mois) DÉPASSENT la mensualité (119€/mois).<br><strong>Résultat : VOUS GAGNEZ 39€/MOIS DÈS LE 1ER JOUR !</strong></p>
+      </div>
+      <h2>Investissement</h2>
+      <table>
+        <tr><td>Coût total TTC</td><td style="text-align:right;"><strong>54 005€</strong></td></tr>
+        <tr><td>Aides totales (83,3%)</td><td style="text-align:right;"><strong>-44 980€</strong></td></tr>
+        <tr style="background:#e0f7f5;font-weight:bold;"><td>Reste à charge</td><td style="text-align:right;"><strong>9 025€</strong></td></tr>
+      </table>
+    </div>
+    <div class="page-break" style="padding:40px;">
+      <h1>Diagnostic actuel détaillé</h1>
+      <h2>Caractéristiques du bâtiment</h2>
+      <ul>
+        <li>Type : Maison individuelle R+1</li>
+        <li>Surface habitable : 85 m²</li>
+        <li>Année de construction : 1975 (avant RT)</li>
+        <li>Zone climatique : H2a - Ouest (Loire)</li>
+      </ul>
+      <h2>Enveloppe thermique - État actuel</h2>
+      <table>
+        <thead><tr><th>Élément</th><th>Surface</th><th>État</th><th>Performance</th><th>Déperdition</th></tr></thead>
+        <tbody>
+          <tr><td>Combles perdus</td><td>45 m²</td><td>NON ISOLÉS</td><td>R=0</td><td><strong>30%</strong></td></tr>
+          <tr><td>Murs extérieurs</td><td>105 m²</td><td>NON ISOLÉS</td><td>R=0,5</td><td><strong>25%</strong></td></tr>
+          <tr><td>Plancher bas</td><td>45 m²</td><td>NON ISOLÉ</td><td>R=0</td><td><strong>10%</strong></td></tr>
+          <tr><td>Fenêtres</td><td>6 unités</td><td>Simple vitrage</td><td>Uw=5,0</td><td><strong>15%</strong></td></tr>
+          <tr><td>Ventilation</td><td>-</td><td>ABSENTE</td><td>-</td><td><strong>20%</strong></td></tr>
+        </tbody>
+      </table>
+      <h2>Systèmes énergétiques actuels</h2>
+      <ul>
+        <li><strong>Chauffage :</strong> Chaudière FIOUL (&gt;20 ans) - Rendement 70% (vétuste) - Consommation : 2 000L/an - Coût : <strong>~2 500€/an</strong></li>
+        <li><strong>Eau chaude :</strong> Ballon électrique 200L - COP 1,0 (100% électrique) - Coût : ~500€/an</li>
+        <li><strong>Ventilation :</strong> Aucune (naturelle non contrôlée)</li>
+      </ul>
+      <p style="background:#ffe0e0;padding:15px;border-left:4px solid #ff0000;"><strong>⚠️ TOTAL FACTURE ACTUELLE : ~3 000€/an</strong></p>
+    </div>
+    <div class="page-break" style="padding:40px;">
+      <h1>Travaux recommandés - Scénario OPTIMAL</h1>
+      <table>
+        <thead><tr><th>N°</th><th>Travaux</th><th>Détail technique</th><th style="text-align:right;">Prix HT</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Isolation combles perdus</td><td>45m² - Laine roche soufflée 300mm - R=7,0</td><td style="text-align:right;">2 500€</td></tr>
+          <tr><td>2</td><td>ITE polystyrène 140mm</td><td>105m² - PSE R=3,7 + enduit - HB Facadier RGE E-E 109538</td><td style="text-align:right;">15 750€</td></tr>
+          <tr><td>3</td><td>Isolation sous-sol plafond</td><td>45m² - Laine roche 160mm - R=4,0</td><td style="text-align:right;">2 300€</td></tr>
+          <tr><td>4</td><td>6 Fenêtres PVC double vitrage</td><td>Uw=1,3 W/m².K - Gaz argon</td><td style="text-align:right;">6 000€</td></tr>
+          <tr><td>5</td><td>VMC simple flux hygroréglable</td><td>Débit adapté 85m² + gaines isolées</td><td style="text-align:right;">1 500€</td></tr>
+          <tr><td>6</td><td>Désembouage circuit chauffage</td><td>OBLIGATOIRE avant PAC - Radiateurs fonte</td><td style="text-align:right;">800€</td></tr>
+          <tr><td>7</td><td>PAC Air/Eau haute température</td><td>7 kW - COP 4,5 - Sortie 65°C - Atlantic Alfea ou Daikin Altherma HT</td><td style="text-align:right;">12 000€</td></tr>
+          <tr><td>8</td><td>Ballon thermodynamique 200L</td><td>COP 3,5 - Garantie 5 ans cuve</td><td style="text-align:right;">2 200€</td></tr>
+          <tr><td>9</td><td>Dépose chaudière fioul + cuve</td><td>Vidange cuve 1000L + neutralisation + certificat</td><td style="text-align:right;">800€</td></tr>
+          <tr><td>10</td><td>Coordination & Main d'œuvre MAR</td><td>Suivi hebdo + gestion dossiers aides</td><td style="text-align:right;">7 355€</td></tr>
+          <tr style="background:#e0f7f5;font-weight:bold;"><td colspan="3">TOTAL HT</td><td style="text-align:right;">51 205€</td></tr>
+          <tr><td colspan="3">TVA 5,5%</td><td style="text-align:right;">2 800€</td></tr>
+          <tr style="background:#14B8A6;color:white;font-weight:bold;font-size:16px;"><td colspan="3">TOTAL TTC</td><td style="text-align:right;">54 005€</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="page-break" style="padding:40px;">
+      <h1>Aides financières 2026</h1>
+      <p><strong>Votre profil :</strong> BLEU (Très Modestes) - RFR 10 881€ &nbsp; <strong>Taux de prise en charge :</strong> 80% + 10% bonus</p>
+      <h2>Aides obtenues</h2>
+      <table>
+        <thead><tr><th>Aide</th><th>Détail</th><th style="text-align:right;">Montant</th></tr></thead>
+        <tbody>
+          <tr><td>MaPrimeRénov' Parcours Accompagné</td><td>80%</td><td style="text-align:right;"><strong>32 000€</strong></td></tr>
+          <tr><td>Bonus sortie passoire énergétique</td><td>10%</td><td style="text-align:right;"><strong>4 000€</strong></td></tr>
+          <tr><td colspan="3" style="background:#f5f5f5;padding:8px;"><strong>CEE Précarité :</strong> Combles 900€ | ITE 3 150€ | Sous-sol 900€ | Fenêtres 480€ | PAC 1 500€ | Ballon 300€ | VMC 250€ = 7 480€</td></tr>
+          <tr><td>Aide Région Auvergne-Rhône-Alpes</td><td>Rénovation globale</td><td style="text-align:right;"><strong>1 500€</strong></td></tr>
+          <tr style="background:#14B8A6;color:white;font-weight:bold;font-size:16px;"><td colspan="2">TOTAL AIDES</td><td style="text-align:right;">44 980€</td></tr>
+        </tbody>
+      </table>
+      <table style="margin-top:20px;"><tr><td>Coût total TTC</td><td style="text-align:right;">54 005€</td></tr><tr><td>Aides totales</td><td style="text-align:right;">-44 980€</td></tr><tr style="background:#14B8A6;color:white;font-weight:bold;font-size:18px;"><td>RESTE À CHARGE</td><td style="text-align:right;">9 025€</td></tr></table>
+      <p style="text-align:center;margin-top:20px;font-size:18px;"><strong>Taux de prise en charge : 83,3%</strong></p>
+    </div>
+    <div class="page-break" style="padding:40px;">
+      <h1>Financement courtier en travaux</h1>
+      <div class="encadre">
+        <h2 style="margin-top:0;">🏦 VOTRE COURTIER PARTENAIRE</h2>
+        <p><strong>Fabien [Nom complet]</strong> - [Nom société courtage] - [Adresse] - Tél : [Numéro] | Email : [Email]</p>
+        <p><strong>Spécialiste financement rénovation énergétique</strong> - Agréé ORIAS | Partenaire 15 banques | Financement jusqu'à 75 000€</p>
+      </div>
+      <h2>💳 VOTRE FINANCEMENT PERSONNALISÉ</h2>
+      <table>
+        <tr><td>Montant financé</td><td style="text-align:right;"><strong>9 025€</strong></td></tr>
+        <tr><td>Durée</td><td style="text-align:right;">10 ans (120 mensualités)</td></tr>
+        <tr><td>Taux négocié</td><td style="text-align:right;"><strong>4%</strong> (meilleur marché)</td></tr>
+        <tr style="background:#e0f7f5;font-weight:bold;"><td>Mensualité</td><td style="text-align:right;"><strong>119€/mois</strong></td></tr>
+      </table>
+      <h2>✅ AVANTAGES</h2>
+      <p>✓ 0€ D'APPORT - ✓ Acceptation 48-72h - ✓ Taux 4% (économise 1 920€ sur 10 ans) - ✓ Déblocage progressif 30%/40%/30%</p>
+      <div style="background:#d4edda;border:2px solid #28a745;padding:20px;margin-top:20px;">
+        <h3 style="margin-top:0;color:#28a745;">💡 COÛT NET RÉEL : -39€/MOIS</h3>
+        <p>Économies fioul : 158€/mois &nbsp; Mensualité : 119€/mois &nbsp; <strong style="font-size:18px;">COÛT NET : -39€/MOIS</strong></p>
+        <p><strong>✅ VOUS GAGNEZ 39€/MOIS DÈS LE 1ER JOUR !</strong></p>
+      </div>
+    </div>
+    <div class="page-break" style="padding:40px;">
+      <h1>Résultats attendus</h1>
+      <h2>Performance énergétique</h2>
+      <table>
+        <thead><tr><th>Indicateur</th><th>Avant</th><th>Après</th><th>Gain</th></tr></thead>
+        <tbody>
+          <tr><td>DPE</td><td>F</td><td>C</td><td><strong>+3 classes</strong></td></tr>
+          <tr><td>Consommation</td><td>280 kWh/m²/an</td><td>90 kWh/m²/an</td><td><strong>-68%</strong></td></tr>
+          <tr><td>Facture annuelle</td><td>3 000€</td><td>600€</td><td><strong>-2 400€/an</strong></td></tr>
+          <tr><td>Émissions CO₂</td><td>5 t/an</td><td>1 t/an</td><td><strong>-80%</strong></td></tr>
+        </tbody>
+      </table>
+      <h2>Rentabilité sur 20 ans</h2>
+      <ul><li>Investissement réel : <strong>9 025€</strong></li><li>Économies cumulées : <strong>38 000€</strong></li><li>Plus-value : <strong>+35 000€</strong></li><li style="background:#d4edda;padding:10px;"><strong>GAIN NET TOTAL : +63 975€</strong></li></ul>
+      <p style="text-align:center;font-size:20px;background:#14B8A6;color:white;padding:15px;"><strong>ROI : 4,6 ans</strong></p>
+    </div>
+    <div class="page-break" style="padding:40px;">
+      <h1>Planning des travaux</h1>
+      <p><strong>DURÉE TOTALE : 8-10 semaines (Mars à Juin 2026)</strong></p>
+      <h2>PHASE 1 : ADMINISTRATIVE (4-6 semaines)</h2>
+      <ul><li>Semaines 1-2 : Dossier MAR (léo-energy)</li><li>Semaines 3-4 : Validation MaPrimeRénov' ANAH</li><li>Semaines 5-6 : Financement courtier Fabien (48-72h)</li></ul>
+      <h2>PHASE 2 : ISOLATION</h2>
+      <ul><li>Semaine 7 : Isolation combles perdus 45m²</li><li>Semaines 8-11 : ITE 105m² (HB Facadier)</li><li>Semaine 10 : Fenêtres (pendant ITE)</li><li>Semaine 11 : Isolation sous-sol</li></ul>
+      <h2>PHASE 3-4-5 : VMC + CHAUFFAGE + RÉCEPTION</h2>
+      <ul><li>Semaine 12 : VMC hygroréglable</li><li>Semaine 13 : Désembouage (OBLIGATOIRE avant PAC)</li><li>Semaine 14 : PAC + Ballon thermodynamique + Dépose fioul</li><li>Semaine 15 : Réception finale</li></ul>
+      <div class="encadre"><p><strong>Points clés :</strong> Coordination ENERGIA | Déblocage progressif 30%/40%/30% | Garanties décennale</p></div>
+    </div>
+    <div class="page-break" style="padding:40px;">
+      <h1>Préconisations techniques</h1>
+      <h2>ORDRE D'EXÉCUTION IMPÉRATIF</h2>
+      <p><strong>1️⃣ ISOLATION D'ABORD</strong> - Réduire besoins AVANT PAC. Résultat : PAC moins chère + meilleure performance.</p>
+      <p><strong>2️⃣ FENÊTRES PENDANT ITE</strong> - Profiter échafaudage. Économie 500-800€.</p>
+      <p><strong>3️⃣ VMC APRÈS ISOLATION</strong> - Obligatoire (éviter condensation). Conformité + Qualité air.</p>
+      <p><strong>4️⃣ DÉSEMBOUAGE AVANT PAC</strong> - Radiateurs fonte = circuit encrassé. Garantie fabricant obligatoire.</p>
+      <p><strong>5️⃣ PAC EN DERNIER</strong> - Dimensionnement optimal. Performance maximale.</p>
+      <h2>POINTS DE VIGILANCE</h2>
+      <p><strong>⚠️ DÉPOSE CUVE FIOUL (800€)</strong> - Vidange obligatoire (entreprise agréée) | Certificat dégazage | Déclaration mairie si dépose.</p>
+      <p><strong>⚠️ PAC HAUTE TEMPÉRATURE (12 000€)</strong> - Sortie 65°C pour fonte | Désembouage IMPÉRATIF | COP 4,5 | Atlantic/Daikin HT.</p>
+      <p><strong>⚠️ VMC HYGRORÉGLABLE (1 500€)</strong> - Obligatoire zone Loire (humidité océanique élevée). Évite condensation post-isolation.</p>
+      <p><strong>⚠️ ITE</strong> - HB Facadier RGE E-E 109538 | Échafaudage OFFERT | Devis n°24001324.</p>
+    </div>
+  </div>
 
   <script type="module">
     import * as THREE from 'three';
