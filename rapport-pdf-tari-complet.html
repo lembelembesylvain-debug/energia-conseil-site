@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapport PDF - Mme TARI Martine | ENERGIA CONSEIL</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f766e 0%,#0d9488 50%,#14b8a6 100%);padding:2rem}
+    h1{color:white;font-size:1.8rem;margin-bottom:2rem;text-align:center}
+    .btn-download{padding:1.2rem 2.5rem;font-size:1.25rem;font-weight:700;background:#14b8a6;color:white;border:none;border-radius:0.75rem;cursor:pointer;box-shadow:0 4px 20px rgba(20,184,166,0.5);transition:all 0.2s;font-family:inherit}
+    .btn-download:hover{background:#0d9488;transform:translateY(-2px);box-shadow:0 6px 25px rgba(20,184,166,0.6)}
+    .btn-download:active{transform:translateY(0)}
+  </style>
+</head>
+<body>
+  <h1>Rapport PDF - Mme TARI Martine</h1>
+  <button class="btn-download" id="btn-pdf">📄 Télécharger Rapport PDF Complet (12 pages)</button>
+
+  <script>
+    document.getElementById('btn-pdf').addEventListener('click', function() {
+      const btn = this;
+      btn.disabled = true;
+      btn.textContent = '⏳ Génération en cours...';
+      setTimeout(() => {
+        generarPDF();
+        btn.disabled = false;
+        btn.textContent = '📄 Télécharger Rapport PDF Complet (12 pages)';
+      }, 100);
+    });
+
+    function hexToRgb(hex) {
+      return [
+        parseInt(hex.slice(1,3), 16),
+        parseInt(hex.slice(3,5), 16),
+        parseInt(hex.slice(5,7), 16)
+      ];
+    }
+
+    const C = {
+      turquoise: hexToRgb('#14B8A6'),
+      turquoiseClair: hexToRgb('#E0F7F5'),
+      noir: hexToRgb('#1F2937'),
+      gris: hexToRgb('#6B7280')
+    };
+
+    function addHeader(doc, pageNum) {
+      doc.setFontSize(9);
+      doc.setTextColor(...C.gris);
+      doc.text('ENERGIA CONSEIL', 20, 15);
+      doc.text('Mme TARI Martine - Boën-sur-Lignon', 20, 20);
+      doc.text('Page ' + pageNum + '/12', doc.internal.pageSize.width - 40, 15);
+      doc.text('ENERGIA CONSEIL - 2026', doc.internal.pageSize.width - 40, 20);
+      doc.setTextColor(...C.noir);
+      doc.setDrawColor(20, 184, 166);
+      doc.setLineWidth(0.3);
+      doc.line(20, 25, doc.internal.pageSize.width - 20, 25);
+    }
+
+    function generarPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF('p', 'mm', 'a4');
+      const marge = 20;
+      let y = 35;
+
+      function nl(h = 6) { y += h; }
+
+      // ========== PAGE 1 - COUVERTURE ==========
+      doc.setFillColor(...C.turquoiseClair);
+      doc.rect(0, 0, 210, 297, 'F');
+      doc.setFillColor(...C.turquoise);
+      doc.roundedRect(75, 40, 60, 25, 3, 3, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(14);
+      doc.setFont(undefined, 'bold');
+      doc.text('ENERGIA CONSEIL', 105, 55, { align: 'center' });
+      doc.setTextColor(...C.noir);
+      doc.setFontSize(24);
+      doc.setFont(undefined, 'bold');
+      doc.text('AUDIT ÉNERGÉTIQUE IA', 105, 95, { align: 'center' });
+      doc.text('RAPPORT COMPLET', 105, 108, { align: 'center' });
+      doc.setFontSize(14);
+      doc.setFont(undefined, 'normal');
+      doc.text('Mme TARI Martine Marie', 105, 130, { align: 'center' });
+      doc.text('30 Boulevard Pasteur', 105, 140, { align: 'center' });
+      doc.text('42130 BOËN-SUR-LIGNON', 105, 150, { align: 'center' });
+      doc.setFontSize(11);
+      doc.text('Date : 22 février 2026', 105, 170, { align: 'center' });
+      doc.setDrawColor(20, 184, 166);
+      doc.setLineWidth(1);
+      doc.setFillColor(...C.turquoiseClair);
+      doc.roundedRect(20, 200, 170, 65, 2, 2, 'FD');
+      doc.setFontSize(10);
+      doc.setFont(undefined, 'bold');
+      doc.text('💳 FINANCEMENT FACILITÉ - 0€ D\'APPORT', 105, 218, { align: 'center' });
+      doc.setFont(undefined, 'normal');
+      doc.text('✅ Acceptation rapide : 48-72h', 30, 232);
+      doc.text('✅ Meilleur taux : 4% (négocié par notre courtier)', 30, 240);
+      doc.text('✅ Mensualité : 119€/mois', 30, 248);
+      doc.text('✅ Coût net : -39€/mois (vous gagnez de l\'argent !)', 30, 256);
+      doc.text('Courtier partenaire : Fabien [Nom]', 105, 262, { align: 'center' });
+      doc.addPage();
+
+      // ========== PAGE 2 - SYNTHÈSE EXÉCUTIVE ==========
+      addHeader(doc, 2);
+      y = 35;
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      doc.text('Synthèse exécutive', marge, y);
+      nl(12);
+      doc.setFontSize(11);
+      doc.setFont(undefined, 'bold');
+      doc.text('Situation actuelle :', marge, y);
+      nl(6);
+      doc.setFont(undefined, 'normal');
+      doc.text('• DPE : F (passoire thermique)', marge, y);
+      nl(5); doc.text('• Consommation : 280 kWh/m²/an', marge, y);
+      nl(5); doc.text('• Facture fioul annuelle : ~2 500€', marge, y);
+      nl(5); doc.text('• Facture électricité (eau chaude) : ~500€', marge, y);
+      nl(5); doc.text('• TOTAL : ~3 000€/an', marge, y);
+      nl(5); doc.text('• Émissions CO₂ : ~5 tonnes/an', marge, y);
+      nl(12);
+      doc.setFont(undefined, 'bold');
+      doc.text('Recommandation - Scénario OPTIMAL :', marge, y);
+      nl(6);
+      doc.setFont(undefined, 'normal');
+      doc.text('• DPE visé : C (+3 classes)', marge, y);
+      nl(5); doc.text('• Rénovation globale performante', marge, y);
+      nl(5); doc.text('• Économies : 1 900€/an', marge, y);
+      nl(5); doc.text('• ROI : 4,6 ans', marge, y);
+      nl(12);
+      doc.setFillColor(...C.turquoiseClair);
+      doc.roundedRect(marge, y, 170, 55, 2, 2, 'F');
+      doc.setFont(undefined, 'bold');
+      doc.text('💳 FINANCEMENT COURTIER - 0€ D\'APPORT', marge + 5, y + 10);
+      doc.setFont(undefined, 'normal');
+      doc.text('Notre partenaire courtier Fabien finance l\'intégralité du reste à charge.', marge + 5, y + 20);
+      nl(25);
+      doc.text('✅ Montant financé : 9 025€', marge + 5, y + 10);
+      doc.text('✅ Mensualité : 119€/mois sur 10 ans', marge + 5, y + 18);
+      doc.text('✅ Taux : 4% (meilleur marché)', marge + 5, y + 26);
+      doc.text('✅ Acceptation : 48-72h', marge + 5, y + 34);
+      nl(45);
+      doc.setFont(undefined, 'bold');
+      doc.text('💡 COÛT NET : -39€/mois', marge, y);
+      nl(6);
+      doc.setFont(undefined, 'normal');
+      doc.text('Vos économies (158€/mois) DÉPASSENT la mensualité (119€/mois).', marge, y);
+      nl(6);
+      doc.text('Résultat : VOUS GAGNEZ 39€/MOIS DÈS LE 1ER JOUR !', marge, y);
+      doc.addPage();
+
+      // ========== PAGE 3 - DIAGNOSTIC ACTUEL ==========
+      addHeader(doc, 3);
+      y = 35;
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      doc.text('Diagnostic actuel détaillé', marge, y);
+      nl(12);
+      doc.setFontSize(11);
+      doc.setFont(undefined, 'bold');
+      doc.text('Caractéristiques du bâtiment :', marge, y);
+      nl(6);
+      doc.setFont(undefined, 'normal');
+      const diagBat = ['• Type : Maison individuelle R+1', '• Surface habitable : 85 m²', '• Année de construction : 1975 (avant RT)', '• Nombre de niveaux : Rez-de-chaussée + 1 étage'];
+      diagBat.forEach(t => { doc.text(t, marge, y); nl(6); });
+      nl(6);
+      doc.setFont(undefined, 'bold');
+      doc.text('Enveloppe thermique - État actuel :', marge, y);
+      nl(8);
+      doc.setFont(undefined, 'normal');
+      const enveloppe = [
+        '1. Combles perdus (45m²) - ⚠️ NON ISOLÉS - R=0 - 30% des déperditions',
+        '2. Murs extérieurs (105m²) - ⚠️ NON ISOLÉS (parpaing nu) - R=0,5 - 25% des déperditions',
+        '3. Plancher bas (45m²) - ⚠️ NON ISOLÉ (sur sous-sol) - R=0 - 10% des déperditions',
+        '4. Fenêtres (6 unités) - ⚠️ Simple vitrage bois ancien - Uw=5,0 - 15% des déperditions',
+        '5. Ventilation - ⚠️ ABSENTE (ventilation naturelle) - 20% des déperditions'
+      ];
+      enveloppe.forEach(t => { doc.text(t, marge, y, { maxWidth: 170 }); nl(8); });
+      nl(6);
+      doc.setFont(undefined, 'bold');
+      doc.text('Systèmes énergétiques actuels :', marge, y);
+      nl(8);
+      doc.setFont(undefined, 'normal');
+      doc.text('• Chauffage : Chaudière FIOUL (>20 ans) - Rendement 70% (vétuste)', marge, y);
+      nl(5); doc.text('  Consommation : 2 000L/an - Coût : ~2 500€/an', marge, y);
+      nl(8);
+      doc.text('• Eau chaude : Ballon électrique 200L (>10 ans) - COP 1,0', marge, y);
+      nl(5); doc.text('  Coût : ~500€/an', marge, y);
+      nl(8);
+      doc.text('• Ventilation : Aucune (non contrôlée)', marge, y);
+      nl(10);
+      doc.setFont(undefined, 'bold');
+      doc.text('TOTAL FACTURE ACTUELLE : ~3 000€/an', marge, y);
+      doc.addPage();
+
+      // ========== PAGE 4 - TRAVAUX RECOMMANDÉS ==========
+      addHeader(doc, 4);
+      y = 35;
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      doc.text('Travaux recommandés (Scénario OPTIMAL)', marge, y);
+      nl(10);
+      doc.autoTable({
+        startY: y,
+        head: [['N°', 'TRAVAUX', 'DÉTAIL', 'PRIX HT']],
+        body: [
+          ['1', 'Isolation combles perdus 45m²', 'Laine roche 300mm R=7', '2 500€'],
+          ['2', 'ITE polystyrène 140mm 105m²', 'PSE R=3.7 + enduit taloché', '15 750€'],
+          ['3', 'Isolation sous-sol plafond 45m²', 'Laine roche 160mm R=4', '2 300€'],
+          ['4', '6 Fenêtres PVC double vitrage', 'Uw=1.3 - Gaz argon', '6 000€'],
+          ['5', 'VMC simple flux hygroréglable', 'Débit adapté 85m²', '1 500€'],
+          ['6', 'Désembouage circuit chauffage', 'OBLIGATOIRE avant PAC', '800€'],
+          ['7', 'PAC Air/Eau haute température 7kW', 'COP 4.5 - Compatible fonte', '12 000€'],
+          ['8', 'Ballon thermodynamique 200L', 'COP 3.5 - Garantie 5 ans', '2 200€'],
+          ['9', 'Dépose chaudière fioul + cuve', 'Vidange + neutralisation', '800€'],
+          ['10', 'Coordination & Main d\'œuvre MAR', 'Suivi complet + dossiers', '7 355€']
+        ],
+        theme: 'grid',
+        headStyles: { fillColor: [20, 184, 166], textColor: [255, 255, 255] },
+        margin: { left: marge },
+        tableWidth: 170
+      });
+      y = doc.lastAutoTable.finalY + 12;
+      doc.setFont(undefined, 'bold');
+      doc.text('TOTAL HT : 51 205€', marge, y);
+      nl(6); doc.text('TVA 5,5% : 2 800€', marge, y);
+      nl(6); doc.text('TOTAL TTC : 54 005€', marge, y);
+      doc.addPage();
+
+      // ========== PAGE 5 - AIDES FINANCIÈRES ==========
+      addHeader(doc, 5);
+      y = 35;
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      doc.text('Aides financières 2026', marge, y);
+      nl(10);
+      doc.setFontSize(11);
+      doc.text('Votre profil : BLEU (Très Modestes) - RFR 10 881€', marge, y);
+      nl(6); doc.text('Taux de prise en charge : 80% + 10% bonus', marge, y);
+      nl(12);
+      doc.setFont(undefined, 'bold');
+      doc.text('AIDES OBTENUES :', marge, y);
+      nl(8);
+      doc.setFont(undefined, 'normal');
+      const aides = [
+        '• MaPrimeRénov\' Parcours Accompagné (80%) : 32 000€',
+        '• Bonus sortie passoire énergétique (10%) : 4 000€',
+        '• CEE Précarité énergétique : 7 480€',
+        '  - Combles : 900€ | ITE : 3 150€ | Sous-sol : 900€',
+        '  - Fenêtres : 480€ | PAC : 1 500€ | Ballon : 300€ | VMC : 250€',
+        '• Aide Région Auvergne-Rhône-Alpes : 1 500€'
+      ];
+      aides.forEach(t => { doc.text(t, marge, y, { maxWidth: 170 }); nl(7); });
+      nl(10);
+      doc.setFont(undefined, 'bold');
+      doc.text('TOTAL AIDES : 44 980€', marge, y);
+      nl(8);
+      doc.text('Coût total TTC : 54 005€', marge, y);
+      nl(6); doc.text('Aides totales : -44 980€', marge, y);
+      nl(6); doc.text('RESTE À CHARGE : 9 025€', marge, y);
+      nl(8);
+      doc.text('Taux de prise en charge : 83,3%', marge, y);
+      doc.addPage();
+
+      // ========== PAGE 6 - FINANCEMENT COURTIER ==========
+      addHeader(doc, 6);
+      y = 35;
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      doc.text('Financement courtier en travaux', marge, y);
+      nl(10);
+      doc.setFontSize(11);
+      doc.setFont(undefined, 'bold');
+      doc.text('🏦 VOTRE COURTIER PARTENAIRE', marge, y);
+      nl(8);
+      doc.setFont(undefined, 'normal');
+      doc.text('Fabien [Nom complet]', marge, y);
+      nl(5); doc.text('[Nom société courtage]', marge, y);
+      nl(5); doc.text('[Adresse] | Tél : [Numéro] | Email : [Email]', marge, y);
+      nl(8);
+      doc.text('Spécialiste financement rénovation énergétique', marge, y);
+      nl(5); doc.text('Agréé ORIAS | Partenaire 15 banques nationales | Financement jusqu\'à 75 000€', marge, y);
+      nl(12);
+      doc.setDrawColor(20, 184, 166);
+      doc.setLineWidth(0.5);
+      doc.line(marge, y, 190, y);
+      nl(8);
+      doc.setFont(undefined, 'bold');
+      doc.text('💳 VOTRE FINANCEMENT PERSONNALISÉ', marge, y);
+      nl(10);
+      doc.setFont(undefined, 'normal');
+      doc.text('Montant financé : 9 025€', marge, y);
+      nl(6); doc.text('Durée : 10 ans (120 mensualités)', marge, y);
+      nl(6); doc.text('Taux négocié : 4% (meilleur taux du marché)', marge, y);
+      nl(6); doc.text('Mensualité : 119€/mois', marge, y);
+      nl(6); doc.text('Coût total crédit : 14 280€ | Intérêts : 5 255€', marge, y);
+      nl(12);
+      doc.setFont(undefined, 'bold');
+      doc.text('✅ AVANTAGES COURTIER FABIEN', marge, y);
+      nl(8);
+      doc.setFont(undefined, 'normal');
+      const avantages = [
+        '✓ 0€ D\'APPORT - Le courtier finance 100% du reste à charge (9 025€).',
+        '✓ ACCEPTATION RAPIDE (48-72h) - Réponse bancaire en 2-3 jours ouvrés.',
+        '✓ MEILLEUR TAUX - Taux obtenu : 4% (vs 5-7% sans courtier). Économie : 1 920€ sur 10 ans.',
+        '✓ DÉBLOCAGE PROGRESSIF - 30% à la signature | 40% à mi-parcours | 30% à la réception.',
+        '✓ ACCOMPAGNEMENT GRATUIT - Constitution dossier, négociation, suivi jusqu\'au déblocage.',
+        '✓ TAUX D\'ACCEPTATION : 95%'
+      ];
+      avantages.forEach(t => { doc.text(t, marge, y, { maxWidth: 170 }); nl(8); });
+      nl(8);
+      doc.autoTable({
+        startY: y,
+        head: [['', 'SANS COURTIER', 'AVEC FABIEN']],
+        body: [
+          ['Taux', '5-7%', '4% ✅'],
+          ['Mensualité', '135-150€/mois', '119€/mois ✅'],
+          ['Délai réponse', '2-4 semaines', '48-72h ✅'],
+          ['Montage dossier', 'Vous-même', 'Fabien (gratuit) ✅'],
+          ['Taux acceptation', '60-70%', '95% ✅'],
+          ['Économie/mois', '-', '-16€/mois ✅']
+        ],
+        theme: 'grid',
+        headStyles: { fillColor: [20, 184, 166], textColor: [255, 255, 255] },
+        margin: { left: marge },
+        tableWidth: 170
+      });
+      y = doc.lastAutoTable.finalY + 12;
+      doc.setFont(undefined, 'bold');
+      doc.text('ÉCONOMIE TOTALE SUR 10 ANS : 1 920€', marge, y);
+      nl(12);
+      doc.text('💡 COÛT NET RÉEL : -39€/MOIS', marge, y);
+      nl(8);
+      doc.setFont(undefined, 'normal');
+      doc.text('Facture actuelle : 2 500€/an fioul + 500€/an électricité = 250€/mois', marge, y);
+      nl(6); doc.text('Après travaux : PAC 600€/an + mensualité 119€ = 169€/mois', marge, y);
+      nl(6); doc.text('✅ VOUS GAGNEZ 39€/MOIS DÈS LE 1ER JOUR !', marge, y);
+      doc.addPage();
+
+      // ========== PAGE 7 - RÉSULTATS ATTENDUS ==========
+      addHeader(doc, 7);
+      y = 35;
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      doc.text('Résultats attendus', marge, y);
+      nl(10);
+      doc.setFont(undefined, 'bold');
+      doc.text('PERFORMANCE ÉNERGÉTIQUE', marge, y);
+      nl(8);
+      doc.autoTable({
+        startY: y,
+        head: [['Indicateur', 'Avant', 'Après', 'Gain']],
+        body: [
+          ['DPE', 'F', 'C', '+3 classes'],
+          ['Consommation', '280 kWh/m²/an', '90 kWh/m²/an', '-68%'],
+          ['Facture annuelle', '3 000€', '600€', '-2 400€/an'],
+          ['Émissions CO₂', '5 t/an', '1 t/an', '-80%'],
+          ['Confort hiver', '16-18°C', '20°C constant', 'Excellent'],
+          ['Confort été', '28-30°C', 'Frais naturel', 'Excellent']
+        ],
+        theme: 'grid',
+        headStyles: { fillColor: [20, 184, 166], textColor: [255, 255, 255] },
+        margin: { left: marge },
+        tableWidth: 170
+      });
+      y = doc.lastAutoTable.finalY + 14;
+      doc.setFont(undefined, 'bold');
+      doc.text('RENTABILITÉ SUR 20 ANS', marge, y);
+      nl(10);
+      doc.setFont(undefined, 'normal');
+      doc.text('• Investissement réel : 9 025€', marge, y);
+      nl(6); doc.text('• Économies cumulées : 38 000€ (1 900€ × 20 ans)', marge, y);
+      nl(6); doc.text('• Plus-value immobilière : +35 000€ (DPE C + ITE)', marge, y);
+      nl(6); doc.text('• GAIN NET TOTAL : +63 975€', marge, y);
+      nl(10);
+      doc.text('ROI (Retour sur investissement) : 4,6 ans', marge, y);
+      doc.addPage();
+
+      // ========== PAGE 8 - PLANNING ==========
+      addHeader(doc, 8);
+      y = 35;
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      doc.text('Planning des travaux', marge, y);
+      nl(8);
+      doc.setFont(undefined, 'normal');
+      doc.text('DURÉE TOTALE : 8-10 semaines (Mars à Juin 2026)', marge, y);
+      nl(12);
+      const phases = [
+        'PHASE 1 : ADMINISTRATIVE (4-6 semaines)',
+        '• Semaines 1-2 : Constitution dossier MAR (léo-energy)',
+        '• Semaines 3-4 : Validation MaPrimeRénov\' ANAH',
+        '• Semaines 5-6 : Validation financement courtier Fabien (48-72h) + Commande matériel',
+        'PHASE 2 : ISOLATION (4-5 semaines)',
+        '• Semaine 7 : PRIORITÉ #1 - Isolation combles perdus 45m²',
+        '• Semaines 8-11 : ITE 105m² (HB Facadier) + échafaudage',
+        '• Semaine 10 : Installation 6 fenêtres (pendant ITE)',
+        '• Semaine 11 : Isolation sous-sol plafond 45m²',
+        'PHASE 3 : VENTILATION (3 jours)',
+        '• Semaine 12 : VMC simple flux hygroréglable (APRÈS isolation)',
+        'PHASE 4 : CHAUFFAGE (2 semaines)',
+        '• Semaine 13 : Désembouage circuit (OBLIGATOIRE avant PAC)',
+        '• Semaine 14 : PAC Air/Eau 7kW + Ballon thermodynamique 200L',
+        '• Dernier jour : Dépose chaudière fioul + vidange cuve 1000L',
+        'PHASE 5 : RÉCEPTION (1 jour)',
+        '• Semaine 15 : Réception finale + PV | Formation utilisation PAC/VMC'
+      ];
+      phases.forEach(t => { doc.text(t, marge, y, { maxWidth: 170 }); nl(6); });
+      nl(6);
+      doc.setFont(undefined, 'bold');
+      doc.text('Points clés : Coordination ENERGIA | Déblocage progressif 30%/40%/30% | Garanties décennale', marge, y, { maxWidth: 170 });
+      doc.addPage();
+
+      // ========== PAGE 9 - PRÉCONISATIONS TECHNIQUES ==========
+      addHeader(doc, 9);
+      y = 35;
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      doc.text('Préconisations techniques', marge, y);
+      nl(10);
+      doc.setFont(undefined, 'bold');
+      doc.text('ORDRE D\'EXÉCUTION IMPÉRATIF', marge, y);
+      nl(8);
+      doc.setFont(undefined, 'normal');
+      const preco = [
+        '1️⃣ ISOLATION D\'ABORD - Réduire besoins AVANT PAC. PAC moins puissante = Moins chère.',
+        '2️⃣ FENÊTRES PENDANT ITE - Profiter échafaudage. Économie 500-800€.',
+        '3️⃣ VMC APRÈS ISOLATION - Obligatoire (éviter condensation).',
+        '4️⃣ DÉSEMBOUAGE AVANT PAC - Radiateurs fonte = Circuit encrassé. Garantie fabricant.',
+        '5️⃣ PAC EN DERNIER - Après isolation = Dimensionnement optimal.'
+      ];
+      preco.forEach(t => { doc.text(t, marge, y, { maxWidth: 170 }); nl(8); });
+      nl(8);
+      doc.setFont(undefined, 'bold');
+      doc.text('POINTS DE VIGILANCE', marge, y);
+      nl(8);
+      doc.setFont(undefined, 'normal');
+      doc.text('⚠️ DÉPOSE CUVE FIOUL (800€) - Vidange + neutralisation | Certificat dégazage', marge, y, { maxWidth: 170 });
+      nl(6);
+      doc.text('⚠️ PAC HAUTE TEMPÉRATURE (12 000€) - Sortie 65°C fonte | Désembouage IMPÉRATIF', marge, y, { maxWidth: 170 });
+      nl(6);
+      doc.text('⚠️ VMC HYGRORÉGLABLE (1 500€) - Obligatoire zone Loire (humidité)', marge, y, { maxWidth: 170 });
+      nl(6);
+      doc.text('⚠️ ITE - HB Facadier RGE E-E 109538 | Échafaudage OFFERT | Devis n°24001324', marge, y, { maxWidth: 170 });
+      doc.addPage();
+
+      // ========== PAGE 10 - ARTISANS & GARANTIES ==========
+      addHeader(doc, 10);
+      y = 35;
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      doc.text('Artisans RGE & Garanties', marge, y);
+      nl(10);
+      doc.setFontSize(11);
+      doc.text('ITE Façade : HB Facadier - 22 Av. Benoit Fourneyron, Andrézieux', marge, y);
+      nl(5); doc.text('Tél : 06 21 63 58 93 | RGE E-E 109538 | Décennale MMA', marge, y);
+      nl(5); doc.text('Devis : n°24001324 (16 616€ TTC)', marge, y);
+      nl(10);
+      doc.text('Autres : Isolation/Menuiseries/PAC/VMC - 3 devis RGE comparatifs', marge, y);
+      nl(6); doc.text('Coordination : ENERGIA CONSEIL (Contractant Général Certibat)', marge, y);
+      nl(12);
+      doc.setFont(undefined, 'bold');
+      doc.text('GARANTIES LÉGALES', marge, y);
+      nl(6);
+      doc.setFont(undefined, 'normal');
+      doc.text('✅ Garantie décennale : 10 ans (gros œuvre, isolation)', marge, y);
+      nl(5); doc.text('✅ Garantie biennale : 2 ans (PAC, VMC, Ballon)', marge, y);
+      nl(5); doc.text('✅ Garantie parfait achèvement : 1 an', marge, y);
+      nl(10);
+      doc.setFont(undefined, 'bold');
+      doc.text('GARANTIES CONSTRUCTEUR : PAC 5 ans | Ballon 5 ans | VMC 2 ans | Fenêtres 10 ans', marge, y);
+      doc.addPage();
+
+      // ========== PAGE 11 - PAIEMENT ==========
+      addHeader(doc, 11);
+      y = 35;
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      doc.text('Paiement & Conditions', marge, y);
+      nl(10);
+      doc.setFont(undefined, 'normal');
+      doc.text('PAIEMENT SÉCURISÉ (Déblocage progressif courtier Fabien)', marge, y);
+      nl(8);
+      doc.text('• Acompte 30% : 2 708€ (à la signature)', marge, y);
+      nl(6); doc.text('• Appel 40% : 3 610€ (à mi-parcours travaux)', marge, y);
+      nl(6); doc.text('• Solde 30% : 2 708€ (à la réception finale)', marge, y);
+      nl(8);
+      doc.text('TOTAL : 9 025€ (financé par courtier Fabien)', marge, y);
+      nl(8);
+      doc.text('Les aides MaPrimeRénov\' (44 980€) sont versées directement aux artisans.', marge, y);
+      nl(10);
+      doc.text('VALIDITÉ DEVIS : 30 jours (jusqu\'au 24/03/2026)', marge, y);
+      nl(14);
+      doc.setFillColor(...C.turquoiseClair);
+      doc.roundedRect(marge, y, 170, 55, 2, 2, 'F');
+      doc.setFont(undefined, 'bold');
+      doc.text('🎁 BONUS : ACCOMPAGNEMENT CRÉANCE KAZEO', marge + 5, y + 10);
+      doc.setFont(undefined, 'normal');
+      doc.text('Aide GRATUITE pour déclarer créance auprès du mandataire KAZEO.', marge + 5, y + 20);
+      doc.text('Contact : SAS Deslorieux - 21 Bd République - 71100 Chalon-sur-Saône', marge + 5, y + 28);
+      doc.text('Récupération estimée : 2 000 à 8 000€ | Délai : 6-18 mois', marge + 5, y + 36);
+      doc.addPage();
+
+      // ========== PAGE 12 - CONTACTS ==========
+      addHeader(doc, 12);
+      y = 35;
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      doc.text('Contacts & Prochaines étapes', marge, y);
+      nl(12);
+      doc.setFontSize(11);
+      doc.setFont(undefined, 'bold');
+      doc.text('🏢 ENERGIA CONSEIL (Maître d\'œuvre)', marge, y);
+      nl(6);
+      doc.setFont(undefined, 'normal');
+      doc.text('16 Rue Cuvier, 69006 Lyon', marge, y);
+      nl(5); doc.text('SIRET : 94181942700019 | RCS : 941819427', marge, y);
+      nl(5); doc.text('Contact : Sylvain LEMBELEMBE | Tél : 06 10 59 68 98', marge, y);
+      nl(5); doc.text('Email : contact@energia-conseil.com | www.energia-conseil.com', marge, y);
+      nl(5); doc.text('Certifications : FEEBAT | QUALIPV | Auditeur Énergétique | CERTIBAT', marge, y);
+      nl(12);
+      doc.setFont(undefined, 'bold');
+      doc.text('📜 LÉO-ENERGY (MAR) - Accompagnement ANAH | Payé par l\'État', marge, y);
+      nl(12);
+      doc.text('💳 FABIEN [Nom] (Courtier) - Financement 0€ apport | Taux 4% | 48-72h', marge, y);
+      nl(14);
+      doc.setFont(undefined, 'bold');
+      doc.text('PROCHAINES ÉTAPES', marge, y);
+      nl(8);
+      doc.setFont(undefined, 'normal');
+      const etapes = [
+        '1. Validation du devis',
+        '2. Contact Fabien → Montage dossier financement (48-72h)',
+        '3. Dossier MAR (léo-energy) → Validation terrain',
+        '4. Dépôt MaPrimeRénov\' ANAH (4-6 semaines)',
+        '5. Signature devis artisans RGE',
+        '6. Lancement travaux (Mars 2026)',
+        '7. Suivi hebdomadaire ENERGIA CONSEIL',
+        '8. Réception finale (Juin 2026)'
+      ];
+      etapes.forEach(t => { doc.text(t, marge, y); nl(7); });
+      doc.text('ENERGIA CONSEIL - Audit énergétique - Mme TARI Martine - 2026', 105, 285, { align: 'center' });
+
+      doc.save('Audit_Energetique_TARI_Martine_2026.pdf');
+    }
+  </script>
+</body>
+</html>
