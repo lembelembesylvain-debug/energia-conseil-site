@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dépôt de dossier audit énergétique | Energia-Conseil</title>
+  <meta name="description" content="Déposez votre dossier d'audit énergétique : photos, factures et informations du bien.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    .bg-gradient-hero { background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #10b981 100%); min-height: 100vh; }
+    .card-form { background: rgba(255,255,255,0.98); border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #0f766e; box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.2); }
+    .drop-zone { border: 2px dashed #0d9488; background: rgba(13, 148, 136, 0.05); transition: all 0.2s; }
+    .drop-zone.drag-over { background: rgba(13, 148, 136, 0.15); border-color: #0f766e; }
+    .drop-zone.error { border-color: #dc2626; background: rgba(220, 38, 38, 0.05); }
+    .btn-submit { background: linear-gradient(135deg, #0f766e, #0d9488); color: white; font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; }
+    .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(15, 118, 110, 0.4); }
+    .progress-bar { height: 0.5rem; background: #e5e7eb; border-radius: 9999px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #0f766e, #10b981); transition: width 0.3s ease; }
+    .photo-preview { aspect-ratio: 1; object-fit: cover; border-radius: 0.5rem; }
+  </style>
+</head>
+<body class="bg-gradient-hero p-4 md:p-8 min-h-screen">
+  <div class="max-w-4xl mx-auto">
+    <!-- Config Supabase : créez public/config.upload.js (voir config.upload.example.js) pour surcharger -->
+    <script src="/config.upload.js"></script>
+    <script>
+      window.SUPABASE_CONFIG = window.SUPABASE_CONFIG || { url: 'YOUR_SUPABASE_URL', anonKey: 'YOUR_SUPABASE_ANON_KEY' };
+    </script>
+
+    <div id="app">
+      <!-- En-tête -->
+      <header class="text-center mb-6">
+        <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-sm flex items-center justify-center gap-2 flex-wrap">
+          <span>📁</span> Dépôt de dossier audit
+        </h1>
+        <p class="text-teal-100 mt-2 text-lg">Photos, factures énergétiques et informations de votre bien</p>
+      </header>
+
+      <!-- Formulaire principal -->
+      <form id="form-audit" class="card-form p-6 md:p-8 space-y-8">
+        <!-- Zone photos -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2 flex items-center gap-2">
+            <span>📸</span> Photos du logement
+          </h2>
+          <p class="text-sm text-gray-500 mb-3">JPG, PNG — max 15 photos, 10 Mo par photo</p>
+          <div id="drop-photos" class="drop-zone rounded-xl p-8 text-center cursor-pointer">
+            <input type="file" id="input-photos" multiple accept=".jpg,.jpeg,.png" class="hidden">
+            <p class="text-teal-700 font-medium">Glissez vos photos ici ou cliquez pour sélectionner</p>
+            <p id="photos-count" class="text-sm text-gray-500 mt-1">0 / 15 photos</p>
+          </div>
+          <div id="photos-preview" class="grid grid-cols-3 sm:grid-cols-5 gap-3 mt-4"></div>
+          <p id="photos-error" class="text-red-600 text-sm mt-2 hidden"></p>
+        </section>
+
+        <!-- Zone factures -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2 flex items-center gap-2">
+            <span>⚡</span> Factures énergétiques
+          </h2>
+          <p class="text-sm text-gray-500 mb-3">PDF, JPG, PNG — max 3 fichiers, 5 Mo par fichier</p>
+          <div id="drop-factures" class="drop-zone rounded-xl p-6 text-center cursor-pointer">
+            <input type="file" id="input-factures" multiple accept=".pdf,.jpg,.jpeg,.png" class="hidden">
+            <p class="text-teal-700 font-medium">Glissez vos factures ici ou cliquez</p>
+            <p id="factures-count" class="text-sm text-gray-500 mt-1">0 / 3 fichiers</p>
+          </div>
+          <ul id="factures-list" class="mt-3 space-y-2"></ul>
+          <p id="factures-error" class="text-red-600 text-sm mt-2 hidden"></p>
+        </section>
+
+        <!-- Formulaire complémentaire -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+            <span>📋</span> Vos informations
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="nom" class="block text-sm font-medium text-gray-700 mb-1">Nom *</label>
+              <input type="text" id="nom" name="nom" required
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600">
+            </div>
+            <div>
+              <label for="prenom" class="block text-sm font-medium text-gray-700 mb-1">Prénom *</label>
+              <input type="text" id="prenom" name="prenom" required
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600">
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+              <input type="email" id="email" name="email" required
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600">
+            </div>
+            <div>
+              <label for="telephone" class="block text-sm font-medium text-gray-700 mb-1">Téléphone *</label>
+              <input type="tel" id="telephone" name="telephone" required
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600">
+            </div>
+            <div class="md:col-span-2">
+              <label for="adresse" class="block text-sm font-medium text-gray-700 mb-1">Adresse du bien *</label>
+              <input type="text" id="adresse" name="adresse" required
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600">
+            </div>
+            <div>
+              <label for="type_logement" class="block text-sm font-medium text-gray-700 mb-1">Type de logement *</label>
+              <select id="type_logement" name="type_logement" required
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600">
+                <option value="maison">Maison</option>
+                <option value="appartement">Appartement</option>
+              </select>
+            </div>
+            <div>
+              <label for="surface" class="block text-sm font-medium text-gray-700 mb-1">Surface habitable (m²) *</label>
+              <input type="number" id="surface" name="surface" min="10" max="1000" required
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600">
+            </div>
+            <div>
+              <label for="annee_construction" class="block text-sm font-medium text-gray-700 mb-1">Année construction</label>
+              <input type="number" id="annee_construction" name="annee_construction" min="1800" max="2030" placeholder="Ex: 1985"
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600">
+            </div>
+            <div>
+              <label for="type_chauffage" class="block text-sm font-medium text-gray-700 mb-1">Type chauffage actuel</label>
+              <select id="type_chauffage" name="type_chauffage"
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600">
+                <option value="">— Non renseigné —</option>
+                <option value="gaz">Gaz</option>
+                <option value="electrique">Électrique</option>
+                <option value="fioul">Fioul</option>
+                <option value="bois">Bois / Granulés</option>
+                <option value="pompe_chaleur">Pompe à chaleur</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+            <div>
+              <label for="dpe_actuel" class="block text-sm font-medium text-gray-700 mb-1">DPE actuel (si connu)</label>
+              <select id="dpe_actuel" name="dpe_actuel"
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-teal-600">
+                <option value="">— Non connu —</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- Barre de progression (masquée par défaut) -->
+        <div id="upload-progress" class="hidden">
+          <p id="progress-text" class="text-sm text-gray-600 mb-2">Upload en cours...</p>
+          <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Message erreur global -->
+        <div id="global-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg text-red-700"></div>
+
+        <!-- Bouton submit -->
+        <div class="pt-4">
+          <button type="submit" id="btn-submit" class="w-full md:w-auto px-8 py-3 rounded-lg btn-submit text-lg">
+            📤 Envoyer mon dossier
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Page confirmation (masquée par défaut) -->
+    <div id="confirmation" class="card-form p-8 text-center hidden">
+      <div class="text-6xl mb-4">✅</div>
+      <h2 class="text-2xl font-bold text-teal-800 mb-2">Dossier envoyé avec succès !</h2>
+      <p class="text-gray-600 mb-4">Votre dossier d'audit a bien été enregistré.</p>
+      <p class="text-sm text-gray-500 mb-6">Référence : <strong id="audit-id-display" class="text-teal-700"></strong></p>
+      <p class="text-sm text-gray-600">Nous vous contacterons dans les plus brefs délais.</p>
+      <a href="/" class="inline-block mt-6 px-6 py-2 rounded-lg bg-teal-600 text-white font-medium hover:bg-teal-700 transition-colors">
+        Retour à l'accueil
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const PHOTOS_MAX = 15;
+    const PHOTOS_MAX_SIZE = 10 * 1024 * 1024; // 10 Mo
+    const FACTURES_MAX = 3;
+    const FACTURES_MAX_SIZE = 5 * 1024 * 1024; // 5 Mo
+    const PHOTO_EXT = ['image/jpeg', 'image/jpg', 'image/png'];
+    const FACTURE_EXT = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+
+    let photos = [];
+    let factures = [];
+
+    const dropPhotos = document.getElementById('drop-photos');
+    const inputPhotos = document.getElementById('input-photos');
+    const photosPreview = document.getElementById('photos-preview');
+    const photosCount = document.getElementById('photos-count');
+    const photosError = document.getElementById('photos-error');
+
+    const dropFactures = document.getElementById('drop-factures');
+    const inputFactures = document.getElementById('input-factures');
+    const facturesList = document.getElementById('factures-list');
+    const facturesCount = document.getElementById('factures-count');
+    const facturesError = document.getElementById('factures-error');
+
+    // Drag & drop photos
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev => {
+      dropPhotos.addEventListener(ev, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
+    ['dragenter', 'dragover'].forEach(ev => {
+      dropPhotos.addEventListener(ev, () => dropPhotos.classList.add('drag-over'));
+    });
+    ['dragleave', 'drop'].forEach(ev => {
+      dropPhotos.addEventListener(ev, () => dropPhotos.classList.remove('drag-over'));
+    });
+    dropPhotos.addEventListener('drop', (e) => {
+      addPhotos(Array.from(e.dataTransfer.files));
+    });
+    dropPhotos.addEventListener('click', () => inputPhotos.click());
+    inputPhotos.addEventListener('change', (e) => addPhotos(Array.from(e.target.files)));
+
+    function addPhotos(files) {
+      photosError.classList.add('hidden');
+      dropPhotos.classList.remove('error');
+      const remaining = PHOTOS_MAX - photos.length;
+      const toAdd = files.filter(f => PHOTO_EXT.includes(f.type)).slice(0, remaining);
+      const oversized = toAdd.filter(f => f.size > PHOTOS_MAX_SIZE);
+      if (oversized.length) {
+        photosError.textContent = `${oversized.length} fichier(s) dépassent 10 Mo.`;
+        photosError.classList.remove('hidden');
+        dropPhotos.classList.add('error');
+      }
+      const valid = toAdd.filter(f => f.size <= PHOTOS_MAX_SIZE);
+      photos = [...photos, ...valid].slice(0, PHOTOS_MAX);
+      renderPhotos();
+    }
+
+    function removePhoto(i) {
+      photos.splice(i, 1);
+      renderPhotos();
+    }
+
+    function renderPhotos() {
+      photosCount.textContent = `${photos.length} / ${PHOTOS_MAX} photos`;
+      photosPreview.innerHTML = photos.map((f, i) => `
+        <div class="relative group">
+          <img src="${URL.createObjectURL(f)}" alt="" class="photo-preview w-full">
+          <button type="button" onclick="removePhoto(${i})" class="absolute top-1 right-1 w-6 h-6 rounded-full bg-red-500 text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity">×</button>
+        </div>
+      `).join('');
+    }
+
+    // Drag & drop factures
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev => {
+      dropFactures.addEventListener(ev, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
+    ['dragenter', 'dragover'].forEach(ev => {
+      dropFactures.addEventListener(ev, () => dropFactures.classList.add('drag-over'));
+    });
+    ['dragleave', 'drop'].forEach(ev => {
+      dropFactures.addEventListener(ev, () => dropFactures.classList.remove('drag-over'));
+    });
+    dropFactures.addEventListener('click', () => inputFactures.click());
+    inputFactures.addEventListener('change', (e) => addFactures(Array.from(e.target.files)));
+
+    dropFactures.addEventListener('drop', (e) => addFactures(Array.from(e.dataTransfer.files)));
+
+    function addFactures(files) {
+      facturesError.classList.add('hidden');
+      dropFactures.classList.remove('error');
+      const remaining = FACTURES_MAX - factures.length;
+      const toAdd = files.filter(f => {
+        const ok = FACTURE_EXT.includes(f.type) || f.name.toLowerCase().match(/\.(pdf|jpg|jpeg|png)$/);
+        return ok;
+      }).slice(0, remaining);
+      const oversized = toAdd.filter(f => f.size > FACTURES_MAX_SIZE);
+      if (oversized.length) {
+        facturesError.textContent = `${oversized.length} fichier(s) dépassent 5 Mo.`;
+        facturesError.classList.remove('hidden');
+        dropFactures.classList.add('error');
+      }
+      const valid = toAdd.filter(f => f.size <= FACTURES_MAX_SIZE);
+      factures = [...factures, ...valid].slice(0, FACTURES_MAX);
+      renderFactures();
+    }
+
+    function removeFacture(i) {
+      factures.splice(i, 1);
+      renderFactures();
+    }
+
+    function renderFactures() {
+      facturesCount.textContent = `${factures.length} / ${FACTURES_MAX} fichiers`;
+      facturesList.innerHTML = factures.map((f, i) => `
+        <li class="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
+          <span class="text-sm text-gray-700 truncate">${f.name}</span>
+          <button type="button" onclick="removeFacture(${i})" class="text-red-600 hover:text-red-700 text-sm ml-2">Supprimer</button>
+        </li>
+      `).join('');
+    }
+
+    function generateAuditId() {
+      return 'AUD-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+    }
+
+    function validate() {
+      const err = [];
+      if (photos.length === 0) err.push('Ajoutez au moins une photo.');
+      photos.forEach((f, i) => {
+        if (f.size > PHOTOS_MAX_SIZE) err.push(`Photo ${i + 1} : taille > 10 Mo`);
+      });
+      factures.forEach((f, i) => {
+        if (f.size > FACTURES_MAX_SIZE) err.push(`Facture ${i + 1} : taille > 5 Mo`);
+      });
+      return err;
+    }
+
+    document.getElementById('form-audit').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errs = validate();
+      if (errs.length) {
+        const el = document.getElementById('global-error');
+        el.textContent = errs.join(' ');
+        el.classList.remove('hidden');
+        return;
+      }
+      document.getElementById('global-error').classList.add('hidden');
+
+      const cfg = window.SUPABASE_CONFIG;
+      if (!cfg.url || !cfg.anonKey || cfg.url === 'YOUR_SUPABASE_URL') {
+        document.getElementById('global-error').textContent = 'Configuration Supabase manquante. Définissez window.SUPABASE_CONFIG.';
+        document.getElementById('global-error').classList.remove('hidden');
+        return;
+      }
+
+      const supabaseLib = window.supabase;
+      if (!supabaseLib || !supabaseLib.createClient) {
+        throw new Error('Supabase JS non chargé. Vérifiez le script CDN.');
+      }
+      const supabase = supabaseLib.createClient(cfg.url, cfg.anonKey);
+      const btn = document.getElementById('btn-submit');
+      const progressWrap = document.getElementById('upload-progress');
+      const progressFill = document.getElementById('progress-fill');
+      const progressText = document.getElementById('progress-text');
+      btn.disabled = true;
+      progressWrap.classList.remove('hidden');
+
+      try {
+        const form = e.target;
+        const formData = {
+          nom: form.nom.value.trim(),
+          prenom: form.prenom.value.trim(),
+          email: form.email.value.trim(),
+          telephone: form.telephone.value.trim(),
+          adresse: form.adresse.value.trim(),
+          type_logement: form.type_logement.value,
+          surface_habitable: parseFloat(form.surface.value) || null,
+          annee_construction: form.annee_construction.value ? parseInt(form.annee_construction.value) : null,
+          type_chauffage: form.type_chauffage.value || null,
+          dpe_actuel: form.dpe_actuel.value || null
+        };
+
+        const totalFiles = photos.length + factures.length;
+        let uploaded = 0;
+        const updateProgress = () => {
+          const pct = totalFiles ? Math.round((uploaded / totalFiles) * 100) : 0;
+          progressFill.style.width = pct + '%';
+          progressText.textContent = `Upload : ${uploaded}/${totalFiles} fichiers (${pct}%)`;
+        };
+
+        progressText.textContent = 'Création du dossier...';
+
+        const { data: clientData, error: clientErr } = await supabase
+          .from('clients')
+          .insert({
+            nom: formData.nom,
+            prenom: formData.prenom,
+            email: formData.email,
+            telephone: formData.telephone,
+            adresse: formData.adresse,
+            code_postal: '',
+            ville: '',
+            departement: ''
+          })
+          .select()
+          .single();
+
+        if (clientErr) throw clientErr;
+
+        const { data: auditData, error: auditErr } = await supabase
+          .from('audits')
+          .insert({
+            client_id: clientData.id,
+            status: 'en_attente'
+          })
+          .select()
+          .single();
+
+        if (auditErr) throw auditErr;
+
+        const auditId = auditData.id;
+        progressText.textContent = 'Upload des fichiers...';
+        updateProgress();
+
+        const photoUrls = [];
+        for (let i = 0; i < photos.length; i++) {
+          const f = photos[i];
+          const ext = f.name.split('.').pop() || 'jpg';
+          const path = `${auditId}/photos/${Date.now()}_${i}.${ext}`;
+          const { error } = await supabase.storage.from('audits').upload(path, f, { upsert: false });
+          if (error) throw error;
+          const { data: { publicUrl } } = supabase.storage.from('audits').getPublicUrl(path);
+          photoUrls.push(publicUrl);
+          uploaded++;
+          updateProgress();
+        }
+
+        const factureUrls = [];
+        for (let i = 0; i < factures.length; i++) {
+          const f = factures[i];
+          const ext = f.name.split('.').pop() || 'pdf';
+          const path = `${auditId}/factures/${Date.now()}_${i}.${ext}`;
+          const { error } = await supabase.storage.from('audits').upload(path, f, { upsert: false });
+          if (error) throw error;
+          const { data: { publicUrl } } = supabase.storage.from('audits').getPublicUrl(path);
+          factureUrls.push(publicUrl);
+          uploaded++;
+          updateProgress();
+        }
+
+        if (photoUrls.length) {
+          const photosToInsert = photoUrls.map(url => ({ audit_id: auditData.id, url, type: 'facade' }));
+          await supabase.from('photos').insert(photosToInsert);
+        }
+
+        document.getElementById('app').classList.add('hidden');
+        document.getElementById('confirmation').classList.remove('hidden');
+        document.getElementById('audit-id-display').textContent = auditId;
+      } catch (err) {
+        console.error(err);
+        document.getElementById('global-error').textContent = err.message || 'Erreur lors de l\'envoi.';
+        document.getElementById('global-error').classList.remove('hidden');
+        btn.disabled = false;
+      } finally {
+        progressWrap.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
