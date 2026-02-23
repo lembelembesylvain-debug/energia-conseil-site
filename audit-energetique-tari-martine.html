@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audit énergétique IA - Mme TARI Martine | ENERGIA CONSEIL</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; line-height: 1.65; color: #1f2937; background: #fff; }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+    h1 { color: #14B8A6; font-size: 1.75rem; border-bottom: 3px solid #14B8A6; padding-bottom: 0.5rem; margin: 2rem 0 1rem; }
+    h2 { color: #0f766e; font-size: 1.35rem; margin: 1.75rem 0 0.75rem; }
+    h3 { color: #334155; font-size: 1.1rem; margin: 1.25rem 0 0.5rem; }
+    p { margin: 0.5rem 0; }
+    ul, ol { margin: 0.5rem 0 0.5rem 1.5rem; }
+    li { margin: 0.25rem 0; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+    th { background: #14B8A6; color: white; padding: 0.6rem 0.75rem; text-align: left; }
+    td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #e5e7eb; }
+    tr:nth-child(even) { background: #f8fafc; }
+    .page-break { page-break-after: always; }
+    .encadre { background: #e0f7f5; border: 2px solid #14B8A6; border-radius: 8px; padding: 1.25rem; margin: 1.25rem 0; }
+    .alert { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.25rem; margin: 1rem 0; }
+    .alert-danger { background: #fee2e2; border-left: 4px solid #dc2626; }
+    .highlight { background: #d1fae5; border-left: 4px solid #059669; padding: 1rem 1.25rem; margin: 1rem 0; }
+    .toc { background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0; }
+    .toc a { color: #0d9488; text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .toc ul { list-style: none; margin-left: 0; }
+    .toc li { margin: 0.35rem 0; }
+
+    /* Galerie État actuel */
+    .gallery-section { margin: 2rem 0; }
+    .gallery-section h2 { margin-bottom: 1rem; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    @media (max-width: 700px) { .gallery-grid { grid-template-columns: 1fr; } }
+    .gallery-item { position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,0.12); cursor: pointer; aspect-ratio: 4/3; background: #e5e7eb; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-item .placeholder { width: 100%; height: 100%; min-height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem; font-size: 0.85rem; color: #64748b; }
+    .gallery-item figcaption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.75)); color: white; padding: 0.6rem 0.75rem; font-size: 0.8rem; }
+    .gallery-item .btn-download { position: absolute; top: 0.5rem; right: 0.5rem; background: rgba(20,184,166,0.9); color: white; border: none; padding: 0.35rem 0.6rem; border-radius: 6px; font-size: 0.7rem; cursor: pointer; font-family: inherit; }
+    .gallery-item .btn-download:hover { background: #0d9488; }
+
+    /* Lightbox */
+    #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; align-items: center; justify-content: center; padding: 2rem; }
+    #lightbox.visible { display: flex; }
+    #lightbox img { max-width: 95%; max-height: 95%; object-fit: contain; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+    #lightbox .lightbox-caption { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: white; text-align: center; font-size: 0.95rem; }
+    #lightbox .lightbox-close { position: absolute; top: 1rem; right: 1rem; background: white; color: #1f2937; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; line-height: 1; }
+    #lightbox .lightbox-close:hover { background: #e5e7eb; }
+
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white; }
+      .gallery-item { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- COUVERTURE -->
+    <div class="page-break" style="text-align: center; padding: 3rem 2rem;">
+      <h1 style="font-size: 2rem; border: none;">ENERGIA CONSEIL</h1>
+      <p style="color: #64748b; margin-top: 0.5rem;">16 Rue Cuvier, 69006 Lyon | 06 10 59 68 98</p>
+      <h2 style="font-size: 1.75rem; margin-top: 3rem; color: #0f766e;">AUDIT ÉNERGÉTIQUE IA</h2>
+      <p style="font-size: 1.15rem; margin-top: 0.5rem;">Devis rénovation globale – Parcours Accompagné</p>
+      <div style="margin-top: 3rem; font-size: 1.1rem;">
+        <p><strong>Mme TARI Martine (Martine Marie)</strong></p>
+        <p>30 Boulevard Pasteur, 42130 BOËN-SUR-LIGNON</p>
+      </div>
+      <p style="margin-top: 2.5rem; color: #64748b;">Document généré le 22 février 2026</p>
+      <div class="encadre" style="margin-top: 2rem; text-align: left;">
+        <h3 style="text-align: center;">💳 Éco-PTZ 0% – Reste à charge 4 875 €</h3>
+        <p style="text-align: center; margin-top: 0.5rem;">27 €/mois (15 ans) • Économies 200 €/mois • <strong>Gain net +173 €/mois dès le 1er mois</strong></p>
+      </div>
+    </div>
+
+    <!-- TABLE DES MATIÈRES -->
+    <h1>Table des matières</h1>
+    <nav class="toc">
+      <ul>
+        <li><a href="#synthèse">I. Synthèse exécutive</a></li>
+        <li><a href="#diagnostic">II. Diagnostic actuel</a></li>
+        <li><a href="#galerie">II. État actuel en images</a></li>
+        <li><a href="#alerte2026">III. Alerte 2026 : Délais MaPrimeRénov'</a></li>
+        <li><a href="#scenario">IV. Scénario optimal recommandé</a></li>
+        <li><a href="#moe">V. Pourquoi un maître d'œuvre spécialisé ?</a></li>
+      </ul>
+    </nav>
+
+    <!-- ==================== I. SYNTHÈSE EXÉCUTIVE ==================== -->
+    <h1 id="synthèse">I. Synthèse exécutive</h1>
+    <div class="page-break"></div>
+
+    <h2>Situation actuelle</h2>
+    <ul>
+      <li><strong>DPE : F</strong> (passoire thermique) – 280 kWh/m²/an</li>
+      <li>Facture fioul : <strong>2 500 €/an</strong> (2 000 L × 1,25 €/L)</li>
+      <li>Facture électricité (eau chaude) : 500 €/an</li>
+      <li><strong>Total facture énergie : 3 000 €/an</strong></li>
+      <li>Émissions CO₂ : 5 tonnes/an</li>
+      <li>Confort : 16-18°C en hiver, 28-30°C en été</li>
+    </ul>
+
+    <h2>Problèmes critiques</h2>
+    <ul>
+      <li>Combles perdus 45 m² non isolés (30 % déperditions)</li>
+      <li>Murs 105 m² non isolés – parpaing nu (25 %)</li>
+      <li>Plancher bas 45 m² non isolé (10 %)</li>
+      <li>Fenêtres simple vitrage (15 %) – non traitées dans ce scénario</li>
+      <li>Ventilation absente (20 %)</li>
+      <li>Chaudière fioul &gt;20 ans, rendement 70 %</li>
+    </ul>
+
+    <h2>Recommandation – Scénario optimal (sans fenêtres)</h2>
+    <p>Rénovation globale en 9 postes (isolation combles, ITE, plancher, VMC, désembouage, PAC air/eau, ballon thermodynamique, dépose fioul, accompagnement MAR). Fenêtres en phase 2 possible.</p>
+    <ul>
+      <li>DPE visé : <strong>C</strong> (+3 classes)</li>
+      <li>Consommation visée : 90 kWh/m²/an (-68 %)</li>
+      <li>Facture après travaux : 600 €/an (PAC)</li>
+      <li><strong>Économies : 2 400 €/an (200 €/mois)</strong></li>
+    </ul>
+
+    <div class="encadre">
+      <h3>Aides 2026 (catégorie BLEU) – Reste à charge</h3>
+      <p>Aides estimées : <strong>42 500 €</strong> (89,7 %). Reste à charge estimé : <strong>4 875 €</strong>.</p>
+      <p>ROI : <strong>2,4 ans</strong>. Éco-PTZ 0 % : 27 €/mois (15 ans) → gain net +173 €/mois.</p>
+    </div>
+
+    <!-- ==================== II. DIAGNOSTIC ACTUEL ==================== -->
+    <h1 id="diagnostic">II. Diagnostic actuel</h1>
+
+    <h2>Caractéristiques du bâtiment</h2>
+    <table>
+      <tr><td>Type</td><td>Maison individuelle R+1</td></tr>
+      <tr><td>Surface habitable</td><td>85 m² (précis)</td></tr>
+      <tr><td>Année de construction</td><td>1975 (avant RT)</td></tr>
+      <tr><td>Niveaux</td><td>Rez-de-chaussée + 1 étage</td></tr>
+      <tr><td>Adresse</td><td>30 Boulevard Pasteur, 42130 Boën-sur-Lignon</td></tr>
+      <tr><td>Zone climatique</td><td>H2a – Ouest (Loire)</td></tr>
+    </table>
+
+    <h2>Enveloppe thermique – Déperditions</h2>
+    <table>
+      <thead><tr><th>Élément</th><th>Surface / détail</th><th>État</th><th>Déperdition</th></tr></thead>
+      <tr><td>Combles perdus</td><td>45 m²</td><td>R=0, non isolés</td><td><strong>30 %</strong></td></tr>
+      <tr><td>Murs extérieurs</td><td>105 m²</td><td>R=0,5, parpaing nu</td><td><strong>25 %</strong></td></tr>
+      <tr><td>Plancher bas</td><td>45 m²</td><td>Sur sous-sol, R=0</td><td><strong>10 %</strong></td></tr>
+      <tr><td>Fenêtres</td><td>6 unités</td><td>Simple vitrage bois, Uw=5,0</td><td><strong>15 %</strong></td></tr>
+      <tr><td>Ventilation</td><td>-</td><td>Absente</td><td><strong>20 %</strong></td></tr>
+    </table>
+
+    <h2>Systèmes énergétiques actuels</h2>
+    <ul>
+      <li><strong>Chauffage :</strong> Chaudière fioul &gt;20 ans, rendement 70 %, 2 000 L/an → 2 500 €/an</li>
+      <li><strong>Eau chaude :</strong> Ballon électrique 200 L &gt;10 ans → 500 €/an</li>
+      <li><strong>Ventilation :</strong> Absente (naturelle non contrôlée)</li>
+    </ul>
+    <p class="alert"><strong>Total facture énergie actuelle : 3 000 €/an. Émissions CO₂ : 5 tonnes/an.</strong></p>
+
+    <!-- SECTION ÉTAT ACTUEL EN IMAGES -->
+    <h2 id="galerie">État actuel de votre maison – Visite du 20 février 2026</h2>
+    <div class="gallery-section">
+      <div class="gallery-grid" id="galleryGrid">
+        <figure class="gallery-item" data-index="0" data-caption="Vue extérieure – Façade principale">
+          <div class="placeholder">📷 Photo 1<br>Vue extérieure – Façade principale<br><small>Remplacer par photo réelle pour dossier MaPrimeRénov'</small></div>
+          <figcaption>Vue extérieure – Façade principale</figcaption>
+          <button type="button" class="btn-download no-print" onclick="event.stopPropagation(); alert('Téléchargement : remplacer par lien vers fichier.');">Télécharger</button>
+        </figure>
+        <figure class="gallery-item" data-index="1" data-caption="Murs non isolés – Déperditions identifiées">
+          <div class="placeholder">📷 Photo 2<br>Murs non isolés – Déperditions identifiées</div>
+          <figcaption>Murs non isolés – Déperditions identifiées</figcaption>
+          <button type="button" class="btn-download no-print" onclick="event.stopPropagation();">Télécharger</button>
+        </figure>
+        <figure class="gallery-item" data-index="2" data-caption="Toiture et combles perdus">
+          <div class="placeholder">📷 Photo 3<br>Toiture et combles perdus</div>
+          <figcaption>Toiture et combles perdus</figcaption>
+          <button type="button" class="btn-download no-print" onclick="event.stopPropagation();">Télécharger</button>
+        </figure>
+        <figure class="gallery-item" data-index="3" data-caption="Chaudière fioul actuelle (&gt;20 ans)">
+          <div class="placeholder">📷 Photo 4<br>Chaudière fioul actuelle (&gt;20 ans)</div>
+          <figcaption>Chaudière fioul actuelle (&gt;20 ans)</figcaption>
+          <button type="button" class="btn-download no-print" onclick="event.stopPropagation();">Télécharger</button>
+        </figure>
+        <figure class="gallery-item" data-index="4" data-caption="Cuve fioul 1000 L à neutraliser">
+          <div class="placeholder">📷 Photo 5<br>Cuve fioul 1000 L à neutraliser</div>
+          <figcaption>Cuve fioul 1000 L à neutraliser</figcaption>
+          <button type="button" class="btn-download no-print" onclick="event.stopPropagation();">Télécharger</button>
+        </figure>
+        <figure class="gallery-item" data-index="5" data-caption="Radiateurs fonte – Désembouage nécessaire">
+          <div class="placeholder">📷 Photo 6<br>Radiateurs fonte – Désembouage nécessaire</div>
+          <figcaption>Radiateurs fonte – Désembouage nécessaire</figcaption>
+          <button type="button" class="btn-download no-print" onclick="event.stopPropagation();">Télécharger</button>
+        </figure>
+        <figure class="gallery-item" data-index="6" data-caption="Local technique – Espace PAC">
+          <div class="placeholder">📷 Photo 7<br>Local technique – Espace PAC</div>
+          <figcaption>Local technique – Espace PAC</figcaption>
+          <button type="button" class="btn-download no-print" onclick="event.stopPropagation();">Télécharger</button>
+        </figure>
+      </div>
+    </div>
+
+    <div id="lightbox" class="no-print" aria-hidden="true">
+      <button type="button" class="lightbox-close" onclick="closeLightbox()">×</button>
+      <img id="lightboxImg" src="" alt="">
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+
+    <script>
+      document.querySelectorAll('.gallery-item').forEach(el => {
+        el.addEventListener('click', function(e) {
+          if (e.target.closest('.btn-download')) return;
+          const cap = this.getAttribute('data-caption') || '';
+          const placeholder = this.querySelector('.placeholder');
+          const img = this.querySelector('img');
+          const lb = document.getElementById('lightbox');
+          document.getElementById('lightboxCaption').textContent = cap;
+          if (img && img.src) {
+            document.getElementById('lightboxImg').src = img.src;
+            document.getElementById('lightboxImg').style.display = 'block';
+          } else {
+            document.getElementById('lightboxImg').style.display = 'none';
+          }
+          lb.classList.add('visible');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('visible');
+        document.body.style.overflow = '';
+      }
+      document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) closeLightbox(); });
+    </script>
+
+    <div class="page-break"></div>
+
+    <!-- ==================== III. ALERTE 2026 MAPRIMERENOV' ==================== -->
+    <h1 id="alerte2026">III. Alerte 2026 : Délais MaPrimeRénov' catastrophiques</h1>
+
+    <div class="alert alert-danger">
+      <strong>83 000 dossiers 2025 en attente.</strong> L'ANAH n'a pas terminé de traiter les dossiers 2025. Délais réels terrain : <strong>8 à 18 mois</strong>. Seulement 7 000 places disponibles 2026. Délai de paiement : 6-8 mois après validation. <strong>Total : 14 à 26 mois entre dépôt et paiement.</strong>
+    </div>
+
+    <h2>Conséquence si vous attendez la validation MaPrimeRénov'</h2>
+    <p>Février 2026 : Dépôt → Octobre 2026 - Août 2027 : Attente → Septembre 2027 : Démarrage (si validation) → Novembre 2027 : Fin travaux → Mai-Juin 2028 : Paiement aides. <strong>Total : 24 à 28 mois.</strong></p>
+    <p><strong>Coût de l'attente :</strong> Facture fioul 250 €/mois × 20 mois ≈ 5 000 €, deux hivers au froid, pas de valorisation DPE, risque panne chaudière.</p>
+
+    <h2>Solution : Financement courtier Fabien (démarrage immédiat)</h2>
+    <p>Février 2026 : Accord Fabien (48-72 h) → Mars 2026 : Démarrage → Mai 2026 : Fin travaux + économies. Dossier MaPrimeRénov' en parallèle. Paiement aides puis remboursement Fabien.</p>
+    <div class="highlight">
+      <strong>Économies réalisées (mars 2026 à août 2027) :</strong> 200 €/mois × 17 ≈ 3 400 €. Confort immédiat, deux hivers au chaud, maison valorisée DPE C. <strong>Différence : 8 400 € en votre faveur.</strong>
+    </div>
+    <p><strong>Fabien n'est pas une option, c'est une obligation</strong> avec les délais actuels. Sans lui, le projet peut rester bloqué environ 2 ans.</p>
+
+    <div class="page-break"></div>
+
+    <!-- ==================== IV. SCÉNARIO OPTIMAL RECOMMANDÉ ==================== -->
+    <h1 id="scenario">IV. Scénario optimal recommandé (sans fenêtres)</h1>
+
+    <p><strong>Un seul scénario :</strong> rénovation globale en 9 postes, sans remplacement des fenêtres (stratégie reste à charge minimal). Les 15 % de déperditions fenêtres restent ; phase 2 possible avec MaPrimeRénov' geste isolé.</p>
+
+    <h2>Travaux – 9 postes</h2>
+    <table>
+      <thead><tr><th>N°</th><th>Travaux</th><th>Détail</th><th>Prix HT</th></tr></thead>
+      <tr><td>1</td><td>Isolation combles perdus</td><td>45 m², laine roche 300 mm R=7</td><td>2 500 €</td></tr>
+      <tr><td>2</td><td>ITE</td><td>105 m² PSE 140 mm R=3,7, enduit – HB Facadier RGE</td><td>15 750 €</td></tr>
+      <tr><td>3</td><td>Isolation sous-sol plafond</td><td>45 m², laine roche 160 mm R=4</td><td>2 300 €</td></tr>
+      <tr><td>4</td><td>VMC simple flux hygroréglable</td><td>85 m², gaines isolées</td><td>1 500 €</td></tr>
+      <tr><td>5</td><td>Désembouage circuit</td><td>Obligatoire avant PAC</td><td>800 €</td></tr>
+      <tr><td>6</td><td>PAC Air/Eau 7 kW</td><td>COP 4,5, 65°C – Atlantic/Daikin HT</td><td>12 000 €</td></tr>
+      <tr><td>7</td><td>Ballon thermodynamique 200 L</td><td>COP 3,5</td><td>2 200 €</td></tr>
+      <tr><td>8</td><td>Dépose chaudière fioul + cuve</td><td>Vidange 1000 L, certificat dégazage</td><td>800 €</td></tr>
+      <tr><td>9</td><td>Accompagnement MAR (LÉO-ENERGY)</td><td>Suivi, dossiers aides, contrôles</td><td>7 355 €</td></tr>
+      <tr style="background:#e0f7f5;font-weight:bold;"><td colspan="3">Total HT</td><td>44 905 €</td></tr>
+      <tr><td colspan="3">TVA 5,5 %</td><td>2 470 €</td></tr>
+      <tr style="background:#14B8A6;color:white;font-weight:bold;"><td colspan="3">Total TTC</td><td>47 375 €</td></tr>
+    </table>
+
+    <h2>Performance attendue après travaux</h2>
+    <table>
+      <thead><tr><th>Indicateur</th><th>Avant</th><th>Après</th></tr></thead>
+      <tr><td>DPE</td><td>F (280 kWh/m²/an)</td><td>C (90 kWh/m²/an)</td></tr>
+      <tr><td>Facture</td><td>3 000 €/an</td><td>600 €/an</td></tr>
+      <tr><td>Économies</td><td>-</td><td>2 400 €/an (200 €/mois)</td></tr>
+      <tr><td>CO₂</td><td>5 t/an</td><td>1 t/an (-80 %)</td></tr>
+    </table>
+    <p><strong>Déperditions réduites :</strong> Combles 30 %→5 %, Murs 25 %→5 %, Plancher 10 %→2 %, Ventilation 20 %→5 %. Fenêtres 15 % inchangées (phase 2 possible).</p>
+
+    <h2>Aides 2026 (catégorie BLEU)</h2>
+    <p>MaPrimeRénov' Parcours Accompagné 80 % : 32 000 €. Aide MAR : 2 000 €. CEE Précarité : 7 000 €. Aide Région AURA : 1 500 €. <strong>Total aides : 42 500 €. Reste à charge : 4 875 €. Taux : 89,7 %.</strong></p>
+    <p><em>Pas de bonus sortie passoire (supprimé en 2026).</em></p>
+
+    <h2>Financement recommandé – Éco-PTZ 0 %</h2>
+    <p>Montant : 4 875 €. Taux : 0 %. Durée 15 ans recommandée : <strong>27 €/mois</strong>. Économies 200 €/mois → <strong>Gain net +173 €/mois dès le 1er mois.</strong> ROI : 2,4 ans. Gain net 20 ans : +73 125 €.</p>
+
+    <div class="page-break"></div>
+
+    <!-- ==================== V. POURQUOI UN MAÎTRE D'ŒUVRE ==================== -->
+    <h1 id="moe">V. Pourquoi un maître d'œuvre spécialisé ?</h1>
+
+    <p><strong>ENERGIA CONSEIL</strong> assure la coordination générale du chantier, la sélection et le pilotage des artisans RGE, la gestion administrative et financière, l'interface client unique et le suivi hebdomadaire avec compte-rendu photo.</p>
+    <p><strong>Adresse :</strong> 16 Rue Cuvier, 69006 Lyon. <strong>SIRET :</strong> 94181942700019. <strong>Contact :</strong> Sylvain LEMBELEMBE – 06 10 59 68 98 – lembelembe.sylvain@gmail.com – www.energia-conseil.com</p>
+    <p><strong>Certifications :</strong> FEEBAT, QUALIPV, Auditeur Énergétique. CERTIBAT Contractant Général en cours.</p>
+    <p><strong>Accompagnateur MAR :</strong> LÉO-ENERGY – Montage dossiers MaPrimeRénov' + CEE, suivi chantier, rapport d'achèvement. Coût 7 355 € HT, prise en charge 2 000 € (BLEU), reste à charge 5 355 € inclus dans la coordination.</p>
+    <p><strong>Partenaire financement :</strong> Fabien – Courtier en travaux, accord 48-72 h, jusqu'à 75 000 €, déblocage progressif 30 % / 40 % / 30 %.</p>
+
+    <p style="margin-top:2rem;font-size:0.9rem;color:#64748b;">— Fin du document —</p>
+  </div>
+</body>
+</html>
