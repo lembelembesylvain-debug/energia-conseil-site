@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapport technique – Scénario 3 – M. ROYER Maixent | ENERGIA-CONSEIL IA®</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', Helvetica, Arial, sans-serif; line-height: 1.55; color: #1f2937; background: #fff; font-size: 11px; }
+    .container { max-width: 800px; margin: 0 auto; padding: 1.5rem 2rem; }
+    .brand-header { margin-bottom: 0.5rem; }
+    .brand-header--cover { text-align: center; }
+    .brand-name { font-family: 'Poppins', 'Inter', Helvetica, sans-serif; font-weight: 700; color: #10b981; }
+    .brand-header--cover .brand-name { font-size: 24px; }
+    .brand-tagline { font-size: 13px; color: #6b7280; margin-top: 0.25rem; }
+    .brand-inpi { font-size: 12px; color: #6b7280; margin-top: 0.1rem; }
+    .brand-contact { font-size: 13px; color: #6b7280; margin-top: 0.2rem; }
+    h2 { color: #047857; font-family: 'Poppins', 'Inter', Helvetica, sans-serif; font-weight: 700; font-size: 1.05rem; margin: 1rem 0 0.5rem; page-break-after: avoid; border-bottom: 1px solid #10b981; padding-bottom: 0.2rem; }
+    h3 { color: #374151; font-size: 0.95rem; margin: 0.7rem 0 0.35rem; page-break-after: avoid; }
+    p { margin: 0.35rem 0; }
+    ul { margin: 0.3rem 0 0.3rem 1.2rem; }
+    table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 10px; page-break-inside: avoid; }
+    th { background: #10b981; color: white; padding: 0.35rem 0.5rem; text-align: left; }
+    td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #e5e7eb; }
+    .montant { text-align: right; font-weight: 600; }
+    .encadre-green { background: #ecfdf5; border: 2px solid #10b981; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .encadre-amber { background: #fef3c7; border: 2px solid #f59e0b; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .encadre-orange { background: #fff7ed; border: 2px solid #f97316; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .page-break { page-break-after: always; }
+    .cover { text-align: center; padding: 3rem 2rem; }
+    .cover h1 { font-size: 1.5rem; color: #10b981; margin-bottom: 0.5rem; }
+    .footer-legal { text-align: center; font-size: 8px; color: #6b7280; margin-top: 1.5rem; line-height: 1.35; }
+    @media print {
+      h2, h3 { page-break-after: avoid; }
+      .footer-legal { position: fixed; bottom: 0; left: 0; right: 0; text-align: center; font-size: 8px; color: #6b7280; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- I. PAGE DE GARDE -->
+    <div class="cover page-break">
+      <div class="brand-header brand-header--cover">
+        <div class="brand-name">ENERGIA-CONSEIL IA®</div>
+        <div class="brand-tagline">Audit Énergétique Intelligence Artificielle</div>
+        <div class="brand-inpi">Marque déposée INPI</div>
+        <div class="brand-contact">16 Rue Cuvier, 69006 Lyon | 06 10 59 68 98</div>
+      </div>
+      <h1 style="margin-top:2rem;">RAPPORT TECHNIQUE</h1>
+      <p style="font-size:1.1rem;font-weight:600;">SCÉNARIO 3 – BUDGET OPTIMISÉ</p>
+      <p style="margin-top:1.5rem;">M. ROYER Maixent</p>
+      <p>6 route de Marcilly, 42600 CHALAIN-D'UZORE</p>
+      <p>Profil JAUNE (Modestes – 60 % aides) | Réf. audit MUTTA A25420260702P – Scénario 3</p>
+      <p style="margin-top:1rem;color:#6b7280;font-size:12px;">Date : 25 février 2026</p>
+      <div class="encadre-orange" style="margin-top:1.5rem;text-align:left;">
+        <strong>⚠️ Scénario 3 (sans ITE) :</strong> Murs non isolés. DPE visé C. 4 postes sur 6 = risque refus ANAH.
+      </div>
+      <div class="encadre-amber" style="margin-top:0.75rem;text-align:left;">
+        <strong>Pathologie :</strong> Infiltration d'eau dans les planchers haut. Réfection complète toiture OBLIGATOIRE (DTU 40.11).
+      </div>
+      <div class="encadre-green" style="margin-top:0.75rem;text-align:left;">
+        <strong>Objectif :</strong> DPE G → C (+4 classes) | 70 914 € TTC | Aides 25 000 € | Reste 45 914 € | 191 €/mois
+      </div>
+    </div>
+
+    <!-- II. SYNTHÈSE EXÉCUTIVE -->
+    <h2>II. Synthèse exécutive</h2>
+
+    <h3>Contexte</h3>
+    <p>Le présent document constitue la proposition ENERGIA-CONSEIL IA® pour la <strong>rénovation énergétique</strong> de la maison de M. ROYER Maixent, 6 route de Marcilly, 42600 CHALAIN-D'UZORE, selon le <strong>Scénario 3 (budget optimisé)</strong> de l'audit MUTTA. Bénéficiaire au profil <strong>JAUNE (Modestes)</strong>, RFR 2024 : 19 282 €, 1 part. Taux MaPrimeRénov' : <strong>60 %</strong>. Audit de référence : MUTTA n° A25420260702P (visite 12/06/2025).</p>
+
+    <h3>Scénario 3 choisi – Limites</h3>
+    <p>Le Scénario 3 de l'audit MUTTA est une rénovation budget optimisée : <strong>pas d'ITE sur les murs</strong>, pas d'isolation plancher, isolation rampants par sarking (extérieur). DPE visé : <strong>C</strong> (et non B). Les murs en pierre 40 cm restent non isolés – déperditions importantes. Économies réduites vs Scénario 1 (-630 €/an). Confort hiver moindre (murs froids). Plus-value immobilière limitée (+15 000 € vs +30 000 € pour DPE B).</p>
+
+    <h3>Pathologie et modification vs audit</h3>
+    <p>L'audit MUTTA page 6 mentionne : <strong>« Pathologie : Infiltration d'eau dans les planchers haut »</strong>. Toiture avant 1948, jamais refaite. Conformément au <strong>DTU 40.11</strong>, il est interdit d'isoler sur toiture présentant des infiltrations. ENERGIA-CONSEIL IA® intègre une <strong>réfection complète de la toiture</strong> (couverture + zinguerie + isolation sarking). L'audit recommande sarking seul 9 000 € ; ENERGIA impose toiture complète 25 178 € (surcoût +16 178 €). Solution pérenne, garantie décennale valide.</p>
+
+    <h3>Proposition ENERGIA-CONSEIL IA®</h3>
+    <p>Rénovation en <strong>11 postes</strong> : toiture complète + isolation sarking R=6,25 (C2L), 5 fenêtres + 2 portes, PAC tri-split SCOP 4,61, ballon thermo COP 2,95, VMC hygro B, désembouage, dépose ancien, électricité, plâtrerie, coordination maîtrise d'œuvre. <strong>Offre : 70 914 € TTC</strong>. Aides estimées : 25 000 €. <strong>Reste à charge : 45 914 €</strong>. Éco-PTZ 191 €/mois. Bilan : -41 €/mois pendant 20 ans, puis +150 €/mois. Objectif DPE <strong>C</strong>. MAR externe obligatoire (non inclus).</p>
+
+    <h3>Risque aides ANAH</h3>
+    <p>MaPrimeRénov' Parcours Accompagné exige le traitement des <strong>6 postes</strong> : 1. Murs ❌ non traités (pas d'ITE) | 2. Planchers ❌ non traités | 3. Toiture ✅ | 4. Menuiseries ✅ | 5. Chauffage ✅ | 6. Ventilation ✅. Seulement <strong>4 postes sur 6</strong> = <strong>risque élevé de refus ANAH</strong>. Validation MAR indispensable avant engagement.</p>
+
+    <div class="page-break"></div>
+
+    <!-- III. DIAGNOSTIC ACTUEL -->
+    <h2>III. Diagnostic actuel du bâtiment</h2>
+
+    <h3>Caractéristiques générales</h3>
+    <table>
+      <tr><td>Type</td><td>Maison individuelle</td></tr>
+      <tr><td>Surface habitable</td><td>77 m²</td></tr>
+      <tr><td>Année de construction</td><td>Avant 1948 (75+ ans)</td></tr>
+      <tr><td>Matériaux murs</td><td>Pierre et moellons 40 cm</td></tr>
+      <tr><td>Zone climatique</td><td>H1 (Loire 42)</td></tr>
+      <tr><td>Altitude</td><td>399 m</td></tr>
+      <tr><td>Niveaux</td><td>2</td></tr>
+      <tr><td>Hauteur sous plafond</td><td>2,16 m</td></tr>
+      <tr><td>Pièces</td><td>7 (4 principales + SDB + WC + buanderie)</td></tr>
+      <tr><td>Combles</td><td>Aménagés sous rampants</td></tr>
+      <tr><td>Mitoyenneté</td><td>Aucune</td></tr>
+    </table>
+
+    <h3>Répartition pièces (dimensionnement PAC tri-split)</h3>
+    <p>Salon/Séjour : ~20 m² | Chambre 1 : ~15 m² | Chambre 2 : ~12 m² | Autres : ~30 m². Total 77 m². Pièces à climatiser : 3 (47 m²).</p>
+
+    <h3>Enveloppe thermique actuelle</h3>
+    <table>
+      <tr><th>Paroi</th><th>Surface</th><th>État</th><th>Scénario 3</th></tr>
+      <tr><td>Murs</td><td>132,66 m²</td><td>Non isolés (pierre 40 cm)</td><td>❌ Non traités</td></tr>
+      <tr><td>Rampants</td><td>45 m²</td><td>Non isolés + infiltrations</td><td>Toiture complète + sarking R=6,25</td></tr>
+      <tr><td>Plancher</td><td>-</td><td>Dalle béton terre-plein</td><td>❌ Non traité</td></tr>
+      <tr><td>Fenêtres</td><td>5</td><td>Bois double vitrage (anciennes)</td><td>Remplacement PVC Uw=1,3</td></tr>
+      <tr><td>Portes</td><td>2</td><td>Bois vitrage simple</td><td>Remplacement Ud=1,3</td></tr>
+    </table>
+
+    <h3>Systèmes énergétiques actuels</h3>
+    <p><strong>Chauffage :</strong> Poêle bois bûches (avant 1990) 61 m² + Convecteurs électriques NFC 16 m². À remplacer par PAC Air/Air tri-split (3 consoles) – économie ~1 200 €/an.<br>
+    <strong>ECS :</strong> Ballon électrique 100 L. À remplacer par ballon thermodynamique 250 L (économie ~400 €/an).<br>
+    <strong>Ventilation :</strong> Naturelle. À remplacer par VMC hygro B.</p>
+
+    <h3>Performance actuelle</h3>
+    <p>DPE actuel : <strong>G</strong> (passoire énergétique). Consommation : 778 kWh EP/m²/an. Facture : 2 750-3 780 €/an.</p>
+
+    <div class="page-break"></div>
+
+    <!-- IV. AUDIT MUTTA SCÉNARIO 3 -->
+    <h2>IV. Audit énergétique de référence – MUTTA Scénario 3</h2>
+
+    <p><strong>N° audit :</strong> A25420260702P | <strong>Date visite :</strong> 12/06/2025 | Valable jusqu'au 21/07/2030.</p>
+    <p><strong>Auditeur :</strong> BOIVIN Louis | <strong>BET :</strong> MUTTA (22 06 4783) | SIRET 91000673300026.</p>
+
+    <h3>Scénario 3 – Rénovation budget optimisée</h3>
+    <table>
+      <tr><th>Poste</th><th>Montant TTC</th></tr>
+      <tr><td>Rampants sarking 45 m² (R&gt;6)</td><td class="montant">9 000 €</td></tr>
+      <tr><td>5 Fenêtres (Uw=1,3, Sw=0,36)</td><td class="montant">4 670 €</td></tr>
+      <tr><td>2 Portes (Ud=1,3)</td><td class="montant">3 350 €</td></tr>
+      <tr><td>PAC Air/Air (SCOP 4,61)</td><td class="montant">6 600 €</td></tr>
+      <tr><td>Ballon thermodynamique (COP 2,95)</td><td class="montant">4 500 €</td></tr>
+      <tr><td>Refroidissement (inclus PAC)</td><td class="montant">0 €</td></tr>
+      <tr><td><strong>Total audit Scénario 3</strong></td><td class="montant"><strong>28 120 €</strong></td></tr>
+    </table>
+    <p><strong>Différence vs Scénario 1 :</strong> Pas d'ITE murs (-29 185 €), pas d'isolation plancher. Rampants par l'extérieur (sarking au lieu d'intérieur). Objectif : DPE G → C (-78 % consommation).</p>
+
+    <h3>Pathologie (page 6)</h3>
+    <p><strong>« Pathologie : Infiltration d'eau dans les planchers haut »</strong>. Toiture avant 1948, jamais refaite. DTU 40.11 : réfection complète obligatoire avant isolation.</p>
+
+    <div class="page-break"></div>
+
+    <!-- V. SCÉNARIO 3 RETENU – 11 POSTES -->
+    <h2>V. Scénario 3 adapté ENERGIA-CONSEIL IA® (11 postes)</h2>
+
+    <table>
+      <tr><th>Poste</th><th>Montant TTC</th></tr>
+      <tr><td>1. Toiture complète + isolation sarking (C2L)</td><td class="montant">25 178 €</td></tr>
+      <tr><td>2. 5 Fenêtres PVC</td><td class="montant">4 670 €</td></tr>
+      <tr><td>3. 2 Portes</td><td class="montant">3 350 €</td></tr>
+      <tr><td>4. PAC Air/Air tri-split (3 consoles)</td><td class="montant">6 600 €</td></tr>
+      <tr><td>5. Ballon thermodynamique 250 L</td><td class="montant">4 500 €</td></tr>
+      <tr><td>6. VMC hygro B</td><td class="montant">4 500 €</td></tr>
+      <tr><td>7. Désembouage</td><td class="montant">739 €</td></tr>
+      <tr><td>8. Dépose ancien chauffage</td><td class="montant">528 €</td></tr>
+      <tr><td>9. Travaux électriques</td><td class="montant">1 583 €</td></tr>
+      <tr><td>10. Reprise plâtrerie rampants</td><td class="montant">1 266 €</td></tr>
+      <tr><td>11. Coordination Maîtrise d'Œuvre</td><td class="montant">18 000 €</td></tr>
+      <tr><td><strong>Total TTC</strong></td><td class="montant"><strong>70 914 €</strong></td></tr>
+    </table>
+
+    <div class="encadre-orange">
+      <strong>Modification vs audit Scénario 3 :</strong> Audit recommande sarking seul 9 000 €. ENERGIA impose toiture complète 25 178 € (surcoût +16 178 €) – pathologie + maison avant 1948. Poste 1 inclut couverture, zinguerie, isolation sarking R=6,25. Artisan : C2L (devis DC15427).
+    </div>
+
+    <h3>Avant / Après</h3>
+    <table>
+      <tr><th>Critère</th><th>Avant</th><th>Après (Scénario 3)</th></tr>
+      <tr><td>DPE</td><td>G</td><td>C</td></tr>
+      <tr><td>Consommation</td><td>778 kWh EP/m²/an</td><td>175 kWh EP/m²/an</td></tr>
+      <tr><td>Facture annuelle</td><td>2 750-3 780 €</td><td>1 050-1 490 €</td></tr>
+      <tr><td>Murs</td><td>Non isolés</td><td>Non isolés ❌</td></tr>
+      <tr><td>Rampants</td><td>Non isolés + fuites</td><td>Toiture neuve + R=6,25</td></tr>
+      <tr><td>Chauffage</td><td>Poêle bois + convecteurs</td><td>PAC tri-split réversible</td></tr>
+      <tr><td>ECS</td><td>Ballon électrique 100 L</td><td>Ballon thermo 250 L</td></tr>
+      <tr><td>Ventilation</td><td>Naturelle</td><td>VMC hygro B</td></tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- VI. COMPARAISON SCÉNARIO 1 vs 3 -->
+    <h2>VI. Comparaison Scénario 1 vs Scénario 3</h2>
+
+    <table>
+      <tr><th>Critère</th><th>Scénario 1 (ITE + Toiture)</th><th>Scénario 3 (Toiture seule)</th></tr>
+      <tr><td>Budget</td><td>99 099 €</td><td>70 914 €</td></tr>
+      <tr><td>Aides</td><td>43 000 €</td><td>25 000 €</td></tr>
+      <tr><td>Reste</td><td>56 099 €</td><td>45 914 €</td></tr>
+      <tr><td>Mensualité</td><td>318 €/mois</td><td>191 €/mois</td></tr>
+      <tr><td>Bilan</td><td>-121 €/mois</td><td>-41 €/mois</td></tr>
+      <tr><td>DPE</td><td>G → B ✅</td><td>G → C ⚠️</td></tr>
+      <tr><td>Postes traités</td><td>6/6 ✅</td><td>4/6 ❌</td></tr>
+      <tr><td>Risque refus ANAH</td><td>Faible</td><td>Élevé</td></tr>
+    </table>
+    <p><strong>Différence :</strong> Économie budget 28 185 € – Perte aides 18 000 € = Économie nette 10 185 €. MAIS : Risque refus ANAH + DPE C + murs non isolés + économies réduites (-630 €/an vs Scénario 1).</p>
+
+    <div class="page-break"></div>
+
+    <!-- VII. AIDES FINANCIÈRES -->
+    <h2>VII. Aides financières 2026</h2>
+
+    <p><strong>Profil JAUNE (Modestes)</strong> – RFR 19 282 € – Taux 60 %. Bonus sortie passoire supprimé en 2026.</p>
+
+    <h3>Risque aides Scénario 3</h3>
+    <p>MaPrimeRénov' Parcours Accompagné exige le traitement des 6 postes : 1. Murs ❌ | 2. Planchers ❌ | 3. Toiture ✅ | 4. Menuiseries ✅ | 5. Chauffage ✅ | 6. Ventilation ✅. Seulement 4/6 = <strong>risque élevé de refus ANAH</strong>. Aides estimées sous réserve validation MAR/ANAH.</p>
+
+    <table>
+      <tr><td>MaPrimeRénov' Parcours Accompagné (60 %) – montant réduit, risque refus</td><td class="montant">20 000 €</td></tr>
+      <tr><td>CEE Précarité (rampants, fenêtres, portes, PAC, ballon, VMC)</td><td class="montant">3 500 €</td></tr>
+      <tr><td>Aide Région Auvergne-Rhône-Alpes (sous réserve DPE C)</td><td class="montant">1 500 €</td></tr>
+      <tr><td><strong>Total aides (estimé)</strong></td><td class="montant"><strong>25 000 €</strong></td></tr>
+    </table>
+    <table>
+      <tr><td>Coût total TTC</td><td class="montant">70 914 €</td></tr>
+      <tr><td>Aides totales</td><td class="montant">-25 000 €</td></tr>
+      <tr><td><strong>RESTE À CHARGE</strong></td><td class="montant"><strong>45 914 €</strong></td></tr>
+    </table>
+    <p>Taux de prise en charge : 35,3 %. Les aides peuvent être refusées si les 6 postes ne sont pas traités. Validation MAR indispensable.</p>
+
+    <!-- VIII. FINANCEMENT -->
+    <h2>VIII. Financement</h2>
+    <p><strong>Éco-PTZ 0 % :</strong> 45 914 € sur 20 ans = <strong>191 €/mois</strong>. Alternative : VIVONS COURTIER – FABIEN – 06 71 19 96 45. Mensualité : 230-260 €/mois.</p>
+    <p><strong>Bilan :</strong> Économies 150 €/mois (1 800 €/an) − 191 €/mois = <strong>-41 €/mois</strong> pendant 20 ans. Après remboursement : +150 €/mois. Plus-value : +15 000 € (DPE C). ROI : 26 ans.</p>
+
+    <!-- IX. RÉSULTATS ATTENDUS -->
+    <h2>IX. Résultats attendus</h2>
+    <p>DPE : G → C (+4 classes) ⚠️ | Consommation : 778 → 175 kWh EP/m²/an (-78 %) | Facture : 3 000 € → 1 270 €/an | Économies 1 800 €/an | Confort hiver : ⭐⭐⭐⭐ | Confort été : ⭐⭐⭐⭐⭐ (3 pièces climatisées) | CO₂ -75 % | Plus-value +15 000 €.</p>
+
+    <div class="encadre-orange">
+      <strong>Limites Scénario 3 :</strong> Murs non isolés (déperditions importantes) | DPE C seulement (B recommandé pour valorisation max) | Économies réduites vs Scénario 1 (-630 €/an) | Confort hiver moindre (murs froids).
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- X. PLANNING -->
+    <h2>X. Planning (10-12 semaines)</h2>
+    <p><strong>Phase 1 (4-6 sem.) :</strong> Administrative – Signature + Mandat MAR, dossier ANAH (validation 6 postes ?), Éco-PTZ, commande matériel.</p>
+    <p><strong>Phase 2 (6 sem.) – Priorité #1 :</strong> Toiture C2L – Couverture (4 sem.), Zinguerie (1 sem.), Isolation sarking (1 sem.).</p>
+    <p><strong>Phase 3 (1-2 sem.) :</strong> Fenêtres + Portes.</p>
+    <p><strong>Phase 4 (3 jours) :</strong> VMC hygro B.</p>
+    <p><strong>Phase 5 (2 sem.) :</strong> PAC 3 splits, Ballon thermo, Dépose ancien.</p>
+    <p><strong>Phase 6 (1 jour) :</strong> Réception PV final + DPE.</p>
+
+    <h3>Artisans RGE</h3>
+    <table>
+      <tr><th>Lot</th><th>Artisan</th><th>Contact</th></tr>
+      <tr><td>Toiture + Isolation sarking</td><td>C2L</td><td>14 Rue Edouard GARET, 42160 ANDRÉZIEUX-BOUTHÉON. RGE E-E 102269. Devis DC15427 – 25 178 € TTC. GAN 221200149.</td></tr>
+      <tr><td>PAC + Ballon + VMC</td><td>ECO SYSTÈME DURABLE</td><td>SIRET 79892258900030. 01 70 93 97 15. contact@esd-rge.fr. QualiPAC, Qualisol, Ventilation+.</td></tr>
+      <tr><td>Menuiseries</td><td>À sélectionner</td><td>RGE requis.</td></tr>
+    </table>
+
+    <!-- XI. CONTACTS -->
+    <h2>XI. Contacts</h2>
+    <table>
+      <tr><th>Acteur</th><th>Coordonnées</th></tr>
+      <tr><td><strong>ENERGIA-CONSEIL IA®</strong></td><td>16 Rue Cuvier, 69006 Lyon. Sylvain LEMBELEMBE. 06 10 59 68 98. contact@energia-conseil.com. Maîtrise d'œuvre.</td></tr>
+      <tr><td><strong>C2L</strong></td><td>14 Rue Edouard GARET, 42160 ANDRÉZIEUX-BOUTHÉON. RGE E-E 102269. Devis DC15427 – 25 178 € TTC.</td></tr>
+      <tr><td><strong>ECO SYSTÈME DURABLE</strong></td><td>01 70 93 97 15. contact@esd-rge.fr.</td></tr>
+      <tr><td><strong>VIVONS COURTIER</strong></td><td>FABIEN – 06 71 19 96 45.</td></tr>
+      <tr><td><strong>MUTTA</strong> (Audit)</td><td>6 rue de Bitche, 92400 Courbevoie. 01 76 39 08 70. contact@mutta.fr.</td></tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- XII. ANNEXE – RÉFÉRENTIEL DPE OBJECTIF C -->
+    <h2>XII. Annexe – Référentiel DPE et objectif C</h2>
+    <p>Zone H1 (Loire 42). Seuils énergie primaire (kWh/m²/an) : A &lt; 51, B &lt; 91, C &lt; 151, D &lt; 231, E &lt; 331, F &lt; 451, G ≥ 451. Objectif Scénario 3 : consommation ~175 kWh EP/m²/an (classe C). Stratégie : rampants R=6,25 + menuiseries performantes + PAC SCOP 4,61 + ballon COP 2,95 + VMC. Pas d'ITE = limite à la classe C. Réduction -78 % consommation, -75 % CO₂.</p>
+
+    <!-- XIII. ANNEXE – RISQUE 6 POSTES -->
+    <h2>XIII. Annexe – Risque 6 postes MaPrimeRénov'</h2>
+    <p>Le Parcours Accompagné MaPrimeRénov' exige le traitement des 6 postes prioritaires : isolation des murs, isolation des planchers bas, isolation de la toiture, remplacement des menuiseries, système de chauffage performant, ventilation. Le Scénario 3 ne traite pas les murs ni les planchers. Seuls 4 postes sur 6 sont couverts. Le montant des aides est réduit (20 000 € vs 35 000 €) et un risque élevé de refus ANAH existe. Validation préalable par un MAR certifié est indispensable.</p>
+
+    <!-- XIV. ANNEXE – RÉCAPITULATIF FINANCIER -->
+    <h2>XIV. Annexe – Récapitulatif financier</h2>
+    <table>
+      <tr><th>Désignation</th><th class="montant">Montant</th></tr>
+      <tr><td>Total travaux TTC</td><td class="montant">70 914 €</td></tr>
+      <tr><td>Aides (estimé)</td><td class="montant">-25 000 €</td></tr>
+      <tr><td><strong>Reste à charge</strong></td><td class="montant"><strong>45 914 €</strong></td></tr>
+      <tr><td>Mensualité Éco-PTZ (20 ans)</td><td class="montant">191 €/mois</td></tr>
+      <tr><td>Économies annuelles</td><td class="montant">1 800 €/an</td></tr>
+    </table>
+    <p><strong>Résultat :</strong> DPE G → C. Bilan -41 €/mois pendant 20 ans, puis +150 €/mois. Plus-value +15 000 €.</p>
+
+    <p class="footer-legal">ENERGIA-CONSEIL IA® - Marque INPI<br>SIRET 94181942700019 | SASU 100€<br>Paiement 30/40/30 | RGPD | Médiation MEDICYS<br>© 2026 ENERGIA-CONSEIL IA</p>
+  </div>
+</body>
+</html>
