@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ENERGIA-CONSEIL IA® - Plaquette de présentation</title>
+  <style>
+    /* Charte graphique */
+    :root {
+      --vert: #10b981;
+      --vert-fonce: #047857;
+      --gris: #1f2937;
+      --gris-clair: #f9fafb;
+      --bleu-clair: #dbeafe;
+      --orange-clair: #fed7aa;
+      --jaune-clair: #fef3c7;
+      --orange-fonce: #ea580c;
+      --vert-fond: #f0fdf4;
+      --orange-fond: #fff7ed;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      color: var(--gris);
+      line-height: 1.5;
+    }
+
+    @media screen {
+      body { background: #ddd; padding: 20px; }
+      .page {
+        max-width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto 20px;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        position: relative;
+      }
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        max-height: 297mm;
+        margin: 0;
+        padding: 15mm;
+        page-break-after: always;
+        box-shadow: none;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .page:last-child { page-break-after: auto; }
+      .no-print { display: none !important; }
+      .encadre, .page-cover, .page-8, .stats-encadre, table th, table .total-row {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 15mm;
+    }
+
+    .page { padding: 15mm; }
+
+    /* Page 1 - Couverture */
+    .page-cover {
+      background: linear-gradient(180deg, var(--vert-fonce) 0%, var(--vert) 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .page-cover h1 {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .page-cover .baseline { font-size: 16px; margin-bottom: 4px; }
+    .page-cover .inpi { font-size: 10px; margin-bottom: 50px; opacity: 0.95; }
+    .page-cover .expert-title { font-size: 13px; font-weight: bold; margin-bottom: 12px; }
+    .page-cover ul {
+      list-style: none;
+      margin-bottom: 80px;
+    }
+    .page-cover li { font-size: 12px; margin-bottom: 6px; }
+    .page-cover .footer-page { margin-top: auto; font-size: 12px; }
+    .page-cover .footer-page div { margin-top: 4px; }
+
+    /* Pages blanches */
+    .titre-page {
+      font-size: 22px;
+      font-weight: bold;
+      color: var(--vert-fonce);
+      margin-bottom: 12px;
+    }
+    .sous-titre { font-size: 16px; color: var(--vert-fonce); font-weight: bold; margin-bottom: 8px; }
+    .corps { text-align: justify; margin-bottom: 8px; font-size: 10px; }
+
+    .encadre {
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 2px;
+    }
+    .encadre.vert { background: var(--vert-fond); }
+    .encadre.jaune { background: var(--jaune-clair); }
+    .encadre.bleu { background: var(--bleu-clair); }
+    .encadre.orange { background: var(--orange-clair); }
+    .encadre.blanc { background: white; color: var(--vert-fonce); }
+
+    .expertise-titre { font-weight: bold; color: var(--vert-fonce); font-size: 12px; margin-top: 10px; margin-bottom: 4px; }
+    .expertise-desc { font-size: 10px; margin-bottom: 6px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9px;
+      margin-bottom: 10px;
+    }
+    table th, table td { border: 1px solid var(--gris); padding: 6px 8px; }
+    table th {
+      background: var(--vert-fonce);
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+    table td { text-align: center; }
+    table tr:nth-child(even) { background: var(--gris-clair); }
+    table .total-row { background: #ecfdf5 !important; font-weight: bold; }
+
+    .page-num {
+      position: absolute;
+      bottom: 15mm;
+      right: 15mm;
+      font-size: 9px;
+      color: #6b7280;
+    }
+    .page-8 .page-num { color: white; }
+
+    /* Page 8 - Contact */
+    .page-8 {
+      background: linear-gradient(180deg, var(--vert) 0%, var(--vert-fonce) 100%);
+      color: white;
+      text-align: center;
+    }
+    .page-8 .titre-page { color: white; font-size: 24px; }
+    .page-8 .encadre.blanc { border-color: var(--vert-fonce); }
+    .page-8 .footer-final { font-size: 8px; color: white; margin-top: 15px; opacity: 0.9; }
+
+    .grille-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; }
+    .argument-titre { font-weight: bold; font-size: 10px; margin-bottom: 2px; }
+    .argument-desc { font-size: 10px; }
+
+    .stats-encadre {
+      background: var(--vert-fond);
+      border: 1px solid var(--vert);
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+      color: var(--vert-fonce);
+      margin-top: 15px;
+    }
+
+    .print-hint {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--vert-fonce);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+    .print-hint kbd { background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+<div class="print-hint no-print">
+  <strong>Imprimer en PDF :</strong><br>
+  <kbd>Ctrl</kbd> + <kbd>P</kbd> → Destination : « Enregistrer au format PDF »<br>
+  <small>Cochez « Graphiques d'arrière-plan » pour les couleurs</small>
+</div>
+
+<!-- PAGE 1 : COUVERTURE -->
+<div class="page page-cover">
+  <h1>ENERGIA-CONSEIL IA®</h1>
+  <div class="baseline">Audit Énergétique Intelligence Artificielle</div>
+  <div class="inpi">Marque déposée INPI</div>
+  <div class="expert-title">Votre partenaire expert en :</div>
+  <ul>
+    <li>• Audits énergétiques réglementaires</li>
+    <li>• Rénovation globale performante (MaPrimeRénov' + CEE)</li>
+    <li>• Photovoltaïque 0-500 kWc (QUALIPV)</li>
+    <li>• Assistance à Maîtrise d'Ouvrage (AMO)</li>
+    <li>• Conseil technique & Études thermiques</li>
+  </ul>
+  <div class="footer-page">
+    <div>www.energia-conseil.com</div>
+    <div>06 10 59 68 98</div>
+  </div>
+</div>
+
+<!-- PAGE 2 : QUI SOMMES-NOUS -->
+<div class="page">
+  <span class="page-num">Page 2</span>
+  <h2 class="titre-page">Qui sommes-nous ?</h2>
+  <p class="corps">ENERGIA-CONSEIL IA® est un bureau d'études spécialisé en rénovation énergétique, audits énergétiques réglementaires et installations photovoltaïques.</p>
+  <p class="corps">Marque déposée INPI, nous accompagnons les particuliers, copropriétés, professionnels et industriels dans leurs projets de transition énergétique.</p>
+  <p class="corps">Notre expertise : Audits conformes Décret 2022-780, calculs thermiques RT2012/RE2020, dimensionnement photovoltaïque 0-500 kWc, optimisation cumul aides MaPrimeRénov' + CEE 2026, assistance technique, conseil sélection artisans RGE.</p>
+
+  <div class="encadre bleu">
+    <strong>Notre positionnement : Bureau d'études & Assistance à Maîtrise d'Ouvrage (AMO)</strong><br><br>
+    Activité actuelle : Conseil technique, études, assistance<br>
+    Objectif 2026-2027 : RC PRO Maîtrise d'œuvre + Certification CERTIBAT
+  </div>
+
+  <div class="expertise-titre">✓ Expertise technique</div>
+  <div class="expertise-desc">Certifications FEEBAT, QUALIPV (0-500 kWc), Auditeur Énergétique. Calculs thermiques précis, conformité réglementaire. Études photovoltaïques résidentiel/tertiaire/industriel.</div>
+
+  <div class="expertise-titre">✓ Innovation IA</div>
+  <div class="expertise-desc">Audit énergétique Intelligence Artificielle (199€). Calculateur aides MaPrimeRénov' + CEE en ligne gratuit. Dimensionnement photovoltaïque optimisé. Rapports automatisés.</div>
+
+  <div class="expertise-titre">✓ Photovoltaïque 0-500 kWc</div>
+  <div class="expertise-desc">Résidentiel (3-9 kWc) : Autoconsommation + Revente surplus. Tertiaire (9-100 kWc) : Toitures commerces, bureaux. Industriel (100-500 kWc) : Hangars, entrepôts, ombrières. Certification QUALIPV.</div>
+
+  <div class="expertise-titre">✓ Accompagnement complet</div>
+  <div class="expertise-desc">Audit → Devis → Assistance administrative (aides) → Conseil artisans RGE. Assistance technique suivi de chantier. Cumul aides MaPrimeRénov' + CEE optimisé.</div>
+
+  <div class="expertise-titre">✓ Résultats garantis</div>
+  <div class="expertise-desc">Audits conformes (Décret 2022-780). Aides maximisées (cumul MaPrimeRénov' + CEE + Région). Production photovoltaïque garantie (25 ans).</div>
+
+  <p style="margin-top: 12px; font-size: 8px; color: #6b7280;">SIRET : 94181942700019 | Marque déposée INPI</p>
+</div>
+
+<!-- PAGE 3 : NOS SERVICES -->
+<div class="page">
+  <span class="page-num">Page 3</span>
+  <h2 class="titre-page">Nos services</h2>
+
+  <div class="encadre vert">
+    <strong>🏠 AUDITS ÉNERGÉTIQUES</strong><br><br>
+    <strong>Audit réglementaire</strong> (vente F/G/E/D) : Conforme Décret 2022-780, Rapport 30-40 pages, 2-3 scénarios travaux, Calculs aides personnalisés, Validité 5 ans, Délai 5-7 jours. <strong>Prix : 199-600€</strong><br><br>
+    <strong>Audit IA</strong> (particuliers) : Intelligence Artificielle, Rapport instantané, 3-5 scénarios optimisés, Remboursé si travaux. <strong>Prix : 199€</strong><br><br>
+    <strong>Sous-traitance BET</strong> : Audits en marque blanche, Délai 5-7 jours. <strong>Prix : 400€ HT/audit</strong>
+  </div>
+
+  <div class="encadre jaune">
+    <strong>☀️ PHOTOVOLTAÏQUE 0-500 kWc</strong><br><br>
+    <strong>Résidentiel (3-9 kWc)</strong> : Autoconsommation + Revente surplus. Prime autoconsommation. ROI 8-12 ans. <strong>Prix : 1 800-3 000€/kWc TTC</strong><br><br>
+    <strong>Tertiaire (9-100 kWc)</strong> : Toitures commerces, bureaux. Obligation d'achat 20 ans. ROI 6-10 ans. <strong>Prix : 1 200-1 800€/kWc HT</strong><br><br>
+    <strong>Industriel (100-500 kWc)</strong> : Hangars, entrepôts, ombrières. ROI 5-8 ans. <strong>Prix : 1 000-1 400€/kWc HT</strong>
+  </div>
+
+  <div class="encadre bleu">
+    <strong>🔨 ASSISTANCE À MAÎTRISE D'OUVRAGE (AMO)</strong><br><br>
+    <strong>Assistance technique projets</strong> : Sélection artisans RGE, Conseil technique, Suivi chantier, Contrôle qualité. <strong>Prix : 5 000-10 000€</strong><br><br>
+    <strong>Coordination photovoltaïque</strong> : Sélection installateurs QUALIPV, Suivi raccordement ENEDIS. <strong>Prix : 5-10% du projet</strong><br><br>
+    <em>Évolution 2026 : Obtention RC PRO Maîtrise d'œuvre en cours → Offre clé en main complète à venir</em>
+  </div>
+
+  <div class="encadre orange">
+    <strong>💰 OPTIMISATION AIDES 2026</strong><br><br>
+    <strong>Calcul cumul aides</strong> : MaPrimeRénov' Parcours Accompagné, CEE Précarité, Prime autoconsommation, Aides Région, Éco-PTZ. Cumul optimisé jusqu'à 90%. <strong>Gratuit sur notre site</strong><br><br>
+    <strong>Assistance dossiers aides</strong> : Conseil constitution dossier, Calculs au centime près. Inclus dans AMO
+  </div>
+</div>
+
+<!-- PAGE 4 : PHOTOVOLTAÏQUE -->
+<div class="page">
+  <span class="page-num">Page 4</span>
+  <h2 class="titre-page" style="color: #f59e0b;">☀️ Photovoltaïque 0-500 kWc</h2>
+  <div class="sous-titre">Certification QUALIPV - Installations solaires tous secteurs</div>
+
+  <div class="encadre jaune">
+    <strong>🏠 RÉSIDENTIEL (3-9 kWc)</strong><br>
+    Configuration type 6 kWc : 12 panneaux 500Wc (30m²), Production 6 000-7 500 kWh/an. Prime autoconsommation 1 680€.<br>
+    <strong>Prix : 12 000-18 000€ TTC | Reste : 10 320-16 320€ | ROI : 8-12 ans</strong>
+  </div>
+
+  <div class="encadre jaune">
+    <strong>🏢 TERTIAIRE (9-100 kWc)</strong><br>
+    Configuration type 36 kWc : 72 panneaux (180m²), Production 36 000-45 000 kWh/an. Prime 5 760€.<br>
+    <strong>Prix : 45 000-65 000€ HT | ROI : 6-10 ans | Économies : 5 000-8 000€/an</strong>
+  </div>
+
+  <div class="encadre jaune">
+    <strong>🏭 INDUSTRIEL (100-500 kWc)</strong><br>
+    Configuration type 250 kWc : 500 panneaux (1 250m²), Production 250 000-300 000 kWh/an.<br>
+    <strong>Prix : 200 000-300 000€ HT | ROI : 5-8 ans | Économies : 30 000-50 000€/an</strong>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Puissance</th><th>Surface</th><th>Production/an</th><th>Prix</th><th>ROI</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>3 kWc</td><td>15 m²</td><td>3 000 kWh</td><td>6 000 €</td><td>10 ans</td></tr>
+      <tr><td>6 kWc</td><td>30 m²</td><td>6 000 kWh</td><td>12 000 €</td><td>9 ans</td></tr>
+      <tr><td>9 kWc</td><td>45 m²</td><td>9 000 kWh</td><td>18 000 €</td><td>8 ans</td></tr>
+      <tr><td>36 kWc</td><td>180 m²</td><td>36 000 kWh</td><td>55 000 €</td><td>8 ans</td></tr>
+      <tr><td>100 kWc</td><td>500 m²</td><td>100 000 kWh</td><td>120 000 €</td><td>7 ans</td></tr>
+      <tr><td>250 kWc</td><td>1 250 m²</td><td>250 000 kWh</td><td>250 000 €</td><td>6 ans</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PAGE 5 : POURQUOI NOUS CHOISIR -->
+<div class="page">
+  <span class="page-num">Page 5</span>
+  <h2 class="titre-page">Pourquoi nous choisir ?</h2>
+
+  <div class="grille-2">
+    <div>
+      <div class="argument-titre">✓ Certifications officielles</div>
+      <div class="argument-desc">FEEBAT, QUALIPV, Auditeur Énergétique. Conformité garantie.</div>
+    </div>
+    <div>
+      <div class="argument-titre">✓ Photovoltaïque tous secteurs</div>
+      <div class="argument-desc">Résidentiel, Tertiaire, Industriel. Dimensionnement optimisé.</div>
+    </div>
+    <div>
+      <div class="argument-titre">✓ Technologie IA</div>
+      <div class="argument-desc">Audits IA, Calculateur aides gratuit. www.energia-conseil.com</div>
+    </div>
+    <div>
+      <div class="argument-titre">✓ Rapidité</div>
+      <div class="argument-desc">Audit 5-7 jours, Étude PV 48h, Devis 48h.</div>
+    </div>
+    <div>
+      <div class="argument-titre">✓ Expertise aides 2026</div>
+      <div class="argument-desc">MaPrimeRénov' + CEE + Région. Cumul jusqu'à 90%.</div>
+    </div>
+    <div>
+      <div class="argument-titre">✓ Réseau partenaires RGE</div>
+      <div class="argument-desc">ECOM, HB FACADIER, ECO SYSTÈME DURABLE, C2L, QUALIPV.</div>
+    </div>
+    <div>
+      <div class="argument-titre">✓ Transparence</div>
+      <div class="argument-desc">Devis détaillés, pas de frais cachés, aides au centime.</div>
+    </div>
+    <div>
+      <div class="argument-titre">✓ Accompagnement complet</div>
+      <div class="argument-desc">Étude → Devis → Aides → Conseil artisans → Assistance suivi.</div>
+    </div>
+  </div>
+
+  <div class="stats-encadre">
+    95% taux de satisfaction | 90% aides obtenues | 100% installations conformes
+  </div>
+</div>
+
+<!-- PAGE 6 : TARIFS -->
+<div class="page">
+  <span class="page-num">Page 6</span>
+  <h2 class="titre-page">Nos tarifs</h2>
+
+  <table>
+    <thead>
+      <tr><th>PARTICULIERS</th><th>BET & ENTREPRISES</th><th>COPROPRIÉTÉS</th><th>TERTIAIRE / INDUSTRIEL</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Audit IA : 199€ TTC</td><td>Sous-traitance : 400€ HT/audit</td><td>Audit copro : 600-800€ HT</td><td>PV 9-100 kWc : 1 200-1 800€/kWc HT</td></tr>
+      <tr><td>Audit réglementaire : 600€</td><td>Remises volume -10% à -20%</td><td>DTG + PPT : Sur devis</td><td>PV 100-500 kWc : 1 000-1 400€/kWc HT</td></tr>
+      <tr><td>AMO : 5 000-10 000€</td><td>Partenariat sur mesure</td><td>PV collectif : Sur devis</td><td>Maintenance : 1-2% invest./an</td></tr>
+      <tr><td>PV 3-9 kWc : 1 800-3 000€/kWc</td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PAGE 7 : CUMUL AIDES -->
+<div class="page" style="background: var(--orange-fond);">
+  <span class="page-num">Page 7</span>
+  <h2 class="titre-page" style="color: var(--orange-fonce);">💰 Cumul Aides MaPrimeRénov' + CEE 2026</h2>
+  <div class="sous-titre">Financez jusqu'à 90% de votre rénovation globale</div>
+
+  <p class="corps"><strong>✅ TOUTES LES AIDES SONT CUMULABLES !</strong> MaPrimeRénov' Parcours + CEE + Région + Éco-PTZ + TVA 5,5%</p>
+
+  <table>
+    <thead>
+      <tr><th>Aide</th><th>Profil BLEU</th><th>Profil JAUNE</th><th>Profil VIOLET</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>MaPrimeRénov' Parcours</td><td>49 000€ (70%)</td><td>35 000€ (50%)</td><td>28 000€ (40%)</td></tr>
+      <tr><td>CEE Précarité (bonifié)</td><td>9 000€</td><td>7 000€</td><td>5 000€</td></tr>
+      <tr><td>Aide Région</td><td>2 000€</td><td>1 500€</td><td>1 000€</td></tr>
+      <tr class="total-row"><td>TOTAL AIDES</td><td>60 000€</td><td>43 500€</td><td>34 000€</td></tr>
+      <tr><td>Reste à charge</td><td>10 000€</td><td>26 500€</td><td>36 000€</td></tr>
+      <tr><td>Taux financement</td><td>86%</td><td>62%</td><td>49%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="encadre vert">
+    <strong>Exemple réel : M. Seux (Loire 42)</strong><br>
+    Projet 70 391€ TTC (ITE + Combles + PAC + Menuiseries + VMC). Profil JAUNE.<br>
+    Aides : MaPrimeRénov' 31 000€ + CEE 6 500€ + Région 1 500€ = <strong>39 000€ (55%)</strong><br>
+    Reste 31 391€ | Éco-PTZ 174€/mois | Économies 180€/mois → <strong>Gain net +6€/mois (autofinancé) ✓</strong>
+  </div>
+</div>
+
+<!-- PAGE 8 : CONTACT -->
+<div class="page page-8">
+  <span class="page-num">Page 8</span>
+  <h2 class="titre-page">Contactez-nous</h2>
+  <p style="font-size: 16px; font-weight: bold; margin-bottom: 6px;">ENERGIA-CONSEIL IA®</p>
+  <p style="font-size: 12px; margin-bottom: 4px;">Audit Énergétique Intelligence Artificielle</p>
+  <p style="font-size: 12px; margin-bottom: 20px;">16 Rue Cuvier, 69006 Lyon</p>
+
+  <p style="font-size: 14px; font-weight: bold;">📞 06 10 59 68 98</p>
+  <p style="font-size: 12px;">📧 contact@energia-conseil.com</p>
+  <p style="font-size: 12px; margin-bottom: 25px;">🌐 www.energia-conseil.com</p>
+
+  <div class="encadre blanc" style="max-width: 450px; margin: 0 auto 20px; text-align: left;">
+    <strong>Interventions :</strong> Auvergne-Rhône-Alpes (Lyon, Saint-Étienne, Loire 42) • Île-de-France • National (sur demande)<br><br>
+    <strong>Secteurs :</strong> Résidentiel • Copropriétés • Tertiaire • Industriel<br><br>
+    <strong>Partenaires RGE :</strong> ECOM ENERGIE, HB FACADIER (ITE) • ECO SYSTÈME DURABLE (PAC+VMC) • C2L (Toiture) • Installateurs QUALIPV • VIVONS COURTIER (Financement)
+  </div>
+
+  <div class="footer-final">
+    SIRET : 94181942700019 | RCS Lyon 941819427<br>
+    SASU Capital 100€ | Marque déposée INPI<br>
+    Certifications : FEEBAT | QUALIPV (0-500 kWc) | Auditeur Énergétique<br>
+    © 2026 ENERGIA-CONSEIL IA® - Tous droits réservés
+  </div>
+</div>
+
+</body>
+</html>
