@@ -1,0 +1,76 @@
+═══════════════════════════════════════════════════════════════════
+COMMENT COPIER L'EMAIL HTML DANS GMAIL
+═══════════════════════════════════════════════════════════════════
+
+MÉTHODE 1 : Copier-coller direct (recommandé)
+───────────────────────────────────────────────────────────────────
+
+1. Ouvrez le fichier email_partenariat_html.html dans Chrome ou Edge
+   (double-clic sur le fichier)
+
+2. Une fois l'email affiché dans le navigateur :
+   - Appuyez sur Ctrl + A (tout sélectionner)
+   - Appuyez sur Ctrl + C (copier)
+
+3. Ouvrez Gmail : https://mail.google.com
+
+4. Cliquez sur "Nouveau message" (ou "Compose" en anglais)
+
+5. Dans le corps du message :
+   - Placez le curseur dans la zone de texte
+   - Appuyez sur Ctrl + V (coller)
+
+6. Remplissez :
+   - Destinataire : adresse du BET cible
+   - Objet : ex. "Proposition partenariat audits énergétiques"
+   - Joignez le PDF : ENERGIA_Plaquette_2026.pdf
+     (cliquez sur l'icône trombone 📎 → Parcourir → sélectionnez le fichier)
+
+7. Envoyez
+
+
+MÉTHODE 2 : Via le code source (alternative)
+───────────────────────────────────────────────────────────────────
+
+1. Ouvrez email_partenariat_html.html avec un éditeur de texte
+   (Notepad, VS Code, etc.)
+
+2. Sélectionnez tout (Ctrl + A) et copiez (Ctrl + C)
+
+3. Dans Gmail, cliquez sur "Nouveau message"
+
+4. Activez le mode HTML :
+   - Cliquez sur les 3 points ⋮ en bas à droite (à côté de l'aperçu)
+   - Sélectionnez "Afficher le contenu à l'origine"
+
+   OU, si disponible :
+   - Cliquez sur le crayon ✎ (ou l'icône de formatage)
+   - Cherchez l'option pour coller en HTML / modifier la source
+
+5. Collez le code HTML
+
+Note : Gmail limite l'édition HTML directe. La Méthode 1 est plus fiable.
+
+
+VÉRIFICATIONS AVANT ENVOI
+───────────────────────────────────────────────────────────────────
+
+☐ Pièce jointe PDF bien attachée (ENERGIA_Plaquette_2026.pdf)
+☐ Objet professionnel et personnalisé si possible
+☐ Adresse destinataire correcte
+☐ Liens (email, site) affichés correctement
+☐ Mise en forme conservée (couleurs, encadrés)
+
+
+CONSEILS
+───────────────────────────────────────────────────────────────────
+
+• Pour un premier contact, personnalisez l'objet :
+  "Partenariat audits énergétiques - [Nom du BET]"
+
+• Testez d'abord en vous envoyant l'email à vous-même pour vérifier
+  l'affichage sur votre propre boîte mail
+
+• Certains clients email (Outlook, Apple Mail) peuvent modifier
+  légèrement la mise en forme. Le HTML a été conçu pour rester
+  lisible partout
