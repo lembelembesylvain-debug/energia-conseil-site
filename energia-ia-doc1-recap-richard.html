@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prochaines étapes – Reprise KAZEO | ENERGIA-CONSEIL IA®</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Prochaines étapes – Reprise projet KAZEO | ENERGIA-CONSEIL IA®</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #1f2937; background: #fff; }
+    body { font-family: 'Inter', Helvetica, Arial, sans-serif; line-height: 1.6; color: #1f2937; background: #fff; }
     .container { max-width: 720px; margin: 0 auto; padding: 2.5cm; }
     .brand-header { margin-bottom: 0.75rem; }
-    .brand-name { font-family: 'Inter', Helvetica, sans-serif; font-weight: 700; font-size: 16px; color: #10b981; }
+    .brand-name { font-family: 'Poppins', 'Inter', Helvetica, sans-serif; font-weight: 700; font-size: 16px; color: #10b981; }
     .brand-tagline { font-size: 12px; color: #6b7280; margin-top: 0.15rem; }
     .brand-inpi { font-size: 11px; color: #6b7280; margin-top: 0.1rem; }
     .brand-contact { font-size: 12px; color: #6b7280; margin-top: 0.2rem; }
@@ -18,16 +18,21 @@
     .line-grey { height: 1px; background: #d1d5db; margin: 1.25rem 0; border: none; }
     .header h1 { color: #10b981; font-size: 24px; font-weight: 700; margin-bottom: 0.25rem; }
     .header .subtitle { color: #6b7280; font-size: 14px; }
-    h2 { color: #10b981; font-size: 18px; font-weight: 700; margin: 1.25rem 0 0.75rem; }
+    h2 { color: #047857; font-family: 'Poppins', 'Inter', Helvetica, sans-serif; font-weight: 700; font-size: 18px; margin: 1.25rem 0 0.75rem; }
     ul.recap, ul.checklist { list-style: none; margin: 0.5rem 0; }
     ul.recap li, ul.checklist li { padding: 0.35rem 0; padding-left: 1.5rem; position: relative; font-size: 14px; }
     ul.recap li::before, ul.checklist li::before { content: '•'; position: absolute; left: 0; color: #10b981; font-weight: 700; font-size: 1.1rem; }
     strong { font-weight: 600; }
-    .box-deadline { background: #fef3c7; border: 2px solid #f97316; border-radius: 8px; padding: 15px; margin: 1rem 0; font-weight: 600; }
+    .box-red { background: #fef2f2; border: 2px solid #ef4444; border-radius: 8px; padding: 15px; margin: 1rem 0; font-weight: 600; }
+    .box-green { background: #f0fdf4; border: 2px solid #10b981; border-radius: 8px; padding: 15px; margin: 1rem 0; }
     .box-contact { background: #dbeafe; border: 2px solid #3b82f6; border-radius: 8px; padding: 15px; margin: 0.75rem 0; }
-    .footer-legal { text-align: center; font-size: 9px; color: #6b7280; margin-top: 2rem; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; margin: 0.75rem 0; font-size: 12px; }
+    th, td { padding: 0.4rem 0.5rem; border: 1px solid #e5e7eb; }
+    th { background: #10b981; color: white; font-weight: bold; }
+    .recap-chiffres { background: #f9fafb; padding: 12px 16px; border-radius: 8px; margin: 0.75rem 0; }
     .page-break { page-break-after: always; }
-    @media print { .container { padding: 2.5cm; } }
+    .footer-legal { text-align: center; font-size: 9px; color: #6b7280; margin-top: 2rem; line-height: 1.4; }
+    @media print { .container { padding: 2.5cm; padding-bottom: 1.5cm; } .footer-legal { position: fixed; bottom: 0; left: 0; right: 0; font-size: 8px; } }
   </style>
 </head>
 <body>
@@ -41,55 +46,85 @@
       <div class="brand-contact">16 Rue Cuvier, 69006 Lyon | 06 10 59 68 98</div>
     </div>
     <div class="header">
-      <h1>Prochaines étapes</h1>
-      <p class="subtitle">Reprise projet KAZEO – M. et Mme RICHARD Paul | 600 Route de la Goutte, 42210 UNIAS | Profil ROSE</p>
+      <h1>Prochaines étapes – Reprise projet KAZEO</h1>
+      <p class="subtitle">M. et Mme RICHARD Paul | 600 Route de la Goutte, 42210 UNIAS | Profil ROSE (Intermédiaires)</p>
     </div>
     <hr class="line-green">
 
-    <h2>📋 Récapitulatif</h2>
-    <ul class="recap">
-      <li><strong>Travaux restants :</strong> <strong>56 000 € TTC</strong> (ITE 164 m² ECOM ENERGIE, combles 100 m², PAC air/air 4 splits Daikin, ballon thermo 200 L, VMC + coordination ECO SYSTÈME DURABLE)</li>
-      <li><strong>Prime ANAH :</strong> <strong>-28 606 €</strong> (MPR-2024-325139 – validité 21/08/2027)</li>
-      <li><strong>Reste à charge :</strong> <strong>27 394 €</strong></li>
-      <li><strong>Financement :</strong> VIVONS COURTIER – 0 € apport, 272 €/mois sur 10 ans</li>
-      <li><strong>Résultat :</strong> DPE G → A ✅ | Économies 2 400 €/an</li>
-    </ul>
+    <div class="box-red">
+      <strong>🚨 REPRISE PROJET KAZEO – Prime 28 606 € à sauver</strong><br>
+      KAZEO en redressement judiciaire. Travaux restants : ITE, Combles, PAC, Ballon, VMC.<br>
+      <strong>Deadline prime ANAH : 21/08/2027 (18 mois restants)</strong>
+    </div>
 
-    <hr class="line-grey">
+    <h2>Récapitulatif financier</h2>
+    <div class="recap-chiffres">
+      <p><strong>Travaux restants (ENERGIA) :</strong> 56 000 € TTC</p>
+      <p><strong>Prime ANAH (réservée MPR-2024-325139) :</strong> -28 606 €</p>
+      <p><strong>Reste à charge :</strong> 27 394 €</p>
+      <p><strong>Financement :</strong> VIVONS COURTIER – 0 € apport, 272 €/mois sur 10 ans</p>
+      <p><strong>Économies énergie :</strong> 200 €/mois (2 400 €/an)</p>
+    </div>
 
-    <h2>✅ Checklist – À faire dans l'ordre</h2>
+    <h2>Checklist – 8 étapes</h2>
     <ul class="checklist">
-      <li><strong>1.</strong> Appeler ENERGIA-CONSEIL IA (06 10 59 68 98) pour explication complète par téléphone</li>
-      <li><strong>2.</strong> Signer le contrat de reprise (signature électronique)</li>
-      <li><strong>3.</strong> Contacter VIVONS COURTIER (Fabien – 06 71 19 96 45) – validation 48-72 h</li>
-      <li><strong>4.</strong> Vérification menuiseries + volets posés par KAZEO</li>
-      <li><strong>5.</strong> Démarrage chantier ITE sous 2-3 semaines (ECOM ENERGIE – 06 13 60 24 73)</li>
-      <li><strong>6.</strong> Suivi hebdomadaire ENERGIA-CONSEIL IA – réception semaine 10-11</li>
-      <li><strong>7.</strong> DPE post-travaux + demande paiement ANAH</li>
-      <li><strong>8.</strong> Réception prime ANAH 28 606 € (4-8 semaines)</li>
+      <li><strong>1.</strong> Signature contrat ENERGIA-CONSEIL IA (signature électronique)</li>
+      <li><strong>2.</strong> Validation financement VIVONS COURTIER – Fabien 06 71 19 96 45 (48-72 h)</li>
+      <li><strong>3.</strong> Coordination artisans RGE (ECOM ENERGIE, ECO SYSTÈME DURABLE)</li>
+      <li><strong>4.</strong> Vérification état menuiseries + 8 volets posés par KAZEO</li>
+      <li><strong>5.</strong> Commande matériel (ITE, combles, PAC)</li>
+      <li><strong>6.</strong> Lancement travaux – ITE en priorité #1</li>
+      <li><strong>7.</strong> Suivi hebdomadaire ENERGIA – réception finale</li>
+      <li><strong>8.</strong> DPE post-travaux (classe A) + Demande paiement ANAH 28 606 €</li>
     </ul>
 
-    <div class="box-deadline">
-      <strong>Deadline :</strong> Travaux terminés avant le <strong>21/08/2027</strong> pour conserver la prime ANAH. Marge : 18 mois.
+    <div class="box-green">
+      <strong>✅ Résultats garantis :</strong> DPE G → A (+6 classes) | Prime ANAH 28 606 € sauvée | Plus-value +80 000 € | Économies 2 400 €/an | Confort optimal 4 pièces climatisées
     </div>
 
     <div class="page-break"></div>
 
     <!-- PAGE 2 -->
-    <h2>📞 Contacts projet</h2>
+    <h2>Contacts projet</h2>
     <div class="box-contact">
-      <strong>Maître d'œuvre – ENERGIA-CONSEIL IA®</strong><br>
-      Sylvain LEMBELEMBE<br>
-      06 10 59 68 98<br>
-      contact@energia-conseil.com
-    </div>
-    <div class="box-contact">
-      <strong>Courtier – VIVONS COURTIER</strong><br>
-      FABIEN<br>
+      <strong>Courtier financement :</strong> FABIEN – VIVONS COURTIER<br>
       06 71 19 96 45
     </div>
+    <div class="box-contact">
+      <strong>Assistance technique – ENERGIA-CONSEIL IA®</strong><br>
+      Sylvain LEMBELEMBE | 06 10 59 68 98<br>
+      contact@energia-conseil.com<br>
+      Certifications : FEEBAT | QUALIPV | Auditeur Énergétique
+    </div>
+    <div class="box-contact">
+      <strong>ITE 164 m² – ECOM ENERGIE</strong><br>
+      RGE E-E200148 | 27 880 € TTC
+    </div>
+    <div class="box-contact">
+      <strong>PAC + Ballon + VMC – ECO SYSTÈME DURABLE</strong><br>
+      01 70 93 97 15 | contact@esd-rge.fr | 14 600 € TTC
+    </div>
+    <div class="box-contact">
+      <strong>Combles 100 m² – 2C ENERGIES (alternatif)</strong><br>
+      09 72 57 47 47 | contact@2cenergies.fr | 4 000 € TTC
+    </div>
 
-    <p class="footer-legal">ENERGIA-CONSEIL IA® - Marque déposée INPI<br>SIRET : 94181942700019 | RCS Lyon 941819427 | N° TVA : FR01941819427<br>Code APE : 7112B | SASU Capital 100€<br>Paiement : 30% / 40% / 30% | RGPD : contact@energia-conseil.com<br>Médiation : MEDICYS - www.medicys.fr<br>© 2026 ENERGIA-CONSEIL IA - Tous droits réservés</p>
+    <h2>Gestion projet KAZEO</h2>
+    <p><strong>Travaux réalisés par KAZEO (février 2025) :</strong> Menuiseries complètes + 8 volets roulants motorisés = 22 552 € TTC</p>
+    <p><strong>Acompte versé à KAZEO :</strong> 20 577 € (04/09/2024)</p>
+    <p><strong>Analyse :</strong> Valeur livrée (22 552 €) > Acompte (20 577 €). Différence +1 975 € en faveur client. Aucune créance à récupérer. Pas de déclaration créance nécessaire.</p>
+
+    <h2>Comparaison KAZEO vs ENERGIA</h2>
+    <table>
+      <tr><th>Critère</th><th>KAZEO</th><th>ENERGIA-CONSEIL IA</th></tr>
+      <tr><td>Devis initial</td><td>70 516 €</td><td>56 000 € (travaux restants)</td></tr>
+      <tr><td>Réalisé</td><td>22 552 € (menuiseries + volets)</td><td>—</td></tr>
+      <tr><td>À réaliser</td><td>46 485 € (non fait)</td><td>56 000 € (6 postes)</td></tr>
+      <tr><td>Statut</td><td>Redressement judiciaire</td><td>Opérationnel</td></tr>
+      <tr><td>Prime ANAH</td><td>28 606 € (risque perte)</td><td>28 606 € (garantie sauvegarde)</td></tr>
+    </table>
+
+    <p class="footer-legal" style="margin-top: 2rem;">ENERGIA-CONSEIL IA® - Marque INPI<br>SIRET 94181942700019 | RCS Lyon 941819427<br>SASU 100€ | © 2026 ENERGIA-CONSEIL IA</p>
   </div>
 </body>
 </html>
