@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapport technique – M. YANG & Mme LIU | ENERGIA-CONSEIL IA®</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', Helvetica, Arial, sans-serif; line-height: 1.55; color: #1f2937; background: #fff; font-size: 11px; }
+    .container { max-width: 800px; margin: 0 auto; padding: 1.5rem 2rem; }
+    .brand-header { margin-bottom: 0.5rem; }
+    .brand-header--cover { text-align: center; }
+    .brand-name { font-family: 'Poppins', 'Inter', Helvetica, sans-serif; font-weight: 700; color: #10b981; }
+    .brand-header--cover .brand-name { font-size: 24px; }
+    .brand-tagline { font-size: 13px; color: #6b7280; margin-top: 0.25rem; }
+    .brand-inpi { font-size: 12px; color: #6b7280; margin-top: 0.1rem; }
+    .brand-contact { font-size: 13px; color: #6b7280; margin-top: 0.2rem; }
+    h2 { color: #047857; font-family: 'Poppins', 'Inter', Helvetica, sans-serif; font-weight: 700; font-size: 1.05rem; margin: 1rem 0 0.5rem; page-break-after: avoid; border-bottom: 1px solid #10b981; padding-bottom: 0.2rem; }
+    h3 { color: #374151; font-size: 0.95rem; margin: 0.7rem 0 0.35rem; page-break-after: avoid; }
+    p { margin: 0.35rem 0; }
+    table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 10px; page-break-inside: avoid; }
+    th { background: #10b981; color: white; padding: 0.35rem 0.5rem; text-align: left; }
+    td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #e5e7eb; }
+    .montant { text-align: right; font-weight: 600; }
+    .encadre-green { background: #ecfdf5; border: 2px solid #10b981; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .encadre-amber { background: #fff7ed; border: 2px solid #f59e0b; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .page-break { page-break-after: always; }
+    .cover { text-align: center; padding: 3rem 2rem; }
+    .cover h1 { font-size: 1.5rem; color: #10b981; margin-bottom: 0.5rem; }
+    .footer-legal { text-align: center; font-size: 8px; color: #6b7280; margin-top: 1.5rem; line-height: 1.35; }
+    .toc-item { margin: 0.2rem 0; padding-left: 1rem; }
+    @media print {
+      .footer-legal { position: fixed; bottom: 0; left: 0; right: 0; }
+      body { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- COUVERTURE -->
+    <div class="cover page-break">
+      <div class="brand-header brand-header--cover">
+        <div class="brand-name">ENERGIA-CONSEIL IA®</div>
+        <div class="brand-tagline">Audit Énergétique Intelligence Artificielle</div>
+        <div class="brand-inpi">Marque déposée INPI</div>
+        <div class="brand-contact">16 Rue Cuvier, 69006 Lyon | 06 10 59 68 98</div>
+      </div>
+      <h1 style="margin-top:2rem;">RAPPORT TECHNIQUE</h1>
+      <p style="font-size:1.1rem;font-weight:600;">RÉNOVATION GLOBALE</p>
+      <p style="margin-top:1.5rem;">M. YANG Simiao & Mme LIU Ke</p>
+      <p>18 Parc des Chavannes, 69660 COLLONGES-AU-MONT-D'OR</p>
+      <p>Profil JAUNE (60%) | 157 m²</p>
+      <p style="margin-top:1rem;color:#6b7280;font-size:12px;">Date : 22 février 2026</p>
+      <div class="encadre-amber" style="margin-top:1.5rem;text-align:left;">
+        <strong>Configuration basée sur devis artisans reçus.</strong> DPE F/G → B. Reste 68 743 €.
+      </div>
+    </div>
+
+    <!-- SOMMAIRE -->
+    <h2>Sommaire</h2>
+    <p class="toc-item">I. Synthèse exécutive</p>
+    <p class="toc-item">II. Diagnostic du bien</p>
+    <p class="toc-item">III. Détail des devis artisans intégrés (ITE, Rampants, Plancher, PAC)</p>
+    <p class="toc-item">IV. Postes à sélectionner (Menuiseries, VMC)</p>
+    <p class="toc-item">V. Prestation coordination AMO ENERGIA-CONSEIL IA®</p>
+    <p class="toc-item">VI. Récapitulatif financier</p>
+    <p class="toc-item">VII. Aides publiques et financement</p>
+    <p class="toc-item">VIII. Résultats attendus post-travaux</p>
+    <p class="toc-item">IX. Planning prévisionnel (12-14 semaines)</p>
+    <p class="toc-item">X. Répertoire des artisans RGE</p>
+    <p class="toc-item">XI. Contacts du projet</p>
+    <p class="toc-item">XII. Recommandations et points d'attention</p>
+    <p class="toc-item">XIII. Annexes (A à G)</p>
+
+    <div class="page-break"></div>
+
+    <!-- I. SYNTHÈSE -->
+    <h2>I. Synthèse exécutive</h2>
+    <h3>1.1 Objectif du rapport</h3>
+    <p>Ce rapport technique présente la configuration de rénovation énergétique globale proposée pour la propriété de M. YANG Simiao et Mme LIU Ke, située au 18 Parc des Chavannes à COLLONGES-AU-MONT-D'OR (69660). Il rassemble l'ensemble des éléments techniques, financiers et organisationnels nécessaires à la compréhension et au pilotage du projet.</p>
+    <h3>1.2 Contexte du bien</h3>
+    <p>Maison individuelle de 157 m² habitable, construite entre 1948 et 1974, en zone climatique H1 (Rhône 69). Le bien présente un DPE F/G avec une consommation estimée de 400 kWh/m²/an et une facture énergétique d'environ 3 500 € par an. Les clients sont éligibles au profil JAUNE MaPrimeRénov' (Revenus modestes, 60 % d'aides).</p>
+    <h3>1.3 Configuration retenue</h3>
+    <div class="encadre-amber">
+      <strong>Configuration basée sur devis artisans reçus</strong> (HB FACADIER, CRYD'ZOLATION). Ce document ne constitue pas un audit énergétique réglementaire. Les montants et surfaces proviennent des devis transmis par les entreprises.
+    </div>
+    <h3>1.4 Chiffres clés</h3>
+    <table>
+      <tr><td>Montant total travaux TTC</td><td class="montant">130 743 €</td></tr>
+      <tr><td>Total aides (profil JAUNE)</td><td class="montant">62 000 €</td></tr>
+      <tr><td>Reste à charge</td><td class="montant">68 743 €</td></tr>
+      <tr><td>Mensualité financement (20 ans)</td><td class="montant">389 €/mois</td></tr>
+      <tr><td>Économies énergétiques estimées</td><td class="montant">225 €/mois</td></tr>
+      <tr><td>Bilan mensuel (20 ans)</td><td class="montant">-164 €/mois</td></tr>
+      <tr><td>DPE attendu post-travaux</td><td>B (+5 classes)</td></tr>
+      <tr><td>Plus-value patrimoniale estimée</td><td class="montant">+60 000 €</td></tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- II. DIAGNOSTIC -->
+    <h2>II. Diagnostic du bien</h2>
+    <h3>2.1 Identification du bien</h3>
+    <table>
+      <tr><td>Type de bâtiment</td><td>Maison individuelle</td></tr>
+      <tr><td>Surface habitable (Shon)</td><td>157 m²</td></tr>
+      <tr><td>Période de construction</td><td>1948-1974</td></tr>
+      <tr><td>Zone climatique DPE</td><td>H1 (Rhône 69)</td></tr>
+      <tr><td>Nombre de niveaux</td><td>2 + garage</td></tr>
+      <tr><td>Adresse du bien</td><td>18 Parc des Chavannes, 69660 COLLONGES-AU-MONT-D'OR</td></tr>
+      <tr><td>Adresse fiscale des clients</td><td>11A Rue Richelieu, 69100 VILLEURBANNE</td></tr>
+    </table>
+    <h3>2.2 État actuel des parois</h3>
+    <table>
+      <tr><th>Paroi</th><th>État</th><th>Impact énergétique</th></tr>
+      <tr><td>Murs extérieurs</td><td>Non isolés</td><td>Fortes déperditions, ponts thermiques</td></tr>
+      <tr><td>Combles / Rampants</td><td>Isolation existante insuffisante</td><td>Déperditions par le toit</td></tr>
+      <tr><td>Plancher garage</td><td>Non isolé</td><td>Déperditions vers local non chauffé</td></tr>
+      <tr><td>Menuiseries</td><td>Anciennes (simple vitrage)</td><td>Convection, ponts thermiques</td></tr>
+      <tr><td>Ventilation</td><td>Aucune VMC</td><td>Qualité de l'air, humidité</td></tr>
+      <tr><td>Système de chauffage</td><td>À remplacer</td><td>Rendement faible</td></tr>
+    </table>
+    <h3>2.3 Diagnostic DPE actuel</h3>
+    <p>Le Diagnostic de Performance Énergétique (DPE) classe le bien en F/G, soit parmi les bâtiments les plus énergivores. La consommation estimée de 400 kWh/m²/an correspond à une facture annuelle d'environ 3 500 €. Les principaux postes de déperdition sont les murs, la toiture et le plancher bas.</p>
+    <h3>2.4 Identification des clients</h3>
+    <p>M. YANG Simiao et Mme LIU Ke (couple). Revenu Fiscal de Référence 2024 : 26 225 €. 2 parts fiscales. Profil MaPrimeRénov' JAUNE (Revenus modestes) : taux d'aides 60 %. Contact : yespace2016@gmail.com | 07 64 42 85 25.</p>
+
+    <div class="page-break"></div>
+
+    <!-- III. DEVIS ARTISANS -->
+    <h2>III. Détail des devis artisans intégrés</h2>
+    <h3>3.1 ITE 332 m² – HB FACADIER</h3>
+    <table>
+      <tr><td>Devis</td><td>N° 24001294 du 22/01/2026</td></tr>
+      <tr><td>Entreprise</td><td>HB FACADIER – 22 Avenue Benoît Fourneyron, 42160 ANDRÉZIEUX-BOUTHÉON</td></tr>
+      <tr><td>SIRET</td><td>79086458100026</td></tr>
+      <tr><td>RGE Qualibat</td><td>E-E 109538</td></tr>
+      <tr><td>Assurance décennale</td><td>MMA Axelliance</td></tr>
+      <tr><td>Chargée d'affaires</td><td>Pauline DURY – 07 68 05 74 26</td></tr>
+    </table>
+    <table>
+      <tr><th>Désignation</th><th>Quantité</th><th>Prix unitaire HT</th><th>Total HT</th></tr>
+      <tr><td>ITE PSE 140 mm</td><td>332 m²</td><td>145 €/m²</td><td class="montant">48 140 €</td></tr>
+      <tr><td>Enduit finition</td><td>332 m²</td><td>20 €/m²</td><td class="montant">6 640 €</td></tr>
+      <tr><td>Chenaux + descentes</td><td>–</td><td>–</td><td class="montant">770 €</td></tr>
+      <tr><td>Total HT</td><td colspan="2"></td><td class="montant">55 550 €</td></tr>
+      <tr><td>TVA 5,5 %</td><td colspan="2"></td><td class="montant">3 055 €</td></tr>
+      <tr><td><strong>Total TTC</strong></td><td colspan="2"></td><td class="montant"><strong>58 604 €</strong></td></tr>
+    </table>
+    <p><strong>Isolant :</strong> PSE expansé KNAUF THERMITEX TH38 140 mm. R = 3,70 m²·K/W (ACERMI 03/007/178/19). Échafaudage offert.</p>
+    <div class="encadre-amber">
+      <strong>Note :</strong> La surface de 332 m² inclut le garage. L'audit initial recommandait 190 m² (habitation seule). Écart : +142 m² = environ +28 536 €.
+    </div>
+
+    <div class="page-break"></div>
+
+    <h3>3.2 Isolation rampants 138 m² – CRYD'ZOLATION</h3>
+    <table>
+      <tr><td>Devis</td><td>DE00751 du 28/01/2026</td></tr>
+      <tr><td>Entreprise</td><td>CRYD'ZOLATION – 42b Avenue de Landon, 39100 Dole</td></tr>
+      <tr><td>SIRET</td><td>90268398600019</td></tr>
+      <tr><td>RGE</td><td>E-E193239 n°7122</td></tr>
+      <tr><td>Téléphone</td><td>03 70 52 00 80</td></tr>
+    </table>
+    <p><strong>Produits :</strong> Laine bois ISONAT FLEX 55 Plus. 145 mm R=4 + 120 mm R=3,30 = R total 7,30 m²·K/W. ACERMI 11/217/718. Pare-vapeur STOPVAP. Main d'œuvre et évacuation incluses.</p>
+    <table>
+      <tr><td>Total HT</td><td class="montant">16 095 €</td></tr>
+      <tr><td>TVA 5,5 %</td><td class="montant">885 €</td></tr>
+      <tr><td><strong>Total TTC</strong></td><td class="montant"><strong>16 980 €</strong></td></tr>
+    </table>
+    <p>Prix au m² : 123 € TTC. R = 7,30 m²·K/W (excellent niveau).</p>
+
+    <h3>3.3 Isolation plancher bas 75 m² – CRYD'ZOLATION</h3>
+    <table>
+      <tr><td>Devis</td><td>DE00752 du 28/01/2026</td></tr>
+    </table>
+    <p><strong>Produits :</strong> Laine roche ROCKWOOL Rockplus 140 mm. R = 4,35 m²·K/W (ACERMI 02/015/001). Plafond suspendu + BA13. Main d'œuvre incluse.</p>
+    <table>
+      <tr><td>Total HT</td><td class="montant">8 775 €</td></tr>
+      <tr><td>TVA 5,5 %</td><td class="montant">483 €</td></tr>
+      <tr><td><strong>Total TTC</strong></td><td class="montant"><strong>9 258 €</strong></td></tr>
+    </table>
+    <p>Prix au m² : 123 € TTC.</p>
+
+    <div class="page-break"></div>
+
+    <h3>3.4 PAC Air/Eau 17 kW + Ballon 240 L – CRYD'ZOLATION</h3>
+    <table>
+      <tr><td>Devis</td><td>DE00753 du 29/01/2026</td></tr>
+      <tr><td>Sous-traitant chauffage</td><td>SA Ener Solutions – SIRET 91266245900011</td></tr>
+      <tr><td>QualiPAC</td><td>QPAC/68747</td></tr>
+      <tr><td>Assurance</td><td>N°133106945 Z 001</td></tr>
+    </table>
+    <p><strong>Équipements :</strong> PAC ATLANTIC ALFA EXCELLIA HP 17 TRI (triphasé). Puissance 17 kW. Module intérieur + extérieur. Ballon tampon Trinity 50 L. Commande Navilink A59 + Bridge Cozytouch. Ballon thermodynamique Aeromax 6 stable 240 L.</p>
+    <table>
+      <tr><td>Total HT</td><td class="montant">22 608 €</td></tr>
+      <tr><td>TVA 5,5 %</td><td class="montant">1 243 €</td></tr>
+      <tr><td><strong>Total TTC</strong></td><td class="montant"><strong>23 851 €</strong></td></tr>
+    </table>
+    <div class="encadre-amber">
+      <strong>Note :</strong> PAC 17 kW potentiellement surdimensionnée. Le besoin estimé pour une maison de 157 m² bien isolée en zone H1 est de l'ordre de 10 à 12 kW. L'entrepreneur a pu dimensionner pour une marge de sécurité ou des usages spécifiques.
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- IV. POSTES RESTANTS -->
+    <h2>IV. Postes à sélectionner</h2>
+    <h3>4.1 Menuiseries extérieures</h3>
+    <p>10 fenêtres PVC double vitrage (Uw = 1,3 W/(m²·K)) et 2 portes d'entrée. Estimation 10 000 € TTC. L'artisan RGE doit être sélectionné par ENERGIA-CONSEIL IA® dans le cadre de la coordination AMO.</p>
+    <h3>4.2 VMC simple flux hygroréglable B</h3>
+    <p>Installation d'une VMC simple flux hygroréglable B (gestion du débit selon l'humidité). Gaines et bouches d'insufflation/soufflage. Estimation 2 000 € TTC. Artisan RGE à sélectionner.</p>
+
+    <h2>V. Prestation coordination AMO – ENERGIA-CONSEIL IA®</h2>
+    <p>Montant : 10 050 € TTC. Rôle : Bureau d'études et Assistance à Maîtrise d'Ouvrage.</p>
+    <h3>Prestations incluses</h3>
+    <p><strong>A. Assistance technique :</strong> Validation des devis artisans, sélection des artisans manquants (menuiseries, VMC), vérification des certifications RGE, planning général (12-14 semaines), suivi hebdomadaire chantier, coordination des 5 artisans.</p>
+    <p><strong>B. Contrôle qualité :</strong> Réceptions intermédiaires, contrôle de conformité, tests de performances, réception finale avec PV, DPE post-travaux.</p>
+    <p><strong>C. Assistance administrative :</strong> Coordination avec le Métreur-Assureur Règlementaire (MAR) externe, aide au dossier ANAH, suivi des validations.</p>
+    <p><strong>D. Assistance post-travaux :</strong> Suivi pendant 3 mois après réception, suivi des garanties.</p>
+    <p><strong>MAR externe obligatoire :</strong> Coût 2 500 € (ANAH prend en charge 80 % = 2 000 €, reste à charge 500 €).</p>
+
+    <h2>VI. Récapitulatif financier</h2>
+    <table>
+      <tr><th>Poste</th><th class="montant">Montant TTC</th></tr>
+      <tr><td>ITE 332 m²</td><td class="montant">58 604 €</td></tr>
+      <tr><td>Rampants 138 m²</td><td class="montant">16 980 €</td></tr>
+      <tr><td>Plancher 75 m²</td><td class="montant">9 258 €</td></tr>
+      <tr><td>PAC + Ballon</td><td class="montant">23 851 €</td></tr>
+      <tr><td>Menuiseries</td><td class="montant">10 000 €</td></tr>
+      <tr><td>VMC</td><td class="montant">2 000 €</td></tr>
+      <tr><td>Coordination AMO</td><td class="montant">10 050 €</td></tr>
+      <tr><td><strong>Total</strong></td><td class="montant"><strong>130 743 €</strong></td></tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- VII. AIDES ET FINANCEMENT -->
+    <h2>VII. Aides publiques et financement</h2>
+    <h3>7.1 Éligibilité MaPrimeRénov'</h3>
+    <p>Profil JAUNE (Revenus modestes). RFR 26 225 € pour 2 parts. Taux d'aides : 60 %. Le parcours de rénovation globale permet de bénéficier du forfait MaPrimeRénov' Parcours, plafonné à 49 000 € pour le profil JAUNE.</p>
+    <h3>7.2 Répartition des aides</h3>
+    <table>
+      <tr><th>Aide</th><th class="montant">Montant</th><th>Condition</th></tr>
+      <tr><td>MaPrimeRénov' Parcours</td><td class="montant">49 000 €</td><td>Parcours complet, travaux RGE</td></tr>
+      <tr><td>CEE Précarité</td><td class="montant">11 000 €</td><td>Éligibilité revenus + RGE</td></tr>
+      <tr><td>Aide Région Auvergne-Rhône-Alpes</td><td class="montant">2 000 €</td><td>MaPrimeRénov' complémentaire</td></tr>
+      <tr><td><strong>Total aides</strong></td><td class="montant"><strong>62 000 €</strong></td><td></td></tr>
+    </table>
+    <h3>7.3 Plan de financement</h3>
+    <table>
+      <tr><td>Coût total TTC</td><td class="montant">130 743 €</td></tr>
+      <tr><td>Total aides</td><td class="montant">-62 000 €</td></tr>
+      <tr><td><strong>Reste à charge</strong></td><td class="montant"><strong>68 743 €</strong></td></tr>
+    </table>
+    <p><strong>Éco-PTZ :</strong> 50 000 € à 0 % sur 20 ans = 208 €/mois. <strong>Prêt classique :</strong> 18 743 € à 3 % sur 10 ans = 181 €/mois. Total mensualité : 389 €/mois.</p>
+    <div class="encadre-amber">
+      <strong>Avertissement :</strong> Le bilan mensuel est négatif (-164 €/mois) pendant 20 ans (mensualité 389 € vs économies 225 €). Après remboursement de l'Éco-PTZ, les économies nettes deviennent positives (+221 €/mois). La plus-value patrimoniale estimée de +60 000 € compense partiellement le surcoût.
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- VIII. RÉSULTATS -->
+    <h2>VIII. Résultats attendus post-travaux</h2>
+    <h3>8.1 Performance énergétique</h3>
+    <table>
+      <tr><th>Indicateur</th><th>Actuel</th><th>Post-travaux</th><th>Évolution</th></tr>
+      <tr><td>DPE</td><td>F/G</td><td>B</td><td>+5 classes</td></tr>
+      <tr><td>Consommation (kWh/m²/an)</td><td>400</td><td>80</td><td>-80 %</td></tr>
+      <tr><td>Facture annuelle</td><td>3 500 €</td><td>850 €</td><td>-2 650 €/an</td></tr>
+      <tr><td>Économies mensuelles</td><td>–</td><td>225 €</td><td>–</td></tr>
+    </table>
+    <h3>8.2 Plus-value patrimoniale</h3>
+    <p>Une amélioration du DPE de F/G à B peut générer une plus-value immobilière estimée à environ +60 000 €, selon les études du marché (notamment Notaires de France, Observatoire des prix).</p>
+
+    <h2>IX. Planning prévisionnel (12-14 semaines)</h2>
+    <h3>9.1 Séquence des travaux</h3>
+    <table>
+      <tr><th>Phase</th><th>Durée</th><th>Activité</th><th>Entreprise</th></tr>
+      <tr><td>1</td><td>2-4 sem.</td><td>Préparation administrative (ANAH, MAR, financements)</td><td>ENERGIA + MAR</td></tr>
+      <tr><td>2</td><td>4-5 sem.</td><td>ITE (Isolation Thermique Extérieure)</td><td>HB FACADIER</td></tr>
+      <tr><td>3</td><td>2 sem.</td><td>Isolation rampants + plancher bas</td><td>CRYD'ZOLATION</td></tr>
+      <tr><td>4</td><td>1-2 sem.</td><td>Pose menuiseries</td><td>À définir</td></tr>
+      <tr><td>5</td><td>1 sem.</td><td>VMC hygro B</td><td>À définir</td></tr>
+      <tr><td>6</td><td>2-3 sem.</td><td>PAC + Ballon + raccordements</td><td>CRYD'ZOLATION / Ener Solutions</td></tr>
+      <tr><td>7</td><td>1 sem.</td><td>Réception, DPE, garanties</td><td>ENERGIA + Maître d'ouvrage</td></tr>
+    </table>
+    <h3>9.2 Points de vigilance</h3>
+    <p>L'ITE doit être réalisée avant les menuiseries pour garantir l'étanchéité des raccords. La PAC et le ballon seront installés en fin de chantier, après séchage des enduits et mise en place des gaines VMC.</p>
+
+    <div class="page-break"></div>
+
+    <h2>X. Répertoire des artisans RGE</h2>
+    <table>
+      <tr><th>Poste</th><th>Entreprise</th><th>Contact</th><th>RGE</th></tr>
+      <tr><td>ITE 332 m²</td><td>HB FACADIER</td><td>Pauline DURY 07 68 05 74 26</td><td>E-E 109538</td></tr>
+      <tr><td>Rampants + Plancher + PAC</td><td>CRYD'ZOLATION</td><td>03 70 52 00 80</td><td>E-E193239</td></tr>
+      <tr><td>Menuiseries</td><td>À sélectionner</td><td>–</td><td>RGE Menuiseries</td></tr>
+      <tr><td>VMC</td><td>À sélectionner</td><td>–</td><td>RGE Ventilation</td></tr>
+    </table>
+
+    <h2>XI. Contacts du projet</h2>
+    <table>
+      <tr><td><strong>Interlocuteur commercial</strong></td><td>DAMIEN – 06 72 68 09 68</td></tr>
+      <tr><td><strong>Courtier financement</strong></td><td>FABIEN (VIVONS COURTIER) – 06 71 19 96 45</td></tr>
+      <tr><td><strong>Assistance technique ENERGIA-CONSEIL IA®</strong></td><td>Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</td></tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- XII. RECOMMANDATIONS -->
+    <h2>XII. Recommandations et points d'attention</h2>
+    <h3>12.1 Budget et financement</h3>
+    <p>Le montant total des travaux (130 743 €) est élevé. Le reste à charge de 68 743 € génère une mensualité de 389 € pour un budget mensuel de 225 € d'économies. Le déficit de 164 €/mois pendant 20 ans doit être assumé. Options : augmenter l'apport personnel, étaler davantage les prêts, ou réduire le périmètre (ex. ITE habitation seule sans garage).</p>
+    <h3>12.2 Surface ITE</h3>
+    <p>L'ITE porte sur 332 m² (maison + garage). Isoler uniquement la partie habitable (190 m²) réduirait le coût d'environ 28 500 €, mais le garage resterait non isolé. À discuter avec les clients selon l'usage du garage.</p>
+    <h3>12.3 Dimensionnement PAC</h3>
+    <p>La PAC 17 kW est dimensionnée au-dessus du besoin théorique pour 157 m² bien isolé (10-12 kW). Avantages : marge de sécurité, confort en pointe. Inconvénients : coût et cyclage potentiellement plus fréquent. Demander confirmation au frigoriste.</p>
+    <h3>12.4 Ordre des travaux</h3>
+    <p>Respecter l'ordre : isolation (ITE, rampants, plancher) puis menuiseries puis VMC puis chauffage. Cela limite les ponts thermiques et optimise le rendement de la PAC.</p>
+
+    <h2>XII bis. Méthodologie du rapport</h2>
+    <p>Ce rapport a été établi à partir des devis transmis par les entreprises HB FACADIER et CRYD'ZOLATION, complétés par des estimations pour les postes menuiseries et VMC. Les montants d'aides sont calculés selon les barèmes MaPrimeRénov' 2026 et les règles CEE en vigueur. Le profil JAUNE (RFR 26 225 €, 2 parts) a été vérifié. Les résultats énergétiques (DPE B, 80 kWh/m²/an) sont des objectifs indicatifs basés sur les performances des isolants et équipements retenus.</p>
+
+    <h2>XII ter. Étapes pour les clients</h2>
+    <p>1. Valider le récapitulatif et le devis – 2. Signer le mandat AMO ENERGIA-CONSEIL IA® – 3. Ouvrir le dossier ANAH / MaPrimeRénov' – 4. Mandater le MAR – 5. Obtenir les accords de principe aides – 6. Finaliser le financement (Éco-PTZ, prêt) – 7. Signer les contrats artisans – 8. Lancer le chantier – 9. Réception des travaux – 10. DPE post-travaux et suivi garanties.</p>
+
+    <div class="page-break"></div>
+
+    <!-- ANNEXES -->
+    <h2>XIII. Annexes</h2>
+    <h3>Annexe A – Fiche HB FACADIER</h3>
+    <p>HB FACADIER. 22 Avenue Benoît Fourneyron, 42160 ANDRÉZIEUX-BOUTHÉON. SIRET 79086458100026. RCS Saint-Étienne. RGE Qualibat E-E 109538. Assurance décennale MMA Axelliance. Chargée d'affaires : Pauline DURY – 07 68 05 74 26. Devis N° 24001294 du 22/01/2026.</p>
+    <h3>Annexe B – Fiche CRYD'ZOLATION</h3>
+    <p>CRYD'ZOLATION. Agence Dole : 42b Avenue de Landon, 39100 Dole. SIRET 90268398600019. RGE E-E193239 n°7122. Tél : 03 70 52 00 80. Devis DE00751 (rampants), DE00752 (plancher), DE00753 (PAC + ballon). Sous-traitant chauffage : SA Ener Solutions, SIRET 91266245900011, QualiPAC QPAC/68747.</p>
+    <h3>Annexe C – Répartition TVA</h3>
+    <table>
+      <tr><td>Total HT (travaux éligibles 5,5 % + coordination 20 %)</td><td class="montant">123 928 €</td></tr>
+      <tr><td>TVA 5,5 %</td><td class="montant">5 396 €</td></tr>
+      <tr><td>TVA 20 %</td><td class="montant">1 319 €</td></tr>
+      <tr><td>Total TTC</td><td class="montant">130 743 €</td></tr>
+    </table>
+    <h3>Annexe D – ENERGIA-CONSEIL IA®</h3>
+    <p>ENERGIA-CONSEIL IA® – SASU. 16 Rue Cuvier, 69006 Lyon. SIRET 94181942700019. RCS Lyon 941819427. N° TVA : FR01941819427. Code APE 7112B. Capital 100 €. Président : Sylvain LEMBELEMBE. Tél : 06 10 59 68 98. Email : contact@energia-conseil.com. Marque déposée INPI. Bureau d'études & AMO. Certifications : FEEBAT | QUALIPV | Auditeur Énergétique.</p>
+
+    <div class="page-break"></div>
+
+    <h3>Annexe E – Synthèse des résistances thermiques</h3>
+    <table>
+      <tr><th>Paroi</th><th>Isolant</th><th>Épaisseur</th><th>R (m²·K/W)</th></tr>
+      <tr><td>Murs (ITE)</td><td>PSE KNAUF THERMITEX</td><td>140 mm</td><td>3,70</td></tr>
+      <tr><td>Rampants</td><td>Laine bois ISONAT FLEX</td><td>265 mm</td><td>7,30</td></tr>
+      <tr><td>Plancher bas</td><td>Laine roche ROCKWOOL</td><td>140 mm</td><td>4,35</td></tr>
+    </table>
+
+    <h3>Annexe F – Glossaire</h3>
+    <p><strong>ITE :</strong> Isolation Thermique par l'Extérieur. <strong>PAC :</strong> Pompe à Chaleur. <strong>VMC :</strong> Ventilation Mécanique Contrôlée. <strong>DPE :</strong> Diagnostic de Performance Énergétique. <strong>RGE :</strong> Reconnu Garant de l'Environnement. <strong>AMO :</strong> Assistance à Maîtrise d'Ouvrage. <strong>MAR :</strong> Métreur-Assureur Règlementaire. <strong>CEE :</strong> Certificats d'Économies d'Énergie. <strong>Éco-PTZ :</strong> Éco-Prêt à Taux Zéro.</p>
+
+    <h3>Annexe G – Références réglementaires</h3>
+    <p>MaPrimeRénov' 2026 – arrêtés en vigueur. RT existant – méthode 3CL-DPE. CEE – fiches standardisées Bâtiment. Éco-PTZ – décret n° 2020-955. Qualité de l'air – arrêté ventilation. RGE – décret n° 2014-812.</p>
+
+    <p class="footer-legal" style="margin-top: 2rem;">ENERGIA-CONSEIL IA® - Marque INPI | SIRET 94181942700019 | RCS Lyon 941819427<br>SASU 100€ | © 2026 ENERGIA-CONSEIL IA</p>
+  </div>
+</body>
+</html>
