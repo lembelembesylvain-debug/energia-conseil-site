@@ -1,0 +1,3 @@
+# Pas de dépendances externes requises
+# Le script Python utilise uniquement la bibliothèque standard (math, os, pathlib)
+# Optionnel : trimesh ou PyWavefront pour évolutions futures
