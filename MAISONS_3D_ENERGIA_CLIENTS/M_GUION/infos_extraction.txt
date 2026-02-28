@@ -1,0 +1,29 @@
+══════════════════════════════════════════════════════════
+EXTRACTION DONNÉES - M_GUION
+══════════════════════════════════════════════════════════
+
+ADRESSE: (Adresse à compléter - bien en acquisition)
+COORDONNÉES GPS: Non défini
+
+DIMENSIONS EXTRAITES:
+- Longueur: 10 m
+- Largeur: 10 m
+- Hauteur (murs): 5.4 m
+- Niveaux: 2
+- Pente toit: 38°
+- Non
+
+MATÉRIAUX: À déterminer (ITE fibre bois/ouate prévu)
+TYPE TOIT: 2_pans
+
+SOURCES:
+- Google Earth / Street View (estimations)
+- Nominatim OpenStreetMap (coordonnées)
+- Géoportail (cadastre - à vérifier sur place)
+
+OBSERVATIONS:
+- Modèle 3D généré à partir des dimensions estimées
+- Appliquer textures réalistes dans Twinmotion
+- Ajuster ouvertures (fenêtres/portes) si besoin
+
+DATE EXTRACTION: 2025-02-22

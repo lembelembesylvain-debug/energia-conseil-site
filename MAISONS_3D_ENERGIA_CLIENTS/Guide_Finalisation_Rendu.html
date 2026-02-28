@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide Finalisation et Rendu - ENERGIA-CONSEIL IA®</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem; line-height: 1.6; }
+    h1 { color: #1a5f2a; border-bottom: 2px solid #1a5f2a; padding-bottom: 0.5rem; }
+    h2 { color: #2d7a3e; margin-top: 2rem; }
+    h3 { color: #3d8a4e; margin-top: 1.5rem; }
+    ol, ul { margin: 0.5rem 0; }
+    li { margin: 0.3rem 0; }
+    .step { background: #f5f9f5; padding: 1rem; margin: 1rem 0; border-radius: 8px; border-left: 4px solid #1a5f2a; }
+    code { background: #e8f0e8; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    .note { background: #fff8e6; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+    th { background: #e8f0e8; }
+    @media print { body { font-size: 11pt; } }
+  </style>
+</head>
+<body>
+  <h1>Guide de finalisation et rendu pour présentations commerciales</h1>
+  <p><strong>Objectif :</strong> Obtenir des visuels réalistes « Avant / Après » pour les clients ENERGIA-CONSEIL IA®<br>
+  <strong>Logiciel :</strong> Twinmotion 2025.2</p>
+
+  <h2>1. Appliquer les textures réalistes</h2>
+
+  <h3>1.1 Bibliothèque Twinmotion</h3>
+  <ul>
+    <li>Ouvrir le panneau <strong>Library</strong> (bibliothèque)</li>
+    <li>Catégorie <strong>Materials</strong> > sous-catégories : Bricks, Concrete, Stone, Wood, etc.</li>
+  </ul>
+
+  <h3>1.2 Correspondance matériaux par type de maison</h3>
+  <table>
+    <tr><th>Type maison</th><th>Murs</th><th>Toit</th><th>Menuiseries</th></tr>
+    <tr><td>Pierre / moellons (Richard, Royer)</td><td>Stone > Pierre locale, moellons</td><td>Roofing > Tuiles mécaniques</td><td>Wood > Bois naturel ou PVC blanc</td></tr>
+    <tr><td>Enduit (Fontanay)</td><td>Concrete > Enduit blanc/crème</td><td>Roofing > Tuiles</td><td>Wood / PVC</td></tr>
+    <tr><td>Blocs béton (Seux)</td><td>Concrete > Béton gris, parpaing</td><td>Roofing > Tuiles</td><td>PVC ou aluminium</td></tr>
+    <tr><td>Pierre calcaire (Yang)</td><td>Stone > Pierre calcaire dorée</td><td>Roofing > Tuiles ou ardoise</td><td>Bois / aluminium</td></tr>
+  </table>
+
+  <h3>1.3 Application</h3>
+  <div class="step">
+    Sélectionner l’objet (maison) > Clic droit sur une face > <strong>Replace material</strong> > Choisir une texture de la bibliothèque
+  </div>
+
+  <h2>2. Éclairage et environnement</h2>
+  <ul>
+    <li><strong>Soleil :</strong> Ajuster l’heure (ex. 14h) et l’orientation pour mettre en valeur les façades</li>
+    <li><strong>Ciel :</strong> Ciel dégagé ou légèrement nuageux</li>
+    <li><strong>Sol :</strong> Ajouter un terrain ou une base paysagée (gazon, allée)</li>
+    <li><strong>Environnement :</strong> Arbres, haies, mobilier léger pour le contexte</li>
+  </ul>
+
+  <h2>3. Créer les versions « Avant » et « Après » travaux</h2>
+
+  <h3>3.1 Version « Avant »</h3>
+  <ul>
+    <li>Conserver le modèle importé tel quel</li>
+    <li>Textures correspondant à l’état actuel (murs fatigués, toiture ancienne)</li>
+    <li>Nommer la scène ou l’objet : <code>Maison_[Client]_Avant</code></li>
+  </ul>
+
+  <h3>3.2 Version « Après »</h3>
+  <ol>
+    <li>Dupliquer la scène ou l’objet</li>
+    <li>Modifications à appliquer :
+      <ul>
+        <li><strong>ITE (isolation thermique extérieure) :</strong> Augmenter légèrement l’épaisseur des murs visuellement, ou appliquer une texture « enduit neuf » plus propre</li>
+        <li><strong>Toiture :</strong> Changer la texture (tuiles neuves, ardoise, etc.)</li>
+        <li><strong>Menuiseries :</strong> Nouvelles fenêtres (PVC blanc, bois clair)</li>
+        <li><strong>Volets / stores :</strong> Si prévus au devis</li>
+      </ul>
+    </li>
+    <li>Nommer : <code>Maison_[Client]_Apres</code></li>
+  </ol>
+
+  <h2>4. Rendu 4K et visite 360°</h2>
+
+  <h3>4.1 Image fixe 4K</h3>
+  <div class="step">
+    Menu <strong>Presentation</strong> > <strong>Image</strong> > Résolution <strong>3840 x 2160</strong> (4K) > Choisir le point de vue > <strong>Render</strong>
+  </div>
+
+  <h3>4.2 Visite 360°</h3>
+  <div class="step">
+    Menu <strong>Presentation</strong> > <strong>360° Panorama</strong> > Positionner la caméra au centre de la visite > <strong>Render</strong>
+  </div>
+
+  <h2>5. Export et livrables</h2>
+  <ul>
+    <li><strong>Images :</strong> PNG ou JPG haute résolution (4K recommandé)</li>
+    <li><strong>360° :</strong> Format adapté à la diffusion web (Twinmotion Cloud ou export HTML)</li>
+    <li><strong>Noms de fichiers :</strong> <code>Maison_Richard_Avant.png</code>, <code>Maison_Richard_Apres.png</code>, etc.</li>
+  </ul>
+
+  <div class="note">
+    <strong>Conseil :</strong> Pour un rendu homogène entre clients, utiliser les mêmes paramètres de soleil, ciel et environnement pour toutes les maisons.
+  </div>
+
+  <p style="margin-top:2rem; color:#666; font-size:0.9em;">ENERGIA-CONSEIL IA® – 2025 – Usage interne – Sylvain</p>
+</body>
+</html>

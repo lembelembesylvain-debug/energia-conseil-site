@@ -1,0 +1,29 @@
+══════════════════════════════════════════════════════════
+EXTRACTION DONNÉES - M_ROYER_CHALAIN
+══════════════════════════════════════════════════════════
+
+ADRESSE: 6 route de Marcilly, 42600 CHALAIN-D'UZORE
+COORDONNÉES GPS: 45.6743°N, 4.0689°E
+
+DIMENSIONS EXTRAITES:
+- Longueur: 9.5 m
+- Largeur: 8 m
+- Hauteur (murs): 5.4 m
+- Niveaux: 2
+- Pente toit: 42°
+- Non
+
+MATÉRIAUX: Pierre et moellons 40cm
+TYPE TOIT: 2_pans
+
+SOURCES:
+- Google Earth / Street View (estimations)
+- Nominatim OpenStreetMap (coordonnées)
+- Géoportail (cadastre - à vérifier sur place)
+
+OBSERVATIONS:
+- Modèle 3D généré à partir des dimensions estimées
+- Appliquer textures réalistes dans Twinmotion
+- Ajuster ouvertures (fenêtres/portes) si besoin
+
+DATE EXTRACTION: 2025-02-22

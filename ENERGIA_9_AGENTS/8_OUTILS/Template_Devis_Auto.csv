@@ -1,0 +1,8 @@
+DEVIS ENERGIA-CONSEIL IA®
+Client:;
+Prestation;Qté;PU HT;Total HT
+Audit énergétique;1;800;800
+AMO coordination;20 h;80;1600
+;Total HT;=SOMME(D4:D5);
+;TVA 20%;=E6*0.2;
+;Total TTC;=E6+E7;

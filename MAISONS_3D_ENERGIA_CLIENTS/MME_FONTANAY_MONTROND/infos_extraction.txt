@@ -1,0 +1,29 @@
+══════════════════════════════════════════════════════════
+EXTRACTION DONNÉES - MME_FONTANAY_MONTROND
+══════════════════════════════════════════════════════════
+
+ADRESSE: 167 Rue des Acacias, 42210 MONTROND-LES-BAINS
+COORDONNÉES GPS: 45.6408°N, 4.2480°E
+
+DIMENSIONS EXTRAITES:
+- Longueur: 9.5 m
+- Largeur: 8 m
+- Hauteur (murs): 5.4 m
+- Niveaux: 2
+- Pente toit: 40°
+- Non
+
+MATÉRIAUX: Enduit / maçonnerie traditionnelle
+TYPE TOIT: 2_pans
+
+SOURCES:
+- Google Earth / Street View (estimations)
+- Nominatim OpenStreetMap (coordonnées)
+- Géoportail (cadastre - à vérifier sur place)
+
+OBSERVATIONS:
+- Modèle 3D généré à partir des dimensions estimées
+- Appliquer textures réalistes dans Twinmotion
+- Ajuster ouvertures (fenêtres/portes) si besoin
+
+DATE EXTRACTION: 2025-02-22

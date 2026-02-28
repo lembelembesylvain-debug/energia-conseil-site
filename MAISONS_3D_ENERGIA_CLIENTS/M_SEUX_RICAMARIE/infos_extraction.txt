@@ -1,0 +1,29 @@
+══════════════════════════════════════════════════════════
+EXTRACTION DONNÉES - M_SEUX_RICAMARIE
+══════════════════════════════════════════════════════════
+
+ADRESSE: 4 Rue Georges Laurent, 42150 LA RICAMARIE
+COORDONNÉES GPS: 45.4018°N, 4.3592°E
+
+DIMENSIONS EXTRAITES:
+- Longueur: 10 m
+- Largeur: 9.6 m
+- Hauteur (murs): 5.4 m
+- Niveaux: 2
+- Pente toit: 35°
+- Non
+
+MATÉRIAUX: Blocs béton creux
+TYPE TOIT: 2_pans
+
+SOURCES:
+- Google Earth / Street View (estimations)
+- Nominatim OpenStreetMap (coordonnées)
+- Géoportail (cadastre - à vérifier sur place)
+
+OBSERVATIONS:
+- Modèle 3D généré à partir des dimensions estimées
+- Appliquer textures réalistes dans Twinmotion
+- Ajuster ouvertures (fenêtres/portes) si besoin
+
+DATE EXTRACTION: 2025-02-22
