@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dossier M. GRANGE Mathias - Audit Énergétique</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            energia: '#16a34a',
+            'energia-dark': '#15803d',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="mb-8">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-900">
+        Dossier M. GRANGE Mathias - Audit Énergétique
+      </h1>
+      <p class="text-gray-600 mt-2">Energia-Conseil - Rénovation énergétique</p>
+    </header>
+
+    <!-- Infos client -->
+    <section class="bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900 mb-4">Informations client</h2>
+      <div class="grid sm:grid-cols-2 gap-3 text-sm">
+        <p><span class="font-medium text-gray-600">Nom :</span> M. GRANGE Mathias</p>
+        <p><span class="font-medium text-gray-600">Adresse :</span> 569 Chemin des Places, 42360 MONTCHAL</p>
+        <p><span class="font-medium text-gray-600">Téléphone :</span> 06 67 52 88 90</p>
+        <p><span class="font-medium text-gray-600">Surface :</span> 101 m²</p>
+        <p class="sm:col-span-2">
+          <span class="font-medium text-gray-600">DPE :</span>
+          <span class="inline-block px-2 py-0.5 rounded bg-red-100 text-red-700 font-semibold mr-2">G</span>
+          <span class="text-gray-400">→</span>
+          <span class="inline-block px-2 py-0.5 rounded bg-energia/20 text-energia font-semibold ml-2">D/C</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Récapitulatif financier -->
+    <section class="bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900 mb-4">Récapitulatif financier</h2>
+      <div class="space-y-2">
+        <div class="flex justify-between">
+          <span class="text-gray-600">Total travaux TTC</span>
+          <span class="font-semibold">51 579 €</span>
+        </div>
+        <div class="flex justify-between text-energia">
+          <span>Aides</span>
+          <span class="font-semibold">13 990 €</span>
+        </div>
+        <div class="flex justify-between pt-3 border-t border-gray-200">
+          <span class="font-semibold text-gray-900">Reste à charge</span>
+          <span class="font-bold text-energia text-lg">37 589 €</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Carte / Image 3D -->
+    <section class="mb-6">
+      <h2 class="text-lg font-semibold text-gray-900 mb-3">Localisation - Vue 3D</h2>
+      <img
+        src="maison-grange-3d.png"
+        alt="Maison M. GRANGE en 3D"
+        class="w-full h-auto rounded-lg shadow-lg"
+      >
+      <a
+        href="https://www.geoportail.gouv.fr/carte?c=4.2686,45.6414&z=18&l0=ORTHOIMAGERY.ORTHOPHOTOS::GEOPORTAIL:OGC:WMTS(1)&permalink=yes"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 mt-4 bg-energia text-white px-6 py-3 rounded-lg font-semibold hover:bg-energia-dark transition-colors"
+      >
+        🗺️ Voir en 3D interactif sur Géoportail
+      </a>
+    </section>
+
+    <!-- Boutons téléchargement -->
+    <section class="flex flex-wrap gap-4">
+      <a
+        href="DEVIS_M_GRANGE_Mathias.docx"
+        download="DEVIS_M_GRANGE_Mathias.docx"
+        class="inline-flex items-center gap-2 bg-energia text-white px-6 py-3 rounded-lg font-semibold hover:bg-energia-dark transition-colors"
+      >
+        <span>📄</span>
+        Télécharger Devis
+      </a>
+      <a
+        href="RAPPORT_AUDIT_M_GRANGE_Mathias.docx"
+        download="RAPPORT_AUDIT_M_GRANGE_Mathias.docx"
+        class="inline-flex items-center gap-2 bg-energia text-white px-6 py-3 rounded-lg font-semibold hover:bg-energia-dark transition-colors"
+      >
+        <span>📊</span>
+        Télécharger Rapport Audit
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-12 pt-6 border-t border-gray-200 text-center text-sm text-gray-500">
+      Energia-Conseil — Audit énergétique certifié ANAH
+    </footer>
+  </div>
+</body>
+</html>
