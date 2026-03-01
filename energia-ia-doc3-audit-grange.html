@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapport Technique – M. GRANGE Mathias | ENERGIA-CONSEIL IA®</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', Helvetica, Arial, sans-serif; line-height: 1.55; color: #1f2937; background: #fff; font-size: 11px; }
+    .container { max-width: 800px; margin: 0 auto; padding: 1.5rem 2rem; }
+    .brand-header { margin-bottom: 0.5rem; }
+    .brand-header--cover { text-align: center; }
+    .brand-name { font-family: 'Poppins', 'Inter', Helvetica, sans-serif; font-weight: 700; color: #16a34a; }
+    .brand-header--cover .brand-name { font-size: 24px; }
+    .brand-tagline { font-size: 13px; color: #6b7280; margin-top: 0.25rem; }
+    .brand-inpi { font-size: 12px; color: #6b7280; margin-top: 0.1rem; }
+    .brand-contact { font-size: 13px; color: #6b7280; margin-top: 0.2rem; }
+    h2 { color: #15803d; font-family: 'Poppins', 'Inter', Helvetica, sans-serif; font-weight: 700; font-size: 1.05rem; margin: 1rem 0 0.5rem; page-break-after: avoid; border-bottom: 1px solid #16a34a; padding-bottom: 0.2rem; }
+    h3 { color: #374151; font-size: 0.95rem; margin: 0.7rem 0 0.35rem; page-break-after: avoid; }
+    p { margin: 0.35rem 0; }
+    ul { margin: 0.3rem 0 0.3rem 1.2rem; }
+    table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 10px; page-break-inside: avoid; }
+    th { background: #16a34a; color: white; padding: 0.35rem 0.5rem; text-align: left; }
+    td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #e5e7eb; }
+    .montant { text-align: right; font-weight: 600; }
+    .encadre-green { background: #ecfdf5; border: 2px solid #16a34a; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .encadre-amber { background: #fef3c7; border: 2px solid #f59e0b; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .page-break { page-break-after: always; }
+    .cover { text-align: center; padding: 3rem 2rem; }
+    .cover h1 { font-size: 1.5rem; color: #16a34a; margin-bottom: 0.5rem; }
+    .footer-legal { text-align: center; font-size: 8px; color: #6b7280; margin-top: 1.5rem; line-height: 1.35; }
+    .print-btn { position: fixed; top: 16px; right: 16px; background: #16a34a; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; }
+    .print-btn:hover { background: #15803d; }
+    @media print { .footer-legal { position: fixed; bottom: 0; left: 0; right: 0; } .print-btn { display: none; } }
+  </style>
+</head>
+<body>
+  <button class="print-btn" onclick="window.print()">Imprimer</button>
+  <div class="container">
+
+    <!-- COUVERTURE -->
+    <div class="cover page-break">
+      <div class="brand-header brand-header--cover">
+        <div class="brand-name">ENERGIA-CONSEIL IA®</div>
+        <div class="brand-tagline">Audit Énergétique Intelligence Artificielle</div>
+        <div class="brand-inpi">Marque déposée INPI</div>
+        <div class="brand-contact">16 Rue Cuvier, 69006 Lyon | 06 10 59 68 98</div>
+      </div>
+      <h1 style="margin-top:2rem;">RAPPORT TECHNIQUE</h1>
+      <p style="font-size:1.1rem;font-weight:600;">RÉNOVATION GLOBALE – ITI MURS PISÉ</p>
+      <p style="margin-top:1.5rem;">M. GRANGE Mathias</p>
+      <p>569 Chemin des Places, 42360 MONTCHAL | 101 m²</p>
+      <p style="margin-top:1rem;color:#6b7280;font-size:12px;">Date : 1er mars 2026 | N° ADEME : 2442E2184253M</p>
+      <div class="encadre-green" style="margin-top:1.5rem;text-align:left;">
+        <strong>✅ Configuration adaptée :</strong> ITI obligatoire (murs pisé/pierre) • Profil JAUNE 60% • DPE G → D/C • Économies 1 300 €/an
+      </div>
+    </div>
+
+    <!-- I. SYNTHÈSE -->
+    <h2>I. Synthèse exécutive</h2>
+    <h3>1.1 Contexte</h3>
+    <p>Bâtiment 101 m², construction 1948-1974 (patrimoine). Murs en pisé et pierre 50 cm, non isolés. DPE actuel G (400 kWh/m²/an, ~3 500 €/an). Zone climatique H2c (Loire, altitude 587 m).</p>
+    <h3>1.2 Stratégie ENERGIA</h3>
+    <p>ITI obligatoire (murs pisé excluent ITE). Laine de roche 120 mm R=3,7. Isolation combles, menuiseries, PAC Air-Air, VMC, ballon thermodynamique. Objectif DPE D/C (+3-4 classes).</p>
+    <h3>1.3 Chiffres clés</h3>
+    <table>
+      <tr><td>Travaux</td><td class="montant">52 000 € TTC</td></tr>
+      <tr><td>Aides (JAUNE + CEE)</td><td class="montant">27 750 €</td></tr>
+      <tr><td>Reste à charge</td><td class="montant">24 250 €</td></tr>
+      <tr><td>Éco-PTZ</td><td class="montant">135 €/mois (15 ans)</td></tr>
+      <tr><td>Économies</td><td class="montant">1 300 €/an (108 €/mois)</td></tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- II. DIAGNOSTIC -->
+    <h2>II. Diagnostic et déperditions</h2>
+    <h3>2.1 DPE actuel</h3>
+    <p>DPE G. Réf. 2442E2184253M (18/06/2024). Consommation 400 kWh EP/m²/an. Facture ~3 500 €/an. Zone H2c. Confort insuffisant.</p>
+    <h3>2.2 Matériaux et structure</h3>
+    <p><strong>Murs :</strong> pisé et pierre 50 cm, non isolés. Patrimoine bâti. ITE non recommandée (aspect, réglementation ABF si applicable, coût).</p>
+    <p><strong>Combles :</strong> perdus, non isolés.</p>
+    <p><strong>Menuiseries :</strong> anciennes, simple vitrage.</p>
+    <p><strong>Chauffage / ECS :</strong> à remplacer.</p>
+    <h3>2.3 Déperditions principales</h3>
+    <table>
+      <tr><th>Poste</th><th>Part</th><th>Priorité</th></tr>
+      <tr><td>Murs pisé</td><td>~40%</td><td>🚨 #1 ABSOLUE – ITI obligatoire</td></tr>
+      <tr><td>Combles</td><td>~25%</td><td>#2</td></tr>
+      <tr><td>Ventilation</td><td>~15%</td><td>#3</td></tr>
+      <tr><td>Portes/Fenêtres</td><td>~12%</td><td>#4</td></tr>
+      <tr><td>Autres</td><td>~8%</td><td>#5</td></tr>
+    </table>
+    <h3>2.4 Points critiques</h3>
+    <p>Murs pisé NON isolés (priorité #1). Combles perdus NON isolés. Menuiseries anciennes. Ventilation non maîtrisée.</p>
+
+    <div class="page-break"></div>
+
+    <!-- III. SOLUTION ITI OBLIGATOIRE -->
+    <h2>III. Solution ITI obligatoire – Justification technique</h2>
+    <h3>3.1 Pourquoi ITI (pas ITE) pour M. GRANGE</h3>
+    <div class="encadre-amber">
+      <strong>Murs pisé/pierre 50 cm = patrimoine bâti.</strong> ITE (isolation extérieure) : inadaptée (aspect patrimonial, ABF, coût élevé, complexité). ITI obligatoire pour réduire les 40% de déperditions mur grandes surfaces.
+    </div>
+    <h3>3.2 Choix ITI laine de roche 120 mm</h3>
+    <p><strong>Laine de roche :</strong> R=3,7 m².K/W, 120 mm. Adaptée aux murs anciens (perméance, hygrométrie). Non sensible à l'humidité résiduelle des murs pisé. Finition Placo BA13. Perte surface 12-14 cm.</p>
+    <h3>3.3 Pare-vapeur (crucial ITI)</h3>
+    <p>Obligatoire en ITI pour éviter condensation dans l'isolant. Pose soignée, joints étanches. Contrôle ENERGIA lors réception.</p>
+    <h3>3.4 Artisan</h3>
+    <p>2C ENERGIES – RGE E-E210966 (ITI 7122 PROB) – 09 72 57 47 47. SIRET 841 156 599 00026.</p>
+
+    <div class="page-break"></div>
+
+    <!-- IV. DÉTAIL POSTES -->
+    <h2>IV. Détail technique des 9 postes</h2>
+    <h3>4.1 Isolation combles perdus 60 m²</h3>
+    <p>2 963 € HT / 3 126 € TTC. Laine de roche 300 mm, R=7. 2C ENERGIES.</p>
+    <h3>4.2 ITI murs pisé 100 m²</h3>
+    <p>9 480 € HT / 10 001 € TTC. Laine roche 120 mm R=3,7 + Placo BA13. Obligatoire. 2C ENERGIES.</p>
+    <h3>4.3 5 Fenêtres PVC 1×1,5 m</h3>
+    <p>7 110 € HT / 7 501 € TTC. Double vitrage 4/16/4 argon, Uw=1,3. ECO SYSTÈME DURABLE.</p>
+    <h3>4.4 5 Volets solaires motorisés</h3>
+    <p>4 148 € HT / 4 376 € TTC. Volets roulants alu, motorisation solaire. ECO SYSTÈME DURABLE.</p>
+    <h3>4.5 Porte d'entrée PVC/Alu</h3>
+    <p>2 963 € HT / 3 126 € TTC. 0,80×2,20 m, Ud=1,3, A2P, serrure 3 points.</p>
+    <h3>4.6 PAC Air-Air 5 splits</h3>
+    <p>8 888 € HT / 9 377 € TTC. 1 ext. 10 kW + 5 int. murales, COP 3,8, A++. ECO SYSTÈME DURABLE.</p>
+    <h3>4.7 VMC simple flux hygroréglable</h3>
+    <p>1 778 € HT / 1 876 € TTC. Débit 101 m², bouches hygro. ECO SYSTÈME DURABLE.</p>
+    <h3>4.8 Ballon thermodynamique 200 L</h3>
+    <p>2 607 € HT / 2 751 € TTC. COP 3,5, classe A. ECO SYSTÈME DURABLE.</p>
+    <h3>4.9 Coordination & MAR</h3>
+    <p>9 370 € HT / 9 885 € TTC. Suivi hebdomadaire, gestion aides, MAR ANAH. LÉO-ENERGY (gratuit payé par l'État).</p>
+
+    <div class="page-break"></div>
+
+    <!-- V. AIDES -->
+    <h2>V. Aides financières 2026 (profil JAUNE)</h2>
+    <p>Profil JAUNE (revenus modestes). Taux 60%.</p>
+    <table>
+      <tr><td>MaPrimeRénov' Parcours (40 000 € × 60%)</td><td class="montant">24 000 €</td></tr>
+      <tr><td>CEE Isolation combles</td><td class="montant">600 €</td></tr>
+      <tr><td>CEE ITI murs</td><td class="montant">2 000 €</td></tr>
+      <tr><td>CEE Fenêtres</td><td class="montant">250 €</td></tr>
+      <tr><td>CEE VMC</td><td class="montant">400 €</td></tr>
+      <tr><td>CEE Ballon thermo</td><td class="montant">500 €</td></tr>
+      <tr><td><strong>Total aides</strong></td><td class="montant"><strong>27 750 €</strong></td></tr>
+    </table>
+    <p>Écrêtement 90% max JAUNE : 46 800 € > 27 750 € ✅ OK.</p>
+
+    <h2>VI. Financement</h2>
+    <p>Reste 24 250 €. Éco-PTZ 24 250 € à 0% sur 15 ans = 135 €/mois. Courtier : FABIEN – VIVONS COURTIER 06 71 19 96 45.</p>
+
+    <h2>VII. Résultats attendus</h2>
+    <table>
+      <tr><td>DPE</td><td>G → D/C (+3-4 classes)</td></tr>
+      <tr><td>Consommation</td><td>400 → ~150 kWh/m²/an (-62%)</td></tr>
+      <tr><td>Facture</td><td>3 500 € → ~1 200 €/an</td></tr>
+      <tr><td>Économies</td><td>1 300 €/an (108 €/mois)</td></tr>
+      <tr><td>Confort</td><td>Comblé + ITI + PAC</td></tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- VIII. PLANNING -->
+    <h2>VIII. Planning (5-6 semaines)</h2>
+    <table>
+      <tr><td>Phase 1</td><td>Administrative (1-2 sem) – Dossier aides, mandats</td></tr>
+      <tr><td>Phase 2</td><td>Isolation combles + ITI (2-3 sem)</td></tr>
+      <tr><td>Phase 3</td><td>Menuiseries (1 sem)</td></tr>
+      <tr><td>Phase 4</td><td>VMC (2-3 jours)</td></tr>
+      <tr><td>Phase 5</td><td>PAC + Ballon (3-5 jours)</td></tr>
+      <tr><td>Phase 6</td><td>Finitions (2-3 jours)</td></tr>
+    </table>
+    <p><strong>Période :</strong> Mars-Juin 2026</p>
+
+    <h2>IX. Artisans RGE</h2>
+    <table>
+      <tr><td><strong>Isolation</strong></td><td>2C ENERGIES – RGE E-E210966 – SIRET 841 156 599 00026 – 09 72 57 47 47 – contact@2cenergies.fr</td></tr>
+      <tr><td><strong>Menuiseries</strong></td><td>ECO SYSTÈME DURABLE – 01 70 93 97 15</td></tr>
+      <tr><td><strong>PAC Air-Air</strong></td><td>ECO SYSTÈME DURABLE – 01 70 93 97 15</td></tr>
+      <tr><td><strong>VMC</strong></td><td>ECO SYSTÈME DURABLE – 01 70 93 97 15</td></tr>
+      <tr><td><strong>Ballon thermo</strong></td><td>ECO SYSTÈME DURABLE – 01 70 93 97 15</td></tr>
+    </table>
+
+    <h2>X. Contacts</h2>
+    <p><strong>Commercial :</strong> DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</p>
+    <p><strong>Courtier :</strong> FABIEN – VIVONS COURTIER – 06 71 19 96 45</p>
+    <p><strong>ENERGIA :</strong> Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</p>
+    <p><strong>MAR :</strong> LÉO-ENERGY – Accompagnement ANAH – GRATUIT</p>
+
+    <div class="page-break"></div>
+
+    <!-- XI. ANNEXES -->
+    <h2>XI. Annexes</h2>
+    <h3>Annexe A – ENERGIA-CONSEIL IA®</h3>
+    <p>16 Rue Cuvier, 69006 Lyon. SIRET 94181942700019. contact@energia-conseil.com. www.energia-conseil.com.</p>
+    <h3>Annexe B – 2C ENERGIES</h3>
+    <p>SIRET 841 156 599 00026. RGE E-E210966 (ITI 7122 PROB). contact@2cenergies.fr. 09 72 57 47 47.</p>
+    <h3>Annexe C – Répartition TVA</h3>
+    <table>
+      <tr><td>Total HT</td><td class="montant">49 307 €</td></tr>
+      <tr><td>TVA 5,5%</td><td class="montant">2 693 €</td></tr>
+      <tr><td>Total TTC</td><td class="montant">52 000 €</td></tr>
+    </table>
+    <h3>Annexe D – N° ADEME</h3>
+    <p>2442E2184253M – 18/06/2024 – Zone H2c (Loire, altitude 587 m)</p>
+
+    <p class="footer-legal" style="margin-top: 2rem;">ENERGIA-CONSEIL IA® - Marque INPI | SIRET 94181942700019 | RCS Lyon 941819427<br>SASU 100€ | © 2026 ENERGIA-CONSEIL IA</p>
+  </div>
+</body>
+</html>
