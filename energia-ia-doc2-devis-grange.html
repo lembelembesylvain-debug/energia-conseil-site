@@ -32,6 +32,13 @@
     .bon-accord { margin-top: 2rem; padding: 1rem; border: 2px solid #1f2937; }
     .print-btn { position: fixed; top: 16px; right: 16px; background: #16a34a; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; }
     .print-btn:hover { background: #15803d; }
+    .section-visu { margin-bottom: 1.5rem; }
+    .visu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+    .visu-card { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
+    .visu-card h3 { font-weight: 600; margin-bottom: 0.5rem; font-size: 13px; color: #374151; }
+    .visu-card img { width: 100%; border-radius: 8px; display: block; }
+    .visu-card .caption { font-size: 10px; color: #6b7280; margin-top: 0.5rem; }
+    @media (max-width: 640px) { .visu-grid { grid-template-columns: 1fr; } }
     @media print { .footer-legal { position: fixed; bottom: 0; left: 0; right: 0; } .print-btn { display: none; } }
   </style>
 </head>
@@ -72,6 +79,22 @@
     <div class="encadre-green">
       <strong>✅ Objectif :</strong> DPE D/C (+3-4 classes) • ITI obligatoire (murs pisé patrimoine) • MaPrimeRénov' Parcours + CEE
     </div>
+
+    <h2>II bis. Localisation et visualisation 3D</h2>
+    <section class="section-visu">
+      <div class="visu-grid">
+        <div class="visu-card">
+          <h3>Vue satellite réelle</h3>
+          <img src="maison-grange-satellite-geoportail.png" alt="Vue satellite - 569 Chemin des Places, Montchal">
+          <p class="caption">Source : IGN Géoportail</p>
+        </div>
+        <div class="visu-card">
+          <h3>Visualisation 3D des travaux</h3>
+          <img src="maison-grange-3d-sketchup-travaux.png" alt="Visualisation 3D des travaux prévus">
+          <p class="caption">Modélisation : SketchUp - ENERGIA-CONSEIL IA®</p>
+        </div>
+      </div>
+    </section>
 
     <h2>III. Détail des 9 postes</h2>
 
