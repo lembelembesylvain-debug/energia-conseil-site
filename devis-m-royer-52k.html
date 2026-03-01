@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devis - M. ROYER Maixent | ENERGIA CONSEIL</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            energia: '#16a34a',
+            'energia-dark': '#15803d',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="max-w-5xl mx-auto px-4 py-8">
+
+    <header class="bg-gradient-to-r from-energia to-energia-dark text-white rounded-t-xl p-6 mb-0">
+      <h1 class="text-2xl font-bold">ENERGIA CONSEIL</h1>
+      <p class="text-sm text-white/90 mt-1">16 Rue Cuvier, 69006 Lyon | SIRET 94181942700019</p>
+      <p class="text-sm text-white/90">Tél : 06 10 59 68 98 | contact@energia-conseil.com</p>
+    </header>
+
+    <div class="bg-white rounded-b-xl shadow-lg border border-gray-200 border-t-0 p-6 space-y-6 print:shadow-none">
+
+      <section class="border-b border-gray-200 pb-4">
+        <div class="bg-energia/10 rounded-lg p-4 inline-block">
+          <p class="font-bold text-energia">DEVIS N° ROYER-2026-03-01</p>
+          <p class="text-sm text-gray-600">Date : 1er mars 2026 | Validité : 60 jours</p>
+        </div>
+      </section>
+
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-3">Informations client</h2>
+        <p class="font-semibold">M. ROYER Maixent</p>
+        <p class="text-gray-700">6 route de Marcilly, 42600 CHALAIN D'UZOR</p>
+        <p class="text-gray-700">Téléphone : À compléter | Surface : 77 m²</p>
+        <p class="mt-2"><span class="font-medium">Profil MaPrimeRénov' :</span> À déterminer (supposé JAUNE 60%)</p>
+      </section>
+
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-3">Référence audit</h2>
+        <p>DPE actuel : <span class="font-bold text-red-600">G</span> (779 kWh/m²/an)</p>
+        <p>DPE visé : <span class="font-bold text-energia">D</span> (245 kWh/m²/an)</p>
+        <p>Gain : <strong>-68% de consommation</strong></p>
+      </section>
+
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200 overflow-x-auto">
+        <h2 class="text-lg font-semibold text-energia mb-4">Détail des 8 postes de travaux</h2>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-energia text-white">
+              <th class="px-2 py-2 text-left">N°</th>
+              <th class="px-2 py-2 text-left">Désignation</th>
+              <th class="px-2 py-2 text-left">Détail technique</th>
+              <th class="px-2 py-2 text-center">Qté</th>
+              <th class="px-2 py-2 text-right">P.U. HT</th>
+              <th class="px-2 py-2 text-right">Total HT</th>
+              <th class="px-2 py-2 text-right">Total TTC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-200"><td class="px-2 py-2">1</td><td>Mise en place chantier</td><td class="text-gray-600">Sécurité, bennes, frais levage</td><td class="text-center">1</td><td class="text-right">2 700 €</td><td class="text-right font-medium">2 700 €</td><td class="text-right">2 849 €</td></tr>
+            <tr class="border-b border-gray-200 bg-gray-50"><td class="px-2 py-2">2</td><td>Isolation toiture + couverture</td><td class="text-gray-600">Détuilage 80 m², écran sous-toiture, tuiles Omega 10 rouge, laine bois 100 mm R=2,75</td><td class="text-center">80 m²</td><td class="text-right">325 €/m²</td><td class="text-right font-medium">26 000 €</td><td class="text-right">27 430 €</td></tr>
+            <tr class="border-b border-gray-200"><td class="px-2 py-2">3</td><td>PAC Air-Air Daikin 3 splits</td><td class="text-gray-600">Bluevolution 6,8 kW, COP 4,91, A+++/A++, 3 Perfera murales</td><td class="text-center">1</td><td class="text-right">3 128 €</td><td class="text-right font-medium">3 128 €</td><td class="text-right">3 754 €</td></tr>
+            <tr class="border-b border-gray-200 bg-gray-50"><td class="px-2 py-2">4</td><td>Ballon thermodynamique Atlantic</td><td class="text-gray-600">EGEO 200 L, COP 2,95, classe A</td><td class="text-center">1</td><td class="text-right">2 749 €</td><td class="text-right font-medium">2 749 €</td><td class="text-right">2 900 €</td></tr>
+            <tr class="border-b border-gray-200"><td class="px-2 py-2">5</td><td>5 Fenêtres PVC Grosfillex</td><td class="text-gray-600">Altapremium Uw=1,3, double vitrage 4-20-4, garantie 20 ans</td><td class="text-center">5 u</td><td class="text-right">795 €/u</td><td class="text-right font-medium">3 974 €</td><td class="text-right">4 193 €</td></tr>
+            <tr class="border-b border-gray-200 bg-gray-50"><td class="px-2 py-2">6</td><td>2 Portes isolantes Sillage</td><td class="text-gray-600">Modèle Lilas Ud=1,3, serrure multipoints</td><td class="text-center">2 u</td><td class="text-right">2 100 €/u</td><td class="text-right font-medium">4 200 €</td><td class="text-right">4 431 €</td></tr>
+            <tr class="border-b border-gray-200"><td class="px-2 py-2">7</td><td>Zinguerie complète</td><td class="text-gray-600">Couloirs zinc, naissances, fond cheneaux</td><td class="text-center">1</td><td class="text-right">2 397 €</td><td class="text-right font-medium">2 397 €</td><td class="text-right">2 529 €</td></tr>
+            <tr class="border-b border-gray-200 bg-gray-50"><td class="px-2 py-2">8</td><td>Coordination & MAR</td><td class="text-gray-600">Suivi hebdomadaire + gestion aides + accompagnement MAR ANAH</td><td class="text-center">1</td><td class="text-right">9 370 €</td><td class="text-right font-medium">9 370 €</td><td class="text-right">9 885 €</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-4">Récapitulatif financier</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span>Total HT</span><span class="font-medium">49 518 €</span></div>
+          <div class="flex justify-between"><span>TVA mixte (5,5%/10%/20%)</span><span class="font-medium">2 482 €</span></div>
+          <div class="flex justify-between font-bold text-lg border-t border-gray-200 pt-3"><span>Total TTC</span><span>52 000 €</span></div>
+          <div class="flex justify-between text-energia"><span>Aides estimées MaPrimeRénov'</span><span class="font-medium">- 24 000 €</span></div>
+          <div class="flex justify-between text-energia"><span>Aides CEE</span><span class="font-medium">- 1 550 €</span></div>
+          <div class="flex justify-between text-energia font-semibold"><span>Total Aides estimé</span><span>- 25 550 €</span></div>
+          <div class="flex justify-between bg-energia/10 rounded-lg p-3 font-bold text-energia"><span>Reste à charge</span><span>26 450 €</span></div>
+        </div>
+        <p class="text-xs text-gray-500 mt-3">Aides à valider selon revenus réels du client.</p>
+      </section>
+
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-3">Aides financières 2026 (estimation)</h2>
+        <p class="font-medium mb-2">MaPrimeRénov' Parcours Accompagné (JAUNE 60% supposé)</p>
+        <p class="text-sm text-gray-700">Plafond 40 000 € HT (gain 3 classes G→D) × 60% = <strong>24 000 €</strong></p>
+        <p class="font-medium mt-4 mb-2">CEE</p>
+        <p class="text-sm text-gray-700">Isolation toiture 800 € + Ballon thermo 500 € + Fenêtres 250 € = <strong>1 550 €</strong></p>
+        <p class="text-sm text-gray-700">(PAC Air-Air non éligible CEE)</p>
+        <p class="text-xs text-gray-500 mt-2">Aides à confirmer selon profil MaPrimeRénov' du client.</p>
+      </section>
+
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-3">Financement</h2>
+        <p>Éco-PTZ ou courtier disponible pour financer le reste à charge de <strong>26 450 €</strong>.</p>
+        <p class="text-sm mt-2">Mensualité selon profil et durée (jusqu'à 15 ans à 0% avec Éco-PTZ).</p>
+      </section>
+
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-3">Planning travaux</h2>
+        <p><strong>Durée :</strong> 8-10 semaines</p>
+        <p class="mt-2 text-sm">Ordre : Mise en place chantier → Isolation toiture & couverture → Zinguerie → Fenêtres & portes → PAC Air-Air → Ballon thermo → Coordination</p>
+      </section>
+
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-3">Conditions générales</h2>
+        <ul class="list-disc list-inside space-y-1 text-sm">
+          <li>Validité : 60 jours</li>
+          <li>Acompte : 30%</li>
+          <li>Artisans RGE + assurance décennale</li>
+          <li>MAR obligatoire</li>
+        </ul>
+      </section>
+
+      <section class="bg-gray-50 rounded-lg p-5 border-2 border-gray-300">
+        <h2 class="text-lg font-semibold text-gray-900 mb-3">Bon pour accord</h2>
+        <p class="mb-4">Je soussigné(e) <strong>M. ROYER Maixent</strong>, accepte le présent devis pour un montant de 52 000 € TTC.</p>
+        <p>Fait à _________________________ , le _________________________</p>
+        <p class="mt-4">Signature : _________________________</p>
+      </section>
+    </div>
+
+    <div class="flex gap-4 mt-6 print:hidden">
+      <button onclick="window.print()" class="bg-energia text-white px-6 py-3 rounded-lg font-semibold hover:bg-energia-dark transition-colors">Imprimer le devis</button>
+    </div>
+
+    <footer class="text-center text-sm text-gray-500 mt-8 py-4">© 2026 Energia-Conseil</footer>
+  </div>
+</body>
+</html>
