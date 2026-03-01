@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devis - M. GRANGE Mathias | ENERGIA CONSEIL</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            energia: '#16a34a',
+            'energia-dark': '#15803d',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="max-w-4xl mx-auto px-4 py-8">
+
+    <!-- Header avec gradient -->
+    <header class="bg-gradient-to-r from-energia to-energia-dark text-white rounded-t-xl p-6 mb-0">
+      <h1 class="text-2xl font-bold">ENERGIA CONSEIL</h1>
+      <p class="text-sm text-white/90 mt-1">16 Rue Cuvier, 69006 Lyon</p>
+      <p class="text-sm text-white/90">SIRET 94181942700019 | Tél : 06 10 59 68 98</p>
+    </header>
+
+    <div class="bg-white rounded-b-xl shadow-lg border border-gray-200 border-t-0 p-6 space-y-6 print:shadow-none">
+
+      <!-- 1. En-tête devis -->
+      <section class="border-b border-gray-200 pb-4">
+        <div class="bg-energia/10 rounded-lg p-4 inline-block">
+          <p class="font-bold text-energia">DEVIS N° GRANGE-2026-03-01</p>
+          <p class="text-sm text-gray-600">Date : 1er mars 2026 | Validité : 60 jours</p>
+        </div>
+      </section>
+
+      <!-- 2. Informations client -->
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-3">Informations client</h2>
+        <p class="font-semibold">M. GRANGE Mathias</p>
+        <p class="text-gray-700">569 Chemin des Places, 42360 MONTCHAL</p>
+        <p class="text-gray-700">Tél : 06 67 52 88 90</p>
+        <p class="text-gray-700">Email : Non communiqué</p>
+        <p class="text-gray-700">Surface : 101 m² | Zone : H2c (Loire, altitude 587 m)</p>
+        <p class="mt-2"><span class="font-medium">Profil MaPrimeRénov' :</span> JAUNE (70%)</p>
+      </section>
+
+      <!-- 3. Référence DPE -->
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-3">Référence DPE</h2>
+        <p>N° ADEME : 2442E2184253M (18/06/2024)</p>
+        <p>DPE actuel : <span class="font-bold text-red-600">G</span> (400 kWh/m²/an, 3 500€/an) → DPE visé : <span class="font-bold text-energia">D/C</span></p>
+      </section>
+
+      <!-- 4. Tableau travaux -->
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200 overflow-x-auto">
+        <h2 class="text-lg font-semibold text-energia mb-4">Détail des 9 postes de travaux</h2>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-energia text-white">
+              <th class="px-3 py-2 text-left">N°</th>
+              <th class="px-3 py-2 text-left">Désignation</th>
+              <th class="px-3 py-2 text-right">Prix HT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-200"><td class="px-3 py-2">1</td><td>Isolation combles perdus 60m² (Laine roche 300mm R=7)</td><td class="text-right font-medium">2 500 €</td></tr>
+            <tr class="border-b border-gray-200 bg-gray-50"><td class="px-3 py-2">2</td><td>ITI laine roche 120mm 100m² (R=3,7 + Placo, ITI OBLIGATOIRE murs pisé)</td><td class="text-right font-medium">8 000 €</td></tr>
+            <tr class="border-b border-gray-200"><td class="px-3 py-2">3</td><td>5 Fenêtres PVC 1×1,5m (Double vitrage Uw=1,3)</td><td class="text-right font-medium">6 000 €</td></tr>
+            <tr class="border-b border-gray-200 bg-gray-50"><td class="px-3 py-2">4</td><td>5 Volets solaires motorisés</td><td class="text-right font-medium">3 500 €</td></tr>
+            <tr class="border-b border-gray-200"><td class="px-3 py-2">5</td><td>Porte d'entrée PVC/Alu 0,8×2,2m (Ud=1,3, A2P)</td><td class="text-right font-medium">2 500 €</td></tr>
+            <tr class="border-b border-gray-200 bg-gray-50"><td class="px-3 py-2">6</td><td>PAC Air-Air 5 splits (COP 3,8, Réversible)</td><td class="text-right font-medium">7 500 €</td></tr>
+            <tr class="border-b border-gray-200"><td class="px-3 py-2">7</td><td>VMC simple flux hygroréglable (101m²)</td><td class="text-right font-medium">1 500 €</td></tr>
+            <tr class="border-b border-gray-200 bg-gray-50"><td class="px-3 py-2">8</td><td>Ballon thermodynamique 200L (COP 3,5)</td><td class="text-right font-medium">2 200 €</td></tr>
+            <tr class="border-b border-gray-200"><td class="px-3 py-2">9</td><td>Coordination & MAR</td><td class="text-right font-medium">9 500 €</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 5. Récapitulatif financier -->
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-4">Récapitulatif financier</h2>
+        <div class="space-y-2">
+          <div class="flex justify-between"><span>Total HT</span><span class="font-medium">43 200 €</span></div>
+          <div class="flex justify-between"><span>TVA 5,5%</span><span class="font-medium">2 376 €</span></div>
+          <div class="flex justify-between font-bold text-lg border-t border-gray-200 pt-3"><span>Total TTC</span><span>45 576 €</span></div>
+          <div class="flex justify-between text-energia"><span>Aides MaPrimeRénov'</span><span class="font-medium">- 10 340 €</span></div>
+          <div class="flex justify-between text-energia"><span>Aides CEE</span><span class="font-medium">- 3 750 €</span></div>
+          <div class="flex justify-between text-energia font-semibold"><span>Total Aides</span><span>- 14 090 €</span></div>
+          <div class="flex justify-between bg-energia/10 rounded-lg p-3 font-bold text-energia"><span>Reste à charge</span><span>31 486 €</span></div>
+        </div>
+      </section>
+
+      <!-- 6. Aides financières -->
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-3">Aides financières</h2>
+        <p><strong>MaPrimeRénov' Parcours Accompagné :</strong> 10 340 € (Profil JAUNE 70%)</p>
+        <p class="mt-2"><strong>CEE (Certificats d'Économies d'Énergie) :</strong> 3 750 €</p>
+        <p class="mt-2"><strong>Total aides :</strong> 14 090 €</p>
+      </section>
+
+      <!-- 7. Financement courtier -->
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-3">Financement courtier</h2>
+        <p>Partenaire courtier disponible. Montant finançable : <strong>31 486 €</strong>. Durée : 10 ans. Mensualité : selon profil client. Déblocage progressif : 30% / 40% / 30%.</p>
+      </section>
+
+      <!-- 8. Planning -->
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-3">Planning travaux</h2>
+        <p><strong>Durée :</strong> 5-6 semaines</p>
+        <p class="mt-2">Ordre : Isolation combles → ITI murs → Fenêtres/porte → Volets → PAC Air-Air → VMC → Ballon thermodynamique → Coordination</p>
+      </section>
+
+      <!-- 9. Conditions générales -->
+      <section class="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+        <h2 class="text-lg font-semibold text-energia mb-3">Conditions générales</h2>
+        <ul class="list-disc list-inside space-y-1 text-sm">
+          <li>Validité du devis : 60 jours</li>
+          <li>Acompte à la commande : 30%</li>
+          <li>Artisans qualifiés RGE + assurance décennale</li>
+          <li>MAR obligatoire (LÉO-ENERGY)</li>
+        </ul>
+      </section>
+
+      <!-- 10. Bon pour accord -->
+      <section class="bg-gray-50 rounded-lg p-5 border-2 border-gray-300">
+        <h2 class="text-lg font-semibold text-gray-900 mb-3">Bon pour accord</h2>
+        <p class="mb-4">Je soussigné(e) <strong>M. GRANGE Mathias</strong>, accepte le présent devis pour un montant de 45 576 € TTC.</p>
+        <p>Fait à _________________________ , le _________________________</p>
+        <p class="mt-4">Signature : _________________________</p>
+      </section>
+    </div>
+
+    <!-- Boutons (masqués à l'impression) -->
+    <div class="flex flex-wrap gap-4 mt-6 print:hidden">
+      <button onclick="window.print()" class="bg-energia text-white px-6 py-3 rounded-lg font-semibold hover:bg-energia-dark transition-colors">
+        Imprimer le devis
+      </button>
+      <a href="devis-grange-pdf.html" target="_blank" class="inline-block bg-energia text-white px-6 py-3 rounded-lg font-semibold hover:bg-energia-dark transition-colors">
+        Télécharger PDF
+      </a>
+    </div>
+
+    <footer class="text-center text-sm text-gray-500 mt-8 py-4">
+      © 2026 Energia-Conseil
+    </footer>
+  </div>
+</body>
+</html>
