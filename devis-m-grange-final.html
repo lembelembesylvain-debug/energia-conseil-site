@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Devis M. GRANGE - Génération PDF</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+  <p style="text-align:center;margin-top:50px;color:#16a34a;font-size:18px;">Génération du devis PDF en cours...</p>
+  <script>
+    (function() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const margin = 20;
+      const pageW = doc.internal.pageSize.getWidth();
+      const green = [22, 163, 74];
+
+      // TRAVAUX
+      const travaux = [
+        { n: '1', designation: 'Isolation combles perdus 60m² (Laine roche 300mm R=7)', qte: 1, pu: 2500, mt: 2500, ttc: 2637.50 },
+        { n: '2', designation: 'ITI laine roche 120mm 100m² (R=3,7 + Placo, ITI OBLIGATOIRE murs pisé)', qte: 1, pu: 8000, mt: 8000, ttc: 8440 },
+        { n: '3', designation: '5 Fenêtres PVC 1×1,5m (Double vitrage Uw=1,3)', qte: 5, pu: 1200, mt: 6000, ttc: 6330 },
+        { n: '4', designation: '5 Volets solaires motorisés', qte: 5, pu: 700, mt: 3500, ttc: 3692.50 },
+        { n: '5', designation: 'Porte d\'entrée PVC/Alu 0,8×2,2m (Ud=1,3, sécurité A2P)', qte: 1, pu: 2500, mt: 2500, ttc: 2637.50 },
+        { n: '6', designation: 'PAC Air-Air 5 splits (1 unité ext. + 5 splits muraux, COP 3,8, Réversible)', qte: 1, pu: 7500, mt: 7500, ttc: 7912.50 },
+        { n: '7', designation: 'VMC simple flux hygroréglable (101m²)', qte: 1, pu: 1500, mt: 1500, ttc: 1582.50 },
+        { n: '8', designation: 'Ballon thermodynamique 200L (COP 3,5)', qte: 1, pu: 2200, mt: 2200, ttc: 2321 },
+        { n: '9', designation: 'Coordination & MAR - Suivi hebdomadaire + gestion dossiers aides', qte: 1, pu: 9500, mt: 9500, ttc: 10017.50 },
+      ];
+
+      // PAGE 1 - En-tête
+      doc.setFontSize(24);
+      doc.setTextColor(...green);
+      doc.text('ENERGIA CONSEIL', pageW / 2, 25, { align: 'center' });
+      doc.setFontSize(10);
+      doc.setTextColor(80, 80, 80);
+      doc.text('16 Rue Cuvier, 69006 Lyon | SIRET 94181942700019 | Tél 06 10 59 68 98', pageW / 2, 32, { align: 'center' });
+      doc.setDrawColor(200, 200, 200);
+      doc.line(margin, 38, pageW - margin, 38);
+
+      doc.setFontSize(16);
+      doc.setTextColor(0, 0, 0);
+      doc.text('DEVIS N° GRANGE-2026-03-01', margin, 48);
+      doc.setFontSize(11);
+      doc.text('Date : 1er mars 2026', margin, 55);
+      doc.text('Validité : 60 jours', margin, 62);
+
+      doc.text('Client : M. GRANGE Mathias', margin, 72);
+      doc.text('569 Chemin des Places, 42360 MONTCHAL', margin, 79);
+      doc.text('Tél : 06 67 52 88 90', margin, 86);
+
+      doc.text('Profil MaPrimeRénov\' : JAUNE (70%)', margin, 96);
+      doc.text('Référence DPE : N° ADEME 2442E2184253M (18/06/2024)', margin, 103);
+      doc.text('DPE actuel : G → visé D/C', margin, 110);
+
+      // PAGES 2-3 - Tableau travaux
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.setTextColor(...green);
+      doc.text('Détail des travaux', margin, 20);
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+
+      doc.autoTable({
+        startY: 28,
+        head: [['N°', 'Désignation', 'Qté', 'P.U. HT', 'Montant HT', 'Montant TTC']],
+        body: travaux.map(t => [
+          t.n,
+          t.designation,
+          t.qte,
+          t.pu.toLocaleString('fr-FR') + ' €',
+          t.mt.toLocaleString('fr-FR') + ' €',
+          t.ttc.toLocaleString('fr-FR') + ' €'
+        ]),
+        theme: 'grid',
+        headStyles: { fillColor: green, textColor: [255, 255, 255] },
+        margin: { left: margin, right: margin },
+        styles: { fontSize: 8 },
+        columnStyles: { 0: { cellWidth: 10 }, 1: { cellWidth: 85 }, 2: { cellWidth: 18 }, 3: { cellWidth: 28 }, 4: { cellWidth: 28 }, 5: { cellWidth: 28 } },
+      });
+
+      // PAGE 4 - Récapitulatif
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.setTextColor(...green);
+      doc.text('Récapitulatif financier', margin, 20);
+      doc.setFontSize(11);
+      doc.setTextColor(0, 0, 0);
+
+      const recap = [
+        ['TOTAL HT', '43 200 €'],
+        ['TVA 5,5%', '2 376 €'],
+        ['TOTAL TTC', '45 576 €'],
+        ['Aides MaPrimeRénov\'', '-10 340 €'],
+        ['Aides CEE', '-3 750 €'],
+        ['TOTAL AIDES', '-14 090 €'],
+        ['RESTE À CHARGE', '31 486 €'],
+      ];
+      doc.autoTable({
+        startY: 28,
+        body: recap,
+        theme: 'plain',
+        margin: { left: margin },
+        tableWidth: 100,
+        columnStyles: { 0: { cellWidth: 70 }, 1: { cellWidth: 30, halign: 'right' } },
+      });
+      doc.setFillColor(240, 253, 244); // green-50
+      doc.rect(margin, 85, 100, 12, 'F');
+      doc.setFont(undefined, 'bold');
+      doc.text('RESTE À CHARGE : 31 486 €', margin + 5, 93);
+
+      // PAGE 5 - Aides détaillées
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.setTextColor(...green);
+      doc.text('Aides financières détaillées', margin, 20);
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+
+      const aidesDetail = [
+        ['Isolation combles', 'MaPrimeRénov\'', '70%', '1 750 €', 'CEE', '450 €'],
+        ['ITI murs', 'MaPrimeRénov\'', '44%', '3 500 €', 'CEE', '1 200 €'],
+        ['Menuiseries', 'MaPrimeRénov\'', '26%', '2 500 €', 'CEE', '800 €'],
+        ['PAC Air-Air', 'MaPrimeRénov\'', '27%', '2 000 €', 'CEE', '1 300 €'],
+        ['VMC + Ballon thermo', 'MaPrimeRénov\'', '16%', '590 €', 'CEE', '0 €'],
+        ['TOTAL', '', '', '10 340 €', '', '3 750 €'],
+      ];
+      doc.autoTable({
+        startY: 28,
+        head: [['Poste', 'Aide', 'Taux', 'MPR', 'CEE', 'Montant CEE']],
+        body: aidesDetail,
+        theme: 'striped',
+        headStyles: { fillColor: green, textColor: [255, 255, 255] },
+        margin: { left: margin, right: margin },
+        styles: { fontSize: 8 },
+      });
+
+      // PAGE 6 - Financement courtier
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.setTextColor(...green);
+      doc.text('Financement courtier', margin, 20);
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+      let y = 32;
+      const financement = [
+        '• Partenaire courtier disponible pour financer le reste à charge',
+        '• Montant finançable : 31 486 €',
+        '• Durée : 10 ans',
+        '• Mensualité : Selon profil client',
+        '• Acceptation : 48-72h',
+        '• Déblocage progressif : 30% / 40% / 30%',
+        '• 0 € d\'apport possible',
+      ];
+      financement.forEach(l => { doc.text(l, margin, y); y += 8; });
+
+      // PAGE 7 - Planning
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.setTextColor(...green);
+      doc.text('Planning travaux', margin, 20);
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+      doc.text('Durée : 5-6 semaines', margin, 28);
+      const planning = [
+        ['1', 'Isolation combles perdus'],
+        ['2', 'ITI murs pisé'],
+        ['3', 'Fenêtres + Porte d\'entrée'],
+        ['4', 'Volets solaires'],
+        ['5', 'PAC Air-Air'],
+        ['6', 'VMC simple flux'],
+        ['7', 'Ballon thermodynamique'],
+        ['8', 'Coordination & finitions'],
+      ];
+      doc.autoTable({
+        startY: 35,
+        head: [['Ordre', 'Travaux']],
+        body: planning,
+        theme: 'grid',
+        headStyles: { fillColor: green, textColor: [255, 255, 255] },
+        margin: { left: margin },
+      });
+
+      // PAGE 8 - CG
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.setTextColor(...green);
+      doc.text('Conditions générales', margin, 20);
+      doc.setFontSize(9);
+      doc.setTextColor(0, 0, 0);
+      y = 28;
+      const cg = [
+        '• Validité du devis : 60 jours',
+        '• Acompte à la commande : 30%',
+        '• Artisans qualifiés RGE + assurance décennale obligatoire',
+        '• MAR obligatoire : LÉO-ENERGY',
+        '• Paiement : 30% à la commande, 70% à la réception',
+      ];
+      cg.forEach(l => { doc.text(l, margin, y); y += 7; });
+
+      // PAGE 9 - Bon pour accord
+      doc.addPage();
+      doc.setFontSize(16);
+      doc.text('BON POUR ACCORD', margin, 40);
+      doc.setFontSize(11);
+      doc.text('Je soussigné(e) M. GRANGE Mathias, accepte le présent devis pour un montant de 45 576 € TTC.', margin, 55, { maxWidth: pageW - 2 * margin });
+      doc.text('Fait à ________________________ le ________________________', margin, 85);
+      doc.text('Signature :', margin, 100);
+      doc.line(margin, 105, margin + 60, 105);
+
+      doc.setFontSize(8);
+      doc.setTextColor(100, 100, 100);
+      doc.text('Energia Conseil - 16 Rue Cuvier, 69006 Lyon - SIRET 94181942700019', margin, doc.internal.pageSize.getHeight() - 10);
+
+      doc.save('DEVIS_M_GRANGE_Mathias.pdf');
+      document.body.innerHTML = '<p style="text-align:center;margin-top:50px;color:#16a34a;font-size:18px;">✓ Devis téléchargé : DEVIS_M_GRANGE_Mathias.pdf</p>';
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Rapport Audit M. GRANGE - Génération PDF</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+  <p style="text-align:center;margin-top:50px;color:#16a34a;font-size:18px;">Génération du rapport d'audit PDF en cours...</p>
+  <script>
+    (function() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const margin = 20;
+      const pageW = doc.internal.pageSize.getWidth();
+      const green = [22, 163, 74];
+
+      function addText(doc, text, y, opts = {}) {
+        doc.setFontSize(opts.size || 10);
+        doc.setTextColor(opts.color || [0, 0, 0]);
+        const lines = doc.splitTextToSize(text, pageW - 2 * margin);
+        lines.forEach(line => { doc.text(line, margin, y); y += 6; });
+        return y;
+      }
+
+      // PAGE 1 - Couverture
+      doc.setFontSize(28);
+      doc.setTextColor(...green);
+      doc.text('ENERGIA CONSEIL', pageW / 2, 50, { align: 'center' });
+      doc.setFontSize(18);
+      doc.setTextColor(0, 0, 0);
+      doc.text('AUDIT ÉNERGÉTIQUE RÉGLEMENTAIRE', pageW / 2, 75, { align: 'center' });
+      doc.setFontSize(14);
+      doc.text('Maison individuelle', pageW / 2, 88, { align: 'center' });
+      doc.text('569 Chemin des Places, 42360 MONTCHAL', pageW / 2, 98, { align: 'center' });
+      doc.setFontSize(11);
+      doc.text('Date : 1er mars 2026', pageW / 2, 115, { align: 'center' });
+      doc.text('Client : M. GRANGE Mathias', pageW / 2, 125, { align: 'center' });
+
+      // PAGES 2-3 - Synthèse
+      doc.addPage();
+      doc.setFontSize(16);
+      doc.setTextColor(...green);
+      doc.text('Synthèse exécutive', margin, 20);
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+      let y = 28;
+      const synthese = [
+        'Situation actuelle',
+        '• DPE actuel : G (400 kWh/m²/an)',
+        '• Facture énergétique : 3 500 €/an',
+        '• Bâtiment : 101 m², murs en pisé, construction 1948-1974',
+        '',
+        'Scénario recommandé',
+        '• 9 postes de travaux (isolation, menuiseries, PAC, VMC, ballon thermo, coordination)',
+        '• Investissement total : 45 576 € TTC',
+        '• Aides : 14 090 € (MaPrimeRénov\' 10 340 € + CEE 3 750 €)',
+        '• Reste à charge : 31 486 €',
+        '',
+        'Performance après travaux',
+        '• DPE visé : D/C (+3 à 4 classes)',
+        '• Consommation : 140 kWh/m²/an (-65%)',
+        '• Facture estimée : 2 200 €/an',
+        '• Économies : 1 300 €/an',
+      ];
+      synthese.forEach(l => { doc.text(l, margin, y); y += 6; });
+
+      // PAGES 4-7 - Diagnostic actuel
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.setTextColor(...green);
+      doc.text('Diagnostic actuel', margin, 20);
+      doc.setFontSize(10);
+
+      doc.text('Caractéristiques du bâtiment', margin, 30);
+      const carac = [
+        '• Surface habitable : 101 m²',
+        '• Type de construction : Maison individuelle, murs en pisé',
+        '• Période de construction : 1948-1974',
+        '• Combles : Perdus, isolation insuffisante',
+        '• Murs : Pisé, non isolés (ITI obligatoire)',
+      ];
+      y = 38;
+      carac.forEach(l => { doc.text(l, margin, y); y += 6; });
+
+      doc.text('Déperditions thermiques (estimation)', margin, y + 5);
+      doc.autoTable({
+        startY: y + 12,
+        head: [['Élément', 'Surface/Volume', 'Déperdition estimée']],
+        body: [
+          ['Combles', '60 m²', 'Élevée - isolation dégradée'],
+          ['Murs', '100 m²', 'Élevée - pisé non isolé'],
+          ['Menuiseries', '5 fenêtres + 1 porte', 'Moyenne - simple vitrage'],
+          ['Ponts thermiques', '-', 'Liaisons planchers/murs'],
+        ],
+        theme: 'grid',
+        headStyles: { fillColor: green, textColor: [255, 255, 255] },
+        margin: { left: margin, right: margin },
+      });
+
+      doc.addPage();
+      doc.setFontSize(12);
+      doc.setTextColor(...green);
+      doc.text('Systèmes actuels', margin, 20);
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+      y = 28;
+      const systemes = [
+        '• Chauffage : Chaudière fioul (à remplacer)',
+        '• Plafond rayonnant électrique (dégradé)',
+        '• Ventilation : Naturelle (bouches d\'aération)',
+        '• Eau chaude sanitaire : Ballon électrique ou chaudière',
+        '',
+        'Consommations détaillées',
+        '• Chauffage : ~350 kWh/m²/an',
+        '• ECS : ~35 kWh/m²/an',
+        '• Auxiliaires : ~15 kWh/m²/an',
+        '• Total : 400 kWh/m²/an',
+        '• Coût annuel : 3 500 €',
+      ];
+      systemes.forEach(l => { doc.text(l, margin, y); y += 6; });
+
+      // PAGES 8-12 - Scénario rénovation
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.setTextColor(...green);
+      doc.text('Scénario de rénovation - Détail des 9 postes', margin, 20);
+      doc.setFontSize(9);
+
+      const postes = [
+        { d: '1. Isolation combles perdus 60m² (Laine roche 300mm R=7)', p: '2 500 € HT' },
+        { d: '2. ITI laine roche 120mm 100m² (R=3,7 + Placo, murs pisé)', p: '8 000 € HT' },
+        { d: '3. 5 Fenêtres PVC 1×1,5m (Double vitrage Uw=1,3)', p: '6 000 € HT' },
+        { d: '4. 5 Volets solaires motorisés', p: '3 500 € HT' },
+        { d: '5. Porte PVC/Alu 0,8×2,2m (Ud=1,3, A2P)', p: '2 500 € HT' },
+        { d: '6. PAC Air-Air 5 splits (COP 3,8, Réversible)', p: '7 500 € HT' },
+        { d: '7. VMC simple flux hygroréglable', p: '1 500 € HT' },
+        { d: '8. Ballon thermodynamique 200L (COP 3,5)', p: '2 200 € HT' },
+        { d: '9. Coordination & MAR', p: '9 500 € HT' },
+      ];
+
+      y = 28;
+      postes.forEach((p, i) => {
+        if (y > 270) { doc.addPage(); y = 20; }
+        doc.setFont(undefined, 'bold');
+        doc.text(p.d, margin, y);
+        doc.setFont(undefined, 'normal');
+        doc.text(p.p, pageW - margin - 35, y);
+        y += 10;
+      });
+
+      // PAGE 13-14 - Aides
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.setTextColor(...green);
+      doc.text('Aides financières', margin, 20);
+      doc.setFontSize(10);
+
+      doc.text('MaPrimeRénov\' Parcours Accompagné - Profil JAUNE (70%)', margin, 30);
+      doc.autoTable({
+        startY: 35,
+        body: [
+          ['Isolation combles', '2 500 €', '70%', '1 750 €'],
+          ['ITI murs', '8 000 €', '44%', '3 500 €'],
+          ['Menuiseries', '9 500 €', '26%', '2 500 €'],
+          ['PAC Air-Air', '7 500 €', '27%', '2 000 €'],
+          ['VMC + Ballon thermo', '3 700 €', '16%', '590 €'],
+          ['Total MaPrimeRénov\'', '', '', '10 340 €'],
+        ],
+        theme: 'grid',
+        margin: { left: margin },
+        styles: { fontSize: 9 },
+      });
+
+      doc.text('Certificats d\'Économies d\'Énergie (CEE)', margin, 115);
+      doc.text('Total CEE : 3 750 €', margin, 125);
+      doc.text('TOTAL AIDES : 14 090 €', margin, 135);
+      doc.text('RESTE À CHARGE : 31 486 €', margin, 145);
+
+      doc.addPage();
+      doc.setFontSize(12);
+      doc.setTextColor(...green);
+      doc.text('Financement courtier', margin, 20);
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+      doc.text('Montant finançable : 31 486 € | Durée : 10 ans | 0 € d\'apport possible', margin, 28);
+      doc.text('Déblocage progressif : 30% / 40% / 30%', margin, 36);
+
+      // PAGE 15 - Contacts
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.setTextColor(...green);
+      doc.text('Contacts & prochaines étapes', margin, 20);
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+
+      doc.text('ENERGIA CONSEIL', margin, 32);
+      doc.text('16 Rue Cuvier, 69006 Lyon', margin, 40);
+      doc.text('Tél : 06 10 59 68 98', margin, 48);
+
+      doc.text('LÉO-ENERGY (MAR - Maître d\'œuvre)', margin, 62);
+      doc.text('Courtier travaux : Partenaire disponible', margin, 72);
+
+      doc.text('Prochaines étapes :', margin, 88);
+      doc.text('1. Validation du devis et signature', margin, 96);
+      doc.text('2. Montage dossier financement (courtier)', margin, 104);
+      doc.text('3. Désignation MAR (LÉO-ENERGY)', margin, 112);
+      doc.text('4. Dossier MaPrimeRénov\' Parcours Accompagné', margin, 120);
+      doc.text('5. Planification et démarrage des travaux', margin, 128);
+
+      doc.setFontSize(8);
+      doc.setTextColor(100, 100, 100);
+      doc.text('Rapport généré le 1er mars 2026 - Energia Conseil', margin, doc.internal.pageSize.getHeight() - 10);
+
+      doc.save('RAPPORT_AUDIT_M_GRANGE_Mathias.pdf');
+      document.body.innerHTML = '<p style="text-align:center;margin-top:50px;color:#16a34a;font-size:18px;">✓ Rapport téléchargé : RAPPORT_AUDIT_M_GRANGE_Mathias.pdf</p>';
+    })();
+  </script>
+</body>
+</html>
