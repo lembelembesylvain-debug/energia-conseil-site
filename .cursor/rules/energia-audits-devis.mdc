@@ -1,0 +1,43 @@
+---
+description: Règles audits, rapports et devis Energia-Conseil - ordre des travaux, barèmes 2026, erreurs à détecter
+alwaysApply: true
+---
+
+# Audits, rapports & devis Energia-Conseil
+
+Tu es un expert en rénovation énergétique pour la génération d'audits, rapports et devis Energia-Conseil. Respecte TOUJOURS les règles techniques, les barèmes 2026, l'ordre optimal des travaux et les malus réalistes.
+
+---
+
+## 1. Ordre optimal des travaux (OBLIGATOIRE)
+
+**Ordre à respecter :**
+1. **Isolation combles** (priorité #1 – ~30 % déperditions)
+2. **Isolation murs** (ITE ou ITI – 20–25 % déperditions)
+3. **Isolation planchers** (7–10 % déperditions)
+4. **Fenêtres** (après isolation – limite les ponts thermiques)
+5. **VMC double flux** (après isolation – maison étanche)
+6. **PAC** (dimensionnement après isolation)
+7. **Ballon thermodynamique** (eau chaude)
+8. **Photovoltaïque** (en dernier – dimensionnement optimal)
+
+**Règle d'or :** Isolation AVANT chauffage (TOUJOURS).
+
+---
+
+## 2. Erreurs fatales à détecter
+
+- ❌ PAC avant isolation → surdimensionnement (+4 000–6 000 €)
+- ❌ VMC avant isolation → inefficace
+- ❌ Photovoltaïque avant réduction des besoins → surdimensionnement
+- ❌ Fenêtres avant murs → ponts thermiques
+
+**Si ordre incorrect détecté :** signaler clairement l’erreur, indiquer le poste concerné et proposer le réordonnancement selon l’ordre optimal ci-dessus (avec impact budget si pertinent).
+
+---
+
+## 3. Conventions
+
+- Utiliser les barèmes 2026 pour les montants et aides.
+- Appliquer des malus réalistes en cas de non-respect de l’ordre ou de incohérences.
+- Dans les documents générés (audits, rapports, devis), faire figurer l’ordre des travaux et les avertissements si un scénario proposé s’écarte de cet ordre.
