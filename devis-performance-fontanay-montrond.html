@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devis – Scénario Performance – Mme FONTANAY | Energia-Conseil</title>
+  <style>
+    :root { --primary: #1a5f4a; --secondary: #2d8b6f; --bg: #f5f5f5; }
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.5; color: #1a1a1a; background: var(--bg); margin: 0; padding: 1.5rem; }
+    .container { max-width: 920px; margin: 0 auto; background: #fff; padding: 2rem; box-shadow: 0 2px 16px rgba(0,0,0,.08); border-radius: 8px; }
+    .header { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--secondary); }
+    .logo { font-size: 1.4rem; font-weight: 700; color: var(--primary); }
+    .client { font-size: 0.95rem; }
+    .ref { font-size: 0.9rem; color: #666; }
+    h1 { color: var(--primary); font-size: 1.4rem; margin: 0 0 0.5rem 0; }
+    h2 { color: var(--secondary); font-size: 1.1rem; margin-top: 1.75rem; }
+    table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 0.9rem; }
+    th, td { border: 1px solid #ddd; padding: 0.4rem 0.6rem; text-align: left; }
+    th { background: var(--primary); color: #fff; }
+    .text-right { text-align: right; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .total-row { background: #e8f5e9 !important; font-weight: 700; }
+    .recap-table td:first-child { width: 55%; }
+    .recap-table .montant { text-align: right; }
+    ul { margin: 0.4rem 0; padding-left: 1.2rem; }
+    .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: 0.85rem; color: #666; }
+    .signature { margin-top: 2rem; }
+    .signature p { margin: 0.25rem 0; }
+    @media print { body { background: #fff; } .container { box-shadow: none; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <div class="logo">Energia-Conseil</div>
+        <div class="ref">Devis n° DEV-2026-FONTANAY-PERF<br />Date : 3 mars 2026<br />Valide jusqu'au : 3 juin 2026</div>
+      </div>
+      <div class="client">
+        <strong>Mme FONTANAY Stéphanie</strong><br />
+        Montrond-les-Bains (42)<br />
+        Maison 120 m² · DPE actuel F · Cible B
+      </div>
+    </div>
+
+    <h1>Devis – Rénovation énergétique globale (scénario Performance)</h1>
+    <p>Présenté dans le cadre du Parcours Accompagné MaPrimeRénov'. Travaux dans l'ordre technique optimal. Barèmes 2026.</p>
+
+    <!-- 1. Détail des travaux (ordre optimal) -->
+    <h2>1. Détail des travaux – Ordre technique optimal</h2>
+    <table>
+      <tr>
+        <th>N°</th>
+        <th>Désignation</th>
+        <th>Spécifications techniques</th>
+        <th class="text-right">Qté</th>
+        <th class="text-right">Unité</th>
+        <th class="text-right">Prix unitaire HT</th>
+        <th class="text-right">Total HT</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Isolation combles perdus</td>
+        <td>Laine de roche, R = 8 à 10 (RE2020), soufflage ou déroulé. Relevé des combles, trappe d'accès.</td>
+        <td class="text-right">120</td>
+        <td class="text-right">m²</td>
+        <td class="text-right">40,00 €</td>
+        <td class="text-right">4 800,00 €</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Isolation thermique par l'extérieur (ITE)</td>
+        <td>Murs, R = 4 à 5. PSE ou fibre de bois, fixations, armature, enduit de finition. Façade préservée (enduit).</td>
+        <td class="text-right">180</td>
+        <td class="text-right">m²</td>
+        <td class="text-right">150,00 €</td>
+        <td class="text-right">27 000,00 €</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Isolation planchers bas</td>
+        <td>R = 3 à 4. Isolant sous plancher ou sur dalle, finition. RDC.</td>
+        <td class="text-right">120</td>
+        <td class="text-right">m²</td>
+        <td class="text-right">40,00 €</td>
+        <td class="text-right">4 800,00 €</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Menuiseries extérieures – Fenêtres PVC double vitrage</td>
+        <td>Uw ≤ 1,2 W/m².K. Pose, fourniture, dépose anciennes, évacuation. 10 unités.</td>
+        <td class="text-right">10</td>
+        <td class="text-right">u.</td>
+        <td class="text-right">600,00 €</td>
+        <td class="text-right">6 000,00 €</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>VMC double flux</td>
+        <td>Rendement récupération ≥ 85 %. Réseau gaines, bouches. Mise en œuvre après isolation (maison étanche).</td>
+        <td class="text-right">1</td>
+        <td class="text-right">lot</td>
+        <td class="text-right">5 000,00 €</td>
+        <td class="text-right">5 000,00 €</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>PAC air-eau (chauffage + rafraîchissement option)</td>
+        <td>Puissance 6 kW (dimensionnement post-isolation). COP ≥ 4,5. Fourniture et pose, régulation, liaison hydraulique.</td>
+        <td class="text-right">1</td>
+        <td class="text-right">lot</td>
+        <td class="text-right">13 500,00 €</td>
+        <td class="text-right">13 500,00 €</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Ballon thermodynamique</td>
+        <td>250 à 300 L, COP ≥ 3. Eau chaude sanitaire. Fourniture et pose, raccordements.</td>
+        <td class="text-right">1</td>
+        <td class="text-right">u.</td>
+        <td class="text-right">2 500,00 €</td>
+        <td class="text-right">2 500,00 €</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="6" class="text-right">Total travaux HT</td>
+        <td class="text-right">63 600,00 €</td>
+      </tr>
+    </table>
+
+    <!-- 2. Récapitulatif financier -->
+    <h2>2. Récapitulatif financier</h2>
+    <table class="recap-table">
+      <tr><td>Total travaux HT</td><td class="montant">63 600,00 €</td></tr>
+      <tr><td>TVA 5,5 % (taux réduit rénovation énergétique)</td><td class="montant">3 498,00 €</td></tr>
+      <tr class="total-row"><td>Total TTC</td><td class="montant">67 098,00 €</td></tr>
+    </table>
+
+    <!-- 3. Aides 2026 -->
+    <h2>3. Récapitulatif des aides 2026 (profil Bleu, gain 3+ classes DPE)</h2>
+    <table class="recap-table">
+      <tr><td>MaPrimeRénov' Parcours Accompagné (plafond 40 000 € HT, taux 80 %, max 32 000 €)</td><td class="montant">32 000,00 €</td></tr>
+      <tr><td>Bonus sortie passoire thermique (F/G → D minimum)</td><td class="montant">1 500,00 €</td></tr>
+      <tr><td>Bonus BBC (atteindre classe A ou B)</td><td class="montant">1 500,00 €</td></tr>
+      <tr><td>CEE (Certificats d'Économies d'Énergie) – fourchette selon opérateur</td><td class="montant">~5 500,00 €</td></tr>
+      <tr><td>Coup de pouce rénovation (gain 3 classes)</td><td class="montant">5 800,00 €</td></tr>
+      <tr class="total-row"><td>Total aides (estimation)</td><td class="montant">~46 300,00 €</td></tr>
+    </table>
+    <p><em>Les aides sont soumises à éligibilité et à l'obtention du Parcours Accompagné (MAR). Montants CEE à confirmer auprès du primeur. Cumul aides &lt; 100 % du coût des travaux.</em></p>
+
+    <!-- 4. Reste à charge et Éco-PTZ -->
+    <h2>4. Reste à charge et financement Éco-PTZ</h2>
+    <table class="recap-table">
+      <tr><td>Total TTC</td><td class="montant">67 098,00 €</td></tr>
+      <tr><td>Total aides (estimation)</td><td class="montant">− 46 300,00 €</td></tr>
+      <tr class="total-row"><td>Reste à charge (estimation)</td><td class="montant">20 798,00 €</td></tr>
+    </table>
+    <p><strong>Éco-PTZ (prêt à taux zéro) :</strong> Rénovation globale, 50 000 € max, 20 ans, taux 0 %, sans condition de revenus. Frais 0 €.</p>
+    <table class="recap-table">
+      <tr><td>Montant Éco-PTZ (reste à charge)</td><td class="montant">20 798,00 €</td></tr>
+      <tr><td>Durée</td><td class="montant">20 ans (240 mois)</td></tr>
+      <tr class="total-row"><td>Mensualité Éco-PTZ (indicative)</td><td class="montant">87 € / mois</td></tr>
+    </table>
+
+    <!-- 5. Économies et ROI -->
+    <h2>5. Économies annuelles et ROI</h2>
+    <table class="recap-table">
+      <tr><td>Facture chauffage actuelle (estimation)</td><td class="montant">3 200 € / an</td></tr>
+      <tr><td>Facture après travaux (DPE B, −65 %)</td><td class="montant">~1 120 € / an</td></tr>
+      <tr class="total-row"><td>Économies annuelles estimées</td><td class="montant">~2 080 à 2 240 € / an</td></tr>
+      <tr><td>ROI (reste à charge 20 798 € / 2 160 €)</td><td class="montant">~9,6 ans</td></tr>
+    </table>
+    <p>Avec Éco-PTZ : 87 €/mois de mensualité pour un gain moyen ~173 €/mois sur la facture énergétique → <strong>gain net mensuel ~86 €</strong>.</p>
+
+    <!-- 6. Planning prévisionnel avec malus -->
+    <h2>6. Planning prévisionnel (avec malus réalistes)</h2>
+    <table>
+      <tr><th>Phase / Poste</th><th>Durée théorique</th><th>Durée avec malus</th><th>Remarques</th></tr>
+      <tr><td>Préparation (audit, MAR, devis, dossier ANAH)</td><td>—</td><td>2 à 3 mois</td><td>À anticiper avant démarrage chantier</td></tr>
+      <tr><td>1. Isolation combles</td><td>1–2 j</td><td>2–3 j</td><td>Malus météo, accès</td></tr>
+      <tr><td>2. ITE (murs)</td><td>3–4 sem</td><td>4–6 sem</td><td>Malus météo +30 à 50 % Nov–Mars ; séchage enduit. Période optimale : Avril–Octobre</td></tr>
+      <tr><td>3. Isolation planchers</td><td>1 sem</td><td>1–2 sem</td><td>Coordination corps de métier</td></tr>
+      <tr><td>4. Fenêtres</td><td>1–2 sem</td><td>2–3 sem</td><td>Malus livraison, pose</td></tr>
+      <tr><td>5. VMC double flux</td><td>2–3 j</td><td>3–5 j</td><td>Malus coordination</td></tr>
+      <tr><td>6. PAC air-eau</td><td>1–2 sem</td><td>2–3 sem</td><td>Mise en service, tests</td></tr>
+      <tr><td>7. Ballon thermodynamique</td><td>1–2 j</td><td>2–3 j</td><td>—</td></tr>
+      <tr class="total-row"><td>Durée totale chantier (ordre respecté)</td><td>—</td><td>4 à 5 mois</td><td>Éviter Juillet–Août (congés, +20 à 40 % délai)</td></tr>
+    </table>
+    <p><strong>Coordination :</strong> Réunion de chantier J-7, point hebdomadaire (ex. lundi 9 h), réunion mi-parcours, réception des travaux. Ordre des postes impératif (isolation avant fenêtres, VMC et PAC).</p>
+
+    <!-- 7. Conditions et garanties -->
+    <h2>7. Conditions générales et garanties</h2>
+    <ul>
+      <li><strong>Artisans RGE :</strong> Tous les travaux seront réalisés par des entreprises titulaires du signe de qualité RGE (Reconnu Garant de l'Environnement), obligatoire pour MaPrimeRénov' et CEE.</li>
+      <li><strong>Parcours Accompagné :</strong> Ce devis s'inscrit dans le cadre du Parcours Accompagné MaPrimeRénov'. L'accompagnement par un MAR (Mon Accompagnateur Rénov') est requis pour l'obtention des aides. Prise en charge partielle possible (profil Bleu : 100 % plafond 2 000 €).</li>
+      <li><strong>Délai de validité :</strong> Le présent devis est valable 3 mois à compter de sa date d'émission. Au-delà, les prix pourront être révisés.</li>
+      <li><strong>Délai de paiement :</strong> Conformément aux usages et à la réglementation : acomptes selon avancement des travaux, solde à réception. Délai maximal de paiement : 45 jours fin de mois ou 60 jours à compter de la date d'émission de la facture (sauf clause plus favorable).</li>
+      <li><strong>Garanties :</strong> Garantie décennale des entreprises pour les ouvrages. Garanties constructeur pour les équipements (PAC, ballon, VMC) selon conditions des fabricants. Garantie de parfait achèvement pendant 1 an après réception.</li>
+      <li><strong>Assurances :</strong> Toutes les entreprises intervenantes sont tenues de justifier d'une assurance responsabilité civile professionnelle et d'une assurance dommages-ouvrage / décennale.</li>
+      <li><strong>Réception des travaux :</strong> Une réception des travaux sera organisée à l'issue du chantier. Réserves éventuelles à formuler par écrit. Défauts non signalés à la réception restent couverts par les garanties ci-dessus.</li>
+      <li><strong>Ordre des travaux :</strong> L'ordre technique indiqué (isolation combles → murs ITE → planchers → fenêtres → VMC → PAC → ballon) est impératif pour le dimensionnement des équipements et l'éligibilité aux aides. Aucun poste ne doit être réalisé en avance sur cet ordre.</li>
+    </ul>
+
+    <div class="signature">
+      <p>Pour Energia-Conseil,</p>
+      <p>Le présent devis sera considéré comme accepté après signature du client et retour daté, sous réserve des conditions d'éligibilité aux aides et de l'obtention du financement (MaPrimeRénov', CEE, Éco-PTZ).</p>
+    </div>
+
+    <div class="footer">
+      <p><strong>Energia-Conseil</strong> – Devis scénario Performance – Mme FONTANAY Stéphanie – Montrond-les-Bains (42) – Référence 2026. Les montants d'aides sont indicatifs et subordonnés à l'instruction du dossier par l'ANAH et aux barèmes en vigueur.</p>
+    </div>
+  </div>
+</body>
+</html>
