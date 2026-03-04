@@ -3,33 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Devis Excellence – M. YANG & Mme LIU | ENERGIA-CONSEIL IA®</title>
+  <title>Devis M. YANG & Mme LIU – 120 743 € TTC | ENERGIA-CONSEIL IA®</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', Helvetica, Arial, sans-serif; line-height: 1.5; color: #1f2937; background: #fff; font-size: 11px; }
+    body { font-family: 'Inter', Helvetica, Arial, sans-serif; line-height: 1.55; color: #1f2937; background: #fff; font-size: 11px; }
     .container { max-width: 800px; margin: 0 auto; padding: 1.5rem 2rem; }
     .brand-header { margin-bottom: 0.5rem; }
-    .brand-name { font-family: 'Poppins', 'Inter', Helvetica, sans-serif; font-weight: 700; font-size: 14px; color: #10b981; }
-    .brand-tagline { font-size: 11px; color: #6b7280; margin-top: 0.1rem; }
-    .brand-inpi { font-size: 10px; color: #6b7280; margin-top: 0.05rem; }
-    .brand-contact { font-size: 11px; color: #6b7280; margin-top: 0.15rem; }
-    .header { border-bottom: 3px solid #10b981; padding-bottom: 0.75rem; margin-bottom: 1rem; }
-    h2 { color: #047857; font-family: 'Poppins', 'Inter', Helvetica, sans-serif; font-weight: 700; font-size: 1rem; margin: 0.9rem 0 0.4rem; border-bottom: 1px solid #10b981; padding-bottom: 0.2rem; page-break-after: avoid; }
-    h3 { color: #374151; font-size: 0.95rem; margin: 0.6rem 0 0.3rem; page-break-after: avoid; }
-    table { width: 100%; border-collapse: collapse; margin: 0.4rem 0; font-size: 10px; }
+    .brand-name { font-family: 'Poppins', sans-serif; font-weight: 700; color: #10b981; }
+    .brand-tagline { font-size: 13px; color: #6b7280; margin-top: 0.25rem; }
+    .brand-contact { font-size: 13px; color: #6b7280; margin-top: 0.2rem; }
+    h2 { color: #047857; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.05rem; margin: 1rem 0 0.5rem; page-break-after: avoid; border-bottom: 1px solid #10b981; padding-bottom: 0.2rem; }
+    h3 { color: #374151; font-size: 0.95rem; margin: 0.7rem 0 0.35rem; page-break-after: avoid; }
+    p { margin: 0.35rem 0; }
+    ul { margin: 0.3rem 0 0.3rem 1.2rem; }
+    table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 10px; page-break-inside: avoid; }
     th { background: #10b981; color: white; padding: 0.35rem 0.5rem; text-align: left; }
-    td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
-    .montant { text-align: right; font-weight: 600; white-space: nowrap; }
-    .total-row { background: #d1fae5; font-weight: 700; }
-    .encadre-green { background: #ecfdf5; border: 2px solid #10b981; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; font-size: 10px; }
-    .bloc-presta { margin: 0.5rem 0; padding-left: 0.5rem; border-left: 3px solid #10b981; }
+    td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #e5e7eb; }
+    .montant { text-align: right; font-weight: 600; }
+    .encadre-green { background: #ecfdf5; border: 2px solid #10b981; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .encadre-amber { background: #fef3c7; border: 2px solid #f59e0b; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .encadre-red { background: #fef2f2; border: 2px solid #ef4444; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .disclaimer { font-size: 9px; color: #6b7280; font-style: italic; margin: 0.25rem 0; }
     .page-break { page-break-after: always; }
-    .devis-num { font-size: 1.1rem; font-weight: 700; color: #10b981; margin: 0.5rem 0; }
-    .divider { border: none; border-top: 2px solid #10b981; margin: 0.5rem 0; }
-    .divider-light { border: none; border-top: 1px solid #d1d5db; margin: 0.5rem 0; }
-    .footer-legal { text-align: center; font-size: 8px; color: #6b7280; margin-top: 1rem; line-height: 1.35; }
-    .bon-accord { margin-top: 2rem; padding: 1rem; border: 2px solid #1f2937; }
+    .footer-legal { text-align: center; font-size: 8px; color: #6b7280; margin-top: 1.5rem; line-height: 1.35; }
     @media print { .footer-legal { position: fixed; bottom: 0; left: 0; right: 0; } }
   </style>
 </head>
@@ -38,125 +35,175 @@
 
     <div class="brand-header">
       <div class="brand-name">ENERGIA-CONSEIL IA®</div>
-      <div class="brand-tagline">Audit Énergétique Intelligence Artificielle</div>
-      <div class="brand-inpi">Marque déposée INPI | Bureau d'études & AMO</div>
-      <div class="brand-contact">16 Rue Cuvier, 69006 Lyon | 06 10 59 68 98</div>
+      <div class="brand-tagline">Audit Énergétique Intelligence Artificielle | Marque déposée INPI | Bureau d'études & AMO</div>
+      <div class="brand-contact">16 Rue Cuvier, 69006 Lyon | 06 10 59 68 98 | SIRET 94181942700019 | RCS Lyon 941819427 | SASU Capital 100€</div>
     </div>
-    <div class="header">
-      <p style="color: #6b7280; font-size: 10px;">SIRET : 94181942700019 | RCS Lyon 941819427 | SASU Capital 100 €</p>
-    </div>
-
-    <hr class="divider">
-    <p class="devis-num">DEVIS N° DEV-2026-YANG-LIU-EXCELLENCE</p>
-    <p><strong>Date :</strong> 3 mars 2026 | <strong>Validité :</strong> 30 jours | <strong>Rénovation globale d'ampleur – Scénario Excellence (gain 5 classes)</strong></p>
-    <p><strong>Date clôture projet :</strong> 24/03/2026</p>
-    <hr class="divider-light">
+    <p style="margin-top:1rem;"><strong>N° :</strong> DEV-2026-YANG-LIU-EXCELLENCE</p>
+    <p><strong>Date :</strong> 4 mars 2026 | <strong>Validité :</strong> 3 mois | <strong>Type :</strong> Rénovation globale – Scénario Excellence – DPE F/G → B (+5 classes)</p>
 
     <h2>I. Clients et interlocuteur</h2>
-    <p><strong>CLIENTS :</strong> M. YANG & Mme LIU</p>
-    <p><strong>Bien :</strong> Maison individuelle 150 m² (1970) – Ville à préciser</p>
-    <p><strong>Profil MaPrimeRénov' :</strong> BLEU (Très modestes – RFR 22 000 €, 2 personnes, Hors IDF) | Taux aides 80 % (max 32 000 € MPR)</p>
-    <div class="encadre-green">
-      <strong>Interlocuteur commercial :</strong> DAMIEN | 06 72 68 09 68 | damien.srdconseil@gmail.com
-    </div>
-
-    <div class="page-break"></div>
-
-    <h2>II. Contexte et objectifs</h2>
-    <p>Rénovation globale d'ampleur pour sortir de la passoire thermique (DPE F/G → B, gain 5 classes). Isolation complète (combles + ITE + planchers), menuiseries triple vitrage, VMC double flux premium, PAC performante, ballon thermodynamique. Maximisation aides profil Bleu. Budget 120 743 € TTC. Occupation pendant les travaux. VMC à finaliser (statut actuel).</p>
-
-    <h2>III. Détail des travaux – Ordre technique optimal</h2>
-
-    <h3>1. Isolation combles</h3>
-    <div class="bloc-presta">
-      <strong>10 000 € TTC</strong><br>
-      R=10–12 (RE2020). Laine de roche ou ouate de cellulose, 150 m². Priorité #1. Artisan RGE.
-    </div>
-
-    <h3>2. ITE murs (isolation par l'extérieur)</h3>
-    <div class="bloc-presta">
-      <strong>38 000 € TTC</strong><br>
-      R=5–6. Fibre de bois ou PSE haute densité, enduit. Surface ~200 m². Période optimale Avril–Octobre. 2C ENERGIES ou partenaire ITE – RGE.
-    </div>
-
-    <h3>3. Isolation planchers terre-plein</h3>
-    <div class="bloc-presta">
-      <strong>8 000 € TTC</strong><br>
-      R=4–5. 150 m². Isolant sous dalle ou sur terre-plein. Artisan RGE à sélectionner.
-    </div>
-
-    <h3>4. Menuiseries – 13 fenêtres triple vitrage</h3>
-    <div class="bloc-presta">
-      <strong>14 000 € TTC</strong><br>
-      Uw≤0,8 W/m².K. Remplacement simple vitrage aluminium. Pose, dépose, évacuation. Artisan RGE à sélectionner.
-    </div>
-
-    <h3>5. VMC double flux premium</h3>
-    <div class="bloc-presta">
-      <strong>8 000 € TTC</strong><br>
-      Rendement récupération ≥90 %. Réseau gaines, bouches. Mise en œuvre après isolation (maison étanche). Statut à finaliser. Artisan RGE à sélectionner.
-    </div>
-
-    <div class="page-break"></div>
-
-    <h3>6. PAC air-eau performante</h3>
-    <div class="bloc-presta">
-      <strong>19 000 € TTC</strong><br>
-      Puissance 8 kW (dimensionnement post-isolation, 150 m² DPE B). COP≥5. Remplacement chaudière fioul 30 ans. ECO SYSTÈME DURABLE – 01 70 93 97 15.
-    </div>
-
-    <h3>7. Ballon thermodynamique premium 300 L</h3>
-    <div class="bloc-presta">
-      <strong>4 500 € TTC</strong><br>
-      COP≥3,5. Remplacement chauffe-eau électrique 25 ans. ECO SYSTÈME DURABLE.
-    </div>
-
-    <h3>8. Coordination AMO (projet complexe)</h3>
-    <div class="bloc-presta">
-      <strong>19 243 € TTC</strong><br>
-      Pilotage rénovation 5 classes, sélection artisans RGE (2–3 devis par poste), planning 15–18 sem (malus +50 %), suivi chantier, réception, assistance MaPrimeRénov', DPE B garanti. MAR Léo-Energy (prise en charge Bleu 100 % plafond 2 000 €).
-    </div>
-
-    <div class="page-break"></div>
-
-    <h2>IV. Récapitulatif financier</h2>
     <table>
-      <tr><td>1. Combles</td><td class="montant">10 000 €</td></tr>
-      <tr><td>2. ITE murs</td><td class="montant">38 000 €</td></tr>
-      <tr><td>3. Planchers</td><td class="montant">8 000 €</td></tr>
-      <tr><td>4. Menuiseries (13 u.)</td><td class="montant">14 000 €</td></tr>
-      <tr><td>5. VMC double flux premium</td><td class="montant">8 000 €</td></tr>
-      <tr><td>6. PAC air-eau</td><td class="montant">19 000 €</td></tr>
-      <tr><td>7. Ballon thermo</td><td class="montant">4 500 €</td></tr>
-      <tr><td>8. Coordination AMO</td><td class="montant">19 243 €</td></tr>
-      <tr class="total-row"><td>TOTAL TTC</td><td class="montant">120 743 €</td></tr>
-      <tr><td>MaPrimeRénov' Parcours (Bleu 80 %, max 32 000 €)</td><td class="montant">−32 000 €</td></tr>
-      <tr><td>CEE (fourchette)</td><td class="montant">−7 000 €</td></tr>
-      <tr><td>Coup de pouce (3 classes)</td><td class="montant">−5 800 €</td></tr>
-      <tr><td>Bonus sortie passoire</td><td class="montant">−1 500 €</td></tr>
-      <tr><td>Bonus BBC (atteindre B)</td><td class="montant">−1 500 €</td></tr>
-      <tr class="total-row"><td>RESTE À CHARGE</td><td class="montant">72 943 €</td></tr>
+      <tr><th>Élément</th><th>Valeur</th></tr>
+      <tr><td>Clients</td><td>M. YANG &amp; Mme LIU</td></tr>
+      <tr><td>Adresse</td><td>[Ville à préciser]</td></tr>
+      <tr><td>Téléphone / Email</td><td>[À compléter]</td></tr>
+      <tr><td>Bien</td><td>Maison 150 m² (1970), murs parpaing, Hors IDF</td></tr>
+      <tr><td>DPE actuel → cible</td><td>F/G (passoire) → B (+5 classes)</td></tr>
+      <tr><td>Profil MaPrimeRénov' 2026</td><td>BLEU (très modestes) – RFR 22 000 €, 2 personnes, Hors IDF</td></tr>
+      <tr><td>Taux MPR Parcours (barème 2026)</td><td>80 % – max 32 000 € (plafond 40 000 € HT × 80 %, gain 3+ classes)</td></tr>
+      <tr><td><strong>Interlocuteur commercial</strong></td><td><strong>DAMIEN</strong> | 06 72 68 09 68 | damien.srdconseil@gmail.com</td></tr>
     </table>
 
-    <h2>V. Financement</h2>
-    <p><strong>Éco-PTZ :</strong> 50 000 € max (rénovation globale, 20 ans, 0 %) = <strong>208 €/mois</strong>. Courtier : FABIEN – VIVONS COURTIER – 06 71 19 96 45.</p>
-    <p><strong>Apport personnel :</strong> 72 943 − 50 000 = <strong>22 943 €</strong> (ou financement complémentaire).</p>
-    <p><strong>Économies estimées :</strong> 3 500–4 500 €/an (70–80 % réduction facture).</p>
+    <h2>II. Contexte et préférences</h2>
+    <p>Rénovation globale Scénario Excellence : sortir passoire F/G, atteindre DPE B (+5 classes), maximiser aides Bleu 80 %, réduire facture 70–80 %, valorisation immobilière. Budget 120 743 € TTC. Date clôture 24/03/2026 (URGENT – 20 jours). Occupation pendant travaux. Projet complexe (5 classes, coordination renforcée). VMC double flux premium à finaliser (statut actuel). Artisans RGE uniquement. Parcours Accompagné MAR (Léo-Energy). Ordre des travaux impératif : combles → ITE (Avril–Octobre) → planchers → menuiseries triple vitrage → VMC → PAC + ballon. Dimensionnement PAC POST-ISOLATION (8 kW). Ne pas démarrer avant validation ANAH. Garantie atteinte DPE B.</p>
 
-    <h2>VI. Planning (15–18 semaines, malus +50 %)</h2>
-    <p>Préparation avant 24/03/2026. Chantier : Combles → ITE (6–8 sem) → Planchers → Menuiseries → VMC → PAC + Ballon. Durée totale 15–18 sem (projet complexe, multi-corps de métier). ITE Avril–Octobre.</p>
+    <h2>III. Détail des travaux – Ordre optimal</h2>
+    <p><em>Ordre impératif : isolation avant chauffage (PAC). Travaux ne peuvent démarrer qu'après validation ANAH.</em></p>
+    <table>
+      <tr><th>N°</th><th>Désignation</th><th>Spécifications techniques</th><th>Qté</th><th>Unité</th><th>Prix unitaire HT</th><th>Total HT</th></tr>
+      <tr><td>1</td><td>Isolation combles</td><td>R=10–12 (RE2020), laine roche ou ouate, 150 m². Priorité #1</td><td>150</td><td>m²</td><td class="montant">63,19 €</td><td class="montant">9 479 €</td></tr>
+      <tr><td>2</td><td>ITE murs</td><td>~200 m² R=5–6 (RE2020 premium), fibre bois ou PSE HD, enduit. Avril–Octobre</td><td>200</td><td>m²</td><td class="montant">180,09 €</td><td class="montant">36 019 €</td></tr>
+      <tr><td>3</td><td>Isolation planchers terre-plein</td><td>150 m² R=4–5, isolant adapté</td><td>150</td><td>m²</td><td class="montant">50,55 €</td><td class="montant">7 583 €</td></tr>
+      <tr><td>4</td><td>13 Fenêtres triple vitrage</td><td>Uw≤0,8 W/m².K, pose + dépose + évacuation (remplacement simple vitrage alu)</td><td>13</td><td>u.</td><td class="montant">1 020,77 €</td><td class="montant">13 270 €</td></tr>
+      <tr><td>5</td><td>VMC double flux premium</td><td>Rendement ≥90 %, gaines + bouches. Après isolation. À finaliser</td><td>1</td><td>lot</td><td class="montant">7 583 €</td><td class="montant">7 583 €</td></tr>
+      <tr><td>6</td><td>PAC air-eau 8 kW</td><td>COP ≥5, POST-ISOLATION, remplace fioul 30 ans, dépose fioul + cuve</td><td>1</td><td>u.</td><td class="montant">18 009 €</td><td class="montant">18 009 €</td></tr>
+      <tr><td>7</td><td>Ballon thermodynamique 300 L</td><td>COP ≥3,5, classe A, remplace chauffe-eau électrique 25 ans</td><td>1</td><td>u.</td><td class="montant">4 265 €</td><td class="montant">4 265 €</td></tr>
+      <tr><td>8</td><td>Coordination AMO + MAR</td><td>Pilotage projet complexe 5 classes, suivi hebdo Sylvain, coordination renforcée, MAR Léo-Energy, garantie DPE B</td><td>1</td><td>lot</td><td class="montant">18 240 €</td><td class="montant">18 240 €</td></tr>
+      <tr><td colspan="6" class="montant"><strong>Total travaux HT</strong></td><td class="montant"><strong>114 448 €</strong></td></tr>
+    </table>
 
-    <h2>VII. Conditions générales</h2>
-    <p>Artisans RGE obligatoire. Parcours Accompagné (MAR) si applicable. Ordre des travaux impératif. Validité 30 jours. Ne pas signer avant validation ANAH. Garanties : décennale, constructeur, parfait achèvement.</p>
+    <h2>IV. Récapitulatif financier</h2>
+    <p class="disclaimer"><strong>Aides financières 2026 (estimation à titre indicatif).</strong> Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.</p>
+    <table>
+      <tr><td>Total HT</td><td class="montant">114 448 €</td></tr>
+      <tr><td>TVA 5,5 %</td><td class="montant">6 295 €</td></tr>
+      <tr><td><strong>Total TTC</strong></td><td class="montant"><strong>120 743 €</strong></td></tr>
+      <tr><td colspan="2" style="padding-top:0.5rem;"><strong>Aides (estimation à titre indicatif)</strong></td></tr>
+      <tr><td>MaPrimeRénov' Parcours (Bleu, gain 3+ classes)</td><td class="montant">~32 000 €</td></tr>
+      <tr><td>CEE ménage modeste</td><td class="montant">~7 000 €</td></tr>
+      <tr><td>Coup de pouce (3 classes)</td><td class="montant">~5 800 €</td></tr>
+      <tr><td>Bonus sortie passoire + BBC</td><td class="montant">~3 000 €</td></tr>
+      <tr><td><strong>Total aides (indicatif)</strong></td><td class="montant"><strong>~47 800 €</strong></td></tr>
+      <tr><td><strong>RESTE À CHARGE (estimation)</strong></td><td class="montant"><strong>~72 943 €</strong></td></tr>
+    </table>
+    <p class="disclaimer">Cumul aides ≤ 100 % des travaux. Montants définitifs après instruction ANAH et CEE. À valider selon revenus réels du client.</p>
+
+    <h2>V. Financement et démarrage des travaux</h2>
+    <div class="encadre-red">
+      <p><strong>⚠️ Règle ANAH impérative :</strong> Les travaux ne peuvent démarrer <strong>QU'APRÈS validation officielle du dossier MaPrimeRénov' par l'ANAH</strong>. Démarrer les travaux avant l'accord ANAH = <strong>REFUS TOTAL des aides MaPrimeRénov'</strong>.</p>
+    </div>
+    <h3>Process financement FABIEN – VIVONS COURTIER (06 71 19 96 45)</h3>
+    <p><strong>Principe :</strong> FABIEN finance le <strong>MONTANT TOTAL des travaux</strong> (jusqu'à 75 000 € pour Éco-PTZ ; au-delà prêt complémentaire possible).</p>
+    <table>
+      <tr><th>Étape</th><th>Contenu</th></tr>
+      <tr><td><strong>1</strong></td><td><strong>Devis ENERGIA signé</strong> – Montant total travaux : 120 743 € TTC. Aides estimées (indicatif) : ~47 800 €. Reste à charge estimé : ~72 943 €.</td></tr>
+      <tr><td><strong>2</strong></td><td><strong>Dépôt dossier ANAH</strong> (MAR Léo-Energy) – Délai : immédiat après signature. Instruction : 3–4 semaines.</td></tr>
+      <tr><td><strong>3</strong></td><td><strong>Validation ANAH</strong> – ANAH valide le montant définitif. Client informé. Si écart &gt; 10 % avec estimation : application Clause Julia (section X).</td></tr>
+      <tr><td><strong>4</strong></td><td><strong>Montage financement FABIEN</strong> – Dossier sur MONTANT TOTAL : 120 743 €. Éco-PTZ 50 000 € max (15–20 ans) + Prêt complémentaire (jusqu'à 75 000 € possible et au-delà selon accord). Acceptation 48–72 h. Apport : 0 € possible.</td></tr>
+      <tr><td><strong>5</strong></td><td><strong>Signature prêt + Démarrage travaux</strong> – Client signe le prêt (montant total). DÉMARRAGE TRAVAUX autorisé (accord ANAH obtenu).</td></tr>
+      <tr><td><strong>6</strong></td><td><strong>Déblocage progressif 30/40/30</strong> (FABIEN → Artisans) – Voir détail ci-dessous.</td></tr>
+      <tr><td><strong>7 à 10</strong></td><td>Attente versement ANAH (2–12 mois) → ANAH verse au client → Client rembourse le capital sur le prêt → Mensualités recalculées à la baisse.</td></tr>
+    </table>
+    <h3>Déblocage 30/40/30 (FABIEN → Artisans) – Validation Sylvain LEMBELEMBE</h3>
+    <p><strong>Sur le MONTANT TOTAL 120 743 €</strong> (financement FABIEN) : 30 % à la signature, 40 % mi-chantier après validation Sylvain, 30 % à réception.</p>
+    <div class="encadre-green">
+      <p><strong>30 % à la signature (36 223 €) :</strong> Acompte artisans, achat matériaux, démarrage chantier.</p>
+      <p><strong>40 % mi-chantier (48 297 €) :</strong> Déblocage <strong>UNIQUEMENT après validation de Sylvain LEMBELEMBE</strong> (AMO) – Visite chantier + photos + conformité. Paiement intermédiaire artisans. Client règle sous 5–10 jours après feu vert Sylvain.</p>
+      <p><strong>30 % à réception (36 223 €) :</strong> Réception avec Sylvain + MAR + client. PV de réception signé. Solde artisans. Chantier propre et conforme.</p>
+      <p style="margin-top:0.5rem;"><strong>TOTAL DÉBLOQUÉ : 120 743 €. TOUS LES ARTISANS SONT PAYÉS ✅</strong></p>
+      <p style="margin-top:0.5rem;">Si paiement sur <strong>reste à charge</strong> (72 943 €) : 30 % = 21 883 € | 40 % = 29 177 € (après validation Sylvain) | 30 % = 21 883 €.</p>
+      <p style="margin-top:0.5rem;">« Paiement par déblocage progressif 30/40/30 : 30 % à la signature, 40 % mi-chantier après validation de Sylvain LEMBELEMBE (AMO ENERGIA-CONSEIL IA®), 30 % à réception. »</p>
+    </div>
+    <h3>Financement FABIEN (VIVONS COURTIER) – Récapitulatif</h3>
+    <table>
+      <tr><td>Montant financé</td><td><strong>120 743 €</strong> (MONTANT TOTAL travaux)</td></tr>
+      <tr><td>Type</td><td>Éco-PTZ 50 000 € max (15–20 ans) + Prêt complémentaire (jusqu'à 75 000 € possible et au-delà selon accord)</td></tr>
+      <tr><td>Déblocage progressif</td><td>30 % / 40 % (validation Sylvain) / 30 %</td></tr>
+      <tr><td>Apport personnel</td><td>0 € possible</td></tr>
+      <tr><td>Acceptation</td><td>48–72 h</td></tr>
+    </table>
+    <p><strong>Exemple mensualités (à titre indicatif) :</strong></p>
+    <ul>
+      <li>Mensualité initiale : ~300–350 €/mois (sur montant total 120 743 €)</li>
+      <li>Après versement ANAH (6–12 mois) : Client rembourse capital (~47 800 €)</li>
+      <li>Mensualité finale : ~150–180 €/mois (sur reste à charge ~72 943 €)</li>
+    </ul>
+    <p>Économies chauffage estimées : ~350 €/mois. Gain net final : +170 à +200 €/mois ✅</p>
+    <p><strong>Courtier financement :</strong> FABIEN – VIVONS COURTIER | Téléphone : 06 71 19 96 45 | 0 € apport | Acceptation 48–72 h.</p>
+    <p class="disclaimer"><strong>Important :</strong> Le client commence à rembourser le prêt dès la signature (mensualités sur montant total), puis les mensualités sont recalculées à la baisse après le versement ANAH (capital réduit).</p>
+
+    <div class="page-break"></div>
+
+    <h2>VI. Planning prévisionnel – Artisans (sauf météo / force majeure)</h2>
+    <p><strong>Durée :</strong> 15–18 semaines (malus +50 % projet complexe 5 classes). Respect des délais sauf force majeure. Pénalités de retard progressives (voir conditions générales). Période optimale ITE : Avril–Octobre. Éviter Nov–Mars (ITE météo), Juil–Août (congés).</p>
+    <ul>
+      <li>Combles : ~1 sem</li>
+      <li>ITE : 6–8 sem (Avril–Octobre)</li>
+      <li>Planchers : 1–2 sem</li>
+      <li>Menuiseries (13 fenêtres triple vitrage) : 2–3 sem</li>
+      <li>VMC double flux : ~1 sem (à finaliser)</li>
+      <li>PAC + Ballon + dépose fioul : 2–3 sem</li>
+    </ul>
+    <p>Coordination : réunion J-7, points hebdo (Sylvain), réception (Sylvain + MAR + client). <strong>Urgence : finaliser engagement avant 24/03/2026.</strong></p>
+
+    <h2>VII. Conditions générales – 12 protections juridiques</h2>
+    <ul>
+      <li><strong>Artisans RGE obligatoire</strong> – Sélection et coordination Sylvain LEMBELEMBE (2–3 devis par poste).</li>
+      <li><strong>Parcours Accompagné MAR</strong> (Léo-Energy) – Montage dossier ANAH, plafond 2 000 €.</li>
+      <li><strong>Validité 3 mois</strong> – Ne pas signer avant validation ANAH si MaPrimeRénov' Parcours.</li>
+      <li><strong>Paiement 30/40/30</strong> – 30 % signature (après ANAH), 40 % mi-chantier après validation Sylvain LEMBELEMBE, 30 % à réception.</li>
+      <li><strong>Planning artisans (sauf météo)</strong> – Respect délais sauf force majeure ; pénalités retard progressives (3 % / 5 % / 10 %) ; remplacement artisan défaillant sous 7 j.</li>
+      <li><strong>Chantier propre obligatoire</strong> – Nettoyage quotidien parties communes ; état habitable à réception ; retenue 5 % si chantier laissé sale.</li>
+      <li><strong>Réserve de propriété</strong> (loi 80.335) – Matériaux et équipements restent propriété jusqu'au paiement intégral.</li>
+      <li><strong>Pénalités retard paiement</strong> – 3× taux d'intérêt légal + 40 € indemnité forfaitaire.</li>
+      <li><strong>Assurance DO</strong> – Recommandée (chantier &gt; 80 000 €) ; client informé.</li>
+      <li><strong>Révision des prix</strong> – Si délai devis → début travaux &gt; 60 j, révision possible (indice BT01).</li>
+      <li><strong>Force majeure</strong> – Report sans pénalité ; information mutuelle sous 8 j.</li>
+      <li><strong>Modification / Annulation</strong> – Avenant écrit ; annulation client : frais 500 € ; annulation ENERGIA : remboursement + 500 €.</li>
+      <li><strong>Litiges</strong> – Résolution amiable 15 j ; compétence tribunaux de Lyon.</li>
+      <li><strong>RGPD</strong> – Données conservées 5 ans ; droits : contact@energia-conseil.com.</li>
+      <li><strong>Malfaçons</strong> – Mise en demeure 7 j ; retenue jusqu'à correction ; garanties décennale, biennale, parfait achèvement.</li>
+      <li><strong>Ordre des travaux impératif</strong> – Combles → ITE → Planchers → Menuiseries → VMC → PAC + Ballon.</li>
+    </ul>
+    <p><strong>Certification client :</strong> « Le client certifie l'exactitude des informations fournies pour l'éligibilité aux aides ; toute fausse déclaration engage sa seule responsabilité. »</p>
 
     <h2>VIII. Bon pour accord</h2>
-    <div class="bon-accord">
-      <p>Je soussigné(e) M. YANG / Mme LIU, accepte le présent devis et mandate ENERGIA-CONSEIL IA® pour la coordination du projet de rénovation globale d'ampleur (scénario Excellence, gain 5 classes DPE).</p>
-      <p style="margin-top: 1rem;">Fait à __________________________ , le __________________________</p>
-      <p style="margin-top: 1.5rem;">Signature : _______________________________________</p>
+    <div class="encadre-green">
+      <p>« Nous soussigné(e)s <strong>M. YANG &amp; Mme LIU</strong>, acceptons le présent devis et mandatons ENERGIA-CONSEIL IA® pour la coordination du projet.</p>
+      <p style="margin-top:0.5rem;">Fait à _____________, le _____________</p>
+      <p>Signatures : _______________________ »</p>
     </div>
 
-    <p class="footer-legal" style="margin-top: 2rem;">ENERGIA-CONSEIL IA® – Marque INPI | SIRET 94181942700019 | RCS Lyon 941819427 | SASU 100 €<br>Projet Parcours Accompagné MaPrimeRénov'. Travaux par artisans RGE. Devis valable 30 jours. Ne pas signer avant validation ANAH.</p>
+    <h2>IX. Référence aides (rappel indicatif)</h2>
+    <p class="disclaimer">Aides financières 2026 (estimation à titre indicatif). Aides à valider selon revenus réels du client. Montants définitifs après instruction ANAH et CEE.</p>
+
+    <h2>X. Avis juridique (Julia) – Conformité et Clause Julia Protection Aides</h2>
+    <div class="encadre-amber">
+      <h3>Conformité réglementaire vérifiée</h3>
+      <p>• Travaux par artisans RGE (obligation respectée).<br>• Éligibilité aides 2026 vérifiée selon profil Bleu (RFR 22 000 €, 2 personnes, Hors IDF, plafonds, taux 80 %).<br>• Ordre des travaux respecté (isolation combles, ITE, planchers avant menuiseries, VMC, PAC + ballon).<br>• Dimensionnement PAC POST-ISOLATION (8 kW) conforme – évite surdimensionnement (21 kW → 8 kW).<br>• Cumul aides ≤ 100 % des travaux.<br>• Projet ambitieux 5 classes (F/G → B) : coordination renforcée et garantie DPE B prévues.</p>
+      <h3>Contraintes techniques identifiées</h3>
+      <p>• ITE : période optimale Avril–Octobre ; malus météo Nov–Mars (+30 à 50 %).<br>• Délais ANAH : instruction 3–4 semaines. Travaux ne peuvent démarrer qu'après validation ANAH.<br>• Déblocage 40 % et 30 % conditionné à la validation de Sylvain LEMBELEMBE.<br>• Projet complexe (5 classes) : planning 15–18 semaines (malus coordination).<br>• VMC double flux premium : à finaliser (statut actuel).</p>
+      <h3>Avertissements</h3>
+      <p>• Ne pas signer avant validation ANAH si MaPrimeRénov' Parcours.<br>• Devis valable 3 mois.<br>• Justificatifs RFR à fournir pour instruction aides.<br>• Date clôture 24/03/2026 – finaliser engagement avant cette date.</p>
+      <h3>Clause Julia – Protection Aides (plafond 2 000 €)</h3>
+      <p><strong>Responsabilité ENERGIA plafonnée à 2 000 €</strong> en cas d'écart &gt; 10 % entre l'estimation d'aides et le montant validé par ANAH/CEE, <strong>uniquement si l'écart est imputable à une erreur prouvée d'ENERGIA</strong>. Dans ce cas, ENERGIA peut prendre en charge 50 % de l'écart, plafonné à 2 000 € par projet. <strong>0 % à la charge d'ENERGIA</strong> si l'écart est dû au client (revenus faux, déclaration erronée) ou à l'ANAH/CEE. Client assume 100 % dans ces cas.</p>
+      <p style="margin-top:0.5rem;"><strong>Avis établi sous la responsabilité de Julia, juriste. 4 mars 2026.</strong></p>
+    </div>
+
+    <h2>XI. Contacts (5 personnes)</h2>
+    <table>
+      <tr><th>Rôle</th><th>Contact</th></tr>
+      <tr><td>AMO / Coordination</td><td>Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</td></tr>
+      <tr><td>Commercial</td><td>DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</td></tr>
+      <tr><td>Courtier financement</td><td>FABIEN – VIVONS COURTIER – 06 71 19 96 45</td></tr>
+      <tr><td>Juriste</td><td>Julia (coordination ENERGIA)</td></tr>
+      <tr><td>MAR</td><td>Léo-Energy (France Rénov')</td></tr>
+    </table>
+
+    <div class="footer-legal">
+      ENERGIA-CONSEIL IA® – Marque déposée INPI – 16 Rue Cuvier, 69006 Lyon – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100€ – 2026. Aides à titre indicatif ; montants définitifs après ANAH et CEE.
+    </div>
+
   </div>
 </body>
 </html>
