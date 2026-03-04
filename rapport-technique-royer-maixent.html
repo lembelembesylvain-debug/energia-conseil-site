@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapport technique – M. ROYER Maixent | ENERGIA-CONSEIL IA®</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', Helvetica, Arial, sans-serif; line-height: 1.55; color: #1f2937; background: #fff; font-size: 11px; }
+    .container { max-width: 800px; margin: 0 auto; padding: 1.5rem 2rem; }
+    .brand-header { margin-bottom: 0.5rem; }
+    .brand-name { font-family: 'Poppins', sans-serif; font-weight: 700; color: #10b981; }
+    .brand-tagline { font-size: 13px; color: #6b7280; margin-top: 0.25rem; }
+    .brand-contact { font-size: 13px; color: #6b7280; margin-top: 0.2rem; }
+    h2 { color: #047857; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.05rem; margin: 1rem 0 0.5rem; page-break-after: avoid; border-bottom: 1px solid #10b981; padding-bottom: 0.2rem; }
+    h3 { color: #374151; font-size: 0.95rem; margin: 0.7rem 0 0.35rem; page-break-after: avoid; }
+    p { margin: 0.35rem 0; }
+    ul { margin: 0.3rem 0 0.3rem 1.2rem; }
+    table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 10px; page-break-inside: avoid; }
+    th { background: #10b981; color: white; padding: 0.35rem 0.5rem; text-align: left; }
+    td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #e5e7eb; }
+    .montant { text-align: right; font-weight: 600; }
+    .encadre-green { background: #ecfdf5; border: 2px solid #10b981; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .encadre-amber { background: #fef3c7; border: 2px solid #f59e0b; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .disclaimer { font-size: 9px; color: #6b7280; font-style: italic; margin: 0.25rem 0; }
+    .page-break { page-break-after: always; }
+    .footer-legal { text-align: center; font-size: 8px; color: #6b7280; margin-top: 1.5rem; line-height: 1.35; }
+    @media print { .footer-legal { position: fixed; bottom: 0; left: 0; right: 0; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="brand-header">
+      <div class="brand-name">ENERGIA-CONSEIL IA®</div>
+      <div class="brand-tagline">Audit Énergétique Intelligence Artificielle | Marque déposée INPI | Bureau d'études & AMO</div>
+      <div class="brand-contact">16 Rue Cuvier, 69006 Lyon | 06 10 59 68 98 | SIRET 94181942700019 | RCS Lyon 941819427 | SASU Capital 100€</div>
+    </div>
+    <p style="margin-top:1rem;"><strong>RAPPORT TECHNIQUE – RÉNOVATION TOITURE + GLOBALE</strong></p>
+    <p><strong>Client :</strong> M. ROYER Maixent – 6 route de Marcilly, 42600 CHALAIN D'UZOR</p>
+    <p><strong>Date :</strong> 4 mars 2026 | <strong>Budget :</strong> 52 000 € TTC | <strong>DPE :</strong> G → D (-68 %)</p>
+
+    <h2>I. Synthèse exécutive</h2>
+    <p>Maison 77 m² (avant 1975), Chalain d'Uzor (42), zone H1. DPE actuel G (779 kWh/m²/an), facture ~3 500 €/an. Objectif : rénovation toiture (étanchéité + isolation) + rénovation globale pour atteindre DPE D (245 kWh/m²/an), gain -68 % consommation. Budget 52 000 € TTC. Scénario retenu : 8 postes (mise en place, toiture+isolation, PAC Air-Air, ballon thermo, 5 fenêtres, 2 portes, zinguerie, coordination & MAR). Reste à charge estimé ~18 650 à 25 500 € (aides à titre indicatif). Éco-PTZ 0 % sur 15–20 ans, mensualité ~100–140 €/mois. Travaux ne peuvent démarrer qu'après validation ANAH. Recommandation : confirmer profil Jaune et lancer dossier ANAH avant clôture 30/04/2026.</p>
+
+    <h2>II. Fiche client détaillée</h2>
+    <table>
+      <tr><th>Élément</th><th>Valeur</th></tr>
+      <tr><td>Client</td><td>M. ROYER Maixent</td></tr>
+      <tr><td>Adresse</td><td>6 route de Marcilly, 42600 CHALAIN D'UZOR</td></tr>
+      <tr><td>Téléphone / Email</td><td>À compléter</td></tr>
+      <tr><td>Zone climatique</td><td>H1 (Loire 42)</td></tr>
+      <tr><td>Type bien</td><td>Maison individuelle</td></tr>
+      <tr><td>Surface</td><td>77 m²</td></tr>
+      <tr><td>Année construction</td><td>Avant 1975</td></tr>
+      <tr><td>RFR (estimation)</td><td>~35 000 € (2 personnes) – à confirmer</td></tr>
+      <tr><td>Profil MPR 2026</td><td>JAUNE (modestes) – Hors IDF – à confirmer</td></tr>
+      <tr><td>DPE actuel / cible</td><td>G (779) → D (245 kWh/m²/an)</td></tr>
+      <tr><td>Facture chauffage actuelle</td><td>~3 500 €/an</td></tr>
+      <tr><td>Budget</td><td>52 000 € TTC</td></tr>
+      <tr><td>Date clôture</td><td>30/04/2026</td></tr>
+      <tr><td>Contraintes</td><td>Occupation pendant travaux possible</td></tr>
+    </table>
+
+    <h2>III. État des lieux technique approfondi</h2>
+    <table>
+      <tr><th>Poste</th><th>État actuel</th><th>Surface / Quantité</th></tr>
+      <tr><td>Toiture</td><td>À rénover (étanchéité + isolation)</td><td>80 m²</td></tr>
+      <tr><td>Combles</td><td>Aucune isolation (R=0)</td><td>—</td></tr>
+      <tr><td>Murs</td><td>Isolation faible</td><td>—</td></tr>
+      <tr><td>Planchers</td><td>Aucune isolation</td><td>—</td></tr>
+      <tr><td>Fenêtres</td><td>Anciennes, à remplacer</td><td>5 unités</td></tr>
+      <tr><td>Portes</td><td>À remplacer</td><td>2 unités</td></tr>
+      <tr><td>Chauffage</td><td>À préciser (électrique ou gaz ancien)</td><td>—</td></tr>
+      <tr><td>Ventilation</td><td>Naturelle (aucune VMC)</td><td>—</td></tr>
+      <tr><td>ECS</td><td>À préciser (probablement électrique)</td><td>—</td></tr>
+    </table>
+    <p>Déperditions typiques : combles/toiture 25–30 %, murs 20–25 %, menuiseries 15–20 %, planchers 7–10 %, ponts 5–10 %.</p>
+
+    <h2>IV. Analyse des déperditions</h2>
+    <p>Priorités identifiées : (1) Toiture / combles (R=0) – impact majeur ; (2) Menuiseries (fenêtres et portes anciennes) ; (3) Chauffage et ECS (remplacement par PAC Air-Air et ballon thermodynamique). Ordre d'intervention : isolation toiture en premier (réduction du besoin de chauffage), puis menuiseries, puis équipements. Pas d'ITE/ITI murs ni planchers dans le périmètre actuel (budget 52 000 €).</p>
+
+    <h2>V. Solution technique recommandée</h2>
+    <p>Scénario unique : rénovation toiture + globale en 8 postes. Ordre : mise en place → toiture + isolation (laine bois R=2,75, tuiles Omega 10) → zinguerie → fenêtres PVC Uw=1,3 (5 u.) + portes Ud=1,3 (2 u.) → PAC Air-Air Daikin 6,8 kW (3 splits) → ballon Atlantic EGEO 200 L → coordination & MAR. Objectif DPE D, gain -68 % consommation. Isolation (toiture) avant chauffage (PAC), conformément aux règles techniques.</p>
+
+    <h2>VI. Détail technique des postes (complet)</h2>
+    <table>
+      <tr><th>N°</th><th>Poste</th><th>Spécifications</th><th>Qté</th><th>Total HT</th></tr>
+      <tr><td>1</td><td>Mise en place chantier</td><td>Sécurité, bennes évacuation, frais levage</td><td>1 lot</td><td class="montant">2 700 €</td></tr>
+      <tr><td>2</td><td>Isolation toiture + couverture</td><td>Détuilage 80 m², écran sous-toiture, tuiles Omega 10 rouge, laine de bois 100 mm R=2,75</td><td>80 m²</td><td class="montant">26 000 €</td></tr>
+      <tr><td>3</td><td>PAC Air-Air Daikin</td><td>Bluevolution 6,8 kW, COP 4,91, A+++/A++, 3 consoles murales Perfera</td><td>1 lot</td><td class="montant">3 128 €</td></tr>
+      <tr><td>4</td><td>Ballon thermodynamique</td><td>Atlantic EGEO 200 L, COP 2,95, classe A</td><td>1 u.</td><td class="montant">2 749 €</td></tr>
+      <tr><td>5</td><td>Fenêtres PVC Grosfillex</td><td>Altapremium Uw=1,3, double vitrage 4-20-4, garantie 20 ans</td><td>5 u.</td><td class="montant">3 974 €</td></tr>
+      <tr><td>6</td><td>Portes Sillage Lilas</td><td>Ud=1,3, serrure multipoints</td><td>2 u.</td><td class="montant">4 200 €</td></tr>
+      <tr><td>7</td><td>Zinguerie complète</td><td>Couloirs zinc, naissances, fond cheneaux</td><td>1 lot</td><td class="montant">2 397 €</td></tr>
+      <tr><td>8</td><td>Coordination & MAR</td><td>Suivi hebdo (Sylvain LEMBELEMBE), dossiers aides (MAR Léo-Energy), ANAH</td><td>1 lot</td><td class="montant">9 370 €</td></tr>
+      <tr><td colspan="4" class="montant"><strong>Total HT</strong></td><td class="montant"><strong>49 518 €</strong></td></tr>
+    </table>
+
+    <h2>VII. Dimensionnements justifiés</h2>
+    <p><strong>PAC Air-Air :</strong> 77 m² × ~0,06 kW/m² (post-isolation toiture et menuiseries) × 1,2 ≈ 5,5–6,8 kW. Daikin Bluevolution 6,8 kW retenu, 3 splits pour répartition. COP 4,91, A+++/A++.</p>
+    <p><strong>Ballon thermodynamique :</strong> 200 L adapté 2 personnes. Atlantic EGEO, COP 2,95, classe A.</p>
+    <p><strong>Isolation toiture :</strong> Laine de bois 100 mm R=2,75 (λ ~0,038). Fenêtres Uw=1,3, portes Ud=1,3.</p>
+
+    <h2>VIII. Récapitulatif financier</h2>
+    <p class="disclaimer">Aides financières 2026 (estimation à titre indicatif). Aides à valider selon revenus réels du client. Montants définitifs après instruction ANAH et CEE.</p>
+    <table>
+      <tr><td>Total HT</td><td class="montant">49 518 €</td></tr>
+      <tr><td>TVA 5,5 %</td><td class="montant">2 482 €</td></tr>
+      <tr><td><strong>Total TTC</strong></td><td class="montant"><strong>52 000 €</strong></td></tr>
+      <tr><td><strong>Total aides (estimation indicative)</strong></td><td class="montant"><strong>~26 500 à 33 350 €</strong></td></tr>
+      <tr><td><strong>Reste à charge</strong></td><td class="montant"><strong>~18 650 à 25 500 €</strong></td></tr>
+    </table>
+
+    <h2>IX. Aides (estimation indicative)</h2>
+    <p class="disclaimer">Aides à titre indicatif. À valider selon revenus réels. Montants définitifs après ANAH et CEE.</p>
+    <table>
+      <tr><td>MaPrimeRénov' Parcours (Jaune 60 %, gain 3 classes G→D)</td><td class="montant">~21 000 à 24 000 €</td></tr>
+      <tr><td>CEE (toiture, ballon, fenêtres)</td><td class="montant">~800 à 1 550 €</td></tr>
+      <tr><td>Coup de pouce</td><td class="montant">~4 700 à 5 800 €</td></tr>
+      <tr><td>Aides locales</td><td class="montant">0 à 2 000 €</td></tr>
+    </table>
+
+    <h2>X. Financement et rentabilité</h2>
+    <p>Éco-PTZ sur reste à charge, 15–20 ans, 0 %. Mensualité ~100 à 140 €/mois. Courtier : FABIEN (VIVONS COURTIER) – 06 71 19 96 45. Déblocage 30/40/30 : 30 % à la signature (après ANAH), 40 % mi-chantier après validation Sylvain LEMBELEMBE, 30 % à réception. ROI ordre de grandeur 4–7 ans. Économies annuelles estimées ~1 800 à 2 400 €.</p>
+
+    <h2>XI. Planning détaillé avec malus</h2>
+    <p>Durée chantier : 8–10 semaines. Période optimale toiture : Avril–Octobre. Malus : Nov–Mars (météo +30 %), Juil–Août (congés). Règle ANAH : pas de démarrage avant validation (~6 semaines après dépôt). Étapes : mise en place 1 j, toiture 3–4 sem, zinguerie 1 sem, fenêtres+portes 2 sem, PAC 1–2 sem, ballon 2–3 j, réception 1 sem.</p>
+
+    <h2>XII. Artisans RGE sélectionnés</h2>
+    <p>Sélection par Sylvain LEMBELEMBE (2–3 devis par poste). Toiture/couverture : réseau RGE partenaire. Menuiseries : Grosfillex, Sillage (fournisseurs indiqués). PAC et ballon : ECO SYSTÈME DURABLE ou équivalent RGE. Zinguerie : entreprise spécialisée. MAR : Léo-Energy (France Rénov') pour dossier ANAH.</p>
+
+    <h2>XIII. Résultats attendus</h2>
+    <p>Gain DPE : G → D (-68 % consommation, 779 → 245 kWh/m²/an). Économies annuelles ~1 800 à 2 400 €. Confort amélioré (toiture étanche et isolée, menuiseries performantes, chauffage PAC, ECS ballon thermo). Valeur patrimoniale renforcée. Durée de vie : toiture 30+ ans, PAC et ballon 15–20 ans, menuiseries 20+ ans.</p>
+
+    <h2>XIV. Avis juridique (Julia)</h2>
+    <div class="encadre-amber">
+      <p><strong>Conformité réglementaire :</strong> Travaux RGE, éligibilité aides 2026 (profil Jaune), ordre des travaux respecté, cumul aides ≤ 100 %.</p>
+      <p><strong>Contraintes :</strong> Travaux ne peuvent démarrer qu'après validation ANAH. Toiture : période optimale Avril–Octobre. Déblocage 40 % et 30 % après validation Sylvain LEMBELEMBE.</p>
+      <p><strong>Clause Julia Protection Aides :</strong> Responsabilité ENERGIA plafonnée à 2 000 € en cas d'écart > 10 % imputable à une erreur prouvée d'ENERGIA ; 0 % si erreur client ou ANAH/CEE.</p>
+      <p><strong>Avis établi sous la responsabilité de Julia, juriste. 4 mars 2026.</strong></p>
+    </div>
+
+    <h2>XV. Contacts projet (5 personnes)</h2>
+    <table>
+      <tr><td>Sylvain LEMBELEMBE (AMO/Coordination)</td><td>06 10 59 68 98 – contact@energia-conseil.com</td></tr>
+      <tr><td>DAMIEN (Commercial)</td><td>06 72 68 09 68 – damien.srdconseil@gmail.com</td></tr>
+      <tr><td>FABIEN (Courtier VIVONS COURTIER)</td><td>06 71 19 96 45</td></tr>
+      <tr><td>Julia (Juriste)</td><td>Coordination ENERGIA</td></tr>
+      <tr><td>MAR Léo-Energy</td><td>France Rénov'</td></tr>
+    </table>
+
+    <h2>XVI. Annexes (A à I)</h2>
+    <p><strong>A.</strong> Barèmes aides 2026 (MPR, CEE, Coup de pouce). <strong>B.</strong> Fiche CEE. <strong>C.</strong> Éco-PTZ (conditions, courtier FABIEN). <strong>D.</strong> Liste artisans RGE (sélection Sylvain). <strong>E.</strong> Certifications RGE. <strong>F.</strong> Répartition TVA 5,5 %. <strong>G.</strong> Ordre des travaux (isolation toiture avant PAC). <strong>H.</strong> Modèle déblocage 30/40/30 (validation Sylvain). <strong>I.</strong> Schémas / DPE avant-après (sur demande).</p>
+
+    <h2>XVII. Mentions légales</h2>
+    <p>ENERGIA-CONSEIL IA® – Marque déposée INPI – 16 Rue Cuvier, 69006 Lyon – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €. Document confidentiel – 2026. Aides à titre indicatif ; montants définitifs après instruction ANAH et CEE.</p>
+
+    <div class="footer-legal">
+      ENERGIA-CONSEIL IA® – 16 Rue Cuvier, 69006 Lyon – SIRET 94181942700019 – RCS Lyon 941819427 – 2026.
+    </div>
+
+  </div>
+</body>
+</html>
