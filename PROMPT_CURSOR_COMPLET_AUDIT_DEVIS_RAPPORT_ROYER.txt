@@ -1,0 +1,117 @@
+═══════════════════════════════════════════════════════════════════════════════
+PROMPT CURSOR – GÉNÉRATION COMPLÈTE AUDIT + DEVIS + RAPPORT M. ROYER
+ENERGIA-CONSEIL IA® | Structure FONTANAY | 3 fichiers HTML
+═══════════════════════════════════════════════════════════════════════════════
+
+Génère les 3 fichiers HTML suivants pour M. ROYER Maixent (CHALAIN-D'UZORE), en appliquant la structure et le style des audits/devis FONTANAY (Inter, Poppins, #10b981, .cursor/rules/energia-audits-devis.mdc).
+
+───────────────────────────────────────────────────────────────────────────────
+DONNÉES M. ROYER (à utiliser dans les 3 documents)
+───────────────────────────────────────────────────────────────────────────────
+• Client : M. ROYER Maixent
+• Adresse : 6 route de Marcilly, 42600 CHALAIN-D'UZORE (Loire 42)
+• Surface : 77 m² (pierre et moellons, 2 niveaux)
+• RFR : 19 282 € | 1 part | Profil MaPrimeRénov' : JAUNE (60 %)
+• DPE actuel : G (779 kWh/m²/an) | DPE cible : D (245 kWh/m²/an) → −68 %
+• Budget : 52 000 € TTC
+• Aides : 25 550 € (MaPrimeRénov' 24 000 € + CEE 1 550 €)
+• Reste à charge : 26 450 €
+• Éco-PTZ : 147 €/mois (15 ans, 0 %)
+• Durée chantier : 8–10 semaines
+• Date clôture projet : 30/04/2026
+• MAR : Léo-Energy (Parcours Accompagné)
+
+8 POSTES DE TRAVAUX (montants TTC) :
+1. Mise en place chantier — 2 849 € (sécurité, bennes, levage)
+2. Isolation toiture + couverture — 27 430 € (80 m², détuilage, écran sous toiture, tuiles Omega 10 rouge, laine bois 100 mm R=2,75)
+3. PAC Air-Air Daikin 3 splits — 3 754 € (Bluevolution 6,8 kW, COP 4,91, A+++/A++, 3 Perfera murales)
+4. Ballon thermodynamique Atlantic — 2 900 € (EGEO 200 L, COP 2,95, classe A)
+5. 5 Fenêtres PVC Grosfillex — 4 193 € (Altapremium Uw=1,3, double vitrage 4-20-4, garantie 20 ans)
+6. 2 Portes isolantes Sillage — 4 431 € (Lilas Ud=1,3, serrure multipoints)
+7. Zinguerie complète — 2 529 € (couloirs zinc, naissances, fond cheneaux)
+8. Coordination & MAR — 9 885 € (suivi hebdo, gestion aides, accompagnement MAR ANAH)
+TOTAL TTC : 52 000 €
+
+CONTACTS (à inclure dans les 3 documents) :
+• Commercial : DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com
+• Courtier : FABIEN – VIVONS COURTIER – 06 71 19 96 45
+• AMO / Coordination : Sylvain LEMBELEMBE – ENERGIA-CONSEIL IA® – 06 10 59 68 98 – contact@energia-conseil.com
+• MAR : Léo-Energy (Parcours Accompagné)
+
+───────────────────────────────────────────────────────────────────────────────
+FICHIER 1 : AUDIT ÉNERGÉTIQUE (40–60 pages équivalent, ~11 sections)
+───────────────────────────────────────────────────────────────────────────────
+Nom : audit-energetique-royer.html
+
+Contenu obligatoire :
+• En-tête ENERGIA-CONSEIL IA® (Marque INPI, 16 Rue Cuvier Lyon, 06 10 59 68 98)
+• Page de couverture : titre AUDIT ÉNERGÉTIQUE, sous-titre RÉNOVATION TOITURE + RÉNOVATION GLOBALE, client ROYER Maixent, adresse, 77 m², Profil JAUNE, DPE G → D (−68 %), date et date clôture 30/04/2026
+• Encadré chiffres clés : 52 000 € TTC, 25 550 € aides, 26 450 € RAC, 147 €/mois, 8–10 semaines
+• I. Synthèse exécutive (contexte, stratégie ENERGIA, chiffres clés avec tableau)
+• II. Fiche client (tableau : client, adresse, zone, surface, RFR, profil, DPE actuel/cible, budget, date clôture)
+• III. État des lieux technique détaillé (toiture/combles, murs, menuiseries, chauffage, ECS, zinguerie)
+• IV. Calcul des déperditions (répartition type : combles ~30 %, murs ~25 %, menuiseries ~15 %, etc., et actions prévues)
+• V. Scénario retenu – 8 postes (tableau des 8 postes avec désignation, spécifications, montant TTC ; sous-section 5.1 Aides 2026 : MPR 24 000 €, CEE 1 550 €, total 25 550 €, RAC 26 450 €, Éco-PTZ 147 €/mois)
+• VI. Planning prévisionnel (8–10 semaines, phases détaillées, malus météo toiture Avril–Octobre)
+• VII. Dimensionnements (PAC 6,8 kW, toiture 80 m² R=2,75, ballon 200 L, menuiseries)
+• VIII. Résultats attendus (gain DPE, consommation −68 %, économies)
+• IX. Recommandations (scénario retenu, urgence 30/04/2026, Éco-PTZ FABIEN)
+• X. Artisans RGE (toiture à sélectionner, PAC/ballon ECO SYSTÈME DURABLE, menuiseries/zinguerie à sélectionner)
+• XI. Contacts (DAMIEN, FABIEN, Sylvain, MAR)
+• Footer legal ENERGIA-CONSEIL IA® SIRET RCS SASU
+
+Style : CSS intégré, Inter + Poppins, #10b981 (vert ENERGIA), tables avec th vert, encadres .encadre-green et .encadre-amber, page-break pour impression/PDF.
+
+───────────────────────────────────────────────────────────────────────────────
+FICHIER 2 : DEVIS DÉTAILLÉ (5–8 pages)
+───────────────────────────────────────────────────────────────────────────────
+Nom : devis-m-royer-52k.html
+
+Contenu obligatoire :
+• Même en-tête ENERGIA-CONSEIL IA®
+• Titre DEVIS – Rénovation toiture + rénovation globale
+• DEVIS N° ROYER-2026-03-01 | Date 1er mars 2026 | Validité 60 jours
+• Client : M. ROYER Maixent, adresse, surface 77 m², profil JAUNE
+• Référence audit : DPE G → D (−68 %)
+• Tableau détail 8 postes (N°, Désignation, Détail technique, Qté, Total HT, Total TTC) avec total 52 000 € TTC
+• Récapitulatif financier : Total HT, TVA mixte, Total TTC 52 000 €, MaPrimeRénov' −24 000 €, CEE −1 550 €, Total aides −25 550 €, Reste à charge 26 450 €, Éco-PTZ 147 €/mois
+• Encadré vert : Reste à charge 26 450 €, Éco-PTZ 147 €/mois, courtier FABIEN
+• Planning : 8–10 semaines, ordre des postes
+• Conditions générales : validité 60 j, acompte 30 %, RGE, MAR, ne pas signer avant ANAH
+• Bon pour accord : Je soussigné(e) M. ROYER Maixent, accepte le présent devis 52 000 € TTC (RAC 26 450 € après aides 25 550 €)
+• Footer legal + bouton Imprimer / PDF (class no-print)
+
+Style : même CSS FONTANAY (Inter, Poppins, #10b981), pas Tailwind.
+
+───────────────────────────────────────────────────────────────────────────────
+FICHIER 3 : RAPPORT SYNTHÈSE (5–8 pages)
+───────────────────────────────────────────────────────────────────────────────
+Nom : rapport-synthese-royer.html
+
+Contenu obligatoire :
+• Page de couverture : RAPPORT SYNTHÈSE, sous-titre RÉNOVATION TOITURE + RÉNOVATION GLOBALE, M. ROYER Maixent, adresse, 77 m², DPE G → D (−68 %), date et date clôture
+• Encadré résumé : 52 000 € TTC, 25 550 € aides, 26 450 € RAC, 147 €/mois, 8 postes, 8–10 semaines, JAUNE
+• I. Objet du rapport (synthèse projet, complète audit et devis)
+• II. Données projet (tableau : client, adresse, surface, profil, DPE, budget, aides, RAC, Éco-PTZ, durée, date clôture)
+• III. Les 8 postes (tableau N°, Poste, Montant TTC) total 52 000 €
+• IV. Aides et financement (MPR 24 000 €, CEE 1 550 €, total 25 550 €, RAC 26 450 €, Éco-PTZ 147 €/mois, FABIEN, MAR)
+• V. Planning (8–10 semaines, toiture Avril–Octobre)
+• VI. Résultats attendus (G→D, −68 %, économies)
+• VII. Points de vigilance (clôture 30/04/2026, toiture Avril–Octobre, signature après ANAH, FABIEN)
+• VIII. Contacts (DAMIEN, FABIEN, Sylvain, MAR)
+• Footer legal
+
+Style : même CSS FONTANAY, couverture centrée.
+
+───────────────────────────────────────────────────────────────────────────────
+RÈGLES GÉNÉRALES
+───────────────────────────────────────────────────────────────────────────────
+• Respecter .cursor/rules/energia-audits-devis.mdc (ordre des travaux, aides 2026, malus, contacts).
+• Export PDF : impression navigateur (Ctrl+P) ou bouton Imprimer.
+• Tous les montants en euros (€), TTC sauf si précisé HT.
+• Aides à valider selon revenus réels (le préciser en note si besoin).
+
+───────────────────────────────────────────────────────────────────────────────
+INSTRUCTIONS CURSOR
+───────────────────────────────────────────────────────────────────────────────
+En collant ce prompt dans Cursor : génère ou met à jour les 3 fichiers HTML (audit-energetique-royer.html, devis-m-royer-52k.html, rapport-synthese-royer.html) avec les données M. ROYER ci-dessus et la structure FONTANAY. Utilise les polices Inter et Poppins, la couleur #10b981, les tableaux et encadrés comme dans audit-energetique-fontanay-montrond.html. Vérifie la cohérence des montants (52 000, 25 550, 26 450, 147 €/mois) dans les 3 documents.
