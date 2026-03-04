@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapport technique – M. GRANGE Mathias MONTCHAL | ENERGIA-CONSEIL IA®</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', Helvetica, Arial, sans-serif; line-height: 1.55; color: #1f2937; background: #fff; font-size: 11px; }
+    .container { max-width: 800px; margin: 0 auto; padding: 1.5rem 2rem; }
+    .brand-header { margin-bottom: 0.5rem; }
+    .brand-name { font-family: 'Poppins', sans-serif; font-weight: 700; color: #10b981; }
+    .brand-tagline { font-size: 13px; color: #6b7280; margin-top: 0.25rem; }
+    .brand-contact { font-size: 13px; color: #6b7280; margin-top: 0.2rem; }
+    h2 { color: #047857; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.05rem; margin: 1rem 0 0.5rem; page-break-after: avoid; border-bottom: 1px solid #10b981; padding-bottom: 0.2rem; }
+    h3 { color: #374151; font-size: 0.95rem; margin: 0.7rem 0 0.35rem; page-break-after: avoid; }
+    p { margin: 0.35rem 0; }
+    ul { margin: 0.3rem 0 0.3rem 1.2rem; }
+    table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 10px; page-break-inside: avoid; }
+    th { background: #10b981; color: white; padding: 0.35rem 0.5rem; text-align: left; }
+    td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #e5e7eb; }
+    .montant { text-align: right; font-weight: 600; }
+    .encadre-green { background: #ecfdf5; border: 2px solid #10b981; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .encadre-amber { background: #fef3c7; border: 2px solid #f59e0b; border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+    .disclaimer { font-size: 9px; color: #6b7280; font-style: italic; margin: 0.25rem 0; }
+    .page-break { page-break-after: always; }
+    .footer-legal { text-align: center; font-size: 8px; color: #6b7280; margin-top: 1.5rem; line-height: 1.35; }
+    @media print { .footer-legal { position: fixed; bottom: 0; left: 0; right: 0; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="brand-header">
+      <div class="brand-name">ENERGIA-CONSEIL IA®</div>
+      <div class="brand-tagline">Audit Énergétique Intelligence Artificielle | Marque déposée INPI | Bureau d'études & AMO</div>
+      <div class="brand-contact">16 Rue Cuvier, 69006 Lyon | 06 10 59 68 98 | SIRET 94181942700019 | RCS Lyon 941819427 | SASU Capital 100€</div>
+    </div>
+    <p style="margin-top:1rem;"><strong>RAPPORT TECHNIQUE – Rénovation globale ITI pisé</strong></p>
+    <p><strong>Client :</strong> M. GRANGE Mathias – 569 Chemin des Places, 42360 MONTCHAL</p>
+    <p><strong>Date :</strong> 4 mars 2026 | <strong>Réf. DPE :</strong> 2442E2184253M (18/06/2024)</p>
+
+    <h2>I. Synthèse exécutive</h2>
+    <p>Maison individuelle 101 m² (1948–1974), murs pisé/pierre 50 cm, zone H2c altitude 587 m. DPE G (400 kWh/m²/an). Rénovation globale retenue : isolation combles (R=7), ITI murs pisé (R=3,7, matériaux perspirants), isolation plancher bas (R=3), menuiseries performantes, VMC hygroréglable, PAC air-eau 8 kW HT (remplacement fioul), déposes (fioul, cuve, plafond rayonnant), ballon thermodynamique 200 L, coordination + MAR. Budget 61 190 € TTC. Aides estimées ~44 700 € (indicatif). Reste à charge ~16 490 €. Financement FABIEN sur MONTANT TOTAL. Objectif DPE D/C (+3 à 4 classes). ROI ~5,4 ans. Date clôture 30/04/2026.</p>
+
+    <h2>II. Fiche client détaillée</h2>
+    <table>
+      <tr><th>Élément</th><th>Valeur</th></tr>
+      <tr><td>Client</td><td>M. GRANGE Mathias</td></tr>
+      <tr><td>Adresse</td><td>569 Chemin des Places, 42360 MONTCHAL</td></tr>
+      <tr><td>Téléphone / Email</td><td>06 67 52 88 90 / [À compléter]</td></tr>
+      <tr><td>Zone climatique</td><td>H2c – Sud-Est altitude (587 m)</td></tr>
+      <tr><td>Type de bien</td><td>Maison individuelle – murs pisé/pierre 50 cm (patrimoine)</td></tr>
+      <tr><td>Surface habitable</td><td>101 m²</td></tr>
+      <tr><td>Année de construction</td><td>1948–1974</td></tr>
+      <tr><td>RFR</td><td>17 598 € (1 personne ou couple)</td></tr>
+      <tr><td>Profil MaPrimeRénov' 2026</td><td>JAUNE (Hors IDF) – 60 % (max 24 000 € si 3+ classes)</td></tr>
+      <tr><td>DPE actuel</td><td>G – 400 kWh/m²/an – 125 kg CO₂/m²/an – Réf. 2442E2184253M</td></tr>
+      <tr><td>DPE cible</td><td>D minimum, viser C ou B</td></tr>
+      <tr><td>Facture chauffage actuelle</td><td>~3 500 €/an (fioul ~3 000 € + électrique ~500 €)</td></tr>
+    </table>
+
+    <h2>III. État des lieux technique approfondi</h2>
+    <table>
+      <tr><th>Poste</th><th>État</th><th>Surface / quantité</th><th>Remarque</th></tr>
+      <tr><td>Combles perdus</td><td>Non isolés R=0</td><td>60 m²</td><td>Déperdition ~30 %</td></tr>
+      <tr><td>Murs pisé/pierre</td><td>Non isolés R~0,5</td><td>100 m² (50 cm)</td><td>ITI obligatoire (ITE impossible DPE)</td></tr>
+      <tr><td>Plancher bas</td><td>Non isolé</td><td>100 m² (dalle terre-plein)</td><td>Déperdition ~10 %</td></tr>
+      <tr><td>Fenêtres</td><td>Anciennes Uw&gt;4</td><td>5×1×1,50 m + 1×0,70×1 m</td><td>À remplacer</td></tr>
+      <tr><td>Porte d'entrée</td><td>Ancienne</td><td>0,92×2,20 m</td><td>À remplacer</td></tr>
+      <tr><td>Chauffage</td><td>Chaudière fioul &gt;30 ans</td><td>—</td><td>Cuve 1000 L – À déposer</td></tr>
+      <tr><td>Chauffage secondaire</td><td>Plafond rayonnant électrique</td><td>—</td><td>DPE recommande suppression (500 €/an)</td></tr>
+      <tr><td>Ventilation</td><td>Absente</td><td>—</td><td>VMC simple flux hygro prévue</td></tr>
+      <tr><td>Eau chaude</td><td>À préciser</td><td>—</td><td>Ballon thermodynamique 200 L prévu</td></tr>
+    </table>
+    <p><strong>Spécificité pisé :</strong> Murs respirants (régulation hygrométrique). ITI avec laine de roche + pare-vapeur hygrovariable (PAS pare-vapeur classique). Ossature + Placo BA13. Enduits chaux. Perte surface ~3–5 m².</p>
+
+    <div class="page-break"></div>
+
+    <h2>IV. Analyse des déperditions</h2>
+    <table>
+      <tr><th>Poste</th><th>Part déperditions</th><th>Action prévue</th></tr>
+      <tr><td>Combles</td><td>~30 %</td><td>Laine roche 300 mm R=7</td></tr>
+      <tr><td>Murs</td><td>~25 %</td><td>ITI laine roche 120 mm R=3,7</td></tr>
+      <tr><td>Plancher bas</td><td>~10 %</td><td>PSE 100 mm R=3</td></tr>
+      <tr><td>Menuiseries</td><td>~15 %</td><td>Porte + 6 fenêtres Uw=1,3 + volets</td></tr>
+      <tr><td>Ventilation</td><td>~20 %</td><td>VMC simple flux hygroréglable</td></tr>
+    </table>
+    <p>Coefficient déperdition actuel (DPE G) : ~0,10–0,15 kW/m². Cible D/C : ~0,05–0,06 kW/m². Besoin chauffage post-isolation : 101 × 0,06 × 1,15 ≈ 7–8 kW → PAC 8 kW adaptée.</p>
+
+    <h2>V. Solution technique recommandée</h2>
+    <p>Rénovation globale en 15 postes, ordre optimal : (1) Combles R=7 (2) ITI pisé R=3,7 matériaux perspirants (3) Planchers R=3 (4) Porte (5) Fenêtres (6) Volets (7) Fenêtre SDB (8) VMC (9) Désembouage (10) PAC 8 kW HT (11) Radiateurs neufs (12) Dépose fioul + cuve (13) Dépose rayonnant (14) Ballon 200 L (15) Coordination + MAR. Préservation du pisé (ITI uniquement, pas d'ITE). Compatibilité hygrothermique (pare-vapeur hygrovariable, pas de pare-vapeur classique).</p>
+
+    <h2>VI. Détail technique des postes</h2>
+    <table>
+      <tr><th>N°</th><th>Poste</th><th>Spécifications techniques</th><th>Total HT</th></tr>
+      <tr><td>1</td><td>Combles</td><td>Laine roche soufflée 300 mm, R=7, pare-vapeur, 60 m²</td><td class="montant">2 500 €</td></tr>
+      <tr><td>2</td><td>ITI pisé</td><td>Laine roche 120 mm R=3,7, ossature, Placo BA13, pare-vapeur hygrovariable, 100 m²</td><td class="montant">8 000 €</td></tr>
+      <tr><td>3</td><td>Plancher bas</td><td>PSE 100 mm R=3, 100 m²</td><td class="montant">4 500 €</td></tr>
+      <tr><td>4</td><td>Porte</td><td>PVC Ud=1,3, A2P, serrure 3 points</td><td class="montant">2 500 €</td></tr>
+      <tr><td>5–7</td><td>Menuiseries</td><td>5 fenêtres 1×1,50 m + 5 volets solaires + 1 fenêtre SDB</td><td class="montant">10 100 €</td></tr>
+      <tr><td>8</td><td>VMC</td><td>Simple flux hygroréglable, débit 101 m²</td><td class="montant">1 500 €</td></tr>
+      <tr><td>9</td><td>Désembouage</td><td>Circuit radiateurs bitube, certificat</td><td class="montant">800 €</td></tr>
+      <tr><td>10–11</td><td>PAC + radiateurs</td><td>PAC 8 kW HT COP 4,5 + 3 radiateurs bitube</td><td class="montant">13 500 €</td></tr>
+      <tr><td>12–13</td><td>Déposes</td><td>Fioul + cuve 1000 L + plafond rayonnant</td><td class="montant">2 800 €</td></tr>
+      <tr><td>14</td><td>Ballon</td><td>Thermodynamique 200 L COP 3,5 classe A</td><td class="montant">2 200 €</td></tr>
+      <tr><td>15</td><td>Coordination + MAR</td><td>Suivi Sylvain LEMBELEMBE, MAR Léo-Energy</td><td class="montant">10 200 €</td></tr>
+      <tr style="background:#ecfdf5;"><td colspan="3"><strong>Total HT</strong></td><td class="montant"><strong>58 000 €</strong></td></tr>
+    </table>
+
+    <h2>VII. Dimensionnements justifiés</h2>
+    <p><strong>PAC :</strong> Puissance = 101 m² × 0,06 kW/m² (H2c altitude, post-isolation) × 1,15 = 6,97 kW → PAC 8 kW haute température. Compatible radiateurs bitube existants. Zone H2c 587 m prise en compte (dégressivité température).</p>
+    <p><strong>ITI :</strong> R=3,7 (RT2012 murs) → laine roche λ~0,034, épaisseur 120 mm. Pare-vapeur hygrovariable (perméance variable) pour préserver la respiration du pisé.</p>
+    <p><strong>Combles :</strong> R=7 (RT2012) → laine roche 300 mm. <strong>Planchers :</strong> R=3 → PSE 100 mm. <strong>VMC :</strong> Débits cuisine 75–135, SdB 15–30, WC 15–30 m³/h.</p>
+
+    <h2>VIII. Récapitulatif financier (aides indicatives)</h2>
+    <p class="disclaimer">Aides financières 2026 (estimation à titre indicatif). Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.</p>
+    <table>
+      <tr><td>Total HT</td><td class="montant">58 000 €</td></tr>
+      <tr><td>TVA 5,5 %</td><td class="montant">3 190 €</td></tr>
+      <tr><td><strong>Total TTC</strong></td><td class="montant"><strong>61 190 €</strong></td></tr>
+      <tr><td>MaPrimeRénov' Parcours (indicatif)</td><td class="montant">~28 000 €</td></tr>
+      <tr><td>Bonus sortie passoire + dépose cuve (indicatif)</td><td class="montant">~5 200 €</td></tr>
+      <tr><td>CEE / Coup de pouce (indicatif)</td><td class="montant">~9 500 €</td></tr>
+      <tr><td>Aide Région AURA (indicatif)</td><td class="montant">~2 000 €</td></tr>
+      <tr><td><strong>Total aides (indicatif)</strong></td><td class="montant"><strong>~44 700 €</strong></td></tr>
+      <tr><td><strong>Reste à charge estimé</strong></td><td class="montant"><strong>~16 490 €</strong></td></tr>
+    </table>
+
+    <h2>IX. Aides (estimation indicative)</h2>
+    <p>Profil Jaune Hors IDF : MaPrimeRénov' 60 % (plafond 40 000 € HT, max 24 000 € si 3+ classes). Gain 4–5 classes attendu → estimation ~28 000 €. Bonus sortie passoire ~4 000 €, bonus dépose cuve ~1 200 €. CEE Précarité / Coup de pouce (sortie fioul) ~9 500 €. Aide Région ~2 000 €. Cumul ≤ 100 % travaux. Taux prise en charge estimé ~73 %.</p>
+    <p class="disclaimer">Montants définitifs après instruction ANAH et CEE. À valider selon revenus réels.</p>
+
+    <h2>X. Financement et rentabilité (30/40/30 détaillé)</h2>
+    <p><strong>Financement FABIEN :</strong> Dossier sur MONTANT TOTAL 61 190 €. Éco-PTZ 50 000 € max (15–20 ans) + complément ou Prêt travaux (jusqu'à 75 000 € possible). Acceptation 48–72 h. Apport : 0 € possible. Déblocage 30/40/30 : 30 % signature (18 357 €), 40 % mi-chantier après validation Sylvain LEMBELEMBE (24 476 €), 30 % réception (18 357 €).</p>
+    <p><strong>Rentabilité :</strong> Économies ~2 700 €/an. ROI ~5,4 ans. Gain 20 ans ~+80 000 €. Plus-value immobilière estimée ~+25 000 €. Mensualité initiale ~182 €/mois, après ANAH ~43 €/mois (sur RAC). Gain net final positif.</p>
+
+    <h2>XI. Planning détaillé avec malus</h2>
+    <p>Durée 8–10 semaines (malus coordination +40 %). Combles 2–3 j, ITI 3–4 sem, Planchers 1–2 sem, Menuiseries 2–3 sem, VMC 3–5 j, Désembouage + PAC + radiateurs 2–3 sem, Déposes ~1 sem, Ballon 2–3 j. Période optimale Avril–Octobre. Éviter Juil–Août (congés). Coordination : réunion J-7, points hebdo (Sylvain), réception (Sylvain + MAR + client).</p>
+
+    <h2>XII. Artisans RGE sélectionnés</h2>
+    <table>
+      <tr><th>Poste</th><th>Artisan / Réseau</th><th>Contact</th></tr>
+      <tr><td>Combles / ITI</td><td>2C ENERGIES ou partenaires</td><td>2C : 09 72 57 47 47 – contact@2cenergies.fr</td></tr>
+      <tr><td>Planchers / Menuiseries / VMC</td><td>Réseau partenaires RGE</td><td>Sélection Sylvain LEMBELEMBE</td></tr>
+      <tr><td>PAC + Ballon</td><td>ECO SYSTÈME DURABLE</td><td>01 70 93 97 15</td></tr>
+      <tr><td>Coordination</td><td>Sylvain LEMBELEMBE</td><td>06 10 59 68 98 – contact@energia-conseil.com</td></tr>
+    </table>
+
+    <h2>XIII. Résultats attendus</h2>
+    <p>DPE : G (400 kWh/m²/an) → D ou C (objectif +3 à 4 classes). Consommation chauffage divisée par environ 3–4. Émissions CO₂ réduites. Confort amélioré (isolation, VMC, PAC). Sortie passoire thermique. Préservation du bâti pisé (ITI perspirant). Suppression fioul et plafond rayonnant (économie 500 €/an sur ce poste).</p>
+
+    <h2>XIV. Avis juridique (Julia)</h2>
+    <div class="encadre-amber">
+      <p>Conformité DPE 2442E2184253M. ITI obligatoire (ITE impossible – parements pierre DPE). Combles non isolés (DPE). Suppression plafond rayonnant recommandée (DPE). PAC 8 kW HT adaptée zone H2c 587 m. Travaux RGE, ordre respecté, cumul aides ≤ 100 %. Clause Julia Protection Aides (plafond 2 000 €) applicable. Avis sous la responsabilité de Julia, juriste. 4 mars 2026.</p>
+    </div>
+
+    <h2>XV. Contacts projet (5 personnes)</h2>
+    <table>
+      <tr><th>Rôle</th><th>Contact</th></tr>
+      <tr><td>AMO / Coordination</td><td>Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</td></tr>
+      <tr><td>Commercial</td><td>DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</td></tr>
+      <tr><td>Courtier financement</td><td>FABIEN – VIVONS COURTIER – 06 71 19 96 45</td></tr>
+      <tr><td>Juriste</td><td>Julia (coordination ENERGIA)</td></tr>
+      <tr><td>MAR</td><td>Léo-Energy (France Rénov')</td></tr>
+    </table>
+
+    <h2>XVI. Annexes (A à I)</h2>
+    <p><strong>A. Barèmes aides 2026</strong> – Profil Jaune Hors IDF : 60 %, plafond 40 000 € HT (3+ classes), max 24 000 €. Coup de pouce 5 800 € (3 classes). Bonus sortie passoire, dépose cuve.</p>
+    <p><strong>B. Fiche CEE</strong> – CEE Précarité / Coup de pouce selon obligés (fourchette 20–40 %). Sortie fioul éligible.</p>
+    <p><strong>C. Éco-PTZ</strong> – Rénovation globale 50 000 € max (20 ans). Courtier FABIEN 06 71 19 96 45. Prêt travaux jusqu'à 75 000 € possible.</p>
+    <p><strong>D. Liste artisans RGE</strong> – 2C ENERGIES (ITI/combles), ECO SYSTÈME DURABLE (PAC/ballon), réseau menuiseries/VMC/planchers.</p>
+    <p><strong>E. Certifications</strong> – RGE obligatoire pour tous les postes éligibles aides.</p>
+    <p><strong>F. Répartition TVA 5,5 %</strong> – Applicable aux travaux de rénovation énergétique (58 000 € HT → 3 190 € TVA).</p>
+    <p><strong>G. Ordre des travaux</strong> – 1 Combles 2 ITI 3 Planchers 4 Menuiseries 5 VMC 6 Désembouage 7 PAC + radiateurs 8 Déposes 9 Ballon 10 Coordination.</p>
+    <p><strong>H. Modèle déblocage 30/40/30</strong> – 30 % signature, 40 % mi-chantier (validation Sylvain LEMBELEMBE), 30 % réception. Sur montant total ou reste à charge selon financement.</p>
+    <p><strong>I. Autres</strong> – DPE 2442E2184253M. Zone H2c. Spécificités pisé (ITI, perspirance, pare-vapeur hygrovariable).</p>
+
+    <h2>XVII. Mentions légales</h2>
+    <p class="disclaimer">Aides financières 2026 (estimation à titre indicatif). Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE. Cumul aides ≤ 100 % des travaux. Travaux par artisans RGE. Parcours Accompagné MAR (Léo-Energy). Ordre des travaux impératif. Les travaux ne peuvent démarrer qu'après validation officielle du dossier MaPrimeRénov' par l'ANAH. ENERGIA-CONSEIL IA® – Marque déposée INPI – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100€ – 2026.</p>
+
+    <p class="footer-legal" style="margin-top: 2rem;">ENERGIA-CONSEIL IA® – 16 Rue Cuvier, 69006 Lyon – 06 10 59 68 98 – contact@energia-conseil.com – 2026.</p>
+  </div>
+</body>
+</html>
