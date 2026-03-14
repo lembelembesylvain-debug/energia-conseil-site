@@ -3,153 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rapport Technique – M. HARBAOUI Sophian &amp; Mme MAX Emmanuelle | ENERGIA-CONSEIL IA®</title>
+  <title>Rapport Technique – M. HARBAOUI Sophian &amp; Mme MAX Emmanuelle | ENERGIA-CONSEIL IA</title>
   <style>
-    @media print { body { margin: 0; } .page-break { page-break-before: always; } }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; font-size: 10pt; line-height: 1.5; color: #1f2937; max-width: 210mm; margin: 0 auto; padding: 15px 20px; }
-    .header { border-bottom: 2px solid #10b981; padding-bottom: 12px; margin-bottom: 20px; }
-    .logo { font-size: 18pt; font-weight: bold; color: #10b981; }
-    .tagline { font-size: 9pt; color: #6b7280; margin-top: 4px; }
-    .company { font-size: 9pt; color: #6b7280; margin-top: 6px; }
-    h1 { font-size: 16pt; color: #10b981; margin: 20px 0 8px; border-bottom: 2px solid #10b981; padding-bottom: 6px; }
-    h2 { font-size: 12pt; color: #3b82f6; margin: 16px 0 8px; }
-    p { margin: 6px 0; }
-    table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9pt; }
-    th, td { border: 1px solid #d1d5db; padding: 8px 10px; text-align: left; }
-    th { background: #ecfdf5; color: #047857; font-weight: bold; }
-    .montant { text-align: right; font-weight: 600; }
-    .formula { font-family: 'Courier New', monospace; background: #f3f4f6; padding: 8px 12px; border-radius: 4px; margin: 8px 0; }
-    .disclaimer-red { font-size: 9pt; background: #fef2f2; border: 2px solid #ef4444; padding: 12px; margin: 16px 0; border-radius: 4px; color: #991b1b; }
-    .highlight { background: #ecfdf5; padding: 12px; border-radius: 6px; border-left: 4px solid #10b981; margin: 12px 0; }
-    .contacts-box { background: #f0f9ff; border: 1px solid #3b82f6; border-radius: 6px; padding: 14px; margin: 16px 0; }
-    ul { margin: 6px 0 6px 20px; }
-    .section { margin-bottom: 22px; }
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #333; line-height: 1.6; font-size: 14px; }
+    .header { background: #1e3a5f; color: white; padding: 20px; text-align: center; margin-bottom: 20px; }
+    .header h1 { margin: 0; font-size: 28px; }
+    .header p { margin: 5px 0; font-size: 14px; opacity: 0.95; }
+    .warning { background: #d4edda; border-left: 5px solid #28a745; padding: 15px; margin: 20px 0; }
+    .ref-audit { background: #f0f4f8; border-left: 5px solid #1e3a5f; padding: 15px; margin: 20px 0; }
+    h1 { color: #1e3a5f; font-size: 24px; margin-top: 30px; }
+    h2 { color: #ff6b35; font-size: 20px; margin-top: 25px; border-bottom: 2px solid #ff6b35; padding-bottom: 5px; }
+    h3 { color: #1e3a5f; font-size: 16px; margin-top: 20px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th { background: #1e3a5f; color: white; padding: 12px; text-align: left; font-weight: bold; }
+    td { border: 1px solid #ddd; padding: 10px; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .total-row { background: #1e3a5f; color: white; font-weight: bold; }
+    .montant { text-align: right; }
+    .footer { margin-top: 40px; padding-top: 20px; border-top: 2px solid #1e3a5f; font-size: 12px; color: #666; text-align: center; }
+    .contacts-box { background: #f0f4f8; border: 1px solid #1e3a5f; padding: 15px; margin: 20px 0; }
+    .contacts-box p { margin: 6px 0; }
+    .formula { font-family: 'Courier New', monospace; background: #f3f4f6; padding: 10px 15px; border-radius: 4px; margin: 10px 0; font-size: 13px; }
+    @media (max-width: 800px) { body { padding: 15px; } .header h1 { font-size: 22px; } table { font-size: 12px; } th, td { padding: 8px; } }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <div class="logo">⚡ ENERGIA-CONSEIL IA®</div>
-    <div class="tagline">Rapport technique – Rénovation énergétique</div>
-    <div class="company">16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</div>
+    <h1>⚡ ENERGIA-CONSEIL IA</h1>
+    <p>Rapport technique – Bureau d'études &amp; AMO</p>
+    <p>16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</p>
+  </div>
+
+  <div class="ref-audit">
+    <strong>Référence audit MUTTA</strong> – Dossier 20250819-00-AU-ENE-MAR-DIV-0001 – Visite 22/08/2025 – <strong>Valable jusqu'au 21/08/2030</strong>. Auditeur : JIANG Cindie. BET MUTTA (22 06 4783). Scénario 3 adapté (ITE + Combles + PAC air/eau + Ballon + VMC).
   </div>
 
   <h1>RAPPORT TECHNIQUE – RÉNOVATION GLOBALE – DPE G → C/D (+3 À 4 CLASSES)</h1>
   <p><strong>Clients :</strong> M. HARBAOUI Sophian &amp; Mme MAX Emmanuelle | <strong>Date :</strong> 12 mars 2026</p>
 
-  <div class="section highlight">
-    <h2>Synthèse</h2>
-    <p>Maison 110 m² (1975-1977) – Blocs béton creux. Adresse chantier : 14 rue des Bleuets, 69960 CORBAS. DPE G → C/D (+3 à 4 classes). Profil MaPrimeRénov' <strong>BLEU (80 %)</strong> – RFR officiel : <strong>20 489 €</strong> (2 personnes). Date : <strong>12 mars 2026</strong>. Audit de référence : MUTTA – Valable jusqu'au 21/08/2030. Travaux : ITE 119 m² + ITI garage 19 m² + Combles 90 m² + 5 Splits PAC air/air + Ballon 270 L + VMC simple flux type B + coordination. Garantie DPE D minimum par ENERGIA-CONSEIL IA®.</p>
+  <h2>I. Synthèse</h2>
+  <p>Maison 110 m² (1975-1977), blocs béton creux. Adresse chantier : 14 rue des Bleuets, 69960 CORBAS. DPE G → C/D (+3 à 4 classes). Profil MaPrimeRénov' <strong>BLEU (80 %)</strong> – RFR officiel 20 489 € (2 personnes). Audit de référence : <strong>MUTTA – valable jusqu'au 21/08/2030</strong>. Travaux : ITE 119 m² + ITI garage 19 m² + Combles 90 m² + <strong>PAC Mitsubishi Ecodan 9 kW air/eau</strong> + Ballon 270 L + VMC simple flux type B + MAR (poste 7) + Coordination TCE (poste 8). <strong>Garantie contractuelle ENERGIA-CONSEIL IA® : atteinte DPE classe D minimum.</strong> Projet autofinancé : <strong>+110 €/mois</strong>.</p>
+
+  <h2>II. Diagnostic passoire G</h2>
+  <p>État actuel : DPE G (338 kWh EP/m²/an). Facture 3 240 € à 4 430 €/an (gaz naturel). Chaudière gaz ancienne, chauffe-eau gaz. Ventilation naturelle à remplacer. Objectif : DPE C/D (+3 à 4 classes) selon scénario 3 audit MUTTA.</p>
+
+  <h2>III. ITE 119 m² – HB FACADIER</h2>
+  <p><strong>Isolation Thermique par l'Extérieur</strong> – Laine de roche 140 mm, R&gt;4,4 m².K/W (audit MUTTA). 100 % murs extérieurs. Échafaudage complet, nettoyage façade, isolation continue, retours isolants tableaux baies, enduit taloché. Artisan : HB FACADIER – 06 21 63 58 93 – RGE Qualibat E-E 109538. Montant : 20 284 € HT (21 400 € TTC).</p>
+
+  <h2>IV. ITI mur garage 19 m²</h2>
+  <p>R&gt;3,7 m².K/W (audit MUTTA). Laine de roche 120 mm + ossature métallique + Placo BA13 + pare-vapeur. Mur donnant sur garage. Montant : 1 991 € HT (2 100 € TTC).</p>
+
+  <h2>V. Isolation combles 90 m²</h2>
+  <p>Laine de roche soufflée 320 mm, R&gt;7 m².K/W. Soufflage, protection sources chaleur, contours trappes. 100 % plafonds (audit MUTTA). Montant : 4 265 € HT (4 500 € TTC).</p>
+
+  <h2>VI. PAC Mitsubishi Ecodan 9 kW air/eau – ECO SYSTÈME DURABLE</h2>
+  <p><strong>PAC air/eau</strong> (et non air/air) – Mitsubishi Ecodan – Puissance 9 kW. Chauffage + production ECS. Remplace chaudière gaz ancienne. <strong>Éligible aux aides MaPrimeRénov'</strong> (PAC air/eau). Dimensionnement post-isolation (ITE + combles). Artisan : ECO SYSTÈME DURABLE – 01 70 93 97 15. Montant : 10 427 € HT (11 000 € TTC).</p>
+
+  <h2>VII. Ballon thermodynamique 270 L</h2>
+  <p>COP≥3,5. Capacité 270 L (adapté famille). Remplace chauffe-eau gaz. Économie eau chaude ~400 €/an. ECO SYSTÈME DURABLE. Montant : 2 559 € HT (2 700 € TTC).</p>
+
+  <h2>VIII. VMC simple flux hygroréglable type B</h2>
+  <p>Remplacement ventilation naturelle. Réseau gaines + bouches hygro. Reprise étanchéité à l'air (audit MUTTA). Débit adapté 110 m². Montant : 1 896 € HT (2 000 € TTC).</p>
+
+  <h2>IX. MAR (Mon Accompagnateur Rénov') – Poste 7</h2>
+  <p>MAR externe certifié obligatoire. Prestations : audit, vérification RFR, DPE, calcul aides 2026, dépôt ANAH, suivi administratif. Montant : 2 370 € HT (2 500 € TTC). ANAH rembourse 2 000 € (plafond). <strong>Reste à charge client : 500 € TTC.</strong></p>
+
+  <h2>X. Coordination Travaux TCE – Poste 8</h2>
+  <p>ENERGIA-CONSEIL IA® (Contractant Général TCE). Coordination multi-artisans, vérification certifications RGE, planning 10-12 semaines, suivi chantier, réceptions, contrôle qualité RGE, DPE post-travaux, assistance 6 mois. <strong>Garantie contractuelle : atteinte DPE classe D minimum.</strong> Non remboursé. Montant : 3 791 € HT (4 000 € TTC).</p>
+
+  <h2>XI. Dimensionnements</h2>
+  <div class="formula">
+    ITE : R = e/λ → 140 mm laine roche (λ ≈ 0,035) → R &gt; 4,4. ITI : 120 mm → R &gt; 3,7. Combles : 320 mm soufflage → R &gt; 7.<br>
+    PAC air/eau : Mitsubishi Ecodan 9 kW (dimensionnement post-isolation). Ballon : 270 L, COP ≥ 3,5. VMC : débit adapté 110 m².
   </div>
 
-  <div class="section">
-    <h2>I. Diagnostic passoire G</h2>
-    <p>État actuel : DPE G (338 kWh EP/m²/an). Facture 3 240 € à 4 430 €/an (gaz naturel). Chaudière gaz ancienne, chauffe-eau gaz. Ventilation naturelle à remplacer. Objectif : DPE C/D (+3 à 4 classes) selon scénario 3 audit MUTTA.</p>
+  <h2>XII. Planning 10-12 semaines</h2>
+  <table>
+    <tr><th>Phase</th><th>Durée</th><th>Détail</th></tr>
+    <tr><td>Préparation / ANAH</td><td>2-3 sem</td><td>MAR externe, dépôt ANAH – Dossier avant démarrage</td></tr>
+    <tr><td>ITE 119 m²</td><td>4-5 sem</td><td>HB FACADIER – Échafaudage, isolation, enduit</td></tr>
+    <tr><td>ITI garage 19 m²</td><td>~1 sem</td><td>Ossature, laine roche, Placo</td></tr>
+    <tr><td>Combles 90 m²</td><td>~1 sem</td><td>Soufflage laine roche</td></tr>
+    <tr><td>VMC simple flux</td><td>3-5 j</td><td>Gaines + bouches</td></tr>
+    <tr><td>PAC air/eau Ecodan 9 kW + Ballon</td><td>~2 sem</td><td>ECO SYSTÈME DURABLE</td></tr>
+    <tr><td>Réception</td><td>1 sem</td><td>Contrôle RGE, DPE post-travaux, garantie DPE D minimum</td></tr>
+  </table>
+  <p><strong>Ordre impératif :</strong> ITE/ITI → Combles → VMC → PAC air/eau + Ballon. Coordination : Sylvain LEMBELEMBE (ENERGIA-CONSEIL IA®).</p>
+
+  <h2>XIII. Aides 2026 et financement</h2>
+  <table>
+    <tr><td>Total travaux TTC</td><td class="montant">50 200 €</td></tr>
+    <tr><td>MaPrimeRénov' Parcours (BLEU 80 %)</td><td class="montant">32 000 €</td></tr>
+    <tr><td>MAR remboursé (100 % – plafonné 2 000 €)</td><td class="montant">2 000 €</td></tr>
+    <tr class="total-row"><td>TOTAL AIDES</td><td class="montant">34 000 €</td></tr>
+    <tr class="total-row"><td>RESTE À CHARGE</td><td class="montant">16 200 €</td></tr>
+    <tr><td>Éco-PTZ 15 ans (0 %)</td><td class="montant">90 €/mois</td></tr>
+    <tr><td>Économies annuelles</td><td class="montant">2 400 €/an (200 €/mois)</td></tr>
+    <tr><td><strong>Gain net mensuel</strong></td><td class="montant"><strong>+110 €/mois</strong></td></tr>
+    <tr><td>ROI</td><td class="montant">~6 ans</td></tr>
+    <tr><td>Plus-value immobilière estimée</td><td class="montant">+35 000 €</td></tr>
+  </table>
+  <div class="warning">
+    <strong>Projet autofinancé</strong> : gain net <strong>+110 €/mois</strong> dès le 1<sup>er</sup> mois.
   </div>
 
-  <div class="section">
-    <h2>II. ITE 119 m² – HB FACADIER</h2>
-    <p><strong>Isolation Thermique par l'Extérieur</strong> – Laine de roche 140 mm, R&gt;4,4 m².K/W (selon audit MUTTA). 100 % murs extérieurs. Échafaudage complet, nettoyage façade, isolation continue avec retours isolants tableaux baies, enduit taloché, points singuliers.</p>
-    <p><strong>Artisan :</strong> HB FACADIER – 22 Avenue Benoît Fourneyron, 42160 ANDRÉZIEUX-BOUTHÉON – Tél : 06 21 63 58 93 – contact@hb-facadier-hilmi.fr – RGE Qualibat E-E 109538 – Décennale MMA Axelliance. Montant : 20 284 € HT (21 400 € TTC).</p>
+  <h2>XIV. Garantie DPE D minimum</h2>
+  <p>Coordination ENERGIA-CONSEIL IA® (Sylvain LEMBELEMBE). <strong>Garantie contractuelle : atteinte DPE classe D minimum</strong> après réalisation conforme des travaux prévus au présent rapport.</p>
+
+  <h2>XV. Artisans RGE</h2>
+  <table>
+    <tr><th>Poste</th><th>Entreprise</th><th>Contact</th></tr>
+    <tr><td>ITE 119 m²</td><td>HB FACADIER</td><td>06 21 63 58 93 – RGE Qualibat E-E 109538</td></tr>
+    <tr><td>ITI garage / Combles</td><td>Réseau partenaires RGE</td><td>Sélection Sylvain LEMBELEMBE</td></tr>
+    <tr><td>PAC air/eau Ecodan 9 kW + Ballon + VMC</td><td>ECO SYSTÈME DURABLE</td><td>01 70 93 97 15 – RGE</td></tr>
+    <tr><td>MAR (poste 7)</td><td>MAR externe obligatoire</td><td>2 500 € (2 000 € ANAH, reste 500 €)</td></tr>
+    <tr><td>Coordination (poste 8)</td><td>ENERGIA-CONSEIL IA®</td><td>Garantie DPE D minimum – 4 000 € TTC</td></tr>
+  </table>
+
+  <h2>XVI. Contacts projet</h2>
+  <div class="contacts-box">
+    <p><strong>ENERGIA CONSEIL</strong> – Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</p>
+    <p><strong>Commercial</strong> – DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</p>
+    <p><strong>ITE</strong> – HB FACADIER – 06 21 63 58 93</p>
+    <p><strong>PAC air/eau + Ballon + VMC</strong> – ECO SYSTÈME DURABLE – 01 70 93 97 15</p>
+    <p><strong>MAR</strong> – MAR externe – 2 500 € (2 000 € ANAH, reste 500 €)</p>
+    <p><strong>Courtier</strong> – FABIEN – VIVONS COURTIER – 06 71 19 96 45</p>
   </div>
 
-  <div class="section">
-    <h2>III. ITI mur garage 19 m²</h2>
-    <p>R&gt;3,7 m².K/W (selon audit MUTTA). Laine de roche 120 mm + ossature métallique + Placo BA13 + pare-vapeur. Mur donnant sur garage. Réseau partenaires RGE. Montant : 1 991 € HT (2 100 € TTC).</p>
+  <div class="footer">
+    <p><strong>ENERGIA CONSEIL</strong> (ENERGIA-CONSEIL IA®) – 16 Rue Cuvier, 69006 LYON 6EME</p>
+    <p>SIRET 94181942700019 – RCS Lyon 941819427 – N° TVA FR01941819427 – APE 7112B – SASU Capital 100 €</p>
+    <p>Contact : Sylvain LEMBELEMBE – Téléphone : 06 10 59 68 98 – Email : contact@energia-conseil.com</p>
+    <p>12 mars 2026</p>
   </div>
-
-  <div class="section">
-    <h2>IV. Isolation combles 90 m²</h2>
-    <p>Laine de roche soufflée 320 mm minimum, R&gt;7 m².K/W. Soufflage, protection sources chaleur, contours trappes. 100 % des plafonds (selon audit MUTTA). Réseau partenaires RGE. Montant : 4 265 € HT (4 500 € TTC).</p>
-  </div>
-
-  <div class="section">
-    <h2>V. 5 Splits PAC air/air – ECO SYSTÈME DURABLE</h2>
-    <p>Multi-split inverter. COP 4,0, SCOP 3,8. Chauffage + climatisation. Pilotage centralisé. Remplace chaudière gaz ancienne.</p>
-    <p><strong>Artisan :</strong> ECO SYSTÈME DURABLE – 01 70 93 97 15 – RGE. Montant : 7 583 € HT (8 000 € TTC).</p>
-  </div>
-
-  <div class="section">
-    <h2>VI. Ballon thermodynamique 270 L</h2>
-    <p>COP≥3,5. Capacité 270 L (adapté famille). Remplace chauffe-eau gaz. Économie eau chaude ~400 €/an. ECO SYSTÈME DURABLE. Montant : 2 559 € HT (2 700 € TTC).</p>
-  </div>
-
-  <div class="section">
-    <h2>VII. VMC simple flux hygroréglable type B</h2>
-    <p>Remplacement ventilation naturelle actuelle. Réseau gaines + bouches hygro. Reprise étanchéité à l'air de l'enveloppe (selon audit MUTTA). Débit adapté 110 m². Réseau partenaires RGE. Montant : 1 896 € HT (2 000 € TTC).</p>
-  </div>
-
-  <div class="section">
-    <h2>VIII. Dimensionnements précis</h2>
-    <p class="formula">ITE : R = e/λ → 140 mm laine roche (λ ≈ 0,035) → R &gt; 4,4. ITI : 120 mm → R &gt; 3,7. Combles : 320 mm soufflage → R &gt; 7. PAC air/air : COP 4,0, SCOP 3,8. Ballon : COP ≥ 3,5.</p>
-  </div>
-
-  <div class="section">
-    <h2>IX. Planning 10-12 semaines</h2>
-    <table>
-      <tr><th>Phase</th><th>Durée</th><th>Détail</th></tr>
-      <tr><td>Préparation / ANAH</td><td>2-3 sem</td><td>MAR externe, dépôt ANAH – Dossier avant démarrage</td></tr>
-      <tr><td>ITE 119 m²</td><td>4-5 sem</td><td>HB FACADIER – Échafaudage, isolation, enduit</td></tr>
-      <tr><td>ITI garage 19 m²</td><td>~1 sem</td><td>Ossature, laine roche, Placo</td></tr>
-      <tr><td>Combles 90 m²</td><td>~1 sem</td><td>Soufflage laine roche</td></tr>
-      <tr><td>VMC simple flux</td><td>3-5 j</td><td>Gaines + bouches</td></tr>
-      <tr><td>5 Splits PAC + Ballon</td><td>~2 sem</td><td>ECO SYSTÈME DURABLE</td></tr>
-      <tr><td>Réception</td><td>1 sem</td><td>Contrôle RGE, DPE post-travaux, PV</td></tr>
-    </table>
-    <p>Ordre impératif : ITE/ITI → Combles → VMC → 5 Splits + Ballon. Coordination : Sylvain LEMBELEMBE (ENERGIA-CONSEIL IA®). Garantie DPE D minimum.</p>
-  </div>
-
-  <div class="section">
-    <h2>X. Aides 2026 et financement</h2>
-    <table>
-      <tr><td>Total travaux TTC</td><td class="montant">47 200 €</td></tr>
-      <tr><td>MaPrimeRénov' Parcours (BLEU 80 %)</td><td class="montant">32 000 €</td></tr>
-      <tr><td>MAR remboursé (100 %)</td><td class="montant">2 000 €</td></tr>
-      <tr style="font-weight: bold;"><td>TOTAL AIDES</td><td class="montant">34 000 €</td></tr>
-      <tr style="font-weight: bold; background: #ecfdf5;"><td>RESTE À CHARGE</td><td class="montant">13 200 €</td></tr>
-      <tr><td>Éco-PTZ 15 ans (0 %)</td><td class="montant">73 €/mois</td></tr>
-      <tr><td>Économies annuelles</td><td class="montant">2 400 €/an (200 €/mois)</td></tr>
-      <tr><td><strong>Gain net</strong></td><td class="montant"><strong>+127 €/mois</strong></td></tr>
-      <tr><td>ROI</td><td class="montant">5,5 ans</td></tr>
-      <tr><td>Plus-value immobilière estimée</td><td class="montant">+35 000 €</td></tr>
-      <tr><td>Gain sur 20 ans</td><td class="montant">+48 000 €</td></tr>
-    </table>
-  </div>
-
-  <div class="disclaimer-red">
-    <strong>AIDES 2026</strong> : Les montants indiqués correspondent aux barèmes en vigueur au 01/01/2026 avec le RFR officiel de 20 489 € (profil BLEU 80 %, 2 personnes). Le bonus sortie de passoire thermique a été supprimé en septembre 2025. Les CEE ne sont pas cumulables avec MaPrimeRénov' Parcours Accompagné. PAC air/air non éligible aux CEE.
-  </div>
-
-  <div class="section">
-    <h2>XI. Artisans RGE</h2>
-    <table>
-      <tr><th>Poste</th><th>Entreprise</th><th>Contact</th></tr>
-      <tr><td>ITE 119 m²</td><td>HB FACADIER</td><td>06 21 63 58 93 – contact@hb-facadier-hilmi.fr – RGE Qualibat E-E 109538 – Décennale MMA</td></tr>
-      <tr><td>ITI garage / Combles</td><td>Réseau partenaires RGE</td><td>Sélection Sylvain LEMBELEMBE</td></tr>
-      <tr><td>5 Splits PAC + Ballon + VMC</td><td>ECO SYSTÈME DURABLE</td><td>01 70 93 97 15 – RGE</td></tr>
-      <tr><td>MAR</td><td>MAR externe obligatoire</td><td>2 500 € (2 000 € pris en charge, reste 500 €)</td></tr>
-    </table>
-  </div>
-
-  <div class="section">
-    <h2>XII. Garantie Performance – DPE D minimum garanti</h2>
-    <p>Coordination ENERGIA-CONSEIL IA® (Sylvain LEMBELEMBE). Garantie contractuelle : atteinte DPE classe D minimum après réalisation conforme des travaux.</p>
-  </div>
-
-  <div class="section">
-    <h2>XIII. Contacts projet</h2>
-    <div class="contacts-box">
-      <p><strong>ENERGIA CONSEIL</strong> – Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</p>
-      <p><strong>Commercial</strong> – DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</p>
-      <p><strong>ITE</strong> – HB FACADIER – 22 Av. Benoît Fourneyron, 42160 ANDRÉZIEUX-BOUTHÉON – 06 21 63 58 93</p>
-      <p><strong>PAC + Ballon + VMC</strong> – ECO SYSTÈME DURABLE – 01 70 93 97 15</p>
-      <p><strong>MAR</strong> – MAR externe – 2 500 € (2 000 € ANAH, reste 500 €)</p>
-      <p><strong>Courtier</strong> – FABIEN – VIVONS COURTIER – 06 71 19 96 45</p>
-    </div>
-  </div>
-
-  <p style="margin-top: 20px; font-size: 8pt; color: #6b7280;">ENERGIA-CONSEIL IA® – 16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – 12 mars 2026</p>
 
 </body>
 </html>
