@@ -11,6 +11,7 @@
     .header h1 { margin: 0; font-size: 28px; }
     .header p { margin: 5px 0; font-size: 14px; opacity: 0.95; }
     .warning { background: #d4edda; border-left: 5px solid #28a745; padding: 15px; margin: 20px 0; }
+    .critical { background: #f8d7da; border-left: 5px solid #dc3545; padding: 15px; margin: 20px 0; }
     .ref-audit { background: #f0f4f8; border-left: 5px solid #1e3a5f; padding: 15px; margin: 20px 0; }
     h1 { color: #1e3a5f; font-size: 24px; margin-top: 30px; }
     h2 { color: #ff6b35; font-size: 20px; margin-top: 25px; border-bottom: 2px solid #ff6b35; padding-bottom: 5px; }
@@ -34,11 +35,11 @@
     <p>16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</p>
   </div>
 
-  <div class="doc-title" style="font-size: 18px; font-weight: bold; color: #1e3a5f; margin-bottom: 8px;">DEVIS N° DEV-2026-HARBAOUI-SOPHIAN</div>
+  <div style="font-size: 18px; font-weight: bold; color: #1e3a5f; margin-bottom: 8px;">DEVIS N° DEV-2026-HARBAOUI-SOPHIAN</div>
   <p style="margin-bottom: 16px;"><strong>Date :</strong> 12 mars 2026 | <strong>Validité :</strong> 30 jours | Rénovation globale – DPE G → C/D (+3 à 4 classes)</p>
 
   <div class="ref-audit">
-    <strong>Référence audit MUTTA</strong> – Dossier 20250819-00-AU-ENE-MAR-DIV-0001 – Visite 22/08/2025 – <strong>Valable jusqu'au 21/08/2030</strong>. Auditeur : JIANG Cindie. BET MUTTA (22 06 4783). Scénario 3 adapté (ITE + Combles + PAC air/eau + Ballon + VMC).
+    <strong>Référence audit MUTTA</strong> – Dossier 20250819-00-AU-ENE-MAR-DIV-0001 – Visite 22/08/2025 – <strong>Valable jusqu'au 21/08/2030</strong>. Scénario 1 adapté (rénovation en une fois avec PAC air/eau).
   </div>
 
   <h2>CLIENTS</h2>
@@ -47,16 +48,16 @@
     <p>Adresse personnelle : 10 Rue Charles Porcher, 69009 LYON</p>
     <p>Adresse chantier : 14 rue des Bleuets, 69960 CORBAS</p>
     <p>N° fiscal Décl. 1 : 02 58 142 382 001 | N° fiscal Décl. 2 : 09 87 814 842 231</p>
-    <p>Port. : [À compléter] | Email : [À compléter]</p>
+    <p>Téléphone : [À compléter] | Email : [À compléter]</p>
     <p><strong>Profil MaPrimeRénov' : BLEU (80 %) – RFR 20 489 € (2 personnes – Hors IDF)</strong></p>
   </div>
 
   <h2>Contexte</h2>
-  <p>Passoire thermique G. Objectif classe C/D. Scénario 3 adapté selon audit MUTTA. <strong>Garantie contractuelle ENERGIA-CONSEIL IA® : atteinte DPE classe D minimum.</strong></p>
+  <p>Passoire thermique G. Objectif classe C/D. Scénario 1 adapté selon audit MUTTA. <strong>Garantie contractuelle ENERGIA-CONSEIL IA® : atteinte DPE classe D minimum.</strong></p>
 
   <p><strong>Interlocuteur commercial :</strong> DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</p>
 
-  <h2>Tableau des travaux (8 postes)</h2>
+  <h2>Tableau des travaux (9 postes)</h2>
   <table>
     <thead>
       <tr>
@@ -73,7 +74,7 @@
       <tr>
         <td>1</td>
         <td>ITE 119 m² (R&gt;4,4)</td>
-        <td><strong>HB FACADIER</strong> – Laine de roche 140 mm, R&gt;4,4 m².K/W. Échafaudage complet, nettoyage façade, isolation continue, retours isolants tableaux baies, enduit taloché. 100 % murs extérieurs. RGE Qualibat E-E 109538</td>
+        <td>HB FACADIER – Laine roche 140 mm – Échafaudage, nettoyage façade, isolation continue, retours tableaux baies, enduit taloché – 100 % murs extérieurs – RGE Qualibat E-E 109538</td>
         <td class="num">119</td>
         <td>m²</td>
         <td class="montant">170,45 €</td>
@@ -81,8 +82,8 @@
       </tr>
       <tr>
         <td>2</td>
-        <td>ITI mur garage 19 m² (R&gt;3,7)</td>
-        <td>Laine de roche 120 mm + Ossature métallique + Placo BA13 + Pare-vapeur. Mur garage (audit MUTTA)</td>
+        <td>ITI garage 19 m² (R&gt;3,7)</td>
+        <td>Laine roche 120 mm + Ossature + Placo BA13 + Pare-vapeur – Mur garage (audit MUTTA) – Réseau RGE</td>
         <td class="num">19</td>
         <td>m²</td>
         <td class="montant">104,79 €</td>
@@ -91,7 +92,7 @@
       <tr>
         <td>3</td>
         <td>Isolation combles 90 m² (R&gt;7)</td>
-        <td>Laine de roche soufflée 320 mm, R&gt;7 m².K/W. Soufflage, protection sources chaleur, contours trappes. 100 % plafonds (audit MUTTA)</td>
+        <td>Laine roche soufflée 320 mm – 100 % plafonds (audit MUTTA) – Réseau RGE</td>
         <td class="num">90</td>
         <td>m²</td>
         <td class="montant">47,39 €</td>
@@ -100,85 +101,101 @@
       <tr>
         <td>4</td>
         <td>PAC Mitsubishi Ecodan 9 kW air/eau</td>
-        <td><strong>ECO SYSTÈME DURABLE</strong> – PAC <strong>air/eau</strong> (chauffage + ECS) – Puissance 9 kW – Remplace chaudière gaz – <strong>Éligible MaPrimeRénov'</strong> (PAC air/eau)</td>
+        <td>ECO SYSTÈME DURABLE – PAC <strong>air/eau</strong> (chauffage + ECS) – COP≥4,5, SCOP≥4,0 – Remplace chaudière gaz – Compatible radiateurs eau – Éligible MaPrimeRénov' BLEU 5 000 €</td>
         <td class="num">1</td>
         <td>u.</td>
-        <td class="montant">10 427 €</td>
-        <td class="montant">10 427 €</td>
+        <td class="montant">14 218 €</td>
+        <td class="montant">14 218 €</td>
       </tr>
       <tr>
         <td>5</td>
+        <td>Désembouage circuit chauffage</td>
+        <td>ECO SYSTÈME DURABLE – Désembouage complet (radiateurs + tuyauterie), rinçage haute pression, traitement anti-corrosion – <strong>OBLIGATOIRE avant PAC</strong> (garantie Mitsubishi)</td>
+        <td class="num">1</td>
+        <td>lot</td>
+        <td class="montant">948 €</td>
+        <td class="montant">948 €</td>
+      </tr>
+      <tr>
+        <td>6</td>
         <td>Ballon thermodynamique 270 L</td>
-        <td><strong>ECO SYSTÈME DURABLE</strong> – COP≥3,5 – Capacité 270 L – Remplace chauffe-eau gaz – Économie ~400 €/an</td>
+        <td>ECO SYSTÈME DURABLE – COP≥3,5 – Remplace chauffe-eau gaz – Économie ~400 €/an</td>
         <td class="num">1</td>
         <td>u.</td>
         <td class="montant">2 559 €</td>
         <td class="montant">2 559 €</td>
       </tr>
       <tr>
-        <td>6</td>
-        <td>VMC simple flux hygroréglable type B</td>
-        <td>Remplacement ventilation naturelle – Réseau gaines + bouches hygro – Reprise étanchéité (audit MUTTA) – Débit adapté 110 m²</td>
-        <td class="num">1</td>
-        <td>lot</td>
-        <td class="montant">1 896 €</td>
-        <td class="montant">1 896 €</td>
-      </tr>
-      <tr>
         <td>7</td>
-        <td>MAR (Mon Accompagnateur Rénov')</td>
-        <td>MAR externe certifié obligatoire – Audit, RFR, DPE, calcul aides, dépôt ANAH, suivi – 2 500 € TTC – ANAH 2 000 €, reste à charge client 500 €</td>
+        <td>VMC simple flux hygroréglable type B</td>
+        <td>Réseau RGE – Gaines + bouches hygro – Reprise étanchéité (audit MUTTA) – Débit 110 m²</td>
         <td class="num">1</td>
         <td>lot</td>
-        <td class="montant">2 370 €</td>
-        <td class="montant">2 370 €</td>
+        <td class="montant">1 896 €</td>
+        <td class="montant">1 896 €</td>
       </tr>
       <tr>
         <td>8</td>
-        <td>Coordination Travaux TCE</td>
-        <td><strong>ENERGIA-CONSEIL IA®</strong> – Coordination multi-artisans, vérification RGE, planning 10-12 sem, suivi chantier, réceptions, contrôle RGE, DPE post-travaux, assistance 6 mois – <strong>Garantie DPE D minimum</strong> – Non remboursé</td>
+        <td>MAR (Mon Accompagnateur Rénov')</td>
+        <td>MAR externe certifié – Finalisation dossier MUTTA, RFR, aides 2026, ANAH, suivi – 2 500 € TTC – ANAH 2 000 €, reste client 500 €</td>
         <td class="num">1</td>
         <td>lot</td>
-        <td class="montant">3 791 €</td>
-        <td class="montant">3 791 €</td>
+        <td class="montant">2 370 €</td>
+        <td class="montant">2 370 €</td>
       </tr>
-      <tr class="total-row"><td colspan="6">Total HT</td><td class="montant">47 583 €</td></tr>
-      <tr class="total-row"><td colspan="6">TVA 5,5 %</td><td class="montant">2 617 €</td></tr>
-      <tr class="total-row"><td colspan="6">TOTAL TTC</td><td class="montant"><strong>50 200 €</strong></td></tr>
+      <tr>
+        <td>9</td>
+        <td>Coordination Travaux TCE</td>
+        <td>ENERGIA-CONSEIL IA® – Coordination multi-artisans, RGE, planning 10-12 sem, suivi, réceptions, DPE post-travaux – <strong>Garantie DPE D minimum</strong> – Non remboursé</td>
+        <td class="num">1</td>
+        <td>lot</td>
+        <td class="montant">5 687 €</td>
+        <td class="montant">5 687 €</td>
+      </tr>
+      <tr class="total-row"><td colspan="6">Total HT</td><td class="montant">54 218 €</td></tr>
+      <tr class="total-row"><td colspan="6">TVA 5,5 %</td><td class="montant">2 982 €</td></tr>
+      <tr class="total-row"><td colspan="6">TOTAL TTC</td><td class="montant"><strong>57 200 €</strong></td></tr>
     </tbody>
   </table>
 
-  <h2>Aides financières 2026</h2>
-  <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Aides 2026 (estimation à titre indicatif). Aides à valider selon revenus réels. Montants définitifs après instruction ANAH.</p>
-  <table>
-    <tr><td>MaPrimeRénov' Parcours (profil BLEU 80 %)</td><td class="montant">32 000 €</td></tr>
-    <tr><td>MAR remboursé (100 % – plafonné 2 000 €)</td><td class="montant">2 000 €</td></tr>
-    <tr class="total-row"><td>TOTAL AIDES</td><td class="montant">34 000 €</td></tr>
-    <tr class="total-row"><td>RESTE À CHARGE</td><td class="montant">16 200 €</td></tr>
-  </table>
+  <div class="critical">
+    <strong>🔴 Poste 5 – Désembouage OBLIGATOIRE</strong> – Sans désembouage : garantie constructeur Mitsubishi refusée + perte de rendement PAC 15-30 %. Conformité RGE.
+  </div>
 
-  <h2>Financement – Projet autofinancé</h2>
-  <p>Éco-PTZ à taux 0 % sur 15 ans : <strong>90 €/mois</strong> (16 200 € ÷ 180 mois).<br>
-  Économies mensuelles : <strong>200 €/mois</strong> (2 400 €/an ÷ 12).<br>
-  <strong>Gain net mensuel : +110 €/mois</strong> – Projet autofinancé dès le 1<sup>er</sup> mois.<br>
-  ROI : ~6 ans. Plus-value immobilière estimée : +35 000 €.</p>
-  <p>Courtier : FABIEN – VIVONS COURTIER – 06 71 19 96 45 (si besoin).</p>
+  <h2>Aides financières 2026 – Profil BLEU 80 %</h2>
+  <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Aides selon barèmes 01/01/2026, RFR 20 489 € (profil BLEU confirmé, plafond 2p hors IDF 24 875 €). Estimation à titre indicatif. Montants définitifs après instruction ANAH.</p>
+  <table>
+    <tr><td>MaPrimeRénov' Parcours Accompagné (BLEU 80 %)</td><td class="montant">~38 000 €</td></tr>
+    <tr><td>MAR remboursé (100 % BLEU, plafonné 2 000 €)</td><td class="montant">2 000 €</td></tr>
+    <tr class="total-row"><td>TOTAL AIDES</td><td class="montant">40 000 €</td></tr>
+    <tr class="total-row"><td>RESTE À CHARGE</td><td class="montant">17 200 €</td></tr>
+  </table>
+  <p>Taux de prise en charge : 69,9 %.</p>
+
+  <h2>Financement – Projet 100 % autofinancé</h2>
+  <p>Éco-PTZ 15 ans (0 %) : <strong>96 €/mois</strong> (17 200 € ÷ 180 mois).<br>
+  Économies : <strong>200 €/mois</strong> (2 400 €/an) – Facture -68 %.<br>
+  <strong>Gain net mensuel : +104 €/mois</strong> – Projet 100 % autofinancé dès le 1<sup>er</sup> mois.<br>
+  ROI : 5,5 ans. Plus-value estimée : +35 000 €.</p>
+  <p>Courtier : FABIEN – VIVONS COURTIER – 06 71 19 96 45.</p>
+
+  <div class="warning">
+    <strong>Points forts</strong> : Audit MUTTA valable jusqu'au 21/08/2030 – Profil BLEU 80 % (aides maximales) – Garantie DPE D minimum – PAC air/eau éligible 5 000 € – Désembouage inclus.
+  </div>
 
   <h2>Conditions</h2>
   <ul>
     <li>Paiement : 30 % à la commande, 40 % à mi-parcours, 30 % à réception.</li>
-    <li>MAR externe obligatoire : 2 500 € (ANAH rembourse 2 000 €, reste 500 €).</li>
-    <li>Dossier ANAH à déposer AVANT démarrage des travaux.</li>
-    <li>Planning : 10-12 semaines. Ordre impératif : ITE/ITI → Combles → VMC → PAC air/eau + Ballon.</li>
-    <li>DPE post-travaux obligatoire. <strong>Garantie contractuelle : atteinte DPE classe D minimum.</strong></li>
+    <li>MAR obligatoire – 2 500 € (ANAH 2 000 €, reste 500 €). Dépôt ANAH <strong>AVANT</strong> démarrage travaux.</li>
+    <li>Désembouage obligatoire avant installation PAC (garantie constructeur).</li>
+    <li>Ordre impératif : ITE/ITI → Combles → VMC → Désembouage → PAC + Ballon.</li>
+    <li><strong>Garantie contractuelle : DPE classe D minimum.</strong></li>
   </ul>
 
   <h2>Mentions légales</h2>
   <ul>
-    <li>Clause de réserve de propriété (loi 80.335).</li>
-    <li>Pénalités de retard : 3 × taux d'intérêt légal.</li>
-    <li>Travaux réalisés par des artisans certifiés RGE.</li>
-    <li>RGPD : contact@energia-conseil.com.</li>
+    <li>Clause de réserve de propriété (loi 80.335). Pénalités de retard : 3 × taux d'intérêt légal.</li>
+    <li>Travaux réalisés par artisans certifiés RGE. RGPD : contact@energia-conseil.com. Validité : 30 jours.</li>
   </ul>
 
   <div class="signature-block">
