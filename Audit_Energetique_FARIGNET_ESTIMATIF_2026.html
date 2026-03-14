@@ -3,156 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Audit Énergétique Estimatif – M. FARIGNET | ENERGIA-CONSEIL IA®</title>
+  <title>Audit Énergétique Estimatif – M. FARIGNET | ENERGIA-CONSEIL IA</title>
   <style>
-    @media print { body { margin: 0; } .page-break { page-break-before: always; } }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; font-size: 10pt; line-height: 1.5; color: #1f2937; max-width: 210mm; margin: 0 auto; padding: 15px 20px; }
-    .header { border-bottom: 2px solid #10b981; padding-bottom: 12px; margin-bottom: 20px; }
-    .logo { font-size: 18pt; font-weight: bold; color: #10b981; }
-    .tagline { font-size: 9pt; color: #6b7280; margin-top: 4px; }
-    .company { font-size: 9pt; color: #6b7280; margin-top: 6px; }
-    .disclaimer-orange { background: #fff7ed; border: 2px solid #f97316; color: #9a3412; padding: 14px; margin: 0 0 20px; border-radius: 4px; font-size: 9pt; line-height: 1.5; }
-    .disclaimer-orange strong { display: block; margin-bottom: 8px; font-size: 10pt; }
-    h1 { font-size: 16pt; color: #10b981; margin: 20px 0 12px; border-bottom: 2px solid #10b981; padding-bottom: 6px; }
-    h2 { font-size: 12pt; color: #3b82f6; margin: 16px 0 8px; }
-    p { margin: 6px 0; }
-    table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9pt; }
-    th, td { border: 1px solid #d1d5db; padding: 8px 10px; text-align: left; }
-    th { background: #ecfdf5; color: #047857; font-weight: bold; }
-    .montant { text-align: right; font-weight: 600; }
-    .highlight { background: #ecfdf5; padding: 12px; border-radius: 6px; border-left: 4px solid #10b981; margin: 12px 0; }
-    .contacts-box { background: #f0f9ff; border: 1px solid #3b82f6; border-radius: 6px; padding: 14px; margin: 16px 0; }
-    .disclaimer-red { font-size: 9pt; background: #fef2f2; border: 2px solid #ef4444; padding: 10px; margin: 12px 0; border-radius: 4px; color: #991b1b; }
-    .watermark { opacity: 0.06; font-size: 72pt; font-weight: bold; color: #f97316; position: fixed; top: 35%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); z-index: -1; white-space: nowrap; }
-    ul { margin: 6px 0 6px 20px; }
-    .section { margin-bottom: 24px; }
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #333; line-height: 1.6; font-size: 14px; }
+    .header { background: #1e3a5f; color: white; padding: 20px; text-align: center; margin-bottom: 20px; }
+    .header h1 { margin: 0; font-size: 28px; }
+    .header p { margin: 5px 0; font-size: 14px; opacity: 0.95; }
+    .warning { background: #d4edda; border-left: 5px solid #28a745; padding: 15px; margin: 20px 0; }
+    .critical { background: #f8d7da; border-left: 5px solid #dc3545; padding: 15px; margin: 20px 0; }
+    h1 { color: #1e3a5f; font-size: 24px; margin-top: 30px; }
+    h2 { color: #ff6b35; font-size: 20px; margin-top: 25px; border-bottom: 2px solid #ff6b35; padding-bottom: 5px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th { background: #1e3a5f; color: white; padding: 12px; text-align: left; font-weight: bold; }
+    td { border: 1px solid #ddd; padding: 10px; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .total-row { background: #1e3a5f; color: white; font-weight: bold; }
+    .montant { text-align: right; }
+    .footer { margin-top: 40px; padding-top: 20px; border-top: 2px solid #1e3a5f; font-size: 12px; color: #666; text-align: center; }
+    .contacts-box { background: #f0f4f8; border: 1px solid #1e3a5f; padding: 15px; margin: 20px 0; }
+    .contacts-box p { margin: 6px 0; }
+    @media (max-width: 800px) { body { padding: 15px; } .header h1 { font-size: 22px; } table { font-size: 12px; } th, td { padding: 8px; } }
   </style>
 </head>
 <body>
 
-  <div class="watermark">ESTIMATIF</div>
-
   <div class="header">
-    <div class="logo">⚡ ENERGIA-CONSEIL IA®</div>
-    <div class="tagline">Audit Énergétique Intelligence Artificielle – Document ESTIMATIF</div>
-    <div class="company">16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</div>
+    <h1>⚡ ENERGIA-CONSEIL IA</h1>
+    <p>Audit Énergétique Intelligence Artificielle – Bureau d'études &amp; AMO</p>
+    <p>16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</p>
   </div>
 
-  <div class="disclaimer-orange">
-    <strong>📋 DEVIS ESTIMATIF – À FINALISER AVEC LE MAR</strong><br><br>
-    Ce document est établi sur la base des informations disponibles. Le Mon Accompagnateur Rénov' (MAR) finalisera le dossier complet avec :<br>
-    • Audit énergétique réglementaire<br>
-    • Vérification RFR et profil MaPrimeRénov' exact<br>
-    • DPE actuel et cible confirmés<br>
-    • Dimensionnements précis (5 Splits, PV, Poêle)<br>
-    • Calcul exact des aides 2026 (MaPrimeRénov', Prime PV, Aide Poêle)<br>
-    • Optimisation du bouquet de travaux<br><br>
-    <strong>Montants indicatifs susceptibles d'évoluer selon audit MAR.</strong>
+  <div class="warning">
+    <strong>Document ESTIMATIF – À finaliser avec le MAR</strong><br>
+    Ce document est établi sur la base des préconisations disponibles. Le Mon Accompagnateur Rénov' (MAR) finalisera le dossier avec : audit énergétique réglementaire complet, vérification RFR et profil MaPrimeRénov' exact, DPE actuel/cible confirmés, dimensionnements précis, calcul exact des aides 2026, optimisation du bouquet de travaux.
   </div>
 
-  <h1>AUDIT ÉNERGÉTIQUE ESTIMATIF – RÉNOVATION AVEC PV + POÊLE</h1>
-  <p><strong>Client :</strong> M. FARIGNET [Prénom à compléter] | <strong>Date :</strong> 12 mars 2026</p>
+  <h1>AUDIT ÉNERGÉTIQUE ESTIMATIF – RÉNOVATION GLOBALE</h1>
+  <p><strong>Client :</strong> M. FARIGNET [Prénom à compléter] | <strong>Date :</strong> 13 mars 2026</p>
 
-  <div class="section">
-    <h2>1. Informations client (à compléter avec le MAR)</h2>
-    <table>
-      <tr><th>Élément</th><th>Valeur</th></tr>
-      <tr><td>Nom</td><td>FARIGNET [Prénom à compléter]</td></tr>
-      <tr><td>Adresse</td><td>[À compléter]</td></tr>
-      <tr><td>Téléphone / Email</td><td>[À compléter]</td></tr>
-      <tr><td>Numéro fiscal</td><td>[À compléter]</td></tr>
-      <tr><td>Profil MaPrimeRénov'</td><td><strong>ESTIMÉ : JAUNE (60-70 %) – À confirmer selon RFR réel</strong></td></tr>
-      <tr><td>RFR / Parts fiscales</td><td>[À compléter par le MAR]</td></tr>
-      <tr><td>Logement</td><td>Maison individuelle (surface estimée 120-140 m²)</td></tr>
-      <tr><td>Zone</td><td>[À préciser]</td></tr>
-    </table>
+  <h2>1. Informations clients</h2>
+  <table>
+    <tr><th>Élément</th><th>Valeur</th></tr>
+    <tr><td>Nom</td><td>M. FARIGNET [Prénom à compléter]</td></tr>
+    <tr><td>Adresse</td><td>[À compléter]</td></tr>
+    <tr><td>Téléphone / Email</td><td>[À compléter]</td></tr>
+    <tr><td>N° fiscal</td><td>[À compléter]</td></tr>
+    <tr><td>Revenu Fiscal Référence (RFR)</td><td>[À compléter]</td></tr>
+    <tr><td>Profil MaPrimeRénov'</td><td><strong>ESTIMÉ JAUNE (60-70 %) – À confirmer selon RFR réel</strong></td></tr>
+    <tr><td>Parts fiscales</td><td>[À compléter]</td></tr>
+    <tr><td>Logement</td><td>Maison individuelle 120-140 m² (estimée – à confirmer par audit MAR)</td></tr>
+    <tr><td>Année construction</td><td>[À compléter]</td></tr>
+    <tr><td>Département / Ville</td><td>[À préciser] / [À compléter]</td></tr>
+  </table>
+
+  <h2>2. Diagnostic actuel – À confirmer par audit MAR</h2>
+  <table>
+    <tr><th>Élément</th><th>Valeur</th></tr>
+    <tr><td>Classe DPE actuelle (estimée)</td><td>F/G – À confirmer par audit MAR</td></tr>
+    <tr><td>Consommation</td><td>[À préciser par audit MAR]</td></tr>
+    <tr><td>Facture annuelle</td><td>[À estimer selon audit]</td></tr>
+    <tr><td>Chauffage actuel</td><td>[À préciser]</td></tr>
+    <tr><td>Action obligatoire</td><td><strong>Audit énergétique réglementaire par le MAR</strong></td></tr>
+  </table>
+
+  <h2>3. Objectif</h2>
+  <p>Rénovation globale visant un <strong>DPE cible C/D</strong> (gain +3 à 4 classes). Travaux : ITE 130 m², combles 77 m², PAC air/air 5 splits (non éligible MPR), ballon 200 L, VMC, poêle granulé 3 kW, installation PV 3 kWc + batterie 7 kWh, menuiseries complètes (1 porte + 6 fenêtres/PF + 6 volets – volets non éligibles), MAR (obligatoire), Coordination TCE ENERGIA-CONSEIL IA. Document estimatif à finaliser avec le MAR.</p>
+
+  <h2>4. Travaux recommandés (10 postes – estimatif)</h2>
+  <table>
+    <thead>
+      <tr><th>N°</th><th>Désignation / Artisan</th><th class="montant">Montant TTC estimé</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>ITE 130 m² (R&gt;4,4) – HB FACADIER</td><td class="montant">23 400 €</td></tr>
+      <tr><td>2</td><td>Isolation combles soufflage 77 m² (R&gt;7) – ECO SYSTÈME DURABLE</td><td class="montant">3 850 €</td></tr>
+      <tr><td>3</td><td>PAC Air/Air 5 splits 12-14 kW – ECO SYSTÈME DURABLE – ⚠️ NON ÉLIGIBLE MPR</td><td class="montant">12 000 €</td></tr>
+      <tr><td>4</td><td>Ballon thermodynamique 200 L – ECO SYSTÈME DURABLE</td><td class="montant">2 200 €</td></tr>
+      <tr><td>5</td><td>VMC simple flux hygroréglable – ECO SYSTÈME DURABLE</td><td class="montant">2 000 €</td></tr>
+      <tr><td>6</td><td>Poêle à granulés 3 kW – EAT FIRE (RGE Qualibois)</td><td class="montant">5 000 €</td></tr>
+      <tr><td>7</td><td>Installation PV 3 kWc + Batterie 7 kWh – ECO SYSTÈME DURABLE (TVA 10 %)</td><td class="montant">15 000 €</td></tr>
+      <tr><td>8</td><td>Menuiseries PVC (1 porte + 6 fenêtres/PF + 6 volets) – ECO SYSTÈME DURABLE – Volets non éligibles</td><td class="montant">12 000 €</td></tr>
+      <tr><td>9</td><td>MAR (Mon Accompagnateur Rénov') – Reste client estimé 500-1 000 € TTC</td><td class="montant">2 500 €</td></tr>
+      <tr><td>10</td><td>Coordination Travaux TCE – ENERGIA-CONSEIL IA (non remboursé)</td><td class="montant">8 500 €</td></tr>
+      <tr class="total-row"><td colspan="2">TOTAL TTC (estimatif)</td><td class="montant">86 549 € (arrondi 86 500 €)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>5. Répartition financement</h2>
+  <table>
+    <tr><td>Dossier 1 – Rénovation (Fabien – courtier)</td><td class="montant">71 450 € TTC</td></tr>
+    <tr><td>Dossier 2 – Photovoltaïque (banque client)</td><td class="montant">15 000 € TTC</td></tr>
+    <tr class="total-row"><td>Total TTC</td><td class="montant">86 450 €</td></tr>
+  </table>
+
+  <h2>6. Synthèse financière estimative</h2>
+  <table>
+    <tr><td>MaPrimeRénov' Parcours (JAUNE 60-70 % estimé)</td><td class="montant">~15 000 €</td></tr>
+    <tr><td>Aide Poêle granulés (JAUNE)</td><td class="montant">~2 000 €</td></tr>
+    <tr><td>MAR remboursé (60-80 % selon profil)</td><td class="montant">1 500-2 000 €</td></tr>
+    <tr><td>TOTAL AIDES Dossier 1 (rénovation)</td><td class="montant">~18 500 €</td></tr>
+    <tr><td>RESTE À CHARGE Dossier 1</td><td class="montant">~52 950 €</td></tr>
+    <tr><td>Prime autoconsommation PV 3 kWc (Dossier 2)</td><td class="montant">~1 500 €</td></tr>
+    <tr><td>RESTE À CHARGE Dossier 2</td><td class="montant">~13 500 €</td></tr>
+    <tr class="total-row"><td>TOTAL AIDES ESTIMÉ</td><td class="montant">~20 000 €</td></tr>
+    <tr class="total-row"><td>RESTE À CHARGE TOTAL</td><td class="montant">~66 500 €</td></tr>
+  </table>
+  <p><strong>⚠️ Aides à recalculer par le MAR</strong> selon RFR réel, profil MaPrimeRénov' confirmé, gain DPE réel, surface exacte. PAC air/air et volets non éligibles.</p>
+
+  <h2>7. Financement estimatif</h2>
+  <table>
+    <tr><td>Dossier 1 – Éco-PTZ (15 ans sur 52 950 €)</td><td class="montant">~294 €/mois</td></tr>
+    <tr><td>Dossier 2 – Prêt personnel PV (15 ans sur 13 500 €)</td><td class="montant">~75 €/mois</td></tr>
+    <tr><td>Mensualités totales</td><td class="montant">~369 €/mois</td></tr>
+    <tr><td>Économies mensuelles estimées</td><td class="montant">~300 €/mois (énergie + revente PV)</td></tr>
+    <tr><td>Bilan mensuel estimé</td><td class="montant">-69 €/mois</td></tr>
+    <tr><td>ROI estimé</td><td class="montant">18-22 ans (à recalculer avec aides réelles)</td></tr>
+  </table>
+  <p>Courtier Dossier 1 : FABIEN – VIVONS COURTIER – 06 71 19 96 45</p>
+
+  <h2>8. Contacts</h2>
+  <div class="contacts-box">
+    <p><strong>ENERGIA CONSEIL</strong> – Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</p>
+    <p><strong>Commercial</strong> – DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</p>
+    <p><strong>ITE</strong> – HB FACADIER – 06 21 63 58 93 – RGE Qualibat E-E 109538</p>
+    <p><strong>Combles / PAC / Ballon / VMC / PV / Menuiseries</strong> – ECO SYSTÈME DURABLE – 01 70 93 97 15</p>
+    <p><strong>Poêle granulé</strong> – EAT FIRE – [Coordonnées à compléter] – RGE Qualibois</p>
+    <p><strong>MAR</strong> – MAR externe obligatoire (à désigner)</p>
+    <p><strong>Courtier Dossier 1</strong> – FABIEN – VIVONS COURTIER – 06 71 19 96 45</p>
   </div>
 
-  <div class="section">
-    <h2>2. Diagnostic actuel (estimatif – à confirmer par audit MAR)</h2>
-    <table>
-      <tr><td><strong>DPE estimé</strong></td><td>F/G (à préciser par audit)</td></tr>
-      <tr><td>Surface estimée</td><td>120-140 m²</td></tr>
-      <tr><td>Chauffage actuel</td><td>[À préciser]</td></tr>
-      <tr><td>Facture actuelle</td><td>[À estimer selon audit]</td></tr>
-    </table>
+  <div class="footer">
+    <p><strong>ENERGIA CONSEIL</strong> (ENERGIA-CONSEIL IA®) – 16 Rue Cuvier, 69006 LYON 6EME</p>
+    <p>SIRET 94181942700019 – RCS Lyon 941819427 – N° TVA FR01941819427 – APE 7112B – SASU Capital 100 €</p>
+    <p>Contact : Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</p>
+    <p>13 mars 2026 – <strong>Document ESTIMATIF – À finaliser avec le MAR</strong></p>
   </div>
-
-  <div class="section">
-    <h2>3. Objectif</h2>
-    <p><strong>Rénovation globale avec photovoltaïque + batterie 7 kW + poêle à granulé 3 kW + isolation.</strong> DPE cible estimé : C/D (+3 à 4 classes). Le MAR optimisera le bouquet de travaux selon audit définitif.</p>
-  </div>
-
-  <div class="section">
-    <h2>4. Travaux recommandés (9 postes – estimatif)</h2>
-    <table>
-      <thead>
-        <tr><th>N°</th><th>Désignation</th><th>Artisan</th><th class="montant">Montant TTC</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>ITE 130 m² (R&gt;4,4)</td><td>HB FACADIER</td><td class="montant">23 400 €</td></tr>
-        <tr><td>2</td><td>SOUFFLÉ combles 77 m² (R&gt;7)</td><td>ECO SYSTÈME DURABLE</td><td class="montant">3 850 €</td></tr>
-        <tr><td>3</td><td>5 Splits PAC air/air (CLIM)</td><td>ECO SYSTÈME DURABLE</td><td class="montant">8 000 €</td></tr>
-        <tr><td>4</td><td>Ballon thermodynamique 200 L</td><td>ECO SYSTÈME DURABLE</td><td class="montant">2 200 €</td></tr>
-        <tr><td>5</td><td>VMC simple flux hygroréglable</td><td>ECO SYSTÈME DURABLE</td><td class="montant">2 000 €</td></tr>
-        <tr><td>6</td><td>Poêle à granulé 3 kW – Flamme Verte 7 étoiles</td><td>EAT FIRE</td><td class="montant">5 000 €</td></tr>
-        <tr><td>7</td><td>Installation PV + Batterie 7 kW (TVA 10 %)</td><td>[Installateur PV RGE – À sélectionner]</td><td class="montant">15 000 €</td></tr>
-        <tr><td>8</td><td>Menuiseries PVC complètes</td><td>[À sélectionner]</td><td class="montant">12 000 €</td></tr>
-        <tr><td>9</td><td>Coordination AMO + MAR</td><td>ENERGIA-CONSEIL IA®</td><td class="montant">6 000 €</td></tr>
-        <tr style="background: #ecfdf5; font-weight: bold;"><td colspan="3">TOTAL TTC (estimatif)</td><td class="montant">79 000 €</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="section">
-    <h2>5. Synthèse financière estimative</h2>
-    <div class="highlight">
-      <table>
-        <tr><td>Total travaux TTC (estimatif)</td><td class="montant">79 000 €</td></tr>
-        <tr><td>MaPrimeRénov' Parcours (JAUNE 60 % – estimation)</td><td class="montant">~24 000 €</td></tr>
-        <tr><td>Prime autoconsommation PV (estimation)</td><td class="montant">~1 500 €</td></tr>
-        <tr><td>Aide Poêle granulé (estimation)</td><td class="montant">~2 000 €</td></tr>
-        <tr><td>MAR remboursé (60-80 % – estimation)</td><td class="montant">~1 500 €</td></tr>
-        <tr style="font-weight: bold;"><td>TOTAL AIDES ESTIMÉ</td><td class="montant">~29 000 €</td></tr>
-        <tr style="font-weight: bold; background: #d1fae5;"><td>RESTE À CHARGE ESTIMÉ</td><td class="montant">~50 000 €</td></tr>
-      </table>
-    </div>
-    <p><strong>⚠️ Ces montants sont indicatifs.</strong> Le MAR calculera les aides exactes selon RFR réel, profil confirmé, gain DPE réel, puissance PV exacte, éligibilité poêle.</p>
-  </div>
-
-  <div class="section">
-    <h2>6. Financement estimatif</h2>
-    <table>
-      <tr><td>Éco-PTZ estimé (15 ans sur 50 000 €)</td><td class="montant">~278 €/mois</td></tr>
-      <tr><td>Économies mensuelles estimées</td><td class="montant">~300 €/mois</td></tr>
-      <tr><td><strong>Bilan estimé</strong></td><td class="montant"><strong>+22 €/mois</strong> (autofinancement possible)</td></tr>
-      <tr><td>ROI estimé</td><td class="montant">~14-16 ans</td></tr>
-    </table>
-    <p>À recalculer avec aides réelles par le MAR.</p>
-  </div>
-
-  <div class="disclaimer-red">
-    <strong>DOCUMENT ESTIMATIF – À FINALISER AVEC LE MAR</strong><br>
-    Montants indicatifs. Audit énergétique réglementaire à réaliser par le MAR. RFR et profil à confirmer. Aides à recalculer.
-  </div>
-
-  <div class="section">
-    <h2>7. Contacts</h2>
-    <div class="contacts-box">
-      <p><strong>ENERGIA CONSEIL</strong> – Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</p>
-      <p><strong>Commercial</strong> – DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</p>
-      <p><strong>ITE 130 m²</strong> – HB FACADIER – 06 21 63 58 93 – RGE Qualibat</p>
-      <p><strong>SOUFFLÉ + 5 Splits + BT + VMC</strong> – ECO SYSTÈME DURABLE – 01 70 93 97 15</p>
-      <p><strong>Poêle granulé 3 kW</strong> – EAT FIRE – [Coordonnées à compléter] – RGE Qualibois</p>
-      <p><strong>PV + Batterie 7 kW</strong> – [Installateur PV RGE – À sélectionner par MAR]</p>
-      <p><strong>Menuiseries</strong> – [À sélectionner – 2-3 devis par MAR]</p>
-      <p><strong>MAR</strong> – MAR externe obligatoire – Finalisera le dossier complet</p>
-      <p><strong>Courtier</strong> – FABIEN – VIVONS COURTIER – 06 71 19 96 45</p>
-    </div>
-  </div>
-
-  <p style="margin-top: 20px; font-size: 8pt; color: #9a3412;">ENERGIA-CONSEIL IA® – 16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – 12 mars 2026 – <strong>DOCUMENT ESTIMATIF – À FINALISER AVEC LE MAR</strong></p>
 
 </body>
 </html>

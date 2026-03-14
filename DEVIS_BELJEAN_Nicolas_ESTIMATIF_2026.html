@@ -3,78 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Devis Complet Estimatif – M. BELJEAN Nicolas &amp; Mme DEPLECHIN Audrey | ENERGIA CONSEIL</title>
+  <title>Devis Complet Estimatif – M. BELJEAN Nicolas &amp; Mme DEPLECHIN Audrey | ENERGIA-CONSEIL IA</title>
   <style>
-    @media print { body { margin: 0; } .page-break { page-break-before: always; } }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; font-size: 10pt; line-height: 1.5; color: #1f2937; max-width: 210mm; margin: 0 auto; padding: 15px 20px; }
-    .header { border-bottom: 2px solid #10b981; padding-bottom: 12px; margin-bottom: 20px; }
-    .logo { font-size: 18pt; font-weight: bold; color: #10b981; }
-    .company { font-size: 9pt; color: #6b7280; margin-top: 4px; }
-    .disclaimer-orange { background: #fff7ed; border: 2px solid #f97316; color: #9a3412; padding: 14px; margin: 0 0 12px; border-radius: 4px; font-size: 9pt; line-height: 1.5; }
-    .disclaimer-orange strong { display: block; margin-bottom: 8px; font-size: 10pt; }
-    .disclaimer-red { background: #fef2f2; border: 2px solid #ef4444; color: #991b1b; padding: 12px; margin: 0 0 20px; border-radius: 4px; font-size: 9pt; }
-    .doc-title { font-size: 14pt; font-weight: bold; color: #3b82f6; margin: 0 0 8px; }
-    .meta { font-size: 9pt; color: #6b7280; margin-bottom: 20px; }
-    .block { margin-bottom: 18px; }
-    .block-title { font-weight: bold; color: #10b981; font-size: 10pt; margin-bottom: 6px; }
-    table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 9pt; }
-    th, td { border: 1px solid #000; padding: 6px 8px; text-align: left; }
-    th { background: #f3f4f6; font-weight: bold; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    .header {
+      background: #1e3a5f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header h1 { margin: 0; font-size: 28px; }
+    .header p { margin: 5px 0; font-size: 14px; opacity: 0.95; }
+    .warning {
+      background: #d4edda;
+      border-left: 5px solid #28a745;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    .critical {
+      background: #f8d7da;
+      border-left: 5px solid #dc3545;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    h1 { color: #1e3a5f; font-size: 24px; margin-top: 30px; }
+    h2 {
+      color: #ff6b35;
+      font-size: 20px;
+      margin-top: 25px;
+      border-bottom: 2px solid #ff6b35;
+      padding-bottom: 5px;
+    }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+    th {
+      background: #1e3a5f;
+      color: white;
+      padding: 10px 8px;
+      text-align: left;
+      font-weight: bold;
+    }
+    td { border: 1px solid #ddd; padding: 8px; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .total-row { background: #1e3a5f; color: white; font-weight: bold; }
     .montant, .num { text-align: right; }
-    .total-row { font-weight: bold; background: #ecfdf5; }
-    .signature-block { margin-top: 24px; padding: 16px; border: 1px solid #d1d5db; border-radius: 6px; }
-    .watermark { opacity: 0.06; font-size: 72pt; font-weight: bold; color: #f97316; position: fixed; top: 30%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); z-index: -1; white-space: nowrap; }
-    h2 { font-size: 11pt; color: #10b981; margin: 16px 0 8px; border-bottom: 1px solid #10b981; padding-bottom: 4px; }
-    ul { margin: 6px 0 6px 20px; }
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 2px solid #1e3a5f;
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+    }
+    .signature-block {
+      margin-top: 40px;
+      padding: 20px;
+      border: 1px solid #ddd;
+    }
+    .client-block { background: #f9f9f9; padding: 15px; margin: 15px 0; border-left: 4px solid #ff6b35; }
+    @media (max-width: 800px) {
+      body { padding: 15px; }
+      .header h1 { font-size: 22px; }
+      table { font-size: 11px; }
+      th, td { padding: 6px; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="watermark">ESTIMATIF</div>
-
   <div class="header">
-    <div class="logo">⚡ ENERGIA CONSEIL</div>
-    <div class="company">
-      <strong>ENERGIA CONSEIL</strong> – 16 Rue Cuvier, 69006 LYON 6EME<br>
-      SIRET 94181942700019 – RCS Lyon 941819427 – N° TVA FR01941819427 – APE 7112B – SASU Capital 100 €<br>
-      Contact : Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com | Commercial : DAMIEN – 06 72 68 09 68
-    </div>
+    <h1>⚡ ENERGIA-CONSEIL IA</h1>
+    <p>Audit Énergétique Intelligence Artificielle – Bureau d'études &amp; AMO</p>
+    <p>16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</p>
   </div>
 
-  <div class="disclaimer-orange">
-    <strong>📋 DEVIS COMPLET ESTIMATIF – À FINALISER AVEC LE MAR</strong><br><br>
-    Ce document est établi sur la base des préconisations disponibles et du DPE 2021 (EXPIRÉ – nouveau DPE obligatoire). Le Mon Accompagnateur Rénov' (MAR) finalisera le dossier avec : Nouveau DPE réglementaire (DPE 2021 expiré au 31/12/2024) ; Audit énergétique complet ; Vérification RFR et profil MaPrimeRénov' exact (VIOLET 50 % confirmé) ; Surface ITE à mesurer précisément ; Vérification certification RGE artisan menuiseries client ; Dimensionnements précis (PAC air/air, BT) ; Calcul exact des aides 2026 ; Optimisation du bouquet de travaux.<br><br>
-    <strong>Montants indicatifs susceptibles d'évoluer selon audit MAR et nouveau DPE.</strong>
+  <div class="warning">
+    <strong>Document ESTIMATIF – À finaliser avec le MAR</strong><br>
+    Ce document est établi sur la base des préconisations disponibles et du DPE 2021 (EXPIRÉ). Le MAR finalisera le dossier avec : nouveau DPE réglementaire, audit complet, vérification RFR et profil MaPrimeRénov', surface ITE mesurée, certification RGE artisan menuiseries, calcul exact des aides 2026. Montants indicatifs susceptibles d'évoluer.
   </div>
 
-  <div class="disclaimer-red">
-    <strong>⚠️ DPE EXPIRÉ</strong> : Le DPE actuel (E – 2021) est expiré depuis le 31/12/2024. Un nouveau DPE réglementaire est OBLIGATOIRE avant le dépôt du dossier MaPrimeRénov'. Le MAR réalisera ce nouveau DPE.
+  <h1>DEVIS N° DEV-2026-BELJEAN-NICOLAS-ESTIMATIF</h1>
+  <p><strong>Date :</strong> 13 mars 2026 | <strong>Validité :</strong> 30 jours | Rénovation globale – DPE 2021 expiré – Nouveau DPE obligatoire – Document ESTIMATIF</p>
+
+  <h2>CLIENTS</h2>
+  <div class="client-block">
+    <p><strong>M. BELJEAN Nicolas &amp; Mme DEPLECHIN Audrey</strong></p>
+    <p>48 Allée des Rameaux, 42360 ESSERTINES-EN-DONZY</p>
+    <p>Téléphone : [À compléter] | Email : [À compléter]</p>
+    <p>N° fiscal Déclaration 1 : 09 91 483 378 298 | N° fiscal Déclaration 2 : 21 47 479 402 369</p>
+    <p><strong>Profil MaPrimeRénov' : VIOLET (50 %) – RFR 44 795 € – 2 personnes – Hors IDF</strong></p>
+    <p>Parts fiscales : 2,50 (couple + enfants) – Impôt 2024 : Remboursement 403 €</p>
   </div>
 
-  <div class="doc-title">DEVIS N° DEV-2026-BELJEAN-NICOLAS-ESTIMATIF</div>
-  <div class="meta">Date : 13 mars 2026 | Validité : 30 jours | Rénovation globale – DPE 2021 expiré – Nouveau DPE obligatoire – Document ESTIMATIF</div>
+  <h2>Contexte</h2>
+  <p>Maison individuelle 92,76 m² (1988). DPE 2021 : E (259 kWh EP/m²/an) – <strong>EXPIRÉ au 31/12/2024</strong>. Nouveau DPE réglementaire obligatoire avant dépôt ANAH (réalisé par le MAR). Rénovation globale : ITE, combles, PAC air/air, ballon thermodynamique, menuiseries (artisan client – vérification RGE obligatoire), VMC, MAR, Coordination TCE.</p>
 
-  <div class="block">
-    <div class="block-title">CLIENTS</div>
-    <p><strong>M. BELJEAN Nicolas &amp; Mme DEPLECHIN Audrey</strong><br>
-    48 Allée des Rameaux, 42360 ESSERTINES-EN-DONZY<br>
-    N° fiscal Décl. 1 : 09 91 483 378 298 | N° fiscal Décl. 2 : 21 47 479 402 369<br>
-    Téléphone : [À compléter] | Email : [À compléter]<br>
-    <strong>Profil MaPrimeRénov' : VIOLET (50 %) – RFR 44 795 € (2 personnes – Hors IDF)</strong></p>
-  </div>
+  <p><strong>Interlocuteur commercial :</strong> DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</p>
 
-  <div class="block">
-    <div class="block-title">Contexte</div>
-    <p>DPE 2021 (classe E – 259 kWh EP/m²/an) EXPIRÉ au 31/12/2024. Nouveau DPE obligatoire avant dépôt ANAH. Préconisations : ITE + PAC air/air + Ballon thermodynamique + Menuiseries (artisan client – vérification RGE obligatoire) + VMC. Document estimatif – À finaliser avec le MAR.</p>
-  </div>
-
-  <div class="block">
-    <div class="block-title">Interlocuteur commercial</div>
-    <p>DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</p>
-  </div>
-
-  <h2>Tableau des travaux (7 postes – estimatif)</h2>
+  <h2>Tableau des travaux (8 postes)</h2>
   <table>
     <thead>
       <tr>
@@ -88,72 +123,128 @@
       </tr>
     </thead>
     <tbody>
-      <tr><td>1</td><td>ITE [Surface à mesurer]</td><td><strong>HB FACADIER</strong> – Laine de roche 140 mm, R&gt;4,4 m².K/W – Échafaudage complet – Surface à mesurer précisément (estimation ~106-110 m²) – Prix unitaire 180 € TTC/m² – RGE Qualibat E-E 109538</td><td class="num">~106</td><td>m²</td><td class="montant">180 €</td><td class="montant">19 080 €</td></tr>
-      <tr><td>2</td><td>Isolation combles soufflage 70 m² (R&gt;7)</td><td><strong>ECO SYSTÈME DURABLE</strong> – Laine de roche soufflée 320 mm, R&gt;7 m².K/W – Estimation surface</td><td class="num">70</td><td>m²</td><td class="montant">47,39 €</td><td class="montant">3 318 €</td></tr>
-      <tr><td>3</td><td>5 Splits PAC air/air réversibles</td><td><strong>ECO SYSTÈME DURABLE</strong> – Multi-split inverter COP 4,0, SCOP 3,8 – Chauffage + climatisation – Pilotage centralisé – Remplace chauffage électrique – Complément poêle bois existant</td><td class="num">1</td><td>lot</td><td class="montant">7 583 €</td><td class="montant">7 583 €</td></tr>
-      <tr><td>4</td><td>Ballon thermodynamique 200 L</td><td><strong>ECO SYSTÈME DURABLE</strong> – COP≥3,5 – Capacité 200 L – Remplacement système ECS actuel</td><td class="num">1</td><td>u.</td><td class="montant">2 085 €</td><td class="montant">2 085 €</td></tr>
-      <tr><td>5</td><td>Menuiseries extérieures</td><td><strong>Artisan du client</strong> – ⚠️ <strong>Vérification certification RGE OBLIGATOIRE</strong> (sinon pas d'aides MaPrimeRénov') – Estimation 6-8 fenêtres PVC double vitrage Uw=1,3 – À valider avec artisan client</td><td class="num">1</td><td>lot</td><td class="montant">7 583 €</td><td class="montant">7 583 €</td></tr>
-      <tr><td>6</td><td>VMC simple flux hygroréglable</td><td><strong>ECO SYSTÈME DURABLE</strong> – Simple flux hygroréglable – Réseau gaines + bouches hygro – Débit adapté 92,76 m²</td><td class="num">1</td><td>lot</td><td class="montant">1 896 €</td><td class="montant">1 896 €</td></tr>
-      <tr><td>7</td><td>Coordination AMO + MAR</td><td><strong>ENERGIA-CONSEIL IA®</strong> – Coordination multi-artisans (HB FACADIER, ECO SYSTÈME DURABLE, artisan client), <strong>vérification RGE artisan client</strong>, planning 10-12 sem, réceptions, contrôle RGE, <strong>nouveau DPE post-travaux</strong>, gestion administrative (MAR, ANAH), assistance 6 mois. MAR réalisera nouveau DPE (ancien expiré) + audit complet. Coût MAR 2 500 €, prise en charge 60 % = 1 500 €, reste 1 000 €</td><td class="num">1</td><td>lot</td><td class="montant">4 739 €</td><td class="montant">4 739 €</td></tr>
-      <tr class="total-row"><td colspan="6"><strong>Total HT</strong></td><td class="montant">46 284 €</td></tr>
-      <tr class="total-row"><td colspan="6"><strong>TVA 5,5 %</strong></td><td class="montant">2 546 €</td></tr>
-      <tr class="total-row"><td colspan="6"><strong>TOTAL TTC</strong></td><td class="montant"><strong>48 830 €</strong> (arrondi <strong>49 000 € TTC</strong>)</td></tr>
+      <tr>
+        <td>1</td>
+        <td>ITE ~106 m² (R&gt;4,4)</td>
+        <td>HB FACADIER – Laine de roche 140 mm, R&gt;4,4 m².K/W – 180 € TTC/m² – Surface à mesurer – RGE Qualibat E-E 109538 – 06 21 63 58 93</td>
+        <td class="num">106</td>
+        <td>m²</td>
+        <td class="montant">180 €</td>
+        <td class="montant">19 080 €</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Isolation combles 70 m² (R&gt;7)</td>
+        <td>ECO SYSTÈME DURABLE – Laine de roche soufflée 320 mm – 01 70 93 97 15</td>
+        <td class="num">70</td>
+        <td>m²</td>
+        <td class="montant">47,39 €</td>
+        <td class="montant">3 318 €</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>PAC Air/Air 5 splits (12-14 kW)</td>
+        <td>ECO SYSTÈME DURABLE – Multi-split inverter COP 4,0, SCOP 3,8 – Chauffage + clim – ⚠️ NON ÉLIGIBLE MaPrimeRénov'</td>
+        <td class="num">1</td>
+        <td>lot</td>
+        <td class="montant">11 374 €</td>
+        <td class="montant">11 374 €</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Ballon thermodynamique 200 L</td>
+        <td>ECO SYSTÈME DURABLE – COP≥3,5 – Capacité 200 L</td>
+        <td class="num">1</td>
+        <td>u.</td>
+        <td class="montant">2 085 €</td>
+        <td class="montant">2 085 €</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Menuiseries 7 fenêtres + 7 volets</td>
+        <td>Artisan du client – 7× PVC Uw=1,3 (1 000 €/u.) + 7× volets filaires motorisés (600 €/u.) – 1 600 € TTC/unité – ⚠️ Vérification RGE OBLIGATOIRE – Volets NON ÉLIGIBLES aides</td>
+        <td class="num">1</td>
+        <td>lot</td>
+        <td class="montant">10 616 €</td>
+        <td class="montant">10 616 €</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>VMC simple flux hygroréglable</td>
+        <td>ECO SYSTÈME DURABLE – Débit adapté 92,76 m²</td>
+        <td class="num">1</td>
+        <td>lot</td>
+        <td class="montant">1 896 €</td>
+        <td class="montant">1 896 €</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>MAR (Mon Accompagnateur Rénov')</td>
+        <td>MAR externe certifié – Nouveau DPE + Audit + ANAH + Suivi – 2 500 € TTC – Prise en charge 60 % (1 500 €) – Reste à charge client : 1 000 € TTC</td>
+        <td class="num">1</td>
+        <td>lot</td>
+        <td class="montant">2 370 €</td>
+        <td class="montant">2 370 €</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>Coordination Travaux TCE</td>
+        <td>ENERGIA-CONSEIL IA – Contractant Général TCE – Coordination multi-artisans, vérification RGE, planning 10-12 sem, suivi chantier, réceptions, DPE post-travaux, assistance 6 mois – Non remboursé</td>
+        <td class="num">1</td>
+        <td>lot</td>
+        <td class="montant">5 292 €</td>
+        <td class="montant">5 292 €</td>
+      </tr>
+      <tr class="total-row"><td colspan="6">Total HT</td><td class="montant">56 031 €</td></tr>
+      <tr class="total-row"><td colspan="6">TVA 5,5 %</td><td class="montant">3 082 €</td></tr>
+      <tr class="total-row"><td colspan="6">TOTAL TTC</td><td class="montant"><strong>59 113 €</strong> (arrondi <strong>60 000 € TTC</strong>)</td></tr>
     </tbody>
   </table>
-  <p style="font-size: 8pt; color: #6b7280;">Montants susceptibles de varier selon surface ITE mesurée et nouveau DPE.</p>
+  <p style="font-size: 12px; color: #666;">Montants susceptibles de varier selon surface ITE mesurée et nouveau DPE.</p>
 
-  <h2>Aides financières 2026 – ESTIMATIVES (à recalculer par le MAR)</h2>
-  <p style="font-size: 9pt; color: #6b7280; margin-bottom: 8px;">PROFIL VIOLET (50 %) – RFR 44 795 €. Aides à recalculer selon nouveau DPE et gain DPE réel.</p>
+  <h2>Aides financières 2026 – ESTIMATIVES</h2>
   <table>
-    <tr><td>MaPrimeRénov' Parcours (VIOLET 50 % estimé)</td><td class="montant">~18 000 €</td></tr>
-    <tr><td>MAR remboursé (60 % – coût MAR 2 500 €, plafonné 1 500 €)</td><td class="montant">~1 500 €</td></tr>
-    <tr class="total-row"><td><strong>TOTAL AIDES ESTIMÉ</strong></td><td class="montant"><strong>~19 500 €</strong></td></tr>
-    <tr class="total-row"><td><strong>RESTE À CHARGE ESTIMÉ</strong></td><td class="montant"><strong>~29 500 €</strong></td></tr>
+    <tr><td>MaPrimeRénov' Parcours (VIOLET 50 % – estimation)</td><td class="montant">~17 350 €</td></tr>
+    <tr><td>MAR remboursé (60 %, plafonné 1 500 €)</td><td class="montant">1 500 €</td></tr>
+    <tr class="total-row"><td>TOTAL AIDES ESTIMÉ</td><td class="montant">~18 850 €</td></tr>
+    <tr class="total-row"><td>RESTE À CHARGE ESTIMÉ</td><td class="montant">~41 150 €</td></tr>
   </table>
-  <p style="font-size: 9pt; color: #9a3412; margin-top: 6px;"><strong>⚠️ Aides à recalculer par le MAR selon : nouveau DPE, gain DPE réel, surface ITE mesurée, certification RGE artisan menuiseries client.</strong></p>
+  <p><strong>⚠️ Aides à recalculer par le MAR</strong> selon : nouveau DPE, gain DPE réel, surface ITE mesurée, certification RGE artisan menuiseries. PAC air/air (12 000 €) et volets (4 200 €) non éligibles.</p>
 
   <h2>Financement estimatif</h2>
-  <p>Éco-PTZ estimé : <strong>~164 €/mois</strong> (15 ans sur 29 500 €).<br>
-  Économies mensuelles estimées : <strong>~150 €/mois</strong> (1 800 €/an).<br>
-  <strong>Bilan estimé : -14 €/mois</strong> (quasi équilibre).<br>
-  ROI estimé : 16-18 ans (à recalculer avec aides réelles et nouveau DPE).</p>
-  <p>Courtier : FABIEN – VIVONS COURTIER – 06 71 19 96 45 (si besoin).</p>
+  <p>Éco-PTZ estimé : <strong>~229 €/mois</strong> (15 ans sur 41 150 €). Économies mensuelles estimées : <strong>~150 €/mois</strong> (1 800 €/an). Bilan mensuel estimé : <strong>-79 €/mois</strong>. ROI estimé : 22-25 ans (à recalculer avec aides réelles et nouveau DPE). Courtier : FABIEN – VIVONS COURTIER – 06 71 19 96 45.</p>
 
-  <div class="disclaimer-orange">
-    <strong>⚠️ POINTS CRITIQUES À VALIDER</strong><br>
-    1. <strong>Nouveau DPE obligatoire</strong> (DPE 2021 expiré au 31/12/2024)<br>
-    2. <strong>Surface ITE à mesurer</strong> précisément (estimation ~110 m²)<br>
-    3. <strong>Artisan menuiseries client</strong> : Vérifier certification RGE (OBLIGATOIRE pour aides)<br>
-    4. <strong>Gain DPE à confirmer</strong> : E → C/D (+2 à 3 classes selon nouveau DPE)
+  <div class="critical">
+    <strong>Points critiques à valider</strong>
+    <ol style="margin: 10px 0 0 20px;">
+      <li>Nouveau DPE obligatoire (DPE 2021 expiré au 31/12/2024) – Le MAR le réalisera</li>
+      <li>Surface ITE à mesurer précisément (estimation ~106 m², à confirmer sur site)</li>
+      <li>Artisan menuiseries client : Vérifier certification RGE OBLIGATOIRE (sinon 0 € d'aides menuiseries)</li>
+      <li>PAC air/air (12 000 €) : NON ÉLIGIBLE aides MaPrimeRénov' – Client informé</li>
+      <li>Volets filaires (4 200 €) : NON ÉLIGIBLES aides – Considérés confort</li>
+      <li>Gain DPE à confirmer : E → C/D (+2 à 3 classes selon nouveau DPE et travaux réalisés)</li>
+    </ol>
   </div>
 
-  <h2>Conditions</h2>
-  <ul>
-    <li>Nouveau DPE obligatoire avant dépôt dossier ANAH (MAR le réalisera).</li>
-    <li>Artisan menuiseries client : certification RGE obligatoire pour éligibilité aides.</li>
-    <li>Surface ITE à mesurer précisément (estimation ~110 m²).</li>
-    <li>Paiement : 30 % à la commande, 40 % à mi-parcours, 30 % à réception.</li>
-    <li>MAR externe obligatoire – Nouveau DPE + audit + finalisation dossier.</li>
-    <li><strong>Devis à finaliser avec le MAR</strong> (nouveau DPE, audit, calcul aides exactes).</li>
-  </ul>
+  <h2>Conditions générales</h2>
+  <p>Nouveau DPE réglementaire obligatoire avant dépôt dossier ANAH (réalisé par le MAR). Artisan menuiseries client : certification RGE obligatoire pour éligibilité aides. Surface ITE à mesurer précisément sur site (estimation ~106 m²). Paiement : 30 % à la commande, 40 % à mi-parcours, 30 % à réception. MAR externe obligatoire. Devis estimatif à finaliser avec le MAR. Validité : 30 jours.</p>
 
   <h2>Mentions légales</h2>
-  <ul>
-    <li>Clause de réserve de propriété (loi 80.335).</li>
-    <li>Pénalités de retard : 3 × taux d'intérêt légal.</li>
-    <li>Travaux réalisés par des artisans certifiés RGE (artisan menuiseries client à valider RGE).</li>
-    <li>RGPD : contact@energia-conseil.com.</li>
-    <li><strong>Devis estimatif</strong> : À valider selon nouveau DPE et audit MAR.</li>
-  </ul>
+  <p>Clause de réserve de propriété (loi 80.335). Pénalités de retard : 3 × taux d'intérêt légal. Travaux réalisés par des artisans certifiés RGE (artisan menuiseries client à valider RGE). RGPD : contact@energia-conseil.com. Document estimatif : à valider selon nouveau DPE et audit MAR.</p>
 
   <div class="signature-block">
-    <p><strong>Bon pour accord (sous réserve de validation par le MAR et nouveau DPE)</strong></p>
-    <p>Fait à _________________________, le ___/___/2026</p>
-    <p>Signature M. BELJEAN Nicolas : _________________________</p>
+    <p><strong>Bon pour accord</strong></p>
+    <p>Fait à _________________________, le _______________</p>
+    <p style="margin-top: 15px;">Signature M. BELJEAN Nicolas : _________________________</p>
     <p>Signature Mme DEPLECHIN Audrey : _________________________</p>
   </div>
 
-  <p style="margin-top: 20px; font-size: 8pt; color: #9a3412;">ENERGIA CONSEIL – 16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – 13 mars 2026 – <strong>DEVIS COMPLET ESTIMATIF – À FINALISER AVEC LE MAR – Nouveau DPE obligatoire</strong></p>
+  <div class="footer">
+    <p><strong>ENERGIA CONSEIL</strong> (ENERGIA-CONSEIL IA®) – 16 Rue Cuvier, 69006 LYON 6EME</p>
+    <p>SIRET 94181942700019 – RCS Lyon 941819427 – N° TVA FR01941819427 – APE 7112B – SASU Capital 100 €</p>
+    <p>Contact : Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</p>
+    <p>13 mars 2026 – <strong>DEVIS COMPLET ESTIMATIF – À FINALISER AVEC LE MAR – Nouveau DPE obligatoire</strong></p>
+  </div>
 
 </body>
 </html>
