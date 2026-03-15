@@ -3,169 +3,161 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rapport Technique – M. PEREIRA David | ENERGIA-CONSEIL IA®</title>
+  <title>Rapport Technique – M. PEREIRA David | ENERGIA-CONSEIL IA</title>
   <style>
-    @media print { body { margin: 0; } .page-break { page-break-before: always; } }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; font-size: 10pt; line-height: 1.5; color: #1f2937; max-width: 210mm; margin: 0 auto; padding: 15px 20px; }
-    .header { border-bottom: 2px solid #10b981; padding-bottom: 12px; margin-bottom: 20px; }
-    .logo { font-size: 18pt; font-weight: bold; color: #10b981; }
-    .tagline { font-size: 9pt; color: #6b7280; margin-top: 4px; }
-    .company { font-size: 9pt; color: #6b7280; margin-top: 6px; }
-    h1 { font-size: 16pt; color: #10b981; margin: 20px 0 8px; border-bottom: 2px solid #10b981; padding-bottom: 6px; }
-    h2 { font-size: 12pt; color: #3b82f6; margin: 16px 0 8px; }
-    p { margin: 6px 0; }
-    table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9pt; }
-    th, td { border: 1px solid #d1d5db; padding: 8px 10px; text-align: left; }
-    th { background: #ecfdf5; color: #047857; font-weight: bold; }
-    .montant { text-align: right; font-weight: 600; }
-    .formula { font-family: 'Courier New', monospace; background: #f3f4f6; padding: 8px 12px; border-radius: 4px; margin: 8px 0; }
-    .disclaimer-red { font-size: 9pt; background: #fef2f2; border: 2px solid #ef4444; padding: 12px; margin: 16px 0; border-radius: 4px; color: #991b1b; }
-    .box-vert { background: #ecfdf5; border: 2px solid #10b981; padding: 14px; margin: 16px 0; border-radius: 4px; font-size: 9pt; color: #047857; font-weight: bold; }
-    .highlight { background: #ecfdf5; padding: 12px; border-radius: 6px; border-left: 4px solid #10b981; margin: 12px 0; }
-    .contacts-box { background: #f0f9ff; border: 1px solid #3b82f6; border-radius: 6px; padding: 14px; margin: 16px 0; }
-    ul { margin: 6px 0 6px 20px; }
-    .section { margin-bottom: 22px; }
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #333; line-height: 1.6; font-size: 14px; }
+    .header { background: #1e3a5f; color: white; padding: 20px; text-align: center; margin-bottom: 20px; }
+    .header h1 { margin: 0; font-size: 28px; }
+    .header p { margin: 5px 0; font-size: 14px; opacity: 0.95; }
+    .warning { background: #d4edda; border-left: 5px solid #28a745; padding: 15px; margin: 20px 0; }
+    .critical { background: #f8d7da; border-left: 5px solid #dc3545; padding: 15px; margin: 20px 0; }
+    .ref-audit { background: #f0f4f8; border-left: 5px solid #1e3a5f; padding: 15px; margin: 20px 0; }
+    .garantie-box { background: #e8f4fd; border: 2px solid #1e3a5f; padding: 18px; margin: 20px 0; border-radius: 6px; }
+    h1 { color: #1e3a5f; font-size: 24px; margin-top: 30px; }
+    h2 { color: #ff6b35; font-size: 20px; margin-top: 25px; border-bottom: 2px solid #ff6b35; padding-bottom: 5px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th { background: #1e3a5f; color: white; padding: 12px; text-align: left; font-weight: bold; }
+    td { border: 1px solid #ddd; padding: 10px; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .total-row { background: #1e3a5f; color: white; font-weight: bold; }
+    .montant { text-align: right; }
+    .footer { margin-top: 40px; padding-top: 20px; border-top: 2px solid #1e3a5f; font-size: 12px; color: #666; text-align: center; }
+    .contacts-box { background: #f0f4f8; border: 1px solid #1e3a5f; padding: 15px; margin: 20px 0; }
+    .contacts-box p { margin: 6px 0; }
+    .formula { font-family: 'Courier New', monospace; background: #f3f4f6; padding: 10px 15px; border-radius: 4px; margin: 10px 0; font-size: 13px; }
+    @media (max-width: 800px) { body { padding: 15px; } .header h1 { font-size: 22px; } table { font-size: 12px; } th, td { padding: 8px; } }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <div class="logo">⚡ ENERGIA-CONSEIL IA®</div>
-    <div class="tagline">Rapport technique – Rénovation énergétique optimisée</div>
-    <div class="company">16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</div>
+    <h1>⚡ ENERGIA-CONSEIL IA</h1>
+    <p>Rapport technique – Bureau d'études &amp; AMO</p>
+    <p>16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</p>
   </div>
 
-  <h1>RAPPORT TECHNIQUE – RÉNOVATION OPTIMISÉE – DPE G → D (+3 CLASSES)</h1>
-  <p><strong>Sous-titre :</strong> Budget maîtrisé – Performance garantie.</p>
-  <p><strong>Client :</strong> M. PEREIRA David – Le Tatier, 42140 VIRIGNEUX | <strong>Date :</strong> 12 mars 2026</p>
-
-  <div class="section highlight">
-    <h2>Synthèse</h2>
-    <p>Maison ~110 m². DPE G → D (+3 classes). Profil MaPrimeRénov' <strong>VIOLET (50 %)</strong> – RFR officiel : <strong>24 722 €</strong> (1 personne). Date : <strong>12 mars 2026</strong>. Audit de référence : LOIRE FOREZ DIAGNOSTIC – Dossier 24/IMO/1748_p01. Budget 40 000 € pour garantir DPE D. Travaux : ITI 80 m² + combles (vérification/complément) + 6 fenêtres + VMC + PAC 6-8 kW + Ballon 200 L + dépose fioul + coordination. Garantie contractuelle atteinte DPE classe D par ENERGIA-CONSEIL IA®.</p>
+  <div class="ref-audit">
+    <strong>Audit de référence LOIRE FOREZ DIAGNOSTIC</strong> – Dossier 24/IMO/1748_p01 – <strong>Scénario 2 – Étape 1 adapté et optimisé</strong>. Budget optimisé 42 250 € TTC pour garantir DPE D avec travaux essentiels à fort impact.
   </div>
 
-  <div class="section">
-    <h2>I. Diagnostic passoire G</h2>
-    <p>État actuel critique : DPE G (328 kWh EP/m²/an). Facture 4 130 € à 5 620 €/an (fioul + électrique). Chaudière fioul ancienne (rendement 60 %), chauffe-eau électrique. Aucune ventilation. Combles déjà isolés (audit LOIRE FOREZ – suffisant). Objectif : DPE D avec budget optimisé.</p>
+  <h1>RAPPORT TECHNIQUE – RÉNOVATION GLOBALE – DPE G → D (+3 CLASSES)</h1>
+  <p><strong>Client :</strong> M. PEREIRA David | <strong>Date :</strong> 12 mars 2026</p>
+
+  <h2>I. Synthèse</h2>
+  <p>Maison ~110 m² – Le Tatier, 42140 VIRIGNEUX (Loire 42, zone H1). DPE G → D (+3 classes). <strong>Profil VIOLET (50 %)</strong> – RFR 24 722 € (1 personne, hors IDF). <strong>Audit LOIRE FOREZ DIAGNOSTIC – Dossier 24/IMO/1748_p01</strong>. Travaux : ITI 80 m² + Combles 40 m² (vérif. + complément) + 6 fenêtres PVC + VMC + Désembouage (obligatoire) + PAC air/eau 6-8 kW + Dépose fioul + Ballon 200 L + MAR (poste 9) + Coordination TCE (poste 10). <strong>Garantie contractuelle : DPE D minimum. Engagement « ÇA PASSE OU ÇA CASSE » : travaux complémentaires gratuits si DPE D non atteint.</strong> Projet 100 % autofinancé : <strong>+120 €/mois</strong>.</p>
+
+  <div class="garantie-box">
+    <strong>🏆 Garantie « ÇA PASSE OU ÇA CASSE »</strong><br>
+    Nous garantissons contractuellement l'atteinte de la classe D au DPE après réalisation conforme de tous les travaux. Si le DPE D n'est pas atteint : travaux complémentaires nécessaires <strong>GRATUITEMENT</strong> jusqu'à obtention de la performance garantie. Sans surcoût pour le client. Votre réussite = notre réussite.
   </div>
 
-  <div class="section">
-    <h2>II. Stratégie optimisée</h2>
-    <p>Budget 40 000 € TTC pour garantir DPE D. Sélection des travaux essentiels à fort impact énergétique. Performance garantie contractuellement.</p>
+  <h2>II. Diagnostic passoire G</h2>
+  <p>DPE G (328 kWh EP/m²/an). Facture 4 130 à 5 620 €/an (moyenne 4 875 €/an – fioul + électrique). Chaudière fioul ancienne (rendement 60 %), chauffe-eau électrique, aucune VMC. Combles déjà isolés (audit : vérification + complément si R&lt;7). Objectif : DPE D selon Scénario 2 LOIRE FOREZ.</p>
+
+  <h2>III. ITI murs 80 m²</h2>
+  <p>Isolation Thermique Intérieure – Laine de roche 120 mm + ossature métallique + Placo BA13 + pare-vapeur. R=3,5 m².K/W. Perte surface habitable ~10 cm par mur. ITI choisie (vs ITE) pour optimiser budget. Réseau partenaires RGE. Montant : 7 583 € HT (8 000 € TTC).</p>
+
+  <h2>IV. Combles 40 m² – Vérification + complément</h2>
+  <p>Audit LOIRE FOREZ : isolation récente suffisante. Vérification état + complément ciblé laine soufflée 280 mm min. (R=7) uniquement si besoin. Réseau partenaires RGE. Montant : 2 370 € HT (2 500 € TTC).</p>
+
+  <h2>V. 6 Fenêtres PVC double vitrage</h2>
+  <p>Uw=1,3 W/m².K, double vitrage argon. Pose + dépose anciennes + évacuation. Réseau partenaires RGE. Montant : 5 687 € HT (6 000 € TTC). Fenêtres seules (sans volets) pour optimiser budget.</p>
+
+  <h2>VI. VMC simple flux hygroréglable</h2>
+  <p>Aucune VMC actuellement (ventilation naturelle). Réseau gaines + bouches hygroréglables. Débit adapté ~110 m². Obligatoire pour qualité air + performance. Réseau partenaires RGE. Montant : 1 422 € HT (1 500 € TTC).</p>
+
+  <h2>VII. Désembouage circuit chauffage (poste 5) – OBLIGATOIRE</h2>
+  <p>Désembouage complet (radiateurs + tuyauterie), rinçage haute pression, traitement anti-corrosion, mise en pression, contrôle étanchéité, certificat de désembouage. <strong>OBLIGATOIRE avant installation PAC air/eau</strong> : garantie constructeur refusée sans désembouage ; performance optimale (boues = perte 15-30 %) ; conformité RGE ; protection échangeur PAC. ECO SYSTÈME DURABLE. Montant : 758 € HT (800 € TTC).</p>
+  <div class="critical">
+    <strong>🔴 CRITIQUE</strong> – Sans désembouage : garantie PAC refusée + performance dégradée.
   </div>
 
-  <div class="section">
-    <h2>III. ITI murs 80 m²</h2>
-    <p>R=3,5 m².K/W. Laine de roche 120 mm + ossature métallique + Placo BA13. Pare-vapeur. Perte surface ~10 cm par mur. Réseau partenaires RGE. Montant : 7 583 € HT (8 000 € TTC).</p>
+  <h2>VIII. PAC air/eau 6-8 kW – ECO SYSTÈME DURABLE</h2>
+  <p><strong>PAC air/eau</strong> (et non air/air) – Puissance 6-8 kW (dimensionnement POST-ISOLATION selon surface réelle et MAR). COP≥4,0, SCOP≥3,2 (classe A++). Moyenne température (compatible radiateurs existants 55-70 °C). Chauffage principal (remplace chaudière fioul). Économie estimée ~2 500 €/an vs fioul. <strong>Éligible MaPrimeRénov' VIOLET 3 000 €.</strong> Montant : 11 374 € HT (12 000 € TTC).</p>
+
+  <h2>IX. Dépose chaudière fioul + cuve</h2>
+  <p>Dépose chaudière fioul, dégazage cuve, évacuation (transport + recyclage), certificat de dépose obligatoire, neutralisation circuit fioul, mise en sécurité. Certificat obligatoire pour aides MaPrimeRénov'. Artisan agréé. Montant : 1 896 € HT (2 000 € TTC).</p>
+
+  <h2>X. Ballon thermodynamique 200 L</h2>
+  <p>COP≥3,5. Capacité 200 L. Remplace chauffe-eau électrique ancien. Économie ECS ~300 €/an. ECO SYSTÈME DURABLE. Montant : 2 085 € HT (2 200 € TTC).</p>
+
+  <h2>XI. MAR (Mon Accompagnateur Rénov') – Poste 9</h2>
+  <p>MAR externe certifié obligatoire. Finalisation dossier sur base audit LOIRE FOREZ (24/IMO/1748_p01), vérification RFR (VIOLET 50 %, RFR 24 722 €), dimensionnements finaux (PAC 6-8 kW), calcul aides 2026, dépôt ANAH, suivi administratif, validation conformité audit. Montant : 2 370 € HT (2 500 € TTC). ANAH 60 % (plafonné 1 500 €). <strong>Reste à charge client : 1 000 € TTC.</strong></p>
+
+  <h2>XII. Coordination Travaux TCE – Poste 10</h2>
+  <p>ENERGIA-CONSEIL IA® (Contractant Général TCE). Sélection artisans RGE (ITI, Combles, Menuiseries, VMC), coordination multi-artisans, planning 8-10 semaines, suivi chantier hebdomadaire, réceptions, contrôle qualité RGE, DPE post-travaux, assistance 6 mois. <strong>Garantie contractuelle : DPE D minimum. Engagement « ÇA PASSE OU ÇA CASSE » : si DPE D non atteint, travaux complémentaires GRATUITS jusqu'à obtention classe D.</strong> Non remboursé. Montant : 4 502 € HT (4 750 € TTC).</p>
+
+  <h2>XIII. Dimensionnements</h2>
+  <div class="formula">
+    ITI : R = 3,5 (120 mm laine roche). Combles : 280 mm soufflage → R = 7 (complément si besoin).<br>
+    PAC air/eau : 6-8 kW (post-isolation, 110 m² zone H1 – à confirmer MAR). Ballon : 200 L, COP≥3,5. VMC : débit 110 m².
   </div>
 
-  <div class="section">
-    <h2>IV. Combles 40 m²</h2>
-    <p>Vérification isolation existante + complément si besoin. Audit LOIRE FOREZ : « isolation récente et suffisante ». Laine de roche soufflée 280 mm, R=7 minimum. Montant : 2 370 € HT (2 500 € TTC).</p>
+  <h2>XIV. Planning 8-10 semaines</h2>
+  <table>
+    <tr><th>Phase</th><th>Durée</th><th>Détail</th></tr>
+    <tr><td>Préparation / ANAH</td><td>2 sem</td><td>MAR finalisation dossier, dépôt ANAH – AVANT démarrage</td></tr>
+    <tr><td>ITI murs 80 m²</td><td>2-3 sem</td><td>Réseau RGE</td></tr>
+    <tr><td>Combles 40 m²</td><td>3-5 j</td><td>Réseau RGE – Vérif. + complément</td></tr>
+    <tr><td>6 Fenêtres PVC</td><td>1-2 sem</td><td>Réseau RGE</td></tr>
+    <tr><td>VMC</td><td>3-5 j</td><td>Réseau RGE</td></tr>
+    <tr><td>Désembouage</td><td>1 j</td><td>ECO SYSTÈME DURABLE</td></tr>
+    <tr><td>PAC 6-8 kW + Ballon 200 L</td><td>~2 sem</td><td>ECO SYSTÈME DURABLE</td></tr>
+    <tr><td>Dépose fioul + cuve</td><td>1-2 j</td><td>Artisan agréé</td></tr>
+    <tr><td>Réception + DPE post-travaux</td><td>1 sem</td><td>Contrôle RGE, DPE, garantie DPE D</td></tr>
+  </table>
+  <p><strong>Ordre impératif :</strong> Isolation (ITI + Combles) → Menuiseries → VMC → Désembouage → PAC + Ballon + Dépose fioul. Coordination : Sylvain LEMBELEMBE (ENERGIA-CONSEIL IA®).</p>
+
+  <h2>XV. Aides 2026 et financement – Profil VIOLET 50 %</h2>
+  <table>
+    <tr><td>Total travaux TTC</td><td class="montant">42 250 €</td></tr>
+    <tr><td>MaPrimeRénov' Parcours (VIOLET 50 %)</td><td class="montant">~18 839 €</td></tr>
+    <tr><td>Aide Région AURA (à confirmer)</td><td class="montant">1 500 €</td></tr>
+    <tr><td>MAR remboursé (60 %, plafonné 1 500 €)</td><td class="montant">1 500 €</td></tr>
+    <tr class="total-row"><td>TOTAL AIDES</td><td class="montant">21 839 €</td></tr>
+    <tr class="total-row"><td>RESTE À CHARGE</td><td class="montant">20 411 €</td></tr>
+    <tr><td>Éco-PTZ 15 ans (0 %)</td><td class="montant">113 €/mois</td></tr>
+    <tr><td>Économies annuelles</td><td class="montant">2 800 €/an (233 €/mois) – Facture -85 %</td></tr>
+    <tr><td><strong>Gain net mensuel</strong></td><td class="montant"><strong>+120 €/mois</strong></td></tr>
+    <tr><td>ROI</td><td class="montant">6,5 ans</td></tr>
+    <tr><td>Plus-value immobilière estimée</td><td class="montant">+30 000 €</td></tr>
+  </table>
+  <div class="warning">
+    <strong>Projet 100 % autofinancé dès le 1<sup>er</sup> mois</strong> – Gain net +120 €/mois.
   </div>
 
-  <div class="section">
-    <h2>V. 6 Fenêtres PVC double vitrage</h2>
-    <p>Uw=1,3 W/m².K. Double vitrage argon. Pose + dépose + évacuation. Fenêtres prioritaires. Réseau partenaires RGE. Montant : 5 687 € HT (6 000 € TTC).</p>
+  <h2>XVI. Garantie DPE D minimum – « ÇA PASSE OU ÇA CASSE »</h2>
+  <p>Coordination ENERGIA-CONSEIL IA® (Sylvain LEMBELEMBE). <strong>Garantie contractuelle : atteinte DPE classe D minimum</strong> après réalisation conforme des travaux. <strong>Engagement « ÇA PASSE OU ÇA CASSE » :</strong> si le DPE D n'est pas atteint, travaux complémentaires nécessaires réalisés <strong>GRATUITEMENT</strong> jusqu'à obtention de la classe D. Sans surcoût pour le client.</p>
+
+  <h2>XVII. Artisans RGE</h2>
+  <table>
+    <tr><th>Poste</th><th>Entreprise</th><th>Contact</th></tr>
+    <tr><td>ITI 80 m² / Combles 40 m² / 6 Fenêtres / VMC</td><td>Réseau partenaires RGE</td><td>Sélection Sylvain LEMBELEMBE</td></tr>
+    <tr><td>Désembouage + PAC 6-8 kW + Ballon 200 L</td><td>ECO SYSTÈME DURABLE</td><td>01 70 93 97 15 – RGE QualiPAC</td></tr>
+    <tr><td>Dépose fioul + cuve</td><td>Artisan agréé</td><td>[À désigner] – Certificat obligatoire</td></tr>
+    <tr><td>MAR (poste 9)</td><td>MAR externe certifié</td><td>2 500 € (1 500 € ANAH, reste 1 000 €)</td></tr>
+    <tr><td>Coordination (poste 10)</td><td>ENERGIA-CONSEIL IA®</td><td>Garantie DPE D + « ÇA PASSE OU ÇA CASSE » – 4 750 € TTC</td></tr>
+  </table>
+
+  <h2>XVIII. Contacts projet</h2>
+  <div class="contacts-box">
+    <p><strong>ENERGIA CONSEIL</strong> – Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</p>
+    <p><strong>Commercial</strong> – DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</p>
+    <p><strong>Désembouage + PAC + Ballon</strong> – ECO SYSTÈME DURABLE – 01 70 93 97 15</p>
+    <p><strong>ITI / Combles / Menuiseries / VMC</strong> – Réseau partenaires RGE (sélection Sylvain LEMBELEMBE)</p>
+    <p><strong>Dépose fioul + cuve</strong> – Artisan agréé</p>
+    <p><strong>MAR</strong> – MAR externe – 2 500 € (1 500 € ANAH, reste 1 000 €)</p>
+    <p><strong>Audit LOIRE FOREZ</strong> – Dossier 24/IMO/1748_p01</p>
+    <p><strong>Courtier</strong> – FABIEN – VIVONS COURTIER – 06 71 19 96 45</p>
   </div>
 
-  <div class="section">
-    <h2>VI. VMC simple flux hygroréglable</h2>
-    <p>Débit adapté ~110 m². Réseau gaines + bouches hygro. Installation complète. Aucune VMC actuellement. Réseau partenaires RGE. Montant : 1 422 € HT (1 500 € TTC).</p>
+  <div class="footer">
+    <p><strong>ENERGIA CONSEIL</strong> (ENERGIA-CONSEIL IA®) – 16 Rue Cuvier, 69006 LYON 6EME</p>
+    <p>SIRET 94181942700019 – RCS Lyon 941819427 – N° TVA FR01941819427 – APE 7112B – SASU Capital 100 €</p>
+    <p>Contact : Sylvain LEMBELEMBE – Téléphone : 06 10 59 68 98 – Email : contact@energia-conseil.com</p>
+    <p>12 mars 2026</p>
   </div>
-
-  <div class="section">
-    <h2>VII. PAC air/eau 6-8 kW – ECO SYSTÈME DURABLE</h2>
-    <p>COP≥4, SCOP≥3,2. Puissance 6-8 kW – dimensionnement POST-ISOLATION. Moyenne température (compatible radiateurs existants). Remplace chaudière fioul. Module intérieur + extérieur, circuit hydraulique, NF C15-100. Économie estimée : ~2 500 €/an.</p>
-    <p><strong>Artisan :</strong> ECO SYSTÈME DURABLE – 01 70 93 97 15 – RGE QualiPAC. Montant : 11 374 € HT (12 000 € TTC).</p>
-  </div>
-
-  <div class="section">
-    <h2>VIII. Ballon thermodynamique 200 L</h2>
-    <p>COP≥3,5. Remplace chauffe-eau électrique. Économie eau chaude ~300 €/an. Montant : 2 085 € HT (2 200 € TTC).</p>
-  </div>
-
-  <div class="section">
-    <h2>IX. Dépose fioul + cuve</h2>
-    <p>Dépose chaudière fioul. Dégazage et évacuation cuve. Certificat de dépose. Neutralisation circuit. Artisan agréé. Montant : 1 896 € HT (2 000 € TTC).</p>
-  </div>
-
-  <div class="section">
-    <h2>X. Dimensionnements précis</h2>
-    <p class="formula">ITI : R = e/λ → 120 mm laine roche (λ ≈ 0,035) → R ≈ 3,5. Combles : 280 mm → R = 7. Menuiseries : Uw = 1,3 W/(m².K). PAC : Puissance = 110 m² × 0,05 kW/m² (post-isolation) × 1,15 = 6,3 kW → PAC 6-8 kW. SCOP ≥ 3,2.</p>
-  </div>
-
-  <div class="section">
-    <h2>XI. Planning 8-10 semaines</h2>
-    <table>
-      <tr><th>Phase</th><th>Durée</th><th>Détail</th></tr>
-      <tr><td>Préparation / ANAH</td><td>2 sem</td><td>MAR externe, dépôt ANAH – Dossier avant démarrage</td></tr>
-      <tr><td>ITI murs 80 m²</td><td>2-3 sem</td><td>Ossature, laine roche, Placo</td></tr>
-      <tr><td>Combles</td><td>~3-5 j</td><td>Vérification + complément si besoin</td></tr>
-      <tr><td>6 Fenêtres</td><td>1-2 sem</td><td>Double vitrage Uw=1,3</td></tr>
-      <tr><td>VMC simple flux</td><td>3-5 j</td><td>Gaines + bouches</td></tr>
-      <tr><td>Désembouage</td><td>1 j</td><td>Obligatoire avant PAC</td></tr>
-      <tr><td>PAC + Ballon + Dépose fioul</td><td>~2 sem</td><td>ECO SYSTÈME DURABLE</td></tr>
-      <tr><td>Réception</td><td>1 sem</td><td>Contrôle RGE, DPE post-travaux, PV</td></tr>
-    </table>
-    <p>Ordre impératif : Isolation → Menuiseries → VMC → PAC + Ballon. Coordination : Sylvain LEMBELEMBE (ENERGIA-CONSEIL IA®). Garantie DPE D.</p>
-  </div>
-
-  <div class="section">
-    <h2>XII. Aides 2026 et financement</h2>
-    <table>
-      <tr><td>Total travaux TTC</td><td class="montant">40 000 €</td></tr>
-      <tr><td>MaPrimeRénov' Parcours (VIOLET 50 %)</td><td class="montant">18 839 €</td></tr>
-      <tr><td>Aide Région AURA</td><td class="montant">1 500 €</td></tr>
-      <tr><td>MAR remboursé (60 %)</td><td class="montant">1 500 €</td></tr>
-      <tr style="font-weight: bold;"><td>TOTAL AIDES</td><td class="montant">21 839 €</td></tr>
-      <tr style="font-weight: bold; background: #ecfdf5;"><td>RESTE À CHARGE</td><td class="montant">18 161 €</td></tr>
-      <tr><td>Éco-PTZ 15 ans (0 %)</td><td class="montant">101 €/mois</td></tr>
-      <tr><td>Économies annuelles</td><td class="montant">2 800 €/an (233 €/mois)</td></tr>
-      <tr><td><strong>Gain net</strong></td><td class="montant"><strong>+132 €/mois</strong> 🔥</td></tr>
-      <tr><td>ROI</td><td class="montant">6,5 ans</td></tr>
-      <tr><td>Plus-value estimée</td><td class="montant">+30 000 €</td></tr>
-    </table>
-  </div>
-
-  <div class="box-vert">
-    <strong>🔥 GARANTIE ENERGIA-CONSEIL IA® « ÇA PASSE OU ÇA CASSE »</strong><br>
-    Nous garantissons l'atteinte du DPE classe D après travaux. Si le DPE D n'est pas atteint après réalisation conforme de tous les travaux, nous réalisons les travaux complémentaires nécessaires GRATUITEMENT jusqu'à atteinte de la classe D. Engagement ferme et écrit. Votre réussite = notre réussite !
-  </div>
-
-  <div class="disclaimer-red">
-    <strong>⚠️ AIDES 2026</strong> : Les montants indiqués correspondent aux barèmes en vigueur au 01/01/2026 avec le RFR officiel de 24 722 € (profil VIOLET 50 %). Le bonus sortie de passoire thermique a été supprimé en septembre 2025. Les CEE ne sont pas cumulables avec MaPrimeRénov' Parcours Accompagné.
-  </div>
-
-  <div class="section">
-    <h2>XIII. Artisans RGE</h2>
-    <table>
-      <tr><th>Poste</th><th>Entreprise</th><th>Contact</th></tr>
-      <tr><td>ITI / Combles / Menuiseries / VMC</td><td>Réseau partenaires RGE</td><td>Sélection Sylvain LEMBELEMBE</td></tr>
-      <tr><td>PAC + Ballon + Désembouage</td><td>ECO SYSTÈME DURABLE</td><td>01 70 93 97 15 – RGE QualiPAC</td></tr>
-      <tr><td>Dépose fioul + cuve</td><td>Artisan agréé</td><td>Certificat obligatoire</td></tr>
-      <tr><td>MAR</td><td>MAR externe obligatoire</td><td>2 500 € (1 500 € pris en charge, reste 1 000 €)</td></tr>
-    </table>
-  </div>
-
-  <div class="section">
-    <h2>XIV. Garantie Performance DPE D – Engagement contractuel</h2>
-    <p>Coordination ENERGIA-CONSEIL IA® (Sylvain LEMBELEMBE). Garantie contractuelle écrite : atteinte de la classe D au DPE après réalisation conforme des travaux. En cas de non-atteinte : travaux complémentaires sans surcoût jusqu'à obtention de la performance garantie.</p>
-  </div>
-
-  <div class="section">
-    <h2>XV. Contacts projet</h2>
-    <div class="contacts-box">
-      <p><strong>ENERGIA CONSEIL</strong> – Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</p>
-      <p><strong>Commercial</strong> – DAMIEN – 06 72 68 09 68</p>
-      <p><strong>PAC + Ballon</strong> – ECO SYSTÈME DURABLE – 01 70 93 97 15</p>
-      <p><strong>MAR</strong> – MAR externe – 2 500 € (1 500 € ANAH, reste 1 000 €)</p>
-      <p><strong>Courtier</strong> – FABIEN – VIVONS COURTIER – 06 71 19 96 45</p>
-    </div>
-  </div>
-
-  <p style="margin-top: 20px; font-size: 8pt; color: #6b7280;">ENERGIA-CONSEIL IA® – 16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – 12 mars 2026</p>
 
 </body>
 </html>
