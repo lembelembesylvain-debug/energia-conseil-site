@@ -3,152 +3,167 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Audit Énergétique – M. GRANGE Mathias MONTCHAL | ENERGIA-CONSEIL IA®</title>
+  <title>Audit Énergétique – GRANGE Mathias MONTCHAL | ENERGIA-CONSEIL IA®</title>
   <style>
-    @media print { body { margin: 0; } .page-break { page-break-before: always; } }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; font-size: 10pt; line-height: 1.5; color: #1f2937; max-width: 210mm; margin: 0 auto; padding: 15px 20px; }
-    .header { border-bottom: 2px solid #10b981; padding-bottom: 12px; margin-bottom: 20px; }
-    .logo { font-size: 18pt; font-weight: bold; color: #10b981; }
-    .tagline { font-size: 9pt; color: #6b7280; margin-top: 4px; }
-    .company { font-size: 9pt; color: #6b7280; margin-top: 6px; }
-    h1 { font-size: 16pt; color: #10b981; margin: 20px 0 12px; border-bottom: 2px solid #10b981; padding-bottom: 6px; }
-    h2 { font-size: 12pt; color: #3b82f6; margin: 16px 0 8px; }
-    h3 { font-size: 11pt; color: #374151; margin: 12px 0 6px; }
-    p { margin: 6px 0; }
-    table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9pt; }
-    th, td { border: 1px solid #d1d5db; padding: 8px 10px; text-align: left; }
-    th { background: #ecfdf5; color: #047857; font-weight: bold; }
-    .montant { text-align: right; font-weight: 600; }
-    .highlight { background: #ecfdf5; padding: 12px; border-radius: 6px; border-left: 4px solid #10b981; margin: 12px 0; }
-    .encadre-pise { background: #fef9c3; border: 2px solid #f59e0b; padding: 12px; margin: 12px 0; border-radius: 4px; font-size: 9pt; }
-    .contacts-box { background: #f0f9ff; border: 1px solid #3b82f6; border-radius: 6px; padding: 14px; margin: 16px 0; }
-    .disclaimer { font-size: 8pt; background: #fef2f2; border: 2px solid #ef4444; padding: 10px; margin: 12px 0; border-radius: 4px; color: #991b1b; }
-    ul { margin: 6px 0 6px 20px; }
-    .section { margin-bottom: 24px; }
+    body { font-family: Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 20px; color: #333; line-height: 1.6; font-size: 14px; }
+    .header { background: #1e3a5f; color: #fff; padding: 20px; text-align: center; margin-bottom: 16px; }
+    .header h1 { margin: 0; font-size: 26px; }
+    .header p { margin: 4px 0; font-size: 13px; opacity: 0.95; }
+    h1 { color: #1e3a5f; font-size: 22px; margin-top: 22px; margin-bottom: 8px; }
+    h2 { color: #ff6b35; font-size: 18px; margin-top: 20px; margin-bottom: 8px; border-bottom: 2px solid #ff6b35; padding-bottom: 4px; }
+    h3 { color: #1e3a5f; font-size: 16px; margin-top: 16px; margin-bottom: 6px; }
+    p { margin: 4px 0 8px; }
+    ul { margin: 6px 0 10px 20px; }
+    li { margin-bottom: 4px; }
+    table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+    th { background: #1e3a5f; color: #fff; padding: 9px 7px; text-align: left; font-weight: bold; }
+    td { border: 1px solid #ddd; padding: 7px; vertical-align: top; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .montant, .num { text-align: right; white-space: nowrap; }
+    .total-row { background: #1e3a5f; color: #fff; font-weight: bold; }
+    .ref-box { background: #f0f4f8; border-left: 5px solid #1e3a5f; padding: 12px 14px; margin: 14px 0; font-size: 13px; }
+    .info-box { background: #d4edda; border-left: 5px solid #28a745; padding: 12px 14px; margin: 14px 0; }
+    .warning-box { background: #fff3cd; border-left: 5px solid #ff6b35; padding: 12px 14px; margin: 14px 0; }
+    .critical-box { background: #f8d7da; border-left: 7px solid #dc3545; padding: 14px 16px; margin: 16px 0; }
+    .critical-box strong { color: #b00020; }
+    .contacts-box { background: #f0f4f8; border: 1px solid #1e3a5f; padding: 14px; margin: 16px 0; font-size: 13px; }
+    .contacts-box p { margin: 3px 0; }
+    .small { font-size: 12px; color: #555; }
+    .footer { margin-top: 28px; padding-top: 16px; border-top: 2px solid #1e3a5f; font-size: 12px; color: #666; text-align: center; }
+    @media (max-width: 900px) {
+      body { padding: 15px; }
+      .header h1 { font-size: 22px; }
+      table { font-size: 12px; }
+      th, td { padding: 6px; }
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <div class="logo">⚡ ENERGIA-CONSEIL IA®</div>
-    <div class="tagline">Audit Énergétique Intelligence Artificielle</div>
-    <div class="company">16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €<br>Contact : Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</div>
+    <h1>⚡ ENERGIA-CONSEIL IA® – AUDIT ÉNERGÉTIQUE 2026</h1>
+    <p>Audit Énergétique Intelligence Artificielle – Marque déposée INPI – Bureau d'études &amp; AMO</p>
+    <p>16 Rue Cuvier, 69006 Lyon – 06 10 59 68 98 – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</p>
   </div>
 
-  <h1>AUDIT ÉNERGÉTIQUE – RÉNOVATION GLOBALE MAISON PISÉ MONTCHAL</h1>
-  <p><strong>Client :</strong> M. GRANGE Mathias | <strong>Date :</strong> 12 mars 2026</p>
+  <h1>AUDIT ÉNERGÉTIQUE – RÉNOVATION GLOBALE (5 SPLITS AIR/AIR)</h1>
+  <p><strong>Client :</strong> M. GRANGE Mathias | <strong>Adresse :</strong> 569 Chemin des Places, 42360 MONTCHAL | <strong>Date :</strong> 16 mars 2026</p>
 
-  <div class="section">
-    <h2>1. Informations client</h2>
-    <table>
-      <tr><th>Élément</th><th>Valeur</th></tr>
-      <tr><td>Nom</td><td>GRANGE Mathias</td></tr>
-      <tr><td>Adresse</td><td>569 Chemin des Places, 42360 MONTCHAL</td></tr>
-      <tr><td>Téléphone</td><td>06 67 52 88 90</td></tr>
-      <tr><td>Profil MaPrimeRénov'</td><td><strong>JAUNE (Modestes – 70 %)</strong> – RFR officiel 17 598 € (1 personne, Hors IDF)</td></tr>
-      <tr><td>Parts fiscales</td><td>1,00 – Impôt 2024 : 0 € (non imposable)</td></tr>
-      <tr><td>Logement</td><td>Maison 101 m² (1948-1974) – Murs pisé/pierre 50 cm</td></tr>
-      <tr><td>Zone climatique</td><td>H2c – Sud-Est altitude 587 m</td></tr>
-    </table>
+  <div class="ref-box">
+    <strong>DPE de référence :</strong> 2442E2184253M (18/06/2024) – Classe G (400 kWh EP/m²/an).<br>
+    <strong>Spécificité PISÉ :</strong> Construction murs pisé/pierre 50 cm (patrimoine). <strong>ITI OBLIGATOIRE</strong> (ITE impossible – parements pierre patrimoine selon DPE). Matériaux <strong>PERSPIRANTS</strong> obligatoires : laine de roche + pare-vapeur <strong>hygrovariable</strong> (adapté pisé). Enduits chaux (pas ciment).
   </div>
 
-  <div class="encadre-pise">
-    <h3>🏛️ Spécificité PISÉ – Contrainte patrimoine</h3>
-    <p>Maison patrimoine en pisé/pierre 50 cm (matériau respirant, régulation humidité). <strong>ITI OBLIGATOIRE</strong> (ITE impossible selon DPE – parements pierre). Matériaux <strong>PERSPIRANTS</strong> requis : laine de roche + pare-vapeur hygrovariable (pas pare-vapeur classique). Ossature + Placo BA13. Enduits chaux (pas ciment). Préservation du patrimoine ancien. Perte surface habitable : ~3-5 m².</p>
+  <h2>1. Informations client</h2>
+  <table>
+    <tr><th>Élément</th><th>Valeur</th></tr>
+    <tr><td>Nom</td><td>M. GRANGE Mathias</td></tr>
+    <tr><td>Adresse</td><td>569 Chemin des Places, 42360 MONTCHAL</td></tr>
+    <tr><td>Téléphone</td><td>06 67 52 88 90</td></tr>
+    <tr><td>Email / N° fiscal</td><td>[À compléter]</td></tr>
+    <tr><td>Revenu Fiscal Référence (RFR)</td><td>17 598 €</td></tr>
+    <tr><td>Profil MaPrimeRénov'</td><td><strong>JAUNE (60 %) – Revenus modestes – 1 personne – Hors IDF</strong></td></tr>
+    <tr><td>Parts fiscales</td><td>1,00</td></tr>
+  </table>
+
+  <h2>2. Logement</h2>
+  <table>
+    <tr><th>Élément</th><th>Valeur</th></tr>
+    <tr><td>Type</td><td>Maison individuelle</td></tr>
+    <tr><td>Surface habitable</td><td>101 m²</td></tr>
+    <tr><td>Année de construction</td><td>1948-1974</td></tr>
+    <tr><td>Construction</td><td><strong>Murs PISÉ / Pierre 50 cm (patrimoine)</strong></td></tr>
+    <tr><td>Département / Ville</td><td>Loire (42) – MONTCHAL</td></tr>
+    <tr><td>Zone climatique</td><td>H2c – Altitude 587 m</td></tr>
+  </table>
+
+  <h2>3. Diagnostic actuel</h2>
+  <table>
+    <tr><th>Élément</th><th>Valeur</th></tr>
+    <tr><td>Classe DPE</td><td><strong>G (Passoire thermique)</strong></td></tr>
+    <tr><td>Référence DPE</td><td>2442E2184253M (18/06/2024)</td></tr>
+    <tr><td>Consommation</td><td>400 kWh EP/m²/an</td></tr>
+    <tr><td>Émissions CO₂</td><td>125 kg/m²/an</td></tr>
+    <tr><td>Facture annuelle</td><td>~3 500 €/an (fioul 3 000 € + électrique 500 €)</td></tr>
+    <tr><td>Chauffage actuel</td><td>Chaudière fioul &gt;30 ans + Plafond rayonnant électrique</td></tr>
+    <tr><td>ECS actuel</td><td>[À préciser]</td></tr>
+    <tr><td>Ventilation</td><td>Aucune (ventilation naturelle)</td></tr>
+  </table>
+
+  <h2>4. Objectif et garantie</h2>
+  <p>
+    <strong>Classe DPE visée :</strong> D/C (gain +3 à 4 classes).<br>
+    <strong>Garantie contractuelle ENERGIA-CONSEIL IA® :</strong> DPE D minimum garanti – travaux complémentaires gratuits si non atteint.
+  </p>
+
+  <h2>5. Travaux recommandés (11 postes – Spécificité Pisé)</h2>
+  <table>
+    <thead>
+      <tr><th>N°</th><th>Désignation</th><th>Points clés / Avertissements</th><th class="montant">Montant TTC</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Combles perdus 60 m²</td><td>Laine roche soufflée 300 mm, R = 7. ECO SYSTÈME DURABLE.</td><td class="montant">2 638 €</td></tr>
+      <tr><td>2</td><td>ITI murs pisé 100 m²</td><td>Laine roche 120 mm + ossature + Placo BA13 + <strong>Pare-vapeur HYGROVARIABLE</strong> (adapté pisé). R = 3,7. Matériaux perspirants obligatoires. Perte surface ~12-15 cm par mur. ECO SYSTÈME DURABLE.</td><td class="montant">8 440 €</td></tr>
+      <tr><td>3</td><td>Porte d'entrée PVC 0,92×2,20 m</td><td>Ud = 1,3, A2P, serrure 3 points. ECO SYSTÈME DURABLE.</td><td class="montant">2 638 €</td></tr>
+      <tr><td>4</td><td>5 Fenêtres PVC 1×1,50 m</td><td>Uw = 1,3, double vitrage argon. ECO SYSTÈME DURABLE.</td><td class="montant">6 330 €</td></tr>
+      <tr><td>5</td><td>5 Volets solaires motorisés</td><td>Aluminium, motorisation solaire autonome. <strong>NON ÉLIGIBLES</strong> aides MPR (confort). 3 693 € financés hors aides. ECO SYSTÈME DURABLE.</td><td class="montant">3 693 €</td></tr>
+      <tr><td>6</td><td>Fenêtre SDB PVC 0,70×1 m</td><td>Uw = 1,3. ECO SYSTÈME DURABLE.</td><td class="montant">633 €</td></tr>
+      <tr><td>7</td><td>VMC simple flux hygroréglable</td><td>Débit adapté 101 m². ECO SYSTÈME DURABLE.</td><td class="montant">1 583 €</td></tr>
+      <tr><td>8</td><td>5 Splits PAC air/air 12 kW</td><td>Multi-split réversible (chauffage + clim). COP ≥ 4,0 ; SCOP ≥ 3,8. <strong>NON ÉLIGIBLE MaPrimeRénov' (0 €)</strong>. ECO SYSTÈME DURABLE.</td><td class="montant">12 000 €</td></tr>
+      <tr><td>9</td><td>Ballon thermodynamique 200 L</td><td>COP ≥ 3,5, classe A. ECO SYSTÈME DURABLE.</td><td class="montant">2 321 €</td></tr>
+      <tr><td>10</td><td>MAR – Mon Accompagnateur Rénov'</td><td>Audit réglementaire, calcul aides 2026, dépôt ANAH, garantie DPE D. Reste client 900 €. MAR externe certifié.</td><td class="montant">2 500 €</td></tr>
+      <tr><td>11</td><td>Coordination Travaux TCE – ENERGIA-CONSEIL IA®</td><td>Coordination artisan unique (ECO SYSTÈME), planning 8–10 sem, suivi chantier, DPE post-travaux. <strong>Garantie DPE D minimum</strong>. Non remboursé.</td><td class="montant">6 724 €</td></tr>
+      <tr class="total-row"><td colspan="3">TOTAL TTC</td><td class="montant"><strong>48 500 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="critical-box">
+    <strong>🔴 PAC AIR/AIR NON ÉLIGIBLE AUX AIDES MaPrimeRénov'</strong><br><br>
+    Les pompes à chaleur air/air (splits, climatisation réversible) ne sont <strong>PAS</strong> éligibles aux aides MaPrimeRénov'. Seules les PAC air/eau le sont. Ce poste (12 000 € TTC) = <strong>0 € d'aides</strong> – financé hors aides.
+  </div>
+  <div class="warning-box">
+    <strong>⚠️ Volets solaires NON ÉLIGIBLES</strong> – Les 5 volets roulants solaires motorisés (3 693 € TTC) ne sont pas éligibles aux aides MaPrimeRénov' (poste confort). Financés hors aides.
   </div>
 
-  <div class="section">
-    <h2>2. Diagnostic actuel</h2>
-    <table>
-      <tr><td><strong>DPE actuel</strong></td><td>G – 400 kWh/m²/an (réf. 2442E2184253M – 18/06/2024)</td></tr>
-      <tr><td>Chauffage</td><td>Fioul</td></tr>
-      <tr><td>Facture énergétique annuelle</td><td>3 500 €/an (fioul 3 000 € + électricité 500 €)</td></tr>
-    </table>
+  <h2>6. Synthèse aides 2026</h2>
+  <p class="small"><strong>Aides financières 2026 (estimation à titre indicatif).</strong> Aides à valider selon revenus réels du client. Montants définitifs après instruction ANAH.</p>
+  <table>
+    <tr><td>MaPrimeRénov' Parcours (JAUNE 60 %) – 60 % × 24 583 € éligible</td><td class="montant">14 750 €</td></tr>
+    <tr><td>Aide Région Auvergne-Rhône-Alpes</td><td class="montant">2 000 €</td></tr>
+    <tr><td>MAR remboursé (80 % JAUNE, plafonné 2 000 €)</td><td class="montant">1 600 €</td></tr>
+    <tr class="total-row"><td>TOTAL AIDES</td><td class="montant"><strong>18 350 €</strong></td></tr>
+    <tr class="total-row"><td>RESTE À CHARGE</td><td class="montant"><strong>30 150 €</strong></td></tr>
+  </table>
+  <p>Taux de prise en charge : 37,8 %. Travaux éligibles MPR : Combles 60 m² + ITI pisé 100 m² + Porte + 5 Fenêtres + Fenêtre SDB + VMC + Ballon 200 L (PAC air/air et volets exclus).</p>
+
+  <h2>7. Financement et bilan</h2>
+  <table>
+    <tr><td>Éco-PTZ 15 ans sur 30 150 €</td><td class="montant">167 €/mois</td></tr>
+    <tr><td>Économies énergie (3 500 → 850 €/an)</td><td class="montant">221 €/mois</td></tr>
+    <tr><td><strong>GAIN NET MENSUEL</strong></td><td class="montant"><strong>+54 €/mois</strong></td></tr>
+  </table>
+  <div class="info-box">
+    <strong>Projet 100 % autofinancé dès le 1er mois.</strong> Facture divisée par 4 (-76 %). ROI ~11,4 ans. Plus-value immobilière estimée +25 000 € (DPE G → D/C). Préservation patrimoine pisé.
+  </div>
+  <p>Courtier : <strong>FABIEN – VIVONS COURTIER – 06 71 19 96 45</strong>.</p>
+
+  <h2>8. Artisan unique</h2>
+  <p><strong>ECO SYSTÈME DURABLE</strong> (01 70 93 97 15) réalise l'intégralité des travaux : Combles, ITI pisé, Porte, 5 Fenêtres, 5 Volets solaires, Fenêtre SDB, VMC, 5 Splits PAC air/air, Ballon 200 L. RGE Multi-spécialités (Isolation, QualiPAC, Menuiseries).</p>
+
+  <h2>9. Contacts projet (5 personnes)</h2>
+  <div class="contacts-box">
+    <p><strong>AMO / Coordination :</strong> Sylvain LEMBELEMBE – ENERGIA‑CONSEIL IA® – 06 10 59 68 98 – contact@energia-conseil.com</p>
+    <p><strong>Conseiller commercial :</strong> DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</p>
+    <p><strong>Courtier financement :</strong> FABIEN – VIVONS COURTIER – 06 71 19 96 45</p>
+    <p><strong>Juriste :</strong> Julia – Juriste ENERGIA‑CONSEIL IA®</p>
+    <p><strong>MAR :</strong> MAR externe certifié – à désigner (France Rénov')</p>
   </div>
 
-  <div class="section">
-    <h2>3. Objectif</h2>
-    <p><strong>DPE cible : D minimum, viser C ou B</strong> (+3 à 4 classes) – Rénovation globale dans le cadre du Parcours Accompagné MaPrimeRénov'. Date clôture : 30/04/2026.</p>
+  <div class="footer">
+    <p><strong>ENERGIA‑CONSEIL IA®</strong> – 16 Rue Cuvier, 69006 Lyon – SIRET 94181942700019 – RCS Lyon 941819427</p>
+    <p>Audit GRANGE Mathias – MONTCHAL – DPE 2442E2184253M – Spécificité Pisé – Référence 2026</p>
   </div>
-
-  <div class="section">
-    <h2>4. Travaux recommandés (11 postes)</h2>
-    <table>
-      <thead>
-        <tr><th>N°</th><th>Désignation</th><th>Spécifications</th><th class="montant">Montant HT</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>Isolation combles soufflage</td><td>60 m² – Laine roche 300 mm – R=7,0</td><td class="montant">2 500 €</td></tr>
-        <tr><td>2</td><td>ITI murs pisé</td><td>100 m² – Ossature + laine roche 120 mm + Placo – R=3,7 – Matériaux perspirants</td><td class="montant">8 000 €</td></tr>
-        <tr><td>3</td><td>Isolation plancher bas</td><td>100 m² – Polystyrène extrudé 100 mm – R=3,0</td><td class="montant">4 500 €</td></tr>
-        <tr><td>4</td><td>8 Fenêtres PVC + volets solaires</td><td>Uw=1,3 – Volets motorisés</td><td class="montant">12 000 €</td></tr>
-        <tr><td>5</td><td>VMC simple flux hygroréglable</td><td>Débit adapté 101 m²</td><td class="montant">1 500 €</td></tr>
-        <tr><td>6</td><td>Désembouage circuit</td><td>Certificat – Obligatoire avant PAC</td><td class="montant">800 €</td></tr>
-        <tr><td>7</td><td>PAC air-eau 8 kW haute température</td><td>COP≥4,5 – Radiateurs bitube</td><td class="montant">12 000 €</td></tr>
-        <tr><td>8</td><td>3 Radiateurs bitube neufs</td><td></td><td class="montant">1 500 €</td></tr>
-        <tr><td>9</td><td>Dépose chaudière fioul + cuve 1000 L</td><td>Certificat dépose</td><td class="montant">2 000 €</td></tr>
-        <tr><td>10</td><td>Ballon thermodynamique 200 L</td><td>COP≥3,5</td><td class="montant">2 000 €</td></tr>
-        <tr><td>11</td><td>Coordination AMO + MAR</td><td>Léo-Energy – Parcours Accompagné</td><td class="montant">10 200 €</td></tr>
-        <tr style="background: #ecfdf5; font-weight: bold;"><td colspan="3">TOTAL HT / TTC</td><td class="montant">58 000 € HT / 61 190 € TTC</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="section">
-    <h2>5. Synthèse financière</h2>
-    <div class="highlight">
-      <table>
-        <tr><td>Total travaux TTC</td><td class="montant">61 190 €</td></tr>
-        <tr><td>MaPrimeRénov' Parcours (JAUNE 70 %)</td><td class="montant">28 000 €</td></tr>
-        <tr><td>Bonus dépose cuve fioul</td><td class="montant">1 200 €</td></tr>
-        <tr><td>Aide Région Auvergne-Rhône-Alpes</td><td class="montant">2 000 €</td></tr>
-        <tr><td>MAR remboursé (80 %)</td><td class="montant">2 000 €</td></tr>
-        <tr style="font-weight: bold;"><td>TOTAL AIDES</td><td class="montant">33 200 €</td></tr>
-        <tr style="font-weight: bold; background: #d1fae5;"><td>RESTE À CHARGE</td><td class="montant">27 990 €</td></tr>
-      </table>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>6. Financement</h2>
-    <table>
-      <tr><td>Éco-PTZ 15 ans (taux 0 %)</td><td class="montant">155 €/mois</td></tr>
-      <tr><td>Économies énergétiques estimées</td><td class="montant">292 €/mois (3 500 €/an)</td></tr>
-      <tr><td><strong>Gain net mensuel</strong></td><td class="montant"><strong>+137 €/mois</strong></td></tr>
-      <tr><td>ROI</td><td class="montant">8,0 ans</td></tr>
-    </table>
-  </div>
-
-  <div class="disclaimer">
-    <strong>⚠️ AIDES 2026</strong> : Montants calculés selon les barèmes en vigueur au 01/01/2026 avec le RFR officiel de 17 598 € (profil JAUNE 70 %). Le bonus sortie de passoire thermique (10 %) a été supprimé en septembre 2025. Les CEE ne sont pas cumulables avec MaPrimeRénov' Parcours Accompagné. Le bonus dépose cuve fioul (1 200 €) est maintenu en 2026.
-  </div>
-
-  <div class="section">
-    <h2>7. Prochaines étapes</h2>
-    <ul>
-      <li>Mandater le MAR (Léo-Energy – Parcours Accompagné).</li>
-      <li>Dépôt du dossier MaPrimeRénov' auprès de l'ANAH (AVANT démarrage des travaux).</li>
-      <li>Signature du devis.</li>
-      <li>Mise en place du financement (Éco-PTZ / courtier FABIEN).</li>
-      <li>Planification des travaux – date clôture 30/04/2026.</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>8. Contacts</h2>
-    <div class="contacts-box">
-      <p><strong>ENERGIA CONSEIL</strong> – Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com | DAMIEN (commercial) – 06 72 68 09 68</p>
-      <p><strong>Combles / ITI pisé / Planchers</strong> – 2C ENERGIES ou artisan spécialisé patrimoine pisé – 09 72 57 47 47</p>
-      <p><strong>PAC + Ballon + Désembouage</strong> – ECO SYSTÈME DURABLE – 01 70 93 97 15 – RGE QualiPAC</p>
-      <p><strong>Menuiseries / VMC</strong> – Réseau partenaires RGE (sélection Sylvain LEMBELEMBE)</p>
-      <p><strong>Dépose fioul + cuve</strong> – Artisan agréé (certificat dépose obligatoire)</p>
-      <p><strong>MAR</strong> – Léo-Energy (Parcours Accompagné) – Coût 2 500 € dont 2 000 € pris en charge</p>
-      <p><strong>Courtier financement</strong> – FABIEN – VIVONS COURTIER – 06 71 19 96 45</p>
-    </div>
-  </div>
-
-  <p style="margin-top: 20px; font-size: 8pt; color: #6b7280;">ENERGIA-CONSEIL IA® – 16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – 12 mars 2026</p>
 
 </body>
 </html>
