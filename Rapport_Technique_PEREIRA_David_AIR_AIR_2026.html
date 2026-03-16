@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapport Technique – PEREIRA David | ENERGIA-CONSEIL IA®</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 20px; color: #333; line-height: 1.6; font-size: 14px; }
+    .header { background: #1e3a5f; color: #fff; padding: 20px; text-align: center; margin-bottom: 16px; }
+    .header h1 { margin: 0; font-size: 26px; }
+    .header p { margin: 4px 0; font-size: 13px; opacity: 0.95; }
+    h1 { color: #1e3a5f; font-size: 22px; margin-top: 22px; margin-bottom: 8px; }
+    h2 { color: #ff6b35; font-size: 18px; margin-top: 20px; margin-bottom: 8px; border-bottom: 2px solid #ff6b35; padding-bottom: 4px; }
+    h3 { color: #1e3a5f; font-size: 16px; margin-top: 16px; margin-bottom: 6px; }
+    p { margin: 4px 0 8px; }
+    ul { margin: 6px 0 10px 20px; }
+    li { margin-bottom: 4px; }
+    table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+    th { background: #1e3a5f; color: #fff; padding: 9px 7px; text-align: left; font-weight: bold; }
+    td { border: 1px solid #ddd; padding: 7px; vertical-align: top; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .montant, .num { text-align: right; white-space: nowrap; }
+    .total-row { background: #1e3a5f; color: #fff; font-weight: bold; }
+    .ref-box { background: #f0f4f8; border-left: 5px solid #1e3a5f; padding: 12px 14px; margin: 14px 0; font-size: 13px; }
+    .critical-box { background: #f8d7da; border-left: 7px solid #dc3545; padding: 14px 16px; margin: 16px 0; }
+    .critical-box strong { color: #b00020; }
+    .warning-box { background: #fff3cd; border-left: 5px solid #ff6b35; padding: 12px 14px; margin: 14px 0; }
+    .info-box { background: #d4edda; border-left: 5px solid #28a745; padding: 12px 14px; margin: 14px 0; }
+    .contacts-box { background: #f0f4f8; border: 1px solid #1e3a5f; padding: 14px; margin: 16px 0; font-size: 13px; }
+    .contacts-box p { margin: 3px 0; }
+    .formula { font-family: "Courier New", monospace; background: #f3f4f6; padding: 10px 14px; border-radius: 4px; margin: 8px 0 10px; font-size: 13px; }
+    .small { font-size: 12px; color: #555; }
+    .footer { margin-top: 28px; padding-top: 16px; border-top: 2px solid #1e3a5f; font-size: 12px; color: #666; text-align: center; }
+    @media (max-width: 900px) {
+      body { padding: 15px; }
+      .header h1 { font-size: 22px; }
+      table { font-size: 12px; }
+      th, td { padding: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>⚡ ENERGIA-CONSEIL IA® – RAPPORT TECHNIQUE 2026</h1>
+    <p>Bureau d'études &amp; AMO – Version PAC air/air (Scénario 2 LOIRE FOREZ)</p>
+    <p>16 Rue Cuvier, 69006 Lyon – 06 10 59 68 98 – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</p>
+  </div>
+
+  <h1>RAPPORT TECHNIQUE – RÉNOVATION GLOBALE (PAC AIR/AIR)</h1>
+  <p><strong>Client :</strong> M. PEREIRA David | <strong>Adresse :</strong> Le Tatier, 42140 VIRIGNEUX | <strong>Date :</strong> 16 mars 2026</p>
+
+  <div class="ref-box">
+    <strong>Audit de référence :</strong> LOIRE FOREZ DIAGNOSTIC – Dossier 24/IMO/1748_p01.<br>
+    <strong>Scénario :</strong> Scénario 2 – Étape 1 adapté et optimisé avec PAC air/air. Garantie contractuelle : DPE D minimum (travaux complémentaires gratuits si non atteint).
+  </div>
+
+  <h2>I. Synthèse exécutive</h2>
+  <p>
+    Maison individuelle ~110 m², VIRIGNEUX (42), zone H1. DPE actuel G (328 kWh EP/m²/an) – Passoire thermique. Chauffage fioul ancien, ECS électrique, pas de VMC. Combles déjà isolés (vérification + complément 40 m² si besoin).
+  </p>
+  <p>
+    Projet : ITI 164 m² (laine roche 120 mm, R = 3,5), combles 40 m² (vérif + complément R = 7), 6 fenêtres PVC Uw 1,3, VMC SF hygroréglable, 5 splits PAC air/air 12 kW (chauffage + clim), ballon thermodynamique 200 L, dépose chaudière fioul + cuve, MAR, coordination TCE ENERGIA-CONSEIL IA®.
+  </p>
+  <p>
+    <strong>Total :</strong> 53 000 € TTC. <strong>Aides :</strong> 16 770 € (VIOLET 45 %). <strong>Reste à charge :</strong> 36 230 €. <strong>Bilan :</strong> +152 €/mois (projet 100 % autofinancé dès le 1er mois).
+  </p>
+
+  <div class="critical-box">
+    <strong>🔴 PAC AIR/AIR NON ÉLIGIBLE AUX AIDES MaPrimeRénov'</strong><br><br>
+    Les PAC air/air (splits, climatisation réversible) ne sont <strong>PAS</strong> éligibles. Seules les PAC air/eau le sont. Montant 12 000 € TTC = <strong>0 € d'aides</strong>. Le client choisit la PAC air/air pour la climatisation réversible. Reste à charge identique avec PAC air/eau.
+  </div>
+
+  <h2>II. Fiche client détaillée</h2>
+  <table>
+    <tr><th>Élément</th><th>Valeur</th></tr>
+    <tr><td>Nom</td><td>M. PEREIRA David</td></tr>
+    <tr><td>Adresse</td><td>Le Tatier, 42140 VIRIGNEUX</td></tr>
+    <tr><td>Téléphone / Email</td><td>[À compléter]</td></tr>
+    <tr><td>N° fiscal</td><td>00 96 599 959 008</td></tr>
+    <tr><td>RFR</td><td>24 722 €</td></tr>
+    <tr><td>Profil MaPrimeRénov'</td><td><strong>VIOLET (45 %) – 1 personne – Hors IDF – confirmé</strong></td></tr>
+    <tr><td>Parts fiscales</td><td>1,00</td></tr>
+    <tr><td>Impôt 2024</td><td>485 €</td></tr>
+    <tr><td>Logement</td><td>Maison individuelle – ~110 m² – Loire (42) – VIRIGNEUX – Zone H1</td></tr>
+    <tr><td>DPE actuel / cible</td><td>G (328 kWh EP/m²/an) → D (+3 classes)</td></tr>
+  </table>
+
+  <h2>III. État des lieux technique</h2>
+  <ul>
+    <li><strong>Isolation :</strong> Murs non isolés (ITI 164 m² prévue). Combles déjà isolés – vérification + complément 40 m² pour R = 7.</li>
+    <li><strong>Menuiseries :</strong> 6 fenêtres à remplacer (PVC double vitrage Uw 1,3).</li>
+    <li><strong>Chauffage :</strong> Chaudière fioul ancienne (rendement 60 %) → remplacement par 5 splits PAC air/air 12 kW.</li>
+    <li><strong>Ventilation :</strong> Aucune → VMC simple flux hygroréglable.</li>
+    <li><strong>ECS :</strong> Chauffe-eau électrique → Ballon thermodynamique 200 L.</li>
+    <li><strong>Fioul :</strong> Dépose chaudière + cuve (dégazage, évacuation, certificat obligatoire).</li>
+  </ul>
+
+  <h2>IV. Analyse des déperditions</h2>
+  <p>
+    Répartition typique passoire G : murs 20–25 %, combles (partiellement traités) 15–20 %, menuiseries 10–15 %, fuites/ventilation 15–20 %, planchers 7–10 %. Priorités : ITI 164 m² (murs), complément combles, menuiseries, VMC, puis chauffage et ECS. Ordre respecté dans le détail des postes.
+  </p>
+
+  <h2>V. Solution technique recommandée</h2>
+  <p><strong>Ordre optimal :</strong> Isolation (ITI 164 m² + Combles 40 m²) → 6 Fenêtres → VMC → 5 Splits PAC air/air + Ballon thermo → Dépose fioul + cuve. Réception + DPE post-travaux.</p>
+
+  <h2>VI. Détail technique des postes (9 postes)</h2>
+
+  <h3>Poste 1 – ITI murs 164 m² – Réseau partenaires RGE</h3>
+  <p>Laine de roche 120 mm + ossature métallique + Placo BA13 + pare-vapeur. R = 3,5 m².K/W. Perte surface ~10 cm par mur. Sélection Sylvain LEMBELEMBE (2–3 devis). <strong>Montant : 16 400 € TTC</strong>.</p>
+
+  <h3>Poste 2 – Combles – Vérification + complément 40 m² – Réseau partenaires RGE</h3>
+  <p>Laine roche soufflée 280 mm min, R = 7. Audit LOIRE FOREZ : isolation récente suffisante – vérification état + complément ciblé si besoin. <strong>Montant : 2 500 € TTC</strong>.</p>
+
+  <h3>Poste 3 – 6 Fenêtres PVC double vitrage – Réseau partenaires RGE</h3>
+  <p>Uw = 1,3 W/m².K, double vitrage argon. Pose + dépose + évacuation. Fenêtres seules (sans volets) pour optimiser budget. <strong>Montant : 6 000 € TTC</strong>.</p>
+
+  <h3>Poste 4 – VMC simple flux hygroréglable – Réseau partenaires RGE</h3>
+  <p>Débit adapté ~110 m². Réseau gaines + bouches. Obligatoire (aucune VMC actuellement). <strong>Montant : 1 500 € TTC</strong>.</p>
+
+  <h3>Poste 5 – 5 Splits PAC air/air 12 kW – ECO SYSTÈME DURABLE</h3>
+  <p>Multi-split réversible (chauffage + climatisation). 1 unité extérieure 12 kW + 5 unités intérieures murales. COP ≥ 4,0 ; SCOP ≥ 3,5. Répartition : salon 3,5 kW ; cuisine 2,5 kW ; 3 chambres 2 kW. Économie ~2 500 €/an vs fioul. <strong>Montant : 12 000 € TTC</strong>. ⚠️ NON ÉLIGIBLE MPR (0 €).</p>
+
+  <h3>Poste 6 – Ballon thermodynamique 200 L – ECO SYSTÈME DURABLE</h3>
+  <p>COP ≥ 3,5. Remplace chauffe-eau électrique. Économie ECS ~300 €/an. <strong>Montant : 2 200 € TTC</strong>.</p>
+
+  <h3>Poste 7 – Dépose chaudière fioul + cuve – Artisan agréé</h3>
+  <p>Dégazage cuve, évacuation, certificat obligatoire, neutralisation circuit. <strong>Montant : 2 000 € TTC</strong>.</p>
+
+  <h3>Poste 8 – MAR (Mon Accompagnateur Rénov')</h3>
+  <p>Finalisation dossier (audit LOIRE FOREZ), vérification RFR et profil VIOLET 45 %, calcul aides 2026, dépôt ANAH, suivi, garantie DPE D. <strong>Montant : 2 500 € TTC</strong> (reste client 1 000 € après ANAH 1 500 €).</p>
+
+  <h3>Poste 9 – Coordination Travaux TCE – ENERGIA-CONSEIL IA®</h3>
+  <p>Sélection artisans RGE, coordination multi-corps d'état, planning 8–10 sem, suivi hebdo, réceptions, DPE post-travaux, assistance 6 mois. <strong>Garantie : DPE D minimum ou travaux complémentaires gratuits.</strong> Non remboursé. <strong>Montant : 7 553 € TTC</strong>.</p>
+
+  <h2>VII. Dimensionnements justifiés</h2>
+  <div class="formula">
+    ITI : 164 m² – laine roche 120 mm → R = 3,5 m².K/W.<br>
+    Combles : 40 m² – soufflage 280 mm → R = 7 min (vérif + complément si besoin).<br>
+    Menuiseries : 6 fenêtres – Uw = 1,3.<br>
+    PAC air/air : 5 splits, 12 kW total – COP ≥ 4,0 – SCOP ≥ 3,5 (jusqu'à -15 °C).<br>
+    Ballon : 200 L – COP ≥ 3,5.<br>
+    VMC : débit adapté ~110 m².
+  </div>
+
+  <h2>VIII. Récapitulatif financier</h2>
+  <table>
+    <tr><td>Total HT</td><td class="montant">50 237 €</td></tr>
+    <tr><td>TVA 5,5 %</td><td class="montant">2 763 €</td></tr>
+    <tr><td><strong>Total TTC</strong></td><td class="montant"><strong>53 000 €</strong></td></tr>
+  </table>
+
+  <h2>IX. Aides 2026 (estimation indicative)</h2>
+  <p class="small"><strong>Aides financières 2026 (estimation à titre indicatif).</strong> Aides à valider selon revenus réels du client. Montants définitifs après instruction ANAH.</p>
+  <table>
+    <tr><td>MaPrimeRénov' Parcours (VIOLET 45 % – 45 % × 30 600 € éligible)</td><td class="montant">13 770 €</td></tr>
+    <tr><td>Aide Région Auvergne-Rhône-Alpes</td><td class="montant">1 500 €</td></tr>
+    <tr><td>MAR remboursé (plafonné 1 500 €)</td><td class="montant">1 500 €</td></tr>
+    <tr class="total-row"><td>TOTAL AIDES</td><td class="montant"><strong>16 770 €</strong></td></tr>
+    <tr class="total-row"><td>RESTE À CHARGE</td><td class="montant"><strong>36 230 €</strong></td></tr>
+  </table>
+  <p>Travaux éligibles MPR : ITI 164 m² + Combles 40 m² + 6 Fenêtres + VMC + Ballon 200 L + Dépose fioul. PAC air/air exclue (0 €).</p>
+
+  <h2>X. Financement et rentabilité</h2>
+  <table>
+    <tr><td>Éco-PTZ 15 ans sur 36 230 €</td><td class="montant">201 €/mois</td></tr>
+    <tr><td>Économies énergie (4 875 → 640 €/an)</td><td class="montant">353 €/mois</td></tr>
+    <tr><td><strong>GAIN NET MENSUEL</strong></td><td class="montant"><strong>+152 €/mois</strong></td></tr>
+  </table>
+  <p><strong>Déblocage 30/40/30</strong> : 30 % signature (10 869 €), 40 % mi-chantier après validation Sylvain LEMBELEMBE (14 492 €), 30 % réception (10 869 €).</p>
+  <div class="info-box">
+    <strong>Projet 100 % autofinancé dès le 1er mois.</strong> ROI ~8,6 ans. Plus-value immobilière estimée +30 000 €. Gain sur 20 ans : +84 700 € (économies - investissement). Courtier : FABIEN – VIVONS COURTIER – 06 71 19 96 45.
+  </div>
+
+  <h2>XI. Planning détaillé avec malus</h2>
+  <table>
+    <tr><th>Phase</th><th>Durée</th><th>Détail</th></tr>
+    <tr><td>Préparation / ANAH</td><td>2 sem</td><td>MAR finalisation dossier, dépôt ANAH – AVANT démarrage obligatoire.</td></tr>
+    <tr><td>ITI murs 164 m²</td><td>3–4 sem</td><td>Réseau RGE – Ossature + laine roche + Placo.</td></tr>
+    <tr><td>Combles 40 m²</td><td>3–5 j</td><td>Réseau RGE – Vérification + complément si besoin.</td></tr>
+    <tr><td>6 Fenêtres PVC</td><td>1–2 sem</td><td>Réseau RGE – Pose + dépose + évacuation.</td></tr>
+    <tr><td>VMC simple flux</td><td>3–5 j</td><td>Réseau RGE – Gaines + bouches.</td></tr>
+    <tr><td>5 Splits + Ballon 200 L</td><td>~2 sem</td><td>ECO SYSTÈME DURABLE – Installation complète.</td></tr>
+    <tr><td>Dépose fioul + cuve</td><td>1–2 j</td><td>Artisan agréé – Dégazage + évacuation.</td></tr>
+    <tr><td>Réception + DPE post-travaux</td><td>1 sem</td><td>Contrôle RGE, DPE post-travaux obligatoire, PV réception.</td></tr>
+  </table>
+  <p><strong>Durée totale :</strong> 8–10 semaines. Coordination : Sylvain LEMBELEMBE. Garantie : DPE D minimum.</p>
+
+  <h2>XII. Artisans RGE sélectionnés</h2>
+  <table>
+    <tr><th>Poste</th><th>Entreprise</th><th>Contact</th><th>Certification</th></tr>
+    <tr><td>ITI 164 m² + Combles 40 m² + 6 Fenêtres + VMC</td><td>Réseau partenaires RGE</td><td>Sélection Sylvain LEMBELEMBE (2–3 devis par poste)</td><td>RGE Isolation + Menuiseries + Ventilation</td></tr>
+    <tr><td>5 Splits PAC air/air 12 kW + Ballon 200 L</td><td>ECO SYSTÈME DURABLE</td><td>01 70 93 97 15</td><td>RGE QualiPAC</td></tr>
+    <tr><td>Dépose fioul + cuve</td><td>Artisan agréé</td><td>[À désigner]</td><td>Certificat obligatoire</td></tr>
+    <tr><td>MAR</td><td>MAR Externe Certifié</td><td>[À désigner]</td><td>Certification MAR obligatoire</td></tr>
+  </table>
+
+  <h2>XIII. Résultats attendus</h2>
+  <p>Gain DPE : G → D (+3 classes). Facture : 4 875 €/an → 640 €/an (-87 %). Économies annuelles ~4 235 €. Confort hiver + climatisation été. Fin dépendance fioul. Plus-value immobilière +30 000 €. Garantie contractuelle : DPE D minimum ou travaux complémentaires gratuits.</p>
+
+  <h2>XIV. Avis juridique (Julia)</h2>
+  <div class="ref-box">
+    <strong>Conformité réglementaire vérifiée :</strong> artisans RGE prévus ; éligibilité aides 2026 profil VIOLET 45 % ; ordre des travaux respecté ; plafonds MPR. PAC air/air non éligible – choix client.<br><br>
+    <strong>Contraintes identifiées :</strong> dépôt ANAH avant travaux ; certificat dépose fioul ; cumul aides ≤ 100 %.<br><br>
+    <strong>Signature :</strong> Avis établi sous la responsabilité de Julia, juriste. [Date].
+  </div>
+
+  <h2>XV. Contacts projet (5 personnes)</h2>
+  <div class="contacts-box">
+    <p><strong>AMO / Coordination :</strong> Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</p>
+    <p><strong>Commercial :</strong> DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</p>
+    <p><strong>Courtier :</strong> FABIEN – VIVONS COURTIER – 06 71 19 96 45</p>
+    <p><strong>Juriste :</strong> Julia</p>
+    <p><strong>MAR :</strong> MAR externe certifié – à désigner</p>
+  </div>
+
+  <h2>XVI. Annexes (référence)</h2>
+  <p>A. Barèmes aides 2026 | B. Fiche CEE | C. Éco-PTZ | D. Liste artisans RGE | E. Certifications | F. TVA 5,5 % | G. Ordre des travaux | H. Déblocage 30/40/30 | I. Audit LOIRE FOREZ 24/IMO/1748_p01.</p>
+
+  <h2>XVII. Mentions légales</h2>
+  <p>ENERGIA-CONSEIL IA® – Marque déposée INPI – SIRET 94181942700019 – RCS Lyon 941819427 – Siège 16 Rue Cuvier, 69006 Lyon – Année 2026 – Document confidentiel. Audit LOIRE FOREZ DIAGNOSTIC – Dossier 24/IMO/1748_p01 – Scénario 2 PAC air/air.</p>
+
+  <div class="footer">
+    <p><strong>ENERGIA‑CONSEIL IA®</strong> – 16 Rue Cuvier, 69006 Lyon – SIRET 94181942700019 – RCS Lyon 941819427</p>
+    <p>Rapport technique PAC air/air – Référence 2026</p>
+  </div>
+
+</body>
+</html>

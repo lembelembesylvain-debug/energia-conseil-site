@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapport Technique – Version PAC Air/Air – M. HARBAOUI Sophian &amp; Mme MAX Emmanuelle | ENERGIA-CONSEIL IA</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 20px; color: #333; line-height: 1.6; font-size: 14px; }
+    .header { background: #1e3a5f; color: #fff; padding: 20px; text-align: center; margin-bottom: 20px; }
+    .header h1 { margin: 0; font-size: 26px; }
+    .header p { margin: 4px 0; font-size: 13px; opacity: 0.95; }
+    h1 { color: #1e3a5f; font-size: 22px; margin-top: 26px; margin-bottom: 8px; }
+    h2 { color: #ff6b35; font-size: 18px; margin-top: 22px; margin-bottom: 8px; border-bottom: 2px solid #ff6b35; padding-bottom: 4px; }
+    h3 { color: #1e3a5f; font-size: 16px; margin-top: 16px; margin-bottom: 6px; }
+    p { margin: 4px 0 8px; }
+    ul { margin: 6px 0 10px 20px; }
+    li { margin-bottom: 4px; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th { background: #1e3a5f; color: #fff; padding: 9px 7px; text-align: left; font-weight: bold; }
+    td { border: 1px solid #ddd; padding: 7px; vertical-align: top; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .montant, .num { text-align: right; white-space: nowrap; }
+    .total-row { background: #1e3a5f; color: #fff; font-weight: bold; }
+    .ref-audit { background: #f0f4f8; border-left: 5px solid #1e3a5f; padding: 12px 14px; margin: 18px 0; font-size: 13px; }
+    .info-box { background: #d4edda; border-left: 5px solid #28a745; padding: 12px 14px; margin: 16px 0; }
+    .warning-box { background: #fff3cd; border-left: 5px solid #ff6b35; padding: 12px 14px; margin: 18px 0; }
+    .critical-box { background: #f8d7da; border-left: 6px solid #dc3545; padding: 14px 16px; margin: 20px 0; }
+    .critical-box strong { color: #b00020; }
+    .contacts-box { background: #f0f4f8; border: 1px solid #1e3a5f; padding: 14px; margin: 18px 0; font-size: 13px; }
+    .contacts-box p { margin: 3px 0; }
+    .formula { font-family: "Courier New", monospace; background: #f3f4f6; padding: 10px 14px; border-radius: 4px; margin: 8px 0 10px; font-size: 13px; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+    .badge-blue { background: #1e3a5f; color: #fff; }
+    .badge-green { background: #28a745; color: #fff; }
+    .badge-orange { background: #ff6b35; color: #fff; }
+    .footer { margin-top: 34px; padding-top: 18px; border-top: 2px solid #1e3a5f; font-size: 12px; color: #666; text-align: center; }
+    @media (max-width: 900px) {
+      body { padding: 15px; }
+      .header h1 { font-size: 22px; }
+      table { font-size: 12px; }
+      th, td { padding: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>⚡ ENERGIA-CONSEIL IA® – RAPPORT TECHNIQUE 2026</h1>
+    <p>Bureau d'études &amp; AMO – Rénovation énergétique globale – Version PAC Air/Air (5 splits)</p>
+    <p>16 Rue Cuvier, 69006 Lyon – 06 10 59 68 98 – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</p>
+  </div>
+
+  <div class="ref-audit">
+    <strong>Audit de référence MUTTA</strong> – Dossier 20250819-00-AU-ENE-MAR-DIV-0001 – Visite 22/08/2025 – Auditeur : JIANG Cindie –
+    Contact : 22 06 47 83 – 01 76 39 08 70 – contact@mutta.fr. <strong>Validité jusqu'au 21/08/2030</strong>.
+    Scénario 3 adapté (rénovation globale en une fois) dont la présente version substitue la PAC air/eau initiale par une PAC air/air multi‑split 12 kW (5 splits).
+  </div>
+
+  <p><strong>Clients :</strong> M. HARBAOUI Sophian &amp; Mme MAX Emmanuelle | <strong>Date :</strong> 16 mars 2026 | <strong>Adresse chantier :</strong> 14 rue des Bleuets, 69960 CORBAS.</p>
+
+  <h2>I. Synthèse exécutive</h2>
+  <p>
+    Maison individuelle 110 m² (1975–1977) en blocs béton creux, située à CORBAS (69 – zone climatique H1), classée
+    <strong>DPE G – 338 kWh EP/m²/an (passoire thermique)</strong>. Le projet vise un passage en <strong>classe C/D</strong> (+3 à 4 classes)
+    grâce à une rénovation globale incluant ITE 119 m², ITI garage 19 m², isolation des combles 90 m², VMC simple flux
+    hygroréglable type B, PAC air/air multi‑split 12 kW (5 splits) et ballon thermodynamique 270 L, avec accompagnement MAR
+    et coordination ENERGIA‑CONSEIL IA®.
+  </p>
+  <p>
+    Le budget global est de <strong>54 000 € TTC</strong> (au lieu de 57 200 € TTC en version PAC air/eau). Les aides estimatives atteignent
+    <strong>33 000 €</strong> (au lieu de 40 000 €), soit un reste à charge d'environ <strong>21 000 €</strong> (au lieu de 17 200 €). Le projet reste
+    <strong>100 % autofinancé</strong> : mensualité Éco‑PTZ ~117 €/mois pour des économies d'énergie de ~224 €/mois, soit un
+    <strong>gain net de +107 €/mois</strong>.
+  </p>
+  <p>
+    <span class="badge badge-blue">Profil BLEU MaPrimeRénov' 2026 – 80 %</span>
+    &nbsp; <span class="badge badge-green">Aides estimatives : 33 000 €</span>
+    &nbsp; <span class="badge badge-orange">Reste à charge : 21 000 €</span>
+  </p>
+
+  <div class="critical-box">
+    <strong>🔴 ENCADRÉ ROUGE – PAC AIR/AIR NON ÉLIGIBLE AIDES – PERTE 7 000 €</strong><br>
+    Les pompes à chaleur <strong>air/air</strong> (splits, climatisation réversible) ne sont <strong>PAS éligibles</strong> à MaPrimeRénov'.
+    La version initiale du projet avec PAC air/eau permettait d'atteindre <strong>40 000 €</strong> d'aides pour 57 200 € de travaux,
+    soit un reste à charge de 17 200 €. Avec la PAC air/air, les travaux passent à 54 000 € (−3 200 €) mais les aides tombent à
+    33 000 € (−7 000 €), ce qui augmente le reste à charge à <strong>21 000 €</strong> (+3 800 €). Le client a été informé de cette
+    différence et a confirmé par écrit son choix de PAC air/air pour bénéficier de la climatisation réversible.
+  </div>
+
+  <h2>II. Fiche client détaillée</h2>
+  <table>
+    <tr><th>Élément</th><th>Valeur</th></tr>
+    <tr><td>Noms</td><td>M. HARBAOUI Sophian &amp; Mme MAX Emmanuelle</td></tr>
+    <tr><td>Adresse personnelle</td><td>10 Rue Charles Porcher, 69009 LYON</td></tr>
+    <tr><td>Adresse chantier</td><td>14 rue des Bleuets, 69960 CORBAS</td></tr>
+    <tr><td>Téléphone / Email</td><td>[À compléter]</td></tr>
+    <tr><td>N° fiscal 1 / 2</td><td>02 58 142 382 001 / 09 87 814 842 231</td></tr>
+    <tr><td>RFR</td><td>20 489 € (déclaration 2024)</td></tr>
+    <tr><td>Profil MaPrimeRénov'</td><td><strong>BLEU (80 % – 2 personnes – Hors IDF)</strong></td></tr>
+    <tr><td>Logement</td><td>Maison individuelle – 110 m² habitables – Années 1975–1977 – Blocs béton creux – Rhône (69) – Zone H1</td></tr>
+    <tr><td>DPE actuel</td><td>Classe G – 338 kWh EP/m²/an – Facture 3 240 à 4 430 €/an (moyenne 3 835 €/an)</td></tr>
+    <tr><td>DPE cible</td><td>Classe C/D – Gain +3 à 4 classes – DPE D minimum garanti</td></tr>
+  </table>
+
+  <h2>III. État des lieux technique approfondi</h2>
+  <h3>Isolation &amp; enveloppe</h3>
+  <ul>
+    <li>Murs extérieurs : blocs béton creux, peu ou pas isolés, déperditions importantes (~20–25 %).</li>
+    <li>Combles perdus : isolation insuffisante, hétérogène, ponts thermiques en périphérie et au niveau des trappes.</li>
+    <li>Menuiseries : non modifiées dans ce scénario (hypothèse d'un état intermédiaire correct selon audit MUTTA).</li>
+    <li>Étanchéité à l'air : défauts importants, notamment au droit des traversées et en plafond (audit MUTTA).</li>
+  </ul>
+  <h3>Systèmes existants</h3>
+  <ul>
+    <li>Chauffage : chaudière gaz ancienne, rendement dégradé, réseau radiateurs eau.</li>
+    <li>ECS : chauffe‑eau gaz, sans récupération de chaleur, consommation importante.</li>
+    <li>Ventilation : naturelle, sans régulation, avec sur‑ventilation hivernale et sous‑ventilation estivale.</li>
+  </ul>
+  <h3>Déperditions</h3>
+  <p>Répartition typique pour un pavillon de cette période (cohérent avec l'audit MUTTA) :</p>
+  <ul>
+    <li>Combles : 25–30 %.</li>
+    <li>Murs : 20–25 %.</li>
+    <li>Menuiseries : 10–15 %.</li>
+    <li>Plancher bas : 7–10 %.</li>
+    <li>Fuites d'air &amp; ponts thermiques : 15–20 %.</li>
+  </ul>
+
+  <h2>IV. Analyse des déperditions &amp; ordre d'intervention</h2>
+  <p>
+    L'analyse des déperditions issue de l'audit MUTTA confirme que les <strong>combles</strong> et les <strong>murs</strong> constituent les postes
+    prioritaires. L'ordre optimal des travaux, respecté par le présent scénario, est :
+  </p>
+  <ol>
+    <li>Isolation des combles (R &gt; 7).</li>
+    <li>Isolation des murs par l'extérieur (ITE 119 m²) et ITI garage 19 m².</li>
+    <li>Ventilation (VMC simple flux hygroréglable) pour maîtriser les débits après isolation.</li>
+    <li>PAC air/air multi‑split dimensionnée sur bâtiment isolé.</li>
+    <li>Ballon thermodynamique pour l'ECS.</li>
+  </ol>
+  <p>
+    Cette hiérarchie garantit un dimensionnement correct de la PAC après réduction des besoins, en conformité avec les règles
+    ENERGIA‑CONSEIL IA® (isolation AVANT chauffage).
+  </p>
+
+  <h2>V. Solution technique recommandée</h2>
+  <p>
+    La solution retenue est un scénario unique « <strong>Performance – version PAC air/air</strong> » comprenant :
+  </p>
+  <ul>
+    <li>ITE 119 m² en laine de roche 140 mm (R &gt; 4,4 m².K/W) – HB FACADIER.</li>
+    <li>ITI du mur garage 19 m² en laine de roche 120 mm (R &gt; 3,7 m².K/W).</li>
+    <li>Isolation des combles perdus 90 m² par soufflage de laine de roche 320 mm (R &gt; 7 m².K/W).</li>
+    <li>VMC simple flux hygroréglable type B adaptée à 110 m².</li>
+    <li>PAC air/air multi‑split 12 kW – 5 splits – ECO SYSTÈME DURABLE (chauffage principal + climatisation).</li>
+    <li>Ballon thermodynamique 270 L – ECO SYSTÈME DURABLE.</li>
+    <li>MAR externe certifié (Parcours Accompagné) avec reste à charge 500 €.</li>
+    <li>Coordination TCE ENERGIA‑CONSEIL IA® avec garantie DPE D minimum.</li>
+  </ul>
+
+  <h2>VI. Détail technique des postes</h2>
+  <h3>Poste 1 – ITE 119 m² – HB FACADIER</h3>
+  <p>
+    Laine de roche 140 mm, R &gt; 4,4 m².K/W – 119 m² de murs extérieurs – échafaudage complet, nettoyage façade, pose
+    d'isolant en panneaux, traitement des points singuliers, retours tableau, enduit taloché finition. RGE Qualibat E‑E 109538,
+    assurance décennale MMA Axelliance. Montant : <strong>21 400 € TTC</strong>.
+  </p>
+
+  <h3>Poste 2 – ITI garage 19 m²</h3>
+  <p>
+    Laine de roche 120 mm, ossature métallique, pare‑vapeur, plaque de plâtre BA13 – R &gt; 3,7 m².K/W. Mur donnant sur garage.
+    Vérification préalable de l'absence d'humidité pour éviter les désordres. Réseau partenaires RGE. Montant : <strong>2 100 € TTC</strong>.
+  </p>
+
+  <h3>Poste 3 – Isolation combles perdus 90 m²</h3>
+  <p>
+    Soufflage mécanique de laine de roche 320 mm, R &gt; 7 m².K/W – 90 m² de plafond. Traitement des abords de trappes,
+    repérage des câbles électriques, respect des distances de sécurité autour des sources de chaleur. Réseau partenaires RGE.
+    Montant : <strong>4 500 € TTC</strong>.
+  </p>
+
+  <h3>Poste 4 – PAC air/air multi‑split 12 kW – 5 splits</h3>
+  <p>
+    ECO SYSTÈME DURABLE – 1 unité extérieure inverter 12 kW + 5 unités intérieures murales :
+  </p>
+  <ul>
+    <li>Salon/Séjour : split 3,5 kW.</li>
+    <li>Cuisine : split 2,5 kW.</li>
+    <li>Chambre 1 : split 2 kW.</li>
+    <li>Chambre 2 : split 2 kW.</li>
+    <li>Chambre 3 : split 2 kW.</li>
+  </ul>
+  <p>
+    COP ≥ 4,0, SCOP ≥ 3,5 (classe A++), fonctionnement jusqu'à −15 °C extérieur, mode chauffage et climatisation réversible.
+    Liaisons frigorifiques complètes, raccordements électriques conformes à la norme NF C15‑100, mise en service par
+    technicien habilité, consignes d'utilisation et d'entretien remises au client. Montant : <strong>12 000 € TTC</strong>.
+  </p>
+
+  <h3>Poste 5 – Ballon thermodynamique 270 L</h3>
+  <p>
+    Ballon thermodynamique sur air ambiant 270 L – COP ≥ 3,5 – dimensionné pour un foyer 2–4 personnes. Remplacement du
+    chauffe‑eau gaz existant. Gain estimé : ~400 €/an sur la facture ECS. Montant : <strong>2 700 € TTC</strong>.
+  </p>
+
+  <h3>Poste 6 – VMC simple flux hygroréglable type B</h3>
+  <p>
+    Caisson VMC, réseau de gaines, bouches hygroréglables type B dans pièces de service (cuisine, salle de bains, WC) – reprise
+    de l'étanchéité à l'air des traversées. Débit adapté à la surface de 110 m², conformément aux prescriptions de l'audit MUTTA.
+    Montant : <strong>2 000 € TTC</strong>.
+  </p>
+
+  <h3>Poste 7 – MAR (Mon Accompagnateur Rénov')</h3>
+  <p>
+    MAR externe certifié : validation du scénario sur base audit MUTTA, vérification du profil BLEU, calcul précis des aides
+    MaPrimeRénov', dépôt et suivi du dossier ANAH, préparation du dossier de paiement, DPE post‑travaux, garantie DPE D
+    minimum administrative. Coût : 2 500 € TTC, dont <strong>2 000 € pris en charge par l'ANAH</strong> (profil BLEU), reste à charge
+    client : <strong>500 € TTC</strong>.
+  </p>
+
+  <h3>Poste 8 – Coordination Travaux TCE ENERGIA‑CONSEIL IA®</h3>
+  <p>
+    Coordination multi‑artisans (HB FACADIER, ECO SYSTÈME DURABLE, réseau RGE), vérification certifications et assurances,
+    élaboration d'un planning 10–12 semaines, réunions de suivi hebdomadaires, rapports écrits, réceptions intermédiaires,
+    contrôle des performances (R, COP, débits VMC), DPE post‑travaux en lien avec le MAR, gestion documentaire pour ANAH/CEE,
+    assistance technique 6 mois après réception, suivi des garanties. Montant : <strong>11 816 € TTC</strong>. Prestation non subventionnée.
+  </p>
+  <p><strong>Garantie contractuelle :</strong> atteinte de la <strong>classe DPE D minimum</strong>, avec travaux complémentaires gratuits si nécessaire.</p>
+
+  <h2>VII. Dimensionnements justifiés</h2>
+  <div class="formula">
+    Combles : R ≈ 7 m².K/W (320 mm laine de roche).<br>
+    Murs : R &gt; 4,4 m².K/W (140 mm laine de roche).<br>
+    ITI garage : R &gt; 3,7 m².K/W (120 mm laine de roche).<br>
+    PAC air/air : puissance totale 12 kW pour 110 m² isolés en zone H1 (≈ 0,10 kW/m² avant isolation, ≈ 0,05–0,06 kW/m² après isolation).<br>
+    Ballon : 270 L, COP ≥ 3,5, adapté à 2–4 personnes.<br>
+    VMC : débits conformes aux exigences réglementaires pour une maison de 110 m².
+  </div>
+
+  <h2>VIII. Récapitulatif financier</h2>
+  <table>
+    <tr><td>Total HT</td><td class="montant">51 185 €</td></tr>
+    <tr><td>TVA 5,5 %</td><td class="montant">2 815 €</td></tr>
+    <tr class="total-row"><td>TOTAL TTC</td><td class="montant"><strong>54 000 €</strong></td></tr>
+  </table>
+
+  <h2>IX. Aides 2026 (estimation indicative)</h2>
+  <table>
+    <tr><td>MaPrimeRénov' Parcours Accompagné (profil BLEU 80 % – travaux éligibles hors PAC air/air)</td><td class="montant">30 000 €</td></tr>
+    <tr><td>MAR remboursé (80 % profil BLEU – plafonné 2 000 €)</td><td class="montant">2 000 €</td></tr>
+    <tr><td>Aide Région Auvergne‑Rhône‑Alpes (estimation)</td><td class="montant">1 000 €</td></tr>
+    <tr class="total-row"><td>TOTAL AIDES ESTIMATIVES</td><td class="montant"><strong>33 000 €</strong></td></tr>
+    <tr class="total-row"><td>RESTE À CHARGE ESTIMATIF</td><td class="montant"><strong>21 000 €</strong></td></tr>
+  </table>
+  <p style="font-size: 12px; color: #555;">
+    Aides financières 2026 (<strong>estimation à titre indicatif</strong>), calculées selon les barèmes MaPrimeRénov' 2026 en vigueur au 01/01/2026
+    et les données communiquées par le client. Aides à valider selon revenus réels du foyer et réglementation en vigueur.
+    Montants définitifs après instruction ANAH et CEE. Cumul des aides plafonné à 100 % du montant des travaux éligibles.
+  </p>
+
+  <h2>X. Financement et rentabilité</h2>
+  <table>
+    <tr><td>Reste à charge estimatif</td><td class="montant">21 000 €</td></tr>
+    <tr><td>Type de prêt conseillé</td><td>Éco‑PTZ (rénovation globale) – Taux 0 %, durée 15 ans (180 mois)</td></tr>
+    <tr><td>Mensualité théorique</td><td class="montant"><strong>117 €/mois</strong></td></tr>
+    <tr><td>Facture annuelle actuelle (chauffage + ECS)</td><td class="montant">≈ 3 835 €/an (319 €/mois)</td></tr>
+    <tr><td>Facture annuelle après travaux</td><td class="montant">≈ 1 150 €/an (96 €/mois)</td></tr>
+    <tr><td>Économies annuelles</td><td class="montant"><strong>2 685 €/an</strong> (224 €/mois)</td></tr>
+    <tr class="total-row"><td>GAIN NET MENSUEL</td><td class="montant"><strong>+107 €/mois</strong></td></tr>
+    <tr><td>ROI (Investissement net / Économies annuelles)</td><td class="montant">≈ 7,8 ans</td></tr>
+    <tr><td>Plus‑value immobilière estimée</td><td class="montant">+35 000 €</td></tr>
+  </table>
+  <p>
+    <strong>Courtier :</strong> FABIEN – VIVONS COURTIER – 06 71 19 96 45, en charge du montage Éco‑PTZ et, le cas échéant, d'un financement complémentaire.
+  </p>
+
+  <h2>XI. Planning détaillé avec malus</h2>
+  <table>
+    <tr><th>Phase</th><th>Durée</th><th>Détail &amp; remarques</th></tr>
+    <tr>
+      <td>Préparation / ANAH</td>
+      <td>2–3 semaines</td>
+      <td>Finalisation du dossier par le MAR sur base de l'audit MUTTA, dépôt ANAH. <strong>Aucun démarrage</strong> avant accord écrit ANAH, sous peine de refus des aides MaPrimeRénov'.</td>
+    </tr>
+    <tr>
+      <td>ITE 119 m²</td>
+      <td>4–5 semaines</td>
+      <td>Possible malus météo (+30 à +50 %) en cas d'ITE réalisée entre novembre et mars. Période conseillée : avril–octobre.</td>
+    </tr>
+    <tr>
+      <td>ITI garage 19 m²</td>
+      <td>≈ 1 semaine</td>
+      <td>Travaux intérieurs peu sensibles à la météo.</td>
+    </tr>
+    <tr>
+      <td>Combles 90 m²</td>
+      <td>≈ 1 semaine</td>
+      <td>Soufflage isolant – attention aux fortes chaleurs estivales (organisation des horaires).</td>
+    </tr>
+    <tr>
+      <td>VMC SF hygro B</td>
+      <td>3–5 jours</td>
+      <td>Travaux intérieurs, coordination avec ITE/ITI pour limiter les percements.</td>
+    </tr>
+    <tr>
+      <td>PAC air/air + Ballon</td>
+      <td>≈ 2 semaines</td>
+      <td>Installation et mise en service – éviter juillet‑août (pénurie potentielle de main‑d'œuvre, malus planning +20–40 %).</td>
+    </tr>
+    <tr>
+      <td>Réception &amp; DPE post‑travaux</td>
+      <td>≈ 1 semaine</td>
+      <td>Réception contradictoire avec Sylvain, le MAR et le client, DPE post‑travaux, collecte des justificatifs pour ANAH/CEE.</td>
+    </tr>
+  </table>
+
+  <h2>XII. Artisans RGE sélectionnés</h2>
+  <table>
+    <tr><th>Poste</th><th>Entreprise</th><th>Contact &amp; certifications</th></tr>
+    <tr>
+      <td>ITE 119 m²</td>
+      <td>HB FACADIER</td>
+      <td>22 Av. Benoît Fourneyron, 42160 ANDRÉZIEUX‑BOUTHÉON – 06 21 63 58 93 – Pauline DURY 07 68 05 74 26 – contact@hb-facadier-hilmi.fr – RGE Qualibat E‑E 109538 – Décennale MMA Axelliance.</td>
+    </tr>
+    <tr>
+      <td>ITI garage / Combles / VMC</td>
+      <td>Réseau partenaires RGE</td>
+      <td>Sélection par Sylvain LEMBELEMBE – 2 à 3 devis par poste – RGE Isolation &amp; Ventilation.</td>
+    </tr>
+    <tr>
+      <td>5 Splits PAC air/air 12 kW + Ballon 270 L</td>
+      <td>ECO SYSTÈME DURABLE</td>
+      <td>01 70 93 97 15 – RGE QualiPAC – spécialiste PAC et ECS.</td>
+    </tr>
+    <tr>
+      <td>MAR</td>
+      <td>MAR externe certifié</td>
+      <td>[À désigner] – Prestation 2 500 € TTC, dont 2 000 € pris en charge ANAH (profil BLEU), reste 500 € TTC.</td>
+    </tr>
+    <tr>
+      <td>Coordination TCE</td>
+      <td>ENERGIA‑CONSEIL IA®</td>
+      <td>Contrat de coordination, suivi de chantier, garantie DPE D minimum – 11 816 € TTC.</td>
+    </tr>
+  </table>
+
+  <h2>XIII. Résultats attendus</h2>
+  <ul>
+    <li>Gain de classes DPE : <strong>G → C/D</strong> (+3 à 4 classes), avec DPE D minimum garanti.</li>
+    <li>Réduction de la consommation d'énergie d'environ 65–70 %.</li>
+    <li>Facture énergie (chauffage + ECS) : de ~3 835 €/an à ~1 150 €/an.</li>
+    <li>Confort thermique amélioré en hiver et climatisation assurée en été grâce à la PAC air/air.</li>
+    <li>Qualité de l'air intérieur améliorée (VMC hygroréglable, enveloppe plus étanche).</li>
+    <li>Valorisation du bien estimée à +35 000 € avec un DPE C/D.</li>
+  </ul>
+
+  <h2>XIV. Avis juridique – Julia</h2>
+  <p>
+    Julia, juriste ENERGIA‑CONSEIL IA®, a examiné le présent rapport technique et confirme :
+  </p>
+  <ul>
+    <li>La cohérence globale du scénario avec l'audit de référence MUTTA et la réglementation MaPrimeRénov' 2026.</li>
+    <li>La bonne prise en compte du caractère <strong>non éligible</strong> de la PAC air/air aux aides MPR, avec rappel chiffré de la perte de 7 000 € et du surcoût net de 3 800 €.</li>
+    <li>La conformité de l'ordre des travaux (isolation et ventilation avant PAC et ballon) au regard des règles techniques et des exigences des aides.</li>
+    <li>L'intégration des mentions obligatoires « Aides financières 2026 (estimation à titre indicatif) », « Aides à valider selon revenus réels du client » et « Montants définitifs après instruction ANAH et CEE ».</li>
+    <li>La présence de la <strong>Clause Julia Protection Aides</strong> dans le devis associé et la limitation de la responsabilité d'ENERGIA à 2 000 € en cas d'erreur prouvée sur les aides.</li>
+  </ul>
+  <p><strong>Signature :</strong> Avis établi sous la responsabilité de Julia, juriste ENERGIA‑CONSEIL IA®. Date : 16/03/2026.</p>
+
+  <h2>XV. Contacts projet (5 personnes)</h2>
+  <div class="contacts-box">
+    <p><strong>AMO / Coordination :</strong> Sylvain LEMBELEMBE – ENERGIA‑CONSEIL IA® – 06 10 59 68 98 – contact@energia-conseil.com</p>
+    <p><strong>Conseiller commercial :</strong> DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</p>
+    <p><strong>Courtier financement :</strong> FABIEN – VIVONS COURTIER – 06 71 19 96 45</p>
+    <p><strong>Juriste :</strong> Julia – Juriste ENERGIA‑CONSEIL IA® – Avis juridique &amp; Clause Julia Protection Aides.</p>
+    <p><strong>MAR :</strong> MAR externe certifié – Parcours Accompagné, audit/validation, montage dossier ANAH.</p>
+  </div>
+
+  <h2>XVI. Annexes (A à I)</h2>
+  <ul>
+    <li><strong>Annexe A :</strong> Barèmes MaPrimeRénov' 2026 (profils Bleu/Jaune/Violet/Rose – non reproduits intégralement ici).</li>
+    <li><strong>Annexe B :</strong> Principes CEE 2026 pour isolation, VMC et équipements de chauffage.</li>
+    <li><strong>Annexe C :</strong> Synthèse Éco‑PTZ (plafonds, durées, conditions d'éligibilité).</li>
+    <li><strong>Annexe D :</strong> Liste détaillée des artisans RGE partenaires ENERGIA‑CONSEIL IA®.</li>
+    <li><strong>Annexe E :</strong> Références assurance responsabilité civile et décennale des entreprises intervenantes.</li>
+    <li><strong>Annexe F :</strong> Rappels sur la TVA 5,5 % pour les travaux de rénovation énergétique.</li>
+    <li><strong>Annexe G :</strong> Schéma de l'ordre optimal des travaux (isolation, ventilation, chauffage, ECS).</li>
+    <li><strong>Annexe H :</strong> Modèle détaillé de déblocage 30/40/30 avec validation systématique par Sylvain LEMBELEMBE.</li>
+    <li><strong>Annexe I :</strong> Documents complémentaires (extraits audit MUTTA, photos, plans, etc.).</li>
+  </ul>
+
+  <h2>XVII. Mentions légales</h2>
+  <p>
+    ENERGIA‑CONSEIL IA® | Audit Énergétique Intelligence Artificielle | Marque déposée INPI | Bureau d'études &amp; AMO –
+    16 Rue Cuvier, 69006 Lyon – 06 10 59 68 98 – contact@energia-conseil.com – SIRET 94181942700019 – RCS Lyon 941819427 –
+    N° TVA FR01941819427 – APE 7112B – SASU Capital 100 €.
+  </p>
+  <p>
+    Rapport technique confidentiel établi pour M. HARBAOUI Sophian &amp; Mme MAX Emmanuelle, année de référence 2026. Toute
+    reproduction ou diffusion sans accord écrit d'ENERGIA‑CONSEIL IA® est interdite.
+  </p>
+
+  <div class="footer">
+    <p><strong>ENERGIA CONSEIL</strong> (ENERGIA‑CONSEIL IA®) – www.energia-conseil.com</p>
+    <p>Rapport technique – Version PAC air/air (5 splits) – 16 mars 2026.</p>
+  </div>
+
+</body>
+</html>
+
