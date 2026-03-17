@@ -1,241 +1,189 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Devis Rénovation globale – M. SEUX Laurent | ENERGIA-CONSEIL IA</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devis_SEUX_Laurent_2026 – ENERGIA-CONSEIL IA®</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #333; line-height: 1.6; font-size: 14px; }
-    .header { background: #1e3a5f; color: white; padding: 20px; text-align: center; margin-bottom: 20px; }
-    .header h1 { margin: 0; font-size: 28px; }
-    .header p { margin: 5px 0; font-size: 14px; opacity: 0.95; }
-    .warning { background: #d4edda; border-left: 5px solid #28a745; padding: 15px; margin: 20px 0; }
-    .critical { background: #f8d7da; border-left: 5px solid #dc3545; padding: 15px; margin: 20px 0; }
-    .ref-audit { background: #f0f4f8; border-left: 5px solid #1e3a5f; padding: 15px; margin: 20px 0; }
-    .garantie-box { background: #e8f4fd; border: 2px solid #1e3a5f; padding: 18px; margin: 20px 0; border-radius: 6px; }
-    h1 { color: #1e3a5f; font-size: 24px; margin-top: 30px; }
-    h2 { color: #ff6b35; font-size: 20px; margin-top: 25px; border-bottom: 2px solid #ff6b35; padding-bottom: 5px; }
-    table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
-    th { background: #1e3a5f; color: white; padding: 10px 8px; text-align: left; font-weight: bold; }
-    td { border: 1px solid #ddd; padding: 8px; }
-    tr:nth-child(even) { background: #f9f9f9; }
-    .total-row { background: #1e3a5f; color: white; font-weight: bold; }
-    .montant, .num { text-align: right; }
-    .footer { margin-top: 40px; padding-top: 20px; border-top: 2px solid #1e3a5f; font-size: 12px; color: #666; text-align: center; }
-    .signature-block { margin-top: 40px; padding: 20px; border: 1px solid #ddd; }
-    .client-block { background: #f9f9f9; padding: 15px; margin: 15px 0; border-left: 4px solid #ff6b35; }
-    @media (max-width: 800px) { body { padding: 15px; } .header h1 { font-size: 22px; } table { font-size: 11px; } th, td { padding: 6px; } }
+    :root{--bleu:#1e40af;--vert:#16a34a;--rouge:#dc2626;--orange:#f59e0b;--gris:#374151;--bord:#e5e7eb;--zebra:#f9fafb;--fondBleu:#eff6ff;--fondVert:#f0fdf4;--fondRouge:#fef2f2;--fondOrange:#fffbeb;}
+    *{box-sizing:border-box}
+    body{font-family:Arial,Helvetica,sans-serif;color:var(--gris);margin:0;padding:24px;line-height:1.6;font-size:14px;}
+    .page{max-width:980px;margin:0 auto;}
+    .topbar{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;padding:18px;border:1px solid var(--bord);border-radius:12px;background:linear-gradient(135deg,var(--bleu),#1d4ed8);color:#fff;}
+    .brand{font-weight:800;font-size:20px;margin-bottom:6px;}
+    .brand small{display:block;font-weight:600;opacity:.95;font-size:12px;margin-top:2px;}
+    .subtitle{margin:0 0 8px;font-size:14px;}
+    .meta{text-align:right;font-size:12px;opacity:.95;min-width:270px;}
+    .meta .pill{display:inline-block;background:rgba(255,255,255,.16);padding:6px 10px;border-radius:999px;margin-bottom:8px;font-weight:700;}
+    h1{font-size:24px;margin:18px 0 8px;color:var(--bleu);}
+    h2{font-size:18px;margin:20px 0 8px;color:var(--bleu);}
+    h3{font-size:16px;margin:14px 0 6px;color:var(--bleu);}
+    table{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:14px;}
+    th,td{border:1px solid var(--bord);padding:10px;vertical-align:top;}
+    th{background:var(--bleu);color:#fff;text-align:left;font-weight:700;}
+    tbody tr:nth-child(even){background:var(--zebra);}
+    .right{text-align:right;white-space:nowrap;}
+    .box{border-left:4px solid #3b82f6;background:var(--fondBleu);padding:14px;border-radius:10px;margin:12px 0;}
+    .box.ok{border-left-color:var(--vert);background:var(--fondVert);}
+    .box.crit{border-left-color:var(--rouge);background:var(--fondRouge);}
+    .box.warn{border-left-color:var(--orange);background:var(--fondOrange);}
+    .fine{font-size:12px;color:#6b7280}
+    .sign{border:1px dashed var(--bord);border-radius:12px;padding:14px;background:#fff;}
+    .footer{margin-top:22px;border-top:1px solid var(--bord);padding-top:12px;font-size:12px;color:#6b7280;text-align:center;}
+    @media (max-width:860px){.topbar{flex-direction:column;align-items:flex-start;}.meta{text-align:left;}}
   </style>
 </head>
 <body>
+  <div class="page">
+    <div class="topbar">
+      <div>
+        <div class="brand">⚡ ENERGIA-CONSEIL IA®
+          <small>Audit Énergétique Intelligence Artificielle – Marque déposée INPI – Bureau d'études &amp; AMO</small>
+        </div>
+        <div class="subtitle">16 Rue Cuvier, 69006 LYON – 06 10 59 68 98 – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</div>
+      </div>
+      <div class="meta">
+        <div class="pill">DEVIS – 2026</div><br />
+        <div><strong>N° :</strong> DEV-2026-SEUX-LAURENT</div>
+        <div><strong>Date :</strong> Mars 2026</div>
+        <div><strong>Validité :</strong> 30 jours</div>
+        <div><strong>Date génération :</strong> 15/03/2026 22:41</div>
+      </div>
+    </div>
 
-  <div class="header">
-    <h1>⚡ ENERGIA-CONSEIL IA</h1>
-    <p>Audit Énergétique Intelligence Artificielle – Bureau d'études &amp; AMO</p>
-    <p>16 Rue Cuvier, 69006 LYON 6EME – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €</p>
+    <h1>Devis – Rénovation énergétique globale (objectif DPE B)</h1>
+    <div class="box">
+      <strong>Audit de référence :</strong> MUTTA – Dossier 20250801-00-AU-ENE-MAR-DIV-0001 – Validité 06/08/2030 – Scénario 1 (rénovation en une fois)
+    </div>
+
+    <h2>I. Client</h2>
+    <table>
+      <tbody>
+        <tr><th>Élément</th><th>Valeur</th></tr>
+        <tr><td>Client</td><td>M. SEUX Laurent</td></tr>
+        <tr><td>Adresse</td><td>4 Rue Georges Laurent, 42150 LA RICAMARIE</td></tr>
+        <tr><td>N° fiscal</td><td>[À compléter]</td></tr>
+        <tr><td>RFR / parts</td><td>33 356 € / 3 parts (hors IDF)</td></tr>
+        <tr><td>Profil MaPrimeRénov'</td><td>JAUNE (60%)</td></tr>
+        <tr><td>Interlocuteur commercial</td><td><strong>FABIEN</strong> (Courtier en travaux) – 06 71 19 96 45</td></tr>
+      </tbody>
+    </table>
+
+    <h2>II. Contexte</h2>
+    <p>Maison individuelle 96 m² (1983–1988), zone H1 (Loire 42). DPE F → B (+4 classes). Porte d'entrée <strong>conservée</strong> (non remplacée). Volets motorisés : confort, non éligibles. Désembouage obligatoire avant PAC. Garantie : DPE B minimum ou travaux complémentaires gratuits.</p>
+
+    <div class="box crit">
+      <strong>🔴 DÉSEMBOUAGE OBLIGATOIRE AVANT PAC</strong><br />
+      Sans désembouage : garantie constructeur refusée, perte rendement 15–30%, risque panne prématurée.
+    </div>
+    <div class="box warn">
+      <strong>⚠️ Volets filaires 3 600 € NON éligibles aides</strong><br />
+      7 volets (selon devis RICHARD) – catégorie confort – financé par le client hors aides.
+    </div>
+    <div class="box">
+      <strong>ℹ️ Porte d'entrée conservée</strong><br />
+      Non remplacée dans ce projet (économie client).
+    </div>
+    <div class="box ok">
+      <strong>✅ Garantie DPE B minimum</strong><br />
+      Travaux complémentaires gratuits si objectif B non atteint après réalisation conforme.
+    </div>
+
+    <h2>III. Détail des travaux (11 postes + total)</h2>
+    <table>
+      <thead>
+        <tr><th>N°</th><th>Désignation</th><th>Spécifications</th><th class="right">Qté</th><th>Unité</th><th class="right">Total HT</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>ITE 78,25 m²</td><td>Laine roche 140 mm R&gt;4,4 – échafaudage + enduit – HB FACADIER (RGE E-E 109538)</td><td class="right">78,25</td><td>m²</td><td class="right">13 350 €</td></tr>
+        <tr><td>2</td><td>Combles 56 m²</td><td>Soufflage 320 mm R&gt;7 – GABRIEL (RGE à vérifier)</td><td class="right">56</td><td>m²</td><td class="right">2 654 €</td></tr>
+        <tr><td>3</td><td>6 Fenêtres + 2 PF PVC</td><td>Uw=1,3 – pose/dépose/évacuation – RICHARD NICOLAS</td><td class="right">8</td><td>u</td><td class="right">7 583 €</td></tr>
+        <tr><td>3bis</td><td>Volets filaires motorisés</td><td>7 volets SOMFY – confort – NON éligibles</td><td class="right">7</td><td>u</td><td class="right">3 412 €</td></tr>
+        <tr><td>5</td><td>PAC air/eau 8–10 kW double service</td><td>Chauffage + ECS – SCOP ≥3,2 – 60–65°C – Inverter</td><td class="right">1</td><td>lot</td><td class="right">14 218 €</td></tr>
+        <tr><td>6</td><td>VMC SF hygro B</td><td>Débit adapté 96 m² – reprise étanchéité</td><td class="right">1</td><td>lot</td><td class="right">1 896 €</td></tr>
+        <tr><td>7</td><td>Désembouage (OBLIGATOIRE)</td><td>Rinçage HP + traitement anti-corrosion – certificat</td><td class="right">1</td><td>lot</td><td class="right">701 €</td></tr>
+        <tr><td>8</td><td>Dépose ancien chauffage</td><td>Neutralisation circuit</td><td class="right">1</td><td>lot</td><td class="right">500 €</td></tr>
+        <tr><td>9</td><td>Électricité NF C15-100</td><td>Raccordements PAC + VMC – mise aux normes</td><td class="right">1</td><td>lot</td><td class="right">1 500 €</td></tr>
+        <tr><td>10</td><td>MAR</td><td>Parcours Accompagné – dossier ANAH – reste client 500 €</td><td class="right">1</td><td>forfait</td><td class="right">2 370 €</td></tr>
+        <tr><td>11</td><td>Coordination TCE</td><td>ENERGIA-CONSEIL IA® – garantie DPE B</td><td class="right">1</td><td>forfait</td><td class="right">11 848 €</td></tr>
+        <tr><td colspan="5"><strong>Total HT</strong></td><td class="right"><strong>64 532 €</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h2>IV. Récapitulatif financier</h2>
+    <table>
+      <tbody>
+        <tr><th>Élément</th><th class="right">Montant</th></tr>
+        <tr><td>Total HT</td><td class="right">64 532 €</td></tr>
+        <tr><td>TVA 5,5%</td><td class="right">3 549 €</td></tr>
+        <tr><td><strong>Total TTC</strong></td><td class="right"><strong>68 081 €</strong> (arrondi <strong>68 000 €</strong>)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>V. Aides financières 2026 (estimation indicative)</h2>
+    <div class="box warn">
+      <strong>Aides financières 2026 (estimation à titre indicatif).</strong> À valider selon revenus réels du client. Montants définitifs après instruction ANAH et CEE.
+    </div>
+    <table>
+      <tbody>
+        <tr><th>Aide (profil JAUNE 60%)</th><th class="right">Montant</th></tr>
+        <tr><td>MaPrimeRénov' Parcours (plafonné)</td><td class="right">24 000 €</td></tr>
+        <tr><td>Aide Région Auvergne-Rhône-Alpes</td><td class="right">1 500 €</td></tr>
+        <tr><td>MAR remboursé ANAH (80%, plaf. 2 000 €)</td><td class="right">2 000 €</td></tr>
+        <tr><td><strong>Total aides</strong></td><td class="right"><strong>27 500 €</strong></td></tr>
+        <tr><td><strong>Reste à charge</strong></td><td class="right"><strong>40 500 €</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h2>VI. Financement</h2>
+    <p><strong>Éco-PTZ</strong> 15 ans sur 40 500 € (0%) : <strong>225 €/mois</strong>. Économies énergie : 163 €/mois. <strong>Bilan : -62 €/mois</strong>.</p>
+    <p><strong>Courtier :</strong> FABIEN – VIVONS COURTIER – 06 71 19 96 45.</p>
+    <div class="box">
+      <strong>Paiement 30/40/30</strong><br />
+      30% à la commande – 40% à mi-parcours (après validation Sylvain LEMBELEMBE) – 30% à réception.
+    </div>
+
+    <h2>VII. Conditions générales</h2>
+    <ul>
+      <li>Paiement : déblocage 30/40/30 (40% après validation Sylvain LEMBELEMBE).</li>
+      <li>MAR obligatoire pour Parcours Accompagné.</li>
+      <li>Désembouage obligatoire avant pose PAC (garantie constructeur).</li>
+      <li>Ordre des travaux impératif : Isolation → Menuiseries → Volets → VMC → Désembouage → Dépose → PAC + Électricité → Réception.</li>
+      <li>Garantie DPE B minimum ou travaux complémentaires gratuits.</li>
+      <li>Validité du devis : 30 jours. Démarrage travaux après validation ANAH.</li>
+    </ul>
+
+    <h2>VIII. Mentions légales</h2>
+    <p class="fine">Clause de propriété des documents. Pénalités de retard selon conditions générales. Données personnelles : traitement conforme RGPD. Médiation : en cas de litige, recours au médiateur de la consommation. Document confidentiel.</p>
+
+    <h2>IX. Avis juridique (Julia)</h2>
+    <div class="box ok">
+      <strong>1. Conformité réglementaire vérifiée</strong><br />
+      Profil JAUNE 60% (RFR 33 356 €, 3 parts). Parcours Accompagné. Artisans RGE. Ordre des travaux. Plafonds MPR. Porte d'entrée conservée. Volets non éligibles. Désembouage obligatoire avant PAC.<br /><br />
+      <strong>2. Contraintes techniques identifiées</strong><br />
+      Démarrage travaux uniquement après validation ANAH. CEE non cumulables avec Parcours Accompagné. Cumul aides ≤ 100%.<br /><br />
+      <strong>3. Avertissements</strong><br />
+      Montants d'aides indicatifs. Validité 30 jours. Signature recommandée après validation ANAH.<br /><br />
+      <strong>Avis établi sous la responsabilité de Julia, juriste. [Date].</strong>
+    </div>
+
+    <h2>Contacts (5 personnes)</h2>
+    <table>
+      <tbody>
+        <tr><th>Rôle</th><th>Contact</th></tr>
+        <tr><td>AMO / Coordinateur</td><td>Sylvain LEMBELEMBE – 06 10 59 68 98 – contact@energia-conseil.com</td></tr>
+        <tr><td>Conseiller commercial</td><td>DAMIEN – 06 72 68 09 68 – damien.srdconseil@gmail.com</td></tr>
+        <tr><td>Courtier / Interlocuteur</td><td>FABIEN – VIVONS COURTIER – 06 71 19 96 45</td></tr>
+        <tr><td>Juriste</td><td>Julia</td></tr>
+        <tr><td>MAR</td><td>MAR externe certifié – à désigner (France Rénov')</td></tr>
+      </tbody>
+    </table>
+
+    <div class="footer">
+      Audit Énergétique Intelligence Artificielle – Bureau d'études &amp; AMO<br />
+      16 Rue Cuvier, 69006 LYON – 06 10 59 68 98 – SIRET 94181942700019 – RCS Lyon 941819427 – SASU Capital 100 €<br />
+      Devis – 2026
+    </div>
   </div>
-
-  <div style="font-size: 18px; font-weight: bold; color: #1e3a5f; margin-bottom: 8px;">DEVIS N° DEV-2026-SEUX-LAURENT</div>
-  <p style="margin-bottom: 16px;"><strong>Date :</strong> Mars 2026 | <strong>Validité :</strong> 30 jours | Rénovation globale – DPE F → B (+4 classes) – <strong>Selon audit MUTTA (valable jusqu'au 06/08/2030)</strong></p>
-
-  <div class="ref-audit">
-    <strong>Audit de référence MUTTA (BET certifié)</strong> – Dossier 20250801-00-AU-ENE-MAR-DIV-0001 – Validité jusqu'au 06/08/2030. Scénario 1 (rénovation en une fois). Contact BET : 01 76 39 08 70 – contact@mutta.fr.
-  </div>
-
-  <h2>CLIENT</h2>
-  <div class="client-block">
-    <p><strong>M. SEUX Laurent</strong></p>
-    <p>4 Rue Georges Laurent, 42150 LA RICAMARIE</p>
-    <p>Téléphone : [À compléter] | Email : [À compléter]</p>
-    <p>N° fiscal : [À compléter]</p>
-    <p><strong>Profil MaPrimeRénov' : JAUNE (60 %) – RFR 33 356 € (3 parts – Hors IDF, fourchette 29 918-38 349 €)</strong></p>
-  </div>
-
-  <h2>Contexte</h2>
-  <p>Maison 96 m² (1983-1988), DPE F. Objectif classe B selon audit MUTTA. <strong>Garantie contractuelle ENERGIA-CONSEIL IA® : DPE B minimum. Engagement : travaux complémentaires gratuits si DPE B non atteint.</strong></p>
-
-  <p><strong>Interlocuteur commercial :</strong> FABIEN (Courtier en travaux) – 06 71 19 96 45</p>
-
-  <h2>Tableau des travaux (12 postes)</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>N°</th>
-        <th>Désignation</th>
-        <th>Spécifications</th>
-        <th class="num">Qté</th>
-        <th>Unité</th>
-        <th class="montant">Total HT</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>ITE</td>
-        <td>HB FACADIER – Laine roche 140 mm R&gt;4,4 – Échafaudage, enduit taloché – 100 % murs hors garage (audit MUTTA)</td>
-        <td class="num">78,25</td>
-        <td>m²</td>
-        <td class="montant">13 350 €</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Combles perdus</td>
-        <td>GABRIEL – Laine roche soufflée 320 mm R&gt;7 – 100 % combles perdus</td>
-        <td class="num">56</td>
-        <td>m²</td>
-        <td class="montant">2 654 €</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>6 Fenêtres + 2 PF</td>
-        <td>RICHARD NICOLAS – PVC double vitrage Uw=1,3 – Pose + dépose + évacuation</td>
-        <td class="num">8</td>
-        <td>u.</td>
-        <td class="montant">14 028 €</td>
-      </tr>
-      <tr>
-        <td>3bis</td>
-        <td>6 Volets filaires motorisés</td>
-        <td>RICHARD NICOLAS – Volets pour 6 fenêtres (2 PF sans volets) – <strong>⚠️ NON ÉLIGIBLES aides MaPrimeRénov' (confort) – 3 600 € financés hors aides</strong></td>
-        <td class="num">6</td>
-        <td>u.</td>
-        <td class="montant">3 412 €</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Porte d'entrée</td>
-        <td>RICHARD NICOLAS – PVC ou alu Ud=1,7 – Sécurité renforcée</td>
-        <td class="num">1</td>
-        <td>u.</td>
-        <td class="montant">3 434 €</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>PAC air/eau double service</td>
-        <td>GABRIEL – 8-10 kW chauffage + ECS – SCOP ≥3,2 – Dimensionnement POST-ISOLATION 96 m² – Éligible MPR JAUNE 4 000 €</td>
-        <td class="num">1</td>
-        <td>lot</td>
-        <td class="montant">14 218 €</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>VMC simple flux hygro B</td>
-        <td>GABRIEL – Caisson, gaines, bouches hygroréglables</td>
-        <td class="num">1</td>
-        <td>lot</td>
-        <td class="montant">1 896 €</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>Désembouage circuit chauffage</td>
-        <td>GABRIEL – <strong>🔴 OBLIGATOIRE avant PAC</strong> – Rinçage, traitement anti-corrosion, certificat – Sans désembouage = garantie PAC refusée</td>
-        <td class="num">1</td>
-        <td>lot</td>
-        <td class="montant">701 €</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>Dépose ancien chauffage</td>
-        <td>GABRIEL – Neutralisation circuit, évacuation</td>
-        <td class="num">1</td>
-        <td>lot</td>
-        <td class="montant">500 €</td>
-      </tr>
-      <tr>
-        <td>9</td>
-        <td>Travaux électriques</td>
-        <td>GABRIEL – Raccordements PAC + VMC – NF C15-100</td>
-        <td class="num">1</td>
-        <td>lot</td>
-        <td class="montant">1 500 €</td>
-      </tr>
-      <tr>
-        <td>10</td>
-        <td>MAR (Mon Accompagnateur Rénov')</td>
-        <td>MAR externe certifié – Finalisation dossier MUTTA, ANAH – 2 500 € TTC – ANAH 2 000 €, reste 500 €</td>
-        <td class="num">1</td>
-        <td>lot</td>
-        <td class="montant">2 370 €</td>
-      </tr>
-      <tr>
-        <td>11</td>
-        <td>Coordination Travaux TCE</td>
-        <td>ENERGIA-CONSEIL IA® – Coordination multi-artisans, planning 10-12 sem – <strong>Garantie DPE B + travaux compl. gratuits si non atteint</strong> – Non remboursé</td>
-        <td class="num">1</td>
-        <td>lot</td>
-        <td class="montant">11 848 €</td>
-      </tr>
-      <tr class="total-row"><td colspan="5">Total HT</td><td class="montant">70 151 €</td></tr>
-      <tr class="total-row"><td colspan="5">TVA 5,5 %</td><td class="montant">3 858 €</td></tr>
-      <tr class="total-row"><td colspan="5">TOTAL TTC</td><td class="montant"><strong>74 009 €</strong> (74 000 €)</td></tr>
-    </tbody>
-  </table>
-
-  <div class="critical">
-    <strong>🔴 Désembouage OBLIGATOIRE (poste 7 – 739 € TTC)</strong> – Sans désembouage du circuit avant installation de la PAC, la garantie constructeur est refusée et les performances sont dégradées.
-  </div>
-
-  <div class="warning">
-    <strong>⚠️ Volets filaires (poste 3bis – 3 600 € TTC)</strong> – Non éligibles aux aides MaPrimeRénov' (confort). Ce montant est financé intégralement par le client hors aides.
-  </div>
-
-  <div class="garantie-box">
-    <strong>🏆 Garantie « PERFORMANCE GARANTIE »</strong><br>
-    Garantie contractuelle : DPE classe B minimum après réalisation conforme des travaux. Si le DPE B n'est pas atteint : travaux complémentaires nécessaires <strong>GRATUITEMENT</strong> jusqu'à obtention classe B. Sans surcoût pour le client.
-  </div>
-
-  <h2>Aides financières 2026 – Profil JAUNE 60 %</h2>
-  <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Aides selon barèmes 01/01/2026, RFR 33 356 € (profil JAUNE 60 %, 3 parts). Estimation à titre indicatif. À valider selon revenus réels. Montants définitifs après instruction ANAH et CEE.</p>
-  <table>
-    <tr><td>MaPrimeRénov' Parcours (JAUNE 60 %)</td><td class="montant">31 000 €</td></tr>
-    <tr><td>CEE</td><td class="montant">6 500 €</td></tr>
-    <tr><td>Aide Région AURA</td><td class="montant">1 500 €</td></tr>
-    <tr><td>MAR remboursé (80 %, plafonné 2 000 €)</td><td class="montant">2 000 €</td></tr>
-    <tr class="total-row"><td>TOTAL AIDES</td><td class="montant">39 000 €</td></tr>
-    <tr class="total-row"><td>RESTE À CHARGE</td><td class="montant">35 000 €</td></tr>
-  </table>
-  <p>Taux de prise en charge : 52,7 %. <strong>Projet quasi autofinancé : -14 €/mois</strong> (Éco-PTZ 194 €/mois, économies 180 €/mois).</p>
-
-  <h2>Financement</h2>
-  <p>Éco-PTZ 35 000 € (15 ans, 0 %) : <strong>194 €/mois</strong>. Économies : 163 à 180 €/mois (1 950 €/an). Déficit : <strong>-14 €/mois</strong> (quasi équilibre). Plus-value estimée : +25 000 €.</p>
-  <p>Courtier : FABIEN – VIVONS COURTIER – 06 71 19 96 45.</p>
-
-  <h2>Conditions</h2>
-  <ul>
-    <li>Paiement : 30 % à la commande, 40 % à mi-parcours, 30 % à réception.</li>
-    <li>MAR obligatoire – 2 500 € (ANAH 2 000 €, reste 500 €). Dépôt ANAH <strong>AVANT</strong> démarrage travaux.</li>
-    <li><strong>Désembouage obligatoire</strong> avant installation PAC (garantie constructeur).</li>
-    <li>Ordre impératif : Isolation (ITE + Combles) → Menuiseries → VMC → Désembouage → PAC.</li>
-    <li><strong>Garantie : DPE B minimum ou travaux complémentaires gratuits.</strong></li>
-  </ul>
-
-  <h2>Mentions légales</h2>
-  <ul>
-    <li>Clause de réserve de propriété (loi 80.335). Pénalités de retard : 3 × taux d'intérêt légal. Indemnité forfaitaire recouvrement : 40 €.</li>
-    <li>Travaux réalisés par artisans certifiés RGE (HB FACADIER confirmé ; GABRIEL et RICHARD NICOLAS à vérifier). RGPD : contact@energia-conseil.com. Médiation : MEDICYS. Validité : 30 jours.</li>
-  </ul>
-
-  <h2>X. Avis juridique (OBLIGATOIRE – signature Julia)</h2>
-  <div class="ref-audit">
-    <p><strong>(1) Conformité réglementaire vérifiée</strong> – Artisans RGE (HB FACADIER confirmé ; GABRIEL et RICHARD NICOLAS à vérifier), éligibilité aides 2026, ordre des travaux, plafonds MPR/CEE. Profil JAUNE 60 % confirmé (RFR 33 356 €, 3 parts). Audit MUTTA valable jusqu'au 06/08/2030.</p>
-    <p><strong>(2) Contraintes techniques identifiées</strong> – Désembouage obligatoire avant PAC ; volets non éligibles aides (3 600 € hors aides) ; dossier ANAH à déposer AVANT démarrage ; validité devis 30 jours.</p>
-    <p><strong>(3) Avertissements</strong> – Ne pas signer avant validation ANAH si applicable. Cumul aides ≤ 100 % des travaux éligibles.</p>
-    <p><strong>Avis établi sous la responsabilité de Julia, juriste. [Date].</strong></p>
-  </div>
-
-  <div class="signature-block">
-    <p><strong>Bon pour accord</strong></p>
-    <p>Fait à _________________________, le ___/___/2026</p>
-    <p style="margin-top: 15px;">Signature M. SEUX Laurent : _________________________</p>
-  </div>
-
-  <div class="footer">
-    <p><strong>ENERGIA CONSEIL</strong> (ENERGIA-CONSEIL IA®) – Marque déposée INPI – 16 Rue Cuvier, 69006 LYON 6EME</p>
-    <p>SIRET 94181942700019 – RCS Lyon 941819427 – N° TVA FR01941819427 – APE 7112B – SASU Capital 100 €</p>
-    <p>Contact : Sylvain LEMBELEMBE – Téléphone : 06 10 59 68 98 – Email : contact@energia-conseil.com</p>
-    <p>Mars 2026</p>
-  </div>
-
 </body>
 </html>
