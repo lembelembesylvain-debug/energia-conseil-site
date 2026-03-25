@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audit énergétique estimatif – SCI CAMIANIS / KHESSIBA – SL01122025 – ENERGIA-CONSEIL IA®</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{ --blue:#1a3c5e; --orange:#f97316; --green:#16a34a; --gray:#f8fafc; }
+    @media print {
+      .no-print { display:none !important; }
+      body { background:#fff !important; }
+      .print-page { break-after: page; page-break-after: always; }
+      header { position: fixed; top:0; left:0; right:0; }
+      footer { position: fixed; bottom:0; left:0; right:0; }
+      main { padding-top: 120px; padding-bottom: 110px; }
+      .shadow, .shadow-sm { box-shadow:none !important; }
+      .avoid-break { break-inside: avoid; page-break-inside: avoid; }
+      .page-num::after { content: counter(page) " / " counter(pages); }
+    }
+  </style>
+  <script>
+    function exportPDF(){ window.print(); }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+  <header class="text-white shadow" style="background-color:var(--blue);">
+    <div class="max-w-5xl mx-auto px-4 py-5 flex flex-wrap items-start justify-between gap-4">
+      <div class="flex items-start gap-3">
+        <div class="shrink-0 mt-1">
+          <svg width="42" height="42" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <rect x="6" y="6" width="52" height="52" rx="12" fill="rgba(255,255,255,.14)"></rect>
+            <path d="M20 40c10-2 14-10 24-16" stroke="white" stroke-width="4" stroke-linecap="round"/>
+            <path d="M22 28c6 0 10-4 12-10" stroke="white" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+            <circle cx="44" cy="24" r="3.5" fill="white" opacity=".95"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm opacity-90">ENERGIA-CONSEIL IA® | Audit Énergétique Intelligence Artificielle | Marque déposée INPI | Bureau d'études &amp; AMO</p>
+          <h1 class="text-2xl md:text-3xl font-bold mt-1">AUDIT ÉNERGÉTIQUE ESTIMATIF</h1>
+          <p class="text-sm mt-1 opacity-95">Dossier <span class="font-mono">SL01122025</span> — Appartement 120 m² (1990) — Chalon-sur-Saône (71)</p>
+          <p class="text-sm mt-2">16 Rue Cuvier, 69006 Lyon | 06 10 59 68 98 | SIRET 94181942700019 | RCS Lyon 941819427 | SASU Capital 100€</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="exportPDF()" class="no-print px-4 py-2 rounded-lg bg-white/15 hover:bg-white/25 border border-white/30 text-sm font-medium">Exporter PDF</button>
+      </div>
+    </div>
+    <div class="border-t border-white/15">
+      <div class="max-w-5xl mx-auto px-4 py-2 flex items-center justify-between text-xs opacity-90">
+        <div>Logo ENERGIA-CONSEIL IA® | N° dossier <span class="font-mono">SL01122025</span></div>
+        <div class="page-num">Page </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-8 space-y-8">
+    <section class="print-page">
+      <div class="rounded-2xl bg-white shadow-sm border border-slate-200 overflow-hidden">
+        <div class="px-6 py-6 text-white" style="background:linear-gradient(135deg,var(--blue),#244c74);">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p class="text-sm opacity-90">Document confidentiel</p>
+              <h2 class="text-2xl md:text-3xl font-bold mt-1">AUDIT ÉNERGÉTIQUE ESTIMATIF</h2>
+              <p class="mt-2 text-white/90">Usage exclusif <strong>SCI CAMIANIS</strong> — diffusion interdite sans accord écrit.</p>
+            </div>
+            <div class="rounded-xl bg-white/10 border border-white/15 px-4 py-3">
+              <div class="text-xs opacity-90">Référence dossier</div>
+              <div class="font-mono text-lg font-semibold">SL01122025</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6 grid md:grid-cols-2 gap-6">
+          <div class="space-y-3 text-sm">
+            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-semibold" style="color:var(--blue);">Informations clés</p>
+              <div class="mt-2 space-y-1">
+                <p><span class="font-semibold">Date visite :</span> 01/12/2025</p>
+                <p><span class="font-semibold">Date rapport :</span> 25/03/2026</p>
+                <p><span class="font-semibold">Auditeur :</span> Sylvain LEMBELEMBE – AMO ENERGIA-CONSEIL IA®</p>
+                <p><span class="font-semibold">N° dossier audit :</span> SL01122025</p>
+              </div>
+            </div>
+            <div class="rounded-xl border border-slate-200 bg-white p-4">
+              <p class="font-semibold" style="color:var(--blue);">Propriétaire (Bailleur)</p>
+              <p class="mt-2"><strong>SCI CAMIANIS</strong> (personne morale)</p>
+              <p>21B Levée du Canal, 71530 Champforgeuil</p>
+              <p><a class="underline" href="mailto:aladin.kebab@hotmail.fr">aladin.kebab@hotmail.fr</a></p>
+            </div>
+          </div>
+          <div class="space-y-3 text-sm">
+            <div class="rounded-xl border border-slate-200 bg-white p-4">
+              <p class="font-semibold" style="color:var(--blue);">Occupante / Locataire</p>
+              <p class="mt-2"><strong>KHESSIBA CAMILIA</strong> (née OUAHAB CAMILIA)</p>
+              <p>Co-déclarant : KHESSIBA FREDJ</p>
+              <p>Date de naissance : 23/08/1999</p>
+              <p>RFR 2024 : 20 874 € (2 déclarants, 1 enfant mineur) — indicatif</p>
+            </div>
+            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-semibold" style="color:var(--blue);">Adresse logement</p>
+              <p class="mt-2">99D Rue François Protheau</p>
+              <p>71100 Chalon-sur-Saône</p>
+              <p class="mt-2"><span class="font-semibold">Type :</span> Appartement — RDC — 120 m² — 1990</p>
+              <p><span class="font-semibold">Orientation :</span> Sud-Est — Inertie : Moyenne — HSP : 2,58 m</p>
+            </div>
+          </div>
+        </div>
+        <div class="px-6 pb-6">
+          <div class="rounded-xl border-2 p-4" style="border-color:var(--orange); background: rgba(249,115,22,.08);">
+            <p class="font-bold" style="color:#9a3412;">⚠️ AUDIT ESTIMATIF – CADRE ET LIMITES</p>
+            <p class="text-sm mt-1 text-slate-800">
+              Les montants et aides sont fournis <strong>à titre indicatif</strong> (barèmes 2026) et seront confirmés après métrés définitifs, validation administrative (ANAH/CEE) et devis d'entreprises.
+              Aucun démarrage de travaux ne doit intervenir avant accord ANAH, sous peine de <strong>refus des aides</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="print-page">
+      <h2 class="text-xl font-bold border-b-2 pb-2 mb-4" style="border-color:var(--blue); color:var(--blue);">2. Synthèse exécutive</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="rounded-xl border border-slate-200 bg-white shadow-sm p-5">
+          <p class="font-semibold text-sm" style="color:var(--blue);">Résumé en 6 points</p>
+          <ul class="mt-3 text-sm space-y-2">
+            <li><strong>DPE actuel estimé :</strong> classe <strong>E/F</strong> (à confirmer via diagnostic réglementaire).</li>
+            <li><strong>Problème principal :</strong> <span class="font-semibold">murs non isolés</span> (déperdition dominante estimée à <strong>55 %</strong>).</li>
+            <li><strong>Point positif :</strong> fenêtres <strong>double vitrage déjà remplacées ✅</strong> (aucune action requise).</li>
+            <li><strong>DPE visé après travaux :</strong> <strong>classe C</strong> (objectif réaliste après ITE + PAC performante).</li>
+            <li><strong>Économies potentielles :</strong> ~<strong>1 100 €/an</strong> (ordre de grandeur, selon usage et prix kWh).</li>
+            <li><strong>Urgence bailleur :</strong> trajectoire réglementaire — DPE <strong>E</strong> recommandé avant 2028.</li>
+          </ul>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white shadow-sm p-5">
+          <p class="font-semibold text-sm" style="color:var(--blue);">Stratégie travaux (ordre optimal)</p>
+          <div class="mt-3 rounded-lg p-4" style="background:var(--gray);">
+            <p class="text-sm font-semibold text-slate-900">Isolation avant chauffage (règle d’or)</p>
+            <ol class="mt-2 text-sm space-y-1 list-decimal list-inside">
+              <li><strong>Isolation murs :</strong> ITE 4 façades (poste prioritaire et éligible MPR bailleur).</li>
+              <li><strong>Chauffage :</strong> PAC air/air multi-split (dimensionnement post-ITE).</li>
+            </ol>
+            <p class="text-xs mt-3 text-slate-700">Combles / planchers hors périmètre (appartement – parties communes). Fenêtres déjà traitées.</p>
+          </div>
+          <div class="mt-4 rounded-xl border-2 p-4" style="border-color:var(--green); background: rgba(22,163,74,.08);">
+            <p class="font-bold" style="color:#14532d;">✅ Fenêtres : aucun investissement requis</p>
+            <p class="text-sm mt-1">Double vitrage en place, confort amélioré. Les ponts thermiques seront traités par l’ITE (tableaux/linteaux).</p>
+          </div>
+          <div class="mt-4 rounded-xl border-2 p-4" style="border-color:#ef4444; background: rgba(239,68,68,.08);">
+            <p class="font-bold text-red-800">⚠️ PAC air/air : non éligible MaPrimeRénov'</p>
+            <p class="text-sm mt-1 text-red-900">Le poste PAC air/air est <strong>non éligible MPR</strong>. Il reste généralement <strong>éligible CEE</strong> (à confirmer).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="print-page space-y-6">
+      <h2 class="text-xl font-bold border-b-2 pb-2" style="border-color:var(--blue); color:var(--blue);">3. Diagnostic actuel</h2>
+
+      <section class="avoid-break">
+        <h3 class="text-lg font-bold mb-3" style="color:var(--blue);">3.1 Caractéristiques du bâtiment</h3>
+        <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-sm">
+          <table class="min-w-full text-sm">
+            <tbody class="divide-y divide-slate-100">
+              <tr><th class="text-left p-3 bg-slate-50 font-semibold w-1/3">Type</th><td class="p-3">Appartement</td></tr>
+              <tr><th class="text-left p-3 bg-slate-50 font-semibold">Surface</th><td class="p-3">120 m²</td></tr>
+              <tr><th class="text-left p-3 bg-slate-50 font-semibold">Année construction</th><td class="p-3">1990</td></tr>
+              <tr><th class="text-left p-3 bg-slate-50 font-semibold">Dimensions</th><td class="p-3">11 m × 10 m</td></tr>
+              <tr><th class="text-left p-3 bg-slate-50 font-semibold">Hauteur sous plafond</th><td class="p-3">2,58 m</td></tr>
+              <tr><th class="text-left p-3 bg-slate-50 font-semibold">Inertie thermique</th><td class="p-3">Moyenne</td></tr>
+              <tr><th class="text-left p-3 bg-slate-50 font-semibold">Altitude</th><td class="p-3">185 m</td></tr>
+              <tr><th class="text-left p-3 bg-slate-50 font-semibold">Orientation</th><td class="p-3">Sud-Est</td></tr>
+              <tr><th class="text-left p-3 bg-slate-50 font-semibold">Zone ABF</th><td class="p-3">Non</td></tr>
+              <tr><th class="text-left p-3 bg-slate-50 font-semibold">Logement habité</th><td class="p-3">Oui</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="avoid-break">
+        <h3 class="text-lg font-bold mb-3" style="color:var(--blue);">3.2 Enveloppe thermique</h3>
+        <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-sm">
+          <table class="min-w-full text-sm">
+            <thead class="text-white" style="background-color:var(--blue);">
+              <tr><th class="p-3 text-left">Composant</th><th class="p-3 text-left">État</th><th class="p-3 text-left">Action</th></tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr class="bg-orange-50/50"><td class="p-3 font-semibold">Murs (4 façades)</td><td class="p-3">Béton/parpaing 1990 — <strong>non isolés</strong></td><td class="p-3 font-semibold" style="color:#9a3412;">ITE PRIORITAIRE</td></tr>
+              <tr><td class="p-3 font-semibold">Fenêtres</td><td class="p-3">Double vitrage déjà remplacé ✅</td><td class="p-3 font-semibold" style="color:var(--green);">Aucune action</td></tr>
+              <tr class="bg-slate-50"><td class="p-3 font-semibold">Toiture</td><td class="p-3">Hors périmètre (parties communes)</td><td class="p-3">Hors périmètre</td></tr>
+              <tr><td class="p-3 font-semibold">Plancher</td><td class="p-3">Hors périmètre (parties communes)</td><td class="p-3">Hors périmètre</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="avoid-break">
+        <h3 class="text-lg font-bold mb-3" style="color:var(--blue);">3.3 Déperditions thermiques (camembert – estimation)</h3>
+        <div class="rounded-xl border border-slate-200 bg-white shadow-sm p-5">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="rounded-lg border border-slate-200 p-4" style="background:var(--gray);">
+              <p class="text-sm font-semibold" style="color:var(--blue);">Répartition</p>
+              <ul class="mt-3 text-sm space-y-2">
+                <li><span class="inline-block w-3 h-3 rounded-sm mr-2" style="background:#fb923c;"></span><strong>Murs non isolés :</strong> 55%</li>
+                <li><span class="inline-block w-3 h-3 rounded-sm mr-2" style="background:#60a5fa;"></span><strong>Fenêtres (DV) :</strong> 10%</li>
+                <li><span class="inline-block w-3 h-3 rounded-sm mr-2" style="background:#a78bfa;"></span><strong>Ponts thermiques :</strong> 15%</li>
+                <li><span class="inline-block w-3 h-3 rounded-sm mr-2" style="background:#34d399;"></span><strong>Renouvellement d'air :</strong> 15%</li>
+                <li><span class="inline-block w-3 h-3 rounded-sm mr-2" style="background:#94a3b8;"></span><strong>Plancher/Plafond :</strong> 5%</li>
+              </ul>
+            </div>
+            <div class="rounded-lg border border-slate-200 p-4 bg-white">
+              <p class="text-sm font-semibold" style="color:var(--blue);">Analyse</p>
+              <p class="mt-3 text-sm leading-relaxed">
+                La priorité est l’<strong>isolation des murs</strong> (ITE) qui réduit les besoins, améliore le confort et limite les ponts thermiques.
+                Ensuite, la <strong>PAC</strong> remplace les radiateurs électriques (COP 1,0) par un système à haut rendement (COP ≥ 4,2).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="avoid-break">
+        <h3 class="text-lg font-bold mb-3" style="color:var(--blue);">3.4 Chauffage actuel</h3>
+        <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-sm">
+          <table class="min-w-full text-sm">
+            <thead class="text-white" style="background-color:var(--blue);">
+              <tr><th class="p-3 text-left">Pièce</th><th class="p-3 text-right">Puissance</th><th class="p-3 text-left">Système</th></tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr class="bg-slate-50"><td class="p-3">Salon</td><td class="p-3 text-right">2,5 kW</td><td class="p-3">Radiateur électrique</td></tr>
+              <tr><td class="p-3">Chambre 1</td><td class="p-3 text-right">2,5 kW</td><td class="p-3">Radiateur électrique</td></tr>
+              <tr class="bg-slate-50"><td class="p-3">Chambre 2</td><td class="p-3 text-right">2,5 kW</td><td class="p-3">Radiateur électrique</td></tr>
+              <tr><td class="p-3">Chambre 3</td><td class="p-3 text-right">2,5 kW</td><td class="p-3">Radiateur électrique</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 rounded-xl border border-slate-200 bg-white p-5 text-sm">
+          Chauffage effet Joule : <strong>COP effectif = 1,0</strong>. Comparatif : PAC air/air COP ≥ 4,2 → <strong>gain théorique</strong> significatif (selon conditions et réglages).
+        </div>
+      </section>
+
+      <section class="avoid-break">
+        <h3 class="text-lg font-bold mb-3" style="color:var(--blue);">3.5 Consommations</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="rounded-xl border border-slate-200 bg-white shadow-sm p-5 text-sm space-y-2">
+            <p><strong>Conso relevée :</strong> ~944 kWh/mois (nov. 2025)</p>
+            <p><strong>Conso annuelle estimée :</strong> ~11 000 kWh/an</p>
+            <p><strong>Coût annuel estimé :</strong> ~1 800 €/an</p>
+            <p><strong>Abonnement :</strong> 9 kVA — Heures Creuses</p>
+          </div>
+          <div class="rounded-xl border-2 p-5" style="border-color:var(--orange); background: rgba(249,115,22,.08);">
+            <p class="font-bold" style="color:#9a3412;">⚠️ À affiner</p>
+            <p class="text-sm mt-1 text-slate-800">Une analyse sur 12 mois (factures + index) permettra de fiabiliser l’estimation avant/après et le ROI.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="print-page space-y-6">
+      <h2 class="text-xl font-bold border-b-2 pb-2" style="border-color:var(--blue); color:var(--blue);">4. Scénario de rénovation recommandé</h2>
+      <div class="rounded-xl border border-slate-200 bg-white shadow-sm p-5">
+        <p class="text-sm"><strong>Scénario Optimal – ITE + PAC air/air</strong> (fenêtres déjà rénovées ✅ ; combles/planchers hors périmètre).</p>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden avoid-break">
+        <div class="px-5 py-4 text-white" style="background-color:var(--blue);">
+          <p class="font-bold">Poste 1 – ITE PSE graphité 14 cm (96 m²)</p>
+          <p class="text-sm text-white/85">R = 4,5 m².K/W – enduit mince sur treillis</p>
+        </div>
+        <div class="p-5 grid md:grid-cols-2 gap-4 text-sm">
+          <div class="rounded-lg border border-slate-200 p-4" style="background:var(--gray);">
+            <p class="font-semibold" style="color:var(--blue);">Technique</p>
+            <ul class="mt-2 space-y-1">
+              <li><strong>Isolant :</strong> PSE graphité 14 cm — λ = 0,031 W/m.K</li>
+              <li><strong>R atteint :</strong> 4,5 m².K/W (objectif ≥ 3,7)</li>
+              <li><strong>Finition :</strong> enduit mince armé (treillis fibres)</li>
+              <li><strong>Ponts thermiques :</strong> tableaux/linteaux/appuis, angles</li>
+            </ul>
+          </div>
+          <div class="rounded-lg border border-slate-200 p-4 bg-white">
+            <p class="font-semibold" style="color:var(--blue);">Surfaces nettes</p>
+            <div class="overflow-x-auto mt-2">
+              <table class="min-w-full text-sm">
+                <thead class="text-white" style="background-color:var(--blue);">
+                  <tr><th class="p-2 text-left">Façade</th><th class="p-2 text-right">Net</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr class="bg-slate-50"><td class="p-2">SE</td><td class="p-2 text-right">23,51 m²</td></tr>
+                  <tr><td class="p-2">NO</td><td class="p-2 text-right">24,31 m²</td></tr>
+                  <tr class="bg-slate-50"><td class="p-2">NE</td><td class="p-2 text-right">23,86 m²</td></tr>
+                  <tr><td class="p-2">SO</td><td class="p-2 text-right">24,32 m²</td></tr>
+                  <tr class="bg-slate-50 font-semibold"><td class="p-2">TOTAL</td><td class="p-2 text-right">96,00 m²</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="px-5 pb-5">
+          <div class="rounded-xl border border-slate-200 bg-white p-4 text-sm">
+            <p class="font-semibold" style="color:var(--blue);">Entreprise</p>
+            <p class="mt-1">HB FACADIER — Pauline DURY — RGE E-E 109538 — 07 68 05 74 26</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden avoid-break">
+        <div class="px-5 py-4 text-white" style="background-color:var(--blue);">
+          <p class="font-bold">Poste 2 – PAC air/air (4 splits)</p>
+          <p class="text-sm text-white/85">COP ≥ 4,2 – A+++ – multi-split (1 unité extérieure) – fluide R32</p>
+        </div>
+        <div class="p-5 space-y-4 text-sm">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="rounded-lg border border-slate-200 p-4" style="background:var(--gray);">
+              <p class="font-semibold" style="color:var(--blue);">Description</p>
+              <ul class="mt-2 space-y-1">
+                <li>1 split salon 2,5 kW</li>
+                <li>3 splits chambres 2,5 kW</li>
+                <li>Confort été : climatisation réversible ✅</li>
+              </ul>
+            </div>
+            <div class="rounded-lg border border-slate-200 p-4 bg-white">
+              <p class="font-semibold" style="color:var(--blue);">Entreprise</p>
+              <p class="mt-2">ECO SYSTÈME DURABLE — 01 70 93 97 15</p>
+            </div>
+          </div>
+          <div class="rounded-xl border-2 p-4" style="border-color:#ef4444; background: rgba(239,68,68,.08);">
+            <p class="font-bold text-red-800">⚠️ PAC air/air non éligible MPR</p>
+            <p class="text-sm mt-1 text-red-900">Ce poste est traité hors MPR (aides potentielles limitées aux CEE, à confirmer et optimiser).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="print-page space-y-5">
+      <h2 class="text-xl font-bold border-b-2 pb-2" style="border-color:var(--blue); color:var(--blue);">5. Performances projetées</h2>
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-sm">
+        <table class="min-w-full text-sm">
+          <thead class="text-white" style="background-color:var(--blue);">
+            <tr><th class="p-3 text-left">Indicateur</th><th class="p-3 text-left">Avant</th><th class="p-3 text-left">Après (objectif)</th></tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr class="bg-slate-50"><td class="p-3 font-semibold">DPE estimé</td><td class="p-3">E/F</td><td class="p-3 font-semibold" style="color:var(--green);">C</td></tr>
+            <tr><td class="p-3 font-semibold">Conso chauffage</td><td class="p-3">~11 000 kWh/an</td><td class="p-3">~4 500 kWh/an</td></tr>
+            <tr class="bg-slate-50"><td class="p-3 font-semibold">Facture annuelle</td><td class="p-3">~1 800 €/an</td><td class="p-3">~700 €/an</td></tr>
+            <tr><td class="p-3 font-semibold">Économies</td><td class="p-3">—</td><td class="p-3 font-semibold" style="color:var(--green);">~1 100 €/an</td></tr>
+            <tr class="bg-slate-50"><td class="p-3 font-semibold">Confort été</td><td class="p-3">Absent</td><td class="p-3">Clim incluse ✅</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="print-page space-y-5">
+      <h2 class="text-xl font-bold border-b-2 pb-2" style="border-color:var(--blue); color:var(--blue);">6. Obligations réglementaires bailleur</h2>
+      <div class="rounded-xl border border-slate-200 bg-white shadow-sm p-5 text-sm">
+        Objectif : sécuriser la location (confort + performance) avant les échéances réglementaires. Le calendrier exact dépend des textes en vigueur et de la classe DPE finale.
+      </div>
+      <div class="rounded-xl border-2 p-4" style="border-color:var(--orange); background: rgba(249,115,22,.10);">
+        <p class="font-bold" style="color:#9a3412;">Point d’attention</p>
+        <p class="text-sm mt-1 text-slate-800">Anticiper une amélioration vers la classe C limite le risque de contraintes (relocation/loyer) et améliore la valeur patrimoniale.</p>
+      </div>
+    </section>
+
+    <section class="print-page space-y-5">
+      <h2 class="text-xl font-bold border-b-2 pb-2" style="border-color:var(--blue); color:var(--blue);">7. Plan de financement estimatif</h2>
+      <div class="rounded-xl border-2 p-5" style="border-color:var(--orange); background: rgba(249,115,22,.10);">
+        <p class="font-bold" style="color:#9a3412;">Aides financières 2026 (estimation à titre indicatif).</p>
+        <p class="text-sm mt-2 text-slate-800">Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.</p>
+        <p class="text-sm mt-2 text-slate-800">Ces estimations sont données à titre indicatif. Le taux MPR applicable à la SCI CAMIANIS sera confirmé par l’ANAH après dépôt du dossier. Les montants CEE sont à optimiser par comparaison des offres fournisseurs avant signature des devis.</p>
+      </div>
+
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-sm">
+        <table class="min-w-full text-sm">
+          <thead class="text-white" style="background-color:var(--blue);">
+            <tr><th class="p-3 text-left">Poste</th><th class="p-3 text-right">HT</th><th class="p-3 text-right">TTC</th></tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr class="bg-slate-50"><td class="p-3 font-semibold">ITE 96 m²</td><td class="p-3 text-right">14 400 €</td><td class="p-3 text-right font-semibold">15 192 €</td></tr>
+            <tr><td class="p-3 font-semibold">PAC air/air (4 splits)</td><td class="p-3 text-right">7 200 €</td><td class="p-3 text-right font-semibold">7 596 €</td></tr>
+            <tr class="bg-slate-50"><td class="p-3 font-semibold">Coordination AMO</td><td class="p-3 text-right">1 800 €</td><td class="p-3 text-right font-semibold">2 160 €</td></tr>
+            <tr><td class="p-3 font-bold">TOTAL TTC</td><td class="p-3 text-right font-bold">—</td><td class="p-3 text-right font-bold text-lg" style="color:var(--blue);">24 948 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-sm">
+        <table class="min-w-full text-sm">
+          <thead class="text-white" style="background-color:var(--blue);">
+            <tr><th class="p-3 text-left">Aide</th><th class="p-3 text-right">Fourchette</th><th class="p-3 text-left">Statut</th></tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr class="bg-slate-50"><td class="p-3 font-semibold">MPR Bailleur ITE</td><td class="p-3 text-right">3 600 € à 5 760 €</td><td class="p-3">À confirmer ANAH</td></tr>
+            <tr><td class="p-3 font-semibold">CEE ITE (96 m²)</td><td class="p-3 text-right">1 440 € à 2 400 €</td><td class="p-3">À comparer</td></tr>
+            <tr class="bg-slate-50"><td class="p-3 font-semibold">CEE PAC air/air ×4</td><td class="p-3 text-right">2 000 €</td><td class="p-3">À confirmer</td></tr>
+            <tr><td class="p-3 font-bold">TOTAL AIDES</td><td class="p-3 text-right font-bold">7 040 € à 10 160 €</td><td class="p-3">Estimatif</td></tr>
+            <tr class="bg-slate-50"><td class="p-3 font-bold">RESTE À CHARGE</td><td class="p-3 text-right font-bold" style="color:var(--blue);">~14 800 € à ~17 900 €</td><td class="p-3">Estimatif</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="print-page space-y-5">
+      <h2 class="text-xl font-bold border-b-2 pb-2" style="border-color:var(--blue); color:var(--blue);">8. Conclusion &amp; recommandations</h2>
+      <div class="rounded-xl border border-slate-200 bg-white shadow-sm p-5 text-sm">
+        <p>Recommandation : lancer l’ITE (poste prioritaire) puis installer la PAC air/air une fois l’enveloppe améliorée. Fenêtres : déjà conformes et conservées.</p>
+        <div class="mt-4 rounded-xl border-2 p-4" style="border-color:var(--green); background: rgba(22,163,74,.08);">
+          <p class="font-bold" style="color:#14532d;">✅ Appel à l’action</p>
+          <p class="text-sm mt-1">Planifier une visite technique ITE + PAC et engager le dépôt du dossier (ANAH/CEE) avant toute signature de devis définitif.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-slate-200 bg-white shadow-sm p-5 text-sm">
+        <p class="font-semibold" style="color:var(--blue);">Contacts projet (5 personnes)</p>
+        <ul class="mt-3 space-y-2">
+          <li><strong>AMO / Coordinateur :</strong> Sylvain LEMBELEMBE — 06 10 59 68 98 — contact@energia-conseil.com</li>
+          <li><strong>Conseiller commercial :</strong> DAMIEN — 06 72 68 09 68 — damien.srdconseil@gmail.com</li>
+          <li><strong>Courtier financement :</strong> FABIEN – VIVONS COURTIER — 06 71 19 96 45</li>
+          <li><strong>Juriste :</strong> Julia — [coordonnées Julia – Juriste]</li>
+          <li><strong>MAR :</strong> Léo-Energy (France Rénov') — —</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-slate-700 border-t border-slate-200 bg-white">
+    <div class="max-w-5xl mx-auto px-4 py-3 text-xs flex flex-wrap items-center justify-between gap-2">
+      <div>
+        <strong>ENERGIA-CONSEIL IA®</strong> | 16 Rue Cuvier, 69006 Lyon | SIRET 941 819 427 00019 | <a class="underline" href="mailto:contact@energia-conseil.com">contact@energia-conseil.com</a> | 06 10 59 68 98 | www.energia-conseil.com
+      </div>
+      <div class="opacity-80">Document confidentiel – Usage exclusif SCI CAMIANIS</div>
+    </div>
+  </footer>
+</body>
+</html>
