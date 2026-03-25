@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convention de partenariat ENERGIA–SMN ENERGIES – PART-SMN-2026-001</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #1a3c5e;
+      --orange: #f97316;
+      --sky: #0ea5e9;
+      --green: #16a34a;
+      --gray-bg: #f8fafc;
+      --white: #ffffff;
+      --text: #1e293b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", Helvetica, Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.45;
+      color: var(--text);
+      background: #e2e8f0;
+    }
+
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto 12px;
+      background: var(--white);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      position: relative;
+      padding: 20mm 25mm 18mm;
+    }
+
+    .sheet-inner {
+      min-height: calc(297mm - 38mm);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sheet-main {
+      flex: 1;
+    }
+
+    @media print {
+      html {
+        font-size: 11pt;
+      }
+      body {
+        background: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .sheet {
+        width: 100%;
+        min-height: 297mm;
+        margin: 0;
+        padding: 18mm 25mm 16mm;
+        box-shadow: none;
+        page-break-after: always;
+      }
+      .sheet:last-of-type {
+        page-break-after: auto;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    /* En-tête / pied par feuille (hors page de garde) */
+    .page-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 2px solid var(--navy);
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+      font-size: 8pt;
+      color: var(--navy);
+    }
+
+    .page-top-bar img {
+      height: 11mm;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .page-top-bar .ptb-center {
+      flex: 1;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.25;
+    }
+
+    .page-top-bar .ptb-right {
+      flex-shrink: 0;
+      min-width: 64px;
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .page-bottom-bar {
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px solid #cbd5e1;
+      font-size: 7.5pt;
+      color: var(--navy);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* Page de garde */
+    .cover {
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: calc(297mm - 56mm);
+    }
+
+    .cover-logo {
+      margin-top: 4mm;
+    }
+
+    .cover-logo img {
+      max-width: 220px;
+      height: auto;
+    }
+
+    .cover-band {
+      background: linear-gradient(135deg, var(--navy) 0%, #0f2844 100%);
+      color: white;
+      margin: 14mm -25mm 0;
+      padding: 14mm 25mm;
+    }
+
+    .cover h1 {
+      margin: 0 0 8px;
+      font-size: 22pt;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .cover .subtitle {
+      font-size: 12pt;
+      font-weight: 600;
+      opacity: 0.95;
+      margin: 0;
+    }
+
+    .cover-parties {
+      margin: 16mm 0;
+      font-size: 11pt;
+      line-height: 1.8;
+    }
+
+    .cover-parties strong {
+      color: var(--navy);
+    }
+
+    .cover-meta {
+      font-size: 10.5pt;
+      color: var(--navy);
+      margin-bottom: 8mm;
+    }
+
+    .cover-badges {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 10mm 0 5mm;
+      border-top: 2px solid var(--navy);
+      margin: 0 -25mm;
+      padding-left: 25mm;
+      padding-right: 25mm;
+    }
+
+    .badge-placeholder {
+      border: 2px dashed var(--navy);
+      color: var(--navy);
+      padding: 10px 20px;
+      font-size: 9pt;
+      font-weight: 700;
+      border-radius: 6px;
+      background: var(--gray-bg);
+    }
+
+    .confidential {
+      font-size: 9pt;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.06em;
+      margin-top: 3mm;
+    }
+
+    h2.article-title {
+      color: var(--navy);
+      font-size: 12pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin: 16pt 0 10pt;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--navy);
+    }
+
+    h3.sub {
+      font-size: 11pt;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 12pt 0 8pt;
+    }
+
+    p {
+      margin: 0 0 10pt;
+      text-align: justify;
+    }
+
+    ul,
+    ol {
+      margin: 0 0 10pt 0;
+      padding-left: 1.2em;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    hr.article-rule {
+      border: none;
+      border-top: 1px solid #cbd5e1;
+      margin: 14pt 0;
+    }
+
+    table.data {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10pt;
+      margin: 12pt 0;
+    }
+
+    table.data thead th {
+      background: var(--navy);
+      color: white;
+      font-weight: 700;
+      text-align: left;
+      padding: 8px 10px;
+      border: 1px solid var(--navy);
+    }
+
+    table.data td {
+      padding: 8px 10px;
+      border: 1px solid #cbd5e1;
+      vertical-align: top;
+    }
+
+    table.data tbody th[scope="row"] {
+      background: #e8eef4;
+      color: var(--navy);
+      font-weight: 600;
+      text-align: left;
+      padding: 8px 10px;
+      border: 1px solid #cbd5e1;
+      width: 32%;
+    }
+
+    table.data tbody tr:nth-child(even) td {
+      background: var(--gray-bg);
+    }
+
+    table.data tbody tr:nth-child(even) th[scope="row"] {
+      background: #dfe8f2;
+    }
+
+    .box-warning {
+      background: #fff7ed;
+      border-left: 4px solid var(--orange);
+      padding: 12px 14px;
+      margin: 14pt 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .box-warning strong {
+      color: var(--orange);
+    }
+
+    .box-legal {
+      background: #e0f2fe;
+      border: 2px solid var(--sky);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 14pt 0;
+    }
+
+    .box-legal .legal-head {
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 11pt;
+      margin-bottom: 10px;
+    }
+
+    .box-valid {
+      background: #f0fdf4;
+      border-left: 4px solid var(--green);
+      padding: 12px 14px;
+      margin: 14pt 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .signatures {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 18pt;
+      page-break-inside: avoid;
+    }
+
+    .sign-cell {
+      border: 2px solid var(--navy);
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 140px;
+    }
+
+    .sign-cell h4 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 11pt;
+    }
+
+    .sign-cell .role {
+      font-size: 10pt;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    .sign-line {
+      border-bottom: 1px solid #94a3b8;
+      min-height: 26px;
+      margin-top: 6px;
+    }
+
+    .fait {
+      margin-top: 12pt;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .toolbar {
+      position: sticky;
+      bottom: 0;
+      padding: 12px;
+      text-align: center;
+      background: rgba(26, 60, 94, 0.95);
+      z-index: 50;
+    }
+
+    .toolbar button {
+      font-family: inherit;
+      font-size: 11pt;
+      font-weight: 600;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      background: var(--orange);
+      color: white;
+      cursor: pointer;
+    }
+
+    .toolbar button:hover {
+      filter: brightness(1.08);
+    }
+
+    .préambule-lead {
+      font-style: italic;
+      color: #475569;
+    }
+
+    .julia-sig .sign-line-inline {
+      display: inline-block;
+      min-width: 200px;
+      border-bottom: 1px solid #64748b;
+      vertical-align: bottom;
+      margin-left: 6px;
+    }
+
+    table.data.compact {
+      font-size: 9pt;
+    }
+
+    table.data.compact tbody th[scope="row"],
+    table.data.compact td {
+      padding: 5px 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- ========== Page 1 – Page de garde ========== -->
+  <div class="sheet sheet-cover">
+    <section class="cover">
+      <div>
+        <div class="cover-logo">
+          <img src="assets/energia-conseil-ia-logo.svg" alt="ENERGIA-CONSEIL IA®" />
+        </div>
+        <div class="cover-band">
+          <h1>CONVENTION DE PARTENARIAT</h1>
+          <p class="subtitle">Rénovation Énergétique – RGE Partenaire</p>
+        </div>
+        <div class="cover-parties">
+          <p><strong>Entre :</strong><br />ENERGIA-CONSEIL IA® (Lyon)</p>
+          <p style="margin: 12px 0"><strong>ET</strong></p>
+          <p><strong>SMN ENERGIES</strong> (Vénissieux)</p>
+        </div>
+        <div class="cover-meta">
+          <p><strong>Date :</strong> Lyon, le 25 mars 2026</p>
+          <p><strong>Référence :</strong> PART-SMN-2026-001</p>
+        </div>
+      </div>
+      <div>
+        <div class="cover-badges">
+          <span class="badge-placeholder">Logo QualiPAC</span>
+          <span class="badge-placeholder">Logo Qualit’EnR</span>
+        </div>
+        <p class="confidential">DOCUMENT CONFIDENTIEL</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ========== Page 2 ========== -->
+  <div class="sheet">
+    <div class="sheet-inner">
+      <header class="page-top-bar">
+        <img src="assets/energia-conseil-ia-logo.svg" alt="ENERGIA" />
+        <div class="ptb-center">CONVENTION DE PARTENARIAT – PART-SMN-2026-001</div>
+        <div class="ptb-right">Page 2/8</div>
+      </header>
+      <div class="sheet-main">
+        <h2 class="article-title">Identification des parties</h2>
+        <h3 class="sub">Partie 1 – Donneur d’ordre (« ENERGIA »)</h3>
+        <table class="data compact">
+          <tbody>
+            <tr><th scope="row">Raison sociale</th><td>ENERGIA-CONSEIL IA®</td></tr>
+            <tr><th scope="row">Forme juridique</th><td>SASU</td></tr>
+            <tr><th scope="row">Capital</th><td>100 €</td></tr>
+            <tr><th scope="row">Adresse</th><td>16 Rue Cuvier – 69006 Lyon</td></tr>
+            <tr><th scope="row">SIRET</th><td>941 819 427 00019</td></tr>
+            <tr><th scope="row">RCS</th><td>Lyon 941819427</td></tr>
+            <tr><th scope="row">Représentant</th><td>M. Sylvain LEMBELEMBE</td></tr>
+            <tr><th scope="row">Qualité</th><td>Fondateur &amp; CEO – AMO Rénovation Énergétique</td></tr>
+            <tr><th scope="row">Tél.</th><td>06 10 59 68 98</td></tr>
+            <tr><th scope="row">Email</th><td>contact@energia-conseil.com</td></tr>
+            <tr><th scope="row">Site</th><td>www.energia-conseil-ia.com</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub">Partie 2 – Partenaire RGE (« SMN »)</h3>
+        <table class="data compact">
+          <tbody>
+            <tr><th scope="row">Raison sociale</th><td>SMN ENERGIES</td></tr>
+            <tr><th scope="row">Forme juridique</th><td>SASU</td></tr>
+            <tr><th scope="row">Capital</th><td>15 000 €</td></tr>
+            <tr><th scope="row">Adresse</th><td>388 Avenue Charles de Gaulle – Lot 120 – 69200 Vénissieux</td></tr>
+            <tr><th scope="row">SIRET</th><td>994 321 883 00013</td></tr>
+            <tr><th scope="row">RCS</th><td>Lyon</td></tr>
+            <tr><th scope="row">NAF</th><td>4321A</td></tr>
+            <tr><th scope="row">N° TVA</th><td>FR30994321883</td></tr>
+            <tr><th scope="row">Représentant</th><td>M. SMAANI Ichème</td></tr>
+            <tr><th scope="row">Qualification RGE</th><td>QualiPAC n° QPAC/84409</td></tr>
+            <tr><th scope="row">Validité QualiPAC</th><td>27/02/2026 → 27/02/2027 (probatoire)</td></tr>
+            <tr><th scope="row">Échéance qualification</th><td>27/02/2028</td></tr>
+            <tr><th scope="row">Assurance RC générale</th><td>QBE INSURANCE EUROPE LIMITED – n° 008527524644 – au 15/01/2026</td></tr>
+            <tr><th scope="row">Assurance décennale</th><td>QBE INSURANCE EUROPE LIMITED – n° 008527524644 – au 15/01/2026</td></tr>
+            <tr><th scope="row">Formation PV</th><td>AFABAT FR-FOR-46-N°208718 – Ichème SMAANI – validée 15/05/2024 – note 27/30</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="page-bottom-bar">
+        ENERGIA-CONSEIL IA® | 16 Rue Cuvier, 69006 Lyon<br />
+        SIRET 941 819 427 00019 | contact@energia-conseil.com<br />
+        Document confidentiel – Usage exclusif des Parties signataires
+      </footer>
+    </div>
+  </div>
+
+  <!-- ========== Page 3 ========== -->
+  <div class="sheet">
+    <div class="sheet-inner">
+      <header class="page-top-bar">
+        <img src="assets/energia-conseil-ia-logo.svg" alt="ENERGIA" />
+        <div class="ptb-center">CONVENTION DE PARTENARIAT – PART-SMN-2026-001</div>
+        <div class="ptb-right">Page 3/8</div>
+      </header>
+      <div class="sheet-main">
+        <h2 class="article-title">Préambule</h2>
+        <p class="préambule-lead">
+          ENERGIA-CONSEIL IA® est une société spécialisée dans l’assistance à maîtrise d’ouvrage (AMO) en rénovation énergétique, accompagnant des particuliers dans leurs projets de travaux éligibles aux aides de l’État (MaPrimeRénov’, CEE, Éco-PTZ).
+        </p>
+        <p>
+          SMN ENERGIES est une entreprise qualifiée RGE (QualiPAC n° QPAC/84409), spécialisée dans la fourniture et la pose de pompes à chaleur, ballons thermodynamiques et installations photovoltaïques raccordées au réseau.
+        </p>
+        <p>
+          Les Parties souhaitent formaliser leur collaboration dans le cadre de projets de rénovation énergétique apportés par ENERGIA à ses clients particuliers.
+        </p>
+
+        <div class="box-valid">
+          <strong>✅ Engagements de bonne foi</strong> — Les Parties déclarent agir de bonne foi et dans le respect de la réglementation applicable aux travaux de rénovation énergétique et aux qualifications RGE.
+        </div>
+
+        <hr class="article-rule" />
+
+        <h2 class="article-title">Article 1 – Objet du partenariat</h2>
+        <p>
+          La présente convention définit les conditions et modalités du partenariat entre les Parties dans le cadre de projets de rénovation énergétique.
+        </p>
+        <p>
+          SMN intervient en qualité d’entreprise RGE partenaire pour la fourniture et la pose des équipements suivants :
+        </p>
+        <ul>
+          <li>Pompes à chaleur air/air (mono à cinquo-split)</li>
+          <li>Pompes à chaleur air/eau</li>
+          <li>Ballons thermodynamiques</li>
+          <li>Installations photovoltaïques raccordées au réseau</li>
+        </ul>
+
+        <hr class="article-rule" />
+
+        <h2 class="article-title">Article 2 – Obligations des parties</h2>
+        <h3 class="sub">2.1 ENERGIA-CONSEIL IA® s’engage à :</h3>
+        <ul>
+          <li>Apporter des dossiers clients qualifiés (audit réalisé, devis estimatif validé, client informé)</li>
+          <li>Assurer la coordination AMO complète (planning, interface client/artisan, réunions)</li>
+          <li>Vérifier l’éligibilité aux aides (MPR, CEE) avant tout engagement de travaux</li>
+          <li>Valider les situations de travaux avant déblocage des paiements (règle 30/40/30)</li>
+          <li>Recommander exclusivement SMN ENERGIES pour les postes PAC, photovoltaïque et ballon thermodynamique sur ses dossiers clients</li>
+          <li>Transmettre à SMN toutes les informations techniques nécessaires à la bonne réalisation des travaux (plans, accès, contraintes)</li>
+        </ul>
+      </div>
+      <footer class="page-bottom-bar">
+        ENERGIA-CONSEIL IA® | 16 Rue Cuvier, 69006 Lyon<br />
+        SIRET 941 819 427 00019 | contact@energia-conseil.com<br />
+        Document confidentiel – Usage exclusif des Parties signataires
+      </footer>
+    </div>
+  </div>
+
+  <!-- ========== Page 4 ========== -->
+  <div class="sheet">
+    <div class="sheet-inner">
+      <header class="page-top-bar">
+        <img src="assets/energia-conseil-ia-logo.svg" alt="ENERGIA" />
+        <div class="ptb-center">CONVENTION DE PARTENARIAT – PART-SMN-2026-001</div>
+        <div class="ptb-right">Page 4/8</div>
+      </header>
+      <div class="sheet-main">
+        <h3 class="sub">2.2 SMN ENERGIES s’engage à :</h3>
+        <ul>
+          <li>Réaliser les travaux dans les règles de l’art et conformément aux normes en vigueur (DTU, NF C15-100, réglementation thermique)</li>
+          <li>Maintenir ses certifications RGE (QualiPAC) et assurances obligatoires à jour pendant toute la durée du partenariat</li>
+          <li>Respecter les tarifs partenaires définis à l’article 3 de la présente convention</li>
+          <li>Fournir toutes les attestations de fin de travaux nécessaires au déblocage des aides (MPR, CEE) dans les délais requis</li>
+          <li>Respecter les délais d’intervention convenus avec ENERGIA lors de la planification</li>
+          <li>Informer ENERGIA de tout imprévu technique dans un délai maximum de 24 heures</li>
+          <li>Transmettre tout renouvellement de certification ou d’assurance à ENERGIA dans les 15 jours suivant leur obtention</li>
+        </ul>
+
+        <hr class="article-rule" />
+
+        <h2 class="article-title">Article 3 – Grille tarifaire partenaire</h2>
+        <p>
+          <strong>Mention :</strong> Tous les prix sont en HT. Fourniture et pose incluses. Sous réserve de visite technique préalable. Prix hors frais de déplacement au-delà de 80 km.
+        </p>
+
+        <h3 class="sub">Tableau 1 – PAC air/air</h3>
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Configuration</th>
+              <th>Bosch HT</th>
+              <th>Mitsubishi HT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Mono-split</td><td>1 500 €</td><td>1 900 €</td></tr>
+            <tr><td>Bi-split</td><td>2 600 €</td><td>3 100 €</td></tr>
+            <tr><td>Tri-split</td><td>3 800 €</td><td>4 500 €</td></tr>
+            <tr><td>Quadri-split</td><td>4 900 €</td><td>5 700 €</td></tr>
+            <tr><td>Cinquo-split</td><td>6 100 €</td><td>7 300 €</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub">Tableau 2 – PAC air/eau</h3>
+        <table class="data">
+          <thead>
+            <tr><th>Modèle</th><th>Prix HT</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Panasonic 9 kW</td><td>8 500 €</td></tr>
+            <tr><td>Mitsubishi 8 kW</td><td>9 700 €</td></tr>
+            <tr><td>Panasonic 12 kW</td><td>10 700 €</td></tr>
+            <tr><td>Mitsubishi 10 kW</td><td>10 700 €</td></tr>
+            <tr><td>Mitsubishi 12 kW</td><td>11 700 €</td></tr>
+            <tr><td>Panasonic 14 kW</td><td>11 700 €</td></tr>
+            <tr><td>Mitsubishi 14 kW</td><td>12 700 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="page-bottom-bar">
+        ENERGIA-CONSEIL IA® | 16 Rue Cuvier, 69006 Lyon<br />
+        SIRET 941 819 427 00019 | contact@energia-conseil.com<br />
+        Document confidentiel – Usage exclusif des Parties signataires
+      </footer>
+    </div>
+  </div>
+
+  <!-- ========== Page 5 ========== -->
+  <div class="sheet">
+    <div class="sheet-inner">
+      <header class="page-top-bar">
+        <img src="assets/energia-conseil-ia-logo.svg" alt="ENERGIA" />
+        <div class="ptb-center">CONVENTION DE PARTENARIAT – PART-SMN-2026-001</div>
+        <div class="ptb-right">Page 5/8</div>
+      </header>
+      <div class="sheet-main">
+        <h3 class="sub">Tableau 3 – Photovoltaïque (micro-onduleur)</h3>
+        <table class="data">
+          <thead>
+            <tr><th>Puissance</th><th>AP Système</th><th>Enphase</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>3 kWc</td><td>3 600 €</td><td>4 400 €</td></tr>
+            <tr><td>6 kWc</td><td>5 800 €</td><td>6 800 €</td></tr>
+            <tr><td>9 kWc</td><td>8 100 €</td><td>9 200 €</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub">Tableau 4 – Ballon thermodynamique</h3>
+        <table class="data">
+          <thead>
+            <tr><th>Modèle</th><th>Prix HT</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>BT 200 L Atlantic</td><td>2 300 €</td></tr>
+            <tr><td>BT 270 L Atlantic</td><td>2 700 €</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub">Frais de déplacement</h3>
+        <ul>
+          <li>Gratuit dans un rayon de 80 km depuis Vénissieux</li>
+          <li>Au-delà : 1 €/km supplémentaire (aller simple)</li>
+          <li>Hébergement : non inclus dans les prestations</li>
+        </ul>
+
+        <hr class="article-rule" />
+
+        <h2 class="article-title">Article 4 – Conditions de règlement</h2>
+        <p>Les règlements s’effectuent selon le calendrier suivant, applicable à chaque chantier :</p>
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Échéance</th>
+              <th>%</th>
+              <th>Montant</th>
+              <th>Condition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Acompte 1</td><td>30 %</td><td>Sur devis TTC</td><td>Avant installation (matériel)</td></tr>
+            <tr><td>Acompte 2</td><td>40 %</td><td>Sur devis TTC</td><td>Situation travaux (si 2 temps)</td></tr>
+            <tr><td>Solde final</td><td>30 %</td><td>Sur devis TTC</td><td>Max. 3 semaines après fin travaux</td></tr>
+          </tbody>
+        </table>
+
+        <div class="box-warning">
+          <strong>⚠️ Important</strong> — Le déblocage de l’acompte de situation (40 %) est conditionné à la <strong>validation écrite</strong> de M. Sylvain LEMBELEMBE (AMO ENERGIA-CONSEIL IA®). Aucun paiement intermédiaire ne sera effectué sans cette validation préalable.
+        </div>
+      </div>
+      <footer class="page-bottom-bar">
+        ENERGIA-CONSEIL IA® | 16 Rue Cuvier, 69006 Lyon<br />
+        SIRET 941 819 427 00019 | contact@energia-conseil.com<br />
+        Document confidentiel – Usage exclusif des Parties signataires
+      </footer>
+    </div>
+  </div>
+
+  <!-- ========== Page 6 ========== -->
+  <div class="sheet">
+    <div class="sheet-inner">
+      <header class="page-top-bar">
+        <img src="assets/energia-conseil-ia-logo.svg" alt="ENERGIA" />
+        <div class="ptb-center">CONVENTION DE PARTENARIAT – PART-SMN-2026-001</div>
+        <div class="ptb-right">Page 6/8</div>
+      </header>
+      <div class="sheet-main">
+        <h2 class="article-title">Article 5 – Qualifications &amp; assurances</h2>
+        <p>
+          SMN ENERGIES certifie maintenir les qualifications et assurances suivantes pendant toute la durée du partenariat :
+        </p>
+        <table class="data">
+          <thead>
+            <tr><th>Document</th><th>Référence</th><th>Validité</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>QualiPAC (probatoire)</td><td>QPAC/84409</td><td>Jusqu’au 27/02/2027</td></tr>
+            <tr><td>Échéance qualification</td><td>QPAC/84409</td><td>27/02/2028</td></tr>
+            <tr><td>Formation PV</td><td>AFABAT N°208718</td><td>Validée 15/05/2024</td></tr>
+            <tr><td>RC générale</td><td>QBE n°008527524644</td><td>Au 15/01/2026</td></tr>
+            <tr><td>Décennale</td><td>QBE n°008527524644</td><td>Au 15/01/2026</td></tr>
+          </tbody>
+        </table>
+
+        <div class="box-warning">
+          <strong>⚠️ Vigilance</strong> — La qualification QualiPAC est en période <strong>probatoire</strong>. SMN s’engage à transmettre à ENERGIA toute attestation de renouvellement dans les 15 jours. Les assurances RC et décennale devront être renouvelées et transmises sans délai.
+        </div>
+
+        <hr class="article-rule" />
+
+        <h2 class="article-title">Article 6 – Confidentialité</h2>
+        <p>Les Parties s’engagent mutuellement à garder strictement confidentiels :</p>
+        <ul>
+          <li>Les tarifs partenaires définis à l’article 3</li>
+          <li>Les informations personnelles des clients transmises dans le cadre des dossiers</li>
+          <li>Les conditions commerciales du présent accord</li>
+          <li>Tout document ou information marqué « confidentiel » échangé entre les Parties</li>
+        </ul>
+        <p>
+          Cette obligation de confidentialité s’applique pendant toute la durée du partenariat et durant les 3 années suivant son terme.
+        </p>
+
+        <hr class="article-rule" />
+
+        <h2 class="article-title">Article 7 – Durée &amp; résiliation</h2>
+        <ul>
+          <li><strong>Durée initiale :</strong> 1 an à compter de la signature</li>
+          <li><strong>Renouvellement :</strong> tacite par périodes annuelles</li>
+          <li><strong>Préavis de résiliation :</strong> 30 jours par LRAR</li>
+        </ul>
+        <p><strong>Résiliation immédiate possible en cas de :</strong></p>
+        <ul>
+          <li>Perte ou suspension de qualification RGE</li>
+          <li>Défaut d’assurance RC ou décennale</li>
+          <li>Manquement grave aux obligations de l’article 2</li>
+          <li>Mise en liquidation judiciaire d’une des Parties</li>
+        </ul>
+      </div>
+      <footer class="page-bottom-bar">
+        ENERGIA-CONSEIL IA® | 16 Rue Cuvier, 69006 Lyon<br />
+        SIRET 941 819 427 00019 | contact@energia-conseil.com<br />
+        Document confidentiel – Usage exclusif des Parties signataires
+      </footer>
+    </div>
+  </div>
+
+  <!-- ========== Page 7 ========== -->
+  <div class="sheet">
+    <div class="sheet-inner">
+      <header class="page-top-bar">
+        <img src="assets/energia-conseil-ia-logo.svg" alt="ENERGIA" />
+        <div class="ptb-center">CONVENTION DE PARTENARIAT – PART-SMN-2026-001</div>
+        <div class="ptb-right">Page 7/8</div>
+      </header>
+      <div class="sheet-main">
+        <h2 class="article-title">Article 8 – Avis juridique – Julia</h2>
+        <div class="box-legal">
+          <div class="legal-head">⚖️ Avis établi par Julia, Juriste ENERGIA-CONSEIL IA®</div>
+          <p><strong>Points de vigilance identifiés :</strong></p>
+          <ol>
+            <li><strong>Assurances :</strong> Les attestations RC et décennale référencées au 15/01/2026 doivent être renouvelées. Obtenir les attestations 2026 à jour <strong>avant</strong> signature de la convention.</li>
+            <li><strong>QualiPAC probatoire :</strong> La qualification est en période probatoire jusqu’au 27/02/2027. Prévoir une clause de suspension automatique du partenariat en cas de non-renouvellement.</li>
+            <li><strong>Formation PV :</strong> L’attestation AFABAT est une pièce constitutive du dossier RGE – vérifier que la qualification QualiPV est bien obtenue pour les chantiers photovoltaïques.</li>
+            <li><strong>Tarifs HT :</strong> Tous les prix communiqués sont HT. La TVA applicable (5,5 % ou 10 % selon travaux) devra figurer sur chaque devis artisan.</li>
+          </ol>
+          <p class="julia-sig">
+            <strong>Signature Julia :</strong> <span class="sign-line-inline"></span>
+          </p>
+          <p class="julia-sig">
+            <strong>Date :</strong> <span class="sign-line-inline" style="min-width:160px"></span>
+          </p>
+        </div>
+
+        <hr class="article-rule" />
+
+        <h2 class="article-title">Article 9 – Litiges</h2>
+        <p>
+          En cas de litige, les Parties s’engagent à rechercher une solution amiable dans un délai de 30 jours à compter de la notification du différend par lettre recommandée.
+        </p>
+        <p>
+          À défaut de résolution amiable, le Tribunal de Commerce de Lyon sera seul compétent, nonobstant pluralité de défendeurs ou appel en garantie.
+        </p>
+      </div>
+      <footer class="page-bottom-bar">
+        ENERGIA-CONSEIL IA® | 16 Rue Cuvier, 69006 Lyon<br />
+        SIRET 941 819 427 00019 | contact@energia-conseil.com<br />
+        Document confidentiel – Usage exclusif des Parties signataires
+      </footer>
+    </div>
+  </div>
+
+  <!-- ========== Page 8 ========== -->
+  <div class="sheet">
+    <div class="sheet-inner">
+      <header class="page-top-bar">
+        <img src="assets/energia-conseil-ia-logo.svg" alt="ENERGIA" />
+        <div class="ptb-center">CONVENTION DE PARTENARIAT – PART-SMN-2026-001</div>
+        <div class="ptb-right">Page 8/8</div>
+      </header>
+      <div class="sheet-main">
+        <h2 class="article-title">Article 10 – Signatures</h2>
+        <p class="fait">Fait à Lyon, le 25 mars 2026<br />En deux exemplaires originaux</p>
+
+        <div class="signatures">
+          <div class="sign-cell">
+            <h4>ENERGIA-CONSEIL IA®</h4>
+            <div class="role">Sylvain LEMBELEMBE<br />Fondateur &amp; CEO</div>
+            <p>Lu et approuvé</p>
+            <p>Signature :</p>
+            <div class="sign-line"></div>
+            <p>Date :</p>
+            <div class="sign-line"></div>
+          </div>
+          <div class="sign-cell">
+            <h4>SMN ENERGIES</h4>
+            <div class="role">M. SMAANI Ichème<br />Gérant</div>
+            <p>Lu et approuvé</p>
+            <p>Signature :</p>
+            <div class="sign-line"></div>
+            <p>Date :</p>
+            <div class="sign-line"></div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-bottom-bar">
+        ENERGIA-CONSEIL IA® | 16 Rue Cuvier, 69006 Lyon<br />
+        SIRET 941 819 427 00019 | contact@energia-conseil.com<br />
+        Document confidentiel – Usage exclusif des Parties signataires
+      </footer>
+    </div>
+  </div>
+
+  <div class="toolbar no-print">
+    <button type="button" onclick="window.print()">Imprimer / Exporter PDF</button>
+  </div>
+</body>
+</html>
