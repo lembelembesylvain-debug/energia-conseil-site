@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audit technique estimatif v4 – M. GEVORGIAN Araïk – ENERGIA-CONSEIL IA®</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { energia: '#0f766e' }
+        }
+      }
+    };
+  </script>
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; }
+      .print-break { page-break-before: always; }
+    }
+    .visite-box { background: #e0f2fe; border-left: 4px solid #0284c7; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-900 antialiased">
+  <div class="no-print fixed bottom-4 right-4 z-50">
+    <button type="button" onclick="window.print()" class="rounded-lg bg-energia px-4 py-3 text-white shadow-lg hover:bg-teal-800">Imprimer / Exporter PDF</button>
+  </div>
+
+  <header class="bg-[#0f766e] text-white shadow-lg">
+    <div class="mx-auto max-w-5xl px-4 py-6">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p class="text-2xl font-bold tracking-tight">⚡ ENERGIA-CONSEIL IA®</p>
+          <p class="text-sm text-teal-100">Audit Énergétique Intelligence Artificielle | Bureau d'études & AMO</p>
+          <p class="mt-1 text-xs text-teal-200">16 Rue Cuvier, 69006 Lyon | 06 10 59 68 98 | SIRET 94181942700019</p>
+        </div>
+        <div class="rounded-md border-2 border-red-500 bg-red-600 px-3 py-2 text-center text-sm font-bold uppercase tracking-wide text-white shadow">
+          Document estimatif
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-4 py-8">
+    <section class="mb-8 rounded-xl bg-white p-6 shadow-md">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">Section 1 — Référence document</p>
+      <h1 class="text-2xl font-bold text-[#0f766e]">Audit technique – Rénovation complète</h1>
+      <p class="mt-2 text-gray-600">Client : <strong>M. GEVORGIAN Araïk</strong> — CHIRASSIMONT (69)</p>
+      <p class="text-sm text-gray-500">Document : Audit_Technique_GEVORGIAN_v4 — Version après analyse des plans — Année de référence 2026</p>
+    </section>
+
+    <section class="mb-8 rounded-xl bg-white p-6 shadow-md">
+      <h2 class="mb-4 text-xl font-semibold text-[#0f766e]">2. Informations client et projet</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-gray-200">
+            <tr><td class="py-2 font-medium text-gray-600">Client</td><td class="py-2">M. GEVORGIAN Araïk</td></tr>
+            <tr><td class="py-2 font-medium text-gray-600">Adresse</td><td class="py-2">CHIRASSIMONT (69)</td></tr>
+            <tr><td class="py-2 font-medium text-gray-600">Type de projet</td><td class="py-2">Rénovation complète intérieure + extérieure</td></tr>
+            <tr><td class="py-2 font-medium text-gray-600">Surface habitable</td><td class="py-2">160 m² (RDC 80 m² + R+1 80 m²) — emprise 8 × 12 m</td></tr>
+            <tr><td class="py-2 font-medium text-gray-600">Bâtiment</td><td class="py-2">Maison individuelle 2 niveaux — construction ancienne en pierre</td></tr>
+            <tr><td class="py-2 font-medium text-gray-600">DPE (estimation)</td><td class="py-2">F / G → objectif C / D après travaux</td></tr>
+            <tr><td class="py-2 font-medium text-gray-600">Interlocuteur commercial</td><td class="py-2">DAMIEN — 06 72 68 09 68 — damien.srdconseil@gmail.com</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mb-8 rounded-xl bg-white p-6 shadow-md">
+      <h2 class="mb-4 text-xl font-semibold text-[#0f766e]">3. Analyse des plans architecturaux</h2>
+      <p class="mb-4 text-sm text-gray-600">Plans et pièces contractuelles analysés (références PCMI).</p>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="bg-gray-50 text-left">
+              <th class="border border-gray-200 px-3 py-2">Référence</th>
+              <th class="border border-gray-200 px-3 py-2">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="border border-gray-200 px-3 py-2">Plan R.0</td><td class="border border-gray-200 px-3 py-2">RDC : Séjour, Cuisine, WC, Bains, CH.1, CH.2</td></tr>
+            <tr><td class="border border-gray-200 px-3 py-2">Plan R+1</td><td class="border border-gray-200 px-3 py-2">CH.1, CH.2, CH.3, CH.4/Bains, Salon/Bureau, Palier</td></tr>
+            <tr><td class="border border-gray-200 px-3 py-2">PCMI 5.1</td><td class="border border-gray-200 px-3 py-2">Façade Sud-Ouest — façade principale avec terrasse</td></tr>
+            <tr><td class="border border-gray-200 px-3 py-2">PCMI 5.2</td><td class="border border-gray-200 px-3 py-2">Façade Nord-Est — Route de St Cyr — H 6,30 m / L 8,10 m</td></tr>
+            <tr><td class="border border-gray-200 px-3 py-2">PCMI 5.3</td><td class="border border-gray-200 px-3 py-2">Façade Sud-Est — garage en rez-de-chaussée</td></tr>
+            <tr><td class="border border-gray-200 px-3 py-2">PCMI 5.5</td><td class="border border-gray-200 px-3 py-2">Façade Nord-Ouest — H 4,30 m / L 8,10 m</td></tr>
+            <tr><td class="border border-gray-200 px-3 py-2">PCMI 3</td><td class="border border-gray-200 px-3 py-2">Terrain 48 m × 8 m — pente 5–8 % — réseau eaux pluviales</td></tr>
+            <tr><td class="border border-gray-200 px-3 py-2">Coupe</td><td class="border border-gray-200 px-3 py-2">Coupe transversale et longitudinale du bâtiment</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mb-8 rounded-xl bg-white p-6 shadow-md">
+      <h2 class="mb-4 text-xl font-semibold text-[#0f766e]">4. Tableau des 13 postes de travaux (montants indicatifs)</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="bg-[#0f766e] text-left text-white">
+              <th class="border border-teal-700 px-2 py-2">N°</th>
+              <th class="border border-teal-700 px-2 py-2">Désignation</th>
+              <th class="border border-teal-700 px-2 py-2">Qté</th>
+              <th class="border border-teal-700 px-2 py-2 text-right">HT</th>
+              <th class="border border-teal-700 px-2 py-2 text-right">TTC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="border px-2 py-1">1</td><td class="border px-2 py-1">Électricité complète NF C15-100</td><td class="border px-2 py-1">160 m²</td><td class="border px-2 py-1 text-right">14 400 €</td><td class="border px-2 py-1 text-right">15 840 €</td></tr>
+            <tr><td class="border px-2 py-1">2</td><td class="border px-2 py-1">Plomberie complète</td><td class="border px-2 py-1">160 m²</td><td class="border px-2 py-1 text-right">11 200 €</td><td class="border px-2 py-1 text-right">12 320 €</td></tr>
+            <tr><td class="border px-2 py-1">3</td><td class="border px-2 py-1">Crépis façades extérieures</td><td class="border px-2 py-1">230 m²</td><td class="border px-2 py-1 text-right">10 350 €</td><td class="border px-2 py-1 text-right">11 385 €</td></tr>
+            <tr><td class="border px-2 py-1">4</td><td class="border px-2 py-1">Soufflage combles laine de roche 320 mm R &gt; 7</td><td class="border px-2 py-1">90 m²</td><td class="border px-2 py-1 text-right">4 275 €</td><td class="border px-2 py-1 text-right">4 703 €</td></tr>
+            <tr><td class="border px-2 py-1">5</td><td class="border px-2 py-1">VMC simple flux hygroréglable</td><td class="border px-2 py-1">1 lot</td><td class="border px-2 py-1 text-right">1 900 €</td><td class="border px-2 py-1 text-right">2 090 €</td></tr>
+            <tr><td class="border px-2 py-1">6</td><td class="border px-2 py-1">ITI 220 m² laine de roche 140 mm + BA13 joint 2 passes</td><td class="border px-2 py-1">220 m²</td><td class="border px-2 py-1 text-right">19 800 €</td><td class="border px-2 py-1 text-right">21 780 €</td></tr>
+            <tr><td class="border px-2 py-1">7</td><td class="border px-2 py-1">Peinture intérieure 2 couches</td><td class="border px-2 py-1">160 m²</td><td class="border px-2 py-1 text-right">6 400 €</td><td class="border px-2 py-1 text-right">7 040 €</td></tr>
+            <tr><td class="border px-2 py-1">8</td><td class="border px-2 py-1">5 splits PAC air/air 12 kW multi-split</td><td class="border px-2 py-1">1 lot</td><td class="border px-2 py-1 text-right">11 374 €</td><td class="border px-2 py-1 text-right">12 511 €</td></tr>
+            <tr><td class="border px-2 py-1">9</td><td class="border px-2 py-1">Ballon thermodynamique 200 L COP ≥ 3,5</td><td class="border px-2 py-1">1 u.</td><td class="border px-2 py-1 text-right">2 085 €</td><td class="border px-2 py-1 text-right">2 294 €</td></tr>
+            <tr><td class="border px-2 py-1">10</td><td class="border px-2 py-1">Plafonds suspendus BA13</td><td class="border px-2 py-1">160 m²</td><td class="border px-2 py-1 text-right">5 600 €</td><td class="border px-2 py-1 text-right">6 160 €</td></tr>
+            <tr><td class="border px-2 py-1">11</td><td class="border px-2 py-1">Cloisons séparatives BA13 + phonique</td><td class="border px-2 py-1">40 ml</td><td class="border px-2 py-1 text-right">1 800 €</td><td class="border px-2 py-1 text-right">1 980 €</td></tr>
+            <tr><td class="border px-2 py-1">12</td><td class="border px-2 py-1">Poêle à granulés 12 kW Flamme Verte 7★</td><td class="border px-2 py-1">1 u.</td><td class="border px-2 py-1 text-right">8 182 €</td><td class="border px-2 py-1 text-right">9 000 €</td></tr>
+            <tr><td class="border px-2 py-1">13</td><td class="border px-2 py-1">Coordination TCE ENERGIA-CONSEIL IA®</td><td class="border px-2 py-1">1 lot</td><td class="border px-2 py-1 text-right">12 000 €</td><td class="border px-2 py-1 text-right">13 200 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mb-8 rounded-xl bg-white p-6 shadow-md">
+      <h2 class="mb-4 text-xl font-semibold text-[#0f766e]">5. Aides financières 2026 (estimation à titre indicatif)</h2>
+      <p class="mb-2 text-sm text-gray-700"><strong>Aides financières 2026 (estimation à titre indicatif).</strong> Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE le cas échéant.</p>
+      <ul class="list-disc space-y-1 pl-5 text-sm text-gray-700">
+        <li><strong>MaPrimeRénov' :</strong> non retenue dans ce chiffrage pour l'ensemble « travaux intérieurs seuls » ; <strong>potentiel à vérifier avec le MAR</strong> (bouquet ITI + VMC + PAC + ballon) selon dossier et parcours.</li>
+        <li><strong>TVA :</strong> taux 10 % applicable (logement &gt; 2 ans) — intégré au présent estimatif.</li>
+        <li><strong>CEE / autres aides :</strong> à étudier post-visite technique et selon devis définitif RGE.</li>
+      </ul>
+    </section>
+
+    <section class="mb-8 rounded-xl bg-white p-6 shadow-md">
+      <h2 class="mb-4 text-xl font-semibold text-[#0f766e]">6. Récapitulatif financier</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full max-w-md border-collapse text-sm">
+          <tbody>
+            <tr class="border-b"><td class="py-2 font-medium">Total HT</td><td class="py-2 text-right font-semibold">109 366 €</td></tr>
+            <tr class="border-b"><td class="py-2 font-medium">TVA 10 %</td><td class="py-2 text-right">10 937 €</td></tr>
+            <tr class="border-b bg-teal-50"><td class="py-2 font-bold text-[#0f766e]">TOTAL TTC</td><td class="py-2 text-right font-bold text-[#0f766e]">120 303 €</td></tr>
+            <tr class="border-b"><td class="py-2">Aides retenues sur ce document</td><td class="py-2 text-right">0 €</td></tr>
+            <tr><td class="py-2 font-bold">Reste à charge</td><td class="py-2 text-right font-bold">120 303 € (100 %)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-gray-600">Financement indicatif : prêt travaux ~4,5 % — ≈ 1 002 €/mois sur 10 ans ; ≈ 668 €/mois sur 15 ans. Courtier : FABIEN (VIVONS COURTIER) — 06 71 19 96 45.</p>
+      <p class="mt-2 text-sm text-gray-600">Déblocage 30 / 40 / 30 (sur reste à charge TTC si retenu) : 30 % signature <strong>36 091 €</strong> — 40 % mi-chantier <strong>48 121 €</strong> (après validation de Sylvain LEMBELEMBE) — 30 % réception <strong>36 091 €</strong>.</p>
+    </section>
+
+    <section class="visite-box mb-8 rounded-xl p-6 shadow-md print-break">
+      <p class="mb-2 text-xs font-semibold uppercase text-sky-800">Section 7</p>
+      <h2 class="text-xl font-bold text-sky-900">🔍 VISITE TECHNIQUE – ÉLÉMENTS À VÉRIFIER SUR SITE</h2>
+      <p class="mt-1 text-sm font-medium text-sky-800">Visite technique 200 € TTC — Remboursée si signature du devis définitif</p>
+      <p class="mt-4 text-sm text-gray-700">Cocher les points lors du passage sur site. Après visite : postes 1, 2, 3, 6, 7, 11 recalculés sur mesures ; postes 4, 5, 8, 9, 10, 12, 13 confirmés ou ajustés — <strong>devis définitif sous 48–72 h</strong>.</p>
+
+      <div class="mt-6 space-y-6">
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">Électricité (poste 1)</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4 align-middle" aria-label="Comptage points" /></td><td class="py-1">Comptage exact des points (prises, interrupteurs, luminaires)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Emplacement tableau électrique</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Passage des gaines (contraintes structure)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Puissance compteur à prévoir</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Nombre de circuits (cuisine, SDB, chambres)</td></tr>
+          </tbody></table>
+        </div>
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">Plomberie (poste 2)</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2 w-8"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Nombre exact de salles d'eau (SDB + WC)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Emplacement arrivée eau + compteur</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Évacuations existantes à récupérer ou créer</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Type chauffe-eau / ballon (confirmé : thermodynamique 200 L)</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Cuisine : nombre de points eau</td></tr>
+          </tbody></table>
+        </div>
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">Crépis façades (poste 3)</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Mesure exacte des 4 façades (m²)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">État support (fissures, décollements, humidité)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Présence de salpêtre ou traces d'humidité</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Choix couleur enduit (client)</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Accessibilité échafaudage (terrain en pente 5–8 %)</td></tr>
+          </tbody></table>
+        </div>
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">Soufflage combles (poste 4)</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Accès trappe combles (emplacement + dimensions)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Surface exacte (estimée 90 m²)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Hauteur sous rampants</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Obstacles (cheminée, VMC existante)</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">État charpente</td></tr>
+          </tbody></table>
+        </div>
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">VMC (poste 5)</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Emplacement caisson VMC (combles ou gaine technique)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Tracé réseau gaines (RDC + R+1)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Bouches : cuisine, SDB, WC (nombre exact)</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Sortie air vicié (toiture ou façade)</td></tr>
+          </tbody></table>
+        </div>
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">ITI 220 m² (poste 6)</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Mesure exacte des murs à isoler</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Épaisseur disponible (perte surface ~5 cm / mur)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Traitement ponts thermiques (angles, tableaux)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Présence d'humidité (traitement préalable si nécessaire)</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Choix finition BA13 (joint 2 passes confirmé)</td></tr>
+          </tbody></table>
+        </div>
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">Peinture (poste 7)</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Choix couleurs (client)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Surfaces exactes (murs + plafonds)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Préparation support (rebouchage, ponçage)</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Nombre de pièces</td></tr>
+          </tbody></table>
+        </div>
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">5 splits PAC (poste 8)</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Emplacement unité extérieure (façade ou sol)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Emplacement 5 unités intérieures (pièces confirmées)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Passage liaisons frigorifiques</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Puissance électrique disponible (groupe dédié)</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Répartition : Séjour 3,5 kW + Cuisine 2,5 kW + 3 chambres 2 kW</td></tr>
+          </tbody></table>
+        </div>
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">Ballon thermo (poste 9)</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Emplacement ballon (local technique, combles, SDB)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Volume disponible (200 L confirmé)</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Arrivée électrique dédiée</td></tr>
+          </tbody></table>
+        </div>
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">Plafonds BA13 (poste 10)</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Hauteur sous plafond (RDC + R+1)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Pente toiture R+1 (combles aménagés ?)</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Passages techniques (gaines VMC, élec)</td></tr>
+          </tbody></table>
+        </div>
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">Cloisons (poste 11)</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Linéaire exact selon plan (40 ml estimé)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Hauteur des cloisons</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Portes à prévoir (nombre + dimensions)</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Isolation phonique (type laine)</td></tr>
+          </tbody></table>
+        </div>
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">Poêle granulés 12 kW (poste 12)</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Emplacement poêle (Séjour confirmé ?)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Tracé conduit fumée (longueur, coudes)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Sortie toiture (emplacement)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Stockage granulés (local dédié ?)</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Alimentation électrique poêle</td></tr>
+          </tbody></table>
+        </div>
+        <div class="overflow-x-auto rounded-lg bg-white/80 p-3">
+          <p class="mb-2 font-semibold text-[#0f766e]">Général</p>
+          <table class="w-full text-sm"><tbody>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">État général structure (murs porteurs, planchers)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Présence amiante / plomb (diagnostic obligatoire si &gt; 1949)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Accessibilité chantier (livraisons, stationnement)</td></tr>
+            <tr class="border-b"><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Ordre des travaux confirmé</td></tr>
+            <tr><td class="py-1 pr-2"><input type="checkbox" class="h-4 w-4" /></td><td class="py-1">Calendrier souhaité par le client</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+
+      <div class="mt-6 rounded-lg border-2 border-sky-600 bg-white p-4 text-center text-sm font-semibold text-sky-900">
+        APRÈS VISITE → DEVIS DÉFINITIF sous 48–72 h<br />
+        Visite 200 € TTC — Remboursée si signature devis définitif<br />
+        Contact : Sylvain LEMBELEMBE — 06 10 59 68 98
+      </div>
+    </section>
+
+    <section class="mb-8 rounded-xl bg-white p-6 shadow-md">
+      <h2 class="mb-4 text-xl font-semibold text-[#0f766e]">8. Prochaines étapes</h2>
+      <ol class="list-decimal space-y-2 pl-5 text-sm text-gray-700">
+        <li>Prise de rendez-vous pour la <strong>visite technique</strong> (200 € TTC, remboursable à la signature du devis définitif).</li>
+        <li>Remise du <strong>devis définitif</strong> sous 48–72 h après visite, avec mesures réelles et ajustements des postes concernés.</li>
+        <li>Échange avec le <strong>MAR Léo-Energy</strong> pour toute piste MaPrimeRénov' sur bouquet éligible ; montage financement avec <strong>FABIEN</strong> si souhaité.</li>
+        <li>Signature devis, planning chantier et coordination <strong>Sylvain LEMBELEMBE</strong> (AMO ENERGIA-CONSEIL IA®).</li>
+      </ol>
+    </section>
+
+    <section class="mb-8 rounded-xl bg-white p-6 shadow-md">
+      <h2 class="mb-4 text-xl font-semibold text-[#0f766e]">9. Contacts projet (5 acteurs)</h2>
+      <ul class="space-y-2 text-sm text-gray-700">
+        <li><strong>AMO / Coordination :</strong> Sylvain LEMBELEMBE — ENERGIA-CONSEIL IA® — 06 10 59 68 98 — contact@energia-conseil.com</li>
+        <li><strong>Commercial :</strong> DAMIEN — 06 72 68 09 68 — damien.srdconseil@gmail.com</li>
+        <li><strong>Courtier financement :</strong> FABIEN — VIVONS COURTIER — 06 71 19 96 45</li>
+        <li><strong>Juriste :</strong> Julia — avis juridique sur devis définitif</li>
+        <li><strong>MAR :</strong> Léo-Energy (France Rénov') — Parcours accompagné / ANAH</li>
+        <li><strong>Poêle granulés :</strong> EAT FIRE — coordonnées à confirmer</li>
+      </ul>
+    </section>
+
+    <section class="rounded-xl border border-gray-200 bg-gray-50 p-6 text-xs text-gray-600">
+      <h2 class="mb-2 text-sm font-semibold text-[#0f766e]">10. Mentions légales</h2>
+      <p>ENERGIA-CONSEIL IA® — Marque déposée INPI — Bureau d'études & AMO — 16 Rue Cuvier, 69006 Lyon — SIRET 94181942700019 — RCS Lyon 941819427 — SASU capital 100 €. Document à caractère technique et financier <strong>estimatif</strong>, non contractuel tant que le devis définitif n'est pas signé. Les montants d'aides éventuels restent soumis validation administrative.</p>
+    </section>
+  </main>
+
+  <footer class="mt-8 bg-[#0f766e] py-6 text-center text-sm text-teal-100">
+    ENERGIA-CONSEIL IA® — 16 Rue Cuvier, 69006 Lyon — SIRET 94181942700019 — www.energia-conseil.com
+  </footer>
+</body>
+</html>
