@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courrier – SCI CAMIANIS – 25/03/2026 – ENERGIA-CONSEIL IA®</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --blue:#1a3c5e;
+      --orange:#f97316;
+      --green:#16a34a;
+      --muted:#6b7280;
+      --paper:#ffffff;
+      --bg:#f1f5f9;
+    }
+
+    /* A4 print settings */
+    @page { size: A4; margin: 20mm 25mm; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff !important; }
+      .sheet { box-shadow: none !important; border: none !important; }
+      a[href]:after { content: ""; }
+    }
+  </style>
+  <script>
+    function exportPDF(){ window.print(); }
+  </script>
+</head>
+
+<body class="bg-slate-100 text-slate-900 antialiased">
+  <!-- Toolbar -->
+  <div class="no-print sticky top-0 z-10 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <div class="text-sm text-slate-700">
+        <strong>Courrier A4</strong> — SCI CAMIANIS — 25/03/2026
+      </div>
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="exportPDF()" class="px-4 py-2 rounded-lg text-sm font-medium text-white" style="background-color:var(--blue);">Imprimer / Exporter PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- A4 sheet -->
+  <main class="max-w-5xl mx-auto p-4 md:p-8">
+    <section class="sheet bg-white border border-slate-200 shadow-sm rounded-2xl overflow-hidden">
+      <!-- Header -->
+      <div class="px-8 pt-8 pb-5 border-b" style="border-color: rgba(26,60,94,.18);">
+        <div class="flex flex-wrap items-start justify-between gap-6">
+          <div class="flex items-start gap-4">
+            <!-- Simple logo mark -->
+            <div class="shrink-0">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--blue), #244c74);">
+                <svg width="30" height="30" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                  <path d="M20 40c10-2 14-10 24-16" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                  <path d="M22 28c6 0 10-4 12-10" stroke="white" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+                  <circle cx="44" cy="24" r="3.5" fill="white" opacity=".95"/>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <p class="text-sm font-semibold tracking-wide" style="color:var(--blue);">ENERGIA-CONSEIL IA®</p>
+              <p class="text-xs" style="color:var(--muted);">
+                Audit Énergétique Intelligence Artificielle | Marque déposée INPI | Bureau d'études &amp; AMO
+              </p>
+            </div>
+          </div>
+
+          <div class="text-xs text-right leading-relaxed" style="color:var(--muted);">
+            <p><strong class="text-slate-900">ENERGIA-CONSEIL IA®</strong></p>
+            <p>16 Rue Cuvier – 69006 Lyon</p>
+            <p>Tél : 06 10 59 68 98</p>
+            <p>Email : <a class="underline" href="mailto:contact@energia-conseil.com">contact@energia-conseil.com</a></p>
+            <p>Site : www.energia-conseil-ia.com</p>
+            <p>SIRET : 941 819 427 00019 – RCS Lyon</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="px-8 py-7">
+        <!-- Recipient + Date -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+          <div class="rounded-xl border border-slate-200 p-4" style="background: #fff;">
+            <p class="text-xs uppercase tracking-wide" style="color:var(--muted);">Destinataire</p>
+            <p class="mt-2 text-sm font-semibold">SCI CAMIANIS</p>
+            <p class="text-sm">21B Levée du Canal</p>
+            <p class="text-sm">71530 Champforgeuil</p>
+            <p class="text-sm mt-2">Email : <a class="underline" href="mailto:aladin.kebab@hotmail.fr">aladin.kebab@hotmail.fr</a></p>
+          </div>
+          <div class="text-sm md:text-right">
+            <p class="text-xs uppercase tracking-wide" style="color:var(--muted);">Date</p>
+            <p class="mt-2"><strong>Lyon, le 25 mars 2026</strong></p>
+            <p class="mt-3 text-xs" style="color:var(--muted);">Réf. dossier : <span class="font-mono">SL01122025</span></p>
+          </div>
+        </div>
+
+        <!-- Subject -->
+        <div class="mt-6 pt-4 border-t" style="border-color: rgba(26,60,94,.18);">
+          <p class="text-sm font-semibold underline underline-offset-4" style="color:var(--blue);">
+            OBJET : Projet de rénovation énergétique – 99D Rue François Protheau, 71100 Chalon-sur-Saône — Aides financières MaPrimeRénov' Bailleur potentielles
+          </p>
+        </div>
+
+        <!-- Body -->
+        <div class="mt-6 text-[11px] leading-relaxed">
+          <p>Madame, Monsieur,</p>
+          <p class="mt-3">
+            Je me permets de vous contacter en ma qualité d'Assistant à Maîtrise d'Ouvrage (AMO) en rénovation énergétique, mandaté par votre locataire
+            <strong>Mme KHESSIBA CAMILIA</strong>, occupante du logement situé au <strong>99D Rue François Protheau, 71100 Chalon-sur-Saône</strong>.
+          </p>
+          <p class="mt-3">
+            Dans le cadre de notre mission d'accompagnement, j'ai réalisé un audit énergétique de ce logement le <strong>1er décembre 2025</strong> (dossier n° <strong>SL01122025</strong>).
+            Cet audit met en évidence des déperditions thermiques importantes liées à l'absence d'isolation des murs extérieurs, ainsi qu'un système de chauffage <strong>100% électrique</strong> particulièrement énergivore.
+          </p>
+
+          <!-- Positive note -->
+          <div class="mt-4 rounded-xl border-2 p-4" style="border-color: var(--green); background: rgba(22,163,74,.08);">
+            <p class="font-semibold" style="color:#14532d;">✓ Point positif</p>
+            <p class="mt-1">
+              Les fenêtres ont déjà été remplacées en <strong>double vitrage</strong>, ce qui constitue un point positif significatif pour ce projet (confort et limitation des pertes).
+            </p>
+          </div>
+
+          <!-- Recommendations -->
+          <div class="mt-6 pt-4 border-t" style="border-color: rgba(26,60,94,.18);">
+            <p class="text-sm font-bold" style="color:var(--blue);">PRÉCONISATIONS IDENTIFIÉES</p>
+            <div class="mt-3 rounded-xl border border-slate-200 p-4" style="background: var(--gray);">
+              <ul class="space-y-2">
+                <li>
+                  <span class="font-semibold">• Isolation Thermique par l'Extérieur (ITE)</span><br/>
+                  <span class="text-slate-700">des 4 façades — surface nette estimée : <strong>96 m²</strong></span>
+                </li>
+                <li>
+                  <span class="font-semibold">• Installation de 4 splits PAC air/air</span><br/>
+                  <span class="text-slate-700">(chauffage + climatisation)</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Regulatory urgency -->
+          <div class="mt-6 pt-4 border-t" style="border-color: rgba(26,60,94,.18);">
+            <p class="text-sm font-bold" style="color:var(--blue);">URGENCE RÉGLEMENTAIRE – OBLIGATION BAILLEUR</p>
+            <p class="mt-3">
+              La loi Climat et Résilience impose aux bailleurs des obligations de performance énergétique :
+            </p>
+            <ul class="mt-2 space-y-1">
+              <li>• Depuis le 1er janvier 2025 : DPE classe <strong>F</strong> minimum</li>
+              <li>• À partir du 1er janvier 2028 : DPE classe <strong>E</strong> minimum</li>
+              <li>• À partir du 1er janvier 2034 : DPE classe <strong>D</strong> minimum</li>
+            </ul>
+            <p class="mt-3">En l'absence de travaux, vous vous exposez à :</p>
+            <ul class="mt-2 space-y-1">
+              <li>→ Interdiction de renouvellement du bail dès 2028</li>
+              <li>→ Gel du loyer si logement classé F ou G</li>
+              <li>→ Dépréciation de la valeur de votre bien</li>
+            </ul>
+          </div>
+
+          <!-- Aids -->
+          <div class="mt-6 pt-4 border-t" style="border-color: rgba(26,60,94,.18);">
+            <p class="text-sm font-bold" style="color:var(--blue);">AIDES FINANCIÈRES POTENTIELLES</p>
+            <p class="mt-3">
+              En votre qualité de propriétaire bailleur, vous pourriez bénéficier du dispositif <strong>MaPrimeRénov' Bailleur</strong> ainsi que des <strong>Certificats d'Économies d'Énergie (CEE)</strong>.
+            </p>
+
+            <div class="mt-4 rounded-xl border-2 p-4" style="border-color: var(--orange); background: rgba(249,115,22,.10);">
+              <p class="font-semibold" style="color:#9a3412;">⚠️ Mention prudente obligatoire</p>
+              <p class="mt-1">
+                <strong>Aides financières 2026 (estimation à titre indicatif).</strong> Aides à valider selon revenus réels du client et éligibilité en vigueur.
+                <strong>Montants définitifs après instruction ANAH et CEE.</strong><br/>
+                Les taux exacts applicables à votre situation (SCI) seront confirmés par l'ANAH après dépôt officiel du dossier.
+              </p>
+            </div>
+
+            <div class="mt-4 overflow-x-auto rounded-xl border border-slate-200">
+              <table class="min-w-full text-[11px]">
+                <thead class="text-white" style="background-color: var(--blue);">
+                  <tr>
+                    <th class="p-3 text-left">Aide</th>
+                    <th class="p-3 text-right">Montant estimé</th>
+                    <th class="p-3 text-left">Remarque</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr style="background:#ffffff;">
+                    <td class="p-3 font-semibold">MPR Bailleur – ITE</td>
+                    <td class="p-3 text-right">3 600 € à 5 760 €</td>
+                    <td class="p-3 text-slate-700">Taux confirmé après instruction ANAH</td>
+                  </tr>
+                  <tr style="background: var(--gray);">
+                    <td class="p-3 font-semibold">CEE – ITE 96 m²</td>
+                    <td class="p-3 text-right">1 440 € à 2 400 €</td>
+                    <td class="p-3 text-slate-700">À optimiser (comparaison offres obligés)</td>
+                  </tr>
+                  <tr style="background:#ffffff;">
+                    <td class="p-3 font-semibold">CEE – PAC air/air ×4</td>
+                    <td class="p-3 text-right">~2 000 €</td>
+                    <td class="p-3 text-slate-700">Sous réserve fiches/conditions en vigueur</td>
+                  </tr>
+                  <tr style="background: var(--gray);">
+                    <td class="p-3 font-semibold">TVA réduite 5,5%</td>
+                    <td class="p-3 text-right">Automatique</td>
+                    <td class="p-3 text-slate-700">Sous réserve attestation simplifiée</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 font-bold" style="color: var(--blue);">TOTAL AIDES ESTIMÉES</td>
+                    <td class="p-3 text-right font-bold" style="color: var(--blue);">7 040 € à 10 160 €</td>
+                    <td class="p-3 text-slate-700 font-semibold">Estimatif</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 font-bold">RESTE À CHARGE ESTIMÉ</td>
+                    <td class="p-3 text-right font-bold">~14 800 € à ~17 900 €</td>
+                    <td class="p-3 text-slate-700 font-semibold">Selon taux MPR exact SCI</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="mt-4 font-semibold" style="color: var(--blue);">Conditions préalables</p>
+            <ul class="mt-2 space-y-1">
+              <li>→ Engagement de location <strong>5 ans</strong> post-travaux</li>
+              <li>→ Loyer plafonné selon zone géographique</li>
+              <li>→ Travaux par entreprises <strong>RGE</strong> certifiées</li>
+              <li>→ Dossier déposé <strong>AVANT</strong> signature des devis</li>
+            </ul>
+          </div>
+
+          <!-- Our support -->
+          <div class="mt-6 pt-4 border-t" style="border-color: rgba(26,60,94,.18);">
+            <p class="text-sm font-bold" style="color:var(--blue);">NOTRE ACCOMPAGNEMENT</p>
+            <div class="mt-3 rounded-xl border border-slate-200 p-4 bg-white">
+              <ul class="space-y-2">
+                <li>✓ Vérification de votre éligibilité exacte (SCI)</li>
+                <li>✓ Constitution du dossier MaPrimeRénov' Bailleur</li>
+                <li>✓ Optimisation et comparaison des offres CEE</li>
+                <li>✓ Coordination des entreprises RGE partenaires</li>
+                <li>✓ Suivi de chantier et réception des travaux</li>
+                <li>✓ Déblocage des aides après travaux</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Closing -->
+          <div class="mt-6 pt-4 border-t" style="border-color: rgba(26,60,94,.18);">
+            <p>
+              Je reste à votre entière disposition pour tout échange téléphonique ou rencontre afin de vous présenter notre accompagnement et répondre à toutes vos questions.
+            </p>
+            <p class="mt-3">Dans l'attente de votre retour, je vous adresse mes cordiales salutations.</p>
+
+            <div class="mt-6">
+              <div class="h-px w-full" style="background: rgba(26,60,94,.25);"></div>
+              <div class="mt-4 flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <p class="text-sm font-semibold">Sylvain LEMBELEMBE</p>
+                  <p class="text-xs" style="color: var(--muted);">Fondateur &amp; CEO – ENERGIA-CONSEIL IA®</p>
+                </div>
+                <div class="text-xs text-right" style="color: var(--muted);">
+                  <p>06 10 59 68 98</p>
+                  <p><a class="underline" href="mailto:contact@energia-conseil.com">contact@energia-conseil.com</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="px-8 py-4 border-t text-[10px]" style="border-color: rgba(26,60,94,.18); color: var(--muted);">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            ENERGIA-CONSEIL IA® — 16 Rue Cuvier, 69006 Lyon — SIRET 941 819 427 00019 — RCS Lyon — contact@energia-conseil.com
+          </div>
+          <div>Document confidentiel – Usage exclusif SCI CAMIANIS</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom print button (requested) -->
+    <div class="no-print mt-6 flex items-center justify-center">
+      <button type="button" onclick="exportPDF()" class="px-5 py-3 rounded-xl text-sm font-semibold text-white shadow-sm" style="background-color:var(--orange);">
+        Imprimer / Exporter PDF
+      </button>
+    </div>
+  </main>
+</body>
+</html>
