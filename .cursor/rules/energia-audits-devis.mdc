@@ -192,6 +192,77 @@ Météo ITE +30–50 % (Nov–Mars) ; Météo PV +20 % (hiver) ; Coordination >3
 
 **Important :** Le client rembourse dès la signature (mensualités sur montant total), puis mensualités recalculées après versement ANAH. À détailler en section V Financement des devis.
 
+### 6.3 SECTION OBLIGATOIRE – PLAN DE FINANCEMENT & SCÉNARIOS DE DÉMARRAGE
+
+**Titre de section imposé :** `PLAN DE FINANCEMENT & SCÉNARIOS DE DÉMARRAGE`
+
+**Obligation d'intégration (remplace les anciennes sections financement v1/v2/v3) :**
+- Audit : intégrer dans la section VII "Financement"
+- Devis : intégrer dans la section V "Financement"
+- Rapport technique : intégrer dans la section X "Financement"
+
+#### SCÉNARIO A – "AIDES MAXIMUM" (🏆, couleur #16a34a)
+
+**Profils concernés :** BLEU (80 %), JAUNE (60-75 %), VIOLET (40-60 %).  
+**Timeline :** J+0 audit ENERGIA, J+1 dépôt MPR (MAR) + demande Éco-PTZ (FABIEN), J+90 accord MPR estimé (3 à 6 mois en 2026), J+91 signature devis définitifs RGE + déblocage fonds, J+92 démarrage travaux.  
+**Financement :** MaPrimeRénov' selon profil, Éco-PTZ 0 à 50 000 EUR à taux 0 %, prêt travaux FABIEN jusqu'à 75 000 EUR, CEE selon postes éligibles (hors ITE/ITI).  
+**Avantages :** aides maximales, reste à charge minimisé, Éco-PTZ à taux 0 %.  
+**Inconvénients :** délai 3 à 6 mois, validation ANAH obligatoire avant signature devis définitifs, aucune exception.
+
+**Règle absolue à afficher textuellement :**
+`NE JAMAIS SIGNER LES DEVIS DÉFINITIFS AVANT L'ACCORD ÉCRIT DE L'ANAH (sinon perte définitive et irrémédiable du MPR).`
+
+#### SCÉNARIO B – "DÉMARRAGE RAPIDE" (🚀, couleur #0ea5e9)
+
+**Profils concernés :** ROSE, non éligibles MPR, clients pressés renonçant au MPR, SCI/bailleurs.  
+**Timeline :** J+0 audit ENERGIA, J+1 devis définitifs signés, J+2 demande Éco-PTZ + FABIEN, J+21 déblocage fonds + démarrage travaux.  
+**Financement :** Éco-PTZ 0 à 50 000 EUR, prêt travaux FABIEN jusqu'à 75 000 EUR, total jusqu'à 125 000 EUR, MPR non (renonciation définitive), CEE selon postes éligibles.  
+**Avantages :** démarrage en 3 semaines, zéro dépendance administrative, jusqu'à 125 000 EUR de financement, simplicité/rapidité.  
+**Inconvénients :** aucune aide MPR, reste à charge plus élevé, remboursement du prêt à prévoir.
+
+#### Tableau comparatif HTML (obligatoire)
+
+**Inclure un tableau HTML clair avec exactement ces colonnes et lignes :**
+- Colonnes : `Critère` | `Scénario A – Aides Max` | `Scénario B – Rapide`
+- Lignes :
+  - Délai démarrage | 3 à 6 mois | 3 semaines
+  - MaPrimeRénov' | Oui | Non
+  - Éco-PTZ | Oui | Oui
+  - Prêt FABIEN | Oui | Oui
+  - CEE (hors ITE/ITI) | Oui | Oui
+  - Financement max | MPR + 125 000 EUR | 125 000 EUR
+  - Reste à charge | Minimisé | Plus élevé
+  - Contrainte | Accord ANAH obligatoire | Aucune
+  - Idéal pour | BLEU / JAUNE / VIOLET | ROSE / Non éligible / Pressé
+
+**Style imposé :**
+- en-tête `#1a3c5e` texte blanc
+- colonne Scénario A fond `#f0fdf4`
+- colonne Scénario B fond `#f0f9ff`
+
+#### Encadré "CHOIX DU CLIENT" (obligatoire dans les devis)
+
+Inclure un encadré avec bordure `#f97316`, fond blanc, ombre légère, et 2 cases à cocher :
+- Case 1 : Scénario A avec mention d'acceptation d'attente ANAH (3 à 6 mois)
+- Case 2 : Scénario B avec renonciation au MPR et démarrage rapide (3 semaines)
+- Ligne "Fait à ... le ..." et "Signature client ..."
+
+#### Bloc contacts financement (obligatoire)
+
+Inclure :
+- ÉCO-PTZ & PRÊT TRAVAUX : FABIEN – VIVONS COURTIER – 06 71 19 96 45 ; prêt travaux jusqu'à 75 000 EUR ; Éco-PTZ jusqu'à 50 000 EUR à taux 0 %
+- MAPRIMERÉNOV' & MAR : MAR dédié département ; dépôt dossier ANAH ; suivi instruction
+- AMO COORDINATION : Sylvain LEMBELEMBE – ENERGIA-CONSEIL IA® – 06 10 59 68 98 – contact@energia-conseil.com
+
+#### Mention juridique Julia (obligatoire, encadré orange)
+
+Ajouter un encadré orange (`#fff7ed`) avec bordure gauche `#f97316`, icône `⚖️`, contenant :
+- scénarios exclusifs l'un de l'autre
+- Scénario A : validation ANAH avant toute signature de devis définitif, sinon perte définitive et irrémédiable du MPR
+- Scénario B : renonciation définitive au MPR pour les travaux concernés
+- clause de non-responsabilité ENERGIA en cas de non-respect par le client
+- signature : `Avis établi par Julia – Juriste ENERGIA-CONSEIL IA® – Mars 2026`
+
 ---
 
 ## 7. FORMAT SORTIE – AUDIT ÉNERGÉTIQUE (10 SECTIONS)
