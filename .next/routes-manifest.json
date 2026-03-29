@@ -33,6 +33,12 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
+      "page": "/guide-photos",
+      "regex": "^/guide\\-photos(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/guide\\-photos(?:/)?$"
+    },
+    {
       "page": "/merci",
       "regex": "^/merci(?:/)?$",
       "routeKeys": {},

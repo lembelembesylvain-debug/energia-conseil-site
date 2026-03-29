@@ -1,6 +1,9 @@
 {
   "/_not-found/page": "/_not-found",
   "/api/checkout/route": "/api/checkout",
+  "/api/send-confirmation/route": "/api/send-confirmation",
+  "/api/webhook/route": "/api/webhook",
   "/page": "/",
-  "/merci/page": "/merci"
+  "/merci/page": "/merci",
+  "/guide-photos/page": "/guide-photos"
 }
