@@ -1,23 +1,25 @@
-import React from 'react'  
-import ReactDOM from 'react-dom/client'  
-import { BrowserRouter, Routes, Route } from 'react-router-dom'  
-import App from './App.jsx'  
-import AdminDashboard from './pages/AdminDashboard'  
-import Analytics from './pages/Analytics'  
-import NouvelAudit from './pages/NouvelAudit'  
-import DetailAudit from './pages/DetailAudit'  
-import './index.css'  
- 
-ReactDOM.createRoot(document.getElementById('root')).render(  
-  <React.StrictMode>  
-    <BrowserRouter>  
-      <Routes>  
-        <Route path="/" element={<App />} />  
-        <Route path="/admin" element={<AdminDashboard />} />  
-        <Route path="/analytics" element={<Analytics />} />  
-        <Route path="/audits/new" element={<NouvelAudit />} />  
-        <Route path="/audits/:id" element={<DetailAudit />} />  
-      </Routes>  
-    </BrowserRouter>  
-  </React.StrictMode>,  
-)  
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AdminDashboard from "./vite-pages/AdminDashboard";
+import NouvelAudit from "./vite-pages/NouvelAudit";
+import DetailAudit from "./vite-pages/DetailAudit";
+import "./index.css";
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<AdminDashboard />} />
+      <Route path="/nouvel-audit" element={<NouvelAudit />} />
+      <Route path="/audit/:id" element={<DetailAudit />} />
+    </Routes>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+);

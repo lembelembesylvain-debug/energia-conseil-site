@@ -2,9 +2,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './index.css'
-import AdminDashboard from './pages/AdminDashboard.jsx'
-import NouvelAudit from './pages/NouvelAudit.jsx'
-import DetailAudit from './pages/DetailAudit.jsx'
+import AdminDashboard from './vite-pages/AdminDashboard.jsx'
+import NouvelAudit from './vite-pages/NouvelAudit.jsx'
+import DetailAudit from './vite-pages/DetailAudit.jsx'
 
 function App() {
   return (
