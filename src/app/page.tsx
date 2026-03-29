@@ -1,8 +1,9 @@
 "use client";
 
+import { loadStripe } from "@stripe/stripe-js";
 import Image from "next/image";
 import { motion, useInView, animate } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const brand = "#2d5a3d";
 const accent = "#52b788";
@@ -113,6 +114,46 @@ export default function HomePage() {
   const savings = useCountUp(18000, { suffix: "€" });
   const precision = useCountUp(95, { suffix: "%" });
   const zeroRef = useRef<HTMLDivElement>(null);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+
+  const startCheckout = useCallback(async () => {
+    const pk = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.trim();
+    if (!pk) {
+      window.alert(
+        "Paiement indisponible : ajoutez NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY dans votre environnement.",
+      );
+      return;
+    }
+    setCheckoutLoading(true);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+      });
+      const data = (await res.json()) as {
+        sessionId?: string;
+        url?: string | null;
+        error?: string;
+      };
+      if (!res.ok) {
+        throw new Error(data.error || "Impossible de créer la session de paiement.");
+      }
+      await loadStripe(pk);
+      if (data.url) {
+        window.location.assign(data.url);
+        return;
+      }
+      throw new Error("URL de paiement Stripe manquante.");
+    } catch (e) {
+      console.error(e);
+      window.alert(
+        e instanceof Error
+          ? e.message
+          : "Impossible d'ouvrir le paiement. Réessayez plus tard.",
+      );
+      setCheckoutLoading(false);
+    }
+  }, []);
 
   return (
     <main className="overflow-x-hidden bg-white">
@@ -176,14 +217,18 @@ export default function HomePage() {
               variants={fadeSlideUp}
               className="mt-10 flex w-full max-w-xl flex-col gap-4 sm:flex-row sm:justify-center"
             >
-              <motion.a
-                href="#cta-final"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                className="animate-pulse-cta inline-flex items-center justify-center gap-2 rounded-2xl bg-[#52b788] px-8 py-4 text-lg font-semibold text-white shadow-2xl transition hover:bg-[#40916c]"
+              <motion.button
+                type="button"
+                disabled={checkoutLoading}
+                onClick={() => void startCheckout()}
+                whileHover={checkoutLoading ? undefined : { scale: 1.03 }}
+                whileTap={checkoutLoading ? undefined : { scale: 0.98 }}
+                className="animate-pulse-cta inline-flex items-center justify-center gap-2 rounded-2xl bg-[#52b788] px-8 py-4 text-lg font-semibold text-white shadow-2xl transition hover:bg-[#40916c] disabled:cursor-wait disabled:opacity-80"
               >
-                🔥 Obtenir mon audit maintenant
-              </motion.a>
+                {checkoutLoading
+                  ? "Redirection vers Stripe…"
+                  : "🔥 Obtenir mon audit maintenant"}
+              </motion.button>
               <motion.a
                 href="#comment-ca-marche"
                 whileHover={{ scale: 1.02 }}
@@ -602,14 +647,18 @@ export default function HomePage() {
             transition={{ delay: 0.12 }}
             className="mt-12"
           >
-            <motion.a
-              href="#cta-final"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              className="animate-pulse-cta inline-flex w-full max-w-lg items-center justify-center gap-2 rounded-2xl bg-[#52b788] px-10 py-5 text-xl font-bold text-white shadow-2xl sm:text-2xl"
+            <motion.button
+              type="button"
+              disabled={checkoutLoading}
+              onClick={() => void startCheckout()}
+              whileHover={checkoutLoading ? undefined : { scale: 1.04 }}
+              whileTap={checkoutLoading ? undefined : { scale: 0.97 }}
+              className="animate-pulse-cta inline-flex w-full max-w-lg items-center justify-center gap-2 rounded-2xl bg-[#52b788] px-10 py-5 text-xl font-bold text-white shadow-2xl disabled:cursor-wait disabled:opacity-80 sm:text-2xl"
             >
-              🔥 Démarrer mon audit à 199€ →
-            </motion.a>
+              {checkoutLoading
+                ? "Redirection vers Stripe…"
+                : "🔥 Démarrer mon audit à 199€ →"}
+            </motion.button>
           </motion.div>
           <motion.p
             initial={{ opacity: 0 }}
