@@ -189,6 +189,19 @@ export default function HomePage() {
               <span className="animate-pulse">🏆</span>
               <span>#1 Plateforme Audit IA en France</span>
             </motion.div>
+            <motion.div
+              custom={0.4}
+              variants={fadeSlideUp}
+              className="mb-8 inline-flex items-center gap-2 rounded-full border border-emerald-300/40 bg-emerald-500/20 px-4 py-2 text-sm font-semibold text-emerald-100 shadow-lg backdrop-blur-md"
+            >
+              <span
+                className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-400 text-xs font-bold text-[#0f2418]"
+                aria-hidden
+              >
+                ✓
+              </span>
+              <span>Marque déposée à l&apos;INPI ®</span>
+            </motion.div>
 
             <motion.h1
               custom={1}
@@ -688,8 +701,11 @@ export default function HomePage() {
         <p className="font-semibold text-[#2d5a3d]">
           ENERGIA-CONSEIL IA® — Audit Énergétique Intelligence Artificielle
         </p>
-        <p className="mt-2">
-          16 Rue Cuvier, 69006 Lyon • SIRET 94181942700019
+        <p className="mt-2 text-sm text-gray-400">
+          ENERGIA-CONSEIL IA® est une marque déposée à l&apos;INPI
+        </p>
+        <p className="mt-1 text-xs text-gray-500">
+          SIRET : 94181942700019 — 16 Rue Cuvier, 69006 Lyon
         </p>
       </footer>
     </main>
