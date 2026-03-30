@@ -25,3 +25,4 @@ public/config.upload.js
 *.njsproj
 *.sln
 *.sw?
+.next/
