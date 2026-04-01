@@ -21,7 +21,7 @@ function Nav() {
             Tarifs
           </Link>
           <Link
-            href="#essai"
+            href="/signup"
             className="rounded-full bg-[#10b981] px-4 py-2 font-medium text-white shadow-sm transition hover:bg-[#059669]"
           >
             Essai gratuit
@@ -56,7 +56,7 @@ function Hero() {
         </p>
         <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
           <Link
-            href="#essai"
+            href="/signup"
             className="inline-flex h-12 items-center justify-center rounded-full bg-[#10b981] px-8 text-sm font-semibold text-white shadow-lg shadow-[#10b981]/25 transition hover:bg-[#059669]"
           >
             Essai gratuit 14 jours
@@ -332,7 +332,7 @@ function PricingCard({
         ))}
       </ul>
       <Link
-        href="#essai"
+        href="/signup"
         className={`mt-8 inline-flex h-11 items-center justify-center rounded-full text-sm font-semibold transition ${
           highlighted
             ? "bg-[#10b981] text-white hover:bg-[#059669]"
@@ -407,7 +407,7 @@ function FinalCta() {
   return (
     <section
       id="essai"
-      className="bg-gradient-to-b from-[#10b981] to-[#059669] py-20 sm:py-28"
+      className="scroll-mt-20 bg-gradient-to-b from-[#10b981] to-[#059669] py-20 sm:py-28"
     >
       <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
         <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
@@ -417,7 +417,7 @@ function FinalCta() {
           14 jours pour tester sur vos vrais projets. Aucune carte requise.
         </p>
         <Link
-          href="#"
+          href="/signup"
           className="mt-10 inline-flex h-12 items-center justify-center rounded-full bg-white px-10 text-sm font-semibold text-[#047857] shadow-lg transition hover:bg-zinc-50"
         >
           Créer mon compte
