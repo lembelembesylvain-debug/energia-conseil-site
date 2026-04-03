@@ -1,0 +1,367 @@
+<style>
+  .eca-wrap {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.5;
+    box-sizing: border-box;
+  }
+  .eca-wrap *,
+  .eca-wrap *::before,
+  .eca-wrap *::after {
+    box-sizing: border-box;
+  }
+  .eca-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 20px;
+  }
+  .eca-hero,
+  .eca-cta-final {
+    background: linear-gradient(135deg, #1a5c2e 0%, #2d8a4e 100%);
+    color: #fff;
+    padding: 40px 20px;
+    border-radius: 0;
+  }
+  .eca-hero .eca-inner,
+  .eca-cta-final .eca-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .eca-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+  .eca-hero h1 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin: 0 0 12px;
+    line-height: 1.2;
+    color: #fff;
+  }
+  .eca-sub {
+    font-size: 1.05rem;
+    opacity: 0.95;
+    margin: 0 0 20px;
+  }
+  .eca-price {
+    margin: 20px 0;
+  }
+  .eca-price-old {
+    text-decoration: line-through;
+    opacity: 0.85;
+    font-size: 1.1rem;
+    margin-right: 8px;
+  }
+  .eca-price-new {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #f9c74f;
+  }
+  .eca-mention {
+    font-size: 0.95rem;
+    margin: 8px 0 20px;
+    opacity: 0.95;
+  }
+  .eca-btn {
+    display: inline-block;
+    background: #f9c74f;
+    color: #1a1a1a;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  }
+  .eca-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  }
+  .eca-note {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    opacity: 0.9;
+  }
+  .eca-section h2 {
+    color: #1a5c2e;
+    border-left: 4px solid #4caf50;
+    padding-left: 12px;
+    margin: 0 0 20px;
+    font-size: 1.35rem;
+  }
+  .eca-card {
+    background: #f9fbf9;
+    border: 1px solid #c8e6c9;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .eca-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .eca-stat-num {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #2d8a4e;
+    margin-bottom: 4px;
+  }
+  .eca-stat-label {
+    font-size: 0.95rem;
+    color: #333;
+  }
+  .eca-service-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin: 0 0 8px;
+    color: #1a5c2e;
+  }
+  .eca-service-desc {
+    font-size: 0.95rem;
+    margin: 0 0 12px;
+    color: #444;
+  }
+  .eca-service-link {
+    color: #2d8a4e;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .eca-service-link:hover {
+    text-decoration: underline;
+  }
+  .eca-step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #2d8a4e;
+    color: #fff;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+  .eca-step-title {
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: #1a5c2e;
+  }
+  .eca-step-text {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #444;
+  }
+  .eca-why-title {
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #1a5c2e;
+    font-size: 1rem;
+  }
+  .eca-why-text {
+    margin: 0;
+    font-size: 0.92rem;
+    color: #444;
+  }
+  .eca-stars {
+    color: #f9c74f;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+  .eca-testi-name {
+    font-weight: 700;
+    color: #1a5c2e;
+    margin: 0 0 8px;
+    font-size: 0.95rem;
+  }
+  .eca-testi-quote {
+    margin: 0;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #444;
+  }
+  .eca-cta-final h2 {
+    color: #fff;
+    border-left-color: #f9c74f;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .eca-cta-final .eca-sub {
+    text-align: center;
+  }
+  .eca-cta-final .eca-btn-wrap {
+    text-align: center;
+    margin: 20px 0;
+  }
+  .eca-contact {
+    text-align: center;
+    font-size: 0.95rem;
+    margin-top: 16px;
+    opacity: 0.95;
+  }
+  .eca-contact a {
+    color: #f9c74f;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .eca-contact a:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 600px) {
+    .eca-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+<div class="eca-wrap">
+  <section class="eca-hero" aria-label="Accueil ENERGIA-CONSEIL IA">
+    <div class="eca-inner">
+      <span class="eca-badge">🏠 Audit Énergétique par Intelligence Artificielle</span>
+      <h1>Économisez jusqu'à 90% sur vos factures d'énergie</h1>
+      <p class="eca-sub">Bureau d'études &amp; AMO certifié — Lyon &amp; toute la France</p>
+      <div class="eca-price">
+        <span class="eca-price-old">800€</span>
+        <span class="eca-price-new">199€ TTC</span>
+      </div>
+      <p class="eca-mention">Remboursé si travaux &gt; 10 000€</p>
+      <a class="eca-btn" href="https://energia-conseils-ia.com/audit-energetique-ia/">🚀 OBTENIR MON AUDIT — 199€</a>
+      <p class="eca-note">✅ Paiement sécurisé Stripe | 📄 Rapport PDF 48h | 🔒 RGPD</p>
+    </div>
+  </section>
+
+  <section class="eca-section" aria-labelledby="eca-chiffres">
+    <h2 id="eca-chiffres">Chiffres clés</h2>
+    <div class="eca-grid">
+      <div class="eca-card">
+        <div class="eca-stat-num">+500</div>
+        <div class="eca-stat-label">Audits réalisés</div>
+      </div>
+      <div class="eca-card">
+        <div class="eca-stat-num">15M€</div>
+        <div class="eca-stat-label">D'aides obtenues</div>
+      </div>
+      <div class="eca-card">
+        <div class="eca-stat-num">95%</div>
+        <div class="eca-stat-label">Précision IA</div>
+      </div>
+      <div class="eca-card">
+        <div class="eca-stat-num">48h</div>
+        <div class="eca-stat-label">Délai garanti</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="eca-section" aria-labelledby="eca-services">
+    <h2 id="eca-services">Nos services</h2>
+    <div class="eca-grid">
+      <div class="eca-card">
+        <p class="eca-service-title">🤖 Audit Énergétique IA — 199€</p>
+        <p class="eca-service-desc">Rapport 40-60 pages en 48h</p>
+        <a class="eca-service-link" href="https://energia-conseils-ia.com/audit-energetique-ia/">En savoir plus →</a>
+      </div>
+      <div class="eca-card">
+        <p class="eca-service-title">💰 Aides &amp; Financement</p>
+        <p class="eca-service-desc">MaPrimeRénov' jusqu'à 100% — Éco-PTZ 0%</p>
+        <a class="eca-service-link" href="https://energia-conseils-ia.com/aides-subventions/">En savoir plus →</a>
+      </div>
+      <div class="eca-card">
+        <p class="eca-service-title">🤝 Accompagnement MAR</p>
+        <p class="eca-service-desc">Léo-Energy certifié ANAH — 60% des cas gratuit</p>
+        <a class="eca-service-link" href="https://energia-conseils-ia.com/services/">En savoir plus →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="eca-section" aria-labelledby="eca-etapes">
+    <h2 id="eca-etapes">Comment ça marche</h2>
+    <div class="eca-grid">
+      <div class="eca-card">
+        <span class="eca-step-num">1</span>
+        <p class="eca-step-title">Étape 1</p>
+        <p class="eca-step-text">Remplissez le formulaire (5 min)</p>
+      </div>
+      <div class="eca-card">
+        <span class="eca-step-num">2</span>
+        <p class="eca-step-title">Étape 2</p>
+        <p class="eca-step-text">Paiement sécurisé Stripe 199€</p>
+      </div>
+      <div class="eca-card">
+        <span class="eca-step-num">3</span>
+        <p class="eca-step-title">Étape 3</p>
+        <p class="eca-step-text">Notre IA analyse votre logement</p>
+      </div>
+      <div class="eca-card">
+        <span class="eca-step-num">4</span>
+        <p class="eca-step-title">Étape 4</p>
+        <p class="eca-step-text">Rapport PDF reçu en 48h garanti</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="eca-section" aria-labelledby="eca-pourquoi">
+    <h2 id="eca-pourquoi">Pourquoi nous</h2>
+    <div class="eca-grid">
+      <div class="eca-card">
+        <p class="eca-why-title">🎯 Précision 95%</p>
+        <p class="eca-why-text">Équivalent audit physique certifié</p>
+      </div>
+      <div class="eca-card">
+        <p class="eca-why-title">⚡ Livraison 48h</p>
+        <p class="eca-why-text">Rapport garanti ou remboursé</p>
+      </div>
+      <div class="eca-card">
+        <p class="eca-why-title">💰 Remboursé</p>
+        <p class="eca-why-text">Si travaux &gt; 10 000€ avec artisans RGE</p>
+      </div>
+      <div class="eca-card">
+        <p class="eca-why-title">🏆 Certifié ANAH</p>
+        <p class="eca-why-text">Éligible MaPrimeRénov' 2026</p>
+      </div>
+      <div class="eca-card">
+        <p class="eca-why-title">🔒 100% sécurisé</p>
+        <p class="eca-why-text">Données RGPD, hébergement France</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="eca-section" aria-labelledby="eca-temoignages">
+    <h2 id="eca-temoignages">Témoignages</h2>
+    <div class="eca-grid">
+      <div class="eca-card">
+        <div class="eca-stars" aria-hidden="true">⭐⭐⭐⭐⭐</div>
+        <p class="eca-testi-name">Marie D., Lyon</p>
+        <p class="eca-testi-quote">« Audit reçu en 36h. 18 000€ d'aides obtenues ! »</p>
+      </div>
+      <div class="eca-card">
+        <div class="eca-stars" aria-hidden="true">⭐⭐⭐⭐⭐</div>
+        <p class="eca-testi-name">Thomas L., Villeurbanne</p>
+        <p class="eca-testi-quote">« Confirmé par audit physique. Économie de 1 000€ ! »</p>
+      </div>
+      <div class="eca-card">
+        <div class="eca-stars" aria-hidden="true">⭐⭐⭐⭐⭐</div>
+        <p class="eca-testi-name">Sophie M., Marseille</p>
+        <p class="eca-testi-quote">« 199€ remboursé avec les travaux. Génial ! »</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="eca-cta-final" aria-labelledby="eca-cta-titre">
+    <div class="eca-inner">
+      <h2 id="eca-cta-titre">🚀 Prêt à rénover votre logement ?</h2>
+      <p class="eca-sub">Audit IA 199€ — Remboursé si travaux &gt; 10 000€</p>
+      <div class="eca-btn-wrap">
+        <a class="eca-btn" href="https://energia-conseils-ia.com/audit-energetique-ia/">🏠 OBTENIR MON AUDIT MAINTENANT</a>
+      </div>
+      <p class="eca-contact">📞 <a href="tel:+33610596898">06 10 59 68 98</a> | 📧 <a href="mailto:contact@energia-ia.com">contact@energia-ia.com</a><br />📍 16 Rue Cuvier, 69006 Lyon</p>
+    </div>
+  </section>
+</div>
