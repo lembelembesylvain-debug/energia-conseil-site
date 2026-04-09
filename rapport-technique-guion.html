@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rapport technique – GUION | ENERGIA-CONSEIL IA®</title>
+  <title>Rapport technique &ndash; GUION | ENERGIA-CONSEIL IA&reg;</title>
   <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
@@ -61,6 +61,13 @@
     margin: 0.85rem 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
+  .julia {
+    background: #fff7ed;
+    border-left: 4px solid #f97316;
+    padding: 0.85rem 1rem;
+    margin: 0.85rem 0;
+    border-radius: 0 8px 8px 0;
+  }
   .disclaimer {
     font-size: 0.75rem;
     color: #607D8B;
@@ -78,6 +85,7 @@
     text-align: center;
   }
   .badge { display: inline-block; background: var(--orange); color: #fff; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+  .sign-zone { margin-top: 2rem; padding: 1.25rem; border: 1px dashed var(--bleu); border-radius: 8px; background: #FAFAFA; }
   @media print {
     body { font-size: 11pt; }
     .wrap { max-width: 100%; padding: 0.5cm; }
@@ -88,73 +96,86 @@
 </head>
 <body>
   <div class="wrap">
-    
+
     <div class="entete">
-      <h1>ENERGIA-CONSEIL IA®</h1>
-      <div class="sous">Audit Énergétique Intelligence Artificielle · Marque déposée INPI · Bureau d'études &amp; AMO</div>
+      <h1>ENERGIA-CONSEIL IA&reg;</h1>
+      <div class="sous">Audit &Eacute;nerg&eacute;tique Intelligence Artificielle &middot; Marque d&eacute;pos&eacute;e INPI &middot; Bureau d&apos;&eacute;tudes &amp; AMO</div>
       <div class="coordonnees">
-        16 Rue Cuvier, 69006 Lyon · Tél. 06 10 59 68 98 · <a href="mailto:contact@energia-conseils-ia.com">contact@energia-conseils-ia.com</a><br>
-        <a href="https://www.energia-conseils-ia.com" target="_blank" rel="noopener">www.energia-conseils-ia.com</a> · SIRET 94181942700019 · Responsable : Sylvain LEMBELEMBE
+        16 Rue Cuvier, 69006 Lyon &middot; T&eacute;l. 06 10 59 68 98 &middot; <a href="mailto:contact@energia-conseils-ia.com">contact@energia-conseils-ia.com</a><br>
+        <a href="https://www.energia-conseils-ia.com" target="_blank" rel="noopener">www.energia-conseils-ia.com</a> &middot; SIRET 94181942700019 &middot; Responsable : Sylvain LEMBELEMBE
       </div>
     </div>
 
     <h1 style="color:var(--bleu);font-size:1.15rem;margin:0.75rem 0 0;">RAPPORT TECHNIQUE</h1>
-    <p><strong>Réf. dossier :</strong> GUION – Saint-Genest-Malifaux · <strong>Date :</strong> 9 avril 2026</p>
+    <p><strong>R&eacute;f. :</strong> GUION &mdash; Saint-Genest-Malifaux &middot; <strong>Devis associ&eacute; :</strong> DEV-2026-GUION-ITI-V3 &middot; <strong>Date :</strong> 9 avril 2026</p>
 
     <h2>Objet du rapport</h2>
-    <p>Le présent rapport décrit l’état thermique du logement, les solutions techniques de rénovation énergétique retenues (ITI ISONAT, combles, planchers, menuiseries, VMC double flux, PAC 6 kW, ballon thermodynamique 250 L), les dimensionnements et les performances attendues (DPE F → B, baisse forte de la consommation). Il complète l’audit énergétique et le devis DEV-2026-GUION-ITI-V3.</p>
+    <p>Ce rapport technique pr&eacute;sente le diagnostic thermique du logement, les <strong>solutions retenues</strong> pour la r&eacute;novation &eacute;nerg&eacute;tique (ITI ISONAT biosourc&eacute;, chaudi&egrave;re &agrave; granul&eacute;s Hargassner, VMC simple flux hygror&eacute;glable, menuiseries PVC triple vitrage ELITH, planchers et charpente), les <strong>dimensionnements chiffr&eacute;s</strong>, les performances attendues (<strong>DPE F &rarr; B</strong>, r&eacute;duction de la facture chauffage de l&apos;ordre de <strong>60 &agrave; 70&nbsp;%</strong>) et les exigences de conformit&eacute; (RGE, isolants, Flamme Verte). Il compl&egrave;te l&apos;audit &eacute;nerg&eacute;tique et le devis DEV-2026-GUION-ITI-V3.</p>
 
     <h2>Description du bien</h2>
-    <p>Maison individuelle de <strong>110 m²</strong> datant de <strong>1980</strong>, située <strong>3997 Route de la Ricamarie, 42660 Saint-Genest-Malifaux</strong>. Enveloppe initialement peu performante ; systèmes de chauffage et ventilation à moderniser. Occupants : M. GUION Quentin &amp; Mme GUION Romane. Objectif réglementaire et patrimonial : atteindre une classe <strong>B</strong> au DPE.</p>
+    <p><strong>Maison individuelle</strong> de <strong>110 m&sup2;</strong>, construite en <strong>1980</strong>, situ&eacute;e <strong>3997 Route de la Ricamarie, 42660 Saint-Genest-Malifaux</strong> (Loire, 42), zone climatique hors IDF. Occupants : M. GUION Quentin &amp; Mme GUION Romane. <strong>RFR :</strong> 80&nbsp;000 &euro; (2 personnes), <strong>profil MaPrimeR&eacute;nov&apos; : ROSE</strong>. Enveloppe et syst&egrave;mes initiaux n&eacute;cessitent une r&eacute;novation globale pour atteindre la classe <strong>B</strong>.</p>
 
-    <h2>Diagnostic thermique et déperditions par poste</h2>
-    <p>L’analyse repose sur l’inspection et les données projet. Les déperditions majoritaires proviennent de la <strong>toiture/combles</strong>, des <strong>murs non isolés ou insuffisamment isolés</strong>, des <strong>menuiseries</strong> et des <strong>planchers</strong>. Le renouvellement d’air non contrôlé augmente les pertes et les risques sanitaires (humidité).</p>
+    <h2>Diagnostic thermique et d&eacute;perditions</h2>
+    <p>Les d&eacute;perditions sont domin&eacute;es par la <strong>toiture / combles</strong>, les <strong>murs</strong> peu ou mal isol&eacute;s, les <strong>planchers</strong>, les <strong>menuiseries</strong> et les pertes li&eacute;es &agrave; un <strong>renouvellement d&apos;air non contr&ocirc;l&eacute;</strong>. La modernisation du <strong>g&eacute;n&eacute;rateur</strong> (chaudi&egrave;re granul&eacute;s performante) r&eacute;duit fortement les consommations apr&egrave;s traitement de l&apos;enveloppe.</p>
     <table>
-      <tr><th>Poste</th><th>Diagnostic</th><th>Priorité d’intervention</th></tr>
-      <tr><td>Combles</td><td>Isolation insuffisante vs objectifs R ≥ 7–8</td><td>1 (avec murs selon planning chantier)</td></tr>
-      <tr><td>Murs</td><td>Ponts thermiques, inertie pierre / parois froides</td><td>2 — ITI ISONAT / matériaux adaptés</td></tr>
-      <tr><td>Planchers</td><td>Déperditions vers sous-sol / vide sanitaire</td><td>3</td></tr>
-      <tr><td>Menuiseries</td><td>Uw élevé, joints vétustes</td><td>4 (après enveloppe)</td></tr>
-      <tr><td>Ventilation</td><td>Pas de VMC DF performante</td><td>5 (après étanchéité à l’air améliorée)</td></tr>
-      <tr><td>Chauffage / ECS</td><td>Génération ancienne, rendement faible</td><td>6–7 — PAC + ballon après isolation</td></tr>
+      <tr><th>Poste</th><th>R&ocirc;le dans le bilan</th><th>Action retenue</th></tr>
+      <tr><td>Combles</td><td>25&ndash;30&nbsp;% des d&eacute;perditions typiques</td><td>2 couches ISONAT (180 + 145 mm), R = 9,05 m&sup2;&middot;K/W</td></tr>
+      <tr><td>Murs</td><td>20&ndash;25&nbsp;%</td><td>ITI ISONAT 145 mm, R = 4,05 m&sup2;&middot;K/W</td></tr>
+      <tr><td>Planchers</td><td>7&ndash;10&nbsp;%</td><td>Chape b&eacute;ton cellulaire 180 mm, R &ge; 3,0 m&sup2;&middot;K/W + charpente</td></tr>
+      <tr><td>Menuiseries</td><td>10&ndash;15&nbsp;%</td><td>PVC triple vitrage U<sub>w</sub> &le; 1,1 &mdash; gamme ELITH</td></tr>
+      <tr><td>Ventilation</td><td>Qualit&eacute; d&apos;air et d&eacute;perditions</td><td>VMC simple flux hygror&eacute;glable</td></tr>
+      <tr><td>Chauffage</td><td>Poste consommation</td><td>Hargassner NanoPK12 &mdash; 12 kW &mdash; Flamme Verte 7*</td></tr>
     </table>
 
-    <h2>Solutions techniques détaillées</h2>
-    <h3>ITI et combles ISONAT (AKPRO – RGE E83956)</h3>
-    <p>Isolation par l’intérieur des murs avec système compatible <strong>ISONAT</strong> / laine biosourcée ou équivalent certifié : résistance thermique visée <strong>R ≥ 3,7 m²·K/W</strong> (objectif performance). Combles : renfort pour atteindre <strong>R ≥ 7 à 8 m²·K/W</strong> selon produits et épaisseurs. Attention aux traitements pare-vapeur et continuité de l’enveloppe.</p>
-    <h3>Planchers et charpente (Décoplatre L'Habitat Durable)</h3>
-    <p>Isolation des planchers — objectif <strong>R ≥ 3 m²·K/W</strong> minimum sur ce type de projet ; reprise ou confortement charpente si nécessaire pour charge et durabilité des ITI/combles.</p>
-    <h3>Menuiseries, VMC, PAC, ballon (ECO SYSTÈME DURABLE)</h3>
-    <ul>
-      <li><strong>Menuiseries :</strong> Uw ≤ 1,2 W/m²·K (objectif performance) —Uw selon produits retenus sur devis signé.</li>
-      <li><strong>VMC double flux :</strong> rendement de récupération ≥ 85 % sur échangeur ; réseaux calorifugés et équilibrage.</li>
-      <li><strong>PAC air-eau 6 kW :</strong> COP nominal à vérifier sur fiche produit (≥ 4 attendu pour classe A+ / bonnes pratiques 2026).</li>
-      <li><strong>Ballon thermodynamique 250 L :</strong> appoint ECS décarboné couplé logiquement à la PAC.</li>
-    </ul>
+    <h2>Solutions techniques retenues</h2>
+    <h3>ITI ISONAT biosourc&eacute; (AKPRO &mdash; RGE E83956)</h3>
+    <p>Isolation par l&apos;int&eacute;rieur des murs avec <strong>ISONAT 145 mm</strong> (&lambda; = 0,038 W/m&middot;K). R&eacute;sistance thermique : <strong>R = e / &lambda; = 0,145 / 0,038 = 3,82 &rarr; 4,05 m&sup2;&middot;K/W</strong> (valeur retenue projet, fiches produit &agrave; joindre au dossier). Continuit&eacute; avec combles et traitements pare-vapeur selon DTU.</p>
+    <h3>Chaudi&egrave;re granul&eacute;s Hargassner 12 kW (MS Plomberie)</h3>
+    <p><strong>Hargassner NanoPK12</strong> : puissance nominale <strong>12 kW</strong>, classe &eacute;nerg&eacute;tique <strong>A+</strong>, <strong>Flamme Verte 7 &eacute;toiles</strong>, rendement ETA<sub>S</sub> <strong>81&nbsp;%</strong>. <strong>Silo granul&eacute;s 5 T</strong> avec extracteur automatique. Dimensionnement : pour 110 m&sup2; r&eacute;nov&eacute;s (enveloppe renforc&eacute;e), un g&eacute;n&eacute;rateur de l&apos;ordre de <strong>10&ndash;12 kW</strong> est coh&eacute;rent avec un d&eacute;bit thermique &agrave; la norme ext&eacute;rieure r&eacute;duit apr&egrave;s isolation (coefficient surfacique post-r&eacute;novation estim&eacute; ~35&ndash;45 W/m&sup2; en pointe hivernale pour ce type de maison &rarr; besoin ~4&ndash;5 kW en continu de couverture, <strong>12 kW</strong> assure les appoints, eau chaude sanitaire selon configuration et marge de s&eacute;curit&eacute; r&eacute;glementaire).</p>
+    <h3>VMC simple flux hygro</h3>
+    <p>Installation d&apos;une <strong>VMC simple flux hygror&eacute;glable</strong> (MS Plomberie) pour renouveler l&apos;air et limiter l&apos;humidit&eacute; r&eacute;siduelle apr&egrave;s renforcement de l&apos;&eacute;tanch&eacute;it&eacute; &agrave; l&apos;air de l&apos;enveloppe. D&eacute;bits conformes au r&egrave;glement sanitaire (arr&ecirc;t&eacute; du 24 mars 1982 modifi&eacute;) et r&eacute;glage hygro sur pi&egrave;ces humides.</p>
+    <h3>Menuiseries PVC triple vitrage ELITH (Renaissance Fen&ecirc;tres)</h3>
+    <p>Remplacement des ouvrants par <strong>PVC triple vitrage</strong> avec <strong>U<sub>w</sub> &le; 1,1 W/m&sup2;&middot;K</strong> (gamme <strong>ELITH</strong>), incluant porte-fen&ecirc;tre salon aux exigences <strong>PMR</strong> selon plans valid&eacute;s.</p>
+    <h3>Planchers et charpente (D&eacute;coplatre L&apos;Habitat Durable)</h3>
+    <p>Isolation des planchers avec <strong>chape b&eacute;ton cellulaire 180 mm</strong> pour <strong>R &ge; 3,0 m&sup2;&middot;K/W</strong> et travaux de charpente n&eacute;cessaires &agrave; la coh&eacute;rence structurelle avec combles et ITI.</p>
 
-    <h2>Dimensionnements et calculs</h2>
-    <p><strong>PAC :</strong> P ≈ 110 × 0,045 kW/m² × 1,15 ≈ 5,7 kW → <strong>6 kW</strong> nominal. La puissance est calculée <em>après</em> réduction des besoins par l’isolation ; un surdimensionnement pré-isolation entraînerait surcoût d’investissement et de consommation.</p>
-    <p><strong>VMC :</strong> débit total basé sur les pièces desservies (cf. audit section VIII) — respect du règlement sanitaire dérivé (arrêté 24 mars 1982 modifié) et bonnes pratiques RE2020 pour les bâtiments rénovés.</p>
-    <p><strong>Surface PV :</strong> non incluse dans le présent lot ; pourrait compléter le bilan après stabilisation des besoins (phase ultérieure possible).</p>
+    <h2>Dimensionnements avec calculs</h2>
+    <table>
+      <tr><th>Grandeur</th><th>Calcul / donn&eacute;e</th><th>R&eacute;sultat retenu</th></tr>
+      <tr><td>R ITI</td><td>R = 0,145 / 0,038</td><td><strong>3,82</strong> m&sup2;&middot;K/W (projet <strong>4,05</strong> avec fiche produit)</td></tr>
+      <tr><td>R combles</td><td>Somme R multicouche ISONAT 180 + 145 mm</td><td><strong>R = 9,05</strong> m&sup2;&middot;K/W</td></tr>
+      <tr><td>R plancher</td><td>Chape b&eacute;ton cellulaire 180 mm</td><td><strong>R &ge; 3,0</strong> m&sup2;&middot;K/W</td></tr>
+      <tr><td>U menuiseries</td><td>Fabricant gamme ELITH</td><td><strong>U<sub>w</sub> &le; 1,1</strong> W/m&sup2;&middot;K</td></tr>
+      <tr><td>Puissance chaudi&egrave;re</td><td>B&acirc;timent 110 m&sup2; post-isolation + ECS</td><td><strong>12 kW</strong> NanoPK12</td></tr>
+    </table>
 
     <h2>Performances attendues</h2>
     <ul>
-      <li><strong>DPE :</strong> passage <strong>F → B</strong> (sous réserve de modélisation ADEME et mesures réelles après travaux).</li>
-      <li><strong>Consommation chauffage + ECS :</strong> réduction estimée de l’ordre de <strong>70 à 75 %</strong> par rapport au scénario avant travaux (ordre de grandeur ; dépend des usages et des tarifs).</li>
-      <li><strong>Confort :</strong> température homogène, moins de courants d’air, meilleure qualité d’air via VMC DF.</li>
+      <li><strong>DPE :</strong> passage <strong>F &rarr; B</strong> (+4 classes), sous r&eacute;serve du diagnostic de performance &eacute;nerg&eacute;tique apr&egrave;s travaux.</li>
+      <li><strong>Chauffage :</strong> r&eacute;duction estim&eacute;e de la facture de chauffage de <strong>60 &agrave; 70&nbsp;%</strong> par rapport &agrave; l&apos;existant (ordre de grandeur, usages et tarifs).</li>
+      <li><strong>Confort :</strong> surface int&eacute;rieure des parois moins froide, air renouvel&eacute; de fa&ccedil;on contr&ocirc;l&eacute;e.</li>
     </ul>
 
-    <h2>Conformité RGE, ACERMI, RE2020</h2>
-    <p>Les travaux d’isolation doivent être réalisés avec des matériaux disposant de documents techniques à jour (avis techniques ou <strong>ACERMI</strong> pour les isolants concernés). Les entreprises interviennent sous certification <strong>RGE</strong> pour l’éligibilité aux aides. La performance globale du bâtiment rénové se rapproche des exigences de <strong>RE2020</strong> en rénovation (Bbio réduit, besoins limités) sans préjuger du résultat du calcul réglementaire final.</p>
+    <h2>Conformit&eacute; RGE, ACERMI, Flamme Verte</h2>
+    <p>Les entreprises AKPRO, D&eacute;coplatre, Renaissance Fen&ecirc;tres interviennent sous <strong>label RGE</strong> (num&eacute;ros indiqu&eacute;s sur devis). Les isolants doivent disposer de <strong>documentation technique</strong> et, le cas &eacute;ch&eacute;ant, marquage <strong>ACERMI</strong> ou avis technique valide. L&apos;&eacute;quipement de chauffage bois &eacute;nergie r&eacute;pond au crit&egrave;re <strong>Flamme Verte 7 &eacute;toiles</strong> et aux exigences d&apos;&eacute;missions (ETA<sub>S</sub> 81&nbsp;%).</p>
 
     <h2>Conclusion et recommandations</h2>
-    <p>Le scénario proposé est <strong>cohérent techniquement et financièrement</strong> : ordre des travaux respecté, puissance PAC adaptée au bâtiment rénové, VMC en phase tardive du gros œuvre secondaire. Il est recommandé de : (1) verrouiller les fiches techniques des isolants et menuiseries ; (2) réaliser un test d’infiltrométrie si possible après isolation ; (3) faire établir le nouveau DPE par diagnostiqueur certifié ; (4) suivre le parcours MAR pour sécuriser les aides ANAH.</p>
-    <p>Contacts : <strong>Sylvain LEMBELEMBE</strong> — 06 10 59 68 98 — contact@energia-conseils-ia.com · <strong>DAMIEN</strong> — 06 72 68 09 68 · <strong>FABIEN</strong> — 06 71 19 96 45 · MAR Léo-Energy via Sylvain.</p>
+    <p>Le dispositif technique est <strong>coh&eacute;rent</strong> : renforcement prioritaire de l&apos;enveloppe (combles, ITI, planchers, menuiseries), puis &eacute;quipements de second &oelig;uvre (VMC, chaudi&egrave;re, plomberie). Il est recommand&eacute; de : (1) annexer les fiches techniques ISONAT, ELITH et Hargassner au dossier ; (2) v&eacute;rifier l&apos;acheminement granul&eacute;s et l&apos;emplacement du silo ; (3) faire r&eacute;aliser le nouveau DPE par un diagnostiqueur certifi&eacute; ; (4) suivre le <strong>MAR L&eacute;o-Energy</strong> pour le volet administratif ANAH.</p>
+    <div class="disclaimer">Aides financi&egrave;res 2026 (estimation &agrave; titre indicatif dans les documents commerciaux associ&eacute;s). Montants d&eacute;finitifs apr&egrave;s instruction ANAH et CEE.</div>
+
+    <h2>Contacts</h2>
+    <p>
+      <strong>AMO :</strong> Sylvain LEMBELEMBE &mdash; 06&nbsp;10&nbsp;59&nbsp;68&nbsp;98 &mdash; <a href="mailto:contact@energia-conseils-ia.com">contact@energia-conseils-ia.com</a><br>
+      <strong>Commercial :</strong> DAMIEN &mdash; 06&nbsp;72&nbsp;68&nbsp;09&nbsp;68<br>
+      <strong>Courtier :</strong> FABIEN &mdash; VIVONS COURTIER &mdash; 06&nbsp;71&nbsp;19&nbsp;96&nbsp;45<br>
+      <strong>MAR :</strong> L&eacute;o-Energy (via Sylvain LEMBELEMBE) &middot; <strong>Juriste :</strong> Julia
+    </p>
+    <p>Site : <a href="https://www.energia-conseils-ia.com">www.energia-conseils-ia.com</a></p>
 
     <div class="footer-legal">
-      <strong>ENERGIA-CONSEIL IA®</strong> — Bureau d’études &amp; AMO — Marque déposée INPI<br>
-      16 Rue Cuvier, 69006 Lyon · www.energia-conseils-ia.com · contact@energia-conseils-ia.com<br>
-      SIRET 94181942700019 · Rapport technique confidentiel — 2026
+      <strong>ENERGIA-CONSEIL IA&reg;</strong> &mdash; Bureau d&apos;&eacute;tudes &amp; AMO &mdash; Marque d&eacute;pos&eacute;e INPI<br>
+      16 Rue Cuvier, 69006 Lyon &middot; <a href="https://www.energia-conseils-ia.com">www.energia-conseils-ia.com</a> &middot; <a href="mailto:contact@energia-conseils-ia.com">contact@energia-conseils-ia.com</a><br>
+      SIRET 94181942700019 &mdash; Rapport technique confidentiel &mdash; 2026
     </div>
   </div>
 </body>
