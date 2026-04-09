@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapport technique – GUION | ENERGIA-CONSEIL IA®</title>
+  <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --vert: #1B5E20;
+    --orange: #E65100;
+    --bleu: #1565C0;
+    --gris: #37474F;
+    --fond: #FAFAFA;
+  }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.55;
+    color: var(--gris);
+    background: #fff;
+    font-size: 14px;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 1.25rem 1.5rem 3rem; }
+  @media (min-width: 768px) { .wrap { padding: 2rem 2.5rem 4rem; } }
+  .entete {
+    border-bottom: 4px solid var(--vert);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .entete h1 { color: var(--vert); font-size: 1.35rem; font-weight: 700; }
+  .entete .sous { color: var(--bleu); font-size: 0.95rem; margin-top: 0.35rem; }
+  .entete .coordonnees { font-size: 0.82rem; color: #546E7A; margin-top: 0.5rem; line-height: 1.45; }
+  h2 {
+    color: var(--vert);
+    font-size: 1.05rem;
+    margin: 1.35rem 0 0.6rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid var(--orange);
+    page-break-after: avoid;
+  }
+  h3 { color: var(--bleu); font-size: 0.95rem; margin: 0.85rem 0 0.4rem; }
+  p { margin: 0.4rem 0; }
+  ul, ol { margin: 0.4rem 0 0.4rem 1.35rem; }
+  table { width: 100%; border-collapse: collapse; margin: 0.65rem 0; font-size: 0.88rem; page-break-inside: avoid; }
+  th { background: var(--bleu); color: #fff; padding: 0.45rem 0.55rem; text-align: left; font-weight: 600; }
+  td { padding: 0.4rem 0.55rem; border-bottom: 1px solid #E0E0E0; vertical-align: top; }
+  tr:nth-child(even) { background: #F5F5F5; }
+  .right { text-align: right; }
+  .encadre {
+    background: #E8F5E9;
+    border-left: 4px solid var(--vert);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .encadre-orange {
+    background: #FFF3E0;
+    border: 2px solid var(--orange);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin: 0.85rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .disclaimer {
+    font-size: 0.75rem;
+    color: #607D8B;
+    font-style: italic;
+    margin: 0.5rem 0;
+    line-height: 1.4;
+  }
+  .footer-legal {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #BDBDBD;
+    font-size: 0.7rem;
+    color: #78909C;
+    line-height: 1.45;
+    text-align: center;
+  }
+  .badge { display: inline-block; background: var(--orange); color: #fff; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+  @media print {
+    body { font-size: 11pt; }
+    .wrap { max-width: 100%; padding: 0.5cm; }
+    h2 { page-break-after: avoid; }
+    table { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    
+    <div class="entete">
+      <h1>ENERGIA-CONSEIL IA®</h1>
+      <div class="sous">Audit Énergétique Intelligence Artificielle · Marque déposée INPI · Bureau d'études &amp; AMO</div>
+      <div class="coordonnees">
+        16 Rue Cuvier, 69006 Lyon · Tél. 06 10 59 68 98 · <a href="mailto:contact@energia-conseils-ia.com">contact@energia-conseils-ia.com</a><br>
+        <a href="https://www.energia-conseils-ia.com" target="_blank" rel="noopener">www.energia-conseils-ia.com</a> · SIRET 94181942700019 · Responsable : Sylvain LEMBELEMBE
+      </div>
+    </div>
+
+    <h1 style="color:var(--bleu);font-size:1.15rem;margin:0.75rem 0 0;">RAPPORT TECHNIQUE</h1>
+    <p><strong>Réf. dossier :</strong> GUION – Saint-Genest-Malifaux · <strong>Date :</strong> 9 avril 2026</p>
+
+    <h2>Objet du rapport</h2>
+    <p>Le présent rapport décrit l’état thermique du logement, les solutions techniques de rénovation énergétique retenues (ITI ISONAT, combles, planchers, menuiseries, VMC double flux, PAC 6 kW, ballon thermodynamique 250 L), les dimensionnements et les performances attendues (DPE F → B, baisse forte de la consommation). Il complète l’audit énergétique et le devis DEV-2026-GUION-ITI-V3.</p>
+
+    <h2>Description du bien</h2>
+    <p>Maison individuelle de <strong>110 m²</strong> datant de <strong>1980</strong>, située <strong>3997 Route de la Ricamarie, 42660 Saint-Genest-Malifaux</strong>. Enveloppe initialement peu performante ; systèmes de chauffage et ventilation à moderniser. Occupants : M. GUION Quentin &amp; Mme GUION Romane. Objectif réglementaire et patrimonial : atteindre une classe <strong>B</strong> au DPE.</p>
+
+    <h2>Diagnostic thermique et déperditions par poste</h2>
+    <p>L’analyse repose sur l’inspection et les données projet. Les déperditions majoritaires proviennent de la <strong>toiture/combles</strong>, des <strong>murs non isolés ou insuffisamment isolés</strong>, des <strong>menuiseries</strong> et des <strong>planchers</strong>. Le renouvellement d’air non contrôlé augmente les pertes et les risques sanitaires (humidité).</p>
+    <table>
+      <tr><th>Poste</th><th>Diagnostic</th><th>Priorité d’intervention</th></tr>
+      <tr><td>Combles</td><td>Isolation insuffisante vs objectifs R ≥ 7–8</td><td>1 (avec murs selon planning chantier)</td></tr>
+      <tr><td>Murs</td><td>Ponts thermiques, inertie pierre / parois froides</td><td>2 — ITI ISONAT / matériaux adaptés</td></tr>
+      <tr><td>Planchers</td><td>Déperditions vers sous-sol / vide sanitaire</td><td>3</td></tr>
+      <tr><td>Menuiseries</td><td>Uw élevé, joints vétustes</td><td>4 (après enveloppe)</td></tr>
+      <tr><td>Ventilation</td><td>Pas de VMC DF performante</td><td>5 (après étanchéité à l’air améliorée)</td></tr>
+      <tr><td>Chauffage / ECS</td><td>Génération ancienne, rendement faible</td><td>6–7 — PAC + ballon après isolation</td></tr>
+    </table>
+
+    <h2>Solutions techniques détaillées</h2>
+    <h3>ITI et combles ISONAT (AKPRO – RGE E83956)</h3>
+    <p>Isolation par l’intérieur des murs avec système compatible <strong>ISONAT</strong> / laine biosourcée ou équivalent certifié : résistance thermique visée <strong>R ≥ 3,7 m²·K/W</strong> (objectif performance). Combles : renfort pour atteindre <strong>R ≥ 7 à 8 m²·K/W</strong> selon produits et épaisseurs. Attention aux traitements pare-vapeur et continuité de l’enveloppe.</p>
+    <h3>Planchers et charpente (Décoplatre L'Habitat Durable)</h3>
+    <p>Isolation des planchers — objectif <strong>R ≥ 3 m²·K/W</strong> minimum sur ce type de projet ; reprise ou confortement charpente si nécessaire pour charge et durabilité des ITI/combles.</p>
+    <h3>Menuiseries, VMC, PAC, ballon (ECO SYSTÈME DURABLE)</h3>
+    <ul>
+      <li><strong>Menuiseries :</strong> Uw ≤ 1,2 W/m²·K (objectif performance) —Uw selon produits retenus sur devis signé.</li>
+      <li><strong>VMC double flux :</strong> rendement de récupération ≥ 85 % sur échangeur ; réseaux calorifugés et équilibrage.</li>
+      <li><strong>PAC air-eau 6 kW :</strong> COP nominal à vérifier sur fiche produit (≥ 4 attendu pour classe A+ / bonnes pratiques 2026).</li>
+      <li><strong>Ballon thermodynamique 250 L :</strong> appoint ECS décarboné couplé logiquement à la PAC.</li>
+    </ul>
+
+    <h2>Dimensionnements et calculs</h2>
+    <p><strong>PAC :</strong> P ≈ 110 × 0,045 kW/m² × 1,15 ≈ 5,7 kW → <strong>6 kW</strong> nominal. La puissance est calculée <em>après</em> réduction des besoins par l’isolation ; un surdimensionnement pré-isolation entraînerait surcoût d’investissement et de consommation.</p>
+    <p><strong>VMC :</strong> débit total basé sur les pièces desservies (cf. audit section VIII) — respect du règlement sanitaire dérivé (arrêté 24 mars 1982 modifié) et bonnes pratiques RE2020 pour les bâtiments rénovés.</p>
+    <p><strong>Surface PV :</strong> non incluse dans le présent lot ; pourrait compléter le bilan après stabilisation des besoins (phase ultérieure possible).</p>
+
+    <h2>Performances attendues</h2>
+    <ul>
+      <li><strong>DPE :</strong> passage <strong>F → B</strong> (sous réserve de modélisation ADEME et mesures réelles après travaux).</li>
+      <li><strong>Consommation chauffage + ECS :</strong> réduction estimée de l’ordre de <strong>70 à 75 %</strong> par rapport au scénario avant travaux (ordre de grandeur ; dépend des usages et des tarifs).</li>
+      <li><strong>Confort :</strong> température homogène, moins de courants d’air, meilleure qualité d’air via VMC DF.</li>
+    </ul>
+
+    <h2>Conformité RGE, ACERMI, RE2020</h2>
+    <p>Les travaux d’isolation doivent être réalisés avec des matériaux disposant de documents techniques à jour (avis techniques ou <strong>ACERMI</strong> pour les isolants concernés). Les entreprises interviennent sous certification <strong>RGE</strong> pour l’éligibilité aux aides. La performance globale du bâtiment rénové se rapproche des exigences de <strong>RE2020</strong> en rénovation (Bbio réduit, besoins limités) sans préjuger du résultat du calcul réglementaire final.</p>
+
+    <h2>Conclusion et recommandations</h2>
+    <p>Le scénario proposé est <strong>cohérent techniquement et financièrement</strong> : ordre des travaux respecté, puissance PAC adaptée au bâtiment rénové, VMC en phase tardive du gros œuvre secondaire. Il est recommandé de : (1) verrouiller les fiches techniques des isolants et menuiseries ; (2) réaliser un test d’infiltrométrie si possible après isolation ; (3) faire établir le nouveau DPE par diagnostiqueur certifié ; (4) suivre le parcours MAR pour sécuriser les aides ANAH.</p>
+    <p>Contacts : <strong>Sylvain LEMBELEMBE</strong> — 06 10 59 68 98 — contact@energia-conseils-ia.com · <strong>DAMIEN</strong> — 06 72 68 09 68 · <strong>FABIEN</strong> — 06 71 19 96 45 · MAR Léo-Energy via Sylvain.</p>
+
+    <div class="footer-legal">
+      <strong>ENERGIA-CONSEIL IA®</strong> — Bureau d’études &amp; AMO — Marque déposée INPI<br>
+      16 Rue Cuvier, 69006 Lyon · www.energia-conseils-ia.com · contact@energia-conseils-ia.com<br>
+      SIRET 94181942700019 · Rapport technique confidentiel — 2026
+    </div>
+  </div>
+</body>
+</html>
