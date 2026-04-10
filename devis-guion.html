@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devis DEV-2026-GUION-ITI-V3 | ENERGIA-CONSEIL IA®</title>
+  <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --vert: #1B5E20;
+    --orange: #E65100;
+    --bleu: #1565C0;
+    --gris: #37474F;
+  }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.55;
+    color: var(--gris);
+    background: #fff;
+    font-size: 14px;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 1.25rem 1.5rem 3rem; }
+  @media (min-width: 768px) { .wrap { padding: 2rem 2.5rem 4rem; } }
+  .entete {
+    border-bottom: 4px solid var(--vert);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .entete h1 { color: var(--vert); font-size: 1.35rem; font-weight: 700; }
+  .entete .sous { color: var(--bleu); font-size: 0.95rem; margin-top: 0.35rem; }
+  .entete .coordonnees { font-size: 0.82rem; color: #546E7A; margin-top: 0.5rem; line-height: 1.45; }
+  h2 {
+    color: var(--vert);
+    font-size: 1.05rem;
+    margin: 1.35rem 0 0.6rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid var(--orange);
+    page-break-after: avoid;
+  }
+  h3 { color: var(--bleu); font-size: 0.95rem; margin: 0.85rem 0 0.4rem; }
+  p { margin: 0.4rem 0; }
+  ul, ol { margin: 0.4rem 0 0.4rem 1.35rem; }
+  table { width: 100%; border-collapse: collapse; margin: 0.65rem 0; font-size: 0.88rem; page-break-inside: avoid; }
+  th { background: var(--bleu); color: #fff; padding: 0.45rem 0.55rem; text-align: left; font-weight: 600; }
+  td { padding: 0.4rem 0.55rem; border-bottom: 1px solid #E0E0E0; vertical-align: top; }
+  tr:nth-child(even) { background: #F5F5F5; }
+  .right { text-align: right; }
+  .encadre {
+    background: #E8F5E9;
+    border-left: 4px solid var(--vert);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .encadre-orange {
+    background: #FFF3E0;
+    border: 2px solid var(--orange);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin: 0.85rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .encadre-julia {
+    background: #fff7ed;
+    border-left: 4px solid #f97316;
+    padding: 0.85rem 1rem;
+    margin: 0.85rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .disclaimer {
+    font-size: 0.75rem;
+    color: #607D8B;
+    font-style: italic;
+    margin: 0.5rem 0;
+    line-height: 1.4;
+  }
+  .footer-legal {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #BDBDBD;
+    font-size: 0.7rem;
+    color: #78909C;
+    line-height: 1.45;
+    text-align: center;
+  }
+  .badge { display: inline-block; background: var(--orange); color: #fff; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+  @media print {
+    body { font-size: 11pt; }
+    .wrap { max-width: 100%; padding: 0.5cm; }
+    h2 { page-break-after: avoid; }
+    table { page-break-inside: avoid; }
+    a { color: inherit; text-decoration: none; }
+  }
+
+    .doc-title { font-size: 1.2rem; color: var(--bleu); margin: 0.5rem 0; }
+    .meta { background: #E3F2FD; padding: 0.65rem 1rem; border-radius: 6px; margin: 0.75rem 0; font-size: 0.9rem; }
+    .signature-box { margin-top: 2rem; padding: 1.25rem; border: 2px dashed var(--gris); border-radius: 8px; min-height: 120px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    
+    <div class="entete">
+      <h1>ENERGIA-CONSEIL IA®</h1>
+      <div class="sous">Audit Énergétique Intelligence Artificielle · Marque déposée INPI · Bureau d&apos;études &amp; AMO</div>
+      <div class="coordonnees">
+        16 Rue Cuvier, 69006 Lyon · Tél. 06 10 59 68 98 · <a href="mailto:contact@energia-conseils-ia.com">contact@energia-conseils-ia.com</a><br>
+        <a href="https://www.energia-conseils-ia.com" target="_blank" rel="noopener">www.energia-conseils-ia.com</a> · SIRET 94181942700019 · Responsable : Sylvain LEMBELEMBE
+      </div>
+    </div>
+
+    <h1 class="doc-title">DEVIS — DEV-2026-GUION-ITI-V3</h1>
+    <div class="meta">
+      <strong>Date d'émission :</strong> 9 avril 2026 · <strong>Validité :</strong> 30 jours<br>
+      <strong>Clients :</strong> M. GUION Quentin &amp; Mme GUION Romane — quentin-guion@hotmail.fr<br>
+      <strong>Chantier :</strong> 3997 Route de la Ricamarie, 42660 Saint-Genest-Malifaux · 110 m² (1980) · Loire (42) · DPE F → B visé<br>
+      <strong>Génération :</strong> chaudière à granulés Hargassner (lot MS Plomberie).
+    </div>
+
+    <h2>Prestations — 5 artisans (HT / TVA 5,5 % / TTC)</h2>
+    <p>TVA 5,5 % sur travaux de rénovation énergétique éligibles, sous réserve de conditions légales.</p>
+    <table>
+      <tr><th>N°</th><th>Entreprise</th><th>Désignation</th><th class="right">Total HT</th><th class="right">TVA 5,5 %</th><th class="right">Total TTC</th></tr>
+      <tr><td>1–2</td><td>AKPRO</td><td>ITI murs + Combles ISONAT biosourcé</td><td class="right">34 184,83 &euro;</td><td class="right">1 869,17 &euro;</td><td class="right">36 054 &euro;</td></tr>
+      <tr><td>3</td><td>Décoplatre L'Habitat Durable</td><td>Planchers + Charpente</td><td class="right">13 090,05 &euro;</td><td class="right">719,95 &euro;</td><td class="right">13 810 &euro;</td></tr>
+      <tr><td>4</td><td>Renaissance Fenêtres</td><td>Menuiseries PVC triple vitrage gamme ELITH — Fenêtres + porte-fenêtre salon PMR</td><td class="right">20 315,64 &euro;</td><td class="right">1 117,36 &euro;</td><td class="right">21 433 &euro;</td></tr>
+      <tr><td>5</td><td>MS Plomberie</td><td>Chaudière granulés Hargassner NanoPK12 12 kW + Silo granulés 5 T + VMC simple flux hygroréglable + Plomberie complète</td><td class="right">44 798,10 &euro;</td><td class="right">2 471,90 &euro;</td><td class="right">47 270 &euro;</td></tr>
+      <tr><th colspan="3" class="right">Sous-total artisans</th><th class="right">112 388,62 €</th><th class="right">6 178,38 €</th><th class="right">118 567 €</th></tr>
+      <tr><td>6</td><td>AMO ENERGIA-CONSEIL IA® — Sylvain LEMBELEMBE</td><td>Coordination, suivi chantier, réception</td><td class="right">11 374,41 €</td><td class="right">625,59 €</td><td class="right">12 000 €</td></tr>
+      <tr><th colspan="3" class="right">TOTAL GÉNÉRAL</th><th class="right">123 763,03 €</th><th class="right">6 803,97 €</th><th class="right">130 567 €</th></tr>
+    </table>
+    <p><strong>Ligne 5 — MS Plomberie :</strong> chaudière granulés Hargassner NanoPK12 12 kW, silo 5 T, VMC simple flux hygroréglable, plomberie complète.</p>
+
+    <h2>Récapitulatif financier et aides</h2>
+    <p class="disclaimer">Aides financières 2026 (estimation à titre indicatif). Source : Panorama ANAH — février 2026. Montants définitifs après instruction ANAH et CEE.</p>
+    <table>
+      <tr><td>Total travaux TTC</td><td class="right">130 567 €</td></tr>
+      <tr><td>MaPrimeRénov' ROSE (estimation)</td><td class="right">4 000 €</td></tr>
+      <tr><td>Aides locales Loire (42)</td><td class="right">1 500 €</td></tr>
+      <tr><th>Total aides estimées</th><th class="right">5 500 €</th></tr>
+      <tr><th>Reste à charge net estimé</th><th class="right">125 067 €</th></tr>
+    </table>
+
+    <h2>Financement</h2>
+    <ul>
+      <li><strong>Éco-PTZ (0 %, 15 ans) :</strong> 50 000 € — ~278 €/mois.</li>
+      <li><strong>Complément FABIEN — VIVONS COURTIER :</strong> 06 71 19 96 45 — ~75 067 €.</li>
+      <li><strong>Économies chauffage :</strong> ~200 €/mois · <strong>Bilan mensuel estimé :</strong> ~650–700 €/mois.</li>
+    </ul>
+    <p><a href="mailto:contact@energia-conseils-ia.com">contact@energia-conseils-ia.com</a> — <a href="https://www.energia-conseils-ia.com">www.energia-conseils-ia.com</a></p>
+
+    <h2>Prestation AMO — 12 000 € TTC</h2>
+    <div class="encadre-orange">
+      <ul>
+        <li><strong>50 % à la signature</strong> (6 000 € TTC)</li>
+        <li><strong>50 % à la réception</strong> (6 000 € TTC)</li>
+      </ul>
+    </div>
+
+    <h2>Conditions générales (extraits)</h2>
+    <p>Entreprises <strong>RGE</strong> selon postes. Devis valable <strong>30 jours</strong>. Ne pas démarrer les travaux avant accord ANAH si dossier MaPrimeRénov' parcours accompagné.</p>
+
+    <h2>Avis juridique — Julia</h2>
+    <div class="encadre-julia">
+      <p><strong>⚖️ Julia — Juriste ENERGIA-CONSEIL IA®</strong></p>
+      <p>Conformité sous réserve de pièces (RGE, revenus, devis détaillés). Profil ROSE : écrêtement TTC 50 %. Non-respect des délais ANAH peut entraîner perte d'aides.</p>
+      <p style="margin-top:0.75rem;font-style:italic;">Avis établi par Julia — Avril 2026.</p>
+    </div>
+
+    <h2>Mentions légales</h2>
+    <p>ENERGIA-CONSEIL IA® · 16 Rue Cuvier, 69006 Lyon · SIRET 94181942700019 · <a href="mailto:contact@energia-conseils-ia.com">contact@energia-conseils-ia.com</a> · <a href="https://www.energia-conseils-ia.com">www.energia-conseils-ia.com</a></p>
+
+    <div class="signature-box">
+      <p><strong>Lu et approuvé, bon pour accord</strong> — DEV-2026-GUION-ITI-V3</p>
+      <p style="margin-top:2rem;">Fait à _________________________, le _________________________</p>
+      <p style="margin-top:2.5rem;">Signature du client :</p>
+      <p style="margin-top:3rem;border-bottom:1px solid #999;max-width:320px;">&nbsp;</p>
+    </div>
+
+    <div class="footer-legal">
+      ENERGIA-CONSEIL IA® · 06 10 59 68 98 · contact@energia-conseils-ia.com · www.energia-conseils-ia.com · 2026
+    </div>
+  </div>
+</body>
+</html>
