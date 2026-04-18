@@ -15,6 +15,7 @@
   "dependencies": {
     "@react-pdf/renderer": "^4.3.2",
     "@stripe/stripe-js": "^9.0.0",
+    "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.95.3",
     "@types/three": "^0.183.1",
     "chart.js": "^4.5.1",
