@@ -1,0 +1,60 @@
+export default function SignupPage() {  
+  return (  
+    <div style={{  
+      minHeight: '100vh',  
+      display: 'flex',  
+      alignItems: 'center',  
+      justifyContent: 'center',  
+      backgroundColor: '#f0fdf4'  
+    }}>  
+      <div style={{  
+        background: 'white',  
+        padding: '2rem',  
+        borderRadius: '1rem',  
+        width: '400px',  
+        boxShadow: '0 4px 20px rgba(0,0,0,0.1)'  
+      }}>  
+        <h1 style={{ color: '#16a34a', marginBottom: '1.5rem' }}>  
+          Créer mon compte  
+        </h1>  
+        <input placeholder="Prénom" style={inputStyle} />
+
+        <input placeholder="Nom entreprise" style={inputStyle} />
+
+        <input placeholder="Email" type="email" style={inputStyle} />
+
+        <input placeholder="Mot de passe" type="password" style={inputStyle} />
+
+        <button style={btnStyle}>  
+          🚀 Démarrer l'essai gratuit  
+        </button>  
+        <p style={{ textAlign: 'center', marginTop: '1rem' }}>  
+          <a href="/login" style={{ color: '#16a34a' }}>  
+            Déjà un compte ? Se connecter  
+          </a>  
+        </p>  
+      </div>  
+    </div>  
+  )  
+}
+
+const inputStyle: React.CSSProperties = {  
+  width: '100%',  
+  padding: '0.75rem',  
+  marginBottom: '1rem',  
+  borderRadius: '0.5rem',  
+  border: '1px solid #d1fae5',  
+  fontSize: '1rem'  
+}
+
+const btnStyle: React.CSSProperties = {  
+  width: '100%',  
+  padding: '0.75rem',  
+  backgroundColor: '#16a34a',  
+  color: 'white',  
+  border: 'none',  
+  borderRadius: '0.5rem',  
+  fontSize: '1rem',  
+  fontWeight: 'bold',  
+  cursor: 'pointer'  
+}  
