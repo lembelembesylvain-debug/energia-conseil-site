@@ -4,7 +4,7 @@ import { createClient as createSupabaseClient, type SupabaseClient } from "@supa
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { jsPDF } from "jspdf";
+import { generateRenovationReportPdf } from "@/lib/dashboard/generate-renovation-report-pdf";
 import { SignOutButton } from "./sign-out-button";
 
 type MprProfile = "TM" | "MO" | "INT" | "SUP";
@@ -625,45 +625,26 @@ export default function DashboardPage() {
   }
 
   function generatePdf() {
-    const pdf = new jsPDF();
-    const date = new Date().toLocaleDateString("fr-FR");
-    let y = 14;
-    pdf.setFontSize(16);
-    pdf.text("ENERGIA - Rapport aides 2026", 14, y);
-    y += 10;
-    pdf.setFontSize(11);
-    pdf.text(`Date: ${date}`, 14, y);
-    y += 8;
-    pdf.text(`Client: ${userEmail ?? "N/A"}`, 14, y);
-    y += 10;
-    pdf.text(`Profil MPR: ${PROFILE_LABELS[profile]} (${profile})`, 14, y);
-    y += 8;
-    pdf.text(`Type renovation: ${parcoursEligible ? "Parcours Accompagne" : "Renovation par geste"}`, 14, y);
-    y += 10;
-    pdf.text(`MPR estimee: ${formatCurrency(mprTotal)}`, 14, y);
-    y += 8;
-    pdf.text(`CEE estimee: ${formatCurrency(ceeEstimate)}`, 14, y);
-    y += 8;
-    pdf.text(`Eco-PTZ max: ${formatCurrency(ecoPtz)}`, 14, y);
-    y += 8;
-    pdf.text(`TVA economisee: ${formatCurrency(tvaSavings)}`, 14, y);
-    y += 8;
-    pdf.text(`Total aides: ${formatCurrency(totalAides)}`, 14, y);
-    y += 8;
-    pdf.text(`Cout travaux estime: ${formatCurrency(estimatedWorksCost)}`, 14, y);
-    y += 8;
-    pdf.text(`Reste a charge: ${formatCurrency(resteCharge)}`, 14, y);
-    y += 8;
-    pdf.text(`ROI estime: ${roiYears.toFixed(1)} ans`, 14, y);
-    y += 12;
-    pdf.setFontSize(9);
-    pdf.text(
-      "Calcul estimatif base sur les baremes ANAH Fevrier 2026. Montants non contractuels. Sous reserve d'eligibilite.",
-      14,
-      y,
-      { maxWidth: 180 }
-    );
-    pdf.save(`rapport-aides-${new Date().toISOString().slice(0, 10)}.pdf`);
+    generateRenovationReportPdf({
+      step1: { ...step1 },
+      works: { ...works },
+      profile,
+      profileLabel: PROFILE_LABELS[profile],
+      userEmail,
+      clientName: null,
+      clientAddress: null,
+      parcoursEligible,
+      estimatedWorksCost,
+      mprTotal,
+      ceeEstimate,
+      tvaSavings,
+      totalAides,
+      resteCharge,
+      ecoPtz,
+      annualSavings,
+      roiYears,
+      step2Rows: step2Rows.map((r) => ({ ...r })),
+    });
   }
 
   return (
@@ -1248,7 +1229,7 @@ export default function DashboardPage() {
                 onClick={generatePdf}
                 className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
               >
-                📄 Générer le rapport PDF
+                📄 Générer le rapport complet (35 pages)
               </button>
               {saving && <span className="text-sm text-zinc-500">Enregistrement Supabase…</span>}
               {saveMessage && <span className="text-sm text-zinc-600">{saveMessage}</span>}
