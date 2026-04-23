@@ -673,7 +673,15 @@ export default function DashboardPage() {
           <Link href="/" className="text-sm font-semibold tracking-tight text-zinc-900">
             Rénov&apos;Optim <span className="text-[#10b981]">IA</span>
           </Link>
-          <SignOutButton />
+          <div className="flex items-center gap-2">
+            <Link
+              href="/dashboard/chat"
+              className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100"
+            >
+              💬 Expert MPR
+            </Link>
+            <SignOutButton />
+          </div>
         </div>
       </header>
 
