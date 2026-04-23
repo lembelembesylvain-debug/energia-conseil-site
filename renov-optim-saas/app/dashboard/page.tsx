@@ -152,7 +152,7 @@ function formatCurrency(value: number) {
 export default function DashboardPage() {
   const router = useRouter();
   const [supabase, setSupabase] = useState<SupabaseClient | null>(null);
-  const [loadingAuth, setLoadingAuth] = useState(true);
+  const [, setLoadingAuth] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState(1);
@@ -175,18 +175,36 @@ export default function DashboardPage() {
   useEffect(() => {
     if (!supabase) return;
     const sb = supabase;
-    async function checkSession() {
-      const { data } = await sb.auth.getUser();
-      const user = data.user;
-      if (!user) {
+    let resolved = false;
+    const sessionTimeout = window.setTimeout(() => {
+      if (!resolved) {
+        setLoadingAuth(false);
         router.replace("/login");
-        return;
       }
-      setUserId(user.id);
-      setUserEmail(user.email ?? null);
-      setLoadingAuth(false);
+    }, 3000);
+
+    async function checkSession() {
+      try {
+        const { data } = await sb.auth.getUser();
+        resolved = true;
+        const user = data.user;
+        if (!user) {
+          router.replace("/login");
+          return;
+        }
+        setUserId(user.id);
+        setUserEmail(user.email ?? null);
+        setLoadingAuth(false);
+      } catch {
+        resolved = true;
+        setLoadingAuth(false);
+      }
     }
     checkSession();
+
+    return () => {
+      window.clearTimeout(sessionTimeout);
+    };
   }, [router, supabase]);
 
   const profile = useMemo(
@@ -440,10 +458,6 @@ export default function DashboardPage() {
       { maxWidth: 180 }
     );
     pdf.save(`rapport-aides-${new Date().toISOString().slice(0, 10)}.pdf`);
-  }
-
-  if (loadingAuth) {
-    return <div className="p-8 text-sm text-zinc-600">Chargement…</div>;
   }
 
   return (
