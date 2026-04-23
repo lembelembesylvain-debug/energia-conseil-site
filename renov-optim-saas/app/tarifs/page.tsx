@@ -51,11 +51,25 @@ const PLANS = [
 ];
 
 async function checkout(priceId: string): Promise<string> {
-  const res = await fetch("/api/checkout", {
+  const endpoint =
+    typeof window !== "undefined"
+      ? new URL("/api/checkout", window.location.origin).toString()
+      : "/api/checkout";
+
+  const res = await fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ priceId }),
+    credentials: "same-origin",
+    redirect: "manual",
   });
+
+  if (res.type === "opaqueredirect" || (res.status >= 300 && res.status < 400)) {
+    throw new Error(
+      "Redirection inattendue : le paiement doit ouvrir Stripe Checkout, pas une autre page."
+    );
+  }
+
   const data = (await res.json()) as { url?: string; error?: string };
   if (!res.ok || !data.url) {
     throw new Error(data.error ?? `Erreur ${res.status}`);
@@ -66,15 +80,23 @@ async function checkout(priceId: string): Promise<string> {
 export default function TarifsPage() {
   const [loadingId, setLoadingId] = useState<string | null>(null);
 
-  async function handleClick(priceId: string, planId: string) {
+  function handleClick(
+    e: React.MouseEvent<HTMLButtonElement>,
+    priceId: string,
+    planId: string
+  ) {
+    e.preventDefault();
+    e.stopPropagation();
     setLoadingId(planId);
-    try {
-      const url = await checkout(priceId);
-      window.location.href = url;
-    } catch (e) {
-      console.error(e);
-      setLoadingId(null);
-    }
+    void (async () => {
+      try {
+        const url = await checkout(priceId);
+        window.location.assign(url);
+      } catch (err) {
+        console.error(err);
+        setLoadingId(null);
+      }
+    })();
   }
 
   return (
@@ -132,7 +154,7 @@ export default function TarifsPage() {
                 <button
                   type="button"
                   disabled={loading}
-                  onClick={() => void handleClick(plan.priceId, plan.id)}
+                  onClick={(e) => handleClick(e, plan.priceId, plan.id)}
                   className={`mt-10 w-full rounded-xl py-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60 ${
                     isPopular
                       ? "bg-emerald-600 text-white shadow-sm hover:bg-emerald-700"
