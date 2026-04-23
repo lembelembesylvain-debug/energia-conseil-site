@@ -1,4 +1,6 @@
 import { Resend } from "resend";
+
+import { buildResendFromHeader } from "@/lib/emails/resendFrom";
 import { getAppBaseUrl } from "./getAppBaseUrl";
 
 const brand = "#2d5a3d";
@@ -115,9 +117,10 @@ export async function sendOrderConfirmationEmail(
     return { error: "RESEND_API_KEY manquant" };
   }
 
-  const from =
-    process.env.RESEND_FROM_EMAIL?.trim() ||
-    "ENERGIA CONSEIL IA <onboarding@resend.dev>";
+  const from = buildResendFromHeader(
+    process.env.RESEND_FROM_EMAIL,
+    "ENERGIA CONSEIL IA",
+  );
 
   const guidePhotosUrl = `${getAppBaseUrl()}/guide-photos`;
   const subject = `✅ Confirmation - Audit Énergétique IA ENERGIA CONSEIL (#${params.orderId})`;

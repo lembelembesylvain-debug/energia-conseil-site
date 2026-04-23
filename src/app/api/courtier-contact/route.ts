@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+
+import { buildResendFromHeader } from "@/lib/emails/resendFrom";
 import { createClient } from "@supabase/supabase-js";
 
 export const runtime = "nodejs";
@@ -90,9 +92,10 @@ export async function POST(req: NextRequest) {
     : [];
 
   const apiKey = process.env.RESEND_API_KEY?.trim();
-  const from =
-    process.env.RESEND_FROM_EMAIL?.trim() ||
-    "ENERGIA CONSEIL IA <onboarding@resend.dev>";
+  const from = buildResendFromHeader(
+    process.env.RESEND_FROM_EMAIL,
+    "ENERGIA CONSEIL IA",
+  );
 
   const brokerTo =
     process.env.COURTIER_LEAD_EMAIL?.trim() ||
