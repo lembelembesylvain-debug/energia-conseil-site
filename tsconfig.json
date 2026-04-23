@@ -25,5 +25,10 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "energia-conseil-site", "damien-field-app"]
+  "exclude": [
+    "node_modules",
+    "energia-conseil-site",
+    "damien-field-app",
+    "renov-optim-saas"
+  ]
 }
