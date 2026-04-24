@@ -51,7 +51,8 @@ export interface RenovationReportInput {
 }
 
 function fmt(n: number): string {  
-  return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);  
+  const grouped = Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return `${grouped}€`;
 }
 
 function profileLabel(p: MprProfile): string {  
@@ -556,7 +557,7 @@ export function generateRenovationReportPdf(input: RenovationReportInput): void 
       "Ils ne constituent pas un engagement de l'ANAH.",  
       "ENERGIA CONSEIL IA® décline toute responsabilité en cas de modification réglementaire.",  
       "Validité du rapport : 3 mois à compter de la date d'émission.",  
-      `Contact : contact@energia-conseil.com`,  
+      `Contact : contact@renovoptim-ia.com`,  
     ],  
   };
 
