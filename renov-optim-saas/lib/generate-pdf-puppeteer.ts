@@ -1,4 +1,6 @@
 import type { MprProfile, RenovationReportInput } from "@/lib/generate-renovation-report-pdf";
+import chromium from "@sparticuz/chromium";
+import puppeteer from "puppeteer-core";
 
 const COMPANY = {
   name: "ENERGIA CONSEIL IA®",
@@ -561,10 +563,10 @@ export async function generatePremiumRenovationPdfBuffer(input: RenovationReport
   const dossierRef = `RO-${(input.reportDate || new Date().toISOString().split("T")[0]).replace(/-/g, "")}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
   const html = buildRenovationReportPremiumHtml(input, dossierRef);
 
-  const puppeteer = (await import("puppeteer")).default;
   const browser = await puppeteer.launch({
+    args: chromium.args,
+    executablePath: await chromium.executablePath(),
     headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
   });
   try {
     const page = await browser.newPage();
