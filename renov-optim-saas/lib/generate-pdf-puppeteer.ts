@@ -1,3 +1,10 @@
+import {
+  DPE_GAUGE_COLORS,
+  DPE_GAUGE_ORDER,
+  DPE_KWH_LABELS,
+  dpeGaugeTextColor,
+  normalizeDpeLetter,
+} from "@/lib/dpe-gauge-shared";
 import type { MprProfile, RenovationReportInput } from "@/lib/generate-renovation-report-pdf";
 import chromium from "@sparticuz/chromium";
 import puppeteer from "puppeteer-core";
@@ -38,16 +45,6 @@ const ARTISANS = [
   { name: "SIPV MENUISERIE", metier: "Menuiseries", phone: "05 49 43 72 93", labels: "—", email: "—" },
 ] as const;
 
-const DPE_COLORS: Record<string, string> = {
-  A: "#319834",
-  B: "#33cc31",
-  C: "#cbdb48",
-  D: "#ffeb3b",
-  E: "#fb8c00",
-  F: "#e53935",
-  G: "#c62828",
-};
-
 function escapeHtml(s: string | null | undefined): string {
   if (s == null) return "";
   return String(s)
@@ -76,18 +73,17 @@ function monthlySavingsBadge(input: RenovationReportInput): string {
 }
 
 function dpeGauge(current: string | null, target: string | null): string {
-  const letters = ["A", "B", "C", "D", "E", "F", "G"] as const;
-  const cur = (current || "E").toUpperCase();
-  const tgt = (target || "B").toUpperCase();
-  const cells = letters
-    .map((L) => {
-      const active = L === cur;
-      const targetH = L === tgt;
-      const bg = DPE_COLORS[L] || "#ccc";
-      const ring = active ? "3px solid #111" : targetH ? "3px solid #166534" : "1px solid #d4d4d8";
-      return `<span class="dpe-cell" style="background:${bg};box-shadow:inset 0 0 0 ${ring}">${L}</span>`;
-    })
-    .join("");
+  const cur = normalizeDpeLetter(current, "E");
+  const tgt = normalizeDpeLetter(target, "B");
+  const cells = DPE_GAUGE_ORDER.map((L) => {
+    const active = L === cur;
+    const targetH = L === tgt;
+    const bg = DPE_GAUGE_COLORS[L];
+    const tc = dpeGaugeTextColor(L);
+    const ring = active ? "3px solid #111" : targetH ? "3px solid #166534" : "1px solid #d4d4d8";
+    const kwh = escapeHtml(DPE_KWH_LABELS[L]);
+    return `<div class="dpe-col"><div class="dpe-cell" style="background:${bg};color:${tc};box-shadow:inset 0 0 0 ${ring}">${L}</div><div class="dpe-kwh">${kwh}<br/><span class="dpe-kwh-sub">kWh/m²/an</span></div></div>`;
+  }).join("");
   return `<div class="dpe-gauge">${cells}</div><p class="dpe-legend">DPE actuel → cible : <strong>${escapeHtml(cur)} → ${escapeHtml(tgt)}</strong></p>`;
 }
 
@@ -195,8 +191,11 @@ export function buildRenovationReportPremiumHtml(input: RenovationReportInput, d
   .val-strong { font-weight: 700; font-size: 11pt; }
   .h2 { margin: 0 0 8px; font-size: 13pt; color: #1a2744; }
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .dpe-gauge { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
-  .dpe-cell { width: 28px; height: 28px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 10pt; color: #111; }
+  .dpe-gauge { display: flex; gap: 5px; flex-wrap: wrap; margin: 8px 0; align-items: flex-start; }
+  .dpe-col { display: flex; flex-direction: column; align-items: center; width: 38px; }
+  .dpe-cell { width: 100%; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 10pt; }
+  .dpe-kwh { font-size: 5.5pt; text-align: center; color: #52525b; line-height: 1.15; margin-top: 2px; max-width: 38px; }
+  .dpe-kwh-sub { font-size: 5pt; color: #71717a; }
   .dpe-legend { font-size: 9pt; margin: 0; color: #52525b; }
   table.data { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
   table.data th { text-align: left; background: #f4f4f5; padding: 8px; border: 1px solid #e4e4e7; font-size: 7.5pt; text-transform: uppercase; color: #71717a; }

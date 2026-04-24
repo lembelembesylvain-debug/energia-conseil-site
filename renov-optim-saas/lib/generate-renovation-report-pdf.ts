@@ -4,7 +4,9 @@ import autoTable from "jspdf-autotable";
 export type MprProfile = "TM" | "MO" | "INT" | "SUP";
 
 export interface RenovationReportInput {  
-  clientName: string | null;  
+  clientName: string | null;
+  /** Prénom pour personnalisation e-mail / accueil. */
+  clientPrenom?: string | null;
   clientAddress: string | null;  
   clientEmail?: string;  
   clientPhone?: string;  

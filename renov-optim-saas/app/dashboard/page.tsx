@@ -9,7 +9,7 @@ import { SignOutButton } from "./sign-out-button";
 import {
   DashboardAidesPie,
   DashboardRoiChart,
-  InteractiveDpeGauge,
+  DpeGauge,
   type DpeLetter,
 } from "./dashboard-visuals";
 
@@ -27,9 +27,11 @@ type Step1Data = {
   dpe: Dpe;
   income: number;
   persons: number;
+  clientPrenom: string;
   clientName: string;
   clientAddress: string;
   clientEmail: string;
+  clientPhone: string;
   livesInAura: boolean;
 };
 
@@ -66,9 +68,11 @@ const DEFAULT_STEP1: Step1Data = {
   dpe: "E",
   income: 30000,
   persons: 2,
+  clientPrenom: "",
   clientName: "",
   clientAddress: "",
   clientEmail: "",
+  clientPhone: "",
   livesInAura: false,
 };
 
@@ -208,13 +212,17 @@ type DossierClientRow = {
   id: string;
   user_id: string;
   client_nom: string | null;
+  client_prenom?: string | null;
   client_adresse: string | null;
+  client_email?: string | null;
+  client_telephone?: string | null;
   dpe_actuel: string | null;
   dpe_cible: string | null;
   profil_mpr: string | null;
   travaux_json: Record<string, unknown>;
   totaux_json: Record<string, unknown>;
   created_at: string;
+  updated_at?: string;
 };
 
 export default function DashboardPage() {
@@ -773,9 +781,10 @@ export default function DashboardPage() {
 
     const input: RenovationReportInput = {
       clientName: step1.clientName.trim() || userEmail?.split("@")[0] || "Client",
+      clientPrenom: step1.clientPrenom.trim() || null,
       clientAddress: step1.clientAddress.trim() || "—",
       clientEmail: step1.clientEmail.trim() || userEmail || "",
-      clientPhone: "",
+      clientPhone: step1.clientPhone.trim() || "",
       advisorName: "Sylvain LEMBELEMBE",
       advisorCompany: "ENERGIA CONSEIL IA®",
       reportDate: new Date().toISOString().split("T")[0],
@@ -858,10 +867,22 @@ export default function DashboardPage() {
     const { error } = await supabase.from("dossiers_clients").insert({
       user_id: userId,
       client_nom: step1.clientName.trim() || null,
+      client_prenom: step1.clientPrenom.trim() || null,
+      client_email: step1.clientEmail.trim() || null,
+      client_telephone: step1.clientPhone.trim() || null,
       client_adresse: step1.clientAddress.trim() || null,
+      annee_construction: step1.constructionYear,
+      type_logement: step1.housingType,
+      surface_habitable: step1.surfaceM2,
+      chauffage_actuel: step1.heatingMode,
       dpe_actuel: step1.dpe,
       dpe_cible: String(dpeTargetManual ?? dpeCible),
       profil_mpr: profile,
+      revenus_annuels: step1.income,
+      occupants: step1.persons,
+      zone_idf: step1.zone === "IDF",
+      statut: "en_cours",
+      updated_at: new Date().toISOString(),
       travaux_json: {
         step1,
         works,
@@ -900,6 +921,15 @@ export default function DashboardPage() {
     setSaveMessage("Dossier rechargé dans le formulaire.");
   }
 
+  async function deleteDossierClient(id: string) {
+    if (!userId || !supabase) return;
+    const { error } = await supabase.from("dossiers_clients").delete().eq("id", id).eq("user_id", userId);
+    if (error) setSaveMessage(`Suppression : ${error.message}`);
+    else {
+      setSaveMessage("Dossier supprimé.");
+      await loadDossiersList();
+    }
+  }
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -1128,6 +1158,17 @@ export default function DashboardPage() {
               </label>
 
               <label className="space-y-1 text-sm">
+                <span className="font-medium text-zinc-700">Prénom du client</span>
+                <input
+                  type="text"
+                  value={step1.clientPrenom}
+                  onChange={(e) => setStep1((prev) => ({ ...prev, clientPrenom: e.target.value }))}
+                  className="w-full rounded-lg border border-zinc-300 px-3 py-2"
+                  placeholder="Prénom"
+                />
+              </label>
+
+              <label className="space-y-1 text-sm">
                 <span className="font-medium text-zinc-700">Adresse du logement</span>
                 <input
                   type="text"
@@ -1146,6 +1187,17 @@ export default function DashboardPage() {
                   onChange={(e) => setStep1((prev) => ({ ...prev, clientEmail: e.target.value }))}
                   className="w-full rounded-lg border border-zinc-300 px-3 py-2"
                   placeholder="client@exemple.fr"
+                />
+              </label>
+
+              <label className="space-y-1 text-sm md:col-span-2">
+                <span className="font-medium text-zinc-700">Téléphone du client</span>
+                <input
+                  type="tel"
+                  value={step1.clientPhone}
+                  onChange={(e) => setStep1((prev) => ({ ...prev, clientPhone: e.target.value }))}
+                  className="w-full rounded-lg border border-zinc-300 px-3 py-2"
+                  placeholder="06 00 00 00 00"
                 />
               </label>
             </div>
@@ -1173,14 +1225,14 @@ export default function DashboardPage() {
 
             <div className="mt-6 rounded-xl border border-zinc-200 bg-zinc-50 p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-sm font-semibold text-zinc-900">Dossiers sauvegardés</p>
+                <p className="text-sm font-semibold text-zinc-900">Mes dossiers</p>
                 <button
                   type="button"
                   disabled={savingDossier}
                   onClick={() => void saveDossierClient()}
-                  className="rounded-lg bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-zinc-800 disabled:opacity-50"
+                  className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-700 disabled:opacity-50"
                 >
-                  Sauvegarder le dossier
+                  💾 Sauvegarder le dossier
                 </button>
               </div>
               {loadingDossiers ? (
@@ -1189,23 +1241,47 @@ export default function DashboardPage() {
                 <p className="mt-2 text-xs text-zinc-500">Aucun dossier enregistré.</p>
               ) : (
                 <ul className="mt-3 space-y-2">
-                  {dossiers.map((d) => (
+                  {dossiers.map((d) => {
+                    const t = d.totaux_json as {
+                      totalAides?: number;
+                      resteCharge?: number;
+                      effectiveCostHT?: number;
+                    };
+                    const montants =
+                      typeof t?.totalAides === "number"
+                        ? ` · Aides ${formatCurrency(t.totalAides)} · RAC ${formatCurrency(t.resteCharge ?? 0)}`
+                        : "";
+                    return (
                     <li
                       key={d.id}
                       className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs"
                     >
                       <span className="text-zinc-800">
-                        {(d.client_nom || "Sans nom") + " — " + new Date(d.created_at).toLocaleString("fr-FR")}
+                        {(d.client_nom || "Sans nom") +
+                          (d.client_prenom ? ` ${d.client_prenom}` : "") +
+                          " — " +
+                          new Date(d.created_at).toLocaleString("fr-FR") +
+                          montants}
                       </span>
-                      <button
-                        type="button"
-                        onClick={() => applyDossierRow(d)}
-                        className="rounded border border-emerald-500 px-2 py-0.5 font-semibold text-emerald-700 hover:bg-emerald-50"
-                      >
-                        Recharger
-                      </button>
+                      <span className="flex flex-wrap gap-1">
+                        <button
+                          type="button"
+                          onClick={() => applyDossierRow(d)}
+                          className="rounded border border-emerald-500 px-2 py-0.5 font-semibold text-emerald-700 hover:bg-emerald-50"
+                        >
+                          Reprendre
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => void deleteDossierClient(d.id)}
+                          className="rounded border border-red-300 px-2 py-0.5 font-semibold text-red-700 hover:bg-red-50"
+                        >
+                          Supprimer
+                        </button>
+                      </span>
                     </li>
-                  ))}
+                    );
+                  })}
                 </ul>
               )}
             </div>
@@ -1686,6 +1762,33 @@ export default function DashboardPage() {
           <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
             <h2 className="text-lg font-semibold text-zinc-900">Étape 3/3 - Résultats</h2>
 
+            <div className="grid gap-4 lg:grid-cols-3">
+              <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 lg:col-span-1">
+                <DpeGauge
+                  current={step1.dpe as DpeLetter}
+                  target={dpeCibleRapport as DpeLetter}
+                  onPickTarget={(lettre) => setDpeTargetManual(lettre)}
+                />
+              </div>
+              <div className="rounded-xl border border-zinc-200 bg-white p-4 lg:col-span-2">
+                <DashboardRoiChart
+                  years={20}
+                  annualBillWithoutWorks={annualBillSansTravaux}
+                  annualBillWithWorks={annualBillAvecTravaux}
+                  resteACharge={resteCharge}
+                />
+              </div>
+              <div className="rounded-xl border border-zinc-200 bg-white p-4 lg:col-span-3">
+                <DashboardAidesPie
+                  mpr={mprTotal}
+                  cee={effectiveCeeTotal}
+                  tva={tvaSavings}
+                  aidesLocales={aidesLocalesEtRegion}
+                  reste={resteCharge}
+                />
+              </div>
+            </div>
+
             <div className="rounded-xl border border-zinc-200 p-4">
               <p className="text-sm font-semibold text-zinc-800">SECTION A — Type de rénovation recommandé</p>
               <p className="mt-2 text-sm text-zinc-700">
@@ -1785,9 +1888,10 @@ export default function DashboardPage() {
                     });
                     const input = {
                       clientName: step1.clientName.trim() || userEmail?.split("@")[0] || "Client",
+                      clientPrenom: step1.clientPrenom.trim() || null,
                       clientAddress: step1.clientAddress.trim() || "—",
                       clientEmail: to,
-                      clientPhone: "",
+                      clientPhone: step1.clientPhone.trim() || "",
                       advisorName: "Sylvain LEMBELEMBE",
                       advisorCompany: "ENERGIA CONSEIL IA®",
                       reportDate: new Date().toISOString().split("T")[0],
