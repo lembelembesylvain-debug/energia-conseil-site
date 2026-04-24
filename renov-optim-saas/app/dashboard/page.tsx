@@ -4,10 +4,13 @@ import { createClient as createSupabaseClient, type SupabaseClient } from "@supa
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { generateRenovationReportPdf } from "@/lib/generate-renovation-report-pdf";
+import {
+  generateRenovationReportPdf,
+  type RenovationReportInput,
+  type MprProfile,
+} from "@/lib/generate-renovation-report-pdf";
 import { SignOutButton } from "./sign-out-button";
 
-type MprProfile = "TM" | "MO" | "INT" | "SUP";
 type Zone = "IDF" | "HORS_IDF";
 type Dpe = "A" | "B" | "C" | "D" | "E" | "F" | "G";
 
@@ -625,26 +628,34 @@ export default function DashboardPage() {
   }
 
   function generatePdf() {
-    generateRenovationReportPdf({
-      step1: { ...step1 },
-      works: { ...works },
-      profile,
-      profileLabel: PROFILE_LABELS[profile],
-      userEmail,
-      clientName: null,
-      clientAddress: null,
-      parcoursEligible,
-      estimatedWorksCost,
-      mprTotal,
-      ceeEstimate,
-      tvaSavings,
-      totalAides,
-      resteCharge,
-      ecoPtz,
-      annualSavings,
-      roiYears,
-      step2Rows: step2Rows.map((r) => ({ ...r })),
-    });
+    const input: RenovationReportInput = {
+      clientName: "Client",
+      clientAddress: "—",
+      clientEmail: "",
+      clientPhone: "",
+      advisorName: "Sylvain LEMBELEMBE",
+      advisorCompany: "ENERGIA CONSEIL IA®",
+      reportDate: new Date().toISOString().split("T")[0],
+      mprProfile: profile as MprProfile,
+      isIdf: false,
+      occupants: 1,
+      annualIncome: 0,
+      dpe: "E",
+      dpeGainTarget: "B",
+      gainClasses: 2,
+      actionCount: 0,
+      renovationType: "parcours_accompagne",
+      selectedActions: [],
+      totalCostHT: 0,
+      totalMpr: 0,
+      totalCee: 0,
+      totalTva: 0,
+      totalAides: 0,
+      resteACharge: 0,
+      ecoPtz: 50000,
+      roi: 0,
+    };
+    generateRenovationReportPdf(input);
   }
 
   return (
