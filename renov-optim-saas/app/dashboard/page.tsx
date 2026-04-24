@@ -4,11 +4,7 @@ import { createClient as createSupabaseClient, type SupabaseClient } from "@supa
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import {
-  generateRenovationReportPdf,
-  type RenovationReportInput,
-  type MprProfile,
-} from "@/lib/generate-renovation-report-pdf";
+import { type RenovationReportInput, type MprProfile } from "@/lib/generate-renovation-report-pdf";
 import { SignOutButton } from "./sign-out-button";
 
 type Zone = "IDF" | "HORS_IDF";
@@ -627,35 +623,87 @@ export default function DashboardPage() {
     setSaving(false);
   }
 
-  function generatePdf() {
+  async function generatePdf() {
+    const gainClasses = works.dpeGainTarget === "3_CLASSES_OU_PLUS" ? 3 : 2;
+    const dpeOrder = ["G", "F", "E", "D", "C", "B", "A"] as const;
+    const di = dpeOrder.indexOf(step1.dpe as (typeof dpeOrder)[number]);
+    const dpeGainTarget =
+      di >= 0 ? dpeOrder[Math.min(dpeOrder.length - 1, di + gainClasses)]! : "B";
+
+    const costSum =
+      step2Rows.reduce((s, row) => s + (row.lowCost + row.highCost) / 2, 0) || 1;
+    const selectedActions: RenovationReportInput["selectedActions"] = step2Rows.map((row) => {
+      const costHT = Math.round((row.lowCost + row.highCost) / 2);
+      const mprAmount = Math.round(row.mpr);
+      const mprRate =
+        costHT > 0 ? Math.min(100, Math.round((mprAmount / costHT) * 1000) / 10) : 0;
+      const weight = costHT / costSum;
+      return {
+        label: row.label,
+        costHT,
+        mprRate,
+        mprAmount,
+        ceeAmount: Math.round(ceeEstimate * weight),
+        tva: Math.round(tvaSavings * weight),
+      };
+    });
+
     const input: RenovationReportInput = {
-      clientName: "Client",
+      clientName: userEmail?.split("@")[0] ?? "Client",
       clientAddress: "—",
-      clientEmail: "",
+      clientEmail: userEmail ?? "",
       clientPhone: "",
       advisorName: "Sylvain LEMBELEMBE",
       advisorCompany: "ENERGIA CONSEIL IA®",
       reportDate: new Date().toISOString().split("T")[0],
       mprProfile: profile as MprProfile,
-      isIdf: false,
-      occupants: 1,
-      annualIncome: 0,
-      dpe: "E",
-      dpeGainTarget: "B",
-      gainClasses: 2,
-      actionCount: 0,
-      renovationType: "parcours_accompagne",
-      selectedActions: [],
-      totalCostHT: 0,
-      totalMpr: 0,
-      totalCee: 0,
-      totalTva: 0,
-      totalAides: 0,
-      resteACharge: 0,
-      ecoPtz: 50000,
-      roi: 0,
+      isIdf: step1.zone === "IDF",
+      occupants: step1.persons,
+      annualIncome: step1.income,
+      dpe: step1.dpe,
+      dpeGainTarget,
+      gainClasses,
+      actionCount,
+      renovationType: parcoursEligible ? "parcours_accompagne" : "monogeste",
+      selectedActions,
+      totalCostHT: Math.round(estimatedWorksCost),
+      totalMpr: Math.round(mprTotal),
+      totalCee: Math.round(ceeEstimate),
+      totalTva: Math.round(tvaSavings),
+      totalAides: Math.round(totalAides),
+      resteACharge: Math.round(resteCharge),
+      ecoPtz,
+      roi: roiYears,
     };
-    generateRenovationReportPdf(input);
+
+    try {
+      setSaveMessage(null);
+      const res = await fetch("/api/renovation-report-pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(input),
+      });
+      if (!res.ok) {
+        let detail = res.statusText;
+        try {
+          const j = (await res.json()) as { error?: string };
+          if (j.error) detail = j.error;
+        } catch {
+          detail = await res.text();
+        }
+        throw new Error(detail);
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "rapport-renovation-" + input.reportDate + ".pdf";
+      a.click();
+      URL.revokeObjectURL(url);
+      setSaveMessage("PDF premium téléchargé.");
+    } catch (e) {
+      setSaveMessage(e instanceof Error ? e.message : "Erreur lors du téléchargement du PDF");
+    }
   }
 
   return (
