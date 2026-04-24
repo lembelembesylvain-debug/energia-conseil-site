@@ -6,18 +6,31 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { type RenovationReportInput, type MprProfile } from "@/lib/generate-renovation-report-pdf";
 import { SignOutButton } from "./sign-out-button";
+import {
+  DashboardAidesPie,
+  DashboardRoiChart,
+  InteractiveDpeGauge,
+  type DpeLetter,
+} from "./dashboard-visuals";
 
 type Zone = "IDF" | "HORS_IDF";
 type Dpe = "A" | "B" | "C" | "D" | "E" | "F" | "G";
 
+type HeatingMode = "GAZ" | "ELEC" | "FIOUL" | "BOIS" | "AUTRE";
+
 type Step1Data = {
   housingType: "MAISON" | "APPARTEMENT" | "COPROPRIETE";
   surfaceM2: number;
-  constructionPeriod: "AV1948" | "P1948_74" | "P1975_89" | "P1990_2000" | "P2001_2012" | "AP2012";
+  constructionYear: number;
+  heatingMode: HeatingMode;
   zone: Zone;
   dpe: Dpe;
   income: number;
   persons: number;
+  clientName: string;
+  clientAddress: string;
+  clientEmail: string;
+  livesInAura: boolean;
 };
 
 type WorksData = {
@@ -47,11 +60,16 @@ type WorksData = {
 const DEFAULT_STEP1: Step1Data = {
   housingType: "MAISON",
   surfaceM2: 100,
-  constructionPeriod: "P1975_89",
+  constructionYear: 1978,
+  heatingMode: "GAZ",
   zone: "HORS_IDF",
   dpe: "E",
   income: 30000,
   persons: 2,
+  clientName: "",
+  clientAddress: "",
+  clientEmail: "",
+  livesInAura: false,
 };
 
 const DEFAULT_WORKS: WorksData = {
@@ -144,6 +162,25 @@ function getProfile(zone: Zone, persons: number, income: number): MprProfile {
   return "SUP";
 }
 
+const REF_YEAR = 2026;
+const MAR_PRISE_EN_CHARGE = 500;
+
+function buildingAgeYears(constructionYear: number): number {
+  return Math.max(0, REF_YEAR - constructionYear);
+}
+
+function suggestPacAirEauKw(surfaceM2: number, heating: HeatingMode): number {
+  const base = Math.max(4, Math.round(surfaceM2 / 42));
+  const mult: Record<HeatingMode, number> = {
+    GAZ: 1,
+    ELEC: 1.12,
+    FIOUL: 1.08,
+    BOIS: 0.92,
+    AUTRE: 1,
+  };
+  return Math.min(18, Math.max(4, Math.round(base * mult[heating])));
+}
+
 function formatCurrency(value: number) {
   return value.toLocaleString("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 }
@@ -158,6 +195,28 @@ type Step2EstimateRow = {
   mprNote?: string;
 };
 
+type MarRowOverride = {
+  lowCost?: number;
+  highCost?: number;
+  mpr?: number;
+  ceeAmount?: number;
+  artisan?: string;
+  monthlyEuro?: number;
+};
+
+type DossierClientRow = {
+  id: string;
+  user_id: string;
+  client_nom: string | null;
+  client_adresse: string | null;
+  dpe_actuel: string | null;
+  dpe_cible: string | null;
+  profil_mpr: string | null;
+  travaux_json: Record<string, unknown>;
+  totaux_json: Record<string, unknown>;
+  created_at: string;
+};
+
 export default function DashboardPage() {
   const router = useRouter();
   const [supabase, setSupabase] = useState<SupabaseClient | null>(null);
@@ -169,6 +228,13 @@ export default function DashboardPage() {
   const [works, setWorks] = useState<WorksData>(DEFAULT_WORKS);
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [marOverrides, setMarOverrides] = useState<Record<string, MarRowOverride>>({});
+  const [aidesLocalesEuro, setAidesLocalesEuro] = useState(0);
+  const [dpeTargetManual, setDpeTargetManual] = useState<DpeLetter | null>(null);
+  const [dossiers, setDossiers] = useState<DossierClientRow[]>([]);
+  const [loadingDossiers, setLoadingDossiers] = useState(false);
+  const [emailSending, setEmailSending] = useState(false);
+  const [savingDossier, setSavingDossier] = useState(false);
 
   useEffect(() => {
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -215,6 +281,23 @@ export default function DashboardPage() {
       window.clearTimeout(sessionTimeout);
     };
   }, [router, supabase]);
+
+  async function loadDossiersList() {
+    if (!userId || !supabase) return;
+    setLoadingDossiers(true);
+    const { data, error } = await supabase
+      .from("dossiers_clients")
+      .select("*")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
+    if (!error && data) setDossiers(data as DossierClientRow[]);
+    setLoadingDossiers(false);
+  }
+
+  useEffect(() => {
+    if (!userId || !supabase) return;
+    void loadDossiersList();
+  }, [userId, supabase]);
 
   const profile = useMemo(
     () => getProfile(step1.zone, step1.persons, step1.income),
@@ -291,56 +374,6 @@ export default function DashboardPage() {
       (works.auditEnergetique ? prices.auditEnergetique : 0)
     );
   }, [works]);
-
-  const mprParcours = useMemo(() => {
-    if (!parcoursEligible) return 0;
-    const plafond = works.dpeGainTarget === "2_CLASSES" ? 30000 : 40000;
-    const rateMap = {
-      TM: works.dpeGainTarget === "2_CLASSES" ? 0.9 : 1,
-      MO: 0.8,
-      INT: 0.5,
-      SUP: 0.1,
-    };
-    return Math.min(estimatedWorksCost, plafond) * rateMap[profile];
-  }, [estimatedWorksCost, parcoursEligible, profile, works.dpeGainTarget]);
-
-  const mprParGeste = useMemo(() => {
-    if (!isParGesteOnly || supParGesteBlocked) return 0;
-    const capped = {
-      comblesPerdusM2: Math.min(works.comblesPerdusM2, 100),
-      comblesAmenagesM2: Math.min(works.comblesAmenagesM2, 100),
-      plancherBasM2: Math.min(works.plancherBasM2, 100),
-      toitureTerrasseM2: Math.min(works.toitureTerrasseM2, 100),
-      fenetresCount: Math.min(works.fenetresCount, 10),
-      portesEntreeCount: Math.min(works.portesEntreeCount, 10),
-    };
-
-    const vmcFactor = vmcDisabled ? 0 : 1;
-    const wallIsolationAllowed = parcoursEligible ? 0 : 0;
-    const biomasseAllowed = parcoursEligible ? 0 : 0;
-
-    return (
-      capped.comblesPerdusM2 * GESTE_RATES.comblesPerdusM2[profile] +
-      capped.comblesAmenagesM2 * GESTE_RATES.comblesAmenagesM2[profile] +
-      capped.plancherBasM2 * GESTE_RATES.plancherBasM2[profile] +
-      capped.toitureTerrasseM2 * GESTE_RATES.toitureTerrasseM2[profile] +
-      wallIsolationAllowed * (works.iteM2 + works.itiM2) +
-      capped.fenetresCount * GESTE_RATES.fenetresCount[profile] +
-      capped.portesEntreeCount * GESTE_RATES.portesEntreeCount[profile] +
-      (works.pacAirEauKw > 0 ? GESTE_RATES.pacAirEauKw[profile] : 0) +
-      (works.pacGeoKw > 0 ? GESTE_RATES.pacGeoKw[profile] : 0) +
-      (works.pacAirAirKw > 0 ? GESTE_RATES.pacAirAirKw[profile] : 0) +
-      (works.cesiM2 > 0 ? GESTE_RATES.cesiM2[profile] : 0) +
-      (works.chauffeEauThermoL > 0 ? GESTE_RATES.chauffeEauThermoL[profile] : 0) +
-      (works.deposeCuveFioul ? GESTE_RATES.deposeCuveFioul[profile] : 0) +
-      vmcFactor * (works.vmcDoubleM2 > 0 ? GESTE_RATES.vmcDoubleM2[profile] : 0) +
-      vmcFactor * (works.vmcSimpleM2 > 0 ? GESTE_RATES.vmcSimpleM2[profile] : 0) +
-      biomasseAllowed * (works.chaudiereBiomasseKw > 0 ? 1 : 0) +
-      (works.auditEnergetique ? GESTE_RATES.auditEnergetique[profile] : 0)
-    );
-  }, [isParGesteOnly, supParGesteBlocked, vmcDisabled, parcoursEligible, works, profile]);
-
-  const mprTotal = parcoursEligible ? mprParcours : mprParGeste;
 
   const ceeEstimate = useMemo(() => {
     const avg = (min: number, max: number) => (min + max) / 2;
@@ -559,13 +592,77 @@ export default function DashboardPage() {
     return rows;
   }, [profile, vmcDisabled, works]);
 
+  const displayStep2Rows = useMemo(
+    () =>
+      step2Rows.map((r) => {
+        const o = marOverrides[r.key];
+        return {
+          ...r,
+          lowCost: o?.lowCost ?? r.lowCost,
+          highCost: o?.highCost ?? r.highCost,
+          mpr: o?.mpr ?? r.mpr,
+        };
+      }),
+    [step2Rows, marOverrides],
+  );
+
+  const effectiveCostHT = useMemo(() => {
+    if (displayStep2Rows.length === 0) return estimatedWorksCost;
+    return displayStep2Rows.reduce((s, r) => s + (r.lowCost + r.highCost) / 2, 0);
+  }, [displayStep2Rows, estimatedWorksCost]);
+
+  const ceeRowAlloc = useMemo(() => {
+    if (displayStep2Rows.length === 0) return {} as Record<string, number>;
+    const mids = displayStep2Rows.map((r) => (r.lowCost + r.highCost) / 2);
+    const total = mids.reduce((a, b) => a + b, 0) || 1;
+    const alloc: Record<string, number> = {};
+    displayStep2Rows.forEach((r, i) => {
+      alloc[r.key] = ceeEstimate * (mids[i]! / total);
+    });
+    return alloc;
+  }, [displayStep2Rows, ceeEstimate]);
+
+  const effectiveCeeTotal = useMemo(
+    () =>
+      displayStep2Rows.reduce((s, r) => {
+        const o = marOverrides[r.key]?.ceeAmount;
+        if (o != null && Number.isFinite(o)) return s + o;
+        return s + (ceeRowAlloc[r.key] ?? 0);
+      }, 0),
+    [displayStep2Rows, marOverrides, ceeRowAlloc],
+  );
+
+  const mprParcours = useMemo(() => {
+    if (!parcoursEligible) return 0;
+    const plafond = works.dpeGainTarget === "2_CLASSES" ? 30000 : 40000;
+    const rateMap = {
+      TM: works.dpeGainTarget === "2_CLASSES" ? 0.9 : 1,
+      MO: 0.8,
+      INT: 0.5,
+      SUP: 0.1,
+    };
+    return Math.min(effectiveCostHT, plafond) * rateMap[profile];
+  }, [effectiveCostHT, parcoursEligible, profile, works.dpeGainTarget]);
+
+  const mprParGesteFromRows = useMemo(() => {
+    if (!isParGesteOnly || supParGesteBlocked) return 0;
+    return displayStep2Rows.reduce((s, r) => s + r.mpr, 0);
+  }, [isParGesteOnly, supParGesteBlocked, displayStep2Rows]);
+
+  const mprTotal = parcoursEligible ? mprParcours : mprParGesteFromRows;
+
+  const buildingAge = buildingAgeYears(step1.constructionYear);
+  const auraRegionalAid = step1.livesInAura && (profile === "TM" || profile === "MO") ? 500 : 0;
+  const surfaceIsolationM2 = step1.surfaceM2 * 1.1;
+  const suggestedPacKw = suggestPacAirEauKw(step1.surfaceM2, step1.heatingMode);
+
   const step2RowByKey = useMemo(
     () =>
-      step2Rows.reduce<Record<string, Step2EstimateRow>>((acc, row) => {
+      displayStep2Rows.reduce<Record<string, Step2EstimateRow>>((acc, row) => {
         acc[row.key] = row;
         return acc;
       }, {}),
-    [step2Rows]
+    [displayStep2Rows],
   );
 
   const estimateHint = (key: string) => {
@@ -579,9 +676,16 @@ export default function DashboardPage() {
     );
   };
 
-  const tvaSavings = estimatedWorksCost * 0.145;
-  const totalAides = mprTotal + ceeEstimate + tvaSavings;
-  const resteCharge = Math.max(estimatedWorksCost - totalAides, 0);
+  const tvaSavings = buildingAge >= 2 ? effectiveCostHT * 0.145 : 0;
+  const aidesLocalesEtRegion = aidesLocalesEuro + auraRegionalAid;
+  const totalAides =
+    mprTotal + effectiveCeeTotal + tvaSavings + aidesLocalesEtRegion + MAR_PRISE_EN_CHARGE;
+  const resteCharge = Math.max(effectiveCostHT - totalAides, 0);
+
+  const monthlyFromRows = useMemo(
+    () => displayStep2Rows.reduce((s, r) => s + (marOverrides[r.key]?.monthlyEuro ?? 0), 0),
+    [displayStep2Rows, marOverrides],
+  );
 
   const annualSavings = useMemo(() => {
     const dpeFactor: Record<Dpe, number> = {
@@ -593,10 +697,27 @@ export default function DashboardPage() {
       F: 0.09,
       G: 0.11,
     };
-    return Math.max(estimatedWorksCost * dpeFactor[step1.dpe] * (1 + isolationGesturesCount * 0.08), 300);
-  }, [estimatedWorksCost, step1.dpe, isolationGesturesCount]);
+    const base = Math.max(
+      effectiveCostHT * dpeFactor[step1.dpe] * (1 + isolationGesturesCount * 0.08),
+      300,
+    );
+    const fromRows = monthlyFromRows * 12;
+    return Math.max(base, fromRows);
+  }, [effectiveCostHT, step1.dpe, isolationGesturesCount, monthlyFromRows]);
 
   const roiYears = annualSavings > 0 ? resteCharge / annualSavings : 0;
+
+  const dpeCibleRapport = useMemo((): Dpe => {
+    const gainClasses = works.dpeGainTarget === "3_CLASSES_OU_PLUS" ? 3 : 2;
+    const dpeOrder = ["G", "F", "E", "D", "C", "B", "A"] as const;
+    const di = dpeOrder.indexOf(step1.dpe as (typeof dpeOrder)[number]);
+    const auto = di >= 0 ? dpeOrder[Math.min(dpeOrder.length - 1, di + gainClasses)]! : "B";
+    return (dpeTargetManual ?? (auto as DpeLetter)) as Dpe;
+  }, [step1.dpe, works.dpeGainTarget, dpeTargetManual]);
+
+  const annualBillSansTravaux = Math.max(annualSavings * 1.35, effectiveCostHT * 0.045, 960);
+  const annualBillAvecTravaux = Math.max(annualBillSansTravaux - annualSavings, 220);
+
 
   async function saveCalculation() {
     if (!userId || !supabase) return;
@@ -610,7 +731,7 @@ export default function DashboardPage() {
       profil_mpr: profile,
       travaux: works,
       total_mpr: Math.round(mprTotal),
-      total_cee: Math.round(ceeEstimate),
+      total_cee: Math.round(effectiveCeeTotal),
       total_aides: Math.round(totalAides),
       reste_a_charge: Math.round(resteCharge),
     };
@@ -625,33 +746,35 @@ export default function DashboardPage() {
 
   async function generatePdf() {
     const gainClasses = works.dpeGainTarget === "3_CLASSES_OU_PLUS" ? 3 : 2;
-    const dpeOrder = ["G", "F", "E", "D", "C", "B", "A"] as const;
-    const di = dpeOrder.indexOf(step1.dpe as (typeof dpeOrder)[number]);
-    const dpeGainTarget =
-      di >= 0 ? dpeOrder[Math.min(dpeOrder.length - 1, di + gainClasses)]! : "B";
+    const dpeGainTarget = dpeCibleRapport;
 
     const costSum =
-      step2Rows.reduce((s, row) => s + (row.lowCost + row.highCost) / 2, 0) || 1;
-    const selectedActions: RenovationReportInput["selectedActions"] = step2Rows.map((row) => {
+      displayStep2Rows.reduce((acc, row) => acc + (row.lowCost + row.highCost) / 2, 0) || 1;
+    const selectedActions: RenovationReportInput["selectedActions"] = displayStep2Rows.map((row) => {
       const costHT = Math.round((row.lowCost + row.highCost) / 2);
       const mprAmount = Math.round(row.mpr);
       const mprRate =
         costHT > 0 ? Math.min(100, Math.round((mprAmount / costHT) * 1000) / 10) : 0;
       const weight = costHT / costSum;
+      const rowCeeOverride = marOverrides[row.key]?.ceeAmount;
+      const ceePortion =
+        rowCeeOverride != null && Number.isFinite(rowCeeOverride)
+          ? rowCeeOverride
+          : ceeRowAlloc[row.key] ?? 0;
       return {
         label: row.label,
         costHT,
         mprRate,
         mprAmount,
-        ceeAmount: Math.round(ceeEstimate * weight),
+        ceeAmount: Math.round(ceePortion),
         tva: Math.round(tvaSavings * weight),
       };
     });
 
     const input: RenovationReportInput = {
-      clientName: userEmail?.split("@")[0] ?? "Client",
-      clientAddress: "—",
-      clientEmail: userEmail ?? "",
+      clientName: step1.clientName.trim() || userEmail?.split("@")[0] || "Client",
+      clientAddress: step1.clientAddress.trim() || "—",
+      clientEmail: step1.clientEmail.trim() || userEmail || "",
       clientPhone: "",
       advisorName: "Sylvain LEMBELEMBE",
       advisorCompany: "ENERGIA CONSEIL IA®",
@@ -666,14 +789,28 @@ export default function DashboardPage() {
       actionCount,
       renovationType: parcoursEligible ? "parcours_accompagne" : "monogeste",
       selectedActions,
-      totalCostHT: Math.round(estimatedWorksCost),
+      totalCostHT: Math.round(effectiveCostHT),
       totalMpr: Math.round(mprTotal),
-      totalCee: Math.round(ceeEstimate),
+      totalCee: Math.round(effectiveCeeTotal),
       totalTva: Math.round(tvaSavings),
       totalAides: Math.round(totalAides),
       resteACharge: Math.round(resteCharge),
       ecoPtz,
       roi: roiYears,
+      dimensionnementPac: {
+        form: {
+          surfaceChauffee: step1.surfaceM2,
+          hauteurPlafond: 2.5,
+          zoneClimatique: step1.zone === "IDF" ? "H1a" : "H2c",
+          dpe: step1.dpe,
+        },
+        computed: {
+          puissanceRecommandee: suggestedPacKw,
+          modeleSuggere: `PAC air/eau ~${suggestedPacKw} kW (chauffage ${step1.heatingMode})`,
+          copEstime: 4.2,
+          economiesAnnuelles: Math.round(annualSavings),
+        },
+      },
     };
 
     try {
@@ -705,6 +842,64 @@ export default function DashboardPage() {
       setSaveMessage(e instanceof Error ? e.message : "Erreur lors du téléchargement du PDF");
     }
   }
+
+
+  async function saveDossierClient() {
+    if (!userId || !supabase) {
+      setSaveMessage("Connexion requise pour sauvegarder.");
+      return;
+    }
+    setSavingDossier(true);
+    setSaveMessage(null);
+    const gainClasses = works.dpeGainTarget === "3_CLASSES_OU_PLUS" ? 3 : 2;
+    const dpeOrder = ["G", "F", "E", "D", "C", "B", "A"] as const;
+    const di = dpeOrder.indexOf(step1.dpe as (typeof dpeOrder)[number]);
+    const dpeCible = di >= 0 ? dpeOrder[Math.min(dpeOrder.length - 1, di + gainClasses)]! : "B";
+    const { error } = await supabase.from("dossiers_clients").insert({
+      user_id: userId,
+      client_nom: step1.clientName.trim() || null,
+      client_adresse: step1.clientAddress.trim() || null,
+      dpe_actuel: step1.dpe,
+      dpe_cible: String(dpeTargetManual ?? dpeCible),
+      profil_mpr: profile,
+      travaux_json: {
+        step1,
+        works,
+        marOverrides,
+        aidesLocalesEuro,
+      },
+      totaux_json: {
+        mprTotal,
+        effectiveCeeTotal,
+        tvaSavings,
+        totalAides,
+        resteCharge,
+        effectiveCostHT,
+        auraRegionalAid,
+      },
+    });
+    setSavingDossier(false);
+    if (error) setSaveMessage(`Dossier : ${error.message}`);
+    else {
+      setSaveMessage("Dossier client sauvegardé.");
+      await loadDossiersList();
+    }
+  }
+
+  function applyDossierRow(row: DossierClientRow) {
+    const raw = row.travaux_json as {
+      step1?: Step1Data;
+      works?: WorksData;
+      marOverrides?: Record<string, MarRowOverride>;
+      aidesLocalesEuro?: number;
+    };
+    if (raw.step1) setStep1((prev) => ({ ...prev, ...raw.step1 }));
+    if (raw.works) setWorks((prev) => ({ ...prev, ...raw.works }));
+    if (raw.marOverrides) setMarOverrides(raw.marOverrides);
+    if (typeof raw.aidesLocalesEuro === "number") setAidesLocalesEuro(raw.aidesLocalesEuro);
+    setSaveMessage("Dossier rechargé dans le formulaire.");
+  }
+
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -754,7 +949,6 @@ export default function DashboardPage() {
                   {[
                     ["MAISON", "Maison individuelle"],
                     ["APPARTEMENT", "Appartement"],
-                    ["COPROPRIETE", "Copropriété"],
                   ].map(([value, label]) => (
                     <label key={value} className="flex items-center gap-2">
                       <input
@@ -787,20 +981,74 @@ export default function DashboardPage() {
 
               <label className="space-y-1 text-sm">
                 <span className="font-medium text-zinc-700">Année de construction</span>
-                <select
-                  value={step1.constructionPeriod}
+                <input
+                  type="number"
+                  min={1800}
+                  max={REF_YEAR}
+                  value={step1.constructionYear}
                   onChange={(e) =>
-                    setStep1((prev) => ({ ...prev, constructionPeriod: e.target.value as Step1Data["constructionPeriod"] }))
+                    setStep1((prev) => ({
+                      ...prev,
+                      constructionYear: Math.min(
+                        REF_YEAR,
+                        Math.max(1800, safeNumber(e.target.value, prev.constructionYear)),
+                      ),
+                    }))
+                  }
+                  className="w-full rounded-lg border border-zinc-300 px-3 py-2"
+                />
+                {buildingAgeYears(step1.constructionYear) < 2 && (
+                  <p className="mt-1 text-xs font-medium text-red-700">
+                    Non éligible TVA 5,5% (logement de moins de 2 ans).
+                  </p>
+                )}
+                {buildingAgeYears(step1.constructionYear) > 15 && (
+                  <p className="mt-1 text-xs font-medium text-emerald-700">
+                    Éligible MaPrimeRénov&apos; (bâtiment &gt; 15 ans) ✅
+                  </p>
+                )}
+              </label>
+
+              <label className="space-y-1 text-sm">
+                <span className="font-medium text-zinc-700">Mode de chauffage actuel</span>
+                <select
+                  value={step1.heatingMode}
+                  onChange={(e) =>
+                    setStep1((prev) => ({ ...prev, heatingMode: e.target.value as Step1Data["heatingMode"] }))
                   }
                   className="w-full rounded-lg border border-zinc-300 px-3 py-2"
                 >
-                  <option value="AV1948">Avant 1948</option>
-                  <option value="P1948_74">1948-1974</option>
-                  <option value="P1975_89">1975-1989</option>
-                  <option value="P1990_2000">1990-2000</option>
-                  <option value="P2001_2012">2001-2012</option>
-                  <option value="AP2012">Après 2012</option>
+                  <option value="GAZ">Gaz</option>
+                  <option value="ELEC">Électrique</option>
+                  <option value="FIOUL">Fioul</option>
+                  <option value="BOIS">Bois</option>
+                  <option value="AUTRE">Autre</option>
                 </select>
+              </label>
+
+              <label className="space-y-1 text-sm md:col-span-2">
+                <span className="font-medium text-zinc-700">Nombre de fenêtres</span>
+                <input
+                  type="number"
+                  min={0}
+                  value={works.fenetresCount}
+                  onChange={(e) =>
+                    setWorks((prev) => ({ ...prev, fenetresCount: Math.max(0, safeNumber(e.target.value)) }))
+                  }
+                  className="mt-1 w-full max-w-xs rounded-lg border border-zinc-300 px-3 py-2"
+                />
+              </label>
+
+              <label className="space-y-1 text-sm md:col-span-2">
+                <span className="font-medium text-zinc-700">Auvergne-Rhône-Alpes (forfait 500 € si profil TM/MO)</span>
+                <label className="mt-1 flex items-center gap-2 text-zinc-800">
+                  <input
+                    type="checkbox"
+                    checked={step1.livesInAura}
+                    onChange={(e) => setStep1((prev) => ({ ...prev, livesInAura: e.target.checked }))}
+                  />
+                  Logement situé en AuRA
+                </label>
               </label>
 
               <label className="space-y-1 text-sm">
@@ -867,6 +1115,46 @@ export default function DashboardPage() {
                   <option value={6}>6+</option>
                 </select>
               </label>
+
+              <label className="space-y-1 text-sm">
+                <span className="font-medium text-zinc-700">Nom du client</span>
+                <input
+                  type="text"
+                  value={step1.clientName}
+                  onChange={(e) => setStep1((prev) => ({ ...prev, clientName: e.target.value }))}
+                  className="w-full rounded-lg border border-zinc-300 px-3 py-2"
+                  placeholder="Nom complet"
+                />
+              </label>
+
+              <label className="space-y-1 text-sm">
+                <span className="font-medium text-zinc-700">Adresse du logement</span>
+                <input
+                  type="text"
+                  value={step1.clientAddress}
+                  onChange={(e) => setStep1((prev) => ({ ...prev, clientAddress: e.target.value }))}
+                  className="w-full rounded-lg border border-zinc-300 px-3 py-2"
+                  placeholder="Ville, rue…"
+                />
+              </label>
+
+              <label className="space-y-1 text-sm md:col-span-2">
+                <span className="font-medium text-zinc-700">E-mail du client (rapport PDF)</span>
+                <input
+                  type="email"
+                  value={step1.clientEmail}
+                  onChange={(e) => setStep1((prev) => ({ ...prev, clientEmail: e.target.value }))}
+                  className="w-full rounded-lg border border-zinc-300 px-3 py-2"
+                  placeholder="client@exemple.fr"
+                />
+              </label>
+            </div>
+
+            <div className="mt-3 rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-xs text-zinc-700">
+              <p>
+                <strong>Surface isolation (×1,1) :</strong> {surfaceIsolationM2.toFixed(1)} m² —{" "}
+                <strong>PAC air/eau suggérée :</strong> ~{suggestedPacKw} kW (indicatif selon surface et chauffage).
+              </p>
             </div>
 
             {["A", "B", "C", "D"].includes(step1.dpe) && (
@@ -880,6 +1168,46 @@ export default function DashboardPage() {
               <span className={`rounded-full border px-3 py-1 text-sm font-semibold ${PROFILE_BADGES[profile]}`}>
                 {profile === "TM" ? "🔵" : profile === "MO" ? "🟡" : profile === "INT" ? "🟣" : "🌸"} {PROFILE_LABELS[profile]}
               </span>
+            </div>
+
+
+            <div className="mt-6 rounded-xl border border-zinc-200 bg-zinc-50 p-4">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-sm font-semibold text-zinc-900">Dossiers sauvegardés</p>
+                <button
+                  type="button"
+                  disabled={savingDossier}
+                  onClick={() => void saveDossierClient()}
+                  className="rounded-lg bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-zinc-800 disabled:opacity-50"
+                >
+                  Sauvegarder le dossier
+                </button>
+              </div>
+              {loadingDossiers ? (
+                <p className="mt-2 text-xs text-zinc-500">Chargement…</p>
+              ) : dossiers.length === 0 ? (
+                <p className="mt-2 text-xs text-zinc-500">Aucun dossier enregistré.</p>
+              ) : (
+                <ul className="mt-3 space-y-2">
+                  {dossiers.map((d) => (
+                    <li
+                      key={d.id}
+                      className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs"
+                    >
+                      <span className="text-zinc-800">
+                        {(d.client_nom || "Sans nom") + " — " + new Date(d.created_at).toLocaleString("fr-FR")}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => applyDossierRow(d)}
+                        className="rounded border border-emerald-500 px-2 py-0.5 font-semibold text-emerald-700 hover:bg-emerald-50"
+                      >
+                        Recharger
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             <div className="mt-5 flex justify-end">
@@ -1188,7 +1516,7 @@ export default function DashboardPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {step2Rows.map((row) => (
+                    {displayStep2Rows.map((row) => (
                       <tr key={row.key} className="border-t border-zinc-100">
                         <td className="px-3 py-2 text-zinc-800">{row.label}</td>
                         <td className="px-3 py-2 text-zinc-700">{row.quantity}</td>
@@ -1205,6 +1533,132 @@ export default function DashboardPage() {
                 </table>
               </div>
             )}
+            {displayStep2Rows.length > 0 && (
+              <div className="mt-4 space-y-2 rounded-xl border border-dashed border-emerald-200 bg-emerald-50/40 p-4">
+                <p className="text-sm font-semibold text-emerald-900">Ajustements MAR (postes saisis)</p>
+                <p className="text-xs text-emerald-800">
+                  Prix HT, CEE, artisan, économies mensuelles : valeurs éditables pour affinage du dossier.
+                </p>
+                <div className="overflow-x-auto rounded-lg border border-emerald-100 bg-white">
+                  <table className="min-w-full text-left text-xs sm:text-sm">
+                    <thead className="bg-emerald-50 text-emerald-900">
+                      <tr>
+                        <th className="px-2 py-2">Poste</th>
+                        <th className="px-2 py-2">Prix HT bas</th>
+                        <th className="px-2 py-2">Prix HT haut</th>
+                        <th className="px-2 py-2">MPR</th>
+                        <th className="px-2 py-2">CEE</th>
+                        <th className="px-2 py-2">Artisan</th>
+                        <th className="px-2 py-2">€/mois</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {displayStep2Rows.map((row) => (
+                        <tr key={row.key} className="border-t border-emerald-100">
+                          <td className="px-2 py-1.5 text-zinc-800">{row.label}</td>
+                          <td className="px-2 py-1.5">
+                            <input
+                              className="w-24 rounded border border-zinc-300 px-1 py-0.5"
+                              type="number"
+                              value={marOverrides[row.key]?.lowCost ?? row.lowCost}
+                              onChange={(e) =>
+                                setMarOverrides((prev) => ({
+                                  ...prev,
+                                  [row.key]: { ...prev[row.key], lowCost: safeNumber(e.target.value, row.lowCost) },
+                                }))
+                              }
+                            />
+                          </td>
+                          <td className="px-2 py-1.5">
+                            <input
+                              className="w-24 rounded border border-zinc-300 px-1 py-0.5"
+                              type="number"
+                              value={marOverrides[row.key]?.highCost ?? row.highCost}
+                              onChange={(e) =>
+                                setMarOverrides((prev) => ({
+                                  ...prev,
+                                  [row.key]: { ...prev[row.key], highCost: safeNumber(e.target.value, row.highCost) },
+                                }))
+                              }
+                            />
+                          </td>
+                          <td className="px-2 py-1.5">
+                            <input
+                              className="w-24 rounded border border-zinc-300 px-1 py-0.5"
+                              type="number"
+                              value={marOverrides[row.key]?.mpr ?? row.mpr}
+                              onChange={(e) =>
+                                setMarOverrides((prev) => ({
+                                  ...prev,
+                                  [row.key]: { ...prev[row.key], mpr: safeNumber(e.target.value, row.mpr) },
+                                }))
+                              }
+                            />
+                          </td>
+                          <td className="px-2 py-1.5">
+                            <input
+                              className="w-24 rounded border border-zinc-300 px-1 py-0.5"
+                              type="number"
+                              title="CEE poste"
+                              value={
+                                marOverrides[row.key]?.ceeAmount ?? Math.round(ceeRowAlloc[row.key] ?? 0)
+                              }
+                              onChange={(e) =>
+                                setMarOverrides((prev) => ({
+                                  ...prev,
+                                  [row.key]: { ...prev[row.key], ceeAmount: safeNumber(e.target.value, 0) },
+                                }))
+                              }
+                            />
+                          </td>
+                          <td className="px-2 py-1.5">
+                            <input
+                              className="w-32 rounded border border-zinc-300 px-1 py-0.5 sm:w-40"
+                              placeholder="Artisan"
+                              value={marOverrides[row.key]?.artisan ?? ""}
+                              onChange={(e) =>
+                                setMarOverrides((prev) => ({
+                                  ...prev,
+                                  [row.key]: { ...prev[row.key], artisan: e.target.value },
+                                }))
+                              }
+                            />
+                          </td>
+                          <td className="px-2 py-1.5">
+                            <input
+                              className="w-20 rounded border border-zinc-300 px-1 py-0.5"
+                              type="number"
+                              placeholder="0"
+                              value={marOverrides[row.key]?.monthlyEuro ?? ""}
+                              onChange={(e) =>
+                                setMarOverrides((prev) => ({
+                                  ...prev,
+                                  [row.key]: {
+                                    ...prev[row.key],
+                                    monthlyEuro: safeNumber(e.target.value, 0),
+                                  },
+                                }))
+                              }
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <label className="mt-2 flex flex-col gap-1 text-sm text-zinc-800">
+                  <span className="font-medium">Aides locales additionnelles (€)</span>
+                  <input
+                    type="number"
+                    min={0}
+                    className="max-w-xs rounded-lg border border-zinc-300 px-3 py-2"
+                    value={aidesLocalesEuro}
+                    onChange={(e) => setAidesLocalesEuro(Math.max(0, safeNumber(e.target.value)))}
+                  />
+                </label>
+              </div>
+            )}
+
 
             <div className="mt-5 flex items-center justify-between">
               <button
@@ -1253,7 +1707,7 @@ export default function DashboardPage() {
 
             <div className="rounded-xl border border-zinc-200 p-4 text-sm text-zinc-700">
               <p className="font-semibold text-zinc-800">SECTION D — CEE (cumulable MPR)</p>
-              <p className="mt-1">CEE estimée : {formatCurrency(ceeEstimate)}</p>
+              <p className="mt-1">CEE estimée : {formatCurrency(effectiveCeeTotal)}</p>
               <p className="text-xs text-zinc-500">Montants variables selon fournisseur (+/-30%).</p>
             </div>
 
@@ -1265,11 +1719,14 @@ export default function DashboardPage() {
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">💰 MPR estimée : <strong>{formatCurrency(mprTotal)}</strong></div>
-              <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">💰 CEE estimée : <strong>{formatCurrency(ceeEstimate)}</strong></div>
+              <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">💰 CEE estimée : <strong>{formatCurrency(effectiveCeeTotal)}</strong></div>
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">💰 Éco-PTZ disponible : <strong>{formatCurrency(ecoPtz)}</strong></div>
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">💰 TVA économisée : <strong>{formatCurrency(tvaSavings)}</strong></div>
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">✅ TOTAL AIDES : <strong>{formatCurrency(totalAides)}</strong></div>
-              <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">🏠 Coût travaux : <strong>{formatCurrency(estimatedWorksCost)}</strong></div>
+              <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">🏛️ AuRA + locales : <strong>{formatCurrency(aidesLocalesEtRegion)}</strong></div>
+              <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">🤝 Prise en charge MAR : <strong>{formatCurrency(MAR_PRISE_EN_CHARGE)}</strong></div>
+
+              <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">🏠 Coût travaux HT : <strong>{formatCurrency(effectiveCostHT)}</strong></div>
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">💳 Reste à charge : <strong>{formatCurrency(resteCharge)}</strong></div>
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">📈 Économies annuelles : <strong>{formatCurrency(annualSavings)}</strong></div>
               <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">⏱️ ROI estimé : <strong>{roiYears.toFixed(1)} années</strong></div>
@@ -1289,6 +1746,89 @@ export default function DashboardPage() {
                 className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
               >
                 📄 Générer le rapport complet (35 pages)
+              </button>
+              <button
+                type="button"
+                disabled={emailSending || !step1.clientEmail.trim()}
+                onClick={async () => {
+                  const to = step1.clientEmail.trim();
+                  if (!to) {
+                    setSaveMessage("Renseignez l'e-mail client (étape 1).");
+                    return;
+                  }
+                  setEmailSending(true);
+                  setSaveMessage(null);
+                  try {
+                    const gainClasses = works.dpeGainTarget === "3_CLASSES_OU_PLUS" ? 3 : 2;
+                    const dpeGainTarget = dpeCibleRapport;
+                    const costSum =
+                      displayStep2Rows.reduce((acc, row) => acc + (row.lowCost + row.highCost) / 2, 0) || 1;
+                    const selectedActions = displayStep2Rows.map((row) => {
+                      const costHT = Math.round((row.lowCost + row.highCost) / 2);
+                      const mprAmount = Math.round(row.mpr);
+                      const mprRate =
+                        costHT > 0 ? Math.min(100, Math.round((mprAmount / costHT) * 1000) / 10) : 0;
+                      const weight = costHT / costSum;
+                      const rowCeeOverride = marOverrides[row.key]?.ceeAmount;
+                      const ceePortion =
+                        rowCeeOverride != null && Number.isFinite(rowCeeOverride)
+                          ? rowCeeOverride
+                          : ceeRowAlloc[row.key] ?? 0;
+                      return {
+                        label: row.label,
+                        costHT,
+                        mprRate,
+                        mprAmount,
+                        ceeAmount: Math.round(ceePortion),
+                        tva: Math.round(tvaSavings * weight),
+                      };
+                    });
+                    const input = {
+                      clientName: step1.clientName.trim() || userEmail?.split("@")[0] || "Client",
+                      clientAddress: step1.clientAddress.trim() || "—",
+                      clientEmail: to,
+                      clientPhone: "",
+                      advisorName: "Sylvain LEMBELEMBE",
+                      advisorCompany: "ENERGIA CONSEIL IA®",
+                      reportDate: new Date().toISOString().split("T")[0],
+                      mprProfile: profile,
+                      isIdf: step1.zone === "IDF",
+                      occupants: step1.persons,
+                      annualIncome: step1.income,
+                      dpe: step1.dpe,
+                      dpeGainTarget,
+                      gainClasses,
+                      actionCount,
+                      renovationType: parcoursEligible ? "parcours_accompagne" : "monogeste",
+                      selectedActions,
+                      totalCostHT: Math.round(effectiveCostHT),
+                      totalMpr: Math.round(mprTotal),
+                      totalCee: Math.round(effectiveCeeTotal),
+                      totalTva: Math.round(tvaSavings),
+                      totalAides: Math.round(totalAides),
+                      resteACharge: Math.round(resteCharge),
+                      ecoPtz,
+                      roi: roiYears,
+                    };
+                    const res = await fetch("/api/send-renovation-report", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ input, toEmail: to }),
+                    });
+                    if (!res.ok) {
+                      const j = (await res.json().catch(() => ({}))) as { error?: string };
+                      throw new Error(j.error || res.statusText);
+                    }
+                    setSaveMessage("Rapport envoyé par e-mail.");
+                  } catch (e) {
+                    setSaveMessage(e instanceof Error ? e.message : "Erreur envoi e-mail");
+                  } finally {
+                    setEmailSending(false);
+                  }
+                }}
+                className="rounded-lg border border-emerald-600 bg-white px-4 py-2 text-sm font-semibold text-emerald-700 hover:bg-emerald-50 disabled:opacity-50"
+              >
+                ✉️ Envoyer le rapport par e-mail
               </button>
               {saving && <span className="text-sm text-zinc-500">Enregistrement Supabase…</span>}
               {saveMessage && <span className="text-sm text-zinc-600">{saveMessage}</span>}

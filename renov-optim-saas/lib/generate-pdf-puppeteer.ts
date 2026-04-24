@@ -84,7 +84,7 @@ function dpeGauge(current: string | null, target: string | null): string {
       const active = L === cur;
       const targetH = L === tgt;
       const bg = DPE_COLORS[L] || "#ccc";
-      const ring = active ? "3px solid #111" : targetH ? "2px solid #1a2744" : "1px solid #d4d4d8";
+      const ring = active ? "3px solid #111" : targetH ? "3px solid #166534" : "1px solid #d4d4d8";
       return `<span class="dpe-cell" style="background:${bg};box-shadow:inset 0 0 0 ${ring}">${L}</span>`;
     })
     .join("");
