@@ -1,13 +1,7 @@
-import type { NextConfig } from "next";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const nextConfig: NextConfig = {
-  reactStrictMode: true,
-  /** Évite que Next prenne un lockfile parent comme racine de monorepo. */
-  outputFileTracingRoot: path.join(__dirname),
-};
-
-export default nextConfig;
+import type { NextConfig } from "next";   
+   
+const nextConfig: NextConfig = {   
+  serverExternalPackages: ["@sparticuz/chromium", "puppeteer-core"],   
+};   
+   
+export default nextConfig;   git add next.config.ts  
