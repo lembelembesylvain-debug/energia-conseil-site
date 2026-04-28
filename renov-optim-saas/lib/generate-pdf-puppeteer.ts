@@ -56,7 +56,7 @@ function escapeHtml(s: string | null | undefined): string {
 
 function fmtEUR(n: number): string {
   const v = Math.round(Number.isFinite(n) ? n : 0);
-  return `${v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}€`;
+  return v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' €';
 }
 
 function profileLabelFr(p: MprProfile): string {
