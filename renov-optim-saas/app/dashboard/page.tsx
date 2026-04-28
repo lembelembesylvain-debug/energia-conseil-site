@@ -4,7 +4,6 @@ import { createClient as createSupabaseClient, type SupabaseClient } from "@supa
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { type RenovationReportInput, type MprProfile } from "@/lib/generate-renovation-report-pdf";
 import { SignOutButton } from "./sign-out-button";
 import {
   DashboardAidesPie,
@@ -15,6 +14,7 @@ import {
 
 type Zone = "IDF" | "HORS_IDF";
 type Dpe = "A" | "B" | "C" | "D" | "E" | "F" | "G";
+type MprProfile = "TM" | "MO" | "INT" | "SUP";
 
 type HeatingMode = "GAZ" | "ELEC" | "FIOUL" | "BOIS" | "AUTRE";
 
@@ -224,6 +224,84 @@ type DossierClientRow = {
   created_at: string;
   updated_at?: string;
 };
+
+type PrintViewProps = {
+  clientName: string;
+  profileLabel: string;
+  dpeActuel: Dpe;
+  dpeCible: Dpe;
+  totalMpr: number;
+  totalCee: number;
+  ecoPtz: number;
+  totalAides: number;
+  costHT: number;
+  resteCharge: number;
+  annualSavings: number;
+  roiYears: number;
+  rows: Step2EstimateRow[];
+};
+
+function PrintView({
+  clientName,
+  profileLabel,
+  dpeActuel,
+  dpeCible,
+  totalMpr,
+  totalCee,
+  ecoPtz,
+  totalAides,
+  costHT,
+  resteCharge,
+  annualSavings,
+  roiYears,
+  rows,
+}: PrintViewProps) {
+  return (
+    <section className="print-only mx-auto max-w-4xl p-8 text-black">
+      <h1 className="text-2xl font-bold">Rénov&apos;Optim IA — Résultats</h1>
+      <p className="mt-1 text-sm">Client : {clientName || "Client"}</p>
+      <p className="text-sm">Profil MPR : {profileLabel}</p>
+      <p className="text-sm">
+        DPE : {dpeActuel} → {dpeCible}
+      </p>
+
+      <div className="mt-6 grid grid-cols-2 gap-2 text-sm">
+        <p>MPR estimée : {formatCurrency(totalMpr)}</p>
+        <p>CEE estimée : {formatCurrency(totalCee)}</p>
+        <p>Éco-PTZ : {formatCurrency(ecoPtz)}</p>
+        <p>Total aides : {formatCurrency(totalAides)}</p>
+        <p>Coût travaux HT : {formatCurrency(costHT)}</p>
+        <p>Reste à charge : {formatCurrency(resteCharge)}</p>
+        <p>Économies annuelles : {formatCurrency(annualSavings)}</p>
+        <p>ROI : {roiYears.toFixed(1)} ans</p>
+      </div>
+
+      <h2 className="mt-8 text-lg font-semibold">Travaux retenus</h2>
+      <table className="mt-2 w-full border-collapse text-left text-sm">
+        <thead>
+          <tr>
+            <th className="border border-zinc-300 p-2">Poste</th>
+            <th className="border border-zinc-300 p-2">Quantité</th>
+            <th className="border border-zinc-300 p-2">Coût</th>
+            <th className="border border-zinc-300 p-2">MPR</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.key}>
+              <td className="border border-zinc-300 p-2">{row.label}</td>
+              <td className="border border-zinc-300 p-2">{row.quantity}</td>
+              <td className="border border-zinc-300 p-2">
+                {formatCurrency(row.lowCost)} - {formatCurrency(row.highCost)}
+              </td>
+              <td className="border border-zinc-300 p-2">{formatCurrency(row.mpr)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  );
+}
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -752,107 +830,6 @@ export default function DashboardPage() {
     setSaving(false);
   }
 
-  async function generatePdf() {
-    const gainClasses = works.dpeGainTarget === "3_CLASSES_OU_PLUS" ? 3 : 2;
-    const dpeGainTarget = dpeCibleRapport;
-
-    const costSum =
-      displayStep2Rows.reduce((acc, row) => acc + (row.lowCost + row.highCost) / 2, 0) || 1;
-    const selectedActions: RenovationReportInput["selectedActions"] = displayStep2Rows.map((row) => {
-      const costHT = Math.round((row.lowCost + row.highCost) / 2);
-      const mprAmount = Math.round(row.mpr);
-      const mprRate =
-        costHT > 0 ? Math.min(100, Math.round((mprAmount / costHT) * 1000) / 10) : 0;
-      const weight = costHT / costSum;
-      const rowCeeOverride = marOverrides[row.key]?.ceeAmount;
-      const ceePortion =
-        rowCeeOverride != null && Number.isFinite(rowCeeOverride)
-          ? rowCeeOverride
-          : ceeRowAlloc[row.key] ?? 0;
-      return {
-        label: row.label,
-        costHT,
-        mprRate,
-        mprAmount,
-        ceeAmount: Math.round(ceePortion),
-        tva: Math.round(tvaSavings * weight),
-      };
-    });
-
-    const input: RenovationReportInput = {
-      clientName: step1.clientName.trim() || userEmail?.split("@")[0] || "Client",
-      clientPrenom: step1.clientPrenom.trim() || null,
-      clientAddress: step1.clientAddress.trim() || "—",
-      clientEmail: step1.clientEmail.trim() || userEmail || "",
-      clientPhone: step1.clientPhone.trim() || "",
-      advisorName: "Sylvain LEMBELEMBE",
-      advisorCompany: "ENERGIA CONSEIL IA®",
-      reportDate: new Date().toISOString().split("T")[0],
-      mprProfile: profile as MprProfile,
-      isIdf: step1.zone === "IDF",
-      occupants: step1.persons,
-      annualIncome: step1.income,
-      dpe: step1.dpe,
-      dpeGainTarget,
-      gainClasses,
-      actionCount,
-      renovationType: parcoursEligible ? "parcours_accompagne" : "monogeste",
-      selectedActions,
-      totalCostHT: Math.round(effectiveCostHT),
-      totalMpr: Math.round(mprTotal),
-      totalCee: Math.round(effectiveCeeTotal),
-      totalTva: Math.round(tvaSavings),
-      totalAides: Math.round(totalAides),
-      resteACharge: Math.round(resteCharge),
-      ecoPtz,
-      roi: roiYears,
-      dimensionnementPac: {
-        form: {
-          surfaceChauffee: step1.surfaceM2,
-          hauteurPlafond: 2.5,
-          zoneClimatique: step1.zone === "IDF" ? "H1a" : "H2c",
-          dpe: step1.dpe,
-        },
-        computed: {
-          puissanceRecommandee: suggestedPacKw,
-          modeleSuggere: `PAC air/eau ~${suggestedPacKw} kW (chauffage ${step1.heatingMode})`,
-          copEstime: 4.2,
-          economiesAnnuelles: Math.round(annualSavings),
-        },
-      },
-    };
-
-    try {
-      setSaveMessage(null);
-      const res = await fetch("/api/renovation-report-pdf", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(input),
-      });
-      if (!res.ok) {
-        let detail = res.statusText;
-        try {
-          const j = (await res.json()) as { error?: string };
-          if (j.error) detail = j.error;
-        } catch {
-          detail = await res.text();
-        }
-        throw new Error(detail);
-      }
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "rapport-renovation-" + input.reportDate + ".pdf";
-      a.click();
-      URL.revokeObjectURL(url);
-      setSaveMessage("PDF premium téléchargé.");
-    } catch (e) {
-      setSaveMessage(e instanceof Error ? e.message : "Erreur lors du téléchargement du PDF");
-    }
-  }
-
-
   async function saveDossierClient() {
     if (!userId || !supabase) {
       setSaveMessage("Connexion requise pour sauvegarder.");
@@ -932,7 +909,8 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <>
+      <div className="no-print min-h-screen bg-zinc-50">
       <header className="border-b border-zinc-200 bg-white">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="text-sm font-semibold tracking-tight text-zinc-900">
@@ -1845,10 +1823,10 @@ export default function DashboardPage() {
               </button>
               <button
                 type="button"
-                onClick={generatePdf}
+                onClick={() => window.print()}
                 className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
               >
-                📄 Générer le rapport complet (35 pages)
+                📄 Générer PDF
               </button>
               <button
                 type="button"
@@ -1944,6 +1922,41 @@ export default function DashboardPage() {
           </section>
         )}
       </main>
-    </div>
+      </div>
+      <PrintView
+        clientName={step1.clientName.trim() || userEmail?.split("@")[0] || "Client"}
+        profileLabel={`${PROFILE_LABELS[profile]} (${profile})`}
+        dpeActuel={step1.dpe}
+        dpeCible={dpeCibleRapport}
+        totalMpr={mprTotal}
+        totalCee={effectiveCeeTotal}
+        ecoPtz={ecoPtz}
+        totalAides={totalAides}
+        costHT={effectiveCostHT}
+        resteCharge={resteCharge}
+        annualSavings={annualSavings}
+        roiYears={roiYears}
+        rows={displayStep2Rows}
+      />
+      <style jsx global>{`
+        @media screen {
+          .print-only {
+            display: none;
+          }
+        }
+        @media print {
+          .no-print {
+            display: none !important;
+          }
+          .print-only {
+            display: block !important;
+          }
+          body {
+            background: #fff !important;
+            color: #000 !important;
+          }
+        }
+      `}</style>
+    </>
   );
 }
