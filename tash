@@ -1,0 +1,10 @@
+[33ma9cf0a4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix: fmtEUR espace ASCII
+[33m769b3a3[m fix(pdf): restaurer fmtEUR avec espaces milliers et symbole euro
+[33m8472863[m fix: formatage montants PDF + suppression CTA B2C
+[33mbcdfae0[m fix: externalize chromium bundler
+[33m12c85cf[m feat: visuels DPE/ROI + sauvegarde Supabase + envoi email Resend
+[33m3935270[m feat: dashboard complet champs + visuels + sauvegarde
+[33md61fe1c[m fix: chromium compatible Vercel
+[33mcf420a3[m feat: PDF premium design Harbaoui (Puppeteer + API)
+[33m90cb725[m fix: formatage PDF + email contact
+[33m0e26fab[m fix: PDF 35 pages opérationnel
