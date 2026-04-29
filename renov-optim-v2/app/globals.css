@@ -24,22 +24,3 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-
-@media print {
-  body {
-    background: #ffffff !important;
-    color: #111827 !important;
-  }
-
-  .no-print {
-    display: none !important;
-  }
-
-  .print-results {
-    display: block !important;
-  }
-
-  .print-results * {
-    visibility: visible !important;
-  }
-}

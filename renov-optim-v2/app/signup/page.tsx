@@ -1,146 +1,71 @@
-"use client";
+'use client'  
+import { useState } from 'react'
 
-import { FormEvent, useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase/client";
+export default function Dashboard() {  
+  const [step, setStep] = useState(1)  
+  const [surface, setSurface] = useState(0)  
+  const [revenus, setRevenus] = useState(0)  
+  const [personnes, setPersonnes] = useState(1)  
+  const [combles, setCombles] = useState(0)  
+  const [pac, setPac] = useState(false)
 
-export default function SignupPage() {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [siret, setSiret] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const getCategorie = () => {  
+    if (revenus <= 21805) return 'Bleu'  
+    if (revenus <= 29148) return 'Jaune'  
+    if (revenus <= 43792) return 'Violet'  
+    return 'Rose'  
+  }
 
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError(null);
-    setLoading(true);
+  const calcMPR = () => {  
+    const cat = getCategorie()  
+    let total = 0  
+    if (cat === 'Bleu') { total += combles * 25; if (pac) total += 5000 }  
+    if (cat === 'Jaune') { total += combles * 20; if (pac) total += 4000 }  
+    if (cat === 'Violet') { total += combles * 15; if (pac) total += 3000 }  
+    return total  
+  }
 
-    const { data, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          company_name: companyName,
-          siret,
-        },
-      },
-    });
+  return (  
+    <div className="min-h-screen bg-gray-50 p-8">  
+      <h1 className="text-2xl font-bold text-green-600 mb-6">Renov Optim IA</h1>
 
-    if (signUpError) {
-      setLoading(false);
-      setError(signUpError.message);
-      return;
-    }
+      {step === 1 && (  
+        <div className="bg-white p-6 rounded-lg shadow max-w-2xl">  
+          <h2 className="text-xl font-bold mb-4">Etape 1 — Logement</h2>  
+          <label className="block mb-2">Surface (m²)</label>  
+          <input type="number" className="w-full border p-3 rounded mb-4" onChange={e => setSurface(Number(e.target.value))} />  
+          <label className="block mb-2">Revenus fiscaux (€/an)</label>  
+          <input type="number" className="w-full border p-3 rounded mb-4" onChange={e => setRevenus(Number(e.target.value))} />  
+          <label className="block mb-2">Personnes au foyer</label>  
+          <input type="number" className="w-full border p-3 rounded mb-4" onChange={e => setPersonnes(Number(e.target.value))} />  
+          <p className="text-green-600 font-bold mb-4">Categorie : {getCategorie()}</p>  
+          <button onClick={() => setStep(2)} className="bg-green-600 text-white p-3 rounded w-full font-bold">Etape suivante</button>  
+        </div>  
+      )}
 
-    const userId = data.user?.id;
+      {step === 2 && (  
+        <div className="bg-white p-6 rounded-lg shadow max-w-2xl">  
+          <h2 className="text-xl font-bold mb-4">Etape 2 — Travaux</h2>  
+          <label className="block mb-2">Isolation combles (m²)</label>  
+          <input type="number" className="w-full border p-3 rounded mb-4" onChange={e => setCombles(Number(e.target.value))} />  
+          <label className="flex items-center gap-2 mb-4">  
+            <input type="checkbox" onChange={e => setPac(e.target.checked)} />  
+            PAC air/eau  
+          </label>  
+          <button onClick={() => setStep(3)} className="bg-green-600 text-white p-3 rounded w-full font-bold">Voir les resultats</button>  
+        </div>  
+      )}
 
-    if (userId) {
-      await supabase.from("profiles").upsert({
-        id: userId,
-        company_name: companyName,
-        siret,
-        email,
-      });
-    }
-
-    setLoading(false);
-    router.push("/dashboard");
-  };
-
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 p-6">
-      <main className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h1 className="text-2xl font-semibold text-slate-900">Inscription</h1>
-        <p className="mt-2 text-sm text-slate-600">
-          Creez votre compte Renov&apos;Optim IA.
-        </p>
-
-        <form onSubmit={onSubmit} className="mt-6 space-y-4">
-          <div>
-            <label
-              htmlFor="companyName"
-              className="mb-1 block text-sm text-slate-700"
-            >
-              Nom entreprise
-            </label>
-            <input
-              id="companyName"
-              type="text"
-              required
-              value={companyName}
-              onChange={(event) => setCompanyName(event.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none ring-slate-900 focus:ring"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="siret" className="mb-1 block text-sm text-slate-700">
-              SIRET
-            </label>
-            <input
-              id="siret"
-              type="text"
-              required
-              value={siret}
-              onChange={(event) => setSiret(event.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none ring-slate-900 focus:ring"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="mb-1 block text-sm text-slate-700">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none ring-slate-900 focus:ring"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="password" className="mb-1 block text-sm text-slate-700">
-              Mot de passe
-            </label>
-            <input
-              id="password"
-              type="password"
-              required
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none ring-slate-900 focus:ring"
-            />
-          </div>
-
-          {error && (
-            <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
-              {error}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
-          >
-            {loading ? "Creation..." : "Creer mon compte"}
-          </button>
-        </form>
-
-        <p className="mt-4 text-sm text-slate-600">
-          Deja inscrit ?{" "}
-          <Link href="/login" className="font-medium text-slate-900">
-            Connexion
-          </Link>
-        </p>
-      </main>
-    </div>
-  );
-}
+      {step === 3 && (  
+        <div className="bg-white p-6 rounded-lg shadow max-w-2xl">  
+          <h2 className="text-xl font-bold mb-4">Etape 3 — Resultats</h2>  
+          <p className="text-lg mb-2">Categorie MPR : <strong className="text-green-600">{getCategorie()}</strong></p>  
+          <p className="text-lg mb-2">MaPrimeRenov : <strong className="text-green-600">{calcMPR().toLocaleString('fr-FR')} €</strong></p>  
+          <button onClick={() => window.print()} className="bg-green-600 text-white p-3 rounded w-full font-bold mt-4">  
+            Imprimer / Enregistrer PDF  
+          </button>  
+        </div>  
+      )}  
+    </div>  
+  )  
+}  
