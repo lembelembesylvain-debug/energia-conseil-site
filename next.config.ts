@@ -4,4 +4,4 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["@sparticuz/chromium", "puppeteer-core"],   
 };   
    
-export default nextConfig;   git add next.config.ts  
+export default nextConfig;
