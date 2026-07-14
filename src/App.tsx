@@ -7,6 +7,15 @@ import {
   type ReactNode,
   type FormEvent,
 } from "react";
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import {
+  getNormeForYear,
+  getDPEIncoherenceMessage,
+  getEligibilityStatus,
+  estimateAnnualSavingsFromNormes,
+  estimateFactureFromNormes,
+} from "./lib/calculators/normes-thermiques";
 
 /** Freemium : masque les détails financiers avancés et affiche le bloc conversion Premium */
 const FREEMIUM = true;
@@ -104,8 +113,10 @@ function calculateEnergyAids(
   },
   logement: {
     surface: number;
+    constructionYear: number;
     dpeActuel: DPEClass;
     dpeVise: DPEClass;
+    annualConsumption?: number;
   },
   works: Record<string, { estimatedCost?: number } | undefined>,
   isParcoursAccompagne = false,
@@ -142,18 +153,13 @@ function calculateEnergyAids(
   );
   const resteACharge = Math.max(0, coutTotalTravaux - totalAides);
 
-  const coef: Record<DPEClass, number> = {
-    A: 8,
-    B: 12,
-    C: 18,
-    D: 28,
-    E: 38,
-    F: 48,
-    G: 58,
-  };
-  const factureAvant = Math.round(logement.surface * coef[logement.dpeActuel]);
-  const factureApres = Math.round(logement.surface * coef[logement.dpeVise]);
-  const economiesAnnuelles = Math.max(0, factureAvant - factureApres);
+  const economiesAnnuelles = estimateAnnualSavingsFromNormes(
+    logement.surface,
+    logement.constructionYear,
+    logement.dpeActuel,
+    logement.dpeVise,
+    logement.annualConsumption,
+  );
 
   return {
     totalAides,
@@ -238,11 +244,409 @@ const gradientTitle =
 const ctaButton =
   "animate-pulse-cta inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 px-8 py-4 text-lg font-bold text-white shadow-[0_0_20px_rgba(16,185,129,0.3)] transition hover:brightness-110 hover:shadow-[0_0_28px_rgba(16,185,129,0.45)]";
 
-function AIScanDashboard() {
+const THERMAL_COLORS = {
+  roof: 0xff2222,
+  walls: 0xff8c42,
+  windows: 0x991b1b,
+  floor: 0x2563eb,
+  door: 0x4a3728,
+  chimney: 0x8b4513,
+} as const;
+
+function createThermalHouse(): THREE.Group {
+  const house = new THREE.Group();
+  const wallH = 2.4;
+  const width = 4.2;
+  const depth = 3.6;
+  const wallT = 0.12;
+  const pitch = 38 * (Math.PI / 180);
+  const ridgeH = (depth / 2) * Math.tan(pitch);
+  const slopeLen = depth / 2 / Math.cos(pitch) + 0.15;
+
+  const floor = new THREE.Mesh(
+    new THREE.BoxGeometry(width + 0.3, 0.15, depth + 0.3),
+    new THREE.MeshStandardMaterial({
+      color: THERMAL_COLORS.floor,
+      roughness: 0.75,
+      metalness: 0.05,
+      emissive: 0x0a1628,
+      emissiveIntensity: 0.15,
+    }),
+  );
+  floor.position.y = 0.075;
+  floor.receiveShadow = true;
+  floor.userData.heatSource = false;
+  house.add(floor);
+
+  const wallDefs: { pos: [number, number, number]; size: [number, number, number] }[] = [
+    { pos: [0, wallH / 2 + 0.15, -(depth / 2 + wallT / 2)], size: [width + wallT * 2, wallH, wallT] },
+    { pos: [0, wallH / 2 + 0.15, depth / 2 + wallT / 2], size: [width + wallT * 2, wallH, wallT] },
+    { pos: [width / 2 + wallT / 2, wallH / 2 + 0.15, 0], size: [wallT, wallH, depth + wallT * 2] },
+    { pos: [-width / 2 - wallT / 2, wallH / 2 + 0.15, 0], size: [wallT, wallH, depth + wallT * 2] },
+  ];
+
+  wallDefs.forEach(({ pos, size }) => {
+    const wall = new THREE.Mesh(
+      new THREE.BoxGeometry(...size),
+      new THREE.MeshStandardMaterial({
+        color: THERMAL_COLORS.walls,
+        roughness: 0.82,
+        metalness: 0.04,
+        emissive: 0x331400,
+        emissiveIntensity: 0.2,
+      }),
+    );
+    wall.position.set(...pos);
+    wall.castShadow = true;
+    wall.receiveShadow = true;
+    wall.userData.heatSource = true;
+    house.add(wall);
+  });
+
+  const roofMat = new THREE.MeshStandardMaterial({
+    color: THERMAL_COLORS.roof,
+    side: THREE.DoubleSide,
+    roughness: 0.55,
+    metalness: 0.08,
+    emissive: 0x440000,
+    emissiveIntensity: 0.35,
+  });
+
+  const roofFront = new THREE.Mesh(new THREE.PlaneGeometry(slopeLen, width + 0.35), roofMat);
+  roofFront.rotation.order = "YXZ";
+  roofFront.rotation.y = Math.PI / 2;
+  roofFront.rotation.x = pitch;
+  roofFront.position.set(-depth / 4, wallH + 0.15 + ridgeH / 2, 0);
+  roofFront.castShadow = true;
+  roofFront.userData.heatSource = true;
+  house.add(roofFront);
+
+  const roofBack = roofFront.clone();
+  roofBack.rotation.y = -Math.PI / 2;
+  roofBack.rotation.x = pitch;
+  roofBack.position.set(depth / 4, wallH + 0.15 + ridgeH / 2, 0);
+  roofBack.userData.heatSource = true;
+  house.add(roofBack);
+
+  const ridge = new THREE.Mesh(
+    new THREE.BoxGeometry(width + 0.4, 0.08, 0.18),
+    new THREE.MeshStandardMaterial({ color: 0x7c2d12, roughness: 0.7 }),
+  );
+  ridge.position.set(0, wallH + 0.15 + ridgeH, 0);
+  house.add(ridge);
+
+  const chimneyBase = new THREE.Mesh(
+    new THREE.BoxGeometry(0.35, 0.9, 0.35),
+    new THREE.MeshStandardMaterial({ color: THERMAL_COLORS.chimney, roughness: 0.85 }),
+  );
+  chimneyBase.position.set(1.1, wallH + 0.15 + ridgeH * 0.55, 0.4);
+  chimneyBase.castShadow = true;
+  house.add(chimneyBase);
+
+  const chimneyTop = new THREE.Mesh(
+    new THREE.BoxGeometry(0.42, 0.1, 0.42),
+    new THREE.MeshStandardMaterial({ color: 0x64748b, metalness: 0.6, roughness: 0.35 }),
+  );
+  chimneyTop.position.set(1.1, wallH + 0.15 + ridgeH * 0.55 + 0.5, 0.4);
+  house.add(chimneyTop);
+
+  const windowMat = new THREE.MeshStandardMaterial({
+    color: THERMAL_COLORS.windows,
+    roughness: 0.15,
+    metalness: 0.25,
+    emissive: 0x330000,
+    emissiveIntensity: 0.45,
+    transparent: true,
+    opacity: 0.92,
+  });
+
+  const windowDefs: { pos: [number, number, number]; size: [number, number, number]; rotY?: number }[] = [
+    { pos: [-1.1, 1.35, -(depth / 2 + wallT + 0.01)], size: [0.75, 0.95, 0.04] },
+    { pos: [0.55, 1.35, -(depth / 2 + wallT + 0.01)], size: [0.75, 0.95, 0.04] },
+    { pos: [1.35, 1.35, -(depth / 2 + wallT + 0.01)], size: [0.55, 0.95, 0.04] },
+    { pos: [0, 2.05, -(depth / 2 + wallT + 0.01)], size: [0.65, 0.75, 0.04] },
+    { pos: [width / 2 + wallT + 0.01, 1.35, 0.6], size: [0.04, 0.85, 0.65], rotY: Math.PI / 2 },
+    { pos: [-0.8, 1.35, depth / 2 + wallT + 0.01], size: [0.65, 0.85, 0.04], rotY: Math.PI },
+  ];
+
+  windowDefs.forEach(({ pos, size, rotY = 0 }) => {
+    const frame = new THREE.Mesh(
+      new THREE.BoxGeometry(size[0] + 0.08, size[1] + 0.08, size[2] + 0.04),
+      new THREE.MeshStandardMaterial({ color: 0xf5f5dc, roughness: 0.8 }),
+    );
+    frame.position.set(...pos);
+    frame.rotation.y = rotY;
+    house.add(frame);
+
+    const win = new THREE.Mesh(new THREE.BoxGeometry(...size), windowMat.clone());
+    win.position.set(...pos);
+    win.rotation.y = rotY;
+    win.userData.heatSource = true;
+    house.add(win);
+  });
+
+  const door = new THREE.Mesh(
+    new THREE.BoxGeometry(0.65, 1.35, 0.05),
+    new THREE.MeshStandardMaterial({ color: THERMAL_COLORS.door, roughness: 0.85 }),
+  );
+  door.position.set(-0.15, 0.82, -(depth / 2 + wallT + 0.02));
+  door.castShadow = true;
+  house.add(door);
+
+  const doorFrame = new THREE.Mesh(
+    new THREE.BoxGeometry(0.78, 1.48, 0.06),
+    new THREE.MeshStandardMaterial({ color: 0xf5f5dc, roughness: 0.75 }),
+  );
+  doorFrame.position.set(-0.15, 0.89, -(depth / 2 + wallT + 0.015));
+  house.add(doorFrame);
+
+  return house;
+}
+
+function createHeatParticles(count: number): {
+  points: THREE.Points;
+  velocities: Float32Array;
+  origins: Float32Array;
+} {
+  const positions = new Float32Array(count * 3);
+  const velocities = new Float32Array(count * 3);
+  const origins = new Float32Array(count * 3);
+
+  for (let i = 0; i < count; i++) {
+    const isRoof = Math.random() > 0.45;
+    let x: number;
+    let y: number;
+    let z: number;
+
+    if (isRoof) {
+      x = (Math.random() - 0.5) * 3.8;
+      y = 3.1 + Math.random() * 0.6;
+      z = (Math.random() - 0.5) * 3.2;
+    } else {
+      const wall = Math.floor(Math.random() * 4);
+      y = 0.5 + Math.random() * 2.2;
+      if (wall === 0) {
+        x = (Math.random() - 0.5) * 3.8;
+        z = -1.86;
+      } else if (wall === 1) {
+        x = (Math.random() - 0.5) * 3.8;
+        z = 1.86;
+      } else if (wall === 2) {
+        x = 2.16;
+        z = (Math.random() - 0.5) * 3.2;
+      } else {
+        x = -2.16;
+        z = (Math.random() - 0.5) * 3.2;
+      }
+    }
+
+    positions[i * 3] = x;
+    positions[i * 3 + 1] = y;
+    positions[i * 3 + 2] = z;
+    origins[i * 3] = x;
+    origins[i * 3 + 1] = y;
+    origins[i * 3 + 2] = z;
+    velocities[i * 3] = (Math.random() - 0.5) * 0.008;
+    velocities[i * 3 + 1] = 0.012 + Math.random() * 0.018;
+    velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.008;
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+  const colors = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) {
+    const t = Math.random();
+    colors[i * 3] = 1;
+    colors[i * 3 + 1] = 0.25 + t * 0.45;
+    colors[i * 3 + 2] = 0.05 + t * 0.1;
+  }
+  geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+  const material = new THREE.PointsMaterial({
+    size: 0.07,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.75,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    sizeAttenuation: true,
+  });
+
+  return {
+    points: new THREE.Points(geometry, material),
+    velocities,
+    origins,
+  };
+}
+
+function ThermalHouse3D() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasHostRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const host = canvasHostRef.current;
+    if (!host) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0a0f1a);
+    scene.fog = new THREE.FogExp2(0x0a0f1a, 0.045);
+
+    const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 100);
+    camera.position.set(5.5, 3.8, 6.2);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    host.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.06;
+    controls.target.set(0, 1.6, 0);
+    controls.minDistance = 4;
+    controls.maxDistance = 14;
+    controls.maxPolarAngle = Math.PI / 2.05;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.65;
+
+    const ambient = new THREE.AmbientLight(0x1e293b, 0.55);
+    scene.add(ambient);
+
+    const hemi = new THREE.HemisphereLight(0x10b981, 0x0f172a, 0.35);
+    scene.add(hemi);
+
+    const keyLight = new THREE.DirectionalLight(0xffeedd, 1.1);
+    keyLight.position.set(6, 10, 5);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.set(1024, 1024);
+    keyLight.shadow.camera.near = 1;
+    keyLight.shadow.camera.far = 30;
+    keyLight.shadow.camera.left = -8;
+    keyLight.shadow.camera.right = 8;
+    keyLight.shadow.camera.top = 8;
+    keyLight.shadow.camera.bottom = -8;
+    scene.add(keyLight);
+
+    const rimLight = new THREE.DirectionalLight(0x10b981, 0.35);
+    rimLight.position.set(-4, 3, -5);
+    scene.add(rimLight);
+
+    const house = createThermalHouse();
+    scene.add(house);
+
+    const ground = new THREE.Mesh(
+      new THREE.CircleGeometry(8, 48),
+      new THREE.MeshStandardMaterial({
+        color: 0x0f172a,
+        roughness: 0.95,
+        metalness: 0,
+        transparent: true,
+        opacity: 0.6,
+      }),
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    const grid = new THREE.GridHelper(10, 20, 0x10b981, 0x1e293b);
+    grid.position.y = 0.01;
+    (grid.material as THREE.Material).opacity = 0.12;
+    (grid.material as THREE.Material).transparent = true;
+    scene.add(grid);
+
+    const { points: heatParticles, velocities, origins } = createHeatParticles(320);
+    scene.add(heatParticles);
+
+    const resize = () => {
+      const w = host.clientWidth;
+      const h = host.clientHeight;
+      if (w === 0 || h === 0) return;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h, false);
+    };
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(host);
+    resize();
+
+    const onPointerEnter = () => {
+      controls.autoRotate = false;
+    };
+    const onPointerLeave = () => {
+      controls.autoRotate = true;
+    };
+    host.addEventListener("pointerenter", onPointerEnter);
+    host.addEventListener("pointerleave", onPointerLeave);
+
+    let frameId = 0;
+    const clock = new THREE.Clock();
+
+    const animate = () => {
+      frameId = requestAnimationFrame(animate);
+      const dt = Math.min(clock.getDelta(), 0.05);
+      const pos = heatParticles.geometry.attributes.position.array as Float32Array;
+
+      for (let i = 0; i < pos.length / 3; i++) {
+        pos[i * 3] += velocities[i * 3] + Math.sin(clock.elapsedTime * 2 + i) * 0.001;
+        pos[i * 3 + 1] += velocities[i * 3 + 1] * (1 + dt * 8);
+        pos[i * 3 + 2] += velocities[i * 3 + 2] + Math.cos(clock.elapsedTime * 1.5 + i) * 0.001;
+
+        if (pos[i * 3 + 1] > 5.2) {
+          pos[i * 3] = origins[i * 3] + (Math.random() - 0.5) * 0.15;
+          pos[i * 3 + 1] = origins[i * 3 + 1];
+          pos[i * 3 + 2] = origins[i * 3 + 2] + (Math.random() - 0.5) * 0.15;
+        }
+      }
+      heatParticles.geometry.attributes.position.needsUpdate = true;
+
+      controls.update();
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      ro.disconnect();
+      host.removeEventListener("pointerenter", onPointerEnter);
+      host.removeEventListener("pointerleave", onPointerLeave);
+      controls.dispose();
+      heatParticles.geometry.dispose();
+      (heatParticles.material as THREE.Material).dispose();
+      scene.traverse((obj) => {
+        if (obj instanceof THREE.Mesh) {
+          obj.geometry.dispose();
+          if (Array.isArray(obj.material)) {
+            obj.material.forEach((m) => m.dispose());
+          } else {
+            obj.material.dispose();
+          }
+        }
+      });
+      renderer.dispose();
+      if (host.contains(renderer.domElement)) {
+        host.removeChild(renderer.domElement);
+      }
+    };
+  }, []);
+
+  const badges = [
+    { label: "DPE F → A", top: "18%", left: "6%", delay: "0s" },
+    { label: "Aides : 90%", top: "12%", right: "4%", delay: "0.5s" },
+    { label: "Gain : +390€/mois", bottom: "28%", left: "4%", delay: "1s" },
+    { label: "CO₂ : -5.8t", bottom: "18%", right: "6%", delay: "1.5s" },
+  ];
+
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/80 shadow-[0_0_60px_rgba(16,185,129,0.15)] backdrop-blur-md lg:aspect-square">
+    <div
+      ref={containerRef}
+      className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/80 shadow-[0_0_60px_rgba(16,185,129,0.15)] backdrop-blur-md lg:aspect-square lg:min-h-[420px]"
+    >
       <div
-        className="absolute inset-0 opacity-30"
+        className="pointer-events-none absolute inset-0 opacity-25"
         style={{
           backgroundImage: `
             linear-gradient(rgba(16,185,129,0.08) 1px, transparent 1px),
@@ -252,7 +656,7 @@ function AIScanDashboard() {
         }}
       />
 
-      <div className="absolute inset-x-0 top-0 flex items-center justify-between border-b border-slate-800/60 bg-slate-950/60 px-4 py-2.5 backdrop-blur-sm">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center justify-between border-b border-slate-800/60 bg-slate-950/60 px-4 py-2.5 backdrop-blur-sm">
         <div className="flex items-center gap-2">
           <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
           <span className="text-xs font-semibold tracking-wider text-emerald-400/90">
@@ -264,59 +668,17 @@ function AIScanDashboard() {
         </span>
       </div>
 
-      <div className="absolute left-0 right-0 top-[15%] h-px animate-laser-v bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_12px_rgba(16,185,129,0.9)]" />
-      <div className="absolute bottom-[20%] top-[15%] w-px animate-laser-h bg-gradient-to-b from-transparent via-emerald-400 to-transparent shadow-[0_0_12px_rgba(16,185,129,0.9)]" />
+      <div
+        ref={canvasHostRef}
+        className="absolute inset-0 z-0 cursor-grab pt-10 active:cursor-grabbing [&>canvas]:!h-full [&>canvas]:!w-full"
+        aria-label="Modélisation 3D thermique interactive — faites glisser pour pivoter la maison"
+        role="img"
+      />
 
-      <div className="absolute inset-0 flex items-center justify-center pt-8">
-        <svg
-          viewBox="0 0 200 180"
-          className="h-[55%] w-[55%] text-emerald-500/40"
-          aria-hidden
-        >
-          <polygon
-            points="100,20 170,70 170,150 30,150 30,70"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeDasharray="4 3"
-          />
-          <polygon
-            points="100,20 170,70 100,70"
-            fill="rgba(16,185,129,0.06)"
-            stroke="currentColor"
-            strokeWidth="1"
-          />
-          <polygon
-            points="100,20 30,70 100,70"
-            fill="rgba(16,185,129,0.04)"
-            stroke="currentColor"
-            strokeWidth="1"
-          />
-          <rect
-            x="75"
-            y="95"
-            width="50"
-            height="55"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          />
-          <rect x="88" y="110" width="12" height="18" fill="rgba(16,185,129,0.15)" stroke="currentColor" strokeWidth="0.8" />
-          <rect x="118" y="105" width="10" height="10" fill="rgba(16,185,129,0.1)" stroke="currentColor" strokeWidth="0.8" />
-          <line x1="30" y1="150" x2="170" y2="150" stroke="currentColor" strokeWidth="1" opacity="0.5" />
-          <circle cx="100" cy="20" r="3" fill="rgba(16,185,129,0.6)" />
-        </svg>
-      </div>
-
-      {[
-        { label: "DPE F → A", top: "18%", left: "6%", delay: "0s" },
-        { label: "Aides : 90%", top: "32%", right: "4%", delay: "0.5s" },
-        { label: "Gain : +390€/mois", bottom: "28%", left: "4%", delay: "1s" },
-        { label: "CO₂ : -5.8t", bottom: "14%", right: "6%", delay: "1.5s" },
-      ].map((badge) => (
+      {badges.map((badge) => (
         <div
           key={badge.label}
-          className="animate-float-badge absolute z-10 rounded-lg border border-emerald-500/30 bg-slate-900/90 px-2.5 py-1.5 text-[10px] font-semibold text-emerald-300 shadow-[0_0_16px_rgba(16,185,129,0.2)] backdrop-blur-sm sm:px-3 sm:py-2 sm:text-xs"
+          className="animate-float-badge pointer-events-none absolute z-10 rounded-lg border border-emerald-500/30 bg-slate-900/90 px-2.5 py-1.5 text-[10px] font-semibold text-emerald-300 shadow-[0_0_16px_rgba(16,185,129,0.2)] backdrop-blur-sm sm:px-3 sm:py-2 sm:text-xs"
           style={{
             top: badge.top,
             left: badge.left,
@@ -330,7 +692,7 @@ function AIScanDashboard() {
         </div>
       ))}
 
-      <div className="absolute inset-x-0 bottom-0 border-t border-slate-800/60 bg-slate-950/70 px-4 py-2 backdrop-blur-sm">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 border-t border-slate-800/60 bg-slate-950/70 px-4 py-2 backdrop-blur-sm">
         <div className="flex items-center justify-between font-mono text-[10px] text-slate-500">
           <span>Analyse thermique… 94%</span>
           <span className="text-emerald-500/80">IA v3.2</span>
@@ -481,7 +843,7 @@ function LandingView({ onStartAudit }: LandingViewProps) {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative mx-auto w-full max-w-md lg:max-w-none"
           >
-            <AIScanDashboard />
+            <ThermalHouse3D />
           </motion.div>
         </div>
       </section>
@@ -770,19 +1132,6 @@ function buildWorks(totalCost: number) {
   };
 }
 
-function estimateFacture(surface: number, dpe: DPEClass): number {
-  const coef: Record<DPEClass, number> = {
-    A: 8,
-    B: 12,
-    C: 18,
-    D: 28,
-    E: 38,
-    F: 48,
-    G: 58,
-  };
-  return Math.round(surface * coef[dpe]);
-}
-
 function estimateMonthlyLoan(resteACharge: number, years = 15): number {
   if (resteACharge <= 0) return 0;
   return Math.round(resteACharge / (years * 12));
@@ -969,6 +1318,8 @@ function AuditSimulatorView({ onBack }: AuditSimulatorViewProps) {
   const [calculated, setCalculated] = useState(false);
 
   const [surface, setSurface] = useState(100);
+  const [anneeConstruction, setAnneeConstruction] = useState(1985);
+  const [consommationReelle, setConsommationReelle] = useState<number | "">("");
   const [revenus, setRevenus] = useState(25000);
   const [personnes, setPersonnes] = useState(2);
   const [region, setRegion] = useState<Region>("OTHER");
@@ -978,8 +1329,15 @@ function AuditSimulatorView({ onBack }: AuditSimulatorViewProps) {
 
   const montantTravaux = TRAVAUX_PRESETS[presetTravaux] ?? 55000;
 
+  const eligibility = getEligibilityStatus(anneeConstruction);
+  const dpeIncoherentMessage = getDPEIncoherenceMessage(dpeActuel, anneeConstruction);
+  const norme = getNormeForYear(anneeConstruction);
+  const normeBadge = `🏗️ Norme applicable : ${norme.norme} (construction ${anneeConstruction})`;
+  const annualConsumption =
+    consommationReelle === "" ? undefined : Number(consommationReelle);
+
   const result: CalculationResult | null = useMemo(() => {
-    if (!calculated) return null;
+    if (!calculated || eligibility.status === "blocked") return null;
     return calculateEnergyAids(
       {
         income: revenus,
@@ -988,16 +1346,41 @@ function AuditSimulatorView({ onBack }: AuditSimulatorViewProps) {
       },
       {
         surface,
+        constructionYear: anneeConstruction,
         dpeActuel,
         dpeVise,
+        annualConsumption,
       },
       buildWorks(montantTravaux),
       true,
     );
-  }, [calculated, revenus, personnes, region, surface, dpeActuel, dpeVise, montantTravaux]);
+  }, [
+    calculated,
+    eligibility.status,
+    revenus,
+    personnes,
+    region,
+    surface,
+    anneeConstruction,
+    dpeActuel,
+    dpeVise,
+    montantTravaux,
+    annualConsumption,
+  ]);
 
-  const factureAvant = estimateFacture(surface, dpeActuel);
-  const factureApres = estimateFacture(surface, dpeVise);
+  const factureAvant = estimateFactureFromNormes(
+    surface,
+    anneeConstruction,
+    dpeActuel,
+    annualConsumption,
+  );
+  const factureApres = estimateFactureFromNormes(
+    surface,
+    anneeConstruction,
+    dpeVise,
+    annualConsumption,
+    dpeActuel,
+  );
   const economiesAnnuelles =
     result?.economiesAnnuelles ?? Math.max(0, factureAvant - factureApres);
   const resteACharge = result?.resteACharge ?? montantTravaux;
@@ -1006,9 +1389,46 @@ function AuditSimulatorView({ onBack }: AuditSimulatorViewProps) {
 
   const handleCalculate = (e: FormEvent) => {
     e.preventDefault();
+    if (eligibility.status === "blocked") return;
     setCalculated(true);
     setActiveTab("audit");
   };
+
+  if (eligibility.status === "blocked") {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-teal-900 via-emerald-900 to-teal-950 py-8 px-4">
+        <div className="max-w-4xl mx-auto">
+          <header className="text-center mb-8">
+            <button
+              type="button"
+              onClick={onBack}
+              className="mb-4 inline-block text-sm text-emerald-200/90 underline-offset-2 hover:text-white hover:underline"
+            >
+              ← Retour à l'accueil
+            </button>
+            <p className="text-emerald-200/80 text-sm font-medium tracking-wide uppercase mb-1">
+              ENERGIA-CONSEIL IA®
+            </p>
+            <h1 className="text-2xl md:text-3xl font-bold text-white">
+              Simulateur rénovation énergétique 2026
+            </h1>
+          </header>
+          <div className="rounded-2xl border-2 border-red-500 bg-red-50 p-8 text-center shadow-xl">
+            <p className="text-lg font-semibold text-red-800 leading-relaxed">
+              {eligibility.message}
+            </p>
+            <button
+              type="button"
+              onClick={onBack}
+              className="mt-6 px-6 py-3 rounded-xl bg-gray-800 text-white font-semibold hover:bg-gray-700"
+            >
+              Retour à l'accueil
+            </button>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   const tabs: { id: TabId; label: string }[] = [
     { id: "calculateur", label: "Calculateur" },
@@ -1087,6 +1507,55 @@ function AuditSimulatorView({ onBack }: AuditSimulatorViewProps) {
                 </label>
                 <label className="block">
                   <span className="text-sm font-medium text-gray-700">
+                    Année de construction
+                  </span>
+                  <input
+                    type="number"
+                    min={1800}
+                    max={new Date().getFullYear()}
+                    value={anneeConstruction}
+                    onChange={(e) => setAnneeConstruction(Number(e.target.value))}
+                    className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
+                    required
+                  />
+                  <p className="mt-1 text-xs text-teal-700">{normeBadge}</p>
+                </label>
+              </div>
+
+              <label className="block">
+                <span className="text-sm font-medium text-gray-700">
+                  Consommation réelle annuelle (kWh) — optionnel
+                </span>
+                <input
+                  type="number"
+                  min={0}
+                  step={100}
+                  value={consommationReelle}
+                  onChange={(e) =>
+                    setConsommationReelle(
+                      e.target.value === "" ? "" : Number(e.target.value),
+                    )
+                  }
+                  placeholder={`Par défaut : ${norme.consoDefaut} kWh/m²/an (${Math.round(norme.consoDefaut * surface)} kWh/an)`}
+                  className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
+                />
+              </label>
+
+              {dpeIncoherentMessage ? (
+                <div className="rounded-lg border border-amber-400 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                  {dpeIncoherentMessage}
+                </div>
+              ) : null}
+
+              {eligibility.status === "warning" && eligibility.message ? (
+                <div className="rounded-lg border border-orange-400 bg-orange-50 px-4 py-3 text-sm text-orange-900">
+                  {eligibility.message}
+                </div>
+              ) : null}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <label className="block">
+                  <span className="text-sm font-medium text-gray-700">
                     Revenus annuels (€)
                   </span>
                   <input
@@ -1099,9 +1568,6 @@ function AuditSimulatorView({ onBack }: AuditSimulatorViewProps) {
                     required
                   />
                 </label>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <label className="block">
                   <span className="text-sm font-medium text-gray-700">
                     Personnes au foyer
@@ -1118,18 +1584,19 @@ function AuditSimulatorView({ onBack }: AuditSimulatorViewProps) {
                     ))}
                   </select>
                 </label>
-                <label className="block">
-                  <span className="text-sm font-medium text-gray-700">Région</span>
-                  <select
-                    value={region}
-                    onChange={(e) => setRegion(e.target.value as Region)}
-                    className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2.5"
-                  >
-                    <option value="OTHER">Hors Île-de-France</option>
-                    <option value="IDF">Île-de-France</option>
-                  </select>
-                </label>
               </div>
+
+              <label className="block">
+                <span className="text-sm font-medium text-gray-700">Région</span>
+                <select
+                  value={region}
+                  onChange={(e) => setRegion(e.target.value as Region)}
+                  className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2.5 md:max-w-xs"
+                >
+                  <option value="OTHER">Hors Île-de-France</option>
+                  <option value="IDF">Île-de-France</option>
+                </select>
+              </label>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <label className="block">
@@ -1198,6 +1665,21 @@ function AuditSimulatorView({ onBack }: AuditSimulatorViewProps) {
               <h2 className="text-xl font-bold text-gray-900 mb-4">
                 ⚡ Synthèse de votre audit (aperçu gratuit)
               </h2>
+
+              <div className="rounded-xl border border-teal-300 bg-white/90 p-4 mb-6">
+                <h3 className="text-sm font-bold text-gray-800 mb-2">
+                  Profil énergétique
+                </h3>
+                <span className="inline-flex items-center rounded-full bg-teal-100 border border-teal-300 px-3 py-1.5 text-sm font-medium text-teal-900">
+                  {normeBadge}
+                </span>
+                {dpeIncoherentMessage ? (
+                  <p className="mt-3 text-sm text-amber-800">{dpeIncoherentMessage}</p>
+                ) : null}
+                {eligibility.status === "warning" && eligibility.message ? (
+                  <p className="mt-3 text-sm text-orange-800">{eligibility.message}</p>
+                ) : null}
+              </div>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
                 <div className="rounded-xl bg-white/80 p-3 text-center">

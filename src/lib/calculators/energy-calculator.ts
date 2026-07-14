@@ -17,6 +17,15 @@ import {
   AideDetail  
 } from './types';  
  
+import {
+  getNormeForYear,
+  getDPEIncoherenceMessage,
+  getNormeBadgeText,
+  getEligibilityStatus,
+  getEffectiveConsumptionKWh,
+  estimateAnnualSavingsFromNormes,
+} from './normes-thermiques';
+
 import {  
   INCOME_THRESHOLDS,  
   ISOLATION_RATES,  
@@ -68,7 +77,14 @@ export function calculateEnergyAids(
     tva.montantEconomise;  
     
   const resteACharge = Math.max(0, coutTotalTravaux - totalAides);  
-  const economiesAnnuelles = estimateAnnualSavings(logement, works);  
+  const profilEnergetique = buildProfilEnergetique(logement);
+  const economiesAnnuelles = estimateAnnualSavingsFromNormes(
+    logement.surface,
+    logement.constructionYear,
+    logement.dpeActuel,
+    logement.dpeVise,
+    logement.annualConsumption,
+  );
   const roi = resteACharge > 0 ? resteACharge / economiesAnnuelles : 0;  
     
   return {  
@@ -84,8 +100,40 @@ export function calculateEnergyAids(
     dpeApres: logement.dpeVise,  
     gainClasses,  
     economiesAnnuelles,  
-    roi  
+    roi,
+    profilEnergetique,
   };  
+}
+
+function buildProfilEnergetique(logement: LogementInfo) {
+  const norme = getNormeForYear(logement.constructionYear);
+  const eligibility = getEligibilityStatus(logement.constructionYear);
+  const hasRealConso =
+    logement.annualConsumption != null && logement.annualConsumption > 0;
+
+  return {
+    normeApplicable: norme.norme,
+    normeLabel: norme.label,
+    constructionYear: logement.constructionYear,
+    consoUtilisee: getEffectiveConsumptionKWh(
+      logement.surface,
+      logement.constructionYear,
+      logement.dpeActuel,
+      logement.annualConsumption,
+    ),
+    consoSource: hasRealConso ? ('reelle' as const) : ('norme' as const),
+    dpeIncoherent: getDPEIncoherenceMessage(
+      logement.dpeActuel,
+      logement.constructionYear,
+    ) != null,
+    dpeIncoherentMessage: getDPEIncoherenceMessage(
+      logement.dpeActuel,
+      logement.constructionYear,
+    ),
+    eligibilityStatus: eligibility.status,
+    eligibilityMessage: eligibility.message,
+    normeBadge: getNormeBadgeText(logement.constructionYear),
+  };
 }  
   
 export function getMaPrimeRenovCategory(  
@@ -653,32 +701,15 @@ function calculateAidesLocales(
   };  
 }  
  
-function estimateAnnualSavings(  
-  logement: LogementInfo,  
-  works: Works  
-): number {  
-    
-  const gainClasses = calculateDPEGain(logement.dpeActuel, logement.dpeVise);  
-    
-  const consommationParClasse: Record<DPEClass, number> = {  
-    'A': 50,  
-    'B': 90,  
-    'C': 150,  
-    'D': 230,  
-    'E': 330,  
-    'F': 420,  
-    'G': 550  
-  };  
-    
-  const consoAvant = consommationParClasse[logement.dpeActuel];  
-  const consoApres = consommationParClasse[logement.dpeVise];  
-    
-  const economieskWh = (consoAvant - consoApres) * logement.surface;  
-  const prixkWh = 0.18;  
-  const economiesAnnuelles = economieskWh * prixkWh;  
-    
-  return Math.round(economiesAnnuelles);  
-}  
+export { NORMES_THERMIQUES } from './normes-thermiques';
+export {
+  getNormeForYear,
+  getDPEIncoherenceMessage,
+  getNormeBadgeText,
+  getEligibilityStatus,
+  estimateFactureFromNormes,
+  estimateAnnualSavingsFromNormes,
+} from './normes-thermiques';
  
 export function formatCurrency(amount: number): string {  
   return new Intl.NumberFormat('fr-FR', {  

@@ -30,7 +30,8 @@
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.0",
     "resend": "^6.9.4",
-    "stripe": "^21.0.1"
+    "stripe": "^21.0.1",
+    "three": "^0.174.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",

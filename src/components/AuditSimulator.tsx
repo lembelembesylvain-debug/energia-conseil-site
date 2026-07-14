@@ -1,5 +1,11 @@
 import { calculateEnergyAids } from "../lib/calculators/energy-calculator";
 import type { CalculationResult, DPEClass, Region } from "../lib/calculators/types";
+import {
+  getNormeForYear,
+  getDPEIncoherenceMessage,
+  getEligibilityStatus,
+  estimateFactureFromNormes,
+} from "../lib/calculators/normes-thermiques";
 import { useCallback, useMemo, useState } from "react";
 
 /** Freemium : masque les détails financiers avancés et affiche le bloc conversion Premium */
@@ -42,19 +48,6 @@ function buildWorks(totalCost: number) {
     heatPumpAirWater: { type: "pac", cop: 4.5, estimatedCost: pac },
     thermodynamicWaterHeater: { type: "ballon", estimatedCost: ballon },
   };
-}
-
-function estimateFacture(surface: number, dpe: DPEClass): number {
-  const coef: Record<DPEClass, number> = {
-    A: 8,
-    B: 12,
-    C: 18,
-    D: 28,
-    E: 38,
-    F: 48,
-    G: 58,
-  };
-  return Math.round(surface * coef[dpe]);
 }
 
 function estimateMonthlyLoan(resteACharge: number, years = 15): number {
@@ -245,6 +238,8 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
   const [calculated, setCalculated] = useState(false);
 
   const [surface, setSurface] = useState(100);
+  const [anneeConstruction, setAnneeConstruction] = useState(1985);
+  const [consommationReelle, setConsommationReelle] = useState<number | "">("");
   const [revenus, setRevenus] = useState(25000);
   const [personnes, setPersonnes] = useState(2);
   const [region, setRegion] = useState<Region>("OTHER");
@@ -254,8 +249,15 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
 
   const montantTravaux = TRAVAUX_PRESETS[presetTravaux] ?? 55000;
 
+  const eligibility = getEligibilityStatus(anneeConstruction);
+  const dpeIncoherentMessage = getDPEIncoherenceMessage(dpeActuel, anneeConstruction);
+  const norme = getNormeForYear(anneeConstruction);
+  const normeBadge = `🏗️ Norme applicable : ${norme.norme} (construction ${anneeConstruction})`;
+  const annualConsumption =
+    consommationReelle === "" ? undefined : Number(consommationReelle);
+
   const result: CalculationResult | null = useMemo(() => {
-    if (!calculated) return null;
+    if (!calculated || eligibility.status === "blocked") return null;
     return calculateEnergyAids(
       {
         income: revenus,
@@ -265,19 +267,43 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
       },
       {
         surface,
-        constructionYear: 1985,
+        constructionYear: anneeConstruction,
         type: "MAISON",
         dpeActuel,
         dpeVise,
         heatingType: "GAZ",
+        annualConsumption,
       },
       buildWorks(montantTravaux),
       true,
     );
-  }, [calculated, revenus, personnes, region, surface, dpeActuel, dpeVise, montantTravaux]);
+  }, [
+    calculated,
+    eligibility.status,
+    revenus,
+    personnes,
+    region,
+    surface,
+    anneeConstruction,
+    dpeActuel,
+    dpeVise,
+    montantTravaux,
+    annualConsumption,
+  ]);
 
-  const factureAvant = estimateFacture(surface, dpeActuel);
-  const factureApres = estimateFacture(surface, dpeVise);
+  const factureAvant = estimateFactureFromNormes(
+    surface,
+    anneeConstruction,
+    dpeActuel,
+    annualConsumption,
+  );
+  const factureApres = estimateFactureFromNormes(
+    surface,
+    anneeConstruction,
+    dpeVise,
+    annualConsumption,
+    dpeActuel,
+  );
   const economiesAnnuelles =
     result?.economiesAnnuelles ?? Math.max(0, factureAvant - factureApres);
   const resteACharge = result?.resteACharge ?? montantTravaux;
@@ -292,9 +318,46 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
 
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
+    if (eligibility.status === "blocked") return;
     setCalculated(true);
     setActiveTab("audit");
   };
+
+  if (eligibility.status === "blocked") {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-teal-900 via-emerald-900 to-teal-950 py-8 px-4">
+        <div className="max-w-4xl mx-auto">
+          <header className="text-center mb-8">
+            <button
+              type="button"
+              onClick={onBack}
+              className="mb-4 inline-block text-sm text-emerald-200/90 underline-offset-2 hover:text-white hover:underline"
+            >
+              ← Retour à l&apos;accueil
+            </button>
+            <p className="text-emerald-200/80 text-sm font-medium tracking-wide uppercase mb-1">
+              ENERGIA-CONSEIL IA®
+            </p>
+            <h1 className="text-2xl md:text-3xl font-bold text-white">
+              Simulateur rénovation énergétique 2026
+            </h1>
+          </header>
+          <div className="rounded-2xl border-2 border-red-500 bg-red-50 p-8 text-center shadow-xl">
+            <p className="text-lg font-semibold text-red-800 leading-relaxed">
+              {eligibility.message}
+            </p>
+            <button
+              type="button"
+              onClick={onBack}
+              className="mt-6 px-6 py-3 rounded-xl bg-gray-800 text-white font-semibold hover:bg-gray-700"
+            >
+              Retour à l&apos;accueil
+            </button>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   const tabs: { id: TabId; label: string }[] = [
     { id: "calculateur", label: "Calculateur" },
@@ -373,6 +436,55 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
                 </label>
                 <label className="block">
                   <span className="text-sm font-medium text-gray-700">
+                    Année de construction
+                  </span>
+                  <input
+                    type="number"
+                    min={1800}
+                    max={new Date().getFullYear()}
+                    value={anneeConstruction}
+                    onChange={(e) => setAnneeConstruction(Number(e.target.value))}
+                    className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
+                    required
+                  />
+                  <p className="mt-1 text-xs text-teal-700">{normeBadge}</p>
+                </label>
+              </div>
+
+              <label className="block">
+                <span className="text-sm font-medium text-gray-700">
+                  Consommation réelle annuelle (kWh) — optionnel
+                </span>
+                <input
+                  type="number"
+                  min={0}
+                  step={100}
+                  value={consommationReelle}
+                  onChange={(e) =>
+                    setConsommationReelle(
+                      e.target.value === "" ? "" : Number(e.target.value),
+                    )
+                  }
+                  placeholder={`Par défaut : ${norme.consoDefaut} kWh/m²/an (${Math.round(norme.consoDefaut * surface)} kWh/an)`}
+                  className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
+                />
+              </label>
+
+              {dpeIncoherentMessage ? (
+                <div className="rounded-lg border border-amber-400 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                  {dpeIncoherentMessage}
+                </div>
+              ) : null}
+
+              {eligibility.status === "warning" && eligibility.message ? (
+                <div className="rounded-lg border border-orange-400 bg-orange-50 px-4 py-3 text-sm text-orange-900">
+                  {eligibility.message}
+                </div>
+              ) : null}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <label className="block">
+                  <span className="text-sm font-medium text-gray-700">
                     Revenus annuels (€)
                   </span>
                   <input
@@ -385,9 +497,6 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
                     required
                   />
                 </label>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <label className="block">
                   <span className="text-sm font-medium text-gray-700">
                     Personnes au foyer
@@ -404,18 +513,19 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
                     ))}
                   </select>
                 </label>
-                <label className="block">
-                  <span className="text-sm font-medium text-gray-700">Région</span>
-                  <select
-                    value={region}
-                    onChange={(e) => setRegion(e.target.value as Region)}
-                    className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2.5"
-                  >
-                    <option value="OTHER">Hors Île-de-France</option>
-                    <option value="IDF">Île-de-France</option>
-                  </select>
-                </label>
               </div>
+
+              <label className="block">
+                <span className="text-sm font-medium text-gray-700">Région</span>
+                <select
+                  value={region}
+                  onChange={(e) => setRegion(e.target.value as Region)}
+                  className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2.5 md:max-w-xs"
+                >
+                  <option value="OTHER">Hors Île-de-France</option>
+                  <option value="IDF">Île-de-France</option>
+                </select>
+              </label>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <label className="block">
@@ -484,6 +594,25 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
               <h2 className="text-xl font-bold text-gray-900 mb-4">
                 ⚡ Synthèse de votre audit (aperçu gratuit)
               </h2>
+
+              <div className="rounded-xl border border-teal-300 bg-white/90 p-4 mb-6">
+                <h3 className="text-sm font-bold text-gray-800 mb-2">
+                  Profil énergétique
+                </h3>
+                <span className="inline-flex items-center rounded-full bg-teal-100 border border-teal-300 px-3 py-1.5 text-sm font-medium text-teal-900">
+                  {result.profilEnergetique.normeBadge}
+                </span>
+                {result.profilEnergetique.dpeIncoherentMessage ? (
+                  <p className="mt-3 text-sm text-amber-800">
+                    {result.profilEnergetique.dpeIncoherentMessage}
+                  </p>
+                ) : null}
+                {result.profilEnergetique.eligibilityMessage ? (
+                  <p className="mt-3 text-sm text-orange-800">
+                    {result.profilEnergetique.eligibilityMessage}
+                  </p>
+                ) : null}
+              </div>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
                 <div className="rounded-xl bg-white/80 p-3 text-center">

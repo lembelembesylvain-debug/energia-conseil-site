@@ -90,6 +90,19 @@ export interface AidesLocalesResult {
   details: AideDetail[];  
 }  
   
+export interface ProfilEnergetique {  
+  normeApplicable: string;  
+  normeLabel: string;  
+  constructionYear: number;  
+  consoUtilisee: number;  
+  consoSource: 'reelle' | 'norme';  
+  dpeIncoherent: boolean;  
+  dpeIncoherentMessage: string | null;  
+  eligibilityStatus: 'eligible' | 'warning' | 'blocked';  
+  eligibilityMessage: string | null;  
+  normeBadge: string;  
+}  
+
 export interface CalculationResult {  
   coutTotalTravaux: number;  
   maPrimeRenov: MaPrimeRenovResult;  
@@ -104,4 +117,5 @@ export interface CalculationResult {
   gainClasses: number;  
   economiesAnnuelles: number;  
   roi: number;  
+  profilEnergetique: ProfilEnergetique;  
 }  
