@@ -2,9 +2,12 @@ import { calculateEnergyAids } from "../lib/calculators/energy-calculator";
 import type { CalculationResult, DPEClass, Region } from "../lib/calculators/types";
 import {
   getNormeForYear,
+  getDefaultDPEForYear,
+  getConsoParM2ForYearAndDPE,
   getDPEIncoherenceMessage,
   getEligibilityStatus,
   estimateFactureFromNormes,
+  computeFourchettesFreemium,
 } from "../lib/calculators/normes-thermiques";
 import { useCallback, useMemo, useState } from "react";
 
@@ -18,6 +21,12 @@ const fmt = (n: number) =>
     style: "currency",
     currency: "EUR",
     maximumFractionDigits: 0,
+  });
+
+const fmtCo2 = (t: number) =>
+  t.toLocaleString("fr-FR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
   });
 
 const TRAVAUX_PRESETS: Record<string, number> = {
@@ -243,7 +252,9 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
   const [revenus, setRevenus] = useState(25000);
   const [personnes, setPersonnes] = useState(2);
   const [region, setRegion] = useState<Region>("OTHER");
-  const [dpeActuel, setDpeActuel] = useState<DPEClass>("F");
+  const [dpeActuel, setDpeActuel] = useState<DPEClass>(() =>
+    getDefaultDPEForYear(1985),
+  );
   const [dpeVise, setDpeVise] = useState<DPEClass>("B");
   const [presetTravaux, setPresetTravaux] = useState("performancePlus");
 
@@ -253,6 +264,7 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
   const dpeIncoherentMessage = getDPEIncoherenceMessage(dpeActuel, anneeConstruction);
   const norme = getNormeForYear(anneeConstruction);
   const normeBadge = `🏗️ Norme applicable : ${norme.norme} (construction ${anneeConstruction})`;
+  const consoParM2Estimee = getConsoParM2ForYearAndDPE(anneeConstruction, dpeActuel);
   const annualConsumption =
     consommationReelle === "" ? undefined : Number(consommationReelle);
 
@@ -309,6 +321,24 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
   const resteACharge = result?.resteACharge ?? montantTravaux;
   const totalAides = result?.totalAides ?? 0;
   const roiBatterieAns = 14.5;
+
+  const fourchettesFreemium = useMemo(() => {
+    if (!calculated) return null;
+    return computeFourchettesFreemium(
+      surface,
+      anneeConstruction,
+      dpeActuel,
+      dpeVise,
+      annualConsumption,
+    );
+  }, [
+    calculated,
+    surface,
+    anneeConstruction,
+    dpeActuel,
+    dpeVise,
+    annualConsumption,
+  ]);
 
   const goCheckout = useCallback(() => {
     window.alert(
@@ -443,7 +473,11 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
                     min={1800}
                     max={new Date().getFullYear()}
                     value={anneeConstruction}
-                    onChange={(e) => setAnneeConstruction(Number(e.target.value))}
+                    onChange={(e) => {
+                      const year = Number(e.target.value);
+                      setAnneeConstruction(year);
+                      setDpeActuel(getDefaultDPEForYear(year));
+                    }}
                     className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
                     required
                   />
@@ -465,7 +499,7 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
                       e.target.value === "" ? "" : Number(e.target.value),
                     )
                   }
-                  placeholder={`Par défaut : ${norme.consoDefaut} kWh/m²/an (${Math.round(norme.consoDefaut * surface)} kWh/an)`}
+                  placeholder={`Par défaut : ${Math.round(consoParM2Estimee)} kWh/m²/an (${Math.round(consoParM2Estimee * surface)} kWh/an)`}
                   className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
                 />
               </label>
@@ -543,6 +577,9 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
                       </option>
                     ))}
                   </select>
+                  <p className="mt-1 text-xs text-gray-500">
+                    DPE typique pour {anneeConstruction} : {norme.dpeTypique.join(" ou ")}
+                  </p>
                 </label>
                 <label className="block">
                   <span className="text-sm font-medium text-gray-700">
@@ -611,6 +648,28 @@ export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
                   <p className="mt-3 text-sm text-orange-800">
                     {result.profilEnergetique.eligibilityMessage}
                   </p>
+                ) : null}
+                {fourchettesFreemium ? (
+                  <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="rounded-lg border border-emerald-200 bg-emerald-50/80 px-4 py-3 text-center">
+                      <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                        Économies/an
+                      </p>
+                      <p className="mt-1 text-sm font-bold text-emerald-800">
+                        Entre {fmt(fourchettesFreemium.economies.min)} et{" "}
+                        {fmt(fourchettesFreemium.economies.max)}
+                      </p>
+                    </div>
+                    <div className="rounded-lg border border-teal-200 bg-teal-50/80 px-4 py-3 text-center">
+                      <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                        Réduction CO₂/an
+                      </p>
+                      <p className="mt-1 text-sm font-bold text-teal-800">
+                        Entre {fmtCo2(fourchettesFreemium.co2.min)} t/an et{" "}
+                        {fmtCo2(fourchettesFreemium.co2.max)} t/an
+                      </p>
+                    </div>
+                  </div>
                 ) : null}
               </div>
 

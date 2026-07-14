@@ -704,11 +704,15 @@ function calculateAidesLocales(
 export { NORMES_THERMIQUES } from './normes-thermiques';
 export {
   getNormeForYear,
+  getDefaultDPEForYear,
+  getTypicalDPEForYear,
+  getConsoParM2ForYearAndDPE,
   getDPEIncoherenceMessage,
   getNormeBadgeText,
   getEligibilityStatus,
   estimateFactureFromNormes,
   estimateAnnualSavingsFromNormes,
+  computeFourchettesFreemium,
 } from './normes-thermiques';
  
 export function formatCurrency(amount: number): string {  

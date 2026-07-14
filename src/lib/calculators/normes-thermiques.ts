@@ -116,12 +116,112 @@ const CONSO_PAR_DPE: Record<DPEClass, number> = {
 
 const PRIX_KWH = 0.18;
 
+/** Constantes simulateur freemium — fourchettes Économies / CO₂ */
+export const PRIX_KWH_SIMULATEUR = 0.21;
+export const FACTEUR_CO2 = 0.00018; // tonnes CO₂ / kWh économisé
+
+export interface FourchetteFreemium {
+  min: number;
+  max: number;
+  base: number;
+}
+
+export interface FourchettesFreemiumResult {
+  economies: FourchetteFreemium;
+  co2: FourchetteFreemium;
+  consoActuelleKWhParM2: number;
+  consoCibleKWhParM2: number;
+}
+
+/** Consommation actuelle en kWh/m²/an (réelle ou estimée via normes + DPE). */
+export function getConsoActuelleKWhParM2(
+  surface: number,
+  constructionYear: number,
+  dpeActuel: DPEClass,
+  annualConsumption?: number,
+): number {
+  if (annualConsumption != null && annualConsumption > 0 && surface > 0) {
+    return annualConsumption / surface;
+  }
+  return getConsoParM2ForYearAndDPE(constructionYear, dpeActuel);
+}
+
+/**
+ * Consommation cible post-travaux (DPE A ou B) :
+ * RE 2020 → 35 kWh/m² (A) | RT 2012 → 60 kWh/m² (B).
+ */
+export function getConsoCibleKWhParM2(dpeVise: DPEClass): number {
+  if (dpeVise === "A") return 35;
+  return 60;
+}
+
+/** Fourchettes dynamiques Économies/an (±15 %) et Réduction CO₂/an (±20 %). */
+export function computeFourchettesFreemium(
+  surface: number,
+  constructionYear: number,
+  dpeActuel: DPEClass,
+  dpeVise: DPEClass,
+  annualConsumption?: number,
+): FourchettesFreemiumResult {
+  const consoActuelleKWhParM2 = getConsoActuelleKWhParM2(
+    surface,
+    constructionYear,
+    dpeActuel,
+    annualConsumption,
+  );
+  const consoCibleKWhParM2 = getConsoCibleKWhParM2(dpeVise);
+  const deltaConso = Math.max(0, consoActuelleKWhParM2 - consoCibleKWhParM2);
+
+  const economiesBase = deltaConso * surface * PRIX_KWH_SIMULATEUR;
+  const co2Base = deltaConso * surface * FACTEUR_CO2;
+
+  return {
+    consoActuelleKWhParM2,
+    consoCibleKWhParM2,
+    economies: {
+      base: economiesBase,
+      min: economiesBase * 0.85,
+      max: economiesBase * 1.15,
+    },
+    co2: {
+      base: co2Base,
+      min: co2Base * 0.8,
+      max: co2Base * 1.2,
+    },
+  };
+}
+
 export function getNormeForYear(constructionYear: number): NormeThermique {
   const year = Math.max(0, Math.floor(constructionYear));
   return (
     NORMES_THERMIQUES.find((n) => year >= n.yearMin && year <= n.yearMax) ??
     NORMES_THERMIQUES[0]
   );
+}
+
+/** DPE typique le plus défavorable pour l'époque de construction (défaut simulateur). */
+export function getDefaultDPEForYear(constructionYear: number): DPEClass {
+  const norme = getNormeForYear(constructionYear);
+  return norme.dpeTypique[norme.dpeTypique.length - 1];
+}
+
+/** DPE typique médian pour l'époque de construction. */
+export function getTypicalDPEForYear(constructionYear: number): DPEClass {
+  const norme = getNormeForYear(constructionYear);
+  const mid = Math.floor(norme.dpeTypique.length / 2);
+  return norme.dpeTypique[mid];
+}
+
+/** Consommation kWh/m²/an cohérente année + DPE (sans saisie réelle). */
+export function getConsoParM2ForYearAndDPE(
+  constructionYear: number,
+  dpe: DPEClass,
+): number {
+  const norme = getNormeForYear(constructionYear);
+  const typicalDpe = getTypicalDPEForYear(constructionYear);
+  const ratio = CONSO_PAR_DPE[dpe] / CONSO_PAR_DPE[typicalDpe];
+  const consoParM2 = norme.consoDefaut * ratio;
+  return Math.max(norme.consoMin, Math.min(norme.consoMax, consoParM2));
 }
 
 export function isDPECoherentWithYear(
@@ -185,15 +285,15 @@ export function getEligibilityStatus(constructionYear: number): {
 export function getEffectiveConsumptionKWh(
   surface: number,
   constructionYear: number,
-  _dpeActuel: DPEClass,
+  dpeActuel: DPEClass,
   annualConsumption?: number,
 ): number {
   if (annualConsumption != null && annualConsumption > 0) {
     return annualConsumption;
   }
 
-  const norme = getNormeForYear(constructionYear);
-  return Math.round(norme.consoDefaut * surface);
+  const consoParM2 = getConsoParM2ForYearAndDPE(constructionYear, dpeActuel);
+  return Math.round(consoParM2 * surface);
 }
 
 export function estimateAnnualSavingsFromNormes(
