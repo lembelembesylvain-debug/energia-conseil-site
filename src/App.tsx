@@ -11,9 +11,6 @@ import {
 /** Freemium : masque les détails financiers avancés et affiche le bloc conversion Premium */
 const FREEMIUM = true;
 
-const emerald = "#0f766e";
-const emeraldLight = "#10b981";
-
 type TabId = "calculateur" | "audit";
 
 const fmt = (n: number) =>
@@ -232,66 +229,208 @@ function FadeSection({
 
 type LandingViewProps = { onStartAudit: () => void; };
 
+const glassCard =
+  "rounded-2xl border border-slate-800/80 bg-slate-900/60 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-[0_8px_32px_rgba(16,185,129,0.12)]";
+
+const gradientTitle =
+  "bg-gradient-to-r from-white via-slate-100 to-emerald-400 bg-clip-text text-transparent";
+
+const ctaButton =
+  "animate-pulse-cta inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 px-8 py-4 text-lg font-bold text-white shadow-[0_0_20px_rgba(16,185,129,0.3)] transition hover:brightness-110 hover:shadow-[0_0_28px_rgba(16,185,129,0.45)]";
+
+function AIScanDashboard() {
+  return (
+    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/80 shadow-[0_0_60px_rgba(16,185,129,0.15)] backdrop-blur-md lg:aspect-square">
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(16,185,129,0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(16,185,129,0.08) 1px, transparent 1px)
+          `,
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      <div className="absolute inset-x-0 top-0 flex items-center justify-between border-b border-slate-800/60 bg-slate-950/60 px-4 py-2.5 backdrop-blur-sm">
+        <div className="flex items-center gap-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+          <span className="text-xs font-semibold tracking-wider text-emerald-400/90">
+            SCAN IA — ENERGIA
+          </span>
+        </div>
+        <span className="animate-scan-pulse font-mono text-[10px] text-emerald-500/70">
+          ● LIVE
+        </span>
+      </div>
+
+      <div className="absolute left-0 right-0 top-[15%] h-px animate-laser-v bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_12px_rgba(16,185,129,0.9)]" />
+      <div className="absolute bottom-[20%] top-[15%] w-px animate-laser-h bg-gradient-to-b from-transparent via-emerald-400 to-transparent shadow-[0_0_12px_rgba(16,185,129,0.9)]" />
+
+      <div className="absolute inset-0 flex items-center justify-center pt-8">
+        <svg
+          viewBox="0 0 200 180"
+          className="h-[55%] w-[55%] text-emerald-500/40"
+          aria-hidden
+        >
+          <polygon
+            points="100,20 170,70 170,150 30,150 30,70"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeDasharray="4 3"
+          />
+          <polygon
+            points="100,20 170,70 100,70"
+            fill="rgba(16,185,129,0.06)"
+            stroke="currentColor"
+            strokeWidth="1"
+          />
+          <polygon
+            points="100,20 30,70 100,70"
+            fill="rgba(16,185,129,0.04)"
+            stroke="currentColor"
+            strokeWidth="1"
+          />
+          <rect
+            x="75"
+            y="95"
+            width="50"
+            height="55"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          />
+          <rect x="88" y="110" width="12" height="18" fill="rgba(16,185,129,0.15)" stroke="currentColor" strokeWidth="0.8" />
+          <rect x="118" y="105" width="10" height="10" fill="rgba(16,185,129,0.1)" stroke="currentColor" strokeWidth="0.8" />
+          <line x1="30" y1="150" x2="170" y2="150" stroke="currentColor" strokeWidth="1" opacity="0.5" />
+          <circle cx="100" cy="20" r="3" fill="rgba(16,185,129,0.6)" />
+        </svg>
+      </div>
+
+      {[
+        { label: "DPE F → A", top: "18%", left: "6%", delay: "0s" },
+        { label: "Aides : 90%", top: "32%", right: "4%", delay: "0.5s" },
+        { label: "Gain : +390€/mois", bottom: "28%", left: "4%", delay: "1s" },
+        { label: "CO₂ : -5.8t", bottom: "14%", right: "6%", delay: "1.5s" },
+      ].map((badge) => (
+        <div
+          key={badge.label}
+          className="animate-float-badge absolute z-10 rounded-lg border border-emerald-500/30 bg-slate-900/90 px-2.5 py-1.5 text-[10px] font-semibold text-emerald-300 shadow-[0_0_16px_rgba(16,185,129,0.2)] backdrop-blur-sm sm:px-3 sm:py-2 sm:text-xs"
+          style={{
+            top: badge.top,
+            left: badge.left,
+            right: badge.right,
+            bottom: badge.bottom,
+            animationDelay: badge.delay,
+          }}
+        >
+          <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(16,185,129,0.8)]" />
+          {badge.label}
+        </div>
+      ))}
+
+      <div className="absolute inset-x-0 bottom-0 border-t border-slate-800/60 bg-slate-950/70 px-4 py-2 backdrop-blur-sm">
+        <div className="flex items-center justify-between font-mono text-[10px] text-slate-500">
+          <span>Analyse thermique… 94%</span>
+          <span className="text-emerald-500/80">IA v3.2</span>
+        </div>
+        <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-slate-800">
+          <div className="h-full w-[94%] rounded-full bg-gradient-to-r from-emerald-600 to-teal-400 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function LandingView({ onStartAudit }: LandingViewProps) {
   const surface = useCountUp(164, { suffix: " m²" });
   const gain = useCountUp(390, { prefix: "+", suffix: " €" });
   const taux = useCountUp(90, { suffix: "%" });
 
+  const mprProfiles = [
+    { name: "Bleu", revenus: "Très modestes", taux: "90%", badge: "bg-blue-500/20 text-blue-300 border-blue-400/40 shadow-[0_0_12px_rgba(59,130,246,0.25)]" },
+    { name: "Jaune", revenus: "Modestes", taux: "70%", badge: "bg-yellow-500/20 text-yellow-300 border-yellow-400/40 shadow-[0_0_12px_rgba(234,179,8,0.25)]" },
+    { name: "Violet", revenus: "Intermédiaires", taux: "55%", badge: "bg-purple-500/20 text-purple-300 border-purple-400/40 shadow-[0_0_12px_rgba(168,85,247,0.25)]" },
+    { name: "Rose", revenus: "Aisés", taux: "35%", badge: "bg-pink-500/20 text-pink-300 border-pink-400/40 shadow-[0_0_12px_rgba(236,72,153,0.25)]" },
+  ];
+
+  const testimonials = [
+    {
+      name: "M. DUPONT — Lyon (69)",
+      initials: "MD",
+      quote: "Passé de DPE G à A en 12 semaines. Je gagne 420€/mois net. L'équipe ENERGIA a tout géré !",
+    },
+    {
+      name: "Mme MARTIN — Saint-Étienne (42)",
+      initials: "MM",
+      quote: "Zéro apport, zéro stress. Les aides ont tout couvert. Je recommande à 100%.",
+    },
+    {
+      name: "M. BERNARD — Grenoble (38)",
+      initials: "MB",
+      quote: "L'audit IA m'a bluffé. 85 pages ultra-précises livrées en 24h. Projet signé la semaine suivante.",
+    },
+  ];
+
   return (
-    <div className="overflow-x-hidden bg-white">
-      {/* ─── HEADER FIXE ─── */}
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-teal-900/10 bg-white/95 shadow-sm backdrop-blur-md">
+    <div className="relative overflow-x-hidden bg-slate-950 text-slate-200">
+      <div
+        className="pointer-events-none fixed inset-0 -z-10"
+        aria-hidden
+      >
+        <div className="absolute left-1/4 top-0 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#0f766e]/20 blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 h-[500px] w-[500px] translate-x-1/2 rounded-full bg-[#10b981]/15 blur-[100px]" />
+        <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-900/10 blur-[80px]" />
+      </div>
+
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <a
             href="#"
             className="flex items-center gap-1.5 text-lg font-bold tracking-tight sm:text-xl"
-            style={{ color: emerald }}
           >
-            <span aria-hidden>⚡</span>
-            <span>ENERGIA CONSEIL IA®</span>
+            <span className="text-emerald-400" aria-hidden>⚡</span>
+            <span className={gradientTitle}>ENERGIA CONSEIL IA®</span>
           </a>
 
           <nav
-            className="hidden items-center gap-6 text-sm font-medium text-neutral-600 md:flex"
+            className="hidden items-center gap-6 text-sm font-medium text-slate-400 md:flex"
             aria-label="Navigation principale"
           >
-            <a href="#" className="transition hover:text-[#0f766e]">
-              Accueil
-            </a>
-            <a href="#comment-ca-marche" className="transition hover:text-[#0f766e]">
-              Comment ça marche
-            </a>
-            <a href="#aides-2026" className="transition hover:text-[#0f766e]">
-              Aides 2026
-            </a>
-            <a href="#contact" className="transition hover:text-[#0f766e]">
-              Nous contacter
-            </a>
+            {[
+              ["#", "Accueil"],
+              ["#comment-ca-marche", "Comment ça marche"],
+              ["#aides-2026", "Aides 2026"],
+              ["#contact", "Nous contacter"],
+            ].map(([href, label]) => (
+              <a
+                key={label}
+                href={href}
+                className="transition hover:text-emerald-400"
+              >
+                {label}
+              </a>
+            ))}
           </nav>
 
           <button
             type="button"
             onClick={onStartAudit}
-            className="animate-pulse-cta shrink-0 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:brightness-110 sm:px-5 sm:text-base"
-            style={{ backgroundColor: emeraldLight }}
+            className="animate-pulse-cta shrink-0 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_0_20px_rgba(16,185,129,0.3)] transition hover:brightness-110 sm:px-5 sm:text-base"
           >
             Démarrer mon Audit Gratuit
           </button>
         </div>
       </header>
 
-      {/* ─── HERO ─── */}
       <section className="relative pt-24 sm:pt-28">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-20 pt-8 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:pb-28 lg:pt-12">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col"
-          >
+          <motion.div initial="hidden" animate="visible" className="flex flex-col">
             <motion.div
               custom={0}
               variants={fadeUp}
-              className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-4 py-2 text-sm font-semibold text-teal-800"
+              className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-300 backdrop-blur-sm"
             >
               <span>🏆</span>
               <span>N°1 de la Rénovation Globale en Auvergne-Rhône-Alpes</span>
@@ -300,28 +439,21 @@ function LandingView({ onStartAudit }: LandingViewProps) {
             <motion.h1
               custom={1}
               variants={fadeUp}
-              className="text-balance text-4xl font-extrabold leading-[1.08] tracking-tight text-neutral-900 sm:text-5xl lg:text-[3.25rem]"
+              className={`text-balance text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.25rem] ${gradientTitle}`}
             >
-              Transformez votre passoire thermique en maison{" "}
-              <span style={{ color: emerald }}>A+</span> et économisez{" "}
-              <span style={{ color: emeraldLight }}>584 €/mois</span>
+              Transformez votre passoire thermique en maison A+ et économisez 584 €/mois
             </motion.h1>
 
             <motion.p
               custom={2}
               variants={fadeUp}
-              className="mt-6 max-w-xl text-lg leading-relaxed text-neutral-600 sm:text-xl"
+              className="mt-6 max-w-xl text-lg leading-relaxed text-slate-400 sm:text-xl"
             >
               Notre IA analyse votre logement, calcule vos aides MaPrimeRénov'
-              2026 et génère votre audit complet en 30 min. Zéro apport. Zéro
-              stress.
+              2026 et génère votre audit complet en 30 min. Zéro apport. Zéro stress.
             </motion.p>
 
-            <motion.div
-              custom={3}
-              variants={fadeUp}
-              className="mt-8 flex flex-wrap gap-3"
-            >
+            <motion.div custom={3} variants={fadeUp} className="mt-8 flex flex-wrap gap-3">
               {[
                 "✅ Audit IA en 30 minutes",
                 "🛡️ Décennale MIC LUNPIB2604975",
@@ -329,7 +461,7 @@ function LandingView({ onStartAudit }: LandingViewProps) {
               ].map((badge) => (
                 <span
                   key={badge}
-                  className="rounded-full border border-teal-100 bg-teal-50/80 px-4 py-2 text-sm font-medium text-teal-900"
+                  className="rounded-full border border-slate-700/80 bg-slate-900/60 px-4 py-2 text-sm font-medium text-slate-300 backdrop-blur-sm"
                 >
                   {badge}
                 </span>
@@ -337,142 +469,63 @@ function LandingView({ onStartAudit }: LandingViewProps) {
             </motion.div>
 
             <motion.div custom={4} variants={fadeUp} className="mt-10">
-              <button
-                type="button"
-                onClick={onStartAudit}
-                className="animate-pulse-cta inline-flex items-center justify-center gap-2 rounded-2xl px-8 py-4 text-lg font-bold text-white shadow-2xl transition hover:brightness-110 sm:px-10 sm:py-5 sm:text-xl"
-                style={{ backgroundColor: emeraldLight }}
-              >
+              <button type="button" onClick={onStartAudit} className={`${ctaButton} sm:px-10 sm:py-5 sm:text-xl`}>
                 🚀 Démarrer mon Audit Gratuit
               </button>
             </motion.div>
           </motion.div>
 
-          {/* Visuel Hero */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative mx-auto aspect-[4/3] w-full max-w-md lg:max-h-[480px] lg:max-w-none lg:aspect-square"
+            className="relative mx-auto w-full max-w-md lg:max-w-none"
           >
-            <div
-              className="absolute inset-0 rounded-3xl shadow-2xl"
-              style={{
-                background: `linear-gradient(135deg, ${emerald} 0%, ${emeraldLight} 50%, #34d399 100%)`,
-              }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative">
-                <motion.span
-                  className="text-[8rem] drop-shadow-2xl"
-                  animate={{ y: [0, -12, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  aria-hidden
-                >
-                  🏠
-                </motion.span>
-                <motion.span
-                  className="absolute -right-16 -top-8 text-6xl"
-                  animate={{ rotate: [0, 15, 0], scale: [1, 1.1, 1] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  aria-hidden
-                >
-                  ☀️
-                </motion.span>
-                <motion.span
-                  className="absolute -bottom-4 -left-12 text-5xl"
-                  animate={{ opacity: [0.6, 1, 0.6] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                  aria-hidden
-                >
-                  ⚡
-                </motion.span>
-              </div>
-            </div>
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black/10 to-transparent" />
+            <AIScanDashboard />
           </motion.div>
         </div>
       </section>
 
-      {/* ─── CHIFFRES CLÉS ─── */}
-      <FadeSection className="border-y border-teal-100 bg-teal-50/50 px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 lg:grid-cols-4 lg:gap-12">
+      <FadeSection className="px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
           {[
-            {
-              ref: surface.ref,
-              icon: "🏠",
-              value: surface.text,
-              label: "Surface moyenne rénovée",
-            },
-            {
-              ref: gain.ref,
-              icon: "💰",
-              value: gain.text,
-              label: "Gain net mensuel moyen",
-            },
-            {
-              ref: taux.ref,
-              icon: "⚡",
-              value: taux.text,
-              label: "Taux d'aides Profil Bleu",
-            },
-            {
-              ref: null,
-              icon: "⭐",
-              value: "F→A",
-              label: "Saut énergétique moyen",
-              prefix: "DPE ",
-            },
+            { ref: surface.ref, icon: "🏠", value: surface.text, label: "Surface moyenne rénovée" },
+            { ref: gain.ref, icon: "💰", value: gain.text, label: "Gain net mensuel moyen" },
+            { ref: taux.ref, icon: "⚡", value: taux.text, label: "Taux d'aides Profil Bleu" },
+            { ref: null, icon: "⭐", value: "F→A", label: "Saut énergétique moyen", prefix: "DPE " },
           ].map((stat) => (
-            <div key={stat.label} ref={stat.ref ?? undefined} className="text-center">
-              <span className="text-3xl" aria-hidden>
+            <div
+              key={stat.label}
+              ref={stat.ref ?? undefined}
+              className={`${glassCard} p-5 text-center sm:p-6`}
+            >
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-emerald-900/60 text-lg shadow-[0_0_16px_rgba(16,185,129,0.2)]">
                 {stat.icon}
-              </span>
-              <p
-                className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl"
-                style={{ color: emerald }}
-              >
+              </div>
+              <p className="mt-4 text-2xl font-extrabold tracking-tight text-emerald-400 sm:text-3xl lg:text-4xl">
                 {"prefix" in stat ? stat.prefix : null}
                 {stat.value}
               </p>
-              <p className="mt-2 text-sm font-medium text-neutral-600 sm:text-base">
-                {stat.label}
-              </p>
+              <p className="mt-2 text-xs font-medium text-slate-500 sm:text-sm">{stat.label}</p>
             </div>
           ))}
         </div>
       </FadeSection>
 
-      {/* ─── COMMENT ÇA MARCHE ─── */}
-      <FadeSection
-        id="comment-ca-marche"
-        className="scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8"
-      >
+      <FadeSection id="comment-ca-marche" className="scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <h2 className="text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+          <h2 className={`text-center text-3xl font-bold tracking-tight sm:text-4xl ${gradientTitle}`}>
             Comment ça marche
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-neutral-600">
+          <p className="mx-auto mt-4 max-w-2xl text-center text-slate-400">
             Trois étapes simples pour transformer votre logement
           </p>
 
-          <div className="mt-14 grid gap-8 md:grid-cols-3">
+          <div className="mt-14 grid gap-6 md:grid-cols-3 md:gap-8">
             {[
-              {
-                icon: "📋",
-                title: "Je remplis le formulaire (5 min)",
-                desc: "Nom, adresse, surface, DPE, revenus.",
-              },
-              {
-                icon: "🤖",
-                title: "L'IA analyse mon logement (25 min)",
-                desc: "Calcul des aides, simulation financière, recommandations techniques.",
-              },
-              {
-                icon: "📄",
-                title: "Je reçois mon Audit Complet (48h)",
-                desc: "85 pages personnalisées avec votre plan de financement Zéro Apport.",
-              },
+              { icon: "📋", title: "Je remplis le formulaire (5 min)", desc: "Nom, adresse, surface, DPE, revenus." },
+              { icon: "🤖", title: "L'IA analyse mon logement (25 min)", desc: "Calcul des aides, simulation financière, recommandations techniques." },
+              { icon: "📄", title: "Je reçois mon Audit Complet (48h)", desc: "85 pages personnalisées avec votre plan de financement Zéro Apport." },
             ].map((step, i) => (
               <motion.article
                 key={step.title}
@@ -481,61 +534,35 @@ function LandingView({ onStartAudit }: LandingViewProps) {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-40px" }}
                 variants={fadeUp}
-                className="group rounded-2xl border border-neutral-100 bg-white p-8 shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
+                className={`group ${glassCard} p-8`}
               >
-                <div
-                  className="flex h-14 w-14 items-center justify-center rounded-2xl text-3xl"
-                  style={{ backgroundColor: `${emeraldLight}20` }}
-                >
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-900/70 text-2xl shadow-[0_0_20px_rgba(16,185,129,0.25)] ring-1 ring-emerald-500/20">
                   {step.icon}
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-neutral-900">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-neutral-600 leading-relaxed">{step.desc}</p>
+                <h3 className="mt-5 text-lg font-bold text-white">{step.title}</h3>
+                <p className="mt-3 leading-relaxed text-slate-400">{step.desc}</p>
               </motion.article>
             ))}
           </div>
 
           <div className="mt-12 text-center">
-            <button
-              type="button"
-              onClick={onStartAudit}
-              className="inline-flex items-center gap-2 rounded-xl px-8 py-3.5 font-semibold text-white shadow-lg transition hover:brightness-110"
-              style={{ backgroundColor: emerald }}
-            >
+            <button type="button" onClick={onStartAudit} className={ctaButton}>
               Commencer maintenant →
             </button>
           </div>
         </div>
       </FadeSection>
 
-      {/* ─── 3 PILIERS ─── */}
-      <FadeSection className="bg-neutral-50 px-4 py-20 sm:px-6 lg:px-8">
+      <FadeSection className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <h2 className="text-center text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className={`text-center text-3xl font-bold tracking-tight sm:text-4xl ${gradientTitle}`}>
             Les 3 piliers ENERGIA
           </h2>
-          <div className="mt-14 grid gap-8 md:grid-cols-3">
+          <div className="mt-14 grid gap-6 md:grid-cols-3 md:gap-8">
             {[
-              {
-                icon: "🏠",
-                color: "#0ea5e9",
-                title: "L'Isolation",
-                stat: "-40% de déperditions",
-              },
-              {
-                icon: "🌡️",
-                color: "#f97316",
-                title: "La PAC",
-                stat: "-60% de facture chauffage",
-              },
-              {
-                icon: "☀️",
-                color: "#eab308",
-                title: "Le Solaire",
-                stat: "Facture résiduelle 208€/an",
-              },
+              { icon: "🏠", title: "L'Isolation", stat: "-40% de déperditions" },
+              { icon: "🌡️", title: "La PAC", stat: "-60% de facture chauffage" },
+              { icon: "☀️", title: "Le Solaire", stat: "Facture résiduelle 208€/an" },
             ].map((pillar, i) => (
               <motion.article
                 key={pillar.title}
@@ -544,103 +571,72 @@ function LandingView({ onStartAudit }: LandingViewProps) {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeUp}
-                className="rounded-2xl bg-white p-8 text-center shadow-lg transition hover:shadow-xl"
+                className={`${glassCard} p-8 text-center`}
               >
-                <div
-                  className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl text-3xl"
-                  style={{ backgroundColor: `${pillar.color}18` }}
-                >
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-900/70 text-3xl shadow-[0_0_24px_rgba(16,185,129,0.3)] ring-1 ring-emerald-500/25">
                   {pillar.icon}
                 </div>
-                <h3 className="mt-5 text-xl font-bold text-neutral-900">
-                  {pillar.title}
-                </h3>
-                <p
-                  className="mt-3 text-2xl font-extrabold"
-                  style={{ color: pillar.color }}
-                >
-                  {pillar.stat}
-                </p>
+                <h3 className="mt-5 text-xl font-bold text-white">{pillar.title}</h3>
+                <p className="mt-3 text-2xl font-extrabold text-emerald-400">{pillar.stat}</p>
               </motion.article>
             ))}
           </div>
         </div>
       </FadeSection>
 
-      {/* ─── AIDES 2026 ─── */}
       <FadeSection id="aides-2026" className="scroll-mt-24">
-        <div
-          className="px-4 py-8 sm:px-6 lg:px-8"
-          style={{ backgroundColor: emerald }}
-        >
-          <p className="mx-auto max-w-4xl text-center text-base font-medium leading-relaxed text-white sm:text-lg">
-            ⚡ <strong>ATTENTION :</strong> Les passoires thermiques (DPE F et G)
-            ont jusqu'au <strong>31 décembre 2026</strong> pour accéder au
-            parcours par geste. À partir de 2027, seul le Parcours Accompagné
-            sera disponible.
+        <div className="border-y border-amber-500/20 bg-amber-500/5 px-4 py-6 backdrop-blur-sm sm:px-6 lg:px-8">
+          <p className="mx-auto max-w-4xl text-center text-sm font-medium leading-relaxed text-amber-200/90 sm:text-base">
+            ⚡ <strong className="text-amber-100">ATTENTION :</strong> Les passoires thermiques (DPE F et G)
+            ont jusqu'au <strong>31 décembre 2026</strong> pour accéder au parcours par geste.
+            À partir de 2027, seul le Parcours Accompagné sera disponible.
           </p>
         </div>
 
         <div className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-center text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className={`text-center text-3xl font-bold tracking-tight sm:text-4xl ${gradientTitle}`}>
               Profils MaPrimeRénov' 2026
             </h2>
-            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-amber-800">
-              Aides financières 2026 (estimation à titre indicatif). Montants
-              définitifs après instruction ANAH et CEE.
+            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-amber-400/80">
+              Aides financières 2026 (estimation à titre indicatif). Montants définitifs après instruction ANAH et CEE.
             </p>
 
-            <div className="mt-10 overflow-hidden rounded-2xl shadow-xl">
-              <table className="w-full border-collapse text-left">
-                <thead>
-                  <tr style={{ backgroundColor: "#1a3c5e" }}>
-                    <th className="px-5 py-4 text-sm font-semibold text-white">
-                      Profil
-                    </th>
-                    <th className="px-5 py-4 text-sm font-semibold text-white">
-                      Revenus
-                    </th>
-                    <th className="px-5 py-4 text-sm font-semibold text-white">
-                      Taux MPR
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white text-sm sm:text-base">
-                  {[
-                    ["🔵 Bleu", "Très modestes", "90%"],
-                    ["🟡 Jaune", "Modestes", "70%"],
-                    ["🟣 Violet", "Intermédiaires", "55%"],
-                    ["🌸 Rose", "Aisés", "35%"],
-                  ].map(([profil, revenus, taux], i) => (
-                    <tr
-                      key={profil}
-                      className={i % 2 === 0 ? "bg-teal-50/40" : "bg-white"}
-                    >
-                      <td className="border-b border-neutral-100 px-5 py-4 font-semibold">
-                        {profil}
-                      </td>
-                      <td className="border-b border-neutral-100 px-5 py-4 text-neutral-600">
-                        {revenus}
-                      </td>
-                      <td
-                        className="border-b border-neutral-100 px-5 py-4 font-bold"
-                        style={{ color: emerald }}
-                      >
-                        {taux}
-                      </td>
+            <div className={`mt-10 overflow-hidden rounded-2xl ${glassCard} hover:translate-y-0`}>
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[320px] border-collapse text-left">
+                  <thead>
+                    <tr className="border-b border-slate-800/80 bg-slate-900/80">
+                      <th className="px-5 py-4 text-sm font-semibold text-slate-300">Profil</th>
+                      <th className="px-5 py-4 text-sm font-semibold text-slate-300">Revenus</th>
+                      <th className="px-5 py-4 text-sm font-semibold text-slate-300">Taux MPR</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="text-sm sm:text-base">
+                    {mprProfiles.map((row, i) => (
+                      <tr
+                        key={row.name}
+                        className={`border-b border-slate-800/60 transition hover:bg-slate-800/30 ${i % 2 === 0 ? "bg-slate-900/40" : "bg-slate-950/40"}`}
+                      >
+                        <td className="px-5 py-4">
+                          <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-bold sm:text-sm ${row.badge}`}>
+                            {row.name}
+                          </span>
+                        </td>
+                        <td className="px-5 py-4 text-slate-400">{row.revenus}</td>
+                        <td className="px-5 py-4 font-bold text-emerald-400">{row.taux}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             <div className="mt-10 text-center">
               <button
                 type="button"
                 onClick={onStartAudit}
-                className="inline-flex items-center gap-2 rounded-xl border-2 px-8 py-3.5 font-semibold transition hover:bg-teal-50"
-                style={{ borderColor: emerald, color: emerald }}
+                className="inline-flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-8 py-3.5 font-semibold text-emerald-300 transition hover:border-emerald-400/60 hover:bg-emerald-500/20 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]"
               >
                 Calculer mes aides →
               </button>
@@ -649,30 +645,13 @@ function LandingView({ onStartAudit }: LandingViewProps) {
         </div>
       </FadeSection>
 
-      {/* ─── TÉMOIGNAGES ─── */}
-      <FadeSection className="bg-neutral-50 px-4 py-20 sm:px-6 lg:px-8">
+      <FadeSection className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <h2 className="text-center text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className={`text-center text-3xl font-bold tracking-tight sm:text-4xl ${gradientTitle}`}>
             Ils nous font confiance
           </h2>
-          <div className="mt-14 grid gap-8 md:grid-cols-3">
-            {[
-              {
-                name: "M. DUPONT — Lyon (69)",
-                quote:
-                  "Passé de DPE G à A en 12 semaines. Je gagne 420€/mois net. L'équipe ENERGIA a tout géré !",
-              },
-              {
-                name: "Mme MARTIN — Saint-Étienne (42)",
-                quote:
-                  "Zéro apport, zéro stress. Les aides ont tout couvert. Je recommande à 100%.",
-              },
-              {
-                name: "M. BERNARD — Grenoble (38)",
-                quote:
-                  "L'audit IA m'a bluffé. 85 pages ultra-précises livrées en 24h. Projet signé la semaine suivante.",
-              },
-            ].map((t, i) => (
+          <div className="mt-14 grid gap-6 md:grid-cols-3 md:gap-8">
+            {testimonials.map((t, i) => (
               <motion.article
                 key={t.name}
                 custom={i}
@@ -680,77 +659,63 @@ function LandingView({ onStartAudit }: LandingViewProps) {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeUp}
-                className="rounded-2xl bg-white p-8 shadow-lg transition hover:shadow-xl"
+                className={`${glassCard} p-8`}
               >
-                <div className="text-amber-400 text-lg tracking-wider" aria-hidden>
-                  ⭐⭐⭐⭐⭐
+                <div className="animate-star-glow text-lg tracking-wider text-amber-400" aria-hidden>
+                  ★★★★★
                 </div>
-                <blockquote className="mt-4 text-neutral-700 leading-relaxed italic">
+                <blockquote className="mt-4 leading-relaxed text-slate-300 italic">
                   « {t.quote} »
                 </blockquote>
-                <p className="mt-5 font-bold text-neutral-900">{t.name}</p>
+                <div className="mt-6 flex items-center gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-600 to-teal-700 text-sm font-bold text-white shadow-[0_0_16px_rgba(16,185,129,0.35)] ring-2 ring-emerald-500/30">
+                    {t.initials}
+                  </div>
+                  <p className="font-bold text-white">{t.name}</p>
+                </div>
               </motion.article>
             ))}
           </div>
         </div>
       </FadeSection>
 
-      {/* ─── CTA FINAL ─── */}
-      <FadeSection
-        className="px-4 py-24 sm:px-6 lg:px-8"
-        id="cta-final"
-      >
-        <div
-          className="mx-auto max-w-4xl rounded-3xl px-6 py-16 text-center shadow-2xl sm:px-12 sm:py-20"
-          style={{
-            background: `linear-gradient(135deg, ${emerald} 0%, ${emeraldLight} 100%)`,
-          }}
-        >
-          <h2 className="text-balance text-3xl font-extrabold text-white sm:text-4xl md:text-5xl">
+      <FadeSection className="px-4 py-24 sm:px-6 lg:px-8" id="cta-final">
+        <div className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl border border-emerald-500/20 bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 px-6 py-16 text-center shadow-[0_0_60px_rgba(16,185,129,0.15)] sm:px-12 sm:py-20">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(16,185,129,0.15),transparent_60%)]" aria-hidden />
+          <h2 className={`relative text-balance text-3xl font-extrabold sm:text-4xl md:text-5xl ${gradientTitle}`}>
             Votre maison mérite le meilleur.
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-lg text-white/90">
-            Rejoignez les propriétaires qui ont choisi l'autonomie
-            énergétique.
+          <p className="relative mx-auto mt-5 max-w-xl text-lg text-slate-400">
+            Rejoignez les propriétaires qui ont choisi l'autonomie énergétique.
           </p>
           <button
             type="button"
             onClick={onStartAudit}
-            className="mt-10 inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-10 py-5 text-lg font-bold shadow-xl transition hover:scale-[1.02] hover:shadow-2xl sm:text-xl"
-            style={{ color: emerald }}
+            className="relative mt-10 inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-10 py-5 text-lg font-bold text-emerald-700 shadow-[0_0_30px_rgba(255,255,255,0.15)] transition hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.25)] sm:text-xl"
           >
             🚀 Démarrer mon Audit Gratuit
           </button>
         </div>
       </FadeSection>
 
-      {/* ─── FOOTER ─── */}
       <footer
         id="contact"
-        className="scroll-mt-24 border-t border-neutral-200 bg-neutral-900 px-4 py-14 text-neutral-300 sm:px-6 lg:px-8"
+        className="scroll-mt-24 border-t border-slate-800/80 bg-slate-950/90 px-4 py-14 text-slate-400 sm:px-6 lg:px-8"
       >
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col gap-10 md:flex-row md:justify-between">
             <div>
-              <p
-                className="text-xl font-bold text-white"
-                style={{ color: emeraldLight }}
-              >
-                ⚡ ENERGIA CONSEIL IA®
-              </p>
+              <p className={`text-xl font-bold ${gradientTitle}`}>⚡ ENERGIA CONSEIL IA®</p>
               <address className="mt-4 not-italic text-sm leading-relaxed">
                 16 Rue Cuvier, 69006 Lyon
                 <br />
                 SIRET : 941 819 427 00019
                 <br />
-                <a
-                  href="mailto:contact@energia-conseil-ia.com"
-                  className="transition hover:text-white"
-                >
+                <a href="mailto:contact@energia-conseil-ia.com" className="transition hover:text-emerald-400">
                   contact@energia-conseil-ia.com
                 </a>
                 <br />
-                <a href="tel:+33610596898" className="transition hover:text-white">
+                <a href="tel:+33610596898" className="transition hover:text-emerald-400">
                   06 10 59 68 98
                 </a>
               </address>
@@ -759,32 +724,21 @@ function LandingView({ onStartAudit }: LandingViewProps) {
             <div className="text-sm">
               <p className="font-semibold text-white">Informations légales</p>
               <ul className="mt-3 space-y-2">
-                <li>
-                  <a href="#" className="transition hover:text-white">
-                    CGV
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="transition hover:text-white">
-                    Mentions Légales
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="transition hover:text-white">
-                    Politique de confidentialité
-                  </a>
-                </li>
+                {["CGV", "Mentions Légales", "Politique de confidentialité"].map((link) => (
+                  <li key={link}>
+                    <a href="#" className="transition hover:text-emerald-400">{link}</a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
 
-          <div className="mt-10 border-t border-neutral-700 pt-8 text-center text-sm">
-            <p className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-teal-700/50 bg-teal-900/30 px-4 py-2 text-teal-200">
+          <div className="mt-10 border-t border-slate-800/80 pt-8 text-center text-sm">
+            <p className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-4 py-2 text-emerald-300/80">
               Partenaire ANAH France Rénov' | Marque déposée INPI N°5213845
             </p>
-            <p className="mt-4 text-neutral-500">
-              © {new Date().getFullYear()} ENERGIA-CONSEIL IA® — Tous droits
-              réservés
+            <p className="mt-4 text-slate-600">
+              © {new Date().getFullYear()} ENERGIA-CONSEIL IA® — Tous droits réservés
             </p>
           </div>
         </div>
