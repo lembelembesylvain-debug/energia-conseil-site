@@ -7,8 +7,12 @@ import {
   type ReactNode,
   type FormEvent,
 } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import AdminDashboard from "./vite-pages/AdminDashboard";
+import DetailAudit from "./vite-pages/DetailAudit";
+import NouvelAudit from "./vite-pages/NouvelAudit";
 import {
   getNormeForYear,
   getDefaultDPEForYear,
@@ -1895,8 +1899,95 @@ function AuditSimulatorView({ onBack }: AuditSimulatorViewProps) {
   );
 }
 
+const ADMIN_PASSWORD = "admin-energia-2026";
+const ADMIN_SESSION_KEY = "energia-admin-authenticated";
+
+function normalizePathname(path: string): string {
+  if (path.length > 1 && path.endsWith("/")) {
+    return path.slice(0, -1);
+  }
+  return path;
+}
+
+function isAdminPath(path: string): boolean {
+  return (
+    path === "/admin" ||
+    path === "/nouvel-audit" ||
+    path.startsWith("/audit/")
+  );
+}
+
+function AdminRoutes() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/nouvel-audit" element={<NouvelAudit />} />
+        <Route path="/audit/:id" element={<DetailAudit />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
 export default function App() {
+  const [pathname, setPathname] = useState(() =>
+    normalizePathname(window.location.pathname),
+  );
   const [showSimulator, setShowSimulator] = useState(false);
+  const [adminReady, setAdminReady] = useState(false);
+  const authPromptRef = useRef(false);
+
+  useEffect(() => {
+    const syncPathname = () => {
+      setPathname(normalizePathname(window.location.pathname));
+    };
+
+    window.addEventListener("popstate", syncPathname);
+    return () => window.removeEventListener("popstate", syncPathname);
+  }, []);
+
+  useEffect(() => {
+    if (!isAdminPath(pathname)) {
+      authPromptRef.current = false;
+      setAdminReady(false);
+      return;
+    }
+
+    if (sessionStorage.getItem(ADMIN_SESSION_KEY) === "1") {
+      setAdminReady(true);
+      return;
+    }
+
+    if (authPromptRef.current) return;
+    authPromptRef.current = true;
+
+    const password = window.prompt(
+      "Accès administrateur — saisissez le mot de passe :",
+    );
+
+    if (password === ADMIN_PASSWORD) {
+      sessionStorage.setItem(ADMIN_SESSION_KEY, "1");
+      setAdminReady(true);
+      return;
+    }
+
+    window.history.replaceState(null, "", "/");
+    setPathname("/");
+    setAdminReady(false);
+    authPromptRef.current = false;
+  }, [pathname]);
+
+  if (isAdminPath(pathname)) {
+    if (!adminReady) {
+      return (
+        <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-600">
+          Vérification de l&apos;accès…
+        </div>
+      );
+    }
+
+    return <AdminRoutes />;
+  }
 
   if (showSimulator) {
     return <AuditSimulatorView onBack={() => setShowSimulator(false)} />;
