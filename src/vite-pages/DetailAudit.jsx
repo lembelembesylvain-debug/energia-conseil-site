@@ -26,7 +26,59 @@ const PHOTO_TYPE_LABELS = {
 }  
   
 export default function DetailAudit() {
+  const { id } = useParams()
+  const navigate = useNavigate()
   const iframe3DRef = useRef(null)
+  const [audit, setAudit] = useState(null)
+  const [client, setClient] = useState(null)
+  const [photos, setPhotos] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {  
+    async function fetchData() {  
+      try {  
+        setLoading(true)  
+        setError(null)  
+ 
+        const { data: auditData, error: auditError } = await supabase  
+          .from('audits')  
+          .select('*')  
+          .eq('id', id)  
+          .single()  
+ 
+        if (auditError) throw auditError  
+        setAudit(auditData)  
+ 
+        if (auditData.client_id) {  
+          const { data: clientData, error: clientError } = await supabase  
+            .from('clients')  
+            .select('*')  
+            .eq('id', auditData.client_id)  
+            .single()  
+ 
+          if (clientError) console.error('Erreur client:', clientError)  
+          else setClient(clientData)  
+        }  
+  
+        const { data: photosData, error: photosError } = await supabase  
+          .from('photos')  
+          .select('*')  
+          .eq('audit_id', id)  
+ 
+        if (photosError) console.error('Erreur photos:', photosError)  
+        else setPhotos(photosData || [])  
+  
+      } catch (err) {  
+        console.error('Erreur:', err)  
+        setError(err.message || 'Une erreur est survenue')  
+      } finally {  
+        setLoading(false)  
+      }  
+    }  
+ 
+    if (id) fetchData()
+  }, [id])
 
   const captureImages3D = async () => {
     const iframe = iframe3DRef.current
@@ -82,59 +134,6 @@ export default function DetailAudit() {
     }
   }
 
-  const { id } = useParams()  
-  const navigate = useNavigate()  
-  const [audit, setAudit] = useState(null)  
-  const [client, setClient] = useState(null)  
-  const [photos, setPhotos] = useState([])  
-  const [loading, setLoading] = useState(true)  
-  const [error, setError] = useState(null)  
- 
-  useEffect(() => {  
-    async function fetchData() {  
-      try {  
-        setLoading(true)  
-        setError(null)  
- 
-        const { data: auditData, error: auditError } = await supabase  
-          .from('audits')  
-          .select('*')  
-          .eq('id', id)  
-          .single()  
- 
-        if (auditError) throw auditError  
-        setAudit(auditData)  
- 
-        if (auditData.client_id) {  
-          const { data: clientData, error: clientError } = await supabase  
-            .from('clients')  
-            .select('*')  
-            .eq('id', auditData.client_id)  
-            .single()  
- 
-          if (clientError) console.error('Erreur client:', clientError)  
-          else setClient(clientData)  
-        }  
-  
-        const { data: photosData, error: photosError } = await supabase  
-          .from('photos')  
-          .select('*')  
-          .eq('audit_id', id)  
- 
-        if (photosError) console.error('Erreur photos:', photosError)  
-        else setPhotos(photosData || [])  
-  
-      } catch (err) {  
-        console.error('Erreur:', err)  
-        setError(err.message || 'Une erreur est survenue')  
-      } finally {  
-        setLoading(false)  
-      }  
-    }  
- 
-    if (id) fetchData()  
-  }, [id])  
- 
   if (loading) {  
     return (  
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">  

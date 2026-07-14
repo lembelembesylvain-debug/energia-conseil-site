@@ -1929,30 +1929,11 @@ function AdminRoutes() {
   );
 }
 
-export default function App() {
-  const [pathname, setPathname] = useState(() =>
-    normalizePathname(window.location.pathname),
-  );
-  const [showSimulator, setShowSimulator] = useState(false);
+function AdminProtectedShell() {
   const [adminReady, setAdminReady] = useState(false);
   const authPromptRef = useRef(false);
 
   useEffect(() => {
-    const syncPathname = () => {
-      setPathname(normalizePathname(window.location.pathname));
-    };
-
-    window.addEventListener("popstate", syncPathname);
-    return () => window.removeEventListener("popstate", syncPathname);
-  }, []);
-
-  useEffect(() => {
-    if (!isAdminPath(pathname)) {
-      authPromptRef.current = false;
-      setAdminReady(false);
-      return;
-    }
-
     if (sessionStorage.getItem(ADMIN_SESSION_KEY) === "1") {
       setAdminReady(true);
       return;
@@ -1972,21 +1953,38 @@ export default function App() {
     }
 
     window.history.replaceState(null, "", "/");
-    setPathname("/");
-    setAdminReady(false);
+    window.dispatchEvent(new PopStateEvent("popstate"));
     authPromptRef.current = false;
-  }, [pathname]);
+  }, []);
+
+  if (!adminReady) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-600">
+        Vérification de l&apos;accès…
+      </div>
+    );
+  }
+
+  return <AdminRoutes />;
+}
+
+export default function App() {
+  const [pathname, setPathname] = useState(() =>
+    normalizePathname(window.location.pathname),
+  );
+  const [showSimulator, setShowSimulator] = useState(false);
+
+  useEffect(() => {
+    const syncPathname = () => {
+      setPathname(normalizePathname(window.location.pathname));
+    };
+
+    window.addEventListener("popstate", syncPathname);
+    return () => window.removeEventListener("popstate", syncPathname);
+  }, []);
 
   if (isAdminPath(pathname)) {
-    if (!adminReady) {
-      return (
-        <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-600">
-          Vérification de l&apos;accès…
-        </div>
-      );
-    }
-
-    return <AdminRoutes />;
+    return <AdminProtectedShell />;
   }
 
   if (showSimulator) {
