@@ -174,7 +174,7 @@ def build_plaquette():
     for item in items:
         story.append(Paragraph(item, ParagraphStyle('CoverItem', fontSize=12, textColor=BLANC, alignment=TA_CENTER, spaceAfter=4)))
     story.append(Spacer(1, 60 * mm))
-    story.append(Paragraph("www.energia-conseil.com", ParagraphStyle('CoverWeb', fontSize=12, textColor=BLANC, alignment=TA_CENTER)))
+    story.append(Paragraph("www.energia-conseil-ia.com", ParagraphStyle('CoverWeb', fontSize=12, textColor=BLANC, alignment=TA_CENTER)))
     story.append(Paragraph("06 10 59 68 98", ParagraphStyle('CoverTel', fontSize=12, textColor=BLANC, alignment=TA_CENTER)))
 
     story.append(PageBreak())
@@ -316,7 +316,7 @@ def build_plaquette():
         ["✓ Certifications officielles", "✓ Photovoltaïque tous secteurs"],
         ["FEEBAT, QUALIPV, Auditeur Énergétique. Conformité garantie.", "Résidentiel, Tertiaire, Industriel. Dimensionnement optimisé."],
         ["✓ Technologie IA", "✓ Rapidité"],
-        ["Audits IA, Calculateur aides gratuit. www.energia-conseil.com", "Audit 5-7 jours, Étude PV 48h, Devis 48h."],
+        ["Audits IA, Calculateur aides gratuit. www.energia-conseil-ia.com", "Audit 5-7 jours, Étude PV 48h, Devis 48h."],
         ["✓ Expertise aides 2026", "✓ Réseau partenaires RGE"],
         ["MaPrimeRénov' + CEE + Région. Cumul jusqu'à 90%.", "ECOM, HB FACADIER, ECO SYSTÈME DURABLE, C2L, QUALIPV."],
         ["✓ Transparence", "✓ Accompagnement complet"],
@@ -413,8 +413,8 @@ def build_plaquette():
     story.append(Paragraph("16 Rue Cuvier, 69006 Lyon", ParagraphStyle('ContactAddr', fontSize=12, textColor=BLANC, alignment=TA_CENTER)))
     story.append(Spacer(1, 12))
     story.append(Paragraph("📞 06 10 59 68 98", ParagraphStyle('ContactTel', fontSize=14, textColor=BLANC, fontName='Helvetica-Bold', alignment=TA_CENTER)))
-    story.append(Paragraph("📧 contact@energia-conseil.com", ParagraphStyle('ContactMail', fontSize=12, textColor=BLANC, alignment=TA_CENTER)))
-    story.append(Paragraph("🌐 www.energia-conseil.com", ParagraphStyle('ContactWeb', fontSize=12, textColor=BLANC, alignment=TA_CENTER)))
+    story.append(Paragraph("📧 contact@energia-conseil-ia.com", ParagraphStyle('ContactMail', fontSize=12, textColor=BLANC, alignment=TA_CENTER)))
+    story.append(Paragraph("🌐 www.energia-conseil-ia.com", ParagraphStyle('ContactWeb', fontSize=12, textColor=BLANC, alignment=TA_CENTER)))
     story.append(Spacer(1, 20))
 
     zones_text = """

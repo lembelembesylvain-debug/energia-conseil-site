@@ -427,7 +427,7 @@ Simplifier et démocratiser la rénovation énergétique et le photovoltaïque g
 
 - **Lundi–Mardi :** Tests complets (parcours rénovation A→Z, parcours PV, paiements Stripe test, PDF, emails) • Corrections bugs
 - **Mercredi :** Optimisations (Lighthouse > 90, SEO, images, sécurité)
-- **Jeudi :** Déploiement Vercel (GitHub, variables prod, domaine energia-conseil.com/.fr, HTTPS, CDN)
+- **Jeudi :** Déploiement Vercel (GitHub, variables prod, domaine energia-conseil-ia.com/.fr, HTTPS, CDN)
 - **Vendredi :** Tests production • Corrections finales • Documentation (README, guide utilisateur)
 - **Samedi 19/04 :** Préparation lancement (LinkedIn, email base, Google Ads optionnel)
 - **Dimanche 20/04 :** 🎉 **LANCEMENT PUBLIC** 🚀 • **PLATEFORME EN LIGNE** • **PREMIERS CLIENTS SAAS**

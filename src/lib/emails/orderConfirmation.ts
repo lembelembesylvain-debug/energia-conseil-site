@@ -91,7 +91,7 @@ export function buildOrderConfirmationHtml(params: {
               <p style="margin:0;font-size:13px;line-height:1.6;color:#64748b;text-align:center;">
                 L&apos;équipe ENERGIA-CONSEIL IA<br/>
                 16 Rue Cuvier, 69006 Lyon<br/>
-                <a href="https://www.energia-conseil.com" style="color:${brand};">www.energia-conseil.com</a>
+                <a href="https://www.energia-conseil-ia.com" style="color:${brand};">www.energia-conseil-ia.com</a>
               </p>
             </td>
           </tr>

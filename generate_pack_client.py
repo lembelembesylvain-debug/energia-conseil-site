@@ -64,7 +64,7 @@ ENTREPRISE = {
     "nom": "ENERGIA-CONSEIL IA®",
     "adresse": "16 Rue Cuvier, 69006 Lyon",
     "telephone": "06 10 59 68 98",
-    "email": "contact@energia-conseil.com",
+    "email": "contact@energia-conseil-ia.com",
     "siret": "94181942700019",
 }
 
@@ -686,7 +686,7 @@ def create_devis_pdf(client, output_path):
 
     # MENTIONS + BON POUR ACCORD
     story.append(Paragraph("MENTIONS LÉGALES", styles["Section"]))
-    story.append(Paragraph("Paiement : 30% / 40% / 30%. RGPD : contact@energia-conseil.com. Médiation : MEDICYS.", styles["Normal"]))
+    story.append(Paragraph("Paiement : 30% / 40% / 30%. RGPD : contact@energia-conseil-ia.com. Médiation : MEDICYS.", styles["Normal"]))
     story.append(Spacer(1, 0.5*cm))
     story.append(Paragraph("BON POUR ACCORD", styles["Section"]))
     story.append(Paragraph(f"Je soussigné(e) {client.get('nom_complet','')} accepte ce devis pour {format_euro(total_ttc)} TTC.", styles["Normal"]))

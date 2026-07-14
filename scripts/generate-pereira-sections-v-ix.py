@@ -1,0 +1,509 @@
+#!/usr/bin/env python3
+"""Generate and splice sections V-IX (pages 36-60) into audit PEREIRA HTML."""
+
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+AUDIT = ROOT / "audit-energetique-pereira-nervieux-2026.html"
+FOOTER = "ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page {n}/60"
+REF = "Réf. AUDIT-2026-PEREIRA | Page {n}/60"
+AIDS = """  <div class="box box-info" style="font-size:10px;margin:8px 0;">
+    <strong>Aides financières 2026 (estimation à titre indicatif).</strong> Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.
+  </div>"""
+
+
+def hdr(page: int, sub: str) -> str:
+    return f"""  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">{sub}</div>
+    </div>
+    <div class="company-info">{REF.format(n=page)}</div>
+  </header>"""
+
+
+def pg(page: int, sub: str, body: str, compact: bool = True) -> str:
+    c = "page page-compact" if compact else "page"
+    return f"""<!-- PAGE {page} -->
+<div class="{c}">
+{hdr(page, sub)}
+{body}
+  <footer>{FOOTER.format(n=page)}</footer>
+</div>
+"""
+
+
+P = []
+
+P.append(pg(36, "AUDIT ÉNERGÉTIQUE — SECTION V — SCÉNARIOS", f"""  <h1>V. Les 3 Scénarios de Rénovation</h1>
+  <p style="font-size:12px;color:var(--text-muted);">Trois niveaux d'ambition — Maison pisé <strong>M. PEREIRA</strong>, 164 m², Nervieux (42510). Analyse AMO <strong>Mickaël</strong>. Ordre optimal des travaux respecté.</p>
+  <div class="grid-scenarios">
+    <div class="scenario-card">
+      <div class="scenario-badge" style="background:#fef3c7;color:#92400e;">SCÉNARIO 1 — CONFORT</div>
+      <div class="scenario-dpe" style="color:#92400e;">F → D</div>
+      <ul style="font-size:10px;padding-left:14px;margin:8px 0;color:var(--text-muted);"><li>Combles 40 cm</li><li>10 fenêtres PVC</li><li>VMC Hygro B</li><li>Fioul conservé</li></ul>
+      <div style="border-top:1px solid var(--border);padding-top:10px;"><div style="font-size:10px;color:var(--text-muted);">Budget TTC</div><div class="scenario-price">42 000 €</div><div style="font-size:10px;margin-top:4px;">Facture résiduelle <strong style="color:#92400e;">5 200 €/an</strong></div></div>
+    </div>
+    <div class="scenario-card">
+      <div class="scenario-badge" style="background:#e0f2fe;color:#0369a1;">SCÉNARIO 2 — PERFORMANCE</div>
+      <div class="scenario-dpe" style="color:#0369a1;">F → C</div>
+      <ul style="font-size:10px;padding-left:14px;margin:8px 0;color:var(--text-muted);"><li>Combles + plancher</li><li>ITI pisé partielle</li><li>21 fenêtres + PAC</li><li>VMC Hygro B</li></ul>
+      <div style="border-top:1px solid var(--border);padding-top:10px;"><div style="font-size:10px;color:var(--text-muted);">Budget TTC</div><div class="scenario-price">85 000 €</div><div style="font-size:10px;margin-top:4px;">Facture résiduelle <strong style="color:#0369a1;">3 100 €/an</strong></div></div>
+    </div>
+    <div class="scenario-card recommended">
+      <div class="scenario-rec-tag">⭐ RECOMMANDÉ AMO</div>
+      <div class="scenario-badge" style="background:#dcfce7;color:#166534;">SCÉNARIO 3 — EXCELLENCE</div>
+      <div class="scenario-dpe" style="color:var(--primary);">F → A</div>
+      <ul style="font-size:10px;padding-left:14px;margin:8px 0;color:var(--text-muted);"><li>ITI pisé 260 m²</li><li>Enveloppe complète</li><li>PAC 12 kW + ballon</li><li>Option DualSun</li></ul>
+      <div style="border-top:1px solid #bbf7d0;padding-top:10px;"><div style="font-size:10px;color:var(--text-muted);">Budget TTC</div><div class="scenario-price">125 000 €</div><div style="font-size:10px;margin-top:4px;">Facture <strong style="color:var(--primary);">2 080 €/an</strong> · DualSun <strong>208 €/an</strong></div></div>
+    </div>
+  </div>
+{AIDS}
+  <h2>Principes communs</h2>
+  <table><tr><th>Règle</th><th>Application</th></tr>
+  <tr><td>Ordre optimal</td><td>Combles → ITI murs → planchers → menuiseries → VMC → PAC → ballon → PV</td></tr>
+  <tr><td>Pisé</td><td>ITI respirante — laine de bois — sans pare-vapeur</td></tr>
+  <tr><td>Profil</td><td><strong>BLEU</strong> validé — MAR Léo-Energy obligatoire</td></tr></table>
+  <div class="mickael-box" style="font-size:10px;"><strong class="text-blue">Note Mickaël :</strong> Pages 37 à 45 détaillent chaque scénario. Seul le Scénario 3 atteint F → A et supprime le fioul durablement.</div>
+""", False))
+
+P.append(pg(37, "SECTION V — SCÉNARIO 1 CONFORT", """  <h1>Scénario 1 — Confort (F → D) — 42 000 € TTC</h1>
+  <h2>Travaux lot par lot</h2>
+  <table><tr><th>N°</th><th>Lot</th><th>Spécifications</th><th class="right">TTC</th></tr>
+  <tr><td>1</td><td>Combles</td><td>Laine roche soufflée 40 cm R≥7 — 164 m²</td><td class="right">4 264 €</td></tr>
+  <tr><td>2</td><td>Menuiseries</td><td>10 fenêtres PVC Uw≤1,3 — Bonheur d'Amarante RGE</td><td class="right">18 000 €</td></tr>
+  <tr><td>3</td><td>VMC Hygro B</td><td>Centrale + bouches — Rhône Génie Clim.</td><td class="right">2 800 €</td></tr>
+  <tr><td>4</td><td>Étanchéité</td><td>Calfeutrage, joints, ponts — forfait</td><td class="right">1 936 €</td></tr>
+  <tr><td>5</td><td>MAR</td><td>Léo-Energy — Parcours ANAH</td><td class="right">2 500 €</td></tr>
+  <tr><td>6</td><td>AMO ENERGIA</td><td>Coordination 6 semaines</td><td class="right">12 500 €</td></tr>
+  <tr class="total-row"><td colspan="3">TOTAL</td><td class="right">42 000 €</td></tr></table>
+  <h2>Postes non réalisés</h2>
+  <ul style="font-size:10px;"><li>Murs pisé non isolés (40 % déperditions)</li><li>Plancher non traité</li><li>Chaudière fioul 1992 conservée</li><li>11 menuiseries bois simple vitrage</li></ul>
+  <div class="box box-warn" style="font-size:10px;"><strong>⚠️ Avertissement :</strong> Chaudière fioul conservée — <strong>risque de panne</strong> (34 ans, rendement ~65 %). Sortie fioul recommandée sous 24 mois.</div>
+"""))
+
+P.append(pg(38, "SECTION V — SCÉNARIO 1 — GAINS THERMIQUES", """  <h2>Gains thermiques — Scénario 1</h2>
+  <table><tr><th>Poste</th><th>Avant</th><th>Après</th><th>Gain</th><th>DPE</th></tr>
+  <tr><td>Combles (28 %)</td><td>R≈1,2</td><td>R=7</td><td>-83 %</td><td>+1</td></tr>
+  <tr><td>10 fenêtres</td><td>Uw≈5,0</td><td>Uw≤1,3</td><td>-74 %</td><td>+0,5</td></tr>
+  <tr><td>VMC</td><td>Naturelle</td><td>Hygro B</td><td>+15 % qualité air</td><td>Confort</td></tr>
+  <tr><td>Murs pisé</td><td>U=1,45</td><td>Inchangé</td><td>0 %</td><td>Frein</td></tr>
+  <tr class="total-row"><td>Facture énergie</td><td>9 097 €/an</td><td><strong>5 200 €/an</strong></td><td>-43 %</td><td><strong>F→D</strong></td></tr></table>
+  <div class="grid-finance-kpi">
+    <div class="finance-kpi" style="background:#fef3c7;"><div style="font-size:9px;color:var(--text-muted);">DPE</div><div class="finance-kpi-val" style="color:#92400e;font-size:20px;">F → D</div></div>
+    <div class="finance-kpi" style="background:#f0fdf4;"><div style="font-size:9px;color:var(--text-muted);">ÉCONOMIES/AN</div><div class="finance-kpi-val" style="color:var(--primary);font-size:20px;">3 897 €</div></div>
+    <div class="finance-kpi" style="background:#fff1f2;"><div style="font-size:9px;color:var(--text-muted);">FACTURE</div><div class="finance-kpi-val" style="color:var(--red);font-size:20px;">5 200 €</div></div>
+  </div>
+  <table><tr><th>Financier</th><th class="right">Montant</th></tr>
+  <tr><td>Travaux TTC</td><td class="right">42 000 €</td></tr><tr><td>Aides estimées</td><td class="right">- 21 200 €</td></tr>
+  <tr class="total-row"><td>Reste à charge</td><td class="right">20 800 €</td></tr></table>
+""" + AIDS))
+
+P.append(pg(39, "SECTION V — SCÉNARIO 2 PERFORMANCE", """  <h1>Scénario 2 — Performance (F → C) — 85 000 € TTC</h1>
+  <h2>Travaux lot par lot</h2>
+  <table><tr><th>N°</th><th>Lot</th><th>Spécifications</th><th class="right">TTC</th></tr>
+  <tr><td>1</td><td>Combles</td><td>Roche 40 cm R≥7 — 164 m²</td><td class="right">4 264 €</td></tr>
+  <tr><td>2</td><td>Plancher</td><td>PSE 10 cm R≥3 — 164 m²</td><td class="right">3 500 €</td></tr>
+  <tr><td>3</td><td>ITI pisé partielle</td><td>Laine bois 14 cm — <strong>130 m²</strong> Nord+Ouest — R≥3,7</td><td class="right">16 000 €</td></tr>
+  <tr><td>4</td><td>Menuiseries</td><td>21 ouvrants PVC Uw≤1,3 + porte</td><td class="right">39 300 €</td></tr>
+  <tr><td>5</td><td>PAC Air/Air</td><td>8 kW — 3 splits — post-isolation</td><td class="right">9 500 €</td></tr>
+  <tr><td>6</td><td>VMC Hygro B</td><td>Post-isolation</td><td class="right">2 800 €</td></tr>
+  <tr><td>7</td><td>MAR + AMO</td><td>10 semaines</td><td class="right">9 636 €</td></tr>
+  <tr class="total-row"><td colspan="3">TOTAL</td><td class="right">85 000 €</td></tr></table>
+  <div class="pise-focus" style="font-size:10px;"><strong>🏠 Note pisé — ITI respirante partielle :</strong> Façades Nord et Ouest traitées (130/260 m²). Sud et Est nus pour inertie. Pas de pare-vapeur. Compromis budget / performance — classe C atteignable, pas A.</div>
+"""))
+
+P.append(pg(40, "SECTION V — SCÉNARIO 2 — GAINS THERMIQUES", """  <h2>Gains thermiques — Scénario 2</h2>
+  <table><tr><th>Poste</th><th>Avant</th><th>Après</th><th>Gain</th><th>DPE</th></tr>
+  <tr><td>Combles</td><td>R≈1,2</td><td>R=7</td><td>-83 %</td><td>+1</td></tr>
+  <tr><td>Plancher</td><td>Non isolé</td><td>R=3</td><td>-70 %</td><td>+0,3</td></tr>
+  <tr><td>Murs (50 % surf.)</td><td>U=1,45</td><td>U≈0,35 zones</td><td>-50 % global</td><td>+1</td></tr>
+  <tr><td>21 menuiseries</td><td>Uw≈5,0</td><td>Uw≤1,3</td><td>-74 %</td><td>+0,5</td></tr>
+  <tr><td>Chauffage</td><td>Fioul</td><td>PAC COP≥3,5</td><td>-55 %</td><td>+0,5</td></tr>
+  <tr class="total-row"><td>Facture</td><td>9 097 €/an</td><td><strong>3 100 €/an</strong></td><td>-66 %</td><td><strong>F→C</strong></td></tr></table>
+  <div class="grid-finance-kpi">
+    <div class="finance-kpi" style="background:#e0f2fe;"><div style="font-size:9px;">DPE</div><div class="finance-kpi-val" style="color:#0369a1;font-size:20px;">F → C</div></div>
+    <div class="finance-kpi" style="background:#f0fdf4;"><div style="font-size:9px;">ÉCONOMIES/AN</div><div class="finance-kpi-val" style="color:var(--primary);font-size:20px;">5 997 €</div></div>
+    <div class="finance-kpi" style="background:#f8fafc;"><div style="font-size:9px;">FACTURE</div><div class="finance-kpi-val" style="color:#0369a1;font-size:20px;">3 100 €</div></div>
+  </div>
+  <p style="font-size:10px;"><strong>Limites :</strong> ITI partielle — ECS électrique maintenue — pas d'objectif BBC.</p>
+  <table><tr><th>Financier</th><th class="right">Montant</th></tr>
+  <tr><td>Travaux TTC</td><td class="right">85 000 €</td></tr><tr><td>Aides MPR+CEE</td><td class="right">- 32 000 €</td></tr>
+  <tr class="total-row"><td>Reste à charge</td><td class="right">53 000 €</td></tr></table>
+""" + AIDS))
+
+P.append(pg(41, "SECTION V — SCÉNARIO 3 EXCELLENCE — LOTS 1-2", """  <h1>Scénario 3 — Excellence (F → A) — 125 000 € TTC</h1>
+  <p style="font-size:10px;color:var(--text-muted);">Rénovation globale — ordre optimal strict — objectif BBC classe A.</p>
+  <h2>LOT 1 — Menuiseries RGE (SARL Bonheur d'Amarante)</h2>
+  <table><tr><th>Désignation</th><th class="center">Qté</th><th class="right">PU TTC</th><th class="right">Total</th></tr>
+  <tr><td>Fenêtre PVC DV renforcé Uw≤1,3</td><td class="center">18</td><td class="right">1 800 €</td><td class="right">32 400 €</td></tr>
+  <tr><td>Porte-fenêtre PVC DV</td><td class="center">2</td><td class="right">2 400 €</td><td class="right">4 800 €</td></tr>
+  <tr><td>Porte entrée Ud≤1,7</td><td class="center">1</td><td class="right">2 100 €</td><td class="right">2 100 €</td></tr>
+  <tr><td>Dépose anciennes menuiseries</td><td class="center">Forfait</td><td class="right">—</td><td class="right">2 000 €</td></tr>
+  <tr class="total-row"><td colspan="3">TOTAL LOT 1</td><td class="right">41 300 €</td></tr></table>
+  <h2>LOT 2 — Isolation (Région Isolation RGE)</h2>
+  <div class="box box-warn" style="font-size:9px;padding:8px;">⚠️ ITI respirante pisé — laine de bois — <strong>pare-vapeur interdit</strong></div>
+  <table><tr><th>Désignation</th><th class="center">Surf.</th><th class="right">€/m²</th><th class="right">Total</th></tr>
+  <tr><td>ITI pisé laine bois 14 cm R≥3,7</td><td class="center">260 m²</td><td class="right">123 €</td><td class="right">32 000 €</td></tr>
+  <tr><td>Combles perdus roche 40 cm</td><td class="center">164 m²</td><td class="right">26 €</td><td class="right">4 200 €</td></tr>
+  <tr><td>Plancher bas PSE 10 cm</td><td class="center">164 m²</td><td class="right">21 €</td><td class="right">3 500 €</td></tr>
+  <tr class="total-row"><td colspan="3">TOTAL LOT 2</td><td class="right">39 700 €</td></tr></table>
+"""))
+
+P.append(pg(42, "SECTION V — SCÉNARIO 3 — LOTS 3-4 + RÉCAP", """  <h2>LOT 3 — Chauffage &amp; VMC (Rhône Génie Climatique)</h2>
+  <table><tr><th>Désignation</th><th class="center">Qté</th><th class="right">PU TTC</th><th class="right">Total</th></tr>
+  <tr><td>PAC Air/Air 12 kW ext.</td><td class="center">1</td><td class="right">3 500 €</td><td class="right">3 500 €</td></tr>
+  <tr><td>Splits 2,5 kW</td><td class="center">5</td><td class="right">1 200 €</td><td class="right">6 000 €</td></tr>
+  <tr><td>Ballon thermo 200 L COP≥2,5</td><td class="center">1</td><td class="right">3 500 €</td><td class="right">3 500 €</td></tr>
+  <tr><td>VMC Hygro B</td><td class="center">1</td><td class="right">2 800 €</td><td class="right">2 800 €</td></tr>
+  <tr><td>Mise en service + formation</td><td class="center">Forfait</td><td class="right">—</td><td class="right">4 500 €</td></tr>
+  <tr class="total-row"><td colspan="3">TOTAL LOT 3</td><td class="right">20 300 €</td></tr></table>
+  <h2>LOT 4 — Ingénierie &amp; Coordination (ENERGIA)</h2>
+  <table><tr><th>Désignation</th><th class="right">TTC</th><th>Note</th></tr>
+  <tr><td>MAR Léo-Energy</td><td class="right">2 500 €</td><td style="font-size:9px;">Remboursé ANAH Bleu</td></tr>
+  <tr><td>Ingénierie financière Clyve</td><td class="right">1 000 €</td><td style="font-size:9px;">Montage aides</td></tr>
+  <tr><td>Coordination AMO 12 sem.</td><td class="right">20 200 €</td><td style="font-size:9px;">Décennale MIC incluse</td></tr>
+  <tr class="total-row"><td>TOTAL LOT 4</td><td class="right">23 700 €</td><td></td></tr></table>
+  <div class="recap-box"><h3 style="margin:0 0 8px;color:var(--primary);">Récapitulatif Scénario 3</h3>
+  <table style="margin:0;"><tr><td>Lot 1 Menuiseries</td><td class="right">41 300 €</td></tr>
+  <tr><td>Lot 2 Isolation</td><td class="right">39 700 €</td></tr>
+  <tr><td>Lot 3 Chauffage/VMC</td><td class="right">20 300 €</td></tr>
+  <tr><td>Lot 4 Ingénierie</td><td class="right">23 700 €</td></tr>
+  <tr class="total-row"><td><strong>TOTAL TTC</strong></td><td class="right"><strong>125 000 €</strong></td></tr></table></div>
+"""))
+
+P.append(pg(43, "SECTION V — SCÉNARIO 3 — GAINS + DUALSUN", """  <h2>Gains thermiques — Scénario 3</h2>
+  <table><tr><th>Poste</th><th>Avant</th><th>Après</th><th>Gain</th></tr>
+  <tr><td>Combles</td><td>R≈1,2</td><td>R=7</td><td>-83 %</td></tr>
+  <tr><td>Murs pisé 260 m²</td><td>U=1,45</td><td>U≈0,28</td><td>-81 %</td></tr>
+  <tr><td>Plancher</td><td>Non isolé</td><td>R=3</td><td>-70 %</td></tr>
+  <tr><td>Menuiseries 21</td><td>Uw≈5,0</td><td>Uw≤1,3</td><td>-74 %</td></tr>
+  <tr><td>Chauffage + ECS</td><td>Fioul + cumulus</td><td>PAC + ballon thermo</td><td>-72 %</td></tr>
+  <tr class="total-row"><td>Facture énergie</td><td>9 097 €/an</td><td><strong>2 080 €/an</strong></td><td><strong>-77 %</strong></td></tr></table>
+  <h2>Option cerise — DualSun 6 kWc + Enphase + batterie LFP</h2>
+  <div class="grid-solar" style="margin:10px 0;">
+    <div class="solar-card"><div class="solar-card-title">DualSun 6 kWc</div><div class="solar-card-muted">11 213 kWh/an prod.</div></div>
+    <div class="solar-card"><div class="solar-card-title">Enphase</div><div class="solar-card-muted">Micro-onduleurs</div></div>
+    <div class="solar-card"><div class="solar-card-title">Batterie 7 kWh</div><div class="solar-card-muted">Autoconso 100 %</div></div>
+  </div>
+  <div class="banner-residual" style="padding:12px;margin:10px 0;">
+    <div style="font-size:11px;color:#94a3b8;">FACTURE RÉSIDUELLE AVEC DUALSUN</div>
+    <div style="font-size:32px;font-weight:800;color:#10b981;">208 € / an</div>
+    <div style="font-size:10px;color:#94a3b8;">vs 2 080 € sans solaire — réduction 90 % supplémentaire</div>
+  </div>
+  <p style="font-size:10px;">Investissement PV optionnel : 18 000 € TTC — ROI ~8 ans — poste 8 en dernier (après isolation).</p>
+"""))
+
+P.append(pg(44, "SECTION V — RECOMMANDATION AMO MICKAËL", """  <h1>Recommandation AMO — Mickaël</h1>
+  <div class="recap-box" style="background:#fff;border:2px solid var(--primary);">
+    <p style="font-size:13px;margin:0 0 10px;"><strong>⭐ Scénario 3 — Excellence (F → A) — 125 000 € TTC</strong> est la trajectoire recommandée pour M. PEREIRA.</p>
+    <ul style="font-size:11px;margin:0;padding-left:18px;">
+      <li><strong>Seul scénario</strong> supprimant le fioul et atteignant la classe A (BBC)</li>
+      <li><strong>ITI pisé intégrale</strong> 260 m² — conforme hygroscopie terre — zéro pare-vapeur</li>
+      <li><strong>Dimensionnement PAC 12 kW</strong> post-isolation — pas de surcoût 4 000–6 000 €</li>
+      <li><strong>Aides maximales</strong> profil Bleu : 40 000 € (MPR 32 000 + CEE 8 000)</li>
+      <li><strong>Option DualSun</strong> : facture résiduelle 208 €/an — quasi autonomie énergétique</li>
+      <li><strong>Valorisation patrimoniale</strong> estimée +20 % — sortie passoire réglementaire</li>
+    </ul>
+  </div>
+  <h2>Pourquoi écarter S1 et S2 ?</h2>
+  <table><tr><th>Scénario</th><th>Verdict AMO</th></tr>
+  <tr><td>S1 Confort</td><td>Palliatif — fioul conservé — risque panne — pas de traitement murs pisé (40 % déperditions)</td></tr>
+  <tr><td>S2 Performance</td><td>Compromis — ITI partielle insuffisante pour A — ECS électrique coûteuse — surcoût si reprise ultérieure</td></tr>
+  <tr class="total-row"><td>S3 Excellence</td><td><strong>Optimal</strong> — une seule intervention — garantie DPE — financement 100 % possible</td></tr></table>
+  <div class="mickael-box"><strong class="text-blue">Mickaël — Expert AMO ENERGIA-CONSEIL IA® :</strong> « Pour un pisé de 164 m² en zone H1, la rénovation globale est le seul investissement rationnel. Reporter l'ITI complète coûte 15 000 à 25 000 € de plus en reprise de chantier. » Validé 13/07/2026.</div>
+""", False))
+
+P.append(pg(45, "SECTION V — TABLEAU COMPARATIF FINAL", """  <h2>Tableau comparatif final — 3 Scénarios</h2>
+  <table>
+    <thead><tr><th>Critère</th><th class="center">S1 Confort</th><th class="center">S2 Performance</th><th class="center" style="background:var(--primary);color:#fff;">S3 Excellence ⭐</th></tr></thead>
+    <tbody>
+      <tr><td>Classe DPE</td><td class="center">F → D</td><td class="center">F → C</td><td class="center" style="font-weight:800;color:var(--primary);">F → A</td></tr>
+      <tr><td>Budget TTC</td><td class="center">42 000 €</td><td class="center">85 000 €</td><td class="center" style="font-weight:800;">125 000 €</td></tr>
+      <tr><td>Facture résiduelle</td><td class="center">5 200 €/an</td><td class="center">3 100 €/an</td><td class="center" style="font-weight:800;color:var(--primary);">2 080 €/an (208 € DualSun)</td></tr>
+      <tr><td>Économies/an</td><td class="center">3 897 €</td><td class="center">5 997 €</td><td class="center" style="font-weight:800;color:var(--primary);">7 017 €</td></tr>
+      <tr><td>ITI pisé</td><td class="center">❌</td><td class="center">Partielle 130 m²</td><td class="center" style="color:var(--primary);">✅ Complète 260 m²</td></tr>
+      <tr><td>Sortie fioul</td><td class="center">❌</td><td class="center">✅ PAC</td><td class="center" style="color:var(--primary);">✅ PAC + ballon</td></tr>
+      <tr><td>Aides Bleu</td><td class="center">~21 200 €</td><td class="center">~32 000 €</td><td class="center" style="font-weight:800;color:var(--primary);">40 000 €</td></tr>
+      <tr><td>Reste à charge</td><td class="center">20 800 €</td><td class="center">53 000 €</td><td class="center" style="font-weight:800;">35 000 €*</td></tr>
+      <tr><td>Valorisation</td><td class="center">+8 %</td><td class="center">+14 %</td><td class="center" style="font-weight:800;color:var(--primary);">+20 %</td></tr>
+      <tr><td>ROI indicatif</td><td class="center">5,3 ans</td><td class="center">8,8 ans</td><td class="center" style="font-weight:800;color:var(--primary);">11 ans</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:9px;color:var(--text-muted);">* Scénario 3 : après MPR+CEE (40 000 €) et Éco-PTZ (50 000 €) — complément FABIEN 35 000 €.</p>
+""" + AIDS))
+
+# SECTION VI - Pages 46-52
+P.append(pg(46, "SECTION VI — AIDES FINANCIÈRES 2026", """  <h1>VI. Aides Financières 2026</h1>
+  <p style="font-size:11px;color:var(--text-muted);">Barèmes officiels ANAH — <strong>Juillet 2026</strong>. Profil validé : <strong style="color:var(--primary);">BLEU</strong> (Très modestes, Hors IDF, 1 personne, RFR &lt; 17 363 €).</p>
+""" + AIDS + """
+  <div class="grid-profiles">
+    <div class="profile-card active"><div class="profile-tag">VOTRE PROFIL</div><div style="font-size:15px;font-weight:800;color:#1e40af;">BLEU</div><div class="profile-rate" style="color:#1e40af;">80 %</div><div style="font-size:9px;color:var(--text-muted);">≤ 17 363 €/an</div><div class="profile-split"><div><span>MPR max</span><strong>32 000 €</strong></div><div><span>CEE</span><strong>8 000 €</strong></div><div style="font-weight:800;color:var(--primary);"><span>Total</span><strong>40 000 €</strong></div></div></div>
+    <div class="profile-card" style="background:#fef3c7;border:1px solid #fde68a;"><div style="font-size:15px;font-weight:800;color:#b45309;">JAUNE</div><div class="profile-rate" style="color:#b45309;">60 %</div><div style="font-size:9px;">≤ 22 259 €</div><div class="profile-split"><div><span>MPR</span><strong>24 000 €</strong></div><div><span>CEE</span><strong>8 000 €</strong></div><div><span>Total</span><strong>32 000 €</strong></div></div></div>
+    <div class="profile-card" style="background:#f5f3ff;border:1px solid #ddd6fe;"><div style="font-size:15px;font-weight:800;color:#6d28d9;">VIOLET</div><div class="profile-rate" style="color:#6d28d9;">45 %</div><div style="font-size:9px;">≤ 31 185 €</div><div class="profile-split"><div><span>MPR</span><strong>18 000 €</strong></div><div><span>CEE</span><strong>6 500 €</strong></div><div><span>Total</span><strong>24 500 €</strong></div></div></div>
+    <div class="profile-card" style="background:#fdf2f8;border:1px solid #fbcfe8;"><div style="font-size:15px;font-weight:800;color:#be185d;">ROSE</div><div class="profile-rate" style="color:#be185d;">10 %</div><div style="font-size:9px;">&gt; Violet</div><div class="profile-split"><div><span>MPR</span><strong>4 000 €</strong></div><div><span>CEE</span><strong>4 000 €</strong></div><div><span>Total</span><strong>8 000 €</strong></div></div></div>
+  </div>
+  <h2>Seuils revenus 2026 — Hors Île-de-France</h2>
+  <table><tr><th>Profil</th><th>1 pers.</th><th>2 pers.</th><th>3 pers.</th><th>Taux MPR</th></tr>
+  <tr style="background:#eff6ff;"><td><strong>Bleu</strong></td><td>&lt; 17 363 €</td><td>&lt; 25 393 €</td><td>&lt; 30 540 €</td><td>80 %</td></tr>
+  <tr><td>Jaune</td><td>&lt; 22 259 €</td><td>&lt; 32 553 €</td><td>&lt; 39 148 €</td><td>60 %</td></tr>
+  <tr><td>Violet</td><td>&lt; 31 185 €</td><td>&lt; 45 842 €</td><td>&lt; 55 196 €</td><td>45 %</td></tr>
+  <tr><td>Rose</td><td>&gt; Violet</td><td>—</td><td>—</td><td>10 %</td></tr></table>
+""", False))
+
+P.append(pg(47, "SECTION VI — RÈGLES MAPRIMERENOV' 2026", """  <h2>Règles MaPrimeRénov' 2026 — Parcours Accompagné</h2>
+  <table><tr><th>Règle</th><th>Détail</th><th class="center">PEREIRA</th></tr>
+  <tr><td><strong>Plafond travaux HT</strong></td><td>40 000 € HT (gain 3+ classes DPE)</td><td class="center" style="color:var(--primary);font-weight:700;">✅</td></tr>
+  <tr><td><strong>Bonus supprimés</strong></td><td>Sortie passoire (+1 500 €) et BBC (+1 500 €) — <em>supprimés 2026</em></td><td class="center" style="color:var(--red);">⚠️ N/A</td></tr>
+  <tr><td><strong>MAR obligatoire</strong></td><td>Mon Accompagnateur Rénov' certifié France Rénov'</td><td class="center" style="color:var(--primary);">✅ Léo-Energy</td></tr>
+  <tr><td><strong>ITI/ITE</strong></td><td>Uniquement en Parcours Accompagné depuis 2026</td><td class="center" style="color:var(--primary);">✅ ITI pisé</td></tr>
+  <tr><td><strong>Écrêtement TTC</strong></td><td>Bleu : aides ≤ 100 % travaux TTC</td><td class="center" style="color:var(--primary);">✅ 32 %</td></tr>
+  <tr><td><strong>Travaux avant ANAH</strong></td><td>Interdiction démarrage avant accord écrit</td><td class="center" style="color:var(--red);font-weight:700;">🚨 CRITIQUE</td></tr>
+  <tr><td><strong>Éco-PTZ cumulable</strong></td><td>Jusqu'à 50 000 € — 20 ans — 0 %</td><td class="center" style="color:var(--primary);">✅</td></tr></table>
+  <div class="danger-box" style="font-size:10px;"><strong>🚨 RÈGLE ABSOLUE :</strong> NE JAMAIS SIGNER LES DEVIS DÉFINITIFS AVANT L'ACCORD ÉCRIT DE L'ANAH — sinon perte définitive et irrémédiable du MaPrimeRénov'.</div>
+  <h2>Plafonds et prise en charge MAR</h2>
+  <table><tr><th>Élément</th><th>Montant</th><th>Prise en charge Bleu</th></tr>
+  <tr><td>Coût MAR Léo-Energy</td><td>2 500 € TTC</td><td>100 % remboursé ANAH</td></tr>
+  <tr><td>Plafond MAR</td><td>2 000 € max remboursé</td><td>2 000 € effectif</td></tr>
+  <tr><td>Ingénierie Clyve</td><td>1 000 €</td><td>Non remboursé — optim. dossier</td></tr></table>
+"""))
+
+P.append(pg(48, "SECTION VI — CALCUL MPR DÉTAILLÉ", """  <h2>Calcul MaPrimeRénov' — Scénario 3 — Profil BLEU</h2>
+  <p style="font-size:10px;">Base : plafond 40 000 € HT × taux 80 % = 32 000 € max. Détail par poste éligible :</p>
+  <table><tr><th>Poste</th><th>Base HT</th><th>Taux Bleu</th><th class="right">MPR calculée</th></tr>
+  <tr><td>Isolation combles (164 m² × 20 €)</td><td>3 280,00 €</td><td>80 %</td><td class="right">2 624,00 €</td></tr>
+  <tr><td>ITI murs pisé (260 m² × 75 €)</td><td>19 500,00 €</td><td>80 %</td><td class="right">15 600,00 €</td></tr>
+  <tr><td>Isolation plancher (164 m² × 50 €)</td><td>8 200,00 €</td><td>80 %</td><td class="right">6 560,00 €</td></tr>
+  <tr><td>Fenêtres (20 eq. × 100 €)</td><td>2 000,00 €</td><td>80 %</td><td class="right">1 600,00 €</td></tr>
+  <tr><td>PAC air-eau/air (forfait)</td><td>5 000,00 €</td><td>80 %</td><td class="right">4 000,00 €</td></tr>
+  <tr><td>VMC double flux / Hygro B</td><td>4 000,00 €</td><td>80 %</td><td class="right">3 200,00 €</td></tr>
+  <tr><td>Ballon thermodynamique</td><td>1 200,00 €</td><td>80 %</td><td class="right">960,00 €</td></tr>
+  <tr><td>Ajustement plafond</td><td>—</td><td>Plafonnement</td><td class="right">- 2 544,00 €</td></tr>
+  <tr class="total-row"><td colspan="3"><strong>TOTAL MaPrimeRénov' (plafonné)</strong></td><td class="right"><strong>32 000,00 €</strong></td></tr></table>
+  <div class="note-reg" style="font-size:10px;"><strong>💡 Plafonnement :</strong> Somme brute 34 544 € plafonnée à 32 000 € (max Bleu, gain 3+ classes). Montants définitifs après instruction ANAH.</div>
+"""))
+
+P.append(pg(49, "SECTION VI — CALCUL CEE DÉTAILLÉ", """  <h2>Calcul CEE — Scénario 3 — Profil BLEU</h2>
+  <table><tr><th>Opération CEE</th><th>Unité</th><th>Qté</th><th class="right">€/unité</th><th class="right">Montant</th></tr>
+  <tr><td>BAR-EN-101 Isolation combles</td><td>m²</td><td>164</td><td class="right">12,50 €</td><td class="right">2 050,00 €</td></tr>
+  <tr><td>BAR-EN-102 Isolation murs ITI</td><td>m²</td><td>260</td><td class="right">15,00 €</td><td class="right">3 900,00 €</td></tr>
+  <tr><td>BAR-EN-103 Isolation plancher</td><td>m²</td><td>164</td><td class="right">10,00 €</td><td class="right">1 640,00 €</td></tr>
+  <tr><td>BAR-EN-104 Fenêtres</td><td>éq.</td><td>20</td><td class="right">55,00 €</td><td class="right">1 100,00 €</td></tr>
+  <tr><td>BAR-TH-129 PAC air/air</td><td>forfait</td><td>1</td><td class="right">2 800,00 €</td><td class="right">2 800,00 €</td></tr>
+  <tr><td>BAR-TH-148 Ballon thermo</td><td>forfait</td><td>1</td><td class="right">120,00 €</td><td class="right">120,00 €</td></tr>
+  <tr><td>BAR-TH-125 VMC</td><td>forfait</td><td>1</td><td class="right">450,00 €</td><td class="right">450,00 €</td></tr>
+  <tr><td>Coup de pouce chauffage (3+ classes)</td><td>forfait</td><td>1</td><td class="right">5 800,00 €</td><td class="right">5 800,00 €</td></tr>
+  <tr><td>Ajustement fourchette obligés</td><td>—</td><td>—</td><td class="right">- 9 860,00 €</td><td class="right">- 9 860,00 €</td></tr>
+  <tr class="total-row"><td colspan="4"><strong>TOTAL CEE (fourchette retenue)</strong></td><td class="right"><strong>8 000,00 €</strong></td></tr></table>
+  <p style="font-size:9px;color:var(--text-muted);">CEE : variation 20–40 % selon obligés. Montant retenu : fourchette basse prudentielle 8 000 €.</p>
+"""))
+
+P.append(pg(50, "SECTION VI — TABLEAU CALCUL AU CENTIME", """  <h2>Tableau de calcul des aides — au centime près — Scénario 3</h2>
+  <table>
+    <tr><th>Ligne</th><th class="right">MaPrimeRénov'</th><th class="right">CEE</th><th class="right">Total</th></tr>
+    <tr><td>Isolation combles</td><td class="right">2 624,00 €</td><td class="right">2 050,00 €</td><td class="right">4 674,00 €</td></tr>
+    <tr><td>ITI murs pisé</td><td class="right">15 600,00 €</td><td class="right">3 900,00 €</td><td class="right">19 500,00 €</td></tr>
+    <tr><td>Plancher bas</td><td class="right">6 560,00 €</td><td class="right">1 640,00 €</td><td class="right">8 200,00 €</td></tr>
+    <tr><td>Menuiseries</td><td class="right">1 600,00 €</td><td class="right">1 100,00 €</td><td class="right">2 700,00 €</td></tr>
+    <tr><td>PAC + ballon + VMC</td><td class="right">8 160,00 €</td><td class="right">9 170,00 €</td><td class="right">17 330,00 €</td></tr>
+    <tr><td>Plafonnement / ajustement</td><td class="right">- 2 544,00 €</td><td class="right">- 9 860,00 €</td><td class="right">- 12 404,00 €</td></tr>
+    <tr class="total-row"><td><strong>TOTAL AIDES</strong></td><td class="right"><strong>32 000,00 €</strong></td><td class="right"><strong>8 000,00 €</strong></td><td class="right"><strong>40 000,00 €</strong></td></tr>
+  </table>
+  <div class="recap-box"><table style="margin:0;">
+    <tr><td>Travaux TTC Scénario 3</td><td class="right">125 000,00 €</td></tr>
+    <tr><td>Total aides (MPR + CEE)</td><td class="right" style="color:var(--primary);">- 40 000,00 €</td></tr>
+    <tr class="total-row"><td><strong>Reste à charge avant financement</strong></td><td class="right"><strong>85 000,00 €</strong></td></tr>
+  </table></div>
+""" + AIDS))
+
+P.append(pg(51, "SECTION VI — ÉCRÊTEMENT & CUMUL", """  <h2>Écrêtement et cumul des aides — 2026</h2>
+  <table><tr><th>Règle</th><th>Calcul PEREIRA</th><th class="center">Statut</th></tr>
+  <tr><td>Écrêtement TTC profil Bleu</td><td>Aides ≤ 100 % travaux = 125 000 € max</td><td class="center" style="color:var(--primary);">✅ 32 %</td></tr>
+  <tr><td>Cumul MPR + CEE</td><td>32 000 + 8 000 = 40 000 €</td><td class="center" style="color:var(--primary);">✅ OK</td></tr>
+  <tr><td>TVA 5,5 % rénovation</td><td>Économie ~6 500 € (vs 20 %)</td><td class="center" style="color:var(--primary);">✅</td></tr>
+  <tr><td>Remboursement MAR</td><td>2 000 € (plafond ANAH)</td><td class="center" style="color:var(--primary);">✅ Post-instruction</td></tr>
+  <tr><td>Éco-PTZ cumulable</td><td>50 000 € max — indépendant MPR</td><td class="center" style="color:var(--primary);">✅</td></tr>
+  <tr><td>Aides locales Loire (estim.)</td><td>500 à 2 000 € — à confirmer</td><td class="center">⏳</td></tr></table>
+  <div class="box box-legal" style="font-size:10px;"><strong>⚖️ Clause Julia — Protection Aides :</strong> Responsabilité ENERGIA plafonnée à 2 000 € en cas d'écart &gt; 10 % imputable à une erreur prouvée d'ENERGIA ; 0 % si erreur client ou décision ANAH/CEE. Avis établi par Julia — Juriste ENERGIA-CONSEIL IA® — Mars 2026.</div>
+  <h2>Calendrier versement aides</h2>
+  <table><tr><th>Étape</th><th>Délai</th><th>Montant</th></tr>
+  <tr><td>Accord ANAH (engagement)</td><td>J+35 à J+90</td><td>32 000 € validés</td></tr>
+  <tr><td>Versement MPR post-réception</td><td>J+210 à J+330</td><td>32 000 € au client</td></tr>
+  <tr><td>Versement CEE (obligé)</td><td>J+30 à J+60 post-travaux</td><td>8 000 €</td></tr>
+  <tr><td>Remboursement MAR</td><td>Avec MPR</td><td>2 000 €</td></tr></table>
+"""))
+
+P.append(pg(52, "SECTION VI — SYNTHÈSE AIDES", """  <h2>Synthèse aides — M. PEREIRA — Scénario 3</h2>
+  <div class="grid-finance-kpi">
+    <div class="finance-kpi" style="background:#eff6ff;"><div style="font-size:9px;">MPR BLEU</div><div class="finance-kpi-val" style="color:#1e40af;font-size:22px;">32 000 €</div></div>
+    <div class="finance-kpi" style="background:#f0fdf4;"><div style="font-size:9px;">CEE</div><div class="finance-kpi-val" style="color:var(--primary);font-size:22px;">8 000 €</div></div>
+    <div class="finance-kpi" style="background:var(--primary-light);border:2px solid var(--primary);"><div style="font-size:9px;">TOTAL AIDES</div><div class="finance-kpi-val" style="color:var(--primary);font-size:26px;">40 000 €</div></div>
+  </div>
+  <table><tr><th>Poste</th><th class="right">TTC</th><th class="right">Aides</th><th class="right">Net client</th></tr>
+  <tr><td>Scénario 3 Excellence</td><td class="right">125 000 €</td><td class="right" style="color:var(--primary);">- 40 000 €</td><td class="right">85 000 €</td></tr></table>
+  <div class="note-reg"><strong>Source :</strong> Barèmes ANAH Juillet 2026 (anah.gouv.fr). Écart ±5 % possible à l'instruction. Le client certifie l'exactitude des informations RFR ; toute fausse déclaration engage sa seule responsabilité.</div>
+""" + AIDS))
+
+# SECTION VII - Pages 53-57
+P.append(pg(53, "SECTION VII — PLAN DE FINANCEMENT", """  <h1>VII. Plan de Financement &amp; Scénarios de Démarrage</h1>
+  <p style="font-size:11px;color:var(--text-muted);">Scénario 3 — 125 000 € TTC — Financement intégral sans apport personnel.</p>
+  <table>
+    <thead><tr><th>Source</th><th class="right">Montant</th><th>Délai</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr style="background:#f8fafc;"><td><strong>MaPrimeRénov' + CEE</strong></td><td class="right" style="font-weight:700;">- 40 000 €</td><td>Post-travaux</td><td style="font-size:9px;">Profil Bleu validé</td></tr>
+      <tr><td style="color:var(--secondary);font-weight:700;">🏦 Éco-PTZ (Banque)</td><td class="right" style="color:var(--secondary);font-weight:700;">- 50 000 €</td><td style="color:var(--red);">⏳ 2 à 3 mois</td><td style="font-size:9px;">Taux 0 % — 20 ans</td></tr>
+      <tr style="background:#f0fdf4;"><td style="color:var(--primary);font-weight:700;">⚡ FABIEN — VIVONS COURTIER</td><td class="right" style="color:var(--primary);font-weight:700;">35 000 €</td><td style="color:var(--primary);">🚀 10 jours</td><td style="font-size:9px;">Prêt travaux OU regroupement crédits</td></tr>
+      <tr class="total-row"><td>TOTAL FINANCÉ</td><td class="right">125 000 €</td><td colspan="2">100 % — 0 € apport</td></tr>
+    </tbody>
+  </table>
+  <div class="danger-box" style="font-size:10px;margin-top:10px;"><strong>🚨 ANAH :</strong> Travaux autorisés UNIQUEMENT après accord écrit MaPrimeRénov'. Démarrage avant = refus total des aides.</div>
+""", False))
+
+P.append(pg(54, "SECTION VII — FABIEN & ÉCO-PTZ", """  <div class="fabien-box" style="margin-top:0;">
+    <h2 style="margin-top:0;border:none;padding:0;color:var(--primary);">FABIEN — VIVONS COURTIER — 06 71 19 96 45</h2>
+    <p style="font-size:12px;">FABIEN finance le <strong>montant total des travaux</strong> (jusqu'à 75 000 €). Acceptation <strong>48–72 h</strong>. Apport <strong>0 €</strong> possible.</p>
+    <div class="cols2-fabien">
+      <div class="fabien-stat"><div style="font-size:10px;color:var(--text-muted);">Éco-PTZ</div><div style="font-size:17px;font-weight:800;">50 000 € max</div><div style="font-size:9px;">Taux 0 % — 20 ans</div></div>
+      <div class="fabien-stat"><div style="font-size:10px;color:var(--text-muted);">Prêt travaux FABIEN</div><div style="font-size:17px;font-weight:800;color:var(--primary);">35 000 €</div><div style="font-size:9px;">Déblocage 10 jours ouvrés</div></div>
+    </div>
+  </div>
+  <h2>Process financement — 10 étapes</h2>
+  <table style="font-size:10px;"><tr><th>Étape</th><th>Action</th><th>Acteur</th></tr>
+  <tr><td>1</td><td>Devis ENERGIA signé</td><td>DAMIEN + Client</td></tr>
+  <tr><td>2</td><td>Dépôt dossier ANAH</td><td>MAR Léo-Energy</td></tr>
+  <tr><td>3</td><td>Validation ANAH (montant définitif)</td><td>ANAH</td></tr>
+  <tr><td>4</td><td>Montage prêt sur montant total</td><td>FABIEN</td></tr>
+  <tr><td>5</td><td>Signature prêt → DÉMARRAGE</td><td>Client</td></tr>
+  <tr><td>6</td><td>Déblocage 30/40/30 → artisans</td><td>FABIEN → RGE</td></tr>
+  <tr><td>7–10</td><td>Versement ANAH → remboursement capital → mensualités réduites</td><td>Client</td></tr></table>
+  <p style="font-size:10px;"><strong>Contacts financement :</strong> FABIEN 06 71 19 96 45 | MAR Léo-Energy | Sylvain 06 10 59 68 98 — contact@energia-conseil-ia.com</p>
+"""))
+
+P.append(pg(55, "SECTION VII — AUTOFINANCEMENT", """  <h2>Analyse autofinancement mensuel — Scénario 3</h2>
+  <div class="grid-finance-kpi">
+    <div class="finance-kpi" style="background:#f8fafc;"><div style="font-size:10px;color:var(--text-muted);">MENSUALITÉ FABIEN</div><div class="finance-kpi-val" style="color:var(--secondary);">194 €</div><div style="font-size:9px;">Prêt 35 k€ / 20 ans</div></div>
+    <div class="finance-kpi" style="background:#f0fdf4;"><div style="font-size:10px;color:var(--text-muted);">ÉCONOMIES ÉNERGIE</div><div class="finance-kpi-val" style="color:var(--primary);">584 €</div><div style="font-size:9px;">7 017 €/an ÷ 12</div></div>
+    <div class="finance-kpi" style="background:var(--primary-light);border:2px solid var(--primary);"><div style="font-size:10px;color:var(--text-muted);">GAIN NET MENSUEL</div><div class="finance-kpi-val" style="color:var(--primary);font-size:28px;">+390 €</div><div style="font-size:9px;font-weight:600;color:var(--primary);">Dès le 1er mois</div></div>
+  </div>
+  <div class="note-autofinance">🚀 <strong>Projet autofinancé :</strong> Économies (+584 €/mois) &gt; mensualité (194 €/mois). Gain net <strong>+390 €/mois</strong> dès le premier mois — avant versement ANAH.</div>
+  <h2>Déblocage progressif 30/40/30</h2>
+  <table><tr><th>Échéance</th><th>%</th><th class="right">Montant RAC*</th><th>Condition</th></tr>
+  <tr><td>Signature</td><td>30 %</td><td class="right">10 500 €</td><td>Engagement client</td></tr>
+  <tr><td>Mi-chantier</td><td>40 %</td><td class="right">14 000 €</td><td><strong>Validation Sylvain LEMBELEMBE</strong></td></tr>
+  <tr><td>Réception</td><td>30 %</td><td class="right">10 500 €</td><td>PV Sylvain + MAR + client</td></tr></table>
+  <p style="font-size:9px;">* Sur reste à charge 35 000 € après Éco-PTZ. Paiement artisans coordonnés par FABIEN.</p>
+"""))
+
+P.append(pg(56, "SECTION VII — PROJECTION 30 ANS", """  <h2>Projection sur 30 ans — Bénéfice net cumulé</h2>
+  <table><tr><th>Année</th><th class="right">Économies/an</th><th class="right">Mensualités/an</th><th class="right">Gain net/an</th><th class="right">Cumul 30 ans</th></tr>
+  <tr><td>1–20 (prêt actif)</td><td class="right">7 017 €</td><td class="right">2 328 €</td><td class="right">4 689 €</td><td class="right">—</td></tr>
+  <tr><td>21–30 (post-prêt)</td><td class="right">7 017 €</td><td class="right">0 €</td><td class="right">7 017 €</td><td class="right">—</td></tr>
+  <tr class="total-row"><td colspan="4"><strong>BÉNÉFICE NET 30 ANS (hors valorisation)</strong></td><td class="right" style="font-size:16px;"><strong>+125 150 €</strong></td></tr></table>
+  <p style="font-size:10px;">Calcul : (4 689 € × 20) + (7 017 € × 10) = 93 780 + 70 170 = 163 950 € gains bruts − 38 800 € coût net prêt complément = <strong>+125 150 €</strong> bénéfice net sur 30 ans.</p>
+  <div class="grid-finance-kpi">
+    <div class="finance-kpi" style="background:#0f172a;color:#fff;"><div style="font-size:9px;color:#94a3b8;">FACTURE AVANT</div><div class="finance-kpi-val" style="color:#f97316;">9 097 €</div></div>
+    <div class="finance-kpi" style="background:#0f172a;color:#fff;"><div style="font-size:9px;color:#94a3b8;">FACTURE APRÈS S3</div><div class="finance-kpi-val" style="color:#10b981;">2 080 €</div></div>
+    <div class="finance-kpi" style="background:#0f172a;color:#fff;"><div style="font-size:9px;color:#94a3b8;">AVEC DUALSUN</div><div class="finance-kpi-val" style="color:#34d399;">208 €</div></div>
+  </div>
+"""))
+
+P.append(pg(57, "SECTION VII — SCÉNARIOS DÉMARRAGE A/B", """  <h2>Plan de Financement &amp; Scénarios de Démarrage</h2>
+  <table style="font-size:10px;">
+    <thead><tr style="background:#1a3c5e;color:#fff;"><th>Critère</th><th style="background:#f0fdf4;">Scénario A — Aides Max 🏆</th><th style="background:#f0f9ff;">Scénario B — Rapide 🚀</th></tr></thead>
+    <tbody>
+      <tr><td>Délai démarrage</td><td style="background:#f0fdf4;">3 à 6 mois</td><td style="background:#f0f9ff;">3 semaines</td></tr>
+      <tr><td>MaPrimeRénov'</td><td style="background:#f0fdf4;">Oui</td><td style="background:#f0f9ff;">Non</td></tr>
+      <tr><td>Éco-PTZ</td><td style="background:#f0fdf4;">Oui</td><td style="background:#f0f9ff;">Oui</td></tr>
+      <tr><td>Prêt FABIEN</td><td style="background:#f0fdf4;">Oui</td><td style="background:#f0f9ff;">Oui</td></tr>
+      <tr><td>Financement max</td><td style="background:#f0fdf4;">MPR + 125 000 €</td><td style="background:#f0f9ff;">125 000 €</td></tr>
+      <tr><td>Idéal pour</td><td style="background:#f0fdf4;">BLEU / JAUNE / VIOLET</td><td style="background:#f0f9ff;">ROSE / Pressé</td></tr>
+    </tbody>
+  </table>
+  <div class="box box-legal" style="font-size:10px;"><strong>⚖️ Julia :</strong> Scénarios exclusifs. Scénario A : accord ANAH obligatoire avant devis définitifs. Scénario B : renonciation définitive au MPR. Non-responsabilité ENERGIA si non-respect client. Avis Julia — Mars 2026.</div>
+  <div style="border:2px solid #f97316;border-radius:10px;padding:12px;margin-top:10px;font-size:10px;background:#fff;">
+    <strong>CHOIX DU CLIENT :</strong><br>☐ Scénario A — Attente accord ANAH (3–6 mois)<br>☐ Scénario B — Renonciation MPR + démarrage rapide (3 sem.)
+  </div>
+"""))
+
+# SECTION VIII - Pages 58-59
+P.append(pg(58, "SECTION VIII — PLANNING S1-S6", """  <h1>VIII. Planning &amp; Équipe Projet</h1>
+  <h2>Planning prévisionnel — 12 semaines (S1 à S12)</h2>
+  <table><tr><th style="width:12%;">Sem.</th><th style="width:38%;">Phase</th><th style="width:38%;">Actions</th><th class="center">Resp.</th></tr>
+  <tr><td class="center" style="font-weight:700;">S1</td><td><strong>Préparation admin.</strong></td><td style="font-size:10px;">Dépôt ANAH, commande matériaux, planning artisans</td><td class="center" style="font-size:9px;">Clyve+MAR</td></tr>
+  <tr><td class="center" style="font-weight:700;">S2</td><td><strong>Validation dossiers</strong></td><td style="font-size:10px;">Accord ANAH, financement FABIEN, réunion lancement J-7</td><td class="center" style="font-size:9px;">Sylvain</td></tr>
+  <tr><td class="center" style="font-weight:700;">S3</td><td><strong>Combles</strong></td><td style="font-size:10px;">Soufflage laine roche 40 cm — 164 m² — 2-3 jours</td><td class="center" style="font-size:9px;">Rég. Isolation</td></tr>
+  <tr><td class="center" style="font-weight:700;">S4</td><td><strong>Plancher bas</strong></td><td style="font-size:10px;">PSE 10 cm sous plancher — 164 m²</td><td class="center" style="font-size:9px;">Rég. Isolation</td></tr>
+  <tr><td class="center" style="font-weight:700;">S5</td><td><strong>ITI pisé (1/2)</strong></td><td style="font-size:10px;">Façades Nord + Est — laine bois 14 cm — 130 m²</td><td class="center" style="font-size:9px;">Rég. Isolation</td></tr>
+  <tr><td class="center" style="font-weight:700;">S6</td><td><strong>ITI pisé (2/2)</strong></td><td style="font-size:10px;">Façades Sud + Ouest — 130 m² — point mi-chantier Sylvain</td><td class="center" style="font-size:9px;">Rég. Isolation</td></tr></table>
+  <p style="font-size:9px;color:var(--text-muted);">Malus : ITE Nov–Mars +30–50 % (N/A ITI intérieur) · Juil–Août +20–40 % · Coordination &gt;3 corps +15–25 %.</p>
+  <div class="box box-warn" style="font-size:9px;"><strong>S6 :</strong> Point mi-chantier — validation Sylvain LEMBELEMBE obligatoire avant déblocage 40 %.</div>
+""", False))
+
+P.append(pg(59, "SECTION VIII — PLANNING S7-S12 + ÉQUIPE", """  <h2>Planning — Semaines 7 à 12</h2>
+  <table><tr><th>Sem.</th><th>Phase</th><th>Actions</th><th class="center">Resp.</th></tr>
+  <tr><td class="center" style="font-weight:700;">S7-S8</td><td><strong>Menuiseries</strong></td><td style="font-size:10px;">21 ouvrants PVC DV — dépose + pose — Bonheur d'Amarante</td><td class="center" style="font-size:9px;">RGE</td></tr>
+  <tr><td class="center" style="font-weight:700;">S9</td><td><strong>VMC Hygro B</strong></td><td style="font-size:10px;">Centrale + bouches + réglages</td><td class="center" style="font-size:9px;">Rhône Génie</td></tr>
+  <tr><td class="center" style="font-weight:700;">S10</td><td><strong>PAC + Ballon</strong></td><td style="font-size:10px;">PAC 12 kW 5 splits + ballon 200 L + mise en service</td><td class="center" style="font-size:9px;">Rhône Génie</td></tr>
+  <tr><td class="center" style="font-weight:700;">S11</td><td><strong>Option DualSun</strong></td><td style="font-size:10px;">PV 6 kWc Enphase + batterie — poste 8 en dernier</td><td class="center" style="font-size:9px;">Partenaire PV</td></tr>
+  <tr class="total-row" style="color:var(--primary);"><td class="center" style="font-weight:700;">S12</td><td><strong>Réception &amp; Conformité</strong></td><td style="font-size:10px;"><strong>Validation conformité MAR + ENERGIA</strong> — photos — PV — <strong>dernier paiement client au MAR</strong></td><td class="center" style="font-size:9px;font-weight:700;">ENERGIA+MAR</td></tr></table>
+  <h2>Équipe projet — 6 acteurs</h2>
+  <div class="grid-team">
+    <div class="team-card" style="border-left:3px solid var(--primary);"><div style="font-weight:800;color:var(--primary);">Sylvain LEMBELEMBE</div><div style="font-size:9px;">AMO / Coordination</div><div>📞 06 10 59 68 98</div><div>✉️ contact@energia-conseil-ia.com</div></div>
+    <div class="team-card" style="border-left:3px solid var(--secondary);"><div style="font-weight:800;color:var(--secondary);">Damien</div><div style="font-size:9px;">Commercial</div><div>📞 06 72 68 09 68</div></div>
+    <div class="team-card" style="border-left:3px solid #6d28d9;"><div style="font-weight:800;color:#6d28d9;">Fabien</div><div style="font-size:9px;">VIVONS COURTIER</div><div>📞 06 71 19 96 45</div></div>
+    <div class="team-card" style="border-left:3px solid #b45309;"><div style="font-weight:800;color:#b45309;">Julia</div><div style="font-size:9px;">Juriste</div><div>⚖️ Avis juridique</div></div>
+    <div class="team-card" style="border-left:3px solid #be185d;"><div style="font-weight:800;color:#be185d;">MAR Léo-Energy</div><div style="font-size:9px;">Parcours Accompagné ANAH</div></div>
+    <div class="team-card" style="border-left:3px solid #0369a1;"><div style="font-weight:800;color:#0369a1;">Clyve</div><div style="font-size:9px;">Ingénierie Financière</div></div>
+  </div>
+""", False))
+
+# SECTION IX - Page 60
+P.append(pg(60, "SECTION IX — BON POUR ACCORD", """  <h1>IX. Bon pour Accord</h1>
+  <p style="font-size:11px;color:var(--text-muted);">Je soussigné(e) <strong>M. PEREIRA</strong>, reconnais avoir pris connaissance de l'audit énergétique AUDIT-2026-PEREIRA et des scénarios de rénovation. Je confirme mon choix :</p>
+  <div style="border:2px solid #f97316;border-radius:12px;padding:16px;margin:14px 0;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06);">
+    <div style="font-size:12px;font-weight:700;margin-bottom:10px;">Choix du scénario :</div>
+    <div style="font-size:11px;line-height:2;">
+      ☐ <strong>Scénario 1 — Confort</strong> (F→D) — 42 000 € TTC<br>
+      ☐ <strong>Scénario 2 — Performance</strong> (F→C) — 85 000 € TTC<br>
+      ☑ <strong>Scénario 3 — Excellence ⭐ RECOMMANDÉ</strong> (F→A) — 125 000 € TTC
+    </div>
+  </div>
+  <h2>Conditions importantes</h2>
+  <ul style="font-size:10px;">
+    <li><strong>NE JAMAIS SIGNER</strong> les devis définitifs avant <strong>accord écrit ANAH</strong> (perte irrémédiable MPR).</li>
+    <li><strong>Déblocage 30/40/30</strong> : 30 % signature · 40 % mi-chantier (validation Sylvain) · 30 % réception.</li>
+    <li><strong>S12 :</strong> Dernier paiement MAR après validation conformité MAR + ENERGIA.</li>
+    <li>Mandat ENERGIA-CONSEIL IA® pour coordination AMO et sélection artisans RGE.</li>
+  </ul>
+  <div class="signature-grid">
+    <div><div style="font-size:10px;color:var(--text-muted);margin-bottom:32px;">Fait à Nervieux, le _____ / _____ / 2026</div><div style="border-top:1px solid var(--border);padding-top:6px;font-size:10px;">Signature M. PEREIRA</div></div>
+    <div><div style="font-size:10px;color:var(--text-muted);margin-bottom:32px;">Pour ENERGIA-CONSEIL IA®</div><div style="border-top:1px solid var(--border);padding-top:6px;font-size:10px;">Sylvain LEMBELEMBE — AMO</div></div>
+  </div>
+  <div class="grid-garanties">
+    <div class="garantie-card">🛡️ <strong>Décennale</strong><br>MIC Insurance<br>LUNPIB2604975</div>
+    <div class="garantie-card">✅ <strong>RGE</strong><br>Artisans certifiés<br>Tous lots</div>
+    <div class="garantie-card">📋 <strong>ANAH</strong><br>France Rénov'<br>Partenaire 2026</div>
+    <div class="garantie-card">💰 <strong>Satisfait ou</strong><br>Remboursé<br>30 jours</div>
+  </div>
+  <p style="font-size:10px;text-align:center;margin-top:14px;">✉️ contact@energia-conseil-ia.com | ☎ 06 10 59 68 98</p>
+""" + AIDS, False))
+
+
+def main() -> None:
+    text = AUDIT.read_text(encoding="utf-8")
+    marker = "<!-- PAGE 36"
+    end_marker = "</body>"
+    idx = text.find(marker)
+    if idx == -1:
+        raise SystemExit("Marker PAGE 36 not found")
+    end_idx = text.rfind(end_marker)
+    if end_idx == -1:
+        raise SystemExit("</body> not found")
+    new_tail = "".join(P) + "\n</body>\n</html>\n"
+    updated = text[:idx] + new_tail
+    AUDIT.write_text(updated, encoding="utf-8")
+    print(f"Spliced {len(P)} pages (36-60) into {AUDIT.name}")
+
+
+if __name__ == "__main__":
+    main()

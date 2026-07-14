@@ -35,4 +35,4 @@ ENERGIA_9_AGENTS/
 
 ENERGIA-CONSEIL IA®  
 16 Rue Cuvier, 69006 Lyon  
-06 10 59 68 98 | contact@energia-conseil.com
+06 10 59 68 98 | contact@energia-conseil-ia.com

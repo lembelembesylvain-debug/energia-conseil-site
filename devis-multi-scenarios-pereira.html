@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devis Multi-Scénarios – M. PEREIRA – ENERGIA-CONSEIL IA®</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f766e;
+      --primary-dark: #0d5c56;
+      --primary-light: #f0fdfa;
+      --primary-glow: #ccfbf1;
+      --secondary: #1e40af;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --red: #be123c;
+      --amber: #d97706;
+      --shadow: 0 4px 24px rgba(15, 118, 110, 0.08);
+    }
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text-main);
+      margin: 0;
+      background: linear-gradient(160deg, #ecfdf5 0%, #f1f5f9 40%, #f8fafc 100%);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 16mm 18mm 20mm;
+      margin: 12mm auto;
+      background: #fff;
+      box-shadow: var(--shadow);
+      position: relative;
+      page-break-after: always;
+    }
+    .hero-bar {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, #14b8a6 100%);
+      color: #fff;
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .hero-bar .logo-text { font-size: 22px; font-weight: 800; letter-spacing: -.3px; }
+    .hero-bar .tagline { font-size: 10px; opacity: .92; margin-top: 4px; font-weight: 500; }
+    .hero-meta { text-align: right; font-size: 9px; opacity: .9; line-height: 1.5; }
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 0 0 6px;
+      letter-spacing: -.5px;
+    }
+    .doc-subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 18px; }
+    .client-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .client-chip {
+      background: var(--primary-light);
+      border: 1px solid var(--primary-glow);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 10px;
+    }
+    .client-chip strong { display: block; font-size: 11px; color: var(--primary); margin-bottom: 2px; }
+    h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      border-left: 4px solid var(--primary);
+      padding-left: 12px;
+      margin: 22px 0 12px;
+    }
+    .conseil-box {
+      background: linear-gradient(to right, var(--primary-light), #fff);
+      border: 1px solid var(--primary-glow);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .conseil-box strong { color: var(--primary-dark); }
+    .pise-alert {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid var(--amber);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 16px 0;
+      font-size: 11.5px;
+    }
+    .pise-alert strong { color: #92400e; }
+    .grid-scenarios {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .scenario-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 16px;
+      font-size: 11.5px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow .2s;
+    }
+    .scenario-card.recommended {
+      border: 2px solid var(--primary);
+      background: linear-gradient(180deg, var(--primary-light) 0%, #fff 35%);
+      box-shadow: 0 8px 30px rgba(15, 118, 110, 0.15);
+      position: relative;
+      padding-top: 24px;
+    }
+    .rec-pill {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+      letter-spacing: .3px;
+    }
+    .sc-badge {
+      display: inline-block;
+      padding: 5px 11px;
+      border-radius: 20px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      margin-bottom: 10px;
+    }
+    .sc-dpe { font-size: 24px; font-weight: 800; line-height: 1.1; }
+    .sc-price { font-size: 20px; font-weight: 800; margin: 8px 0; }
+    .sc-list { list-style: none; padding: 0; margin: 10px 0; flex: 1; }
+    .sc-list li {
+      padding: 5px 0 5px 16px;
+      position: relative;
+      color: var(--text-muted);
+      font-size: 10.5px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .sc-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 9px;
+    }
+    .sc-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      margin-top: auto;
+    }
+    .sc-row { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 10.5px; }
+    .sc-row.highlight { font-weight: 800; color: var(--primary); font-size: 11.5px; }
+    .bonus-tag {
+      background: #dcfce7;
+      color: #166534;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 6px 8px;
+      border-radius: 6px;
+      margin-top: 8px;
+      text-align: center;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 11px; margin: 10px 0; }
+    th {
+      background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+      text-align: left;
+      padding: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-bottom: 2px solid var(--border);
+    }
+    td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .right { text-align: right; }
+    .total-row { background: var(--primary-light); font-weight: 800; }
+    .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .finance-card {
+      border-radius: 14px;
+      padding: 18px;
+      border: 1px solid var(--border);
+    }
+    .finance-card.eco { background: #eff6ff; border-color: #bfdbfe; }
+    .finance-card.fabien { background: var(--primary-light); border: 2px solid var(--primary); }
+    .finance-card h3 { margin: 0 0 8px; font-size: 13px; }
+    .delay { font-weight: 700; font-size: 12px; margin: 8px 0; }
+    .grid-finance-kpi { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+    .finance-kpi {
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .finance-kpi-val { font-size: 26px; font-weight: 800; }
+    .box-info {
+      background: var(--primary-light);
+      border: 1px solid var(--primary-glow);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 10.5px;
+      margin: 12px 0;
+    }
+    .box-legal {
+      background: #fff7ed;
+      border-left: 4px solid var(--amber);
+      padding: 14px;
+      border-radius: 0 10px 10px 0;
+      font-size: 11px;
+      margin: 14px 0;
+    }
+    .validation-zone {
+      border: 2px solid var(--primary);
+      border-radius: 14px;
+      padding: 20px;
+      background: linear-gradient(180deg, #fff 0%, var(--primary-light) 100%);
+      margin-top: 20px;
+    }
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .checkbox-row:hover { border-color: var(--primary); }
+    .checkbox-row input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary); flex-shrink: 0; }
+    .checkbox-row.recommended { border-color: var(--primary); background: var(--primary-light); }
+    .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 24px; }
+    .sig-line { border-top: 1px solid var(--text-main); padding-top: 8px; margin-top: 48px; font-size: 10px; color: var(--text-muted); }
+    footer {
+      position: absolute;
+      bottom: 12mm;
+      left: 18mm;
+      right: 18mm;
+      font-size: 8px;
+      color: var(--text-muted);
+      text-align: center;
+      border-top: 1px solid var(--border);
+      padding-top: 8px;
+      line-height: 1.45;
+    }
+    .print-btn {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      z-index: 99;
+    }
+    .print-btn:hover { background: var(--primary-dark); }
+    @media print {
+      body { background: #fff; }
+      .page { margin: 0; box-shadow: none; }
+      .print-btn { display: none; }
+    }
+    @media (max-width: 900px) {
+      .page { width: auto; min-height: auto; margin: 0; }
+      .client-strip, .grid-scenarios, .cols2, .grid-finance-kpi, .signature-grid { grid-template-columns: 1fr; }
+      .hero-bar { flex-direction: column; }
+      .hero-meta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">Imprimer / PDF</button>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="hero-bar">
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div class="tagline">Audit Énergétique Intelligence Artificielle · Marque déposée INPI · Bureau d'études &amp; AMO</div>
+      <div class="tagline" style="margin-top:6px;">16 Rue Cuvier, 69006 Lyon · 06 10 59 68 98 · contact@energia-conseil-ia.com</div>
+      <div class="tagline">SIRET 94181942700019 · RCS Lyon 941819427 · SASU Capital 100 €</div>
+    </div>
+    <div class="hero-meta">
+      <div style="font-weight:800;font-size:11px;margin-bottom:6px;">DEVIS MULTI-SCÉNARIOS</div>
+      Réf. DEV-2026-PEREIRA-MULTI<br>
+      Date : 12/07/2026<br>
+      Validité : 3 mois<br>
+      Profil MPR : <strong>BLEU</strong>
+    </div>
+  </div>
+
+  <h1 class="doc-title">Étude Comparative &amp; Devis Multi-Scénarios</h1>
+  <p class="doc-subtitle">Contractant général digital &amp; AMO — Proposition personnalisée pour la rénovation énergétique globale</p>
+
+  <div class="client-strip">
+    <div class="client-chip"><strong>Client</strong>M. PEREIRA</div>
+    <div class="client-chip"><strong>Localisation</strong>Nervieux (42510)</div>
+    <div class="client-chip"><strong>Bien</strong>Maison pisé ~164 m²</div>
+    <div class="client-chip"><strong>DPE actuel</strong><span style="color:var(--red);font-weight:800;">F — Passoire</span></div>
+  </div>
+
+  <h2>Conseil AMO — Choisir le bon niveau de rénovation</h2>
+  <div class="conseil-box">
+    <p>En tant qu'<strong>AMO et contractant général digital</strong>, ENERGIA-CONSEIL IA® vous propose trois trajectoires de rénovation adaptées à votre maison en <strong>pisé</strong>. Chaque scénario a un impact direct sur trois leviers patrimoniaux : <strong>le confort thermique durable</strong>, <strong>la facture d'énergie</strong> et <strong>la valeur de revente</strong> de votre bien.</p>
+    <p style="margin-top:10px;">Une rénovation partielle améliore le confort mais laisse des ponts thermiques (souvent insuffisant pour sortir définitivement de la passoire). Une <strong>rénovation globale d'ampleur</strong> (Scénario 3) est la seule voie pour viser la classe <strong>A (BBC)</strong>, maximiser les aides Bleu et obtenir une <strong>valorisation immobilière estimée à +20&nbsp;%</strong> — un investissement structurel, pas une simple dépense.</p>
+  </div>
+
+  <div class="pise-alert">
+    <strong>⚠️ Spécificité technique pisé (non négociable) :</strong> Les murs en pisé nécessitent impérativement une <strong>ITI avec isolant respirant</strong> (laine de bois ou chanvre). <strong>Tout pare-vapeur est strictement interdit</strong> pour préserver la structure hygroscopique. ITE déconseillée sur patrimoine pisé. Enduits chaux uniquement (pas ciment).
+  </div>
+
+  <div class="box-info">
+    <strong>Aides financières 2026 (estimation à titre indicatif).</strong> Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.
+  </div>
+
+  <h2>Comparatif des 3 scénarios de rénovation</h2>
+  <div class="grid-scenarios">
+
+    <!-- Scénario 1 -->
+    <div class="scenario-card">
+      <span class="sc-badge" style="background:#fef3c7;color:#92400e;">SCÉNARIO 1 — CONFORT</span>
+      <div class="sc-dpe" style="color:#92400e;">F → D</div>
+      <div class="sc-price" style="color:#92400e;">42 000 € <span style="font-size:11px;font-weight:600;">TTC</span></div>
+      <ul class="sc-list">
+        <li>Isolation combles (40 cm)</li>
+        <li>Remplacement 10 fenêtres PVC DV</li>
+        <li>VMC Hygro B</li>
+      </ul>
+      <div class="sc-footer">
+        <div class="sc-row"><span>Aides MPR (Bleu)</span><strong style="color:var(--primary);">- 24 000 €</strong></div>
+        <div class="sc-row highlight"><span>Reste à charge</span><span>18 000 €</span></div>
+        <div style="font-size:9.5px;color:var(--text-muted);margin-bottom:6px;">Finançable 100 % Éco-PTZ</div>
+        <div class="sc-row"><span>Facture résiduelle</span><strong>5 200 €/an</strong></div>
+      </div>
+    </div>
+
+    <!-- Scénario 2 -->
+    <div class="scenario-card">
+      <span class="sc-badge" style="background:#e0f2fe;color:#0369a1;">SCÉNARIO 2 — PERFORMANCE</span>
+      <div class="sc-dpe" style="color:#0369a1;">F → C</div>
+      <div class="sc-price" style="color:#0369a1;">85 000 € <span style="font-size:11px;font-weight:600;">TTC</span></div>
+      <ul class="sc-list">
+        <li>Isolation combles + plancher bas</li>
+        <li>ITI pisé partielle (laine de bois)</li>
+        <li>21 fenêtres PVC performantes</li>
+        <li>PAC Air/Air + VMC Hygro B</li>
+      </ul>
+      <div class="sc-footer">
+        <div class="sc-row"><span>Aides MPR (Bleu)</span><strong style="color:var(--primary);">- 32 000 €</strong></div>
+        <div class="sc-row highlight"><span>Reste à charge</span><span>53 000 €</span></div>
+        <div class="sc-row"><span>Facture résiduelle</span><strong>3 100 €/an</strong></div>
+      </div>
+    </div>
+
+    <!-- Scénario 3 -->
+    <div class="scenario-card recommended">
+      <div class="rec-pill">⭐ RECOMMANDÉ AMO</div>
+      <span class="sc-badge" style="background:#dcfce7;color:#166534;">SCÉNARIO 3 — EXCELLENCE</span>
+      <div class="sc-dpe" style="color:var(--primary);">F → A</div>
+      <div style="font-size:10px;color:var(--text-muted);margin-bottom:4px;">BBC — Rénovation globale d'ampleur</div>
+      <div class="sc-price" style="color:var(--primary);">125 000 € <span style="font-size:11px;font-weight:600;">TTC</span></div>
+      <ul class="sc-list">
+        <li>ITI pisé complète (laine de bois 14 cm)</li>
+        <li>Combles + plancher bas isolés</li>
+        <li>21 menuiseries PVC DV renforcé</li>
+        <li>PAC Air/Air 12 kW (5 splits)</li>
+        <li>Ballon thermo 200 L + VMC Hygro B</li>
+        <li>Coordination AMO + MAR Léo-Energy</li>
+      </ul>
+      <div class="sc-footer">
+        <div class="sc-row"><span>Aides MPR + CEE (Bleu)</span><strong style="color:var(--primary);">- 40 000 €</strong></div>
+        <div class="sc-row highlight"><span>Reste à charge</span><span>85 000 €</span></div>
+        <div class="sc-row"><span>Facture résiduelle</span><strong>2 080 €/an</strong></div>
+        <div class="bonus-tag">+ Valorisation immobilière +20 %</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 1/2 — Confidentiel
+  </footer>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <header style="display:flex;justify-content:space-between;border-bottom:2px solid var(--primary);padding-bottom:10px;margin-bottom:20px;">
+    <div class="logo-text" style="font-size:18px;font-weight:800;color:var(--primary);">ENERGIA-CONSEIL IA®</div>
+    <div style="font-size:9px;color:var(--text-muted);text-align:right;">Réf. DEV-2026-PEREIRA-MULTI · Page 2/2</div>
+  </header>
+
+  <h2>Financement &amp; Délais — Solutions complémentaires</h2>
+  <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px;">Trois leviers cumulables pour financer <strong>100 % du projet sans apport personnel</strong> (Scénario 3 : 125 000 €).</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Source de financement</th>
+        <th class="right">Montant</th>
+        <th>Délai estimé</th>
+        <th>Caractéristiques</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#f8fafc;">
+        <td><strong>MaPrimeRénov' + CEE</strong></td>
+        <td class="right" style="font-weight:700;">40 000 €</td>
+        <td>Post-travaux</td>
+        <td style="font-size:10px;">Subventions directes — Profil Bleu 80 %</td>
+      </tr>
+      <tr>
+        <td style="color:var(--secondary);font-weight:700;">🏦 Éco-PTZ (Banque)</td>
+        <td class="right" style="color:var(--secondary);font-weight:700;">50 000 €</td>
+        <td style="color:var(--red);font-weight:600;">⏳ 2 à 3 mois</td>
+        <td style="font-size:10px;">Prêt à taux 0 % — Durée 20 ans — Montage via FABIEN</td>
+      </tr>
+      <tr style="background:var(--primary-light);">
+        <td style="color:var(--primary);font-weight:700;">⚡ Solution FABIEN (Courtier)</td>
+        <td class="right" style="color:var(--primary);font-weight:700;">35 000 €</td>
+        <td style="color:var(--primary);font-weight:600;">🚀 10 jours</td>
+        <td style="font-size:10px;">
+          Prêt Travaux (6 000 € à 75 000 €)
+          <span style="color:var(--primary);font-weight:600;"> OU Regroupement de crédits sur mesure</span>
+        </td>
+      </tr>
+      <tr class="total-row">
+        <td>TOTAL PLAN DE FINANCEMENT</td>
+        <td class="right">125 000 €</td>
+        <td colspan="2">Projet intégralement finançable — 0 € d'apport</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="cols2" style="margin-top:18px;">
+    <div class="finance-card eco">
+      <h3 style="color:var(--secondary);">🏦 Éco-PTZ — Taux 0 %</h3>
+      <p style="font-size:11px;color:var(--text-muted);">Prêt bancaire réglementé pour la rénovation énergétique globale. Idéal pour le financement principal (jusqu'à 50 000 € sur 20 ans).</p>
+      <div class="delay" style="color:var(--red);">⏳ Délai : 2 à 3 mois</div>
+      <p style="font-size:10px;">Instruction bancaire + dossier ANAH. Mensualité indicative : <strong>~208 €/mois</strong> (50 k€ / 240 mois).</p>
+    </div>
+    <div class="finance-card fabien">
+      <h3 style="color:var(--primary);">⚡ FABIEN — VIVONS COURTIER</h3>
+      <p style="font-size:11px;color:var(--text-muted);">Solution de <strong>réactivité</strong> pour débloquer les fonds avant la banque : acomptes artisans, commande menuiseries, lancement chantier.</p>
+      <div class="delay" style="color:var(--primary);">🚀 Déblocage : sous 10 jours ouvrés</div>
+      <p style="font-size:10px;">📞 06 71 19 96 45 · Tranche 6 000 € à 75 000 € · Accord 48–72 h</p>
+    </div>
+  </div>
+
+  <h2>Autofinancement mensuel — Scénario 3 (Excellence)</h2>
+  <p style="font-size:11px;color:var(--text-muted);">Après aides (85 000 € reste à charge) · Prêt complémentaire FABIEN 35 000 € sur 15 ans · Économies basées sur facture 9 097 € → 2 080 €/an.</p>
+
+  <div class="grid-finance-kpi">
+    <div class="finance-kpi" style="background:#f8fafc;border:1px solid var(--border);">
+      <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Mensualité estimée</div>
+      <div class="finance-kpi-val" style="color:var(--secondary);">194 €</div>
+      <div style="font-size:10px;color:var(--text-muted);">Prêt complémentaire 35 k€</div>
+    </div>
+    <div class="finance-kpi" style="background:#f0fdf4;border:1px solid #bbf7d0;">
+      <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Économies / mois</div>
+      <div class="finance-kpi-val" style="color:var(--primary);">584 €</div>
+      <div style="font-size:10px;color:var(--text-muted);">7 005 €/an ÷ 12</div>
+    </div>
+    <div class="finance-kpi" style="background:var(--primary-light);border:2px solid var(--primary);">
+      <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Gain net immédiat</div>
+      <div class="finance-kpi-val" style="color:var(--primary);">+390 €</div>
+      <div style="font-size:10px;color:var(--primary);font-weight:700;">Dans votre poche / mois</div>
+    </div>
+  </div>
+
+  <div class="box-info" style="margin-top:8px;">
+    🚀 <strong>Projet autofinancé :</strong> vos économies d'énergie couvrent largement la mensualité. Le Scénario 3 génère un <strong>excédent de +390 €/mois</strong> dès la première année post-travaux.
+  </div>
+
+  <p style="font-size:10px;margin-top:10px;"><strong>Déblocage 30/40/30 :</strong> 30 % à la signature · 40 % mi-chantier après validation Sylvain LEMBELEMBE (AMO) · 30 % à réception.</p>
+
+  <div class="box-legal">
+    <strong>🚨 Rappel réglementaire :</strong> <strong>NE JAMAIS SIGNER LES DEVIS DÉFINITIFS AVANT L'ACCORD ÉCRIT DE L'ANAH</strong> (sinon perte définitive et irrémédiable du MaPrimeRénov'). Travaux RGE uniquement — ordre optimal impératif (isolation avant chauffage).
+  </div>
+
+  <h2>Validation &amp; Bon pour accord</h2>
+  <div class="validation-zone">
+    <p style="font-size:12px;font-weight:600;margin:0 0 14px;color:var(--primary-dark);">Je soussigné(e) M. PEREIRA, sélectionne le scénario retenu :</p>
+
+    <label class="checkbox-row">
+      <input type="checkbox" name="scenario" value="1">
+      <div>
+        <strong>Scénario 1 — Confort (42 000 € TTC)</strong> — F → D · Reste à charge 18 000 € · Facture 5 200 €/an
+      </div>
+    </label>
+    <label class="checkbox-row">
+      <input type="checkbox" name="scenario" value="2">
+      <div>
+        <strong>Scénario 2 — Performance (85 000 € TTC)</strong> — F → C · Reste à charge 53 000 € · Facture 3 100 €/an
+      </div>
+    </label>
+    <label class="checkbox-row recommended">
+      <input type="checkbox" name="scenario" value="3">
+      <div>
+        <strong>Scénario 3 — Excellence ⭐ (125 000 € TTC)</strong> — F → A (BBC) · Reste à charge 85 000 € · Facture 2 080 €/an · +20 % valorisation
+      </div>
+    </label>
+
+    <p style="font-size:11px;color:var(--text-muted);margin:16px 0 0;">
+      Je reconnais avoir pris connaissance des spécificités pisé (ITI respirante obligatoire), des montants d'aides à titre indicatif, et mandate ENERGIA-CONSEIL IA® pour la coordination AMO du projet retenu.
+    </p>
+
+    <div class="signature-grid">
+      <div>
+        <div style="font-size:11px;color:var(--text-muted);">Fait à Nervieux, le _____ / _____ / 2026</div>
+        <div class="sig-line">Signature du client — M. PEREIRA<br><strong>Bon pour accord</strong></div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--text-muted);">Pour ENERGIA-CONSEIL IA®</div>
+        <div class="sig-line">Sylvain LEMBELEMBE — AMO / Coordination<br>06 10 59 68 98</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-legal" style="margin-top:16px;">
+    ⚖️ <strong>Avis juridique (Julia — Juriste ENERGIA-CONSEIL IA®) :</strong> Conformité réglementaire vérifiée (artisans RGE, éligibilité aides 2026, ordre des travaux). Validation ANAH obligatoire avant signature devis définitifs. Devis valable 3 mois. <em>Juillet 2026.</em>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px;font-size:8.5px;text-align:center;color:var(--text-muted);">
+    <div><strong>Sylvain</strong><br>AMO · 06 10 59 68 98</div>
+    <div><strong>DAMIEN</strong><br>Commercial · 06 72 68 09 68</div>
+    <div><strong>FABIEN</strong><br>Courtier · 06 71 19 96 45</div>
+    <div><strong>Julia</strong><br>Juriste</div>
+    <div><strong>MAR</strong><br>Léo-Energy</div>
+  </div>
+
+  <footer>
+    ENERGIA-CONSEIL IA® — SASU · SIRET 94181942700019 · 16 Rue Cuvier, 69006 Lyon<br>
+    Décennale MIC Insurance N° LUNPIB2604975 · Document généré le 12/07/2026 · Ne pas signer avant accord écrit ANAH
+  </footer>
+</div>
+
+</body>
+</html>

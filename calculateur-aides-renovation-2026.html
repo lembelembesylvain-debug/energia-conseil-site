@@ -1075,14 +1075,14 @@
         doc.text('Facture avant : ' + r.factureAvant.toLocaleString('fr-FR') + ' €/an  |  Facture après : ' + r.factureApres.toLocaleString('fr-FR') + ' €/an  |  Économies : ' + r.economieFacture.toLocaleString('fr-FR') + ' €/an', 14, y); y += line;
         doc.text('ROI : ' + (r.roi !== '—' ? r.roi + ' ans' : '—') + '  |  Amélioration DPE : ' + r.dpe + ' → ' + r.dpeApres, 14, y); y += line + 4;
         doc.setFontSize(11);
-        doc.text('Pour obtenir votre audit conforme ANAH : contact@energia-conseil.com', 14, y);
+        doc.text('Pour obtenir votre audit conforme ANAH : contact@energia-conseil-ia.com', 14, y);
         doc.save('estimation-renovation-energetique-2026.pdf');
       });
 
       // ——— Partager par email ———
       document.getElementById('btn-email').addEventListener('click', function () {
         var r = window._lastResult;
-        var to = 'contact@energia-conseil.com';
+        var to = 'contact@energia-conseil-ia.com';
         var subject = encodeURIComponent('Mon estimation aides rénovation 2026 - Energia-Conseil');
         var body = r ? ('Estimation : ' + r.totalAides.toLocaleString('fr-FR') + ' € d\'aides. Reste à charge : ' + r.resteCharge.toLocaleString('fr-FR') + ' €. DPE ' + r.dpe + ' → ' + r.dpeApres + '.') : '';
         window.location.href = 'mailto:' + encodeURIComponent(to) + '?subject=' + subject + (body ? '&body=' + encodeURIComponent(body) : '');

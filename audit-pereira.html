@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audit Énergétique – M. PEREIRA – Nervieux – ENERGIA-CONSEIL IA®</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f766e;
+      --primary-light: #f0fdfa;
+      --secondary: #1e40af;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --red: #be123c;
+      --green: #16a34a;
+      --orange: #f97316;
+    }
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { font-family: 'Inter', sans-serif; color: var(--text-main); margin: 0; padding: 0; background: #f1f5f9; font-size: 13px; line-height: 1.55; }
+    .page {
+      width: 210mm; min-height: 297mm; padding: 18mm 20mm 22mm;
+      margin: 10mm auto; background: white; box-shadow: 0 0 10px rgba(0,0,0,.1);
+      position: relative; page-break-after: always;
+    }
+    header { display: flex; justify-content: space-between; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 24px; gap: 16px; }
+    .logo-text { font-size: 22px; font-weight: 800; color: var(--primary); }
+    .company-info { text-align: right; font-size: 9px; color: var(--text-muted); line-height: 1.45; }
+    h1 { font-size: 28px; font-weight: 800; color: var(--primary); margin: 0 0 8px; letter-spacing: -.5px; }
+    h2 { font-size: 16px; font-weight: 700; color: var(--text-main); border-left: 4px solid var(--primary); padding-left: 12px; margin: 22px 0 12px; }
+    h3 { font-size: 13px; font-weight: 700; margin: 14px 0 6px; color: var(--secondary); }
+    p { margin: 6px 0; }
+    ul { margin: 6px 0 6px 18px; padding: 0; }
+    .grid-kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+    .kpi-card { background: var(--primary-light); padding: 14px 10px; border-radius: 10px; text-align: center; border: 1px solid #ccf2ed; }
+    .kpi-val { display: block; font-size: 18px; font-weight: 800; color: var(--primary); }
+    .kpi-label { font-size: 9px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+    .alert-box { background: #fff1f2; border: 1px solid #fecdd3; padding: 16px; border-radius: 10px; display: flex; gap: 16px; align-items: center; margin: 16px 0; }
+    .dpe-badge { background: var(--red); color: #fff; padding: 8px 18px; border-radius: 8px; font-weight: 800; font-size: 22px; flex-shrink: 0; }
+    .box { border-radius: 10px; padding: 14px; margin: 12px 0; font-size: 12px; }
+    .box-info { background: var(--primary-light); border: 1px solid #99f6e4; }
+    .box-warn { background: #fffbeb; border-left: 4px solid var(--orange); }
+    .box-crit { background: #fff1f2; border-left: 4px solid var(--red); }
+    .box-legal { background: #fff7ed; border-left: 4px solid var(--orange); }
+    table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 11px; }
+    th { background: #f8fafc; text-align: left; padding: 9px 10px; font-weight: 700; color: var(--text-muted); border-bottom: 2px solid var(--border); }
+    td { padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .right { text-align: right; white-space: nowrap; }
+    .total-row { background: var(--primary-light); font-weight: 800; }
+    .bar-wrap { margin-bottom: 10px; }
+    .bar-label { display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 4px; }
+    .bar-bg { height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 4px; }
+    .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .card { background: #f8fafc; padding: 14px; border-radius: 10px; font-size: 11px; }
+    .scenario-a { background: #f0fdf4; }
+    .scenario-b { background: #f0f9ff; }
+    .grid-scenarios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+    .scenario-card { border: 1px solid var(--border); border-radius: 12px; padding: 18px 16px; font-size: 12px; }
+    .scenario-card.recommended { border: 2px solid var(--primary); background: var(--primary-light); position: relative; padding-top: 22px; }
+    .scenario-badge { padding: 5px 12px; border-radius: 20px; font-size: 10px; font-weight: 700; display: inline-block; margin-bottom: 12px; }
+    .scenario-rec-tag { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 10px; font-weight: 700; white-space: nowrap; }
+    .scenario-dpe { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+    .scenario-price { font-size: 18px; font-weight: 800; }
+    .page-compact h2 { margin: 16px 0 8px; font-size: 14px; }
+    .page-compact table { font-size: 10px; }
+    .page-compact th, .page-compact td { padding: 7px 8px; }
+    .recap-box { background: var(--primary-light); border: 2px solid var(--primary); border-radius: 12px; padding: 16px; margin-top: 18px; }
+    .center { text-align: center; }
+    .grid-profiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 18px 0; }
+    .profile-card { border-radius: 12px; padding: 15px; text-align: center; font-size: 11px; }
+    .profile-card.active { background: #eff6ff; border: 2px solid var(--primary); position: relative; padding-top: 18px; }
+    .profile-tag { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; font-size: 9px; font-weight: 700; padding: 2px 10px; border-radius: 10px; white-space: nowrap; }
+    .profile-rate { font-size: 28px; font-weight: 800; }
+    .profile-split { border-top: 1px solid rgba(0,0,0,.08); padding-top: 10px; margin-top: 8px; }
+    .profile-split div { display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .grid-finance-kpi { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+    .finance-kpi { border-radius: 12px; padding: 15px; text-align: center; }
+    .finance-kpi-val { font-size: 24px; font-weight: 800; }
+    .note-reg { background: #f0fdf4; border-left: 4px solid var(--primary); padding: 14px; border-radius: 0 8px 8px 0; margin-top: 16px; font-size: 11px; }
+    .note-autofinance { background: var(--primary-light); border-left: 5px solid var(--primary); padding: 14px; border-radius: 0 8px 8px 0; margin-top: 16px; font-size: 12px; }
+    .grid-solar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0; }
+    .solar-card { background: #0f172a; color: #fff; border-radius: 12px; padding: 16px; text-align: center; font-size: 11px; }
+    .solar-card-title { font-weight: 800; font-size: 14px; color: #10b981; }
+    .solar-card-muted { font-size: 10px; color: #94a3b8; }
+    .solar-card-accent { font-size: 10px; color: #fbbf24; margin-top: 8px; }
+    .grid-solar-gains { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+    .banner-residual { background: #0f172a; color: #fff; border-radius: 12px; padding: 15px; margin-top: 18px; text-align: center; }
+    .grid-team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+    .team-card { background: #f8fafc; border-radius: 10px; padding: 12px; font-size: 10px; }
+    .grid-garanties { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 18px; }
+    .garantie-card { background: #f0fdf4; border-radius: 8px; padding: 10px; text-align: center; font-size: 10px; }
+    .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; }
+    .fabien-box { margin-top: 24px; border: 2px solid var(--primary); border-radius: 12px; padding: 18px; background: var(--primary-light); }
+    .fabien-box h2 { margin-top: 0; color: var(--primary); border-left: none; padding-left: 0; }
+    .cols2-fabien { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+    .fabien-stat { background: #fff; padding: 14px; border-radius: 8px; border: 1px solid var(--border); }
+    .print-btn { position: fixed; top: 16px; right: 16px; background: var(--primary); color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; z-index: 99; }
+    footer { position: absolute; bottom: 12mm; left: 20mm; right: 20mm; font-size: 8px; color: var(--text-muted); text-align: center; border-top: 1px solid var(--border); padding-top: 8px; line-height: 1.4; }
+    .ascii-art { font-family: 'Courier New', Consolas, monospace; font-size: 9.5px; line-height: 1.4; white-space: pre; overflow-x: auto; background: #fff; padding: 14px; border-radius: 8px; border: 1px solid var(--border); margin: 10px 0; }
+    .zone-fuite { background: #fff1f2; border-left: 4px solid var(--red); padding: 12px 14px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 12px; }
+    .zone-solution { background: #eff6ff; border-left: 4px solid var(--secondary); padding: 12px 14px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 12px; }
+    .danger-box { background: #fff1f2; border: 2px solid var(--red); border-radius: 10px; padding: 14px; margin: 12px 0; }
+    .pise-focus { background: #fffbeb; border: 2px solid #d97706; border-radius: 10px; padding: 16px; margin: 14px 0; }
+    .schema-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin: 12px 0; }
+    .schema-title { font-weight: 800; font-size: 13px; color: var(--text-main); margin-bottom: 8px; }
+    .legend { font-size: 10px; margin: 10px 0; display: flex; gap: 20px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-dot-red { width: 14px; height: 14px; background: var(--red); border-radius: 3px; flex-shrink: 0; }
+    .legend-dot-blue { width: 14px; height: 14px; background: var(--secondary); border-radius: 3px; flex-shrink: 0; }
+    .schema-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .text-red { color: var(--red); font-weight: 700; }
+    .text-blue { color: var(--secondary); font-weight: 700; }
+    .section-bis-title { font-size: 22px; font-weight: 800; color: var(--primary); margin: 0 0 4px; }
+    .section-bis-sub { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+    .svg-schema { width: 100%; max-height: 200px; display: block; margin: 10px 0; border-radius: 8px; background: #fff; }
+    .carbon-chart { margin: 18px 0; padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid var(--border); }
+    .carbon-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .carbon-bar-label { width: 140px; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+    .carbon-bar-track { flex: 1; height: 36px; background: #e2e8f0; border-radius: 6px; overflow: hidden; position: relative; }
+    .carbon-bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; font-size: 12px; font-weight: 800; color: #fff; min-width: 48px; }
+    .carbon-bar-fill.before { background: linear-gradient(90deg, #be123c, #f97316); width: 100%; }
+    .carbon-bar-fill.after { background: linear-gradient(90deg, var(--primary), #10b981); width: 1.2%; min-width: 56px; }
+    .carbon-bar-fill.after-solar { background: linear-gradient(90deg, #10b981, #34d399); width: 0.4%; min-width: 52px; }
+    .carbon-kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+    .carbon-kpi { text-align: center; padding: 14px; border-radius: 10px; border: 1px solid var(--border); }
+    .carbon-kpi-val { font-size: 22px; font-weight: 800; }
+    .carbon-kpi-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+    .facade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0; }
+    .facade-card { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: #fff; }
+    .facade-photo { height: 140px; background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; color: var(--text-muted); font-size: 11px; border-bottom: 2px solid var(--primary); }
+    .facade-photo .orient-badge { background: var(--primary); color: #fff; font-weight: 800; font-size: 18px; padding: 6px 16px; border-radius: 8px; margin-bottom: 6px; }
+    .facade-body { padding: 12px 14px; font-size: 11px; }
+    .facade-tag { display: inline-block; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 12px; margin: 2px 4px 2px 0; }
+    .tag-priority { background: #fff1f2; color: var(--red); }
+    .tag-solar { background: #fef3c7; color: #92400e; }
+    .tag-neutral { background: var(--primary-light); color: var(--primary); }
+    .decarbon-banner { background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%); color: #fff; border-radius: 12px; padding: 20px; text-align: center; margin: 16px 0; }
+    .decarbon-banner .big { font-size: 28px; font-weight: 800; margin: 8px 0; }
+    @media print { body { background: #fff; } .page { margin: 0; box-shadow: none; } .print-btn { display: none; } }
+    @media (max-width: 800px) { .grid-kpi, .cols2, .grid-scenarios, .grid-profiles, .grid-finance-kpi, .grid-solar, .grid-solar-gains, .grid-team, .grid-garanties, .signature-grid, .cols2-fabien, .schema-grid { grid-template-columns: 1fr; } .page { width: auto; min-height: auto; } }
+  </style>
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">Imprimer / PDF</button>
+
+<!-- PAGE 1 – COUVERTURE & SYNTHÈSE -->
+<div class="page">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">Audit Énergétique Intelligence Artificielle – Marque déposée INPI – Bureau d'études &amp; AMO</div>
+    </div>
+    <div class="company-info">
+      16 Rue Cuvier, 69006 Lyon<br>
+      06 10 59 68 98 | contact@energia-conseil-ia.com<br>
+      SIRET 94181942700019 | RCS Lyon 941819427<br>
+      Réf. AUDIT-2026-PEREIRA
+    </div>
+  </header>
+
+  <h1>I. Synthèse exécutive</h1>
+  <p style="color: var(--text-muted);">Analyse réalisée pour <strong>M. PEREIRA</strong> — bien situé à <strong>Nervieux (42510)</strong>, Loire (42), zone H1. Maison individuelle en <strong>pisé traditionnel</strong> (~164 m²), DPE <strong>F</strong> (passoire thermique).</p>
+
+  <div class="alert-box">
+    <div class="dpe-badge">F</div>
+    <div>
+      <div style="font-weight: 800; color: var(--red); font-size: 15px;">PASSOIRE THERMIQUE DÉTECTÉE</div>
+      <div style="font-size: 12px;">Facture énergétique estimée <strong>9 097 € / an</strong> (fioul + électricité). Sans rénovation globale, coût cumulé estimé <strong>90 970 € sur 10 ans</strong>.</div>
+    </div>
+  </div>
+
+  <div class="grid-kpi">
+    <div class="kpi-card"><span class="kpi-val">-77 %</span><span class="kpi-label">Facture énergie</span></div>
+    <div class="kpi-card"><span class="kpi-val">F → A</span><span class="kpi-label">Classe DPE cible</span></div>
+    <div class="kpi-card"><span class="kpi-val">+20 %</span><span class="kpi-label">Valeur patrimoniale</span></div>
+    <div class="kpi-card"><span class="kpi-val">7 005 €</span><span class="kpi-label">Gain net / an</span></div>
+  </div>
+
+  <div class="box box-warn">
+    <strong>Spécificité pisé :</strong> ITI obligatoire (pas ITE). Matériaux respirants uniquement (chaux-chanvre, fibre de bois, ouate). Pare-vapeur interdit sur murs pisé — frein-vapeur hygrovariable ou rien. Enduits chaux (pas ciment).
+  </div>
+
+  <h2>Stratégie ENERGIA — Scénario Excellence (125 000 € TTC)</h2>
+  <p>Rénovation globale dans l'<strong>ordre optimal</strong> : combles → ITI murs pisé → planchers → menuiseries → VMC double flux → PAC air/air post-isolation → ballon thermodynamique. Objectif <strong>4+ classes DPE</strong> (F → A). Profil MaPrimeRénov' <strong>BLEU</strong> (80 %, Parcours Accompagné MAR Léo-Energy).</p>
+
+  <table>
+    <tr><th>Indicateur</th><th class="right">Montant</th></tr>
+    <tr><td>Travaux TTC (budget sécurisé)</td><td class="right">125 000 €</td></tr>
+    <tr><td>Aides estimées (MPR + CEE)</td><td class="right">40 000 €</td></tr>
+    <tr><td>Reste à charge</td><td class="right">85 000 €</td></tr>
+    <tr><td>Éco-PTZ (0 %, 20 ans)</td><td class="right">50 000 €</td></tr>
+    <tr class="total-row"><td>Effort financier complémentaire (prêt courtier FABIEN)</td><td class="right">35 000 €</td></tr>
+    <tr><td>Économies annuelles estimées</td><td class="right">7 005 € / an</td></tr>
+    <tr><td>ROI indicatif (investissement net / économies)</td><td class="right">~11 ans</td></tr>
+  </table>
+
+  <div class="box box-info">
+    <strong>Aides financières 2026 (estimation à titre indicatif).</strong> Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.
+  </div>
+
+  <footer>
+    ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975<br>
+    Document généré le 12/07/2026 — Page 1/21 — Confidentiel
+  </footer>
+</div>
+
+<!-- PAGE 2 – FICHE CLIENT -->
+<div class="page">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — DIAGNOSTIC TECHNIQUE</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 2/21</div>
+  </header>
+  <h2>II. Fiche client</h2>
+  <table>
+    <tr><th>Élément</th><th>Valeur</th></tr>
+    <tr><td>Client</td><td>M. PEREIRA</td></tr>
+    <tr><td>Localisation</td><td>Nervieux (42510), Loire (42)</td></tr>
+    <tr><td>Zone climatique</td><td>H1 (Rhône-Alpes / Loire)</td></tr>
+    <tr><td>Type de bien</td><td>Maison individuelle — murs pisé épaisseur 60 cm</td></tr>
+    <tr><td>Surface habitable</td><td>~164 m²</td></tr>
+    <tr><td>Année de construction</td><td>Avant 1948 (pisé traditionnel)</td></tr>
+    <tr><td>Profil MaPrimeRénov' 2026</td><td><strong>BLEU</strong> — Très modestes (Hors IDF, 1 personne : RFR &lt; 17 363 €)</td></tr>
+    <tr><td>DPE actuel</td><td><strong>F</strong> — Passoire thermique</td></tr>
+    <tr><td>DPE cible</td><td><strong>A</strong> (+4 classes minimum visées)</td></tr>
+    <tr><td>Facture énergie actuelle</td><td>~9 097 € / an (fioul + électricité)</td></tr>
+    <tr><td>Facture après travaux — Scénario 3 (estimée)</td><td>~2 092 € / an</td></tr>
+    <tr><td>Contrainte patrimoniale</td><td>Pisé respirant — ITI matériaux hygrocompatibles obligatoire</td></tr>
+  </table>
+
+  <h2>III. État des lieux technique</h2>
+  <div class="cols2">
+    <div class="card">
+      <h3 style="margin-top:0;">Enveloppe du bâti</h3>
+      <ul>
+        <li><strong>Murs :</strong> Pisé 60 cm, U = 1,45 W/m².K — non isolés</li>
+        <li><strong>Toiture :</strong> Combles perdus, laine de verre tassée 5 cm (R ≈ 1,2)</li>
+        <li><strong>Sol :</strong> Plancher bois sur terre-plein non isolé</li>
+        <li><strong>Menuiseries :</strong> 21 ouvrants bois simple vitrage d'origine</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0;">Systèmes existants</h3>
+      <ul>
+        <li><strong>Chauffage :</strong> Chaudière fioul (1992, rendement ~65 %)</li>
+        <li><strong>ECS :</strong> Cumulus électrique 300 L</li>
+        <li><strong>Ventilation :</strong> Naturelle (grilles d'aération insuffisantes)</li>
+        <li><strong>Confort :</strong> Inhomogène, ponts thermiques, condensation ponctuelle</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Répartition des déperditions thermiques</h3>
+  <div class="bar-wrap">
+    <div class="bar-label"><span>Murs extérieurs (pisé)</span><strong>40 %</strong></div>
+    <div class="bar-bg"><div class="bar-fill" style="width:40%;background:var(--red);"></div></div>
+  </div>
+  <div class="bar-wrap">
+    <div class="bar-label"><span>Toiture / combles</span><strong>28 %</strong></div>
+    <div class="bar-bg"><div class="bar-fill" style="width:28%;background:#f97316;"></div></div>
+  </div>
+  <div class="bar-wrap">
+    <div class="bar-label"><span>Fenêtres &amp; portes</span><strong>22 %</strong></div>
+    <div class="bar-bg"><div class="bar-fill" style="width:22%;background:#eab308;"></div></div>
+  </div>
+  <div class="bar-wrap">
+    <div class="bar-label"><span>Planchers bas &amp; ponts thermiques</span><strong>10 %</strong></div>
+    <div class="bar-bg"><div class="bar-fill" style="width:10%;background:#64748b;"></div></div>
+  </div>
+
+  <div class="box box-crit">
+    <strong>Priorité #1 :</strong> ITI murs pisé (40 % des déperditions). <strong>Priorité #2 :</strong> Combles perdus (28 %). Isolation AVANT remplacement du système de chauffage (dimensionnement PAC post-isolation).
+  </div>
+
+  <footer>
+    ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 2/21
+  </footer>
+</div>
+
+<!-- PAGE 3 – II.BIS INTRODUCTION & SCHÉMA 1 -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — PONTS THERMIQUES &amp; PISÉ</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 3/21</div>
+  </header>
+
+  <div class="section-bis-title">II.BIS — Cartographie des ponts thermiques</div>
+  <div class="section-bis-sub">Fuites de chaleur aux liaisons structurelles, schémas techniques et spécificités du bâti en pisé — Maison M. PEREIRA, Nervieux (42510)</div>
+
+  <h2>1. Introduction — Qu'est-ce qu'un pont thermique ?</h2>
+  <p>Un <strong>pont thermique</strong> (ou rupture d'isolation) est une zone localisée de l'enveloppe du bâtiment où la résistance thermique est nettement inférieure à celle des parois adjacentes. La chaleur « court-circuite » l'isolation et s'échappe de façon concentrée — comme une fuite dans un tuyau.</p>
+
+  <div class="cols2">
+    <div class="zone-fuite">
+      <span class="text-red">🔴 Impact confort</span><br>
+      Zones froides au toucher (murs, sols, angles), sensation de courants d'air, condensation localisée, moisissures aux angles et derrière les meubles.
+    </div>
+    <div class="zone-fuite">
+      <span class="text-red">🔴 Impact facture</span><br>
+      Surconsommation de 15 à 25 % sur la facture de chauffage. Les ponts thermiques représentent ~10 % des déperditions totales du logement PEREIRA, soit <strong>~900 €/an</strong> de pertes évitables.
+    </div>
+  </div>
+
+  <p>Dans l'<strong>ancien bâti non homogène</strong> comme la maison de M. PEREIRA (pisé avant 1948, charpente ancienne, plancher bois sur terre-plein), les ponts thermiques sont <strong>multipliés</strong> : matériaux différents aux jonctions, absence d'isolation continue, discontinuités structurelles (sablières, tableaux de fenêtres, angles de murs). Un traitement partiel ou isolé des ponts est <strong>inefficace</strong> — seule une approche globale et coordonnée permet de les éliminer.</p>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot-red"></span> Zone de fuite de chaleur (pont thermique)</div>
+    <div class="legend-item"><span class="legend-dot-blue"></span> Solution technique recommandée</div>
+  </div>
+
+  <h2>2. Cartographie des ponts thermiques — Schéma 1</h2>
+  <div class="schema-card">
+    <div class="schema-title">🔴 Schéma 1 — Liaison Mur / Plancher bas (infiltration d'air froid par le sol)</div>
+    <svg class="svg-schema" viewBox="0 0 520 180" xmlns="http://www.w3.org/2000/svg" aria-label="Schéma pont thermique mur plancher bas">
+      <rect x="0" y="130" width="520" height="50" fill="#94a3b8" opacity=".35"/>
+      <text x="260" y="165" text-anchor="middle" font-size="10" fill="#475569" font-family="Inter,sans-serif">TERRE-PLEIN FROID — infiltration air</text>
+      <rect x="60" y="95" width="400" height="35" fill="#d4a574" stroke="#92400e" stroke-width="1"/>
+      <text x="260" y="115" text-anchor="middle" font-size="9" fill="#78350f" font-family="Inter,sans-serif">Plancher bois sur solives — U ≈ 1,2 W/m².K</text>
+      <rect x="80" y="20" width="120" height="75" fill="#c4a882" stroke="#78716c" stroke-width="1.5"/>
+      <rect x="320" y="20" width="120" height="75" fill="#c4a882" stroke="#78716c" stroke-width="1.5"/>
+      <text x="140" y="55" text-anchor="middle" font-size="9" fill="#44403c" font-family="Inter,sans-serif">MUR PISÉ</text>
+      <text x="140" y="68" text-anchor="middle" font-size="8" fill="#44403c" font-family="Inter,sans-serif">60 cm — U=1,45</text>
+      <text x="380" y="55" text-anchor="middle" font-size="9" fill="#44403c" font-family="Inter,sans-serif">MUR PISÉ</text>
+      <rect x="78" y="88" width="124" height="12" fill="#be123c" opacity=".85" rx="2"/>
+      <rect x="318" y="88" width="124" height="12" fill="#be123c" opacity=".85" rx="2"/>
+      <text x="200" y="98" text-anchor="middle" font-size="8" font-weight="700" fill="#be123c" font-family="Inter,sans-serif">██ PONT THERMIQUE ██</text>
+      <text x="260" y="42" text-anchor="middle" font-size="10" fill="#0369a1" font-weight="600" font-family="Inter,sans-serif">INTÉRIEUR — courant d'air froid ↑</text>
+      <path d="M240 50 L240 85 M250 50 L250 85" stroke="#0ea5e9" stroke-width="1.5" stroke-dasharray="3,2"/>
+    </svg>
+    <div class="ascii-art">    EXTÉRIEUR (terre froide)
+    ═══════════════════════════════
+         ░░░░░░░░░░░░░░░░░░░░        ← Terre-plein non isolé
+    ─────┬─────────────────┬─────
+         │<span style="color:#be123c;font-weight:bold">██ PONT ██</span>│                 ← Jonction mur pisé / plancher bois
+    ┌────┴─────────────────┴────┐
+    │                           │
+    │   MUR PISÉ 60 cm          │   INTÉRIEUR (pièce habitée)
+    │   (non isolé, U=1,45)     │   ❄ Courant d'air froid
+    │                           │      remontant par le joint
+    └───────────────────────────┘
+         Plancher bois sur solives — non isolé (U ≈ 1,2 W/m².K)</div>
+
+    <div class="zone-fuite">
+      <strong class="text-red">🔴 Problème identifié :</strong> Le plancher bois sur terre-plein constitue un point faible majeur. L'air froid du sol pénètre par infiltration à la jonction mur/plancher. Le pisé, épais mais non isolé, transmet la fraîcheur vers l'intérieur. Résultat : pieds froids, sensation de courant d'air au ras du sol, condensation sur les plinthes.
+    </div>
+    <div class="zone-solution">
+      <strong class="text-blue">🔵 Solution ENERGIA :</strong> Isolation du plancher par le dessous (sous-face des solives) avec isolant biosourcé compatible pisé (fibre de bois λ=0,038 ou ouate cellulose). Traitement du joint mur/plancher par bande d'étanchéité compressible + calfeutrage chaux. Objectif : R ≥ 3,7 m².K/W (RT2012). Poste n°3 dans l'ordre optimal des travaux.
+    </div>
+  </div>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 3/21</footer>
+</div>
+
+<!-- PAGE 4 – SCHÉMA 2 MUR/TOITURE -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — PONTS THERMIQUES &amp; PISÉ</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 4/21</div>
+  </header>
+
+  <h2>2. Cartographie (suite) — Schéma 2</h2>
+  <div class="schema-card">
+    <div class="schema-title">🔴 Schéma 2 — Liaison Mur / Toiture (fuite par sablières et chevrons)</div>
+    <svg class="svg-schema" viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" aria-label="Schéma pont thermique mur toiture sablières">
+      <polygon points="30,70 260,15 490,70" fill="#64748b" stroke="#334155" stroke-width="1"/>
+      <text x="260" y="45" text-anchor="middle" font-size="9" fill="#fff" font-family="Inter,sans-serif">Charpente traditionnelle</text>
+      <rect x="50" y="70" width="420" height="40" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+      <text x="260" y="88" text-anchor="middle" font-size="9" fill="#92400e" font-family="Inter,sans-serif">Combles — laine verre 5 cm (R ≈ 1,2) INSUFFISANT</text>
+      <rect x="50" y="108" width="420" height="10" fill="#be123c" opacity=".9"/>
+      <text x="260" y="116" text-anchor="middle" font-size="8" font-weight="700" fill="#fff" font-family="Inter,sans-serif">██ SABLIERE — pont thermique linéique ██</text>
+      <rect x="70" y="118" width="80" height="70" fill="#c4a882" stroke="#78716c"/>
+      <rect x="370" y="118" width="80" height="70" fill="#c4a882" stroke="#78716c"/>
+      <text x="110" y="155" text-anchor="middle" font-size="8" fill="#44403c" font-family="Inter,sans-serif">MUR PISÉ</text>
+      <text x="410" y="155" text-anchor="middle" font-size="8" fill="#44403c" font-family="Inter,sans-serif">MUR PISÉ</text>
+      <rect x="115" y="70" width="8" height="48" fill="#be123c" opacity=".7"/>
+      <rect x="397" y="70" width="8" height="48" fill="#be123c" opacity=".7"/>
+      <text x="130" y="100" font-size="7" fill="#be123c" font-family="Inter,sans-serif">chevron</text>
+      <text x="260" y="195" text-anchor="middle" font-size="9" fill="#475569" font-family="Inter,sans-serif">FAÇADE EXTÉRIEURE — 28 % des déperditions</text>
+    </svg>
+    <div class="ascii-art">         COMBLES PERDUS
+    ╔═══════════════════════════════╗
+    ║  Laine verre 5 cm (R≈1,2)    ║  ← Isolation insuffisante
+    ║  ░░░░░░░░░░░░░░░░░░░░░░░░░░  ║
+    ╠═══<span style="color:#be123c;font-weight:bold">██ SABLIERE ██</span>═══════════════╣  ← Pont thermique majeur
+    ║  │                           ║
+    ║  │  MUR PISÉ 60 cm           ║
+    ║  │  (non isolé)              ║
+    ║  │                           ║
+    ║  │<span style="color:#be123c;font-weight:bold">██ CHEVRON ██</span>              ║  ← Jonction charpente/mur
+    ╚══╧═══════════════════════════╝
+              FAÇADE EXTÉRIEURE</div>
+
+    <div class="zone-fuite">
+      <strong class="text-red">🔴 Problème identifié :</strong> La vieille charpente traditionnelle présente une discontinuité d'isolation aux sablières (poutre horizontale en appui sur le mur porteur). La laine de verre tassée (5 cm, R ≈ 1,2) ne couvre pas les jonctions. Les chevrons traversent l'enveloppe et créent des ponts linéiques. Perte estimée : 28 % des déperditions totales (toiture/combles).
+    </div>
+    <div class="zone-solution">
+      <strong class="text-blue">🔵 Solution ENERGIA :</strong> Renforcement isolation combles (ouate cellulose soufflée ou laine de bois, épaisseur 40 cm, R ≥ 8–10). Traitement spécifique des jonctions sablières : relevé d'isolation sur 30 cm de mur + bande d'étanchéité. Calage des chevrons si nécessaire. Poste n°1 dans l'ordre optimal (30 % des déperditions).
+    </div>
+  </div>
+
+  <div class="box box-info" style="margin-top:14px;">
+    <strong>⚠️ Attention météo :</strong> Travaux combles réalisables toute l'année. Renforcement toiture : éviter période Nov–Mars si travaux extérieurs sur charpente (+30 % malus coordination).
+  </div>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 4/21</footer>
+</div>
+
+<!-- PAGE 5 – SCHÉMAS 3 & 4 -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — PONTS THERMIQUES &amp; PISÉ</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 5/21</div>
+  </header>
+
+  <h2>2. Cartographie (suite) — Schémas 3 &amp; 4</h2>
+
+  <div class="schema-card">
+    <div class="schema-title">🔴 Schéma 3 — Tableaux de fenêtres (périphérie des ouvertures)</div>
+    <svg class="svg-schema" viewBox="0 0 520 160" xmlns="http://www.w3.org/2000/svg" aria-label="Schéma pont thermique tableaux fenêtres">
+      <rect x="30" y="30" width="200" height="110" fill="#c4a882" stroke="#78716c" stroke-width="1.5"/>
+      <text x="130" y="90" text-anchor="middle" font-size="10" fill="#44403c" font-family="Inter,sans-serif">MUR PISÉ 60 cm</text>
+      <rect x="250" y="40" width="100" height="90" fill="#e0f2fe" stroke="#0369a1" stroke-width="2"/>
+      <rect x="258" y="48" width="84" height="74" fill="#bae6fd" stroke="#0ea5e9"/>
+      <text x="300" y="88" text-anchor="middle" font-size="9" fill="#0369a1" font-family="Inter,sans-serif">Fenêtre</text>
+      <text x="300" y="100" text-anchor="middle" font-size="8" fill="#0369a1" font-family="Inter,sans-serif">Uw ≈ 5,5</text>
+      <rect x="230" y="40" width="20" height="90" fill="#be123c" opacity=".85"/>
+      <text x="240" y="130" text-anchor="middle" font-size="7" font-weight="700" fill="#be123c" font-family="Inter,sans-serif" transform="rotate(-90 240 130)">TABLEAU</text>
+      <rect x="350" y="40" width="20" height="90" fill="#be123c" opacity=".85"/>
+      <rect x="250" y="30" width="100" height="10" fill="#be123c" opacity=".85"/>
+      <rect x="250" y="130" width="100" height="10" fill="#be123c" opacity=".85"/>
+      <text x="400" y="60" font-size="9" fill="#be123c" font-weight="600" font-family="Inter,sans-serif">21 ouvrants</text>
+      <text x="400" y="75" font-size="9" fill="#be123c" font-family="Inter,sans-serif">22 % déperditions</text>
+      <text x="400" y="95" font-size="9" fill="#0369a1" font-family="Inter,sans-serif">Solution : pose</text>
+      <text x="400" y="108" font-size="9" fill="#0369a1" font-family="Inter,sans-serif">décalée intérieure</text>
+    </svg>
+    <div class="ascii-art">    MUR PISÉ                    FENÊTRE BOIS SIMPLE VITRAGE
+    ┌──────────────────┐        ┌──────────────┐
+    │                  │<span style="color:#be123c;font-weight:bold">████</span>│  Cadre bois  │  ← Tableau = zone froide
+    │                  │<span style="color:#be123c;font-weight:bold">████</span>│  Uw ≈ 5,5    │
+    │   Pisé 60 cm     │<span style="color:#be123c;font-weight:bold">████</span>│              │
+    │                  │<span style="color:#be123c;font-weight:bold">████</span>│  Simple      │
+    │                  │<span style="color:#be123c;font-weight:bold">████</span>│  vitrage     │
+    └──────────────────┘        └──────────────┘
+         ▲                              ▲
+    Maçonnerie autour            21 ouvrants concernés
+    du châssis = pont            (22 % des déperditions)</div>
+    <div class="zone-fuite">
+      <strong class="text-red">🔴 Problème :</strong> Les vieux cadres bois et la maçonnerie pisé autour des fenêtres forment un pont thermique linéique sur tout le périmètre de chaque ouverture. Uw ≈ 5,5 W/m².K (simple vitrage). Condensation sur les vitres et cadres en hiver.
+    </div>
+    <div class="zone-solution">
+      <strong class="text-blue">🔵 Solution :</strong> Pose des nouvelles menuiseries PVC/alu Uw ≤ 1,2 en <strong>décalé vers l'intérieur</strong> pour casser le pont thermique du tableau. Calfeutrement périphérique chaux. Pose APRÈS isolation murs (poste n°4). 21 ouvrants à remplacer.
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-title">🔴 Schéma 4 — Angles de murs (liaison des façades)</div>
+    <div class="ascii-art">              FAÇADE NORD
+                  │
+                  │
+    FAÇADE OUEST ─┼─ FAÇADE EST
+                  │
+         <span style="color:#be123c;font-weight:bold">███</span> ANGLE <span style="color:#be123c;font-weight:bold">███</span>  ← Zone froide concentrée
+         (pisé 60 cm × 2 faces)
+                  │
+              FAÇADE SUD
+
+    Coupe angle :  ▓▓▓▓▓▓▓▓  ← Épaisseur double au coin
+                   ▓▓▓▓▓▓▓▓     mais sans isolation ITI
+                    ▓▓▓▓▓▓▓▓    = pont thermique 3D</div>
+    <div class="zone-fuite">
+      <strong class="text-red">🔴 Problème :</strong> Murs épais en pisé (60 cm), mais les angles créent des zones froides en 3D : double épaisseur de matériau non isolé, discontinuité de l'ITI aux coins, condensation et moisissures fréquentes.
+    </div>
+    <div class="zone-solution">
+      <strong class="text-blue">🔵 Solution :</strong> Isolation intérieure (ITI) continue avec renfort aux angles (bandes d'angle en fibre de bois ou chanvre). Continuité du frein-vapeur hygrovariable sans rupture. Enduit chaux sur toute la surface.
+    </div>
+  </div>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 5/21</footer>
+</div>
+
+<!-- PAGE 6 – SPÉCIFICITÉ PISÉ -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — PONTS THERMIQUES &amp; PISÉ</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 6/21</div>
+  </header>
+
+  <h2>3. La spécificité du pisé — Focus technique crucial</h2>
+
+  <div class="pise-focus">
+    <strong>🏛️ Rappel bâti PEREIRA :</strong> Maison individuelle à Nervieux (42510), murs porteurs en <strong>pisé traditionnel</strong> (terre crue compactée entre coffrages), épaisseur <strong>60 cm</strong>, construction antérieure à 1948. Surface ~164 m². DPE actuel : <strong>F</strong>.
+  </div>
+
+  <h3>Le pisé : un matériau vivant et perspirant</h3>
+  <p>Le pisé est un matériau <strong>hygroscopique</strong> : il absorbe et restitue naturellement l'humidité ambiante, régulant le climat intérieur sans mécanisme artificiel. Cette « respiration » du bâti est un atout patrimonial et sanitaire — à condition de ne pas l'étouffer.</p>
+
+  <table>
+    <tr><th>Caractéristique</th><th>Pisé PEREIRA</th><th>Impact rénovation</th></tr>
+    <tr><td>Épaisseur</td><td>60 cm</td><td>Inertie thermique élevée — lenteur montée en température</td></tr>
+    <tr><td>λ (conductivité)</td><td>~0,9 W/m.K</td><td>U = 1,45 W/m².K sans isolation → ITI obligatoire</td></tr>
+    <tr><td>Capacité hygroscopique</td><td>Élevée</td><td>Gestion naturelle humidité — ne pas bloquer</td></tr>
+    <tr><td>Compatibilité ITE</td><td>❌ Déconseillée</td><td>ITI uniquement avec matériaux respirants</td></tr>
+    <tr><td>Compatibilité enduit ciment</td><td>❌ Interdit</td><td>Enduits chaux ou terre uniquement</td></tr>
+  </table>
+
+  <div class="danger-box">
+    <div style="font-size:14px;font-weight:800;color:var(--red);margin-bottom:8px;">🚨 DANGER #1 — Interdiction ABSOLUE du pare-vapeur</div>
+    <p>Un pare-vapeur classique (μ &gt; 18) <strong>bloque la migration de vapeur d'eau</strong> vers l'extérieur. Sur un mur pisé, l'humidité piégée provoque :</p>
+    <ul>
+      <li><strong>Pourrissement du pisé</strong> en profondeur (irréversible)</li>
+      <li>Salpêtre et efflorescences sur les murs</li>
+      <li>Décollement de l'enduit et de l'isolant</li>
+      <li>Moississures et risques sanitaires</li>
+    </ul>
+    <div class="zone-solution" style="margin-top:10px;">
+      <strong class="text-blue">🔵 Solution :</strong> Utiliser un <strong>frein-vapeur hygrovariable</strong> (μ variable 0,5–15 selon HR) — ex. Membrain, Intello Plus — ou <strong>aucun pare-vapeur</strong> avec isolant très perméable (λ fibre de bois, chanvre). L'ITI doit rester perméable à la vapeur d'eau.
+    </div>
+  </div>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 6/21</footer>
+</div>
+
+<!-- PAGE 7 – DANGERS PISÉ SUITE -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — PONTS THERMIQUES &amp; PISÉ</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 7/21</div>
+  </header>
+
+  <h2>3. Spécificité du pisé (suite)</h2>
+
+  <div class="danger-box">
+    <div style="font-size:14px;font-weight:800;color:var(--red);margin-bottom:8px;">🚨 DANGER #2 — Interdiction des isolants non respirants et enduits ciment</div>
+    <table>
+      <tr><th>Matériau</th><th>Statut</th><th>Risque</th></tr>
+      <tr><td>PSE (polystyrène expansé)</td><td class="text-red">❌ INTERDIT</td><td>Étouffement du pisé, condensation interstitielle</td></tr>
+      <tr><td>PUR / PIR (polyuréthane)</td><td class="text-red">❌ INTERDIT</td><td>Barrière vapeur totale, pourrissement garanti</td></tr>
+      <tr><td>Laine de verre + pare-vapeur</td><td class="text-red">❌ INTERDIT</td><td>Incompatible hygroscopie pisé</td></tr>
+      <tr><td>Enduit ciment / mortier hydraulique</td><td class="text-red">❌ INTERDIT</td><td>Imperméabilisation façade, salpêtre</td></tr>
+      <tr><td>Fibre de bois (λ 0,038–0,05)</td><td class="text-blue">✅ RECOMMANDÉ</td><td>Perméable, hygrocompatible, ACERMI</td></tr>
+      <tr><td>Chanvre-lime (chaux-chanvre)</td><td class="text-blue">✅ RECOMMANDÉ</td><td>Traditionnel, excellent comportement hygro</td></tr>
+      <tr><td>Ouate de cellulose</td><td class="text-blue">✅ POSSIBLE</td><td>Combles et ITI, perméable</td></tr>
+      <tr><td>Enduit chaux aérienne</td><td class="text-blue">✅ OBLIGATOIRE</td><td>Compatible pisé, finition respirante</td></tr>
+    </table>
+    <div class="zone-solution" style="margin-top:12px;">
+      <strong class="text-blue">🔵 Solution ITI recommandée PEREIRA :</strong> Ossature secondaire + fibre de bois 10–12 cm (R ≥ 3,7) ou chanvre-lime 8–10 cm + frein-vapeur hygrovariable + enduit chaux. Épaisseur totale ~12–15 cm. Résistance thermique cible : R ≥ 4–5 m².K/W (RE2020).
+    </div>
+  </div>
+
+  <div class="box box-warn">
+    <strong>💰 Conséquence financière :</strong> L'ITI pisé avec matériaux biosourcés coûte <strong>15 à 25 % plus cher</strong> qu'une ITI classique (PSE + placo). Sur ~320 m² de murs déperditive : surcoût estimé <strong>+4 000 à 6 000 €</strong> vs solution standard. Ce surcoût est <strong>indispensable</strong> pour la pérennité du bâti patrimonial — une rénovation avec PSE sur pisé détruirait les murs en 5 à 10 ans.
+  </div>
+
+  <h3>Ordre optimal des travaux — rappel impératif</h3>
+  <table>
+    <tr><th>N°</th><th>Poste</th><th>Lien ponts thermiques</th></tr>
+    <tr><td>1</td><td>Isolation combles (R ≥ 8)</td><td>Traitement sablières et chevrons</td></tr>
+    <tr><td>2</td><td>ITI murs pisé (biosourcé)</td><td>Continuité aux angles, tableaux fenêtres</td></tr>
+    <tr><td>3</td><td>Isolation plancher bas</td><td>Jonction mur/plancher</td></tr>
+    <tr><td>4</td><td>Menuiseries Uw ≤ 1,2</td><td>Pose décalée, tableaux traités</td></tr>
+    <tr><td>5</td><td>VMC double flux</td><td>Après isolation (sinon inefficace)</td></tr>
+    <tr><td>6</td><td>PAC air/air post-isolation</td><td>Dimensionnement après isolation</td></tr>
+    <tr><td>7</td><td>Ballon thermodynamique</td><td>—</td></tr>
+  </table>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 7/21</footer>
+</div>
+
+<!-- PAGE 8 – SYNTHÈSE -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — PONTS THERMIQUES &amp; PISÉ</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 8/21</div>
+  </header>
+
+  <h2>4. Synthèse et recommandations</h2>
+
+  <h3>Impact des ponts thermiques sur le DPE F</h3>
+  <p>Le logement PEREIRA cumule les facteurs aggravants : bâti ancien non homogène, 4 types de ponts thermiques majeurs identifiés, pisé non isolé (40 % déperditions), combles sous-isolés, 21 fenêtres simple vitrage. Les ponts thermiques contribuent directement au classement <strong>DPE F</strong> et à la facture de <strong>9 097 €/an</strong>.</p>
+
+  <table>
+    <tr><th>Pont thermique</th><th>Zone</th><th>Impact DPE</th><th>Priorité</th></tr>
+    <tr><td>Mur / plancher bas</td><td>RDC, pièces habitées</td><td>Confort + facture</td><td class="text-red">Haute</td></tr>
+    <tr><td>Mur / toiture (sablières)</td><td>Combles, étage</td><td>28 % déperditions</td><td class="text-red">Haute</td></tr>
+    <tr><td>Tableaux fenêtres</td><td>21 ouvrants</td><td>22 % déperditions</td><td class="text-red">Haute</td></tr>
+    <tr><td>Angles de murs</td><td>Tous les coins</td><td>Condensation, moisissures</td><td style="color:#f97316;font-weight:700;">Moyenne</td></tr>
+    <tr><td>Pisé non isolé (global)</td><td>~320 m² murs</td><td>40 % déperditions</td><td class="text-red">Critique</td></tr>
+  </table>
+
+  <div class="recap-box">
+    <strong style="font-size:14px;">Recommandation AMO ENERGIA-CONSEIL IA®</strong>
+    <ul style="margin-top:10px;">
+      <li><strong>Approche globale obligatoire :</strong> traiter tous les ponts thermiques de manière coordonnée dans le cadre du Scénario Excellence (F → A).</li>
+      <li><strong>ITI pisé biosourcée</strong> (fibre de bois ou chanvre-lime) — jamais PSE, PUR ou pare-vapeur classique.</li>
+      <li><strong>Ordre optimal respecté :</strong> combles → ITI murs → planchers → fenêtres → VMC → PAC.</li>
+      <li><strong>Validation technique Sylvain LEMBELEMBE</strong> à chaque étape (mi-chantier, réception).</li>
+      <li><strong>Gain attendu :</strong> suppression des zones froides, réduction facture -77 %, DPE cible A.</li>
+    </ul>
+  </div>
+
+  <div class="box box-legal">
+    <strong>⚖️ Avis technique :</strong> Toute rénovation du bâti pisé sans respect des contraintes hygroscopiques exposées dans cette section expose le propriétaire à des dommages structurels irréversibles. ENERGIA-CONSEIL IA® décline toute responsabilité en cas de travaux réalisés hors prescriptions (pare-vapeur, PSE, enduit ciment sur pisé). Coordination AMO : Sylvain LEMBELEMBE — 06 10 59 68 98.
+  </div>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 8/21</footer>
+</div>
+
+<!-- PAGE 9 – SYNTHÈSE VISUELLE RÉCAP -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — PONTS THERMIQUES &amp; PISÉ</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 9/21</div>
+  </header>
+
+  <h2>4. Synthèse visuelle — Cartographie globale du bâti PEREIRA</h2>
+
+  <div class="ascii-art" style="font-size:8.5px;">    ╔══════════════════════════════════════════════════════════════╗
+    ║  <span style="color:#be123c">██ COMBLES ██</span>  Sablières + laine 5cm insuffisante (R≈1,2)   ║
+    ╠══════════════════════════════════════════════════════════════╣
+    ║ ┌────┐                                    ┌────┐           ║
+    ║ │<span style="color:#be123c">FEN</span>│  <span style="color:#be123c">██ MUR PISÉ 60cm — NON ISOLÉ ██</span>        │<span style="color:#be123c">FEN</span>│  × 21    ║
+    ║ │<span style="color:#be123c">ÊT</span>│  U = 1,45 W/m².K — 40% déperditions    │<span style="color:#be123c">ÊT</span>│           ║
+    ║ └────┘                                    └────┘           ║
+    ║   <span style="color:#be123c">██</span>                                              <span style="color:#be123c">██</span>         ║
+    ║  ANGLE                                         ANGLE       ║
+    ║ ┌────┐                                    ┌────┐           ║
+    ║ │<span style="color:#be123c">FEN</span>│                                    │<span style="color:#be123c">FEN</span>│           ║
+    ║ └────┘                                    └────┘           ║
+    ╠══════════════════════════════════════════════════════════════╣
+    ║  <span style="color:#be123c">██ PLANCHER BOIS / TERRE-PLEIN ██</span>  Non isolé — jonction mur ║
+    ╚══════════════════════════════════════════════════════════════╝
+
+    <span style="color:#be123c">██</span> = Pont thermique / fuite de chaleur    <span style="color:#1e40af">▓▓</span> = Solution post-travaux (isolation continue)</div>
+
+  <div class="schema-grid" style="margin-top:16px;">
+    <div class="zone-fuite">
+      <strong class="text-red">AVANT travaux — DPE F</strong><br>
+      Facture : 9 097 €/an<br>
+      Ponts thermiques : 4 zones majeures<br>
+      Confort : inhomogène, condensation<br>
+      Risque pisé : élevé si mauvais isolant
+    </div>
+    <div class="zone-solution">
+      <strong class="text-blue">APRÈS travaux — DPE A visé</strong><br>
+      Facture : ~2 092 €/an (-77 %)<br>
+      Enveloppe continue R ≥ 4–10<br>
+      Confort : homogène, VMC DF<br>
+      Pisé : préservé, respirant, durable
+    </div>
+  </div>
+
+  <table style="margin-top:16px;">
+    <tr><th>Poste de travaux</th><th>Pont traité</th><th>Budget indicatif HT</th><th>Artisan type</th></tr>
+    <tr><td>Combles 40 cm ouate/laine bois</td><td>Sablières, chevrons</td><td class="right">8 000 – 12 000 €</td><td>2C ENERGIES</td></tr>
+    <tr><td>ITI pisé biosourcé (~320 m²)</td><td>Murs, angles, tableaux</td><td class="right">28 000 – 38 000 €</td><td>Spécialiste pisé</td></tr>
+    <tr><td>Plancher bas isolé</td><td>Jonction mur/plancher</td><td class="right">6 000 – 9 000 €</td><td>Réseau RGE</td></tr>
+    <tr><td>21 menuiseries Uw ≤ 1,2</td><td>Tableaux fenêtres</td><td class="right">18 000 – 24 000 €</td><td>Menuisier RGE</td></tr>
+    <tr class="total-row"><td colspan="2"><strong>Total postes ponts thermiques</strong></td><td class="right"><strong>60 000 – 83 000 € HT</strong></td><td>—</td></tr>
+  </table>
+
+  <p style="font-size:10px;color:var(--text-muted);margin-top:12px;">Montants à titre indicatif — devis définitifs après visite technique et mise en concurrence 2–3 artisans/poste (Sylvain LEMBELEMBE). Aides MaPrimeRénov' 2026 estimées à titre indicatif — à valider selon revenus réels et instruction ANAH.</p>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 9/21</footer>
+</div>
+
+<!-- PAGE 10 – II.TER BILAN CARBONE INTRO -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — BILAN CARBONE &amp; GES</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 10/21</div>
+  </header>
+
+  <div class="section-bis-title">II.TER — Bilan carbone &amp; impact GES</div>
+  <div class="section-bis-sub">Empreinte carbone avant/après rénovation — Chaudière fioul 1992 → PAC Air/Air + Solaire DualSun — M. PEREIRA, Nervieux</div>
+
+  <h2>1. Méthodologie &amp; périmètre d'analyse</h2>
+  <p>Ce bilan carbone évalue les <strong>émissions de gaz à effet de serre (GES)</strong> liées à la consommation énergétique du logement sur un périmètre <strong>usage (scope 2)</strong>, conformément aux facteurs d'émission ADEME Base Carbone® 2026 et au mix électrique français moyen.</p>
+
+  <table>
+    <tr><th>Paramètre</th><th>Valeur</th><th>Source</th></tr>
+    <tr><td>Surface habitable</td><td>164 m²</td><td>Relevé terrain</td></tr>
+    <tr><td>Zone climatique</td><td>H1 — Loire (42)</td><td>RTExx</td></tr>
+    <tr><td>Système AVANT</td><td>Chaudière fioul 1992 (η ≈ 65 %) + cumulus électrique 300 L</td><td>État des lieux</td></tr>
+    <tr><td>Système APRÈS</td><td>PAC Air/Air 12 kW (5 splits, SCOP ≥ 3,5) + ballon thermo + VMC DF + DualSun 6 kWc</td><td>Scénario Excellence</td></tr>
+    <tr><td>Facture AVANT</td><td>9 097 €/an (fioul + électricité)</td><td>Factures client</td></tr>
+    <tr><td>Facture APRÈS</td><td>~2 092 €/an (post-rénovation) · ~0 € avec solaire</td><td>Simulation ENERGIA</td></tr>
+    <tr><td>Facteur émission fioul</td><td>2,68 kg CO₂eq / litre</td><td>ADEME Base Carbone</td></tr>
+    <tr><td>Facteur émission électricité FR</td><td>0,052 kg CO₂eq / kWh</td><td>Mix France 2026</td></tr>
+  </table>
+
+  <div class="box box-info">
+    <strong>Périmètre exclu :</strong> émissions carbone grise des matériaux de construction (ITI fibre de bois, panneaux DualSun). Ces émissions sont amorties sur 20–30 ans et représentent un investissement carbone positif dès la 8<sup>e</sup> année grâce aux économies d'exploitation. Analyse détaillée disponible sur demande (ACV simplifiée).
+  </div>
+
+  <h2>2. Argument stratégique ENERGIA</h2>
+  <div class="decarbon-banner">
+    <div style="font-size:13px;opacity:.9;">🌍 ENJEU CLIMATIQUE — DOSSIER PEREIRA</div>
+    <div class="big">Passer d'une passoire polluante à une maison décarbonée</div>
+    <div style="font-size:12px;opacity:.85;">Réduction estimée de <strong>98 à 99,6 %</strong> des émissions annuelles de CO₂ liées à l'énergie du logement</div>
+  </div>
+
+  <p>La maison de M. PEREIRA, classée <strong>DPE F</strong>, émet aujourd'hui l'équivalent de <strong>~16,3 tonnes de CO₂ par an</strong> — soit plus de <strong>4 fois la moyenne française</strong> pour un logement de cette surface. La combustion du fioul (chaudière 1992) représente à elle seule <strong>98,5 %</strong> de cette empreinte. La rénovation globale ENERGIA, couplée au solaire DualSun, transforme ce bilan en une habitation <strong>quasi neutre en carbone</strong> à l'usage.</p>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 10/21</footer>
+</div>
+
+<!-- PAGE 11 – II.TER CALCUL AVANT -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — BILAN CARBONE AVANT TRAVAUX</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 11/21</div>
+  </header>
+
+  <h2>3. Empreinte carbone AVANT travaux — Chaudière fioul 1992</h2>
+
+  <h3>3.1 Consommation fioul (chauffage principal)</h3>
+  <table>
+    <tr><th>Étape de calcul</th><th class="right">Valeur</th><th>Détail</th></tr>
+    <tr><td>Part fioul dans facture totale (9 097 €)</td><td class="right">~75 %</td><td>Chauffage passoire DPE F</td></tr>
+    <tr><td>Dépense fioul annuelle estimée</td><td class="right">6 823 €</td><td>9 097 × 0,75</td></tr>
+    <tr><td>Prix fioul moyen 2026 (TTC)</td><td class="right">1,14 €/L</td><td>Marché national</td></tr>
+    <tr><td>Volume fioul consommé</td><td class="right"><strong>5 986 L/an</strong></td><td>6 823 ÷ 1,14</td></tr>
+    <tr><td>Énergie PCI délivrée</td><td class="right">59 680 kWh PCI</td><td>5 986 × 9,97 kWh/L</td></tr>
+    <tr><td>Rendement chaudière 1992</td><td class="right">65 %</td><td>Chaudière vétuste non entretien optimal</td></tr>
+    <tr><td>Énergie utile chauffage</td><td class="right">38 792 kWh</td><td>59 680 × 0,65</td></tr>
+    <tr class="total-row"><td><strong>Émissions CO₂ fioul</strong></td><td class="right"><strong>16,04 t CO₂eq/an</strong></td><td>5 986 L × 2,68 kg CO₂/L</td></tr>
+  </table>
+
+  <h3>3.2 Consommation électricité (ECS + auxiliaires)</h3>
+  <table>
+    <tr><th>Poste</th><th class="right">kWh/an</th><th class="right">CO₂eq/an</th></tr>
+    <tr><td>Cumulus électrique 300 L (ECS)</td><td class="right">3 500</td><td class="right">0,18 t</td></tr>
+    <tr><td>Pompe fioul + auxiliaires chauffage</td><td class="right">480</td><td class="right">0,025 t</td></tr>
+    <tr><td>Éclairage, froid, prises diverses</td><td class="right">820</td><td class="right">0,043 t</td></tr>
+    <tr class="total-row"><td><strong>Total électricité</strong></td><td class="right"><strong>4 800 kWh</strong></td><td class="right"><strong>0,25 t</strong></td></tr>
+  </table>
+
+  <div class="carbon-kpi-row">
+    <div class="carbon-kpi" style="background:#fff1f2;border-color:#fecdd3;">
+      <div class="carbon-kpi-val" style="color:var(--red);">16,3 t</div>
+      <div class="carbon-kpi-label">CO₂ total / an AVANT</div>
+    </div>
+    <div class="carbon-kpi">
+      <div class="carbon-kpi-val" style="color:var(--red);">99 g</div>
+      <div class="carbon-kpi-label">CO₂ / kWh EP (moyenne)</div>
+    </div>
+    <div class="carbon-kpi">
+      <div class="carbon-kpi-val" style="color:var(--red);">5 986 L</div>
+      <div class="carbon-kpi-label">Fioul brûlé / an</div>
+    </div>
+  </div>
+
+  <div class="box box-crit">
+    <strong>⚠️ Impact climatique :</strong> Les <strong>16,3 tonnes de CO₂/an</strong> émises par ce logement équivalent à <strong>~73 000 km en voiture thermique</strong> ou à la absorption annuelle de <strong>~740 arbres adultes</strong>. Sur 10 ans sans rénovation : <strong>163 tonnes de CO₂</strong> — incompatible avec les objectifs de neutralité carbone 2050.
+  </div>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 11/21</footer>
+</div>
+
+<!-- PAGE 12 – II.TER CALCUL APRÈS + GRAPHIQUE -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — BILAN CARBONE APRÈS TRAVAUX</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 12/21</div>
+  </header>
+
+  <h2>4. Empreinte carbone APRÈS travaux — PAC Air/Air + DualSun</h2>
+
+  <h3>4.1 Besoins énergétiques post-rénovation (DPE A visé)</h3>
+  <table>
+    <tr><th>Poste</th><th class="right">Besoin thermique</th><th class="right">Conso élec.</th><th class="right">CO₂eq</th></tr>
+    <tr><td>Chauffage PAC Air/Air (SCOP 3,5)</td><td class="right">5 740 kWh th.</td><td class="right">1 640 kWh</td><td class="right">0,085 t</td></tr>
+    <tr><td>ECS ballon thermodynamique (COP 3)</td><td class="right">2 800 kWh th.</td><td class="right">933 kWh</td><td class="right">0,048 t</td></tr>
+    <tr><td>VMC double flux (rendement 85 %)</td><td class="right">—</td><td class="right">350 kWh</td><td class="right">0,018 t</td></tr>
+    <tr><td>Éclairage &amp; appareils</td><td class="right">—</td><td class="right">600 kWh</td><td class="right">0,031 t</td></tr>
+    <tr class="total-row"><td><strong>Total besoin réseau (sans solaire)</strong></td><td class="right">—</td><td class="right"><strong>3 523 kWh</strong></td><td class="right"><strong>0,18 t</strong></td></tr>
+  </table>
+
+  <h3>4.2 Impact Solaire DualSun Premium (6 kWc bifacial)</h3>
+  <table>
+    <tr><th>Paramètre</th><th class="right">Valeur</th></tr>
+    <tr><td>Production annuelle (bifacial + 3 pans)</td><td class="right">11 213 kWh/an</td></tr>
+    <tr><td>Taux d'autoconsommation estimé</td><td class="right">85 %</td></tr>
+    <tr><td>Énergie autoconsommée (évite réseau)</td><td class="right">9 531 kWh/an</td></tr>
+    <tr><td>Électricité réseau résiduelle</td><td class="right">~530 kWh/an</td></tr>
+    <tr class="total-row"><td><strong>Émissions CO₂ APRÈS + DualSun</strong></td><td class="right"><strong>0,028 t CO₂eq/an</strong></td></tr>
+  </table>
+
+  <h2>5. Graphique comparatif — Émissions CO₂ (tonnes/an)</h2>
+  <div class="carbon-chart">
+    <div class="carbon-bar-row">
+      <div class="carbon-bar-label">AVANT<br><span style="font-weight:400;color:var(--text-muted);">Fioul 1992</span></div>
+      <div class="carbon-bar-track">
+        <div class="carbon-bar-fill before">16,3 t</div>
+      </div>
+    </div>
+    <div class="carbon-bar-row">
+      <div class="carbon-bar-label">APRÈS<br><span style="font-weight:400;color:var(--text-muted);">PAC seule</span></div>
+      <div class="carbon-bar-track">
+        <div class="carbon-bar-fill after" style="width:1.1%;">0,18 t</div>
+      </div>
+    </div>
+    <div class="carbon-bar-row">
+      <div class="carbon-bar-label">APRÈS<br><span style="font-weight:400;color:var(--text-muted);">PAC + DualSun</span></div>
+      <div class="carbon-bar-track">
+        <div class="carbon-bar-fill after-solar" style="width:0.35%;">0,03 t</div>
+      </div>
+    </div>
+    <div style="font-size:10px;color:var(--text-muted);text-align:center;margin-top:8px;">Échelle relative — Barre AVANT = 100 % (16,3 t CO₂eq/an) · Source : ADEME Base Carbone® 2026, simulation ENERGIA-CONSEIL IA®</div>
+  </div>
+
+  <svg viewBox="0 0 520 220" style="width:100%;margin-top:12px;" xmlns="http://www.w3.org/2000/svg" aria-label="Graphique barres CO2">
+    <text x="260" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a" font-family="Inter,sans-serif">Émissions annuelles de CO₂ — Comparaison (t CO₂eq/an)</text>
+    <line x1="60" y1="190" x2="480" y2="190" stroke="#94a3b8" stroke-width="1"/>
+    <rect x="80" y="40" width="100" height="150" fill="#be123c" rx="4"/>
+    <text x="130" y="115" text-anchor="middle" font-size="14" font-weight="800" fill="#fff" font-family="Inter,sans-serif">16,3</text>
+    <text x="130" y="205" text-anchor="middle" font-size="10" fill="#475569" font-family="Inter,sans-serif">AVANT</text>
+    <rect x="220" y="178" width="100" height="12" fill="#0f766e" rx="3"/>
+    <text x="270" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e" font-family="Inter,sans-serif">0,18</text>
+    <text x="270" y="205" text-anchor="middle" font-size="10" fill="#475569" font-family="Inter,sans-serif">PAC</text>
+    <rect x="360" y="186" width="100" height="4" fill="#10b981" rx="2"/>
+    <text x="410" y="178" text-anchor="middle" font-size="11" font-weight="700" fill="#10b981" font-family="Inter,sans-serif">0,03</text>
+    <text x="410" y="205" text-anchor="middle" font-size="10" fill="#475569" font-family="Inter,sans-serif">PAC+SOLAIRE</text>
+    <text x="55" y="50" font-size="9" fill="#94a3b8" font-family="Inter,sans-serif">16</text>
+    <text x="55" y="190" font-size="9" fill="#94a3b8" font-family="Inter,sans-serif">0</text>
+  </svg>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 12/21</footer>
+</div>
+
+<!-- PAGE 13 – II.TER SYNTHÈSE -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — SYNTHÈSE BILAN CARBONE</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 13/21</div>
+  </header>
+
+  <h2>6. Synthèse &amp; gains carbone sur 20 ans</h2>
+
+  <div class="carbon-kpi-row">
+    <div class="carbon-kpi" style="background:#fff1f2;">
+      <div class="carbon-kpi-val" style="color:var(--red);">16,3 t</div>
+      <div class="carbon-kpi-label">AVANT / an</div>
+    </div>
+    <div class="carbon-kpi" style="background:var(--primary-light);">
+      <div class="carbon-kpi-val" style="color:var(--primary);">0,03 t</div>
+      <div class="carbon-kpi-label">APRÈS + DualSun / an</div>
+    </div>
+    <div class="carbon-kpi" style="background:#f0fdf4;">
+      <div class="carbon-kpi-val" style="color:var(--green);">-99,8 %</div>
+      <div class="carbon-kpi-label">Réduction GES</div>
+    </div>
+  </div>
+
+  <table>
+    <tr><th>Indicateur</th><th class="right">AVANT (fioul)</th><th class="right">APRÈS (PAC + DualSun)</th><th class="right">Gain</th></tr>
+    <tr><td>Émissions CO₂ annuelles</td><td class="right">16,3 t</td><td class="right">0,03 t</td><td class="right" style="color:var(--green);font-weight:700;">-16,27 t</td></tr>
+    <tr><td>Émissions sur 20 ans</td><td class="right">326 t</td><td class="right">0,6 t</td><td class="right" style="color:var(--green);font-weight:700;">-325,4 t</td></tr>
+    <tr><td>Litres fioul évités / an</td><td class="right">5 986 L</td><td class="right">0 L</td><td class="right" style="color:var(--green);font-weight:700;">-5 986 L</td></tr>
+    <tr><td>Facture énergie / an</td><td class="right">9 097 €</td><td class="right">~0 €</td><td class="right" style="color:var(--green);font-weight:700;">-9 097 €</td></tr>
+    <tr><td>Classe DPE</td><td class="right">F (passoire)</td><td class="right">A (visé)</td><td class="right" style="color:var(--green);font-weight:700;">+5 classes</td></tr>
+  </table>
+
+  <div class="decarbon-banner">
+    <div style="font-size:14px;">🌿 DE UNE PASSOIRE POLLUANTE À UNE MAISON DÉCARBONÉE</div>
+    <div class="big" style="font-size:22px;">325 tonnes de CO₂ évitées sur 20 ans</div>
+    <div style="font-size:11px;opacity:.85;margin-top:8px;">Soit l'équivalent de <strong>1,5 million de km</strong> en voiture évités · Contribution directe aux objectifs France 2030 et neutralité 2050</div>
+  </div>
+
+  <div class="recap-box">
+    <strong>Recommandation Mickaël — Expert audit ENERGIA-CONSEIL IA® :</strong>
+    <ul style="margin-top:8px;">
+      <li>La <strong>sortie du fioul</strong> est le levier carbone n°1 (98,5 % des émissions actuelles).</li>
+      <li>L'<strong>isolation ITI pisé biosourcée</strong> réduit les besoins de 77 % avant même le changement de chauffage.</li>
+      <li>La <strong>PAC Air/Air post-isolation</strong> (12 kW, 5 splits) remplace le fioul par une énergie décarbonée (mix FR).</li>
+      <li>Le <strong>DualSun bifacial 6 kWc</strong> porte l'empreinte résiduelle à <strong>quasi zéro</strong> (0,03 t/an).</li>
+      <li>Dépose cuve fioul obligatoire — certificat de dégazage à conserver (artisan agréé).</li>
+    </ul>
+  </div>
+
+  <div class="box box-legal">
+    <strong>⚖️ Mention :</strong> Bilan carbone à titre indicatif — calculs basés sur facteurs ADEME 2026 et consommations estimées. Les émissions réelles dépendent des habitudes de vie, de l'hiver climatique et du taux d'autoconsommation solaire constaté. Aucune garantie contractuelle sur les tonnes CO₂ évitées — engagement porté sur le DPE cible (garantie ENERGIA).
+  </div>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 13/21</footer>
+</div>
+
+<!-- PAGE 14 – II.QUATER FAÇADES NORD & SUD -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — ANALYSE DES 4 FAÇADES</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 14/21</div>
+  </header>
+
+  <div class="section-bis-title">II.QUATER — Analyse des 4 façades</div>
+  <div class="section-bis-sub">Diagnostic thermique par orientation — Maison pisé M. PEREIRA, Nervieux (42510) — Zone H1</div>
+
+  <p>L'analyse orientationnelle est <strong>déterminante</strong> pour dimensionner l'ITI pisé, positionner les menuiseries et optimiser le potentiel solaire DualSun. Chaque façade présente des contraintes thermiques spécifiques liées à l'ensoleillement, au vent dominant (ouest/sud-ouest en Loire) et à l'état du pisé apparent.</p>
+
+  <div class="facade-grid">
+    <div class="facade-card">
+      <div class="facade-photo">
+        <div class="orient-badge">NORD</div>
+        <span>📷 Photo façade Nord — à insérer</span>
+        <span style="font-size:9px;margin-top:4px;">assets/pereira/facade-nord.jpg</span>
+      </div>
+      <div class="facade-body">
+        <strong>Façade Nord — Mur pisé exposition faible</strong>
+        <div style="margin:6px 0;">
+          <span class="facade-tag tag-priority">PRIORITÉ ITI #1</span>
+          <span class="facade-tag tag-neutral">0 apport solaire</span>
+        </div>
+        <ul style="margin:6px 0;padding-left:16px;">
+          <li><strong>Ensoleillement :</strong> quasi nul — déperditions maximales en hiver</li>
+          <li><strong>Température mur :</strong> surface froide persistante (ponts thermiques angles)</li>
+          <li><strong>Fenêtres :</strong> ~5 ouvrants simple vitrage — condensation hivernale</li>
+          <li><strong>Action :</strong> ITI fibre de bois 12 cm (R ≥ 4) + menuiseries Uw ≤ 1,2 en priorité</li>
+          <li><strong>Matériau :</strong> laine de bois + enduit chaux — pare-vapeur INTERDIT</li>
+        </ul>
+        <div class="zone-solution" style="margin-top:8px;padding:8px;font-size:10px;">
+          <strong class="text-blue">Note Mickaël :</strong> Façade la plus critique thermiquement. Traiter en premier lors de la phase ITI (semaines 5–7 du planning).
+        </div>
+      </div>
+    </div>
+
+    <div class="facade-card">
+      <div class="facade-photo" style="border-bottom-color:#f59e0b;">
+        <div class="orient-badge" style="background:#d97706;">SUD</div>
+        <span>📷 Photo façade Sud — à insérer</span>
+        <span style="font-size:9px;margin-top:4px;">assets/pereira/facade-sud.jpg</span>
+      </div>
+      <div class="facade-body">
+        <strong>Façade Sud — Apports solaires &amp; potentiel PV</strong>
+        <div style="margin:6px 0;">
+          <span class="facade-tag tag-solar">POTENTIEL DUALSUN</span>
+          <span class="facade-tag tag-priority">ITI + protections été</span>
+        </div>
+        <ul style="margin:6px 0;padding-left:16px;">
+          <li><strong>Ensoleillement :</strong> maximal (800–1 000 kWh/m²/an) — apports gratuits hiver</li>
+          <li><strong>Risque été :</strong> surchauffe pièces si ITI seule sans stores/brise-soleil</li>
+          <li><strong>Fenêtres :</strong> ~6 ouvrants — pièces de vie principales</li>
+          <li><strong>Toiture/dépendance :</strong> pan optimal DualSun bifacial (pan Sud + Est/Ouest)</li>
+          <li><strong>Action :</strong> ITI + menuiseries DV renforcé + stores extérieurs recommandés</li>
+        </ul>
+        <div class="zone-solution" style="margin-top:8px;padding:8px;font-size:10px;">
+          <strong class="text-blue">Note Mickaël :</strong> Conserver l'inertie pisé côté sud (fibre de bois, pas PSE). Dépendance/toiture sud = implantation 6 kWc DualSun.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table>
+    <tr><th>Orientation</th><th>Surface mur estimée</th><th>Fenêtres</th><th>Priorité travaux</th><th>Indice solaire</th></tr>
+    <tr><td><strong>Nord</strong></td><td>~72 m²</td><td>~5</td><td class="text-red">Critique — ITI immédiate</td><td>★☆☆☆☆</td></tr>
+    <tr><td><strong>Sud</strong></td><td>~72 m²</td><td>~6</td><td class="text-red">Haute — ITI + solaire</td><td>★★★★★</td></tr>
+  </table>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 14/21</footer>
+</div>
+
+<!-- PAGE 15 – II.QUATER FAÇADES EST & OUEST -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — ANALYSE DES 4 FAÇADES (SUITE)</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 15/21</div>
+  </header>
+
+  <div class="facade-grid">
+    <div class="facade-card">
+      <div class="facade-photo">
+        <div class="orient-badge">EST</div>
+        <span>📷 Photo façade Est — à insérer</span>
+        <span style="font-size:9px;margin-top:4px;">assets/pereira/facade-est.jpg</span>
+      </div>
+      <div class="facade-body">
+        <strong>Façade Est — Ensoleillement matinal</strong>
+        <div style="margin:6px 0;">
+          <span class="facade-tag tag-priority">ITI prioritaire</span>
+          <span class="facade-tag tag-solar">Pan DualSun #2</span>
+        </div>
+        <ul style="margin:6px 0;padding-left:16px;">
+          <li><strong>Ensoleillement :</strong> soleil levant — réveil thermique progressif</li>
+          <li><strong>Pièces typiques :</strong> cuisine, chambres — confort matin</li>
+          <li><strong>Fenêtres :</strong> ~5 ouvrants — état bois dégradé constaté</li>
+          <li><strong>Pisé :</strong> enduit terre/chaux d'origine — ne pas imperméabiliser</li>
+          <li><strong>Action :</strong> ITI chanvre-lime + remplacement menuiseries post-isolation</li>
+        </ul>
+        <div class="zone-solution" style="margin-top:8px;padding:8px;font-size:10px;">
+          <strong class="text-blue">Note Mickaël :</strong> Pan Est idéal pour compléter la production DualSun (configuration 3 pans +30 % bifacial). Vérifier absence d'ombrage arbres le matin.
+        </div>
+      </div>
+    </div>
+
+    <div class="facade-card">
+      <div class="facade-photo" style="border-bottom-color:#6366f1;">
+        <div class="orient-badge" style="background:#4f46e5;">OUEST</div>
+        <span>📷 Photo façade Ouest — à insérer</span>
+        <span style="font-size:9px;margin-top:4px;">assets/pereira/facade-ouest.jpg</span>
+      </div>
+      <div class="facade-body">
+        <strong>Façade Ouest — Surchauffe estivale &amp; vent dominant</strong>
+        <div style="margin:6px 0;">
+          <span class="facade-tag tag-priority">ITI + menuiseries</span>
+          <span class="facade-tag tag-solar">Pan DualSun #3</span>
+        </div>
+        <ul style="margin:6px 0;padding-left:16px;">
+          <li><strong>Ensoleillement :</strong> soleil couchant — surchauffe chambres en été (juin–août)</li>
+          <li><strong>Vent :</strong> dominant ouest en Loire — infiltration par menuiseries vétustes</li>
+          <li><strong>Fenêtres :</strong> ~5 ouvrants — joints bois défaillants</li>
+          <li><strong>Risque :</strong> inconfort été +15–20 % consommation clim (PAC réversible)</li>
+          <li><strong>Action :</strong> ITI + menuiseries étanches + protections solaires côté ouest</li>
+        </ul>
+        <div class="zone-solution" style="margin-top:8px;padding:8px;font-size:10px;">
+          <strong class="text-blue">Note Mickaël :</strong> Éviter travaux façade juil.–août (+20 % malus). Stores ou arbres décidus recommandés côté ouest.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Synthèse orientationnelle — Plan d'intervention</h2>
+  <table>
+    <tr><th>Façade</th><th>Surface</th><th>Fenêtres</th><th>Priorité</th><th>Solaire</th><th>Spécificité pisé</th></tr>
+    <tr><td><strong>Nord</strong></td><td>~72 m²</td><td>5</td><td class="text-red">★★★★★</td><td>—</td><td>ITI fibre bois — 1<sup>re</sup> phase</td></tr>
+    <tr><td><strong>Sud</strong></td><td>~72 m²</td><td>6</td><td class="text-red">★★★★☆</td><td>Pan principal</td><td>Conserver inertie — stores été</td></tr>
+    <tr><td><strong>Est</strong></td><td>~88 m²</td><td>5</td><td style="color:#f97316;font-weight:700;">★★★★☆</td><td>Pan secondaire</td><td>Chanvre-lime — enduit chaux</td></tr>
+    <tr><td><strong>Ouest</strong></td><td>~88 m²</td><td>5</td><td style="color:#f97316;font-weight:700;">★★★☆☆</td><td>Pan tertiaire</td><td>Étanchéité menuiseries — anti-infiltration</td></tr>
+    <tr class="total-row"><td><strong>Total</strong></td><td><strong>~320 m²</strong></td><td><strong>21</strong></td><td colspan="3">ITI biosourcée continue — ordre optimal respecté</td></tr>
+  </table>
+
+  <div class="ascii-art" style="font-size:8px;">                    NORD (ITI priorité #1)
+                         │
+                         │  72 m² · 5 fen.
+                         │
+           OUEST ─────────┼───────── EST
+           88 m²          │          88 m²
+           5 fen.         │          5 fen.
+           vent dominant  │          soleil matin
+                         │
+                         │  72 m² · 6 fen.
+                         │  ☀ DualSun pan principal
+                    SUD (apports solaires)
+
+    Légende : ITI fibre de bois / chanvre-lime · Enduit chaux · Pare-vapeur INTERDIT · 3 pans DualSun (S+E+O)</div>
+
+  <div class="box box-info">
+    <strong>📷 Insertion photos :</strong> Remplacer les emplacements par les clichés terrain (format JPG/WEBP, résolution min. 1920 px). Nommage : <code>facade-nord.jpg</code>, <code>facade-sud.jpg</code>, <code>facade-est.jpg</code>, <code>facade-ouest.jpg</code> dans le dossier <code>assets/pereira/</code>.
+  </div>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 15/21</footer>
+</div>
+
+<!-- PAGE 16 – LES 3 SCÉNARIOS -->
+<div class="page">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — SCÉNARIOS DE TRAVAUX</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 16/21</div>
+  </header>
+
+  <h1>III. Les 3 Scénarios de Rénovation</h1>
+  <p style="font-size: 13px; color: var(--text-muted);">Trois niveaux d'ambition analysés pour votre logement. Notre recommandation : le <strong>Scénario 3</strong>.</p>
+
+  <div class="grid-scenarios">
+    <div class="scenario-card">
+      <div class="scenario-badge" style="background:#fef3c7;color:#92400e;">SCÉNARIO 1 — CONFORT</div>
+      <div class="scenario-dpe" style="color:#92400e;">F → D</div>
+      <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Gain de 2 classes DPE</div>
+      <ul style="font-size: 11px; padding-left: 15px; color: var(--text-muted); margin: 0;">
+        <li>Isolation combles (40 cm)</li>
+        <li>Remplacement 10 fenêtres</li>
+        <li>VMC Hygro B</li>
+      </ul>
+      <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);">
+        <div style="font-size: 10px; color: var(--text-muted);">Budget estimé</div>
+        <div class="scenario-price">42 000 €</div>
+        <div style="font-size: 10px; color: var(--text-muted); margin-top: 5px;">Aides MPR (Bleu)</div>
+        <div style="font-size: 15px; font-weight: 700; color: var(--primary);">- 24 000 €</div>
+        <div style="font-size: 10px; color: var(--text-muted); margin-top: 5px;">Reste à charge</div>
+        <div class="scenario-price" style="color:#92400e;">18 000 €</div>
+      </div>
+    </div>
+
+    <div class="scenario-card">
+      <div class="scenario-badge" style="background:#e0f2fe;color:#0369a1;">SCÉNARIO 2 — PERFORMANCE</div>
+      <div class="scenario-dpe" style="color:#0369a1;">F → C</div>
+      <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Gain de 3 classes DPE</div>
+      <ul style="font-size: 11px; padding-left: 15px; color: var(--text-muted); margin: 0;">
+        <li>Isolation combles + plancher</li>
+        <li>ITI Pisé (partielle)</li>
+        <li>21 fenêtres PVC</li>
+        <li>PAC Air/Air + VMC</li>
+      </ul>
+      <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);">
+        <div style="font-size: 10px; color: var(--text-muted);">Budget estimé</div>
+        <div class="scenario-price">85 000 €</div>
+        <div style="font-size: 10px; color: var(--text-muted); margin-top: 5px;">Aides MPR (Bleu)</div>
+        <div style="font-size: 15px; font-weight: 700; color: var(--primary);">- 32 000 €</div>
+        <div style="font-size: 10px; color: var(--text-muted); margin-top: 5px;">Reste à charge</div>
+        <div class="scenario-price" style="color:#0369a1;">53 000 €</div>
+      </div>
+    </div>
+
+    <div class="scenario-card recommended">
+      <div class="scenario-rec-tag">⭐ RECOMMANDÉ</div>
+      <div class="scenario-badge" style="background:#dcfce7;color:#166534;">SCÉNARIO 3 — EXCELLENCE</div>
+      <div class="scenario-dpe" style="color:var(--primary);">F → A</div>
+      <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Gain de 5 classes DPE</div>
+      <ul style="font-size: 11px; padding-left: 15px; color: var(--text-muted); margin: 0;">
+        <li>ITI Pisé complète (164 m²)</li>
+        <li>Combles + Plancher bas</li>
+        <li>21 fenêtres PVC DV renforcé</li>
+        <li>PAC Air/Air 12 kW (5 splits)</li>
+        <li>Ballon thermo 200 L + VMC Hygro B</li>
+      </ul>
+      <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid #bbf7d0;">
+        <div style="font-size: 10px; color: var(--text-muted);">Budget estimé</div>
+        <div class="scenario-price">125 000 €</div>
+        <div style="font-size: 10px; color: var(--text-muted); margin-top: 5px;">Aides MPR + CEE (Bleu)</div>
+        <div style="font-size: 15px; font-weight: 700; color: var(--primary);">- 40 000 €</div>
+        <div style="font-size: 10px; color: var(--text-muted); margin-top: 5px;">Après Éco-PTZ (50 k€)</div>
+        <div class="scenario-price" style="color:var(--primary);">35 000 €</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-info" style="margin-top:16px;font-size:11px;">
+    <strong>Aides financières 2026 (estimation à titre indicatif).</strong> Aides à valider selon revenus réels du client. Montants définitifs après instruction ANAH et CEE.
+  </div>
+
+  <h2>Comparatif des 3 Scénarios</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Critère</th>
+        <th class="center">Scénario 1 (D)</th>
+        <th class="center">Scénario 2 (C)</th>
+        <th class="center" style="background:var(--primary);color:#fff;">Scénario 3 (A) ⭐</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Classe DPE obtenue</td>
+        <td class="center">D</td>
+        <td class="center">C</td>
+        <td class="center" style="font-weight:800;color:var(--primary);">A</td>
+      </tr>
+      <tr>
+        <td>Facture après travaux</td>
+        <td class="center">5 200 €/an</td>
+        <td class="center">3 100 €/an</td>
+        <td class="center" style="font-weight:800;color:var(--primary);">2 092 €/an</td>
+      </tr>
+      <tr>
+        <td>Économies annuelles</td>
+        <td class="center">3 900 €/an</td>
+        <td class="center">6 000 €/an</td>
+        <td class="center" style="font-weight:800;color:var(--primary);">7 005 €/an</td>
+      </tr>
+      <tr>
+        <td>Valorisation bien</td>
+        <td class="center">+8 %</td>
+        <td class="center">+14 %</td>
+        <td class="center" style="font-weight:800;color:var(--primary);">+20 %</td>
+      </tr>
+      <tr>
+        <td>Éligibilité Éco-PTZ</td>
+        <td class="center">✅</td>
+        <td class="center">✅</td>
+        <td class="center" style="font-weight:800;color:var(--primary);">✅ Max 50 k€</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <footer>
+    ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 16/21
+  </footer>
+</div>
+
+<!-- PAGE 11 – DÉTAIL DES TRAVAUX PAR LOT -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — DÉTAIL DES TRAVAUX</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 17/21</div>
+  </header>
+
+  <h1>IV. Détail des Travaux par Lot</h1>
+  <p style="font-size:10px;color:var(--text-muted);margin-bottom:12px;"><strong>Ordre d'exécution chantier :</strong> Lot 2 (isolation) → Lot 1 (menuiseries) → Lot 3 (chauffage/VMC). Les lots sont présentés par corps de métier.</p>
+
+  <h2>LOT 1 — Menuiseries RGE (SARL Bonheur d'Amarante)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Désignation</th>
+        <th class="center">Qté</th>
+        <th class="right">Prix Unitaire TTC</th>
+        <th class="right">Total TTC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Fenêtre PVC Double Vitrage renforcé (Uw ≤ 1,3 W/m².K)</td>
+        <td class="center">18</td>
+        <td class="right">1 800 €</td>
+        <td class="right">32 400 €</td>
+      </tr>
+      <tr>
+        <td>Porte-fenêtre PVC Double Vitrage (Uw ≤ 1,3 W/m².K)</td>
+        <td class="center">2</td>
+        <td class="right">2 400 €</td>
+        <td class="right">4 800 €</td>
+      </tr>
+      <tr>
+        <td>Porte d'entrée isolante (Ud ≤ 1,7 W/m².K)</td>
+        <td class="center">1</td>
+        <td class="right">2 100 €</td>
+        <td class="right">2 100 €</td>
+      </tr>
+      <tr>
+        <td>Dépose et évacuation des anciennes menuiseries</td>
+        <td class="center">Forfait</td>
+        <td class="right">—</td>
+        <td class="right">2 000 €</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="3">TOTAL LOT 1</td>
+        <td class="right">41 300 €</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>LOT 2 — Isolation Thermique (Région Isolation RGE)</h2>
+  <div class="box box-warn" style="padding:10px;margin-bottom:10px;font-size:10px;">
+    ⚠️ <strong>Note Technique Pisé :</strong> Les murs en pisé nécessitent une ITI respirante (laine de bois ou chanvre). Tout pare-vapeur est strictement interdit pour préserver la structure.
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Désignation</th>
+        <th class="center">Surface</th>
+        <th class="right">Prix/m² TTC</th>
+        <th class="right">Total TTC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ITI Pisé respirante (laine de bois 14 cm + plaque)</td>
+        <td class="center">260 m²</td>
+        <td class="right">123 €</td>
+        <td class="right">32 000 €</td>
+      </tr>
+      <tr>
+        <td>Isolation combles perdus (laine de roche 40 cm)</td>
+        <td class="center">164 m²</td>
+        <td class="right">26 €</td>
+        <td class="right">4 200 €</td>
+      </tr>
+      <tr>
+        <td>Isolation plancher bas (PSE 10 cm)</td>
+        <td class="center">164 m²</td>
+        <td class="right">21 €</td>
+        <td class="right">3 500 €</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="3">TOTAL LOT 2</td>
+        <td class="right">39 700 €</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>LOT 3 — Chauffage &amp; Ventilation (Rhône Génie Climatique)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Désignation</th>
+        <th class="center">Qté</th>
+        <th class="right">Prix Unitaire TTC</th>
+        <th class="right">Total TTC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>PAC Air/Air réversible 12 kW (unité extérieure)</td>
+        <td class="center">1</td>
+        <td class="right">3 500 €</td>
+        <td class="right">3 500 €</td>
+      </tr>
+      <tr>
+        <td>Splits muraux 2,5 kW (unités intérieures)</td>
+        <td class="center">5</td>
+        <td class="right">1 200 €</td>
+        <td class="right">6 000 €</td>
+      </tr>
+      <tr>
+        <td>Ballon thermodynamique 200 L (COP ≥ 2,5)</td>
+        <td class="center">1</td>
+        <td class="right">3 500 €</td>
+        <td class="right">3 500 €</td>
+      </tr>
+      <tr>
+        <td>VMC Hygroréglable type B (double flux)</td>
+        <td class="center">1</td>
+        <td class="right">2 800 €</td>
+        <td class="right">2 800 €</td>
+      </tr>
+      <tr>
+        <td>Mise en service, réglages et formation client</td>
+        <td class="center">Forfait</td>
+        <td class="right">—</td>
+        <td class="right">4 500 €</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="3">TOTAL LOT 3</td>
+        <td class="right">20 300 €</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>LOT 4 — Ingénierie &amp; Coordination (ENERGIA-CONSEIL IA®)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Désignation</th>
+        <th class="right">Montant TTC</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Accompagnement MAR — Léo-Energy (obligatoire)</td>
+        <td class="right">2 500 €</td>
+        <td style="font-size:9px;color:var(--primary);">Facturé au client — Remboursé ANAH (Profil Bleu)</td>
+      </tr>
+      <tr>
+        <td>Ingénierie Financière &amp; Montage Dossier (Clyve)</td>
+        <td class="right">1 000 €</td>
+        <td style="font-size:9px;">Sécurisation des aides</td>
+      </tr>
+      <tr>
+        <td>Coordination Générale, Pilotage &amp; Suivi de Chantier (12 semaines)</td>
+        <td class="right">20 200 €</td>
+        <td style="font-size:9px;">Garantie décennale incluse — MIC Insurance</td>
+      </tr>
+      <tr class="total-row">
+        <td>TOTAL LOT 4</td>
+        <td class="right">23 700 €</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="recap-box">
+    <h3 style="margin-top:0;color:var(--primary);">Récapitulatif Global du Projet — Scénario 3</h3>
+    <table style="margin-bottom:0;">
+      <tbody>
+        <tr><td style="font-weight:600;">Lot 1 — Menuiseries</td><td class="right" style="font-weight:600;">41 300 €</td></tr>
+        <tr><td style="font-weight:600;">Lot 2 — Isolation</td><td class="right" style="font-weight:600;">39 700 €</td></tr>
+        <tr><td style="font-weight:600;">Lot 3 — Chauffage &amp; VMC</td><td class="right" style="font-weight:600;">20 300 €</td></tr>
+        <tr><td style="font-weight:600;">Lot 4 — Ingénierie &amp; Coordination</td><td class="right" style="font-weight:600;">23 700 €</td></tr>
+        <tr class="total-row"><td>TOTAL GÉNÉRAL DU PROJET TTC</td><td class="right">125 000 €</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 17/21
+  </footer>
+</div>
+
+<!-- PAGE 12 – AIDES FINANCIÈRES 2026 -->
+<div class="page">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — AIDES FINANCIÈRES 2026</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 18/21</div>
+  </header>
+
+  <h1>V. Aides Financières 2026</h1>
+  <p style="font-size: 13px; color: var(--text-muted);">Barèmes officiels ANAH — Juillet 2026. Votre profil : <strong style="color: var(--primary);">BLEU (Très Modeste — 1 personne, Hors IDF)</strong></p>
+
+  <div class="box box-info" style="font-size:11px;margin-bottom:14px;">
+    <strong>Aides financières 2026 (estimation à titre indicatif).</strong> Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.
+  </div>
+
+  <div class="grid-profiles">
+    <div class="profile-card active">
+      <div class="profile-tag">VOTRE PROFIL</div>
+      <div style="font-size: 16px; font-weight: 800; color: #1e40af; margin-bottom: 5px;">BLEU</div>
+      <div class="profile-rate" style="color:#1e40af;">80 %</div>
+      <div style="font-size: 10px; color: var(--text-muted); margin: 8px 0;">Revenus ≤ 17 363 €/an</div>
+      <div class="profile-split" style="border-color:#bfdbfe;">
+        <div><span>MPR</span><strong>32 000 €</strong></div>
+        <div><span>CEE</span><strong>8 000 €</strong></div>
+        <div style="font-weight:800;color:var(--primary);"><span>Total</span><strong>40 000 €</strong></div>
+      </div>
+    </div>
+    <div class="profile-card" style="background:#fef3c7;border:1px solid #fde68a;">
+      <div style="font-size: 16px; font-weight: 800; color: #b45309; margin-bottom: 5px;">JAUNE</div>
+      <div class="profile-rate" style="color:#b45309;">60 %</div>
+      <div style="font-size: 10px; color: var(--text-muted); margin: 8px 0;">Revenus ≤ 22 259 €/an</div>
+      <div class="profile-split" style="border-color:#fde68a;">
+        <div><span>MPR</span><strong>24 000 €</strong></div>
+        <div><span>CEE</span><strong>8 000 €</strong></div>
+        <div style="font-weight:800;color:#b45309;"><span>Total</span><strong>32 000 €</strong></div>
+      </div>
+    </div>
+    <div class="profile-card" style="background:#f5f3ff;border:1px solid #ddd6fe;">
+      <div style="font-size: 16px; font-weight: 800; color: #6d28d9; margin-bottom: 5px;">VIOLET</div>
+      <div class="profile-rate" style="color:#6d28d9;">45 %</div>
+      <div style="font-size: 10px; color: var(--text-muted); margin: 8px 0;">Revenus ≤ 31 185 €/an</div>
+      <div class="profile-split" style="border-color:#ddd6fe;">
+        <div><span>MPR</span><strong>18 000 €</strong></div>
+        <div><span>CEE</span><strong>8 000 €</strong></div>
+        <div style="font-weight:800;color:#6d28d9;"><span>Total</span><strong>26 000 €</strong></div>
+      </div>
+    </div>
+    <div class="profile-card" style="background:#fdf2f8;border:1px solid #fbcfe8;">
+      <div style="font-size: 16px; font-weight: 800; color: #be185d; margin-bottom: 5px;">ROSE</div>
+      <div class="profile-rate" style="color:#be185d;">30 %</div>
+      <div style="font-size: 10px; color: var(--text-muted); margin: 8px 0;">Revenus ≤ 43 475 €/an</div>
+      <div class="profile-split" style="border-color:#fbcfe8;">
+        <div><span>MPR</span><strong>12 000 €</strong></div>
+        <div><span>CEE</span><strong>8 000 €</strong></div>
+        <div style="font-weight:800;color:#be185d;"><span>Total</span><strong>20 000 €</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Règles Clés MaPrimeRénov' 2026</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Règle</th>
+        <th>Détail</th>
+        <th class="center">Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Plafond travaux éligibles</strong></td>
+        <td>40 000 € HT pour un gain de 3 classes ou plus</td>
+        <td class="center" style="color:var(--primary);font-weight:700;">✅ Applicable</td>
+      </tr>
+      <tr>
+        <td><strong>Bonus supprimés</strong></td>
+        <td>Bonus « Sortie de passoire » et « BBC » supprimés en 2026</td>
+        <td class="center" style="color:var(--red);font-weight:700;">⚠️ Attention</td>
+      </tr>
+      <tr>
+        <td><strong>MAR obligatoire</strong></td>
+        <td>Mon Accompagnateur Rénov' requis pour le Parcours Accompagné</td>
+        <td class="center" style="color:var(--primary);font-weight:700;">✅ Inclus</td>
+      </tr>
+      <tr>
+        <td><strong>Isolation des murs</strong></td>
+        <td>ITI/ITE uniquement en Parcours Accompagné depuis 2026</td>
+        <td class="center" style="color:var(--primary);font-weight:700;">✅ Conforme</td>
+      </tr>
+      <tr>
+        <td><strong>Éco-PTZ cumulable</strong></td>
+        <td>Jusqu'à 50 000 € sur 20 ans, compatible MPR</td>
+        <td class="center" style="color:var(--primary);font-weight:700;">✅ Mobilisé</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note-reg">
+    <strong>💡 Note réglementaire :</strong> Ces montants sont calculés sur la base des barèmes officiels ANAH de Juillet 2026 (Source : anah.gouv.fr). Les montants définitifs seront validés lors de l'instruction du dossier par l'ANAH. Un écart de ±5 % est possible.
+  </div>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 18/21</footer>
+</div>
+
+<!-- PAGE 13 – PLAN DE FINANCEMENT & DÉLAIS -->
+<div class="page">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — SOLUTIONS DE FINANCEMENT</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 19/21</div>
+  </header>
+
+  <h1>VI. Plan de Financement &amp; Délais</h1>
+
+  <div class="box box-info" style="font-size:11px;margin-bottom:14px;">
+    <strong>Aides financières 2026 (estimation à titre indicatif).</strong> Montants définitifs après instruction ANAH et CEE.
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Source de Financement</th>
+        <th class="right">Montant</th>
+        <th>Délai estimé</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#f8fafc;">
+        <td><strong>MaPrimeRénov' + CEE</strong></td>
+        <td class="right" style="font-weight:700;">40 000 €</td>
+        <td>Post-travaux</td>
+        <td style="font-size:10px;">Subventions directes (Profil Bleu)</td>
+      </tr>
+      <tr>
+        <td style="color:var(--secondary);font-weight:700;">🏦 Éco-PTZ (Banque)</td>
+        <td class="right" style="color:var(--secondary);font-weight:700;">50 000 €</td>
+        <td style="color:var(--red);font-weight:600;">⏳ 2 à 3 mois</td>
+        <td style="font-size:10px;">Prêt à Taux 0 % — Durée 20 ans</td>
+      </tr>
+      <tr style="background:#f0fdf4;">
+        <td style="color:var(--primary);font-weight:700;">⚡ Solution FABIEN (Courtier)</td>
+        <td class="right" style="color:var(--primary);font-weight:700;">35 000 €</td>
+        <td style="color:var(--primary);font-weight:600;">🚀 10 jours</td>
+        <td style="font-size:10px;">
+          Prêt Travaux (6 000 € à 75 000 €)
+          <span style="color:var(--primary);font-weight:600;"> OU Regroupement de crédits sur mesure</span>
+        </td>
+      </tr>
+      <tr class="total-row">
+        <td>TOTAL PLAN DE FINANCEMENT</td>
+        <td class="right">125 000 €</td>
+        <td colspan="2">Projet 100 % financé sans apport personnel</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="fabien-box">
+    <h2>L'Avantage « Réactivité » de notre Courtier</h2>
+    <p style="font-size:14px;">
+      Pour éviter l'attente des délais bancaires classiques (2 à 3 mois), notre partenaire <strong>FABIEN (VIVONS COURTIER — 06 71 19 96 45)</strong> intervient pour débloquer les fonds nécessaires au lancement de votre chantier.
+    </p>
+    <div class="cols2-fabien">
+      <div class="fabien-stat">
+        <div style="font-size:11px;color:var(--text-muted);">Tranche de financement</div>
+        <div style="font-size:18px;font-weight:800;color:var(--text-main);">6 000 € à 75 000 €</div>
+      </div>
+      <div class="fabien-stat">
+        <div style="font-size:11px;color:var(--text-muted);">Rapidité de déblocage</div>
+        <div style="font-size:18px;font-weight:800;color:var(--primary);">Sous 10 jours ouvrés</div>
+      </div>
+    </div>
+    <p style="font-size:12px;margin-top:14px;font-style:italic;">
+      * Idéal pour le versement des acomptes artisans et la commande immédiate des menuiseries.
+    </p>
+  </div>
+
+  <h2 style="margin-top:24px;">Analyse de l'Autofinancement Mensuel</h2>
+  <div class="grid-finance-kpi">
+    <div class="finance-kpi" style="background:#f8fafc;">
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:5px;">MENSUALITÉ ESTIMÉE</div>
+      <div class="finance-kpi-val" style="color:var(--secondary);">194 €</div>
+      <div style="font-size:10px;color:var(--text-muted);">Prêt complémentaire 35 k€</div>
+    </div>
+    <div class="finance-kpi" style="background:#f0fdf4;">
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:5px;">ÉCONOMIES / MOIS</div>
+      <div class="finance-kpi-val" style="color:var(--primary);">584 €</div>
+      <div style="font-size:10px;color:var(--text-muted);">Gain énergétique réel</div>
+    </div>
+    <div class="finance-kpi" style="background:var(--primary-light);border:2px solid var(--primary);">
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:5px;">GAIN NET IMMÉDIAT</div>
+      <div class="finance-kpi-val" style="color:var(--primary);font-size:28px;">+390 €</div>
+      <div style="font-size:10px;color:var(--primary);font-weight:600;">Dans votre poche / mois</div>
+    </div>
+  </div>
+
+  <div class="note-autofinance" style="margin-top:16px;">
+    🚀 <strong>Projet autofinancé :</strong> Vos économies d'énergie (+584 €/mois) couvrent largement votre mensualité (194 €/mois). Gain net <strong>+390 €/mois</strong> dès le premier mois.
+  </div>
+
+  <p style="font-size:10px;margin-top:14px;"><strong>Déblocage 30/40/30 :</strong> 30 % à la signature · 40 % mi-chantier après validation Sylvain LEMBELEMBE · 30 % à réception.</p>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 19/21</footer>
+</div>
+
+<!-- PAGE 14 – OPTION DUALSUN + ROI 30 ANS -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — OPTION SOLAIRE PREMIUM</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 20/21</div>
+  </header>
+
+  <h1>VII. Option Solaire DualSun Premium</h1>
+  <p style="font-size: 13px; color: var(--text-muted);">Installation photovoltaïque haute performance — <strong>En complément de la rénovation thermique</strong> (poste réalisé en dernier, après isolation).</p>
+
+  <div class="grid-solar">
+    <div class="solar-card">
+      <div style="font-size: 28px; margin-bottom: 8px;">☀️</div>
+      <div class="solar-card-title">DualSun Bifacial</div>
+      <div class="solar-card-muted" style="margin-top:5px;">12 panneaux 500 Wc — 6 kWc</div>
+      <div style="font-size: 11px; color: #10b981; font-weight: 700; margin-top: 8px;">+30 % de production</div>
+      <div class="solar-card-muted">vs panneaux standards</div>
+      <div class="solar-card-accent">🇫🇷 Fabriqué en France</div>
+      <div class="solar-card-muted">Garantie 30–40 ans</div>
+    </div>
+    <div class="solar-card">
+      <div style="font-size: 28px; margin-bottom: 8px;">⚡</div>
+      <div class="solar-card-title">Micro-onduleurs Enphase</div>
+      <div class="solar-card-muted" style="margin-top:5px;">1 micro par panneau</div>
+      <div style="font-size: 11px; color: #10b981; font-weight: 700; margin-top: 8px;">Résistant à l'ombrage</div>
+      <div class="solar-card-muted">Chaque panneau indépendant</div>
+      <div class="solar-card-accent">📱 Monitoring en temps réel</div>
+      <div class="solar-card-muted">Garantie 25 ans</div>
+    </div>
+    <div class="solar-card">
+      <div style="font-size: 28px; margin-bottom: 8px;">🔋</div>
+      <div class="solar-card-title">Batterie LFP 7 kWh</div>
+      <div class="solar-card-muted" style="margin-top:5px;">Lithium Fer Phosphate</div>
+      <div style="font-size: 11px; color: #10b981; font-weight: 700; margin-top: 8px;">6 000+ cycles</div>
+      <div class="solar-card-muted">Durée de vie 20–25 ans</div>
+      <div class="solar-card-accent">🔒 Autoconsommation 100 %</div>
+      <div class="solar-card-muted">Sécurité maximale</div>
+    </div>
+  </div>
+
+  <h2>Calcul de Production (Zone H2 — Auvergne-Rhône-Alpes)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Paramètre</th>
+        <th class="right">Valeur</th>
+        <th>Détail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Production de base (6 kWc × 1 250 kWh/kWc)</td>
+        <td class="right" style="font-weight:600;">7 500 kWh/an</td>
+        <td style="font-size:10px;">Zone H2 — Lyon / Nervieux</td>
+      </tr>
+      <tr>
+        <td>Bonus DualSun Bifacial (+30 %)</td>
+        <td class="right" style="font-weight:600;color:var(--primary);">× 1,30</td>
+        <td style="font-size:10px;">Technologie bifaciale</td>
+      </tr>
+      <tr>
+        <td>Bonus 3 pans (Est + Sud + Ouest)</td>
+        <td class="right" style="font-weight:600;color:var(--primary);">× 1,15</td>
+        <td style="font-size:10px;">Configuration optimale</td>
+      </tr>
+      <tr class="total-row">
+        <td>PRODUCTION ANNUELLE TOTALE</td>
+        <td class="right">11 213 kWh/an</td>
+        <td style="font-size:10px;">7 500 × 1,30 × 1,15</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Gains Financiers Annuels (Autoconsommation 100% Pure)</h2>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px;">
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 15px; text-align: center;">
+      <div style="font-size: 11px; color: var(--text-muted);">AUTOCONSOMMATION (100%)</div>
+      <div style="font-size: 22px; font-weight: 800; color: var(--primary);">2 355 €</div>
+      <div style="font-size: 10px; color: var(--text-muted);">11 213 kWh × 0,21 €/kWh</div>
+    </div>
+    <div style="background: var(--primary-light); border: 2px solid var(--primary); border-radius: 12px; padding: 15px; text-align: center;">
+      <div style="font-size: 11px; color: var(--text-muted);">GAIN SOLAIRE TOTAL</div>
+      <div style="font-size: 22px; font-weight: 800; color: var(--primary);">2 355 €</div>
+      <div style="font-size: 10px; color: var(--primary); font-weight: 600;">/an — 100% autoconsommé</div>
+    </div>
+  </div>
+
+  <h2>Rentabilité sur 30 ans (Prix : 18 000 € TTC — TVA 5,5%)</h2>
+  <p style="font-size: 11px; color: var(--red);">
+    ⚠️ Prime à l'autoconsommation supprimée depuis le 5 juin 2026 (Arrêté du 1er juin 2026).
+    TVA réduite à 5,5% en compensation.
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Année</th>
+        <th style="text-align: right;">Gain annuel</th>
+        <th style="text-align: right;">Cumul gains</th>
+        <th style="text-align: right;">Investissement</th>
+        <th style="text-align: right;">Bénéfice net</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Année 1</td>
+        <td style="text-align: right;">2 355 €</td>
+        <td style="text-align: right;">2 355 €</td>
+        <td style="text-align: right;">18 000 €</td>
+        <td style="text-align: right; color: var(--red);">- 15 645 €</td>
+      </tr>
+      <tr>
+        <td>Année 5</td>
+        <td style="text-align: right;">2 355 €</td>
+        <td style="text-align: right;">11 775 €</td>
+        <td style="text-align: right;">18 000 €</td>
+        <td style="text-align: right; color: var(--red);">- 6 225 €</td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>Année 8 (ROI)</strong></td>
+        <td style="text-align: right;">2 355 €</td>
+        <td style="text-align: right; font-weight: 800; color: var(--primary);">18 840 €</td>
+        <td style="text-align: right;">18 000 €</td>
+        <td style="text-align: right; font-weight: 800; color: var(--primary);">+ 840 €</td>
+      </tr>
+      <tr>
+        <td>Année 20</td>
+        <td style="text-align: right;">2 355 €</td>
+        <td style="text-align: right;">47 100 €</td>
+        <td style="text-align: right;">18 000 €</td>
+        <td style="text-align: right; color: var(--primary); font-weight: 700;">+ 29 100 €</td>
+      </tr>
+      <tr class="total-row">
+        <td>Année 30</td>
+        <td style="text-align: right;">2 355 €</td>
+        <td style="text-align: right;">70 650 €</td>
+        <td style="text-align: right;">18 000 €</td>
+        <td style="text-align: right;">+ 52 650 €</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="banner-residual">
+    <div style="font-size:13px;color:#94a3b8;">FACTURE RÉSIDUELLE APRÈS RÉNOVATION + SOLAIRE</div>
+    <div style="font-size:36px;font-weight:800;color:#10b981;margin:5px 0;">~ 0 € / an</div>
+    <div style="font-size:12px;color:#94a3b8;">Soit une facture d'énergie <strong style="color:#fff;">quasi nulle</strong> — autoconsommation 100 %</div>
+    <div style="font-size:11px;color:#fbbf24;margin-top:8px;">⭐ Réduction totale de 98 % par rapport à votre facture actuelle (9 097 €/an)</div>
+  </div>
+
+  <footer>ENERGIA-CONSEIL IA® — Décennale MIC Insurance N° LUNPIB2604975 — Page 20/21</footer>
+</div>
+
+<!-- PAGE 15 – PLANNING + CONTACTS + SIGNATURE -->
+<div class="page page-compact">
+  <header>
+    <div>
+      <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+      <div style="font-size: 9px; font-weight: 600; color: var(--text-muted);">AUDIT ÉNERGÉTIQUE — PLANNING &amp; ENGAGEMENT</div>
+    </div>
+    <div class="company-info">Réf. AUDIT-2026-PEREIRA | Page 21/21</div>
+  </header>
+
+  <h1>VIII. Planning &amp; Engagement</h1>
+
+  <h2>Planning Prévisionnel (12 Semaines)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:15%;">Semaine</th>
+        <th style="width:35%;">Phase</th>
+        <th style="width:35%;">Actions</th>
+        <th class="center" style="width:15%;">Responsable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="center" style="font-weight:700;">S1 - S2</td>
+        <td><strong>Préparation Administrative</strong></td>
+        <td style="font-size:11px;">Dépôt dossier ANAH, commande matériaux, planification artisans</td>
+        <td class="center" style="font-size:10px;">Clyve + MAR</td>
+      </tr>
+      <tr>
+        <td class="center" style="font-weight:700;">S3 - S4</td>
+        <td><strong>Isolation Combles &amp; Plancher</strong></td>
+        <td style="font-size:11px;">Laine de roche 40 cm combles, PSE 10 cm plancher bas</td>
+        <td class="center" style="font-size:10px;">Région Isolation</td>
+      </tr>
+      <tr>
+        <td class="center" style="font-weight:700;">S5 - S7</td>
+        <td><strong>ITI Pisé (Murs)</strong></td>
+        <td style="font-size:11px;">Préparation support, laine de bois 14 cm, plaque de finition</td>
+        <td class="center" style="font-size:10px;">Région Isolation</td>
+      </tr>
+      <tr>
+        <td class="center" style="font-weight:700;">S8 - S9</td>
+        <td><strong>Menuiseries (21 ouvertures)</strong></td>
+        <td style="font-size:11px;">Dépose anciennes menuiseries, pose PVC DV renforcé</td>
+        <td class="center" style="font-size:10px;">Bonheur d'Amarante</td>
+      </tr>
+      <tr>
+        <td class="center" style="font-weight:700;">S10</td>
+        <td><strong>VMC Hygro B</strong></td>
+        <td style="font-size:11px;">Installation centrale VMC, pose bouches, réglages</td>
+        <td class="center" style="font-size:10px;">Rhône Génie Clim.</td>
+      </tr>
+      <tr>
+        <td class="center" style="font-weight:700;">S11</td>
+        <td><strong>PAC Air/Air + Ballon</strong></td>
+        <td style="font-size:11px;">Pose unité ext., 5 splits, ballon thermo 200 L, mise en service</td>
+        <td class="center" style="font-size:10px;">Rhône Génie Clim.</td>
+      </tr>
+      <tr class="total-row" style="background:var(--primary-light);font-weight:800;color:var(--primary);">
+        <td class="center" style="font-weight:700;">S12</td>
+        <td><strong>Réception &amp; Conformité</strong></td>
+        <td style="font-size:11px;">
+          Contrôle qualité, photos, <strong>validation de la conformité technique par le MAR et ENERGIA-CONSEIL</strong>, remise des clés et <strong>dernier paiement du client au MAR</strong>.
+        </td>
+        <td class="center" style="font-size:10px;font-weight:700;">ENERGIA + MAR</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:10px;color:var(--text-muted);"><strong>Rappel :</strong> NE JAMAIS SIGNER LES DEVIS DÉFINITIFS AVANT L'ACCORD ÉCRIT DE L'ANAH. Réunions hebdomadaires lundis 9 h (Sylvain LEMBELEMBE).</p>
+
+  <h2>Votre Équipe Projet</h2>
+  <div class="grid-team">
+    <div class="team-card" style="border-left:3px solid var(--primary);">
+      <div style="font-weight:800;font-size:13px;color:var(--primary);">Sylvain LEMBELEMBE</div>
+      <div style="font-size:11px;color:var(--text-muted);">AMO / Coordination</div>
+      <div style="margin-top:5px;">📞 06 10 59 68 98</div>
+      <div>✉️ contact@energia-conseil-ia.com</div>
+    </div>
+    <div class="team-card" style="border-left:3px solid var(--secondary);">
+      <div style="font-weight:800;font-size:13px;color:var(--secondary);">DAMIEN</div>
+      <div style="font-size:11px;color:var(--text-muted);">Conseiller Commercial</div>
+      <div style="margin-top:5px;">📞 06 72 68 09 68</div>
+      <div>✉️ damien.srdconseil@gmail.com</div>
+    </div>
+    <div class="team-card" style="border-left:3px solid #6d28d9;">
+      <div style="font-weight:800;font-size:13px;color:#6d28d9;">FABIEN</div>
+      <div style="font-size:11px;color:var(--text-muted);">VIVONS COURTIER</div>
+      <div style="margin-top:5px;">📞 06 71 19 96 45</div>
+      <div>Éco-PTZ &amp; prêt jusqu'à 75 k€</div>
+    </div>
+    <div class="team-card" style="border-left:3px solid #b45309;">
+      <div style="font-weight:800;font-size:13px;color:#b45309;">Julia</div>
+      <div style="font-size:11px;color:var(--text-muted);">Juriste</div>
+      <div style="margin-top:5px;">⚖️ Avis juridique obligatoire</div>
+      <div>Conformité réglementaire 2026</div>
+    </div>
+    <div class="team-card" style="border-left:3px solid #be185d;">
+      <div style="font-weight:800;font-size:13px;color:#be185d;">MAR — Léo-Energy</div>
+      <div style="font-size:11px;color:var(--text-muted);">Mon Accompagnateur Rénov'</div>
+      <div style="margin-top:5px;">Certifié France Rénov'</div>
+      <div>Parcours Accompagné ANAH</div>
+    </div>
+    <div class="team-card" style="border-left:3px solid #0369a1;">
+      <div style="font-weight:800;font-size:13px;color:#0369a1;">Clyve</div>
+      <div style="font-size:11px;color:var(--text-muted);">Ingénierie Financière</div>
+      <div style="margin-top:5px;">Montage dossier aides</div>
+      <div>Optimisation subventions</div>
+    </div>
+  </div>
+
+  <h2>Accord &amp; Signature</h2>
+  <div style="border:1px solid var(--border);border-radius:12px;padding:18px;margin-top:12px;">
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px;">
+      Je soussigné(e) <strong>M. PEREIRA</strong>, reconnais avoir pris connaissance du présent rapport d'audit énergétique et du plan de rénovation associé. Je confirme mon accord pour engager le projet de rénovation globale selon les termes définis dans ce document.
+    </p>
+    <div class="signature-grid">
+      <div>
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:36px;">Fait à Nervieux, le _____ / _____ / 2026</div>
+        <div style="border-top:1px solid var(--border);padding-top:8px;font-size:11px;color:var(--text-muted);">Signature du Client</div>
+        <div style="font-size:11px;font-weight:600;margin-top:5px;">M. PEREIRA</div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:36px;">Pour ENERGIA-CONSEIL IA®</div>
+        <div style="border-top:1px solid var(--border);padding-top:8px;font-size:11px;color:var(--text-muted);">Signature AMO / Coordination</div>
+        <div style="font-size:11px;font-weight:600;margin-top:5px;">Sylvain LEMBELEMBE</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-garanties">
+    <div class="garantie-card">🛡️ <strong>Décennale</strong><br>MIC Insurance<br>LUNPIB2604975</div>
+    <div class="garantie-card">✅ <strong>RGE Certifié</strong><br>Artisans qualifiés<br>Tous lots</div>
+    <div class="garantie-card">📋 <strong>ANAH Partenaire</strong><br>France Rénov'<br>Officiel 2026</div>
+    <div class="garantie-card">💰 <strong>Satisfait ou</strong><br>Remboursé<br>30 jours</div>
+  </div>
+
+  <footer>
+    ENERGIA-CONSEIL IA® — SIRET 94181942700019 — 16 Rue Cuvier, 69006 Lyon<br>
+    Décennale MIC Insurance N° LUNPIB2604975 — Document généré le 12/07/2026 — Page 21/21
+  </footer>
+</div>
+
+</body>
+</html>

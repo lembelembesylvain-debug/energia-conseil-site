@@ -28,7 +28,7 @@ ENTREPRISE = {
     "slogan": "Audit Énergétique Intelligence Artificielle",
     "adresse": "16 Rue Cuvier, 69006 Lyon",
     "telephone": "06 10 59 68 98",
-    "email": "contact@energia-conseil.com",
+    "email": "contact@energia-conseil-ia.com",
     "siret": "94181942700019",
     "rcs": "Lyon 941819427",
     "tva": "FR01941819427",
@@ -428,7 +428,7 @@ def generer_devis(client_data=None):
         f"Devis établi par {ENTREPRISE['nom']} – SASU au capital de {ENTREPRISE['capital']} – SIRET {ENTREPRISE['siret']} – RCS {ENTREPRISE['rcs']} – N° TVA {ENTREPRISE['tva']} – APE {ENTREPRISE['ape']}. Marque déposée INPI.",
     )
     add_paragraph_format(doc, "Paiement : 30% à la commande, 40% à mi-parcours, 30% à réception.")
-    add_paragraph_format(doc, "RGPD : Données traitées pour la gestion du projet ; contact contact@energia-conseil.com.")
+    add_paragraph_format(doc, "RGPD : Données traitées pour la gestion du projet ; contact contact@energia-conseil-ia.com.")
     add_paragraph_format(doc, "En cas de litige : Médiation MEDICYS - www.medicys.fr")
     doc.add_paragraph()
 
@@ -447,7 +447,7 @@ def generer_devis(client_data=None):
     add_paragraph_format(doc, f"{ENTREPRISE['nom']} - Marque déposée INPI")
     add_paragraph_format(doc, f"SIRET : {ENTREPRISE['siret']} | RCS {ENTREPRISE['rcs']} | N° TVA : {ENTREPRISE['tva']}")
     add_paragraph_format(doc, f"Code APE : {ENTREPRISE['ape']} | SASU Capital {ENTREPRISE['capital']}")
-    add_paragraph_format(doc, "Paiement : 30% / 40% / 30% | RGPD : contact@energia-conseil.com")
+    add_paragraph_format(doc, "Paiement : 30% / 40% / 30% | RGPD : contact@energia-conseil-ia.com")
     add_paragraph_format(doc, "Médiation : MEDICYS - www.medicys.fr")
     add_paragraph_format(doc, "© 2026 ENERGIA-CONSEIL IA - Tous droits réservés")
 

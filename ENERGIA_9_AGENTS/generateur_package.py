@@ -230,7 +230,7 @@ def gen_seo():
     
     # Audit SEO (HTML)
     audit = """<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:Inter;max-width:900px;margin:2rem auto;padding:2rem;} table{border-collapse:collapse;width:100%;} th,td{border:1px solid #ddd;padding:8px;} th{background:#10b981;color:white;} .ok{color:green;} .ko{color:red;}</style></head><body>
-    <h1 style="color:#10b981;">AUDIT SEO - energia-conseil.com</h1>
+    <h1 style="color:#10b981;">AUDIT SEO - energia-conseil-ia.com</h1>
     <h2>1. Technique</h2><table><tr><th>Critère</th><th>Statut</th><th>Action</th></tr>
     <tr><td>HTTPS</td><td class="ok">OK</td><td>-</td></tr>
     <tr><td>Mobile-friendly</td><td class="ok">OK</td><td>-</td></tr>
@@ -361,7 +361,7 @@ def gen_contenu():
         <p>Lorem ipsum dolor sit amet. Introduction sur le sujet. Les audits énergétiques sont essentiels pour...</p>
         <h2>Section 1</h2><p>Contenu à développer. Mots-clés : audit énergétique Lyon, rénovation Rhône, DPE...</p>
         <h2>Section 2</h2><p>Conseils pratiques. Contact ENERGIA pour un devis gratuit.</p>
-        <p>ENERGIA-CONSEIL IA® - 06 10 59 68 98 - contact@energia-conseil.com</p></body></html>"""
+        <p>ENERGIA-CONSEIL IA® - 06 10 59 68 98 - contact@energia-conseil-ia.com</p></body></html>"""
         with open(d / f"Article_Blog_{i+1}_{titre[:30].replace(' ','_')}.html", "w", encoding="utf-8") as f:
             f.write(html)
     
@@ -372,7 +372,7 @@ def gen_contenu():
     <h2>Au sommaire</h2>
     <ul><li>Actualité MaPrimeRénov'</li><li>Cas client du mois</li><li>Conseils rénovation</li></ul>
     <p>[Contenu à rédiger]</p>
-    <p><a href="mailto:contact@energia-conseil.com" style="color:#10b981;">contact@energia-conseil.com</a> | 06 10 59 68 98</p>
+    <p><a href="mailto:contact@energia-conseil-ia.com" style="color:#10b981;">contact@energia-conseil-ia.com</a> | 06 10 59 68 98</p>
     </div>
     <div style="background:#1f2937;color:#9ca3af;padding:10px;text-align:center;font-size:12px;">ENERGIA-CONSEIL IA® - Marque INPI - Se désabonner</div>
     </body></html>"""

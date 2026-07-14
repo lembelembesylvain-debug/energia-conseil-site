@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Plan - ENERGIA-CONSEIL IA® - BPIFrance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-light: #f0fdfa;
+            --secondary: #1e40af;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+            --red: #be123c;
+        }
+
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        body { font-family: 'Inter', sans-serif; color: var(--text-main); margin: 0; padding: 0; background: #f1f5f9; line-height: 1.6; }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm 25mm;
+            margin: 10mm auto;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: relative;
+            page-break-after: always;
+        }
+
+        .page:last-of-type { page-break-after: avoid; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+        }
+
+        .logo-area { display: flex; flex-direction: column; }
+        .logo-text { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .logo-sub { font-size: 10px; font-weight: 600; color: var(--text-muted); margin-top: 2px; }
+
+        .company-info { text-align: right; font-size: 10px; color: var(--text-muted); line-height: 1.4; }
+        .company-info strong { color: var(--primary); }
+
+        h1 { font-size: 26px; font-weight: 800; color: var(--primary); margin: 0 0 5px 0; letter-spacing: -0.5px; page-break-before: always; }
+        h1:first-of-type { page-break-before: avoid; }
+        h2 { font-size: 18px; font-weight: 700; color: var(--text-main); border-left: 4px solid var(--primary); padding-left: 12px; margin: 25px 0 15px 0; }
+        h3 { font-size: 14px; font-weight: 600; color: var(--text-main); margin: 15px 0 10px 0; }
+
+        p { font-size: 12px; color: var(--text-main); margin-bottom: 10px; }
+        ul { font-size: 12px; color: var(--text-main); padding-left: 20px; margin-bottom: 10px; }
+        li { margin-bottom: 5px; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; }
+        th { background: var(--primary); color: white; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 9px 10px; text-align: left; }
+        td { padding: 9px 10px; font-size: 11px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+        tr.total-row td { font-weight: 800; font-size: 12px; background: var(--primary-light); color: var(--primary); border-bottom: 2px solid var(--primary); }
+
+        footer {
+            position: absolute;
+            bottom: 15mm;
+            left: 25mm;
+            right: 25mm;
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
+            font-size: 9px;
+            color: #94a3b8;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        @media print {
+            body { background: white; }
+            .no-print { display: none !important; }
+            .page { margin: 0; box-shadow: none; }
+            h1, h2, h3 { page-break-after: avoid; page-break-inside: avoid; }
+            table, ul, p { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print" style="text-align: right; max-width: 210mm; margin: 15px auto 0;">
+        <button onclick="window.print()" style="background: #0f766e; color: white; border: none; padding: 10px 20px; font-size: 13px; font-weight: 700; border-radius: 6px; cursor: pointer;">
+            🖨️ Imprimer / Enregistrer en PDF
+        </button>
+    </div>
+
+    <!-- PAGE 1 : EXECUTIVE SUMMARY & VISION STRATÉGIQUE -->
+    <div class="page">
+        <header>
+            <div class="logo-area">
+                <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+                <div class="logo-sub">CONTRACTANT GÉNÉRAL DIGITAL — BPIFRANCE</div>
+            </div>
+            <div class="company-info">
+                <strong>ENERGIA-CONSEIL IA®</strong><br>
+                16 Rue Cuvier — 69006 Lyon<br>
+                SIRET 94181942700019 | RCS Lyon 941819427<br>
+                Marque Déposée INPI N°5121845<br>
+                contact@energia-conseil-ia.com | 06 10 59 68 98
+            </div>
+        </header>
+
+        <h1>Executive Summary & Vision Stratégique</h1>
+        <p>ENERGIA-CONSEIL IA® est une <strong>Proptech</strong> spécialisée dans la rénovation énergétique globale clé en main. Nous fusionnons l'intelligence artificielle et l'expertise terrain pour répondre à l'urgence climatique et aux défis du pouvoir d'achat des ménages français.</p>
+
+        <h2>Le Problème : La Rénovation Bloquée en France</h2>
+        <p>En France, <strong>5 millions de « passoires thermiques » (DPE E, F, G)</strong> doivent être rénovées obligatoirement d'ici 2028. Pourtant, le marché est freiné par :</p>
+        <ul>
+            <li><strong>Lenteur des audits :</strong> 3 à 6 semaines pour un audit classique à 1 000 €.</li>
+            <li><strong>Complexité des aides :</strong> Un parcours administratif opaque et des délais bancaires de 2 à 3 mois.</li>
+            <li><strong>Stress des travaux :</strong> Une gestion de chantier fragmentée entre plusieurs artisans.</li>
+        </ul>
+
+        <h2>Notre Solution : L'IA au Service du Bâtiment (Contractant Général Digital)</h2>
+        <p>Nous avons développé un modèle disruptif qui résout ces blocages :</p>
+        <ul>
+            <li><strong>Audit IA en 48 heures :</strong> Notre algorithme propriétaire génère un jumeau numérique 3D thermique et un audit complet en 48 h (vs 4 semaines), divisant le coût par 4 pour le client (199 €).</li>
+            <li><strong>Parcours « Zéro Apport » :</strong> Nous sommes le seul contractant général à garantir un financement à 100 % sans apport personnel pour les ménages modestes (profil Bleu ANAH), grâce à une ingénierie financière innovante (Éco-PTZ, prêt travaux FABIEN – VIVONS COURTIER).</li>
+            <li><strong>Guichet unique & sérénité :</strong> Le client a un interlocuteur unique (ENERGIA-CONSEIL IA®) qui gère l'intégralité du projet, de l'audit à la livraison du chantier.</li>
+        </ul>
+
+        <h2>Notre Impact : Écologique, Social & Économique</h2>
+        <ul>
+            <li><strong>Décarbonation :</strong> Sur un dossier type (ex. M. PEREIRA), nous réduisons les émissions de CO₂ de 94 % (de 10,8 t à 0,6 t/an). Objectif : décarboner 100 logements d'ici 2027, soit 1 000 tonnes de CO₂ évitées.</li>
+            <li><strong>Pouvoir d'achat :</strong> Nos clients économisent jusqu'à 7 000 €/an sur leur facture d'énergie, avec un gain net positif dès la mise en service.</li>
+            <li><strong>Valorisation patrimoniale :</strong> Gain DPE significatif (ex. F → B/C) et plus-value estimée sur les biens rénovés.</li>
+        </ul>
+
+        <footer>
+            ENERGIA-CONSEIL IA® — www.energia-conseil-ia.com — contact@energia-conseil-ia.com — Page 1/3
+        </footer>
+    </div>
+
+    <!-- PAGE 2 : TRACTION COMMERCIALE & PIPELINE 2026 -->
+    <div class="page">
+        <header>
+            <div class="logo-area">
+                <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+                <div class="logo-sub">CONTRACTANT GÉNÉRAL DIGITAL — BPIFRANCE</div>
+            </div>
+            <div class="company-info">
+                <strong>ENERGIA-CONSEIL IA®</strong><br>
+                16 Rue Cuvier — 69006 Lyon<br>
+                SIRET 94181942700019 | RCS Lyon 941819427<br>
+                Marque Déposée INPI N°5121845<br>
+                contact@energia-conseil-ia.com | 06 10 59 68 98
+            </div>
+        </header>
+
+        <h1>Traction Commerciale & Pipeline 2026</h1>
+        <p>Notre modèle démontre une vélocité commerciale et une capacité d'exécution technique prouvées sur nos premiers chantiers.</p>
+
+        <h2>1. Preuve de Concept : Chiffre d'Affaires Réalisé</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Chantier</th>
+                    <th>Statut</th>
+                    <th style="text-align: right;">Montant TTC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>GRANVILLE</td>
+                    <td>✅ Terminé & facturé</td>
+                    <td style="text-align: right;">16 438 €</td>
+                </tr>
+                <tr>
+                    <td>ROYER</td>
+                    <td>🚧 En cours (attente déblocage banque 50 k€)</td>
+                    <td style="text-align: right;">52 000 €</td>
+                </tr>
+                <tr class="total-row">
+                    <td>TOTAL SÉCURISÉ & EN COURS</td>
+                    <td></td>
+                    <td style="text-align: right;">68 438 €</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>2. Pipeline Commercial Immédiat (Q3 2026)</h2>
+        <p>Notre simulateur en ligne génère un flux constant de leads qualifiés, avec un panier moyen en forte croissance vers la rénovation d'ampleur.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dossier client</th>
+                    <th>Statut</th>
+                    <th style="text-align: right;">Montant TTC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>PEREZ / EUDES</td>
+                    <td>En attente de signature</td>
+                    <td style="text-align: right;">50 000 €</td>
+                </tr>
+                <tr>
+                    <td>PEREIRA (Nervieux)</td>
+                    <td>En attente avis d'imposition</td>
+                    <td style="text-align: right;">125 000 €</td>
+                </tr>
+                <tr class="total-row">
+                    <td>TOTAL PIPELINE IMMÉDIAT</td>
+                    <td></td>
+                    <td style="text-align: right;">175 000 €</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. Objectifs 2026 & Scalabilité du Modèle</h2>
+        <p>Notre objectif pour l'exercice 2026 est d'atteindre un <strong>chiffre d'affaires de 450 000 €</strong> (prévisionnel prudent), avec une trajectoire vers <strong>1,2 M€ en 2027</strong>. Cet objectif est réaliste grâce à :</p>
+        <ul>
+            <li><strong>Panier moyen élevé :</strong> Projets entre 80 k€ et 130 k€ (Parcours Accompagné ANAH).</li>
+            <li><strong>Vitesse de conversion :</strong> Audit IA en 48 h, signature en moins de 7 jours.</li>
+            <li><strong>Maîtrise du reste à charge :</strong> Projets à 0 € ou très faible apport (profil Bleu), réduisant le cycle de décision.</li>
+            <li><strong>Modèle scalable :</strong> Notre plateforme IA permet de gérer un volume important de dossiers sans augmenter proportionnellement les coûts.</li>
+        </ul>
+
+        <footer>
+            ENERGIA-CONSEIL IA® — www.energia-conseil-ia.com — contact@energia-conseil-ia.com — Page 2/3
+        </footer>
+    </div>
+
+    <!-- PAGE 3 : UTILISATION DES FONDS & PRÉVISIONNEL FINANCIER -->
+    <div class="page">
+        <header>
+            <div class="logo-area">
+                <div class="logo-text">ENERGIA-CONSEIL IA®</div>
+                <div class="logo-sub">CONTRACTANT GÉNÉRAL DIGITAL — BPIFRANCE</div>
+            </div>
+            <div class="company-info">
+                <strong>ENERGIA-CONSEIL IA®</strong><br>
+                16 Rue Cuvier — 69006 Lyon<br>
+                SIRET 94181942700019 | RCS Lyon 941819427<br>
+                Marque Déposée INPI N°5121845<br>
+                contact@energia-conseil-ia.com | 06 10 59 68 98
+            </div>
+        </header>
+
+        <h1>Utilisation des Fonds & Prévisionnel Financier</h1>
+        <p>Le financement sollicité auprès de BPIFrance, d'un montant de <strong>15 000 €</strong>, sera affecté à des postes stratégiques visant à accélérer notre croissance et à consolider notre structure opérationnelle.</p>
+
+        <h2>1. Utilisation Détaillée des Fonds (Prêt BPIFrance de 15 000 €)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Poste de dépense</th>
+                    <th>Montant</th>
+                    <th>Justification stratégique</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Serveur de calcul IA & hébergement sécurisé</strong></td>
+                    <td>4 000 €</td>
+                    <td>Achat d'un serveur dédié haute performance (GPU) pour l'algorithme de rendu 3D et les calculs thermiques. Hébergement cloud sécurisé (RGPD) pour la protection des données clients et dossiers ANAH.</td>
+                </tr>
+                <tr>
+                    <td><strong>Marketing digital & acquisition</strong></td>
+                    <td>7 000 €</td>
+                    <td>Lancement de campagnes ciblées (Google Ads, réseaux sociaux) pour capter les propriétaires de passoires thermiques et les diriger vers le simulateur IA.</td>
+                </tr>
+                <tr>
+                    <td><strong>Certification CERTIBAT RGE</strong></td>
+                    <td>2 000 €</td>
+                    <td>Finalisation de notre démarche de certification RGE pour internaliser l'accompagnement MAR et renforcer notre éligibilité France Rénov'.</td>
+                </tr>
+                <tr>
+                    <td><strong>Équipements terrain & logistique</strong></td>
+                    <td>2 000 €</td>
+                    <td>Acquisition de tablettes durcies pour les relevés 3D terrain et frais de déplacements pour les visites de qualification client et le suivi de chantier.</td>
+                </tr>
+                <tr class="total-row">
+                    <td>TOTAL BESOIN FINANCEMENT</td>
+                    <td>15 000 €</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>2. Prévisionnel Financier Simplifié (Horizon 3 ans)</h2>
+        <p>Nos projections s'appuient sur un modèle de croissance rapide, alimenté par notre technologie IA et la forte demande du marché de la rénovation globale.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Indicateur</th>
+                    <th style="text-align: right;">Exercice 2026 (estimé)</th>
+                    <th style="text-align: right;">Exercice 2027 (prévisionnel)</th>
+                    <th style="text-align: right;">Exercice 2028 (prévisionnel)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Chiffre d'affaires</strong></td>
+                    <td style="text-align: right;">450 000 €</td>
+                    <td style="text-align: right;">1 200 000 €</td>
+                    <td style="text-align: right;">2 500 000 €</td>
+                </tr>
+                <tr>
+                    <td><strong>Marge brute moyenne</strong></td>
+                    <td style="text-align: right;">35 %</td>
+                    <td style="text-align: right;">35 %</td>
+                    <td style="text-align: right;">35 %</td>
+                </tr>
+                <tr class="total-row">
+                    <td><strong>Résultat net (après impôts)</strong></td>
+                    <td style="text-align: right;">+ 45 000 €</td>
+                    <td style="text-align: right;">+ 150 000 €</td>
+                    <td style="text-align: right;">+ 350 000 €</td>
+                </tr>
+                <tr>
+                    <td>Nombre de chantiers rénov. globale</td>
+                    <td style="text-align: right;">5</td>
+                    <td style="text-align: right;">12</td>
+                    <td style="text-align: right;">25</td>
+                </tr>
+                <tr>
+                    <td>Remboursement prêt BPI (annuel)</td>
+                    <td style="text-align: right;">3 000 €</td>
+                    <td style="text-align: right;">3 000 €</td>
+                    <td style="text-align: right;">3 000 €</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 15px;">
+            Le prêt de 15 000 € sera remboursé sur 5 ans, avec des mensualités d'environ 250 €. Notre prévisionnel démontre une capacité de remboursement solide dès le premier exercice, avec un résultat net largement excédentaire par rapport aux échéances du prêt.
+        </p>
+
+        <footer>
+            ENERGIA-CONSEIL IA® — www.energia-conseil-ia.com — contact@energia-conseil-ia.com — Page 3/3
+        </footer>
+    </div>
+
+</body>
+</html>
