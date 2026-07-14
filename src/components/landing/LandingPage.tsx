@@ -1,6 +1,3 @@
-"use client";
-
-import Link from "next/link";
 import { motion, useInView, animate } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -71,7 +68,11 @@ function FadeSection({
   );
 }
 
-export default function LandingPage() {
+type LandingPageProps = {
+  onStartAudit: () => void;
+};
+
+export default function LandingPage({ onStartAudit }: LandingPageProps) {
   const surface = useCountUp(164, { suffix: " m²" });
   const gain = useCountUp(390, { prefix: "+", suffix: " €" });
   const taux = useCountUp(90, { suffix: "%" });
@@ -81,14 +82,14 @@ export default function LandingPage() {
       {/* ─── HEADER FIXE ─── */}
       <header className="fixed inset-x-0 top-0 z-50 border-b border-teal-900/10 bg-white/95 shadow-sm backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-          <Link
-            href="/"
+          <a
+            href="#"
             className="flex items-center gap-1.5 text-lg font-bold tracking-tight sm:text-xl"
             style={{ color: emerald }}
           >
             <span aria-hidden>⚡</span>
             <span>ENERGIA CONSEIL IA®</span>
-          </Link>
+          </a>
 
           <nav
             className="hidden items-center gap-6 text-sm font-medium text-neutral-600 md:flex"
@@ -108,13 +109,14 @@ export default function LandingPage() {
             </a>
           </nav>
 
-          <Link
-            href="/audit"
+          <button
+            type="button"
+            onClick={onStartAudit}
             className="animate-pulse-cta shrink-0 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:brightness-110 sm:px-5 sm:text-base"
             style={{ backgroundColor: emeraldLight }}
           >
             Démarrer mon Audit Gratuit
-          </Link>
+          </button>
         </div>
       </header>
 
@@ -175,13 +177,14 @@ export default function LandingPage() {
             </motion.div>
 
             <motion.div custom={4} variants={fadeUp} className="mt-10">
-              <Link
-                href="/audit"
+              <button
+                type="button"
+                onClick={onStartAudit}
                 className="animate-pulse-cta inline-flex items-center justify-center gap-2 rounded-2xl px-8 py-4 text-lg font-bold text-white shadow-2xl transition hover:brightness-110 sm:px-10 sm:py-5 sm:text-xl"
                 style={{ backgroundColor: emeraldLight }}
               >
                 🚀 Démarrer mon Audit Gratuit
-              </Link>
+              </button>
             </motion.div>
           </motion.div>
 
@@ -335,13 +338,14 @@ export default function LandingPage() {
           </div>
 
           <div className="mt-12 text-center">
-            <Link
-              href="/audit"
+            <button
+              type="button"
+              onClick={onStartAudit}
               className="inline-flex items-center gap-2 rounded-xl px-8 py-3.5 font-semibold text-white shadow-lg transition hover:brightness-110"
               style={{ backgroundColor: emerald }}
             >
               Commencer maintenant →
-            </Link>
+            </button>
           </div>
         </div>
       </FadeSection>
@@ -472,13 +476,14 @@ export default function LandingPage() {
             </div>
 
             <div className="mt-10 text-center">
-              <Link
-                href="/audit"
+              <button
+                type="button"
+                onClick={onStartAudit}
                 className="inline-flex items-center gap-2 rounded-xl border-2 px-8 py-3.5 font-semibold transition hover:bg-teal-50"
                 style={{ borderColor: emerald, color: emerald }}
               >
                 Calculer mes aides →
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -548,13 +553,14 @@ export default function LandingPage() {
             Rejoignez les propriétaires qui ont choisi l&apos;autonomie
             énergétique.
           </p>
-          <Link
-            href="/audit"
+          <button
+            type="button"
+            onClick={onStartAudit}
             className="mt-10 inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-10 py-5 text-lg font-bold shadow-xl transition hover:scale-[1.02] hover:shadow-2xl sm:text-xl"
             style={{ color: emerald }}
           >
             🚀 Démarrer mon Audit Gratuit
-          </Link>
+          </button>
         </div>
       </FadeSection>
 

@@ -1,9 +1,5 @@
-"use client";
-
-import { calculateEnergyAids } from "@/lib/calculators/energy-calculator";
-import type { CalculationResult, DPEClass, Region } from "@/lib/calculators/types";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { calculateEnergyAids } from "../lib/calculators/energy-calculator";
+import type { CalculationResult, DPEClass, Region } from "../lib/calculators/types";
 import { useCallback, useMemo, useState } from "react";
 
 /** Freemium : masque les détails financiers avancés et affiche le bloc conversion Premium */
@@ -86,7 +82,6 @@ function buildProjection30Ans(
   return rows;
 }
 
-/* ─── Bloc conversion Premium (remplace les sections masquées en freemium) ─── */
 function AuditPremiumBlock({ onCheckout }: { onCheckout: () => void }) {
   return (
     <div className="rounded-2xl border-4 border-emerald-600 bg-emerald-50 p-6 md:p-8 shadow-lg">
@@ -112,7 +107,6 @@ function AuditPremiumBlock({ onCheckout }: { onCheckout: () => void }) {
   );
 }
 
-/* ─── Sections premium (masquées en mode freemium) ─── */
 function PlanFinancementCourtierTable({
   montantTravaux,
   resteACharge,
@@ -242,8 +236,11 @@ function ROIBatterieBlock({ roiBatterieAns }: { roiBatterieAns: number }) {
   );
 }
 
-export default function AuditSimulatorPage() {
-  const router = useRouter();
+type AuditSimulatorProps = {
+  onBack: () => void;
+};
+
+export default function AuditSimulator({ onBack }: AuditSimulatorProps) {
   const [activeTab, setActiveTab] = useState<TabId>("calculateur");
   const [calculated, setCalculated] = useState(false);
 
@@ -288,8 +285,10 @@ export default function AuditSimulatorPage() {
   const roiBatterieAns = 14.5;
 
   const goCheckout = useCallback(() => {
-    router.push("/checkout");
-  }, [router]);
+    window.alert(
+      "Paiement Audit Premium (199 €) — intégration Stripe à configurer.",
+    );
+  }, []);
 
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -306,12 +305,13 @@ export default function AuditSimulatorPage() {
     <main className="min-h-screen bg-gradient-to-br from-teal-900 via-emerald-900 to-teal-950 py-8 px-4">
       <div className="max-w-4xl mx-auto">
         <header className="text-center mb-8">
-          <Link
-            href="/"
+          <button
+            type="button"
+            onClick={onBack}
             className="mb-4 inline-block text-sm text-emerald-200/90 underline-offset-2 hover:text-white hover:underline"
           >
             ← Retour à l&apos;accueil
-          </Link>
+          </button>
           <p className="text-emerald-200/80 text-sm font-medium tracking-wide uppercase mb-1">
             ENERGIA-CONSEIL IA®
           </p>
@@ -323,7 +323,6 @@ export default function AuditSimulatorPage() {
           </p>
         </header>
 
-        {/* Navigation onglets */}
         <div
           className="flex rounded-xl bg-white/10 p-1 mb-6 backdrop-blur-sm"
           role="tablist"
@@ -348,7 +347,6 @@ export default function AuditSimulatorPage() {
           ))}
         </div>
 
-        {/* ─── Onglet Calculateur ─── */}
         {activeTab === "calculateur" ? (
           <section
             role="tabpanel"
@@ -480,10 +478,8 @@ export default function AuditSimulatorPage() {
           </section>
         ) : null}
 
-        {/* ─── Onglet Audit Énergétique ─── */}
         {activeTab === "audit" && result ? (
           <section role="tabpanel" className="space-y-6">
-            {/* Synthèse gratuite */}
             <div className="rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-100 border border-emerald-300/50 p-6 md:p-8 shadow-xl">
               <h2 className="text-xl font-bold text-gray-900 mb-4">
                 ⚡ Synthèse de votre audit (aperçu gratuit)
@@ -541,7 +537,6 @@ export default function AuditSimulatorPage() {
               </p>
             </div>
 
-            {/* Sections premium : masquées en freemium, visibles si FREEMIUM=false */}
             {FREEMIUM ? (
               <AuditPremiumBlock onCheckout={goCheckout} />
             ) : (
@@ -559,7 +554,6 @@ export default function AuditSimulatorPage() {
               </div>
             )}
 
-            {/* Cerise sur le gâteau — Option Solaire */}
             <div className="rounded-2xl border-2 border-amber-400 bg-gradient-to-br from-slate-900 to-slate-800 p-6 md:p-8 text-white shadow-xl">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-3xl" aria-hidden>
@@ -614,7 +608,6 @@ export default function AuditSimulatorPage() {
               )}
             </div>
 
-            {/* CTA final */}
             <div className="text-center pb-8">
               <button
                 type="button"

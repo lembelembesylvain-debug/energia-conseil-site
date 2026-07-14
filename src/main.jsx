@@ -1,26 +1,10 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import './index.css'
-import AdminDashboard from './vite-pages/AdminDashboard.jsx'
-import NouvelAudit from './vite-pages/NouvelAudit.jsx'
-import DetailAudit from './vite-pages/DetailAudit.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AdminDashboard />} />
-        <Route path="/nouvel-audit" element={<NouvelAudit />} />
-        <Route path="/audit/:id" element={<DetailAudit />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
-  )
-}
-
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <App />
   </StrictMode>,
-)
+);
