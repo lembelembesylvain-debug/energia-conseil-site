@@ -4,15 +4,19 @@ import {
   useMemo,
   useRef,
   useState,
+  lazy,
+  Suspense,
   type ReactNode,
   type FormEvent,
 } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import AdminDashboard from "./vite-pages/AdminDashboard";
-import DetailAudit from "./vite-pages/DetailAudit";
-import NouvelAudit from "./vite-pages/NouvelAudit";
+import CarteVisite from "./components/CarteVisite";
+
+const AdminDashboard = lazy(() => import("./vite-pages/AdminDashboard"));
+const DetailAudit = lazy(() => import("./vite-pages/DetailAudit"));
+const NouvelAudit = lazy(() => import("./vite-pages/NouvelAudit"));
 import {
   getNormeForYear,
   getDefaultDPEForYear,
@@ -1909,6 +1913,10 @@ function normalizePathname(path: string): string {
   return path;
 }
 
+function isCarteVisitePath(path: string): boolean {
+  return path === "/carte-visite";
+}
+
 function isAdminPath(path: string): boolean {
   return (
     path === "/admin" ||
@@ -1920,11 +1928,19 @@ function isAdminPath(path: string): boolean {
 function AdminRoutes() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/nouvel-audit" element={<NouvelAudit />} />
-        <Route path="/audit/:id" element={<DetailAudit />} />
-      </Routes>
+      <Suspense
+        fallback={
+          <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-600">
+            Chargement…
+          </div>
+        }
+      >
+        <Routes>
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/nouvel-audit" element={<NouvelAudit />} />
+          <Route path="/audit/:id" element={<DetailAudit />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }
@@ -1982,6 +1998,10 @@ export default function App() {
     window.addEventListener("popstate", syncPathname);
     return () => window.removeEventListener("popstate", syncPathname);
   }, []);
+
+  if (isCarteVisitePath(pathname)) {
+    return <CarteVisite />;
+  }
 
   if (isAdminPath(pathname)) {
     return <AdminProtectedShell />;
