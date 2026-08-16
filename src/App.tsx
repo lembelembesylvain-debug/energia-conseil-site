@@ -13,6 +13,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import CarteVisite from "./components/CarteVisite";
+import TestMaisonClyve from "./components/TestMaisonClyve";
 
 const AdminDashboard = lazy(() => import("./vite-pages/AdminDashboard"));
 const DetailAudit = lazy(() => import("./vite-pages/DetailAudit"));
@@ -1917,6 +1918,10 @@ function isCarteVisitePath(path: string): boolean {
   return path === "/carte-visite";
 }
 
+function isTestMaisonClyvePath(path: string): boolean {
+  return path === "/test-maison-clyve";
+}
+
 function isAdminPath(path: string): boolean {
   return (
     path === "/admin" ||
@@ -2001,6 +2006,10 @@ export default function App() {
 
   if (isCarteVisitePath(pathname)) {
     return <CarteVisite />;
+  }
+
+  if (isTestMaisonClyvePath(pathname)) {
+    return <TestMaisonClyve />;
   }
 
   if (isAdminPath(pathname)) {
