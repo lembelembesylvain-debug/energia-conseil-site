@@ -14,6 +14,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import CarteVisite from "./components/CarteVisite";
 import TestMaisonClyve from "./components/TestMaisonClyve";
+import RapportCompletMaisonClyve from "./components/RapportCompletMaisonClyve";
 
 const AdminDashboard = lazy(() => import("./vite-pages/AdminDashboard"));
 const DetailAudit = lazy(() => import("./vite-pages/DetailAudit"));
@@ -1922,6 +1923,10 @@ function isTestMaisonClyvePath(path: string): boolean {
   return path === "/test-maison-clyve";
 }
 
+function isTestMaisonClyveRapportPath(path: string): boolean {
+  return path === "/test-maison-clyve/rapport-complet";
+}
+
 function isAdminPath(path: string): boolean {
   return (
     path === "/admin" ||
@@ -2006,6 +2011,10 @@ export default function App() {
 
   if (isCarteVisitePath(pathname)) {
     return <CarteVisite />;
+  }
+
+  if (isTestMaisonClyveRapportPath(pathname)) {
+    return <RapportCompletMaisonClyve />;
   }
 
   if (isTestMaisonClyvePath(pathname)) {

@@ -66,6 +66,12 @@ export default function TestMaisonClyve() {
           <p className="mt-3 rounded-lg border border-amber-400/40 bg-amber-500/10 px-3 py-2 text-sm text-amber-100">
             {DISCLAIMER}
           </p>
+          <a
+            href="/test-maison-clyve/rapport-complet"
+            className="mt-4 inline-flex rounded-full border border-amber-400 px-4 py-1.5 text-sm text-amber-100 hover:bg-amber-500/20"
+          >
+            Ouvrir le rapport complet avant / après
+          </a>
         </div>
       </header>
 
