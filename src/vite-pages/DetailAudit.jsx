@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { generateFullAudit } from '../lib/generateAuditPDF'
+import ProjectEstimation from '../components/ProjectEstimation'
 const ENERGIA_GREEN = '#0f766e'  
  
 function val(value) {  
@@ -323,6 +324,14 @@ export default function DetailAudit() {
           </div>  
         </div>  
  
+        {/* TRAVAUX & FINANCEMENT */}
+        <section id="travaux-financement" className="space-y-4">
+          <h2 className="text-xl font-semibold" style={{ color: ENERGIA_GREEN }}>
+            Travaux & Financement
+          </h2>
+          <ProjectEstimation auditId={id ?? ''} />
+        </section>
+
         {/* AIDES FINANCIÈRES */}  
         {audit.aides_montant && (  
           <div className="bg-white rounded-lg shadow-sm p-6">  

@@ -1,0 +1,116 @@
+{
+  "version": "2026.0-vide",
+  "annee": 2026,
+  "avertissement": "Aucun tarif fournisseur n'est inventé. Renseigner uniquement un coût unitaire HT après vérification (devis ou grille fournisseur) et indiquer la date de vérification.",
+  "modeEmploi": "Pour chaque poste : coutEntrantUnitaireHt (nombre ou null), sourcePrix, dateVerification (AAAA-MM-JJ), commentaire. Sources autorisées : tarif_fournisseur_verifie | devis_sous_traitant | estimation_marche | hypothese_provisoire.",
+  "postes": {
+    "audit_etude": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026."
+    },
+    "isolation_combles": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (€/m² HT)."
+    },
+    "isolation_rampants": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (€/m² HT)."
+    },
+    "ite": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (€/m² HT)."
+    },
+    "iti": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (€/m² HT)."
+    },
+    "isolation_planchers": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (€/m² HT)."
+    },
+    "fenetres_portes_fenetres": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (€/unité HT)."
+    },
+    "pac_air_eau": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (forfait HT)."
+    },
+    "pac_air_air": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (€/unité HT)."
+    },
+    "vmc_simple_flux": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (forfait HT)."
+    },
+    "vmc_double_flux": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (forfait HT)."
+    },
+    "ballon_thermodynamique": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (forfait HT)."
+    },
+    "panneaux_photovoltaiques": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (€/kWc HT)."
+    },
+    "depose_evacuation": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (forfait HT)."
+    },
+    "finitions": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner depuis le tarif / devis 2026 (forfait HT)."
+    },
+    "coordination_pilotage": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À n'utiliser que pour un coût réel distinct du taux de pilotage."
+    },
+    "frais_administratifs": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "À renseigner si un coût administratif réel est identifié."
+    },
+    "aleas_techniques": {
+      "coutEntrantUnitaireHt": null,
+      "sourcePrix": "hypothese_provisoire",
+      "dateVerification": null,
+      "commentaire": "Forfait complémentaire distinct du taux d'aléas des postes techniques."
+    }
+  }
+}
