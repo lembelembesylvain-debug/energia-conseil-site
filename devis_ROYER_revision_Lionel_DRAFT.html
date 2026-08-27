@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devis ROYER — Révision TVA par lot | ENERGIA-CONSEIL IA® — DRAFT Lionel</title>
+  <style>
+    :root {
+      --green: #0f766e;
+      --green-light: #10b981;
+      --green-bg: #ecfdf5;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", Calibri, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      color: var(--text);
+      background: #fff;
+      font-size: 11px;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 1.4rem 1.8rem 2rem; }
+    .brand-name { font-weight: 700; font-size: 16px; color: var(--green-light); }
+    .brand-tagline { font-size: 11px; color: var(--muted); margin-top: 0.15rem; }
+    .brand-contact { font-size: 10px; color: var(--muted); margin-top: 0.2rem; }
+    .badge-draft {
+      display: inline-block;
+      margin-top: 0.55rem;
+      padding: 0.2rem 0.55rem;
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #92400e;
+    }
+    .devis-num { font-size: 13px; font-weight: 700; color: var(--green); margin: 0.7rem 0 0.25rem; }
+    h2 {
+      color: var(--green);
+      font-size: 12px;
+      margin: 1rem 0 0.45rem;
+      border-bottom: 1.5px solid var(--green-light);
+      padding-bottom: 0.2rem;
+      page-break-after: avoid;
+    }
+    h3 { color: #374151; font-size: 11px; margin: 0.65rem 0 0.3rem; page-break-after: avoid; }
+    p { margin: 0.3rem 0; }
+    ul { margin: 0.25rem 0 0.35rem 1.15rem; }
+    li { margin: 0.12rem 0; }
+    table { width: 100%; border-collapse: collapse; margin: 0.4rem 0; font-size: 9.5px; page-break-inside: avoid; }
+    th {
+      background: var(--green);
+      color: #fff;
+      padding: 0.35rem 0.4rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    td { padding: 0.28rem 0.4rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .montant { text-align: right; font-weight: 600; white-space: nowrap; }
+    .center { text-align: center; }
+    .total-row { background: #d1fae5; font-weight: 700; }
+    .tva-55 { background: #f0fdf4; }
+    .tva-10 { background: #eff6ff; }
+    .tva-20 { background: #faf5ff; }
+    .encadre-green {
+      background: var(--green-bg);
+      border: 1.5px solid var(--green-light);
+      border-radius: 6px;
+      padding: 0.55rem 0.75rem;
+      margin: 0.5rem 0;
+    }
+    .taux-badge {
+      display: inline-block;
+      padding: 0.05rem 0.35rem;
+      border-radius: 3px;
+      font-size: 9px;
+      font-weight: 700;
+    }
+    .taux-55 { background: #dcfce7; color: #166534; }
+    .taux-10 { background: #dbeafe; color: #1e40af; }
+    .taux-20 { background: #f3e8ff; color: #6b21a8; }
+    .footer-legal {
+      text-align: center;
+      font-size: 8px;
+      color: var(--muted);
+      margin-top: 1.4rem;
+      line-height: 1.35;
+      border-top: 1px solid var(--line);
+      padding-top: 0.6rem;
+    }
+    .page-break { page-break-after: always; }
+    @media print {
+      body { font-size: 10px; }
+      .container { padding: 0.6rem 0.9rem; max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="brand-header">
+      <div class="brand-name">ENERGIA-CONSEIL IA®</div>
+      <div class="brand-tagline">Contractant Général — Rénovation énergétique | Marque déposée INPI</div>
+      <div class="brand-contact">16 Rue Cuvier, 69006 Lyon | 06 10 59 68 98 | contact@energia-conseil-ia.com | SIRET 94181942700019 | RCS Lyon 941819427 | SASU Capital 100 €</div>
+      <span class="badge-draft">DRAFT v3 — Attestations artisans — Destinataire Lionel MFEGUE / LEO ENERGY</span>
+    </div>
+
+    <p class="devis-num">DEVIS N° DEV-2026-ROYER-REVISION-TVA-DRAFT-v3</p>
+    <p><strong>Date :</strong> 16 juillet 2026 | <strong>Validité :</strong> 3 mois | <strong>Objet :</strong> Rénovation globale — maison individuelle</p>
+
+    <h2>I. Client</h2>
+    <table>
+      <tr><th>Élément</th><th>Valeur</th></tr>
+      <tr><td>Client</td><td>M. ROYER Maixent</td></tr>
+      <tr><td>Adresse du bien</td><td>6 route de Marcilly, 42600 Chalain-d'Uzore (Loire 42)</td></tr>
+      <tr><td>Bien</td><td>Maison individuelle 77 m² — avant 1948 — pierre de taille — 2 niveaux — zone H1</td></tr>
+      <tr><td>Contractant Général</td><td>Sylvain LEMBELEMBE — ENERGIA-CONSEIL IA® — 06 10 59 68 98</td></tr>
+      <tr><td>Interlocuteur commercial</td><td>DAMIEN — 06 72 68 09 68 — damien.srdconseil@gmail.com</td></tr>
+    </table>
+
+    <h2>II. Lots de travaux — détail HT / TVA / TTC</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Désignation</th>
+          <th>Sous-traitant</th>
+          <th class="center">TVA</th>
+          <th class="montant">HT</th>
+          <th class="montant">TVA €</th>
+          <th class="montant">TTC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tva-10">
+          <td>1</td>
+          <td><strong>Mise en place chantier</strong><br>Protection, sécurisation, accès, benne, organisation</td>
+          <td>C2L — Créateur de Lumière</td>
+          <td class="center"><span class="taux-badge taux-10">10 %</span></td>
+          <td class="montant">3 500,00 €</td>
+          <td class="montant">350,00 €</td>
+          <td class="montant">3 850,00 €</td>
+        </tr>
+        <tr class="tva-55">
+          <td>2</td>
+          <td><strong>Isolation laine de bois STEICO</strong><br>SARKING ~78 m² — STEICO</td>
+          <td>C2L — Créateur de Lumière</td>
+          <td class="center"><span class="taux-badge taux-55">5,5 %</span></td>
+          <td class="montant">6 000,00 €</td>
+          <td class="montant">330,00 €</td>
+          <td class="montant">6 330,00 €</td>
+        </tr>
+        <tr class="tva-10">
+          <td>3</td>
+          <td><strong>Couverture tuiles + lambris</strong><br>Détuilage / retuilage, écran sous-toiture, tuiles, lambris</td>
+          <td>C2L — Créateur de Lumière</td>
+          <td class="center"><span class="taux-badge taux-10">10 %</span></td>
+          <td class="montant">13 634,12 €</td>
+          <td class="montant">1 363,41 €</td>
+          <td class="montant">14 997,53 €</td>
+        </tr>
+        <tr class="tva-10">
+          <td>4</td>
+          <td><strong>Zinguerie</strong><br>Zinc, naissances, fonds de chenaux, étanchéité</td>
+          <td>C2L — Créateur de Lumière</td>
+          <td class="center"><span class="taux-badge taux-10">10 %</span></td>
+          <td class="montant">2 254,02 €</td>
+          <td class="montant">225,40 €</td>
+          <td class="montant">2 479,42 €</td>
+        </tr>
+        <tr class="tva-55">
+          <td>5</td>
+          <td><strong>PAC air-air Daikin</strong><br>Bluevolution — 3 splits — COP ≥ 4</td>
+          <td>SMN ENERGIES</td>
+          <td class="center"><span class="taux-badge taux-55">5,5 %</span></td>
+          <td class="montant">3 500,00 €</td>
+          <td class="montant">192,50 €</td>
+          <td class="montant">3 692,50 €</td>
+        </tr>
+        <tr class="tva-55">
+          <td>6</td>
+          <td><strong>Ballon thermodynamique Atlantic</strong><br>EGEO 200 L — COP 2,95 — classe A</td>
+          <td>SMN ENERGIES</td>
+          <td class="center"><span class="taux-badge taux-55">5,5 %</span></td>
+          <td class="montant">2 200,00 €</td>
+          <td class="montant">121,00 €</td>
+          <td class="montant">2 321,00 €</td>
+        </tr>
+        <tr class="tva-55">
+          <td>7</td>
+          <td><strong>Fenêtres PVC AMCC Evoline</strong><br>Double vitrage — pose complète</td>
+          <td>SARL Bonheur d'Amarante</td>
+          <td class="center"><span class="taux-badge taux-55">5,5 %</span></td>
+          <td class="montant">5 615,92 €</td>
+          <td class="montant">308,87 €</td>
+          <td class="montant">5 924,79 €</td>
+        </tr>
+        <tr class="tva-10">
+          <td>8</td>
+          <td><strong>Porte d'entrée bois</strong><br>Porte bois isolante — pose complète</td>
+          <td>SARL Bonheur d'Amarante</td>
+          <td class="center"><span class="taux-badge taux-10">10 %</span></td>
+          <td class="montant">1 900,00 €</td>
+          <td class="montant">190,00 €</td>
+          <td class="montant">2 090,00 €</td>
+        </tr>
+        <tr class="tva-20">
+          <td>9</td>
+          <td><strong>Coordination générale</strong><br>Sélection / coordination sous-traitants — planning — suivi chantier — réception</td>
+          <td>ENERGIA-CONSEIL IA®</td>
+          <td class="center"><span class="taux-badge taux-20">20 %</span></td>
+          <td class="montant">8 595,63 €</td>
+          <td class="montant">1 719,13 €</td>
+          <td class="montant">10 314,76 €</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="4" class="montant">TOTAUX</td>
+          <td class="montant">47 199,69 €</td>
+          <td class="montant">4 800,31 €</td>
+          <td class="montant">52 000,00 €</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>III. Ventilation TVA</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Taux</th>
+          <th>Lots concernés</th>
+          <th class="montant">Base HT</th>
+          <th class="montant">TVA</th>
+          <th class="montant">TTC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tva-55">
+          <td><span class="taux-badge taux-55">5,5 %</span></td>
+          <td>2, 5, 6, 7 — isolation, PAC, ballon, fenêtres</td>
+          <td class="montant">17 315,92 €</td>
+          <td class="montant">952,38 €</td>
+          <td class="montant">18 268,30 €</td>
+        </tr>
+        <tr class="tva-10">
+          <td><span class="taux-badge taux-10">10 %</span></td>
+          <td>1, 3, 4, 8 — chantier, couverture, zinguerie, porte</td>
+          <td class="montant">21 288,14 €</td>
+          <td class="montant">2 128,81 €</td>
+          <td class="montant">23 416,95 €</td>
+        </tr>
+        <tr class="tva-20">
+          <td><span class="taux-badge taux-20">20 %</span></td>
+          <td>9 — coordination ENERGIA</td>
+          <td class="montant">8 595,63 €</td>
+          <td class="montant">1 719,13 €</td>
+          <td class="montant">10 314,76 €</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="2"><strong>TOTAL</strong></td>
+          <td class="montant">47 199,69 €</td>
+          <td class="montant">4 800,31 €</td>
+          <td class="montant">52 000,00 €</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>IV. Récapitulatif</h2>
+    <table>
+      <tr><td>Total HT</td><td class="montant">47 199,69 €</td></tr>
+      <tr><td>Total TVA (5,5 % / 10 % / 20 %)</td><td class="montant">4 800,31 €</td></tr>
+      <tr class="total-row"><td><strong>Total TTC</strong></td><td class="montant"><strong>52 000,00 €</strong></td></tr>
+    </table>
+    <div class="encadre-green">
+      <p><strong>TOTAL TTC : 52 000,00 €</strong></p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>V. Sous-traitants — qualifications et assurances</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Lots</th>
+          <th>Entreprise</th>
+          <th>Qualification</th>
+          <th>Assurance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1 à 4</td>
+          <td><strong>C2L — Créateur de Lumière</strong> (SARL)<br>
+            14 Rue Edouard Garet, 42160 Andrézieux-Bouthéon<br>
+            SIRET 53461962200101</td>
+          <td>RGE Qualibat N° E-E102269</td>
+          <td>Assurance décennale<br>GAN Assurances N° 221200149</td>
+        </tr>
+        <tr>
+          <td>5 et 6</td>
+          <td><strong>SMN ENERGIES</strong> (SASU)<br>
+            388 Avenue Charles de Gaulle, 69200 Vénissieux<br>
+            SIRET 994321883</td>
+          <td>QualiPAC N° QPAC/84409<br>Valide jusqu'au 27/02/2027</td>
+          <td>Assurance RC/DEC<br>QBE Insurance — Police 008527524644<br>Valide du 01/01/2026 au 31/12/2026</td>
+        </tr>
+        <tr>
+          <td>7 et 8</td>
+          <td><strong>SARL Bonheur d'Amarante</strong><br>
+            131 Rue du Thivollet, 69770 Chambost-Longessaigne<br>
+            Tél. 04 72 18 09 35 — bonheurdamarante@gmail.com<br>
+            SIRET 79180685400034</td>
+          <td>RGE Qualibat N° E-E125486<br>Valide jusqu'au 20/04/2027<br>Qualification 3511 — Menuiseries extérieures — Mention RGE</td>
+          <td>Assurance RC/DEC<br>AREAS — Police 05683781Y<br>Valide du 01/01/2026 au 31/12/2026</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td><strong>ENERGIA-CONSEIL IA®</strong> (SASU)<br>
+            16 Rue Cuvier, 69006 Lyon<br>
+            SIRET 94181942700019<br>
+            Tél. 06 10 59 68 98</td>
+          <td>Contractant Général<br>CERTIBAT Rénovation énergétique — en cours (QUALIBAT)</td>
+          <td>MIC INSURANCE COMPANY<br>Police LUNPIB2604975<br>RC Décennale + RC Professionnelle<br>Valide jusqu'au 06/07/2027<br>Intermédiaire : Calipso Assurances</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Coordination des sous-traitants : Sylvain LEMBELEMBE — ENERGIA-CONSEIL IA® — 06 10 59 68 98.</p>
+
+    <h2>VI. Échéancier contractuel</h2>
+    <p>Paiement du marché en trois échéances sur le montant total TTC de <strong>52 000,00 €</strong>.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Échéance</th>
+          <th>Condition</th>
+          <th class="montant">Montant TTC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>30 % — Signature</strong></td>
+          <td>À la signature du présent devis</td>
+          <td class="montant">15 600,00 €</td>
+        </tr>
+        <tr>
+          <td><strong>40 % — Mi-chantier</strong></td>
+          <td>Après validation écrite de Sylvain LEMBELEMBE (avancement, conformité, ordre des lots)</td>
+          <td class="montant">20 800,00 €</td>
+        </tr>
+        <tr>
+          <td><strong>30 % — Réception</strong></td>
+          <td>À la réception des travaux (PV signé — Sylvain LEMBELEMBE + client)</td>
+          <td class="montant">15 600,00 €</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="2"><strong>TOTAL</strong></td>
+          <td class="montant">52 000,00 €</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Planning prévisionnel chantier : 8 à 10 semaines après démarrage. Ordre des lots : 1 → 2 → 3 → 4 → 7 → 8 → 5 → 6 → 9 (isolation avant chauffage).</p>
+
+    <h2>VII. Conditions générales</h2>
+    <ul>
+      <li><strong>Sous-traitance RGE</strong> — Travaux exécutés par les entreprises listées en section V, sous coordination d'ENERGIA-CONSEIL IA®.</li>
+      <li><strong>Validité</strong> — Le présent devis est valable 3 mois à compter de sa date d'émission.</li>
+      <li><strong>Paiement</strong> — Échéancier 30 % / 40 % / 30 % tel que défini en section VI. Les échéances de 40 % et 30 % sont conditionnées à la validation de Sylvain LEMBELEMBE.</li>
+      <li><strong>Ordre des travaux</strong> — Isolation (lots 2–4) avant équipements de chauffage (lots 5–6).</li>
+      <li><strong>Délais</strong> — Respect des délais contractuels sauf cas de force majeure (intempéries, rupture d'approvisionnement, maladie).</li>
+      <li><strong>Chantier propre</strong> — Nettoyage des zones de travail en fin de chaque phase ; état habitable exigé à réception.</li>
+      <li><strong>Réserve de propriété</strong> — Matériaux et équipements restent propriété du vendeur jusqu'au paiement intégral (loi du 12 mai 1980).</li>
+      <li><strong>Pénalités de retard de paiement</strong> — Taux légal × 3 + indemnité forfaitaire 40 €.</li>
+      <li><strong>Révision des prix</strong> — Si le délai entre devis et démarrage dépasse 60 jours, révision possible sur indice BT01.</li>
+      <li><strong>Modification / annulation</strong> — Avenant écrit obligatoire. Annulation client après signature : frais forfaitaires 500 €.</li>
+      <li><strong>Litiges</strong> — Tentative de règlement amiable sous 15 jours ; à défaut, tribunaux de Lyon.</li>
+      <li><strong>Données personnelles</strong> — Traitement pour la gestion du projet ; conservation 5 ans ; contact@energia-conseil-ia.com.</li>
+      <li><strong>Garanties</strong> — Décennale (entreprises), biennale (équipements), parfait achèvement.</li>
+      <li><strong>Malfaçons</strong> — Mise en demeure sous 7 jours ; reprise aux frais de l'entreprise défaillante.</li>
+    </ul>
+
+    <h2>VIII. Bon pour accord — signature</h2>
+    <div class="encadre-green">
+      <p>« Je soussigné(e) <strong>M. ROYER Maixent</strong>, accepte le présent devis pour un montant total de <strong>52 000,00 € TTC</strong> (soit 47 199,69 € HT + 4 800,31 € TVA) et mandate ENERGIA-CONSEIL IA® en qualité de Contractant Général pour la réalisation et la coordination du projet.</p>
+      <p style="margin-top:0.55rem;">Fait à _____________, le _____________</p>
+      <p style="margin-top:0.9rem;">Signature client : _______________________</p>
+      <p style="margin-top:0.9rem;">Pour ENERGIA-CONSEIL IA® — Sylvain LEMBELEMBE : _______________________</p>
+      <p style="margin-top:0.55rem; font-size:9px; color:#6b7280;">DRAFT v3 — Document soumis à relecture Lionel MFEGUE / LEO ENERGY avant version définitive.</p>
+    </div>
+
+    <div class="footer-legal">
+      ENERGIA-CONSEIL IA® — Marque déposée INPI — 16 Rue Cuvier, 69006 Lyon — SIRET 94181942700019 — RCS Lyon 941819427 — SASU Capital 100 € — N° TVA FR01941819427 — 2026<br>
+      Devis DRAFT v3 — Attestations artisans — Total TTC 52 000,00 €
+    </div>
+
+  </div>
+</body>
+</html>

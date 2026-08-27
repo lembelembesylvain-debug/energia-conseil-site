@@ -1,0 +1,860 @@
+﻿\n########## BAO PAGE 10 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+10/33 
+ 
+ 
+3.1.13 
+Caract├®ristiques thermiques 
+D├®perditions thermiques 
+ 
+ 
+ 
+ 
+
+
+
+\n########## BAO PAGE 11 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+11/33 
+ 
+Consommations 
+ 
+Consommations 
+Energie finale 
+(kWh/an) 
+Energie 
+primaire 
+(kWhEP/an.m┬▓) 
+D├®penses 
+(Ôé¼ TTC/an) 
+Consommations 
+en kwhEP/m┬▓ de S.Utile 
+ 
+ 
+ 
+ 
+ 
+Chauffage 
+49 951 
+388 
+7 654 
+Refroidissement 
+0 
+0 
+0 
+ECS 
+3 801 
+40 
+817 
+Eclairage 
+409 
+4 
+88 
+Auxiliaires 
+0 
+0 
+0 
+Ventilateurs 
+0 
+0 
+0 
+Autres usages 
+0 
+0 
+0 
+Total 
+54 161 
+432 
+8 559 
+ 
+ 
+ 
+ 
+Abonnements 
+├®lectriques 
+- 
+- 
+168 
+Autres abonnements 
+- 
+- 
+0 
+Entretien 
+- 
+- 
+0 
+Total 
+ 
+ 
+168 
+ 
+ 
+ 
+ 
+Total d├®pense 
+annuelle 
+- 
+- 
+8 727 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+\n########## BAO PAGE 15 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+15/33 
+4. PR├ëSENTATION DES ├ëTATS PR├ëCONIS├ëS 
+4.1 Vue ├®conomique 
+N┬░ 
+Pr├®conisations 
+Co├╗t des 
+travaux 
+(Ôé¼ TTC) 
+Consommation 
+annuelle 
+(Ôé¼ / an) 
+Economie  
+r├®alis├®e 
+(Ôé¼/an) 
+Economie  
+r├®alis├®e 
+(%/an) 
+Temps de 
+retour brut 
+(ann├®es) 
+CEE 
+(kWh cumac) 
+0 
+Etat actuel 
+ 
+8 727  
+ 
+ 
+ 
+1 
+Iso FERMACELLE A + 
+POLYURETHANE BCD 
+17 228 
+8 490 
+237 
+2,71 
+72,74 
+0 
+2 
+Isolation rampants B C D et 
+combles A 
+15 027 
+5 312 
+3 415 
+39,13 
+4,40 
+0 
+3 
+Remplacement des fen├¬tres 
+(Bois) 
+4 174 
+8 344 
+383 
+4,38 
+10,91 
+0 
+4 
+ITE CHANVRE B C D + ITI 
+LDV A 
+30 158 
+6 878 
+1 848 
+21,18 
+16,32 
+0 
+5 
+Mise en place d'en VMR 
+1 899 
+8 739 
+-  12 
+-0,14 
+0,00 
+0 
+6 
+ETAPE 1 ISOL +VENTIL 
+69 017 
+3 407 
+5 320 
+60,96 
+12,97 
+0 
+7 
+Remplacement d'une 
+chaudi├¿re par une PAC 
+AIR/EAU 
+29 540 
+2 159 
+6 567 
+75,25 
+4,50 
+0 
+8 
+ETAPE 2 CUMUL ETP 1+ 
+PAC AIR EAU 
+75 825 
+902 
+7 825 
+89,67 
+9,69 
+0 
+ 
+4.2 Vue ├®nerg├®tique et environnementale 
+N┬░ 
+Pr├®conisations 
+Total EP 
+(Mwh) 
+Total EP 
+(kWh/m┬▓.an) 
+Economie EP 
+(kWh/m┬▓.an) 
+Economie EP 
+(%/an) 
+Economie de 
+GES 
+(Kg/m┬▓.an) 
+Economie de 
+GES 
+(%/an) 
+0 Etat actuel 
+102,06 
+463,90  
+ 
+ 
+ 
+1 Iso FERMACELLE A + 
+POLYURETHANE BCD 
+99,21 
+450,90 
+13 
+2,80 
+0,44 
+2,84 
+2 Isolation rampants B C D et 
+combles A 
+60,85 
+276,60 
+187 
+40,38 
+6,28 
+40,97 
+3 Remplacement des fen├¬tres 
+(Bois) 
+97,45 
+442,90 
+21 
+4,52 
+0,70 
+4,59 
+4 ITE CHANVRE B C D + ITI 
+LDV A 
+79,76 
+362,50 
+101 
+21,86 
+3,40 
+22,18 
+5 Mise en place d'en VMR 
+102,12 
+464,20 
+0 
+-0,06 
+0,00 
+0,02 
+6 ETAPE 1 ISOL +VENTIL 
+37,76 
+171,60 
+292 
+63,00 
+9,81 
+64,00 
+7 
+Remplacement d'une 
+chaudi├¿re par une PAC 
+AIR/EAU 
+40,46 
+183,90 
+280 
+60,36 
+9,49 
+61,86 
+8 ETAPE 2 CUMUL ETP 1+ 
+PAC AIR EAU 
+14,76 
+67,10 
+397 
+85,54 
+13,23 
+86,29 
+ 
+
+
+
+\n########## BAO PAGE 16 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+16/33 
+5. SYNOPTIQUE DES ├ëTATS RETENUS 
+ETAPE 1 ISOL +VENTIL 
+Mise en place d'un isolant plancher 
+  
+Isolation de la toiture par l'int├®rieur. 
+  
+  
+Isolation des murs ext├®rieurs par l'ext├®rieur 
+avec brique de chanvre 
+ Cout annuel 
+ 3407 Euros/an 
+ Investissement (aide d├®duite) 
+ 69017,0 Euros 
+ Temps de retour 
+ 13,0 ans 
+ 
+ETAPE 2 CUMUL ETP 1+ PAC AIR EAU 
+Mise en place d'un isolant plancher 
+  
+Isolation de la toiture par l'int├®rieur. 
+  
+  
+Isolation des murs ext├®rieurs par l'ext├®rieur 
+avec brique de chanvre 
+ Cout annuel 
+ 902 Euros/an 
+ Investissement (aide d├®duite) 
+ 75825,0 Euros 
+ Temps de retour 
+ 9,7 ans 
+ 
+
+
+
+\n########## BAO PAGE 17 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+17/33 
+6. PR├ëCONISATION 'ETAPE 1 ISOL +VENTIL' 
+6.1 Ma maison 654D975 
+6.1.1 Caract├®ristiques thermiques 
+Consommations 
+ 
+Consommations 
+Energie finale 
+(kWh/an) 
+Energie 
+primaire 
+(kWhEP/an.m┬▓) 
+D├®penses 
+(Ôé¼ TTC/an) 
+Consommations 
+en kwhEP/m┬▓ de S.Utile 
+ 
+ 
+ 
+ 
+ 
+Chauffage 
+14 800 
+115 
+2 268 
+Refroidissement 
+0 
+0 
+0 
+ECS 
+3 801 
+40 
+817 
+Eclairage 
+409 
+4 
+88 
+Auxiliaires 
+0 
+0 
+0 
+Ventilateurs 
+307 
+3 
+66 
+Autres usages 
+0 
+0 
+0 
+Total 
+19 317 
+162 
+3 239 
+ 
+ 
+ 
+ 
+Abonnements 
+├®lectriques 
+- 
+- 
+168 
+Autres abonnements 
+- 
+- 
+0 
+Entretien 
+- 
+- 
+0 
+Total 
+ 
+ 
+168 
+ 
+ 
+ 
+ 
+Total d├®pense 
+annuelle 
+- 
+- 
+3 407 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+\n########## BAO PAGE 18 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+18/33 
+ 
+R├®partition des consommations par ├®nergie 
+ 
+Indicateurs de performance 
+Mur(s) ext├®rieur(s) 
+Mur(s) int├®rieur(s) 
+Plancher(s) 
+Plafond(s) 
+Vitrage(s) 
+Porte(s) 
+
+
+
+\n########## BAO PAGE 21 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+21/33 
+ 
+ 
+6.1.4 ECO-PRET ├á TAUX ZERO 
+ 
+COMBINAISONS D'ACTIONS D'AMELIORATION DE LA PERFORMANCE ENERGETIQUE 
+    - isolation des plafonds (Si R isolant > 6 m2.┬░K/W en combles perdus ou R isolant > 
+4.5 m2.┬░K/W en rampants ou R isolant > 3 m2.┬░K/W en terrasse ) 
+    - remplacement des fen├¬tres (Si Uw <=1.3 W/┬░K.m2 et Sw>=0.3 ou Uw <=1.7 
+W/┬░K.m2 et Sw>=0.36 ) 
+    - isolation des parois exterieures (Si R isolant > 3.7 m2.┬░K/W) 
+ 
+ 
+ 
+Nombre de travaux conforme 
+3 
+ 
+ 
+ 
+ 
+ 
+TRAVAUX D'├ëCONOMIES D'├ëNERGIE PERMETTANT D'ATTEINDRE UNE PERFORMANCE 
+├ëNERG├ëTIQUE GLOBALE MINIMALE 
+ 
+D├®signation 
+Valeur 
+Zone climatique H1c 
+Altitude 193,00 m 
+ 
+ 
+ 
+ 
+Cep initial = 508 kWh/m┬▓ 
+ 
+ 
+ 
+ 
+ 
+Cep projet = 161 kWh/m┬▓ 
+<= 
+331 kWh/m┬▓ 
+ 
+ 
+ 
+Gain = 68 % 
+> 
+35 % 
+ 
+ 
+ 
+ 
+ 
+Projet pouvant b├®n├®ficier d'un ECO-Pr├¬t ├á taux z├®ro d'une 
+valeur maxi de 50000 Euros 
+ 
+Calcul effectu├® en conformit├® avec le Titre II de l'arr├¬t├® de 30 mars 2009 relatif aux 
+conditions d'application de dispositions concernant les avances remboursables sans 
+int├®r├¬t destin├®es au financement de travaux de r├®novation afin d'am├®liorer la 
+performance des logements anciens. 
+ 
+Calculs r├®alis├®s avec la m├®thode Th-C-E ex (V1.0.3 du 05/02/09) 
+
+
+
+\n########## BAO PAGE 22 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+22/33 
+ 
+ 
+ 
+6.1.5 Label 
+ 
+D├®signation 
+Valeur 
+Zone climatique H1c 
+Altitude 193,00 m 
+Coefficient a 1,20 
+Coefficient b 0,00 
+ 
+ 
+LABEL PROMOTELEC RENOVATION RESPONSABLE 
+REFERENTIEL 2017 
+ 
+Conso. initiale 
+: 508,00 kWhep/(m┬▓.an) CO2 initial 
+: 17,00 
+kg├®qCO2/m┬▓ 
+Conso. projet 
+: 161,00 kWhep/(m┬▓.an) CO2 Projet 
+: 5,00 
+kg├®qCO2/m┬▓ 
+ 
+ 
+Consommation projet inf├®rieure ou ├®gale ├á 150x(a+b)kWhep/(m2.an) 
+ 
+ 
+ 
+LABEL RENOVATION ENERGETIQUE : 
+ 
+ 
+Calculs effectu├®s en conformit├® avec le r├®f├®rentiel PROMOTELEC de juin 2017. Les calculs 
+de GES sont effectu├®s en conformit├® avec le r├®f├®rentiel PEBN. 
+ 
+Les consommations initiales et projet int├¿grent les consommations de chauffage, d'ECS 
+et de refroidissement ramen├®es ├á la surface habitable. 
+ 
+Calculs r├®alis├®s avec la m├®thode Th-C-E ex (V1.0.3 du 05/02/09) 
+
+
+
+\n########## BAO PAGE 25 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+25/33 
+7. PR├ëCONISATION 'ETAPE 2 CUMUL ETP 1+ PAC AIR EAU' 
+7.1 Ma maison 654D975 
+7.1.1 Caract├®ristiques thermiques 
+Consommations 
+ 
+Consommations 
+Energie finale 
+(kWh/an) 
+Energie 
+primaire 
+(kWhEP/an.m┬▓) 
+D├®penses 
+(Ôé¼ TTC/an) 
+Consommations 
+en kwhEP/m┬▓ de S.Utile 
+ 
+ 
+ 
+ 
+ 
+Chauffage 
+8 090 
+39 
+539 
+Refroidissement 
+0 
+0 
+0 
+ECS 
+708 
+7 
+80 
+Eclairage 
+409 
+4 
+49 
+Auxiliaires 
+206 
+2 
+24 
+Ventilateurs 
+307 
+3 
+36 
+Autres usages 
+0 
+0 
+0 
+Total 
+9 720 
+56 
+728 
+ 
+ 
+ 
+ 
+Abonnements 
+├®lectriques 
+- 
+- 
+173 
+Autres abonnements 
+- 
+- 
+0 
+Entretien 
+- 
+- 
+0 
+Total 
+ 
+ 
+173 
+ 
+ 
+ 
+ 
+Total d├®pense 
+annuelle 
+- 
+- 
+901 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+\n########## BAO PAGE 26 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+26/33 
+ 
+R├®partition des consommations par ├®nergie 
+ 
+Indicateurs de performance 
+Mur(s) ext├®rieur(s) 
+Mur(s) int├®rieur(s) 
+Plancher(s) 
+Plafond(s) 
+Vitrage(s) 
+Porte(s) 
+
+
+
+\n########## BAO PAGE 29 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+29/33 
+ 
+ 
+7.1.4 ECO-PRET ├á TAUX ZERO 
+ 
+COMBINAISONS D'ACTIONS D'AMELIORATION DE LA PERFORMANCE ENERGETIQUE 
+    - isolation des plafonds (Si R isolant > 6 m2.┬░K/W en combles perdus ou R isolant > 
+4.5 m2.┬░K/W en rampants ou R isolant > 3 m2.┬░K/W en terrasse ) 
+    - remplacement des fen├¬tres (Si Uw <=1.3 W/┬░K.m2 et Sw>=0.3 ou Uw <=1.7 
+W/┬░K.m2 et Sw>=0.36 ) 
+    - isolation des parois exterieures (Si R isolant > 3.7 m2.┬░K/W) 
+    - pose d'une pompe ├á chaleur 
+ 
+ 
+ 
+Nombre de travaux conforme 
+4 
+ 
+ 
+ 
+ 
+ 
+TRAVAUX D'├ëCONOMIES D'├ëNERGIE PERMETTANT D'ATTEINDRE UNE PERFORMANCE 
+├ëNERG├ëTIQUE GLOBALE MINIMALE 
+ 
+D├®signation 
+Valeur 
+Zone climatique H1c 
+Altitude 193,00 m 
+ 
+ 
+ 
+ 
+Cep initial = 508 kWh/m┬▓ 
+ 
+ 
+ 
+ 
+ 
+Cep projet = 45 kWh/m┬▓ 
+<= 
+331 kWh/m┬▓ 
+ 
+ 
+ 
+Gain = 91 % 
+> 
+35 % 
+ 
+ 
+ 
+ 
+ 
+Projet pouvant b├®n├®ficier d'un ECO-Pr├¬t ├á taux z├®ro d'une 
+valeur maxi de 50000 Euros 
+ 
+Calcul effectu├® en conformit├® avec le Titre II de l'arr├¬t├® de 30 mars 2009 relatif aux 
+conditions d'application de dispositions concernant les avances remboursables sans 
+int├®r├¬t destin├®es au financement de travaux de r├®novation afin d'am├®liorer la 
+performance des logements anciens. 
+ 
+Calculs r├®alis├®s avec la m├®thode Th-C-E ex (V1.0.3 du 05/02/09) 
+
+
+
+\n########## BAO PAGE 30 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+30/33 
+ 
+ 
+ 
+7.1.5 Label 
+ 
+D├®signation 
+Valeur 
+Zone climatique H1c 
+Altitude 193,00 m 
+Coefficient a 1,20 
+Coefficient b 0,00 
+ 
+ 
+LABEL PROMOTELEC RENOVATION RESPONSABLE 
+REFERENTIEL 2017 
+ 
+Conso. initiale 
+: 508,00 kWhep/(m┬▓.an) CO2 initial 
+: 17,00 
+kg├®qCO2/m┬▓ 
+Conso. projet 
+: 45,00 kWhep/(m┬▓.an) 
+CO2 Projet 
+: 1,00 
+kg├®qCO2/m┬▓ 
+ 
+ 
+Consommation projet inf├®rieure ou ├®gale ├á 100x(a+b)kWhep/(m2.an) 
+ 
+ 
+ 
+LABEL RENOVATION ENERGETIQUE : 
+ 
+ 
+Calculs effectu├®s en conformit├® avec le r├®f├®rentiel PROMOTELEC de juin 2017. Les calculs 
+de GES sont effectu├®s en conformit├® avec le r├®f├®rentiel PEBN. 
+ 
+Les consommations initiales et projet int├¿grent les consommations de chauffage, d'ECS 
+et de refroidissement ramen├®es ├á la surface habitable. 
+ 
+Calculs r├®alis├®s avec la m├®thode Th-C-E ex (V1.0.3 du 05/02/09) 
+
+
+
+\n########## BAO PAGE 33 ##########
+
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+33/33 
+8. DOCUMENT EN ANNEXE 
+ 
+Document en annexe 
+ 
+

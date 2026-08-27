@@ -1,0 +1,825 @@
+{
+  "nom": "ROYER Maixent",
+  "adresse": "6 route de Marcilly, 42600 Chalain-d'Uzore",
+  "surface": 77,
+  "annee_construction": 1948,
+  "dpe_actuel": "G",
+  "dpe_cible": "C",
+  "type_bien": "Maison individuelle avant 1948, pierre de taille 60 cm, non isolée, 2 niveaux",
+  "personnes": 2,
+  "revenu_fiscal": 24722,
+  "profil_anah": "JAUNE",
+  "profil_anah_note": "RFR 24 722 € pour 2 personnes — plafond BLEU = 24 875 € (vérifier éligibilité 80 %)",
+  "mar_participation_client": 1250,
+  "mar_participation_versee": true,
+  "equipe": {
+    "contractant_general": {
+      "nom": "Sylvain LEMBELEMBE",
+      "entite": "ENERGIA CONSEIL IA®",
+      "role": "Contractant Général · Mandataire Administratif ANAH",
+      "contact": "06 10 59 68 98 — contact@energia-conseil-ia.com"
+    },
+    "hub_admin": {
+      "nom": "Clyve A.",
+      "entite": "HUB ADMIN",
+      "role": "Partenaire administratif",
+      "contact": "clyve.a@hub-admin.fr"
+    },
+    "courtier": {
+      "nom": "Fabien BARRAS",
+      "entite": "UMAFI",
+      "role": "Courtier partenaire",
+      "contact": "06 71 19 96 45 — umafi.fr"
+    }
+  },
+  "certification_sylvain": "CERTIBAT Rénovation Énergétique RGE — en cours d'obtention (QUALIBAT)",
+  "positionnement": {
+    "contractant_general": true,
+    "mandataire_administratif": true,
+    "interlocuteur_unique": "Sylvain LEMBELEMBE"
+  },
+  "assurance_energia": {
+    "assureur": "MIC INSURANCE COMPANY",
+    "produit": "PIB — Professions Intellectuelles du Bâtiment",
+    "numero_police": "LUNPIB2604975",
+    "type": "RC Décennale + RC Professionnelle + Protection Juridique",
+    "activite_couverte": "Contractant Général (Activité N°5)",
+    "date_effet": "07/07/2026",
+    "date_echeance": "06/07/2027",
+    "rc_pro_plafond": "5 000 000 €",
+    "intermediaire": "Calipso Assurances — 04 81 91 16 24",
+    "souscripteur": "Leader Underwriting (LEADER SOUSCRIPTION)"
+  },
+  "zone_geo": "Hors IDF",
+  "zone_climatique": "H1",
+  "region": "Auvergne-Rhône-Alpes",
+  "departement": "42",
+  "usage": "Résidence principale",
+  "budget_ht": 49518,
+  "budget_travaux": 52000,
+  "tva_montant": 2482,
+  "mpr": 24000,
+  "cee": 0,
+  "cee_detail": "",
+  "total_aides": 24000,
+  "effort_final": 28000,
+  "ecoptz": 28000,
+  "duree_pret_mois": 180,
+  "mensualite_ecoptz": 156,
+  "economies_annuelles": 2500,
+  "facture_avant_min": 2520,
+  "facture_avant_max": 3450,
+  "facture_apres_min": 440,
+  "facture_apres_max": 630,
+  "facture_avant": 2985,
+  "facture_apres": 535,
+  "conso_avant": 577,
+  "conso_apres": 117,
+  "co2_avant_kg_m2": 20,
+  "co2_apres_kg_m2": 3,
+  "reduction_conso_pct": 80,
+  "reduction_ges_pct": 85,
+  "valorisation_pct": 15,
+  "option_solaire": false,
+  "email_client": "",
+  "date_cloture": "30/04/2026",
+  "duree_chantier": "8 à 10 semaines",
+  "demarrage_condition": "Après confirmation écrite du bon enregistrement administratif du dossier",
+  "planning_chantier": {
+    "1": [
+      [
+        "S1-S2",
+        "Constitution dossier",
+        "Création de l'espace MonProjetAnah, désignation de l'Accompagnateur Rénov', constitution du dossier, confirmation écrite avant démarrage des travaux"
+      ],
+      [
+        "S3-S4",
+        "Toiture SARKING",
+        "Isolation STEICO 78 m² — couverture"
+      ],
+      [
+        "S5",
+        "Zinguerie",
+        "Zinc, naissances, chenaux"
+      ],
+      [
+        "S6",
+        "Menuiseries",
+        "5 fenêtres + 2 portes"
+      ]
+    ],
+    "2": [
+      [
+        "S7",
+        "PAC Air-Air",
+        "Daikin 3 splits — mise en service"
+      ],
+      [
+        "S8",
+        "Ballon thermo",
+        "Atlantic EGEO 200 L"
+      ],
+      [
+        "S9",
+        "Finitions",
+        "Reprises, étanchéité, nettoyage"
+      ],
+      [
+        "S10",
+        "Réception",
+        "PV Sylvain + MAR + client"
+      ]
+    ]
+  },
+  "fiches_techniques": [
+    {
+      "ordre": 1,
+      "lot": "Mise en place chantier",
+      "cout_ttc": 2849,
+      "objectif": "Préparer, sécuriser et organiser le chantier avant le démarrage des travaux.",
+      "caracteristiques": [
+        "Protection des zones de travail",
+        "Mise en place des accès nécessaires",
+        "Sécurisation du site",
+        "Benne et gestion des déchets",
+        "Nettoyage de fin de chantier"
+      ],
+      "controles": [
+        "Zone chantier sécurisée",
+        "Protections posées avant intervention",
+        "Accès artisans organisés",
+        "Évacuation des déchets prévue",
+        "Nettoyage final réalisé"
+      ],
+      "documents": [
+        "Planning d'intervention",
+        "Photos avant travaux",
+        "Bordereaux d'évacuation si applicables",
+        "Procès-verbal de réception"
+      ]
+    },
+    {
+      "ordre": 2,
+      "lot": "Isolation toiture SARKING",
+      "cout_ttc": 27430,
+      "objectif": "Réduire les déperditions thermiques par la toiture et améliorer le confort hiver comme été.",
+      "caracteristiques": [
+        "Surface traitée : 78 m²",
+        "Technique : isolation par l'extérieur type SARKING",
+        "Isolant : laine de bois STEICO",
+        "Épaisseur : 100 mm",
+        "Résistance thermique annoncée : R = 6,25 m².K/W",
+        "Pare-vapeur prévu",
+        "Traitement de l'étanchéité prévu"
+      ],
+      "benefices": [
+        "Réduction majeure des pertes par la toiture",
+        "Amélioration du confort d'été",
+        "Support de l'objectif DPE G → C",
+        "Réduction des besoins de chauffage"
+      ],
+      "controles": [
+        "Surface réellement isolée",
+        "Épaisseur et référence isolant conformes au devis",
+        "Continuité de l'isolation",
+        "Pare-vapeur posé conformément aux prescriptions",
+        "Étanchéité et finitions contrôlées",
+        "Absence de désordre visible après travaux"
+      ],
+      "documents": [
+        "Fiche technique STEICO",
+        "Facture détaillée",
+        "Attestation artisan RGE si applicable",
+        "Photos avant / pendant / après travaux"
+      ]
+    },
+    {
+      "ordre": 3,
+      "lot": "PAC Air-Air Daikin",
+      "cout_ttc": 3754,
+      "objectif": "Remplacer ou compléter le chauffage existant par un système réversible performant et adapté au logement.",
+      "caracteristiques": [
+        "Marque : Daikin",
+        "Configuration : 3 splits",
+        "Gamme : Bluevolution",
+        "Puissance annoncée : 6,8 kW",
+        "COP annoncé : 4,91",
+        "Classe énergétique : A+++ / A++"
+      ],
+      "benefices": [
+        "Réduction des consommations de chauffage",
+        "Chauffage réactif et pilotable",
+        "Possibilité de rafraîchissement selon configuration",
+        "Contribution à l'amélioration du DPE"
+      ],
+      "controles": [
+        "Nombre d'unités intérieures : 3",
+        "Référence matériel conforme au devis",
+        "Emplacement des unités validé",
+        "Essais de fonctionnement réalisés",
+        "Paramétrage et explication d'utilisation au client",
+        "Notice et télécommande remises"
+      ],
+      "documents": [
+        "Fiche technique fabricant",
+        "Notice utilisateur",
+        "Mise en service",
+        "Facture détaillée",
+        "Attestation de conformité / installation selon prestations"
+      ]
+    },
+    {
+      "ordre": 4,
+      "lot": "Ballon thermodynamique Atlantic",
+      "cout_ttc": 2900,
+      "objectif": "Réduire le coût de production d'eau chaude sanitaire.",
+      "caracteristiques": [
+        "Marque : Atlantic",
+        "Modèle : EGEO",
+        "Capacité : 200 litres",
+        "COP annoncé : 2,95",
+        "Classe énergétique : A",
+        "Remplacement du ballon électrique existant de 100 litres"
+      ],
+      "benefices": [
+        "Diminution des consommations d'eau chaude",
+        "Capacité adaptée au foyer déclaré",
+        "Amélioration du confort sanitaire",
+        "Réduction des émissions associées à l'ECS"
+      ],
+      "controles": [
+        "Capacité installée : 200 L",
+        "Référence Atlantic EGEO conforme",
+        "Raccordements eau et électricité vérifiés",
+        "Groupe de sécurité et évacuation contrôlés",
+        "Essai de chauffe effectué",
+        "Paramétrage expliqué au client"
+      ],
+      "documents": [
+        "Notice fabricant",
+        "Fiche technique",
+        "Facture détaillée",
+        "Garantie fabricant"
+      ]
+    },
+    {
+      "ordre": 5,
+      "lot": "Fenêtres PVC Grosfillex",
+      "cout_ttc": 4193,
+      "objectif": "Améliorer l'étanchéité à l'air, le confort et les performances thermiques des menuiseries.",
+      "caracteristiques": [
+        "Quantité : 5 fenêtres",
+        "Marque : Grosfillex",
+        "Gamme : Altapremium",
+        "Matériau : PVC",
+        "Double vitrage : 4-20-4 argon",
+        "Coefficient thermique annoncé : Uw = 1,3 W/m².K"
+      ],
+      "benefices": [
+        "Réduction des infiltrations d'air",
+        "Amélioration du confort près des baies",
+        "Réduction des déperditions par les menuiseries",
+        "Amélioration acoustique selon environnement"
+      ],
+      "controles": [
+        "Quantité installée : 5 fenêtres",
+        "Vitrage conforme au devis",
+        "Étanchéité périphérique contrôlée",
+        "Ouverture et fermeture fluides",
+        "Finitions intérieures / extérieures vérifiées",
+        "Absence de choc ou défaut visuel"
+      ],
+      "documents": [
+        "Fiche produit Grosfillex",
+        "Facture détaillée",
+        "Garantie menuiseries",
+        "Photos après pose"
+      ]
+    },
+    {
+      "ordre": 6,
+      "lot": "Portes isolantes Sillage",
+      "cout_ttc": 4431,
+      "objectif": "Réduire les pertes thermiques et sécuriser les accès.",
+      "caracteristiques": [
+        "Quantité : 2 portes isolantes",
+        "Marque / gamme : Sillage",
+        "Coefficient annoncé : Ud = 1,3 W/m².K",
+        "Serrure multipoints",
+        "Isolation renforcée"
+      ],
+      "benefices": [
+        "Réduction des infiltrations d'air aux accès",
+        "Amélioration du confort thermique",
+        "Renforcement de la sécurité",
+        "Cohérence avec le remplacement des fenêtres"
+      ],
+      "controles": [
+        "Quantité installée : 2 portes",
+        "Référence et performance Ud conformes au devis",
+        "Réglage ouvrant / dormant vérifié",
+        "Serrure multipoints fonctionnelle",
+        "Étanchéité périphérique contrôlée",
+        "Clés, notices et garanties remises"
+      ],
+      "documents": [
+        "Fiche technique produit",
+        "Notice de pose",
+        "Garantie fabricant",
+        "Facture détaillée"
+      ]
+    },
+    {
+      "ordre": 7,
+      "lot": "Zinguerie complète",
+      "cout_ttc": 2529,
+      "objectif": "Assurer l'évacuation des eaux pluviales et protéger durablement la toiture rénovée.",
+      "caracteristiques": [
+        "Couloirs en zinc",
+        "Naissances",
+        "Fonds de chenaux",
+        "Finitions d'étanchéité"
+      ],
+      "benefices": [
+        "Protection de la toiture et des façades",
+        "Évacuation maîtrisée des eaux pluviales",
+        "Limitation des infiltrations",
+        "Pérennité des travaux de toiture"
+      ],
+      "controles": [
+        "Pentes d'écoulement vérifiées",
+        "Fixations et raccords contrôlés",
+        "Étanchéité des jonctions",
+        "Absence de fuite visible",
+        "Évacuation effective des eaux testée",
+        "Finitions propres et sans arêtes dangereuses"
+      ],
+      "documents": [
+        "Photos des ouvrages terminés",
+        "Facture détaillée",
+        "Notice / garantie selon entreprise exécutante"
+      ]
+    },
+    {
+      "ordre": 8,
+      "lot": "Coordination & accompagnement MAR",
+      "cout_ttc": 9885,
+      "objectif": "Assurer le suivi global du projet et la coordination des intervenants administratifs et techniques.",
+      "caracteristiques": [
+        "Suivi hebdomadaire du dossier",
+        "Gestion des démarches d'aides",
+        "Coordination des artisans RGE",
+        "Interface avec le MAR",
+        "Suivi administratif du projet"
+      ],
+      "precision_mar": "Le MAR réalise l'audit réglementaire, vérifie la situation énergétique du logement à l'instant T et établit ses recommandations réglementaires.<br/><br/>Le rapport personnalisé ENERGIA CONSEIL IA® est élaboré à partir des recommandations du MAR et du scénario de travaux choisi par le client.",
+      "benefices": [
+        "Interlocuteur unique tout au long du projet",
+        "Meilleure lisibilité des étapes",
+        "Suivi des pièces administratives",
+        "Coordination des interventions",
+        "Aide au suivi du calendrier de chantier"
+      ],
+      "controles": [
+        "Mandats et pièces client collectés avec consentement",
+        "Dossier administratif suivi",
+        "Devis et factures classés",
+        "Échanges avec les intervenants tracés",
+        "PV de réception et pièces finales conservés"
+      ],
+      "documents": [
+        "Mandat administratif signé",
+        "Audit réglementaire MAR",
+        "Devis acceptés",
+        "Factures",
+        "Attestations RGE disponibles",
+        "PV de réception",
+        "Justificatifs nécessaires aux demandes de paiement"
+      ]
+    }
+  ],
+  "scenario_recommande": "optimal",
+  "option_photovoltaique": {
+    "active": true,
+    "intitule": "Option photovoltaïque premium — autoconsommation prioritaire",
+    "puissance_kwc": 6,
+    "nombre_panneaux": 12,
+    "puissance_unitaire_wc": 500,
+    "batterie_kwh": 7,
+    "prix_ttc": 18000,
+    "objectif": "Produire et consommer localement l'électricité du logement",
+    "mode": "Autoconsommation prioritaire avec batterie de stockage",
+    "orientation": "À confirmer lors de la visite technique",
+    "inclinaison": "À confirmer lors de la visite technique",
+    "ombrages": "À analyser lors de la visite technique",
+    "production_annuelle": "~7 600 kWh/an (PVGIS indicatif — sous réserve d'étude technique)",
+    "production_pvgis_kwh": 7600,
+    "economies_annuelles": "À confirmer selon production, consommation et pilotage",
+    "dpe_cible": "C à confirmer",
+    "statut": "Option soumise à étude technique, devis détaillé et validation client"
+  },
+  "cerise_pvgis": {
+    "commune": "Chalain-d'Uzore (42600)",
+    "source": "PVGIS — Commission Européenne (données 2005-2023)",
+    "production_kwh_an": 7600,
+    "hypotheses": "6 kWc, plein sud, inclinaison 35°, sans ombrage majeur",
+    "couverture_objectif": "80 à 90 %",
+    "facture_avant": "2 520 € à 3 450 €",
+    "facture_apres_reno": "~440 € à 630 €/an",
+    "facture_apres_pv": "~50 € à 140 €/an",
+    "mention": "Objectif indicatif non contractuel — sous réserve d'étude technique"
+  },
+  "echeancier": {
+    "acompte_30": 15600,
+    "acompte_30_verse": false,
+    "demarrage_40": 20800,
+    "reception_30": 15600
+  },
+  "statuts_paiement": {
+    "encaisses": [
+      {
+        "libelle": "Frais d'accompagnement réglés",
+        "montant": 1250,
+        "statut": "✅"
+      },
+      {
+        "libelle": "Acompte 30%",
+        "montant": 15600,
+        "statut": "⏳ Appelé — en attente"
+      }
+    ],
+    "total_encaisse": 1250,
+    "en_attente": [
+      {
+        "libelle": "Démarrage 40%",
+        "montant": 20800,
+        "statut": "⏳"
+      },
+      {
+        "libelle": "Réception 30%",
+        "montant": 15600,
+        "statut": "⏳"
+      }
+    ],
+    "total_restant": 36400,
+    "aides_attendues": [
+      {
+        "libelle": "MaPrimeRénov' (ANAH)",
+        "montant": 24000,
+        "statut": "⏳"
+      }
+    ],
+    "total_aides_statut": "⏳"
+  },
+  "chauffage": {
+    "type": "Électrique direct + bois d'appoint",
+    "age": 15,
+    "rendement": 1.0,
+    "cop": null
+  },
+  "ecs": {
+    "type": "Ballon électrique",
+    "consommation_kwh": 1800
+  },
+  "ventilation": {
+    "type": "Naturelle",
+    "etat": "Insuffisante — humidité pièces humides"
+  },
+  "enveloppe": {
+    "toiture": {
+      "etat": "Tuiles anciennes, non isolée (SARKING prévu)",
+      "r": 1.5,
+      "deperdition_pct": 30
+    },
+    "murs": {
+      "etat": "Pierre de taille 60 cm non isolée",
+      "r": 0.8,
+      "deperdition_pct": 25
+    },
+    "plancher": {
+      "etat": "Terre battue / vide sanitaire",
+      "r": 0.5,
+      "deperdition_pct": 10
+    },
+    "fenetres": {
+      "etat": "Simple vitrage partiel",
+      "uw": 4.5,
+      "deperdition_pct": 15
+    },
+    "ponts": {
+      "etat": "Nombreux (pierre ancienne)",
+      "deperdition_pct": 10
+    },
+    "infiltrations": {
+      "etat": "Élevées",
+      "deperdition_pct": 10
+    }
+  },
+  "points_faibles": [
+    {
+      "libelle": "Toiture non isolée — déperditions 30 %",
+      "impact_euro": 900
+    },
+    {
+      "libelle": "Murs pierre 60 cm non isolés",
+      "impact_euro": 750
+    },
+    {
+      "libelle": "Menuiseries simple vitrage",
+      "impact_euro": 450
+    },
+    {
+      "libelle": "Ventilation naturelle insuffisante",
+      "impact_euro": 300
+    },
+    {
+      "libelle": "Ponts thermiques linteaux pierre",
+      "impact_euro": 400
+    }
+  ],
+  "scenarios": {
+    "essentiel": {
+      "label": "ESSENTIEL",
+      "badge": "Budget serré",
+      "budget": 35000,
+      "dpe_cible": "E",
+      "conso_apres": 280,
+      "economies_annuelles": 1200,
+      "roi": 14,
+      "valorisation_pct": 8,
+      "co2_t_an": "~1 t/an",
+      "aides": {
+        "mpr": 18000,
+        "cee": 0,
+        "total": 18000,
+        "reste": 17000
+      },
+      "travaux": [
+        {
+          "n": 1,
+          "libelle": "Isolation combles",
+          "materiau": "Laine roche soufflée R=7",
+          "cout": 8000
+        },
+        {
+          "n": 2,
+          "libelle": "5 Fenêtres PVC",
+          "materiau": "PVC Uw=1,3 double vitrage",
+          "cout": 7000
+        },
+        {
+          "n": 3,
+          "libelle": "PAC air-air",
+          "materiau": "Daikin COP≥4,5",
+          "cout": 12000
+        },
+        {
+          "n": 4,
+          "libelle": "Coordination & MAR",
+          "materiau": "Suivi dossier ANAH",
+          "cout": 8000
+        }
+      ]
+    },
+    "optimal": {
+      "label": "OPTIMAL",
+      "badge": "Recommandé ⭐",
+      "budget": 52000,
+      "dpe_cible": "C",
+      "conso_apres": 117,
+      "economies_annuelles": 2500,
+      "roi": 11.2,
+      "valorisation_pct": 15,
+      "co2_t_an": "~1,4 t/an",
+      "aides": {
+        "mpr": 24000,
+        "cee": 0,
+        "total": 24000,
+        "reste": 28000
+      },
+      "travaux": [
+        {
+          "n": 1,
+          "libelle": "Mise en place chantier",
+          "materiau": "Protection, benne, sécurisation",
+          "cout": 2849
+        },
+        {
+          "n": 2,
+          "libelle": "Isolation toiture SARKING 78 m²",
+          "materiau": "Laine bois STEICO 100 mm R=6,25",
+          "cout": 27430
+        },
+        {
+          "n": 3,
+          "libelle": "PAC Air-Air Daikin 3 splits",
+          "materiau": "Bluevolution 6,8 kW COP 4,91 A+++",
+          "cout": 3754
+        },
+        {
+          "n": 4,
+          "libelle": "Ballon thermodynamique Atlantic",
+          "materiau": "EGEO 200 L COP 2,95 classe A",
+          "cout": 2900
+        },
+        {
+          "n": 5,
+          "libelle": "5 Fenêtres PVC Grosfillex",
+          "materiau": "Altapremium Uw=1,3 DV 4-20-4 argon",
+          "cout": 4193
+        },
+        {
+          "n": 6,
+          "libelle": "2 Portes isolantes Sillage",
+          "materiau": "Ud=1,3 serrure multipoints",
+          "cout": 4431
+        },
+        {
+          "n": 7,
+          "libelle": "Zinguerie complète",
+          "materiau": "Zinc, naissances, chenaux, étanchéité",
+          "cout": 2529
+        },
+        {
+          "n": 8,
+          "libelle": "Coordination & MAR ANAH",
+          "materiau": "Suivi hebdo, dossiers aides, artisans RGE",
+          "cout": 9885
+        }
+      ]
+    },
+    "excellence": {
+      "label": "EXCELLENCE",
+      "badge": "Rénovation globale + option solaire",
+      "budget": 70000,
+      "budget_renovation": 52000,
+      "option_pv_ttc": 18000,
+      "dpe_cible": "C à confirmer",
+      "conso_apres": 117,
+      "economies_annuelles": 2500,
+      "economies_solaires": "À confirmer selon étude technique",
+      "roi": null,
+      "valorisation_pct": 15,
+      "co2_t_an": "~1,4 t/an",
+      "aides": {
+        "mpr": 24000,
+        "cee": 0,
+        "total": 24000,
+        "reste": 46000
+      },
+      "travaux": [
+        {
+          "n": 1,
+          "libelle": "Mise en place chantier",
+          "materiau": "Protection, benne, sécurisation",
+          "cout": 2849
+        },
+        {
+          "n": 2,
+          "libelle": "Isolation toiture SARKING 78 m²",
+          "materiau": "Laine bois STEICO 100 mm R=6,25",
+          "cout": 27430
+        },
+        {
+          "n": 3,
+          "libelle": "PAC Air-Air Daikin 3 splits",
+          "materiau": "Bluevolution 6,8 kW COP 4,91 A+++",
+          "cout": 3754
+        },
+        {
+          "n": 4,
+          "libelle": "Ballon thermodynamique Atlantic",
+          "materiau": "EGEO 200 L COP 2,95 classe A",
+          "cout": 2900
+        },
+        {
+          "n": 5,
+          "libelle": "5 Fenêtres PVC Grosfillex",
+          "materiau": "Altapremium Uw=1,3 DV 4-20-4 argon",
+          "cout": 4193
+        },
+        {
+          "n": 6,
+          "libelle": "2 Portes isolantes Sillage",
+          "materiau": "Ud=1,3 serrure multipoints",
+          "cout": 4431
+        },
+        {
+          "n": 7,
+          "libelle": "Zinguerie complète",
+          "materiau": "Zinc, naissances, chenaux, étanchéité",
+          "cout": 2529
+        },
+        {
+          "n": 8,
+          "libelle": "Coordination & MAR ANAH",
+          "materiau": "Suivi hebdo, dossiers aides, artisans RGE",
+          "cout": 9885
+        }
+      ]
+    }
+  },
+  "artisans": [
+    {
+      "poste": "Toiture SARKING + Zinguerie",
+      "entreprise": "C2L — Créateur de Lumière",
+      "forme": "SARL",
+      "adresse": "14 Rue Edouard Garet, 42160 Andrézieux-Bouthéon",
+      "siret": "53461962200101",
+      "rge": "RGE Qualibat N° E-E102269",
+      "assurance": "GAN Assurances N° 221200149",
+      "coordination": "Sylvain LEMBELEMBE — 06 10 59 68 98"
+    },
+    {
+      "poste": "PAC Air-Air Daikin + Ballon thermodynamique",
+      "entreprise": "SMN ENERGIES",
+      "forme": "SASU",
+      "adresse": "388 Avenue Charles de Gaulle, 69200 Vénissieux",
+      "siret": "994321883",
+      "rge": "QualiPAC N° QPAC/84409",
+      "assurance": "À confirmer",
+      "coordination": "Sylvain LEMBELEMBE — 06 10 59 68 98"
+    },
+    {
+      "poste": "Menuiseries PVC + Portes isolantes",
+      "entreprise": "SARL Bonheur d'Amarante",
+      "forme": "SARL",
+      "adresse": "131 Rue du Thivollet, 69770 Chambost-Longessaigne",
+      "telephone": "04 72 18 09 35",
+      "email": "bonheurdamarante@gmail.com",
+      "siret": "79180685400034",
+      "rge": "RGE Menuiseries",
+      "assurance": "À confirmer",
+      "coordination": "Sylvain LEMBELEMBE — 06 10 59 68 98"
+    },
+    {
+      "poste": "Contractant Général & Mandataire ANAH",
+      "entreprise": "ENERGIA CONSEIL IA®",
+      "forme": "SASU",
+      "adresse": "16 Rue Cuvier, 69006 Lyon",
+      "telephone": "06 10 59 68 98",
+      "email": "contact@energia-conseil-ia.com",
+      "siret": "941 819 427 00019",
+      "rge": "CG + Mandataire Administratif ANAH",
+      "assurance": "MIC INSURANCE — N° LUNPIB2604975<br/>RC Décennale + RC Pro — Valide 06/07/2027",
+      "coordination": "Sylvain LEMBELEMBE"
+    }
+  ],
+  "reference": "AUDIT-2026-MAIXENT",
+  "titre_document": "Rapport de synthèse énergétique et financière personnalisé",
+  "autoriser_ecart_lignes": true,
+  "field_status": {
+    "nom": "verified",
+    "adresse": "verified",
+    "surface": "verified",
+    "dpe_actuel": "estimated",
+    "profil_anah": "estimated",
+    "budget_travaux": "verified",
+    "mpr": "estimated",
+    "cee": "not_applicable",
+    "option_photovoltaique": "estimated"
+  },
+  "justificatifs": [
+    {
+      "type": "assurance_rc",
+      "fichier": "attestations/.gitkeep",
+      "date_validite": "06/07/2027",
+      "status": "pending",
+      "libelle": "MIC LUNPIB2604975 — justificatif PDF à joindre"
+    },
+    {
+      "type": "certibat",
+      "fichier": null,
+      "date_validite": null,
+      "status": "pending",
+      "libelle": "CERTIBAT en cours"
+    },
+    {
+      "type": "devis_signe",
+      "fichier": null,
+      "date_validite": null,
+      "status": "verified",
+      "libelle": "Devis Optimal 52 000 € TTC"
+    }
+  ],
+  "photos_logement": [],
+  "devis_references": [
+    {
+      "libelle": "Devis Optimal signé",
+      "montant_ttc": 52000,
+      "status": "verified"
+    }
+  ],
+  "mar_document": {
+    "present": false,
+    "fichier": null,
+    "status": "pending"
+  },
+  "points_a_valider": [
+    "Écart somme lignes travaux Optimal (57 971 €) vs budget TTC signé (52 000 €) — total signé fait foi",
+    "Photos logement à compléter (0/4)",
+    "Justificatif assurance PDF à déposer dans attestations/",
+    "Document MAR réglementaire non joint — ne pas afficher « recommandations du MAR » comme source réglementaire unique"
+  ],
+  "dossier_client": "clients/ROYER_Maixent"
+}

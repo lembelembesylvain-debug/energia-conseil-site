@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rapport d'audit énergétique — ENERGIA CONSEIL IA®</title>
+  <link rel="stylesheet" href="css/rapport.css" />
+</head>
+<body>
+  <div class="toolbar">
+    <div class="brand">ENERGIA CONSEIL IA® · Rapport audit</div>
+    <div class="status" id="status">Chargement…</div>
+    <div class="actions">
+      <a href="parametrage.html">Paramétrage</a>
+      <a href="rapport.html?mode=royer">Dossier ROYER</a>
+      <a href="rapport.html?mode=demo">Mode DEMO</a>
+      <button type="button" class="primary" id="btn-print">Imprimer / Exporter PDF</button>
+    </div>
+  </div>
+
+  <div id="rapport-root" class="loading">Génération du rapport en cours…</div>
+
+  <script type="module">
+    import { renderRapport, printRapport } from "./js/rapport-engine.js";
+
+    const root = document.getElementById("rapport-root");
+    const status = document.getElementById("status");
+    document.getElementById("btn-print").addEventListener("click", () => printRapport());
+
+    renderRapport(root, status).catch((err) => {
+      root.innerHTML = `<div class="page"><div class="page-body">
+        <h1>Erreur de chargement</h1>
+        <p>${err.message}</p>
+        <p class="small">Ouvrez ce dossier via un serveur local (voir README) — le chargement JSON nécessite http(s).</p>
+        <p><a href="parametrage.html">Aller au paramétrage</a></p>
+      </div></div>`;
+      status.textContent = "Erreur";
+      console.error(err);
+    });
+  </script>
+</body>
+</html>

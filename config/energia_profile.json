@@ -1,0 +1,98 @@
+{
+  "raison_sociale": "ENERGIA CONSEIL IA®",
+  "forme": "SASU",
+  "adresse": "16 Rue Cuvier, 69006 Lyon",
+  "siret": "94181942700019",
+  "rcs": "Lyon 941819427",
+  "capital": "100 €",
+  "telephone": "06 10 59 68 98",
+  "email": "contact@energia-conseil-ia.com",
+  "site_web": "www.energia-conseil-ia.com",
+  "contacts": {
+    "sylvain": {
+      "nom": "Sylvain LEMBELEMBE",
+      "roles": ["contractant_general", "interlocuteur_unique"],
+      "telephone": "06 10 59 68 98",
+      "email": "contact@energia-conseil-ia.com"
+    },
+    "damien": {
+      "nom": "DAMIEN",
+      "roles": ["commercial"],
+      "telephone": "06 72 68 09 68",
+      "email": "damien.srdconseil@gmail.com"
+    },
+    "fabien": {
+      "nom": "Fabien BARRAS",
+      "entite": "UMAFI",
+      "roles": ["courtier"],
+      "telephone": "06 71 19 96 45"
+    },
+    "julia": {
+      "nom": "Julia",
+      "roles": ["juriste"]
+    },
+    "clyve": {
+      "nom": "Clyve A.",
+      "entite": "HUB ADMIN",
+      "roles": ["hub_admin"],
+      "email": "clyve.a@hub-admin.fr"
+    }
+  },
+  "assurance": {
+    "assureur": "MIC INSURANCE COMPANY",
+    "numero_police": "LUNPIB2604975",
+    "type": "RC Décennale + RC Professionnelle",
+    "activite_couverte": "Contractant Général (Activité N°5)",
+    "date_effet": "07/07/2026",
+    "date_echeance": "06/07/2027",
+    "status": "verified",
+    "justificatif": "attestations/MIC_LUNPIB2604975.pdf"
+  },
+  "activites_declarees": [
+    {
+      "code": "contractant_general",
+      "libelle": "Contractant général",
+      "status": "verified",
+      "condition": "Couvert par attestation RC Décennale/Pro valide"
+    },
+    {
+      "code": "mandataire_administratif",
+      "libelle": "Mandataire administratif ANAH",
+      "status": "estimated",
+      "condition": "Sous réserve du mandat client et des pièces ANAH"
+    }
+  ],
+  "diplomes": [
+    {
+      "libelle": "Auditeur énergétique diplômé",
+      "status": "pending",
+      "justificatif": null,
+      "afficher_si_verified_uniquement": true
+    }
+  ],
+  "certifications": [
+    {
+      "code": "certibat",
+      "libelle": "CERTIBAT Rénovation Énergétique RGE — en cours d'obtention (QUALIBAT)",
+      "status": "pending",
+      "justificatif": null
+    }
+  ],
+  "partenaires": [
+    {"nom": "HUB ADMIN", "role": "Suivi administratif"},
+    {"nom": "UMAFI", "role": "Courtage financement"},
+    {"nom": "MAR Léo-Energy", "role": "Parcours Accompagné / audit réglementaire"}
+  ],
+  "mentions_legales": {
+    "titre_document": "Rapport de synthèse énergétique et financière personnalisé",
+    "aides_disclaimer": "Montants estimatifs, soumis aux règles en vigueur, à l'éligibilité du dossier et à l'instruction des organismes.",
+    "photo_disclaimer": "Photo illustrative. Les constats techniques restent soumis aux relevés, documents et contrôles applicables.",
+    "schema_disclaimer": "Schéma pédagogique indicatif et non contractuel. Les caractéristiques définitives sont confirmées par les devis, l'audit réglementaire, les relevés techniques et les entreprises."
+  },
+  "charte_graphique": {
+    "primary": "#0F766E",
+    "secondary": "#10B981",
+    "light": "#DCFCE7",
+    "gray": "#F3F4F6"
+  }
+}

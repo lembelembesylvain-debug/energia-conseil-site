@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-07-15T23:21:52",
+  "client": "DEMO Incomplet",
+  "reference": "AUDIT-2026-DEMO-INCOMPLET",
+  "dossier": "C:\\Users\\lembe\\energia-conseil-site\\energia-conseil-site\\clients\\DEMO_INCOMPLET",
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "Champ à confirmer : adresse",
+      "Champ à confirmer : dpe_actuel",
+      "Champ à confirmer : profil_anah",
+      "Champ à confirmer : budget_travaux"
+    ],
+    "alerts": [
+      "Champ critique absent → affiché « À confirmer » : adresse",
+      "Champ critique absent → affiché « À confirmer » : dpe_actuel",
+      "Champ critique absent → affiché « À confirmer » : profil_anah",
+      "Champ critique numérique manquant : budget_travaux",
+      "Champ critique absent → « À confirmer » : adresse",
+      "Champ critique absent → « À confirmer » : dpe_actuel",
+      "Champ critique absent → « À confirmer » : profil_anah",
+      "Champ critique absent → « À confirmer » : budget_travaux",
+      "Photos logement : 0/4 — galerie à compléter"
+    ],
+    "field_status": {
+      "nom": "verified",
+      "adresse": "pending",
+      "surface": "estimated",
+      "dpe_actuel": "pending",
+      "profil_anah": "pending",
+      "budget_travaux": "pending",
+      "mpr": "pending",
+      "cee": "pending"
+    },
+    "points_a_valider": [
+      "Adresse, DPE, profil ANAH et budget à confirmer",
+      "Aucun devis fourni",
+      "Aucune attestation fournie",
+      "Photos logement manquantes (0/4)",
+      "Document MAR absent",
+      "Champ critique absent → affiché « À confirmer » : adresse",
+      "Champ critique absent → affiché « À confirmer » : dpe_actuel",
+      "Champ critique absent → affiché « À confirmer » : profil_anah",
+      "Champ critique numérique manquant : budget_travaux"
+    ]
+  },
+  "documents": {
+    "devis": [],
+    "attestations": [],
+    "photos": []
+  },
+  "donnees_confirmees": [
+    "nom"
+  ],
+  "donnees_estimatives": [
+    "surface"
+  ],
+  "donnees_pending": [
+    "adresse",
+    "dpe_actuel",
+    "profil_anah",
+    "budget_travaux",
+    "mpr",
+    "cee"
+  ],
+  "documents_manquants": [
+    "Aucun devis dans devis/ ni devis_references[]",
+    "Aucune attestation dans attestations/",
+    "Photos logement < 4"
+  ],
+  "certifications_a_verifier": [],
+  "photos_manquantes": 4,
+  "incoherences_calcul": [],
+  "pages_impactees": [
+    "p.1–3 identité / mentions",
+    "p.11 déperditions",
+    "p.15 avant/après",
+    "p.18–19 photos",
+    "p.22/33/45 scénarios",
+    "p.60 aides",
+    "p.68 récap paiement",
+    "p.82 accompagnement / certifications"
+  ],
+  "points_a_valider": [
+    "Adresse, DPE, profil ANAH et budget à confirmer",
+    "Aucun devis fourni",
+    "Aucune attestation fournie",
+    "Photos logement manquantes (0/4)",
+    "Document MAR absent",
+    "Champ critique absent → affiché « À confirmer » : adresse",
+    "Champ critique absent → affiché « À confirmer » : dpe_actuel",
+    "Champ critique absent → affiché « À confirmer » : profil_anah",
+    "Champ critique numérique manquant : budget_travaux"
+  ]
+}

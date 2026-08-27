@@ -1,0 +1,427 @@
+{
+  "meta": {
+    "mode": "demo",
+    "demo": true,
+    "version_modele": "1.0.0",
+    "date_generation": "2026-07-16",
+    "reference_dossier": "RAP-2026-DEMO-000",
+    "titre_document": "Rapport d'audit énergétique personnalisé",
+    "sous_titre": "DONNÉES DE DÉMONSTRATION — Ne pas utiliser comme dossier client réel",
+    "pages_totales_cible": 85,
+    "langue": "fr",
+    "disclaimer_general": "DONNÉES DE DÉMONSTRATION. Ce document est un rapport pédagogique fictif. Il ne se substitue pas à un audit réglementaire, à un accompagnement MAR, à une étude structurelle ni à une décision d'attribution d'aides.",
+    "bandeau_demo": "Données de démonstration",
+    "sources_utilisees": [
+      "Jeu de données fictif pour démonstration du générateur"
+    ],
+    "sources_absentes": []
+  },
+  "entreprise": {
+    "raison_sociale": "ENERGIA CONSEIL IA®",
+    "marque": "ENERGIA CONSEIL IA®",
+    "tagline": "Audit Énergétique Intelligence Artificielle | Bureau d'études & AMO | Contractant Général",
+    "adresse": "16 Rue Cuvier, 69006 Lyon",
+    "telephone": "06 10 59 68 98",
+    "email": "contact@energia-conseil-ia.com",
+    "site": "www.energia-conseil-ia.com",
+    "siret": "94181942700019",
+    "rcs": "Lyon 941819427",
+    "forme": "SASU",
+    "capital": "100 €",
+    "tva_intracom": "FR01941819427"
+  },
+  "contacts": {
+    "amo": {
+      "nom": "Sylvain LEMBELEMBE",
+      "role": "AMO / Contractant Général / Coordinateur",
+      "telephone": "06 10 59 68 98",
+      "email": "contact@energia-conseil-ia.com"
+    },
+    "commercial": {
+      "nom": "DAMIEN",
+      "role": "Conseiller commercial",
+      "telephone": "06 72 68 09 68",
+      "email": "damien.srdconseil@gmail.com"
+    },
+    "courtier": {
+      "nom": "FABIEN",
+      "entite": "VIVONS COURTIER",
+      "role": "Courtier financement",
+      "telephone": "06 71 19 96 45",
+      "email": "À confirmer / sous réserve de validation"
+    },
+    "juriste": {
+      "nom": "Julia",
+      "role": "Juriste",
+      "telephone": "À confirmer / sous réserve de validation",
+      "email": "À confirmer / sous réserve de validation"
+    },
+    "mar": {
+      "nom": "MAR",
+      "entite": "Léo-Energy (France Rénov')",
+      "role": "Accompagnateur Rénov' / Parcours Accompagné",
+      "telephone": "À confirmer / sous réserve de validation",
+      "email": "À confirmer / sous réserve de validation",
+      "precision": "Prestation MAR séparée, non comprise dans le devis principal ENERGIA CONSEIL IA®."
+    }
+  },
+  "client": {
+    "civilite": "M.",
+    "prenom": "Jean",
+    "nom": "DUPONT",
+    "nom_complet": "M. Jean DUPONT (DEMO)",
+    "email": "demo@exemple.invalid",
+    "telephone": "00 00 00 00 00",
+    "adresse_facturation": "Données de démonstration"
+  },
+  "logement": {
+    "adresse": "1 rue de la Démonstration, 69000 Lyon",
+    "code_postal": "69000",
+    "commune": "Lyon",
+    "departement": "69",
+    "region": "Auvergne-Rhône-Alpes",
+    "zone_climatique": "H1",
+    "zone_geo": "Hors IDF",
+    "type_bien": "Maison individuelle (DEMO)",
+    "surface_habitable_m2": 100,
+    "epoque_construction": "Données de démonstration",
+    "annee_construction": "Données de démonstration",
+    "description": "Logement fictif pour présentation du générateur de rapport",
+    "occupation": "Résidence principale (DEMO)",
+    "nb_occupants": 2,
+    "contraintes_connues": [
+      "Données de démonstration — aucune contrainte réelle"
+    ],
+    "photos": [],
+    "plans": [],
+    "photos_statut": "Données de démonstration — emplacements photos prévus"
+  },
+  "profil_aides": {
+    "rfr": "À confirmer / sous réserve de validation",
+    "nb_personnes_fiscales": 2,
+    "profil_mpr_estime": "À confirmer / sous réserve de validation",
+    "profil_note": "DEMO — aucun profil aides réel.",
+    "statut": "estimation"
+  },
+  "performance": {
+    "dpe_initial": "G",
+    "dpe_cible": "C",
+    "conso_avant_kwh_ep_m2_an": "À confirmer / sous réserve de validation",
+    "conso_cible_kwh_ep_m2_an": "À confirmer / sous réserve de validation",
+    "ges_avant": "À confirmer / sous réserve de validation",
+    "ges_apres": "À confirmer / sous réserve de validation",
+    "source_performance": "Données de démonstration",
+    "statut": "estimation"
+  },
+  "etat_existant": {
+    "enveloppe": {
+      "toiture": {
+        "etat": "Données de démonstration",
+        "r_estime": "À confirmer / sous réserve de validation",
+        "deperdition_pct_indicatif": 30,
+        "statut": "estimation"
+      },
+      "murs": {
+        "etat": "Données de démonstration",
+        "r_estime": "À confirmer / sous réserve de validation",
+        "deperdition_pct_indicatif": 25,
+        "statut": "estimation",
+        "travaux_prevus": false
+      },
+      "planchers": {
+        "etat": "À confirmer / sous réserve de validation",
+        "r_estime": "À confirmer / sous réserve de validation",
+        "deperdition_pct_indicatif": 10,
+        "statut": "estimation",
+        "travaux_prevus": false
+      },
+      "fenetres": {
+        "etat": "Données de démonstration",
+        "uw_estime": "À confirmer / sous réserve de validation",
+        "deperdition_pct_indicatif": 15,
+        "statut": "estimation",
+        "travaux_prevus": true
+      },
+      "ponts_thermiques": {
+        "etat": "Données de démonstration",
+        "deperdition_pct_indicatif": 10,
+        "statut": "estimation"
+      },
+      "infiltrations": {
+        "etat": "À confirmer / sous réserve de validation",
+        "deperdition_pct_indicatif": 10,
+        "statut": "estimation"
+      }
+    },
+    "ventilation": {
+      "type": "À confirmer / sous réserve de validation",
+      "etat": "À confirmer / sous réserve de validation"
+    },
+    "chauffage": {
+      "type": "À confirmer / sous réserve de validation",
+      "age": "À confirmer / sous réserve de validation",
+      "puissance": "À confirmer / sous réserve de validation"
+    },
+    "ecs": {
+      "type": "À confirmer / sous réserve de validation"
+    },
+    "regulation": {
+      "type": "À confirmer / sous réserve de validation"
+    },
+    "consommations_avant": {
+      "facture_chauffage_ecs_an": "À confirmer / sous réserve de validation",
+      "commentaire": "Données de démonstration."
+    }
+  },
+  "synthese": {
+    "situation_initiale": "Données de démonstration — situation initiale fictive.",
+    "objectif_energetique": "Données de démonstration — objectif fictif classe G vers C.",
+    "travaux_recommandes": [
+      "Sécurisation chantier (DEMO)",
+      "Isolation toiture (DEMO)",
+      "Menuiseries (DEMO)",
+      "PAC (DEMO)",
+      "Coordination (DEMO)"
+    ],
+    "budget_global_ttc": null,
+    "budget_global_ht": null,
+    "budget_tva": null,
+    "aides_estimatives_total": null,
+    "aides_mention": "Données de démonstration — aucune aide réelle affichée.",
+    "reste_a_charge_estimatif": "À confirmer / sous réserve de validation",
+    "planning_previsionnel": "Données de démonstration — 8 à 10 semaines indicatives",
+    "benefices": [
+      "Confort (DEMO)",
+      "Valeur patrimoniale (DEMO)",
+      "Énergie (DEMO)",
+      "Carbone (DEMO)"
+    ]
+  },
+  "budget": {
+    "total_ht": null,
+    "total_tva": null,
+    "total_ttc": null,
+    "devise": "EUR",
+    "mar_inclus_dans_devis": false,
+    "mar_precision": "Prestation MAR séparée (DEMO).",
+    "ventilation_tva": []
+  },
+  "lots": [
+    {
+      "n": 1,
+      "designation": "Lot démonstration — sécurisation",
+      "description": "Données de démonstration",
+      "entreprise": "À confirmer / sous réserve de validation",
+      "qualification": "À confirmer / sous réserve de validation",
+      "montant_ht": null,
+      "taux_tva": null,
+      "montant_tva": null,
+      "montant_ttc": null,
+      "metres": "À confirmer / sous réserve de validation",
+      "materiaux": "À confirmer / sous réserve de validation",
+      "performance_cible": "À confirmer / sous réserve de validation",
+      "ordre_execution": 1,
+      "dependances": [],
+      "reserves": ["Données de démonstration"],
+      "focus_cle": "securisation"
+    }
+  ],
+  "ordre_execution_resume": "Données de démonstration — isolation avant chauffage",
+  "scenarios": {
+    "essentiel": {
+      "id": "essentiel",
+      "label": "Scénario Essentiel",
+      "recommande": false,
+      "travaux_inclus": ["Données de démonstration"],
+      "budget_estimatif_ttc": "À confirmer / sous réserve de validation",
+      "gains_energetiques": "À confirmer / sous réserve de validation",
+      "dpe_projete": "À confirmer / sous réserve de validation",
+      "niveau_confort": "À confirmer / sous réserve de validation",
+      "avantages": ["Données de démonstration"],
+      "limites": ["Données de démonstration"],
+      "conditions": "Données de démonstration — non contractuel."
+    },
+    "optimal": {
+      "id": "optimal",
+      "label": "Scénario Optimal",
+      "recommande": true,
+      "travaux_inclus": ["Données de démonstration — scénario recommandé"],
+      "budget_estimatif_ttc": "À confirmer / sous réserve de validation",
+      "gains_energetiques": "À confirmer / sous réserve de validation",
+      "dpe_projete": "C",
+      "niveau_confort": "Amélioration indicative (DEMO)",
+      "avantages": ["Données de démonstration"],
+      "limites": ["Données de démonstration"],
+      "conditions": "Données de démonstration — non contractuel."
+    },
+    "excellence": {
+      "id": "excellence",
+      "label": "Scénario Excellence",
+      "recommande": false,
+      "travaux_inclus": ["Données de démonstration"],
+      "budget_estimatif_ttc": "À confirmer / sous réserve de validation",
+      "gains_energetiques": "À confirmer / sous réserve de validation",
+      "dpe_projete": "À confirmer / sous réserve de validation",
+      "niveau_confort": "À confirmer / sous réserve de validation",
+      "avantages": ["Données de démonstration"],
+      "limites": ["Données de démonstration"],
+      "conditions": "Données de démonstration — non contractuel."
+    }
+  },
+  "scenario_retenu": "optimal",
+  "aides": {
+    "disclaimer": "Aides financières (estimation à titre indicatif). DONNÉES DE DÉMONSTRATION — aucun montant réel.",
+    "lignes": [
+      {
+        "libelle": "MaPrimeRénov'",
+        "montant": null,
+        "statut": "estimation",
+        "affichage": "À confirmer / sous réserve d'instruction ANAH",
+        "conditions": "Données de démonstration"
+      },
+      {
+        "libelle": "CEE",
+        "montant": null,
+        "statut": "estimation",
+        "affichage": "À confirmer / sous réserve d'instruction",
+        "conditions": "Données de démonstration"
+      },
+      {
+        "libelle": "Éco-PTZ",
+        "montant": null,
+        "statut": "estimation",
+        "affichage": "À confirmer / sous réserve d'acceptation bancaire",
+        "conditions": "Données de démonstration"
+      },
+      {
+        "libelle": "Aides locales",
+        "montant": null,
+        "statut": "estimation",
+        "affichage": "À confirmer auprès de la collectivité",
+        "conditions": "Données de démonstration"
+      }
+    ],
+    "total_estime": null,
+    "total_affichage": "À confirmer / sous réserve de validation",
+    "checklist_justificatifs": [
+      "Pièce d'identité",
+      "Justificatif de domicile",
+      "Avis d'imposition / RFR",
+      "Devis signés RGE",
+      "Attestations RGE et assurances"
+    ]
+  },
+  "paiements": {
+    "mode": "Échéancier 30 % / 40 % / 30 %",
+    "base_ttc": null,
+    "echeances": [
+      {
+        "code": "acompte_30",
+        "libelle": "30 % — Signature / commande",
+        "condition": "À la signature du devis",
+        "montant_ttc": null,
+        "statut": "EN COURS",
+        "interdiction": "Ne jamais indiquer « payé » ou « encaissé » tant que le statut n'est pas mis à jour."
+      },
+      {
+        "code": "mi_chantier_40",
+        "libelle": "40 % — Mi-chantier",
+        "condition": "Après validation écrite de Sylvain LEMBELEMBE",
+        "montant_ttc": null,
+        "statut": "À venir",
+        "interdiction": null
+      },
+      {
+        "code": "reception_30",
+        "libelle": "30 % — Réception",
+        "condition": "À la réception des travaux",
+        "montant_ttc": null,
+        "statut": "À venir",
+        "interdiction": null
+      }
+    ]
+  },
+  "planning": {
+    "duree_chantier_indicative": "8 à 10 semaines (DEMO)",
+    "aleas_possibles": [
+      "Intempéries",
+      "Approvisionnement",
+      "Délais administratifs"
+    ],
+    "avant_chantier": [
+      {
+        "etape": "Constitution dossier (DEMO)",
+        "delai_indicatif": "1 à 2 semaines"
+      }
+    ],
+    "semaines": [
+      {
+        "periode": "S1–S2",
+        "libelle": "Phase DEMO 1",
+        "detail": "Données de démonstration"
+      },
+      {
+        "periode": "S3–S4",
+        "libelle": "Phase DEMO 2",
+        "detail": "Données de démonstration"
+      },
+      {
+        "periode": "S10",
+        "libelle": "Réception DEMO",
+        "detail": "Données de démonstration"
+      }
+    ],
+    "reception": "Réception DEMO — non contractuelle."
+  },
+  "entreprises": [
+    {
+      "lots": "DEMO",
+      "entreprise": "Entreprise démonstration",
+      "forme": "À confirmer / sous réserve de validation",
+      "adresse": "Données de démonstration",
+      "siret": "À confirmer / sous réserve de validation",
+      "qualification_rge": "À confirmer / sous réserve de validation",
+      "qualification_validite": "Document à vérifier avant ouverture de chantier",
+      "assurance": "À confirmer / sous réserve de validation",
+      "assurance_validite": "Document à vérifier avant ouverture de chantier",
+      "document_a_verifier": "Attestations à vérifier"
+    }
+  ],
+  "conditions_commerciales": {
+    "source": "Éléments types du modèle de devis ENERGIA — DEMO",
+    "points": [
+      "Échéancier 30 % / 40 % / 30 %.",
+      "Travaux supplémentaires uniquement par avenant signé.",
+      "Sous-traitance acceptée par le client.",
+      "Garanties légales applicables : décennale, biennale, parfait achèvement.",
+      "Litiges : amiable puis tribunaux de Lyon."
+    ]
+  },
+  "annexes": {
+    "devis_detaille": "Données de démonstration",
+    "fiches_techniques": "À joindre",
+    "attestations_rge_assurances": "À vérifier",
+    "photos_avant": "Emplacements prévus",
+    "prochaines_etapes": [
+      "Remplacer ce fichier DEMO par un JSON client réel",
+      "Compléter les pièces et montants validés",
+      "Générer le rapport depuis parametrage.html"
+    ]
+  },
+  "focus_actifs": [
+    "securisation",
+    "isolation_toiture",
+    "menuiseries",
+    "pac",
+    "cet",
+    "coordination"
+  ],
+  "option_photovoltaique": {
+    "concerne": false,
+    "statut": "Non inclus (DEMO)",
+    "montant": "À confirmer / sous réserve de validation"
+  },
+  "ventilation_concernee": false,
+  "isolation_murs_concernee": false,
+  "isolation_planchers_concernee": false
+}

@@ -1,0 +1,1637 @@
+
+
+----- PAGE 1 -----
+
+ 
+ 
+ 
+ 
+RAPPORT DE SYNTHESE BAO EVO 
+ 
+ 
+ 
+ 
+Ma maison - ANDRIOT Clyve 
+ 
+ 
+ 
+Etude réalisée le 15/11/2024 
+ 
+ 
+ 
+ 
+
+
+----- PAGE 2 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+2/33 
+ 
+SOMMAIRE 
+ 
+DOCUMENT PERSONNALISÉ 
+4 
+CARACTÉRISTIQUES PRINCIPALES 
+5 
+ETAT ACTUEL 
+6 
+   Ma maison 654D975 
+6 
+      Présentation générale 
+6 
+      Description du bâti 
+6 
+      Murs 
+6 
+      Fermetures 
+6 
+      Planchers et Plafonds 
+6 
+      Ventilation 
+6 
+      Chauffage 
+6 
+      ECS 
+6 
+      Refroidissement 
+6 
+      Caractéristiques détaillées du bâtiment 
+6 
+      Composition de l'enveloppe 
+7 
+      Relevé de consommation 
+10 
+      Caractéristiques thermiques 
+11 
+      Diagramme de flux 
+14 
+      Etiquettes DPE 
+15 
+PRÉSENTATION DES ÉTATS PRÉCONISÉS 
+16 
+   Vue économique 
+16 
+   Vue énergétique et environnementale 
+16 
+SYNOPTIQUE DES ÉTATS RETENUS 
+17 
+PRÉCONISATION 'ETAPE 1 ISOL +VENTIL' 
+18 
+   Ma maison 654D975 
+18 
+      Caractéristiques thermiques 
+18 
+      Diagramme de flux 
+20 
+      Etiquettes DPE 
+21 
+      ECO-PRET à TAUX ZERO 
+22 
+      Label 
+23 
+      Finance 
+25 
+PRÉCONISATION 'ETAPE 2 CUMUL ETP 1+ PAC AIR EAU' 
+26 
+
+
+----- PAGE 3 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+3/33 
+   Ma maison 654D975 
+26 
+      Caractéristiques thermiques 
+26 
+      Diagramme de flux 
+28 
+      Etiquettes DPE 
+29 
+      ECO-PRET à TAUX ZERO 
+30 
+      Label 
+31 
+      Finance 
+33 
+DOCUMENT EN ANNEXE 
+34 
+ 
+
+
+----- PAGE 4 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+4/33 
+1. DOCUMENT PERSONNALISÉ 
+ 
+Contenu du document personnalisé 
+
+
+----- PAGE 5 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+5/33 
+2. CARACTÉRISTIQUES PRINCIPALES 
+Désignation 
+Valeur 
+Dossier Ma maison - ANDRIOT Clyve 
+Adresse  
+Type de bâtiment Maison individuelle 
+Année de construction Avant 1948 
+ 
+
+
+----- PAGE 6 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+6/33 
+3. ETAT ACTUEL 
+3.1 Ma maison 654D975 
+3.1.1 Présentation générale 
+ 
+Longère d'avant 1948 en pisé 
+ 
+3.1.2 Description du bâti 
+ 
+Façades avant exposé Nord Est en très mauvais état, Façades arrière exposé Sud Ouest 
+ 
+3.1.3 Murs 
+ 
+Les murs sont à nus en pisé de 50 à 80 cm d'épaisseur 
+ 
+3.1.4 Fermetures 
+ 
+Les menuiseries sont anciennes 
+ 
+3.1.5 Planchers et Plafonds 
+ 
+Le plancher est recouvert de foin et n'est pas au meme niveau dans toute l'habitation. 
+Plafonds en bois. 
+ 
+3.1.6 Ventilation 
+ 
+Ventilation naturelle par ouverture des fenêtres 
+ 
+3.1.7 Chauffage 
+3.1.7.1 
+Installation du chauffage 
+ 
+Chaufage centrale inexistant, la maison est chauffé par divers poele à bois et radiateur 
+rayonnant electrique 
+ 
+3.1.8 ECS 
+3.1.8.1 
+Installation de l'ECS 
+ 
+La production d'eau chaude est faite via 2 ballons électriques l'un de 200l et l'autre de 
+300l 
+ 
+3.1.9 Refroidissement 
+3.1.9.1 
+Installation du refroidissement 
+ 
+Aucun systeme de refroidissement n'est installé 
+ 
+3.1.10 
+Caractéristiques détaillées du bâtiment 
+Désignation 
+Valeur 
+Surface habitable 220.00m² 
+ 
+3.1.11 
+Composition de l'enveloppe 
+Murs 
+Description 
+ 
+01 - Mur ext pisé zone B C D 
+U 
+0,91 W/m²°C 
+
+
+----- PAGE 7 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+7/33 
+Description 
+ 
+Mur facade pisé 
+Localisation 
+Mur extérieur 
+Surface 
+141,15 m² 
+ 
+Description 
+ 
+03 - Mur ext agglo zone A 
+Mur extérieur 
+U 
+0,58 W/m²°C 
+Localisation 
+Mur extérieur 
+Surface 
+37,08 m² 
+ 
+Description 
+ 
+04 - Mur int pisé sur LNC 
+Mur intérieur donnant sur garage 
+U 
+0,84 W/m²°C 
+Localisation 
+Mur intérieur 
+Surface 
+43,52 m² 
+ 
+Planchers 
+Description 
+ 
+05 - Plancher B C D 
+Plancher sur terre plein 
+U 
+0,38 W/m²°C 
+Localisation 
+Plancher sur terre-plein 
+Surface 
+106,00 m² 
+ 
+Description 
+ 
+0 - Plancher zone A 
+plancher bas zone A 
+U 
+0,80 W/m²°C 
+Localisation 
+Plancher sur terre-plein 
+Surface 
+36,00 m² 
+ 
+Plafonds 
+Description 
+ 
+06 - Rampants 
+plafonds rampants 
+U 
+3,16 W/m²°C 
+Localisation 
+Plafond ext. léger 
+Surface 
+120,00 m² 
+ 
+Description 
+ 
+
+
+----- PAGE 8 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+8/33 
+Description 
+ 
+02 - PH zone A 
+U 
+2,74 W/m²°C 
+Localisation 
+Plafond intérieur 
+Surface 
+36,00 m² 
+ 
+Menuiseries 
+Description 
+ 
+01 - Porte entrée Sud 
+Porte n° 1 
+Uw 
+3,50 W/m²C 
+Ujn 
+3,50 W/m²C 
+Surface 
+1,95 m² 
+02 - Fenetre Bois S-O 
+Fenêtre ou porte-fenêtre n° 1 (1,40x0,95) 
+Uw 
+3,95 W/m²C 
+Ujn 
+1,30 W/m²C 
+Surface 
+2,66 m² 
+03 - Fenetre PVC cuisine Sud 
+Fenêtre ou porte-fenêtre n° 2 (0,70x0,40) 
+Uw 
+3,95 W/m²C 
+Ujn 
+3,95 W/m²C 
+Surface 
+0,28 m² 
+04 - fenetre PVC wc Sud 
+Fenêtre ou porte-fenêtre n° 3 (0,50x0,35) 
+Uw 
+3,95 W/m²C 
+Ujn 
+3,95 W/m²C 
+Surface 
+0,18 m² 
+05 - Porte Fenetre Ch1 PVC S-O 
+Fenêtre ou porte-fenêtre n° 4 (1,40x2,10) 
+Uw 
+2,50 W/m²C 
+Ujn 
+2,50 W/m²C 
+Surface 
+2,94 m² 
+06 - Fenetre Ch2 PVC S-O 
+Fenêtre ou porte-fenêtre n° 5 (0,95x0,93) 
+Uw 
+2,70 W/m²C 
+Ujn 
+2,70 W/m²C 
+Surface 
+0,88 m² 
+07 - Baie vitrée Salon N-E 
+Fenêtre ou porte-fenêtre n° 6 (2,40x2,10) 
+Uw 
+2,70 W/m²C 
+Ujn 
+2,70 W/m²C 
+Surface 
+5,04 m² 
+08 - Fenetre Buand PVC N-E 
+Fenêtre ou porte-fenêtre n° 7 (0,95x1,40) 
+Uw 
+2,75 W/m²C 
+Ujn 
+2,75 W/m²C 
+Surface 
+1,33 m² 
+09 - Porte Fenetre Ch3 Bois N-E 
+Fenêtre ou porte-fenêtre n° 8 (0,95x2,10) 
+Uw 
+2,75 W/m²C 
+Ujn 
+1,30 W/m²C 
+Surface 
+2,00 m² 
+10 - Fenetre Ch3 PVC N-E 
+Fenêtre ou porte-fenêtre n° 9 (0,95x1,40) 
+Uw 
+2,75 W/m²C 
+Ujn 
+2,75 W/m²C 
+Surface 
+1,33 m² 
+11 - Porte Bois ext ch4 N-E 
+Porte n° 2 
+Uw 
+3,50 W/m²C 
+Ujn 
+3,50 W/m²C 
+Surface 
+1,67 m² 
+
+
+----- PAGE 9 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+9/33 
+ 
+3.1.12 
+Relevé de consommation 
+ 
+Bâtiment n° 1 : Ma maison 654D975 
+ 
+Années 
+DJU 
+2023 
+2090 
+2022 
+2125 
+2021 
+2516 
+ 
+Energie 1 
+Chauffage + Ecs + Eclairage 
+Electricité Tarif Bleu Option Base 
+Années 
+Quantité en kWh 
+2023 
+12850 
+2022 
+9591 
+2021 
+0 
+ 
+Energie 2 
+Chauffage 
+Bois dur 
+Années 
+Quantité en ST 
+2023 
+9 
+2022 
+3 
+2021 
+0 
+
+
+----- PAGE 10 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+10/33 
+ 
+ 
+3.1.13 
+Caractéristiques thermiques 
+Déperditions thermiques 
+ 
+ 
+ 
+ 
+
+
+----- PAGE 11 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+11/33 
+ 
+Consommations 
+ 
+Consommations 
+Energie finale 
+(kWh/an) 
+Energie 
+primaire 
+(kWhEP/an.m²) 
+Dépenses 
+(€ TTC/an) 
+Consommations 
+en kwhEP/m² de S.Utile 
+ 
+ 
+ 
+ 
+ 
+Chauffage 
+49 951 
+388 
+7 654 
+Refroidissement 
+0 
+0 
+0 
+ECS 
+3 801 
+40 
+817 
+Eclairage 
+409 
+4 
+88 
+Auxiliaires 
+0 
+0 
+0 
+Ventilateurs 
+0 
+0 
+0 
+Autres usages 
+0 
+0 
+0 
+Total 
+54 161 
+432 
+8 559 
+ 
+ 
+ 
+ 
+Abonnements 
+électriques 
+- 
+- 
+168 
+Autres abonnements 
+- 
+- 
+0 
+Entretien 
+- 
+- 
+0 
+Total 
+ 
+ 
+168 
+ 
+ 
+ 
+ 
+Total dépense 
+annuelle 
+- 
+- 
+8 727 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+----- PAGE 12 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+12/33 
+ 
+Répartition des consommations par énergie 
+ 
+Indicateurs de performance 
+Mur(s) extérieur(s) 
+Mur(s) intérieur(s) 
+Plancher(s) 
+Plafond(s) 
+Vitrage(s) 
+Porte(s) 
+
+
+----- PAGE 13 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+13/33 
+ 
+ 
+3.1.14 
+Diagramme de flux 
+Consommations calculées selon la méthode 3CL en kWh EF par m2 de surface habitable 
+
+
+----- PAGE 14 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+14/33 
+ 
+ 
+3.1.15 
+Etiquettes DPE 
+ 
+ 
+ 
+ 
+
+
+----- PAGE 15 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+15/33 
+4. PRÉSENTATION DES ÉTATS PRÉCONISÉS 
+4.1 Vue économique 
+N° 
+Préconisations 
+Coût des 
+travaux 
+(€ TTC) 
+Consommation 
+annuelle 
+(€ / an) 
+Economie  
+réalisée 
+(€/an) 
+Economie  
+réalisée 
+(%/an) 
+Temps de 
+retour brut 
+(années) 
+CEE 
+(kWh cumac) 
+0 
+Etat actuel 
+ 
+8 727  
+ 
+ 
+ 
+1 
+Iso FERMACELLE A + 
+POLYURETHANE BCD 
+17 228 
+8 490 
+237 
+2,71 
+72,74 
+0 
+2 
+Isolation rampants B C D et 
+combles A 
+15 027 
+5 312 
+3 415 
+39,13 
+4,40 
+0 
+3 
+Remplacement des fenêtres 
+(Bois) 
+4 174 
+8 344 
+383 
+4,38 
+10,91 
+0 
+4 
+ITE CHANVRE B C D + ITI 
+LDV A 
+30 158 
+6 878 
+1 848 
+21,18 
+16,32 
+0 
+5 
+Mise en place d'en VMR 
+1 899 
+8 739 
+-  12 
+-0,14 
+0,00 
+0 
+6 
+ETAPE 1 ISOL +VENTIL 
+69 017 
+3 407 
+5 320 
+60,96 
+12,97 
+0 
+7 
+Remplacement d'une 
+chaudière par une PAC 
+AIR/EAU 
+29 540 
+2 159 
+6 567 
+75,25 
+4,50 
+0 
+8 
+ETAPE 2 CUMUL ETP 1+ 
+PAC AIR EAU 
+75 825 
+902 
+7 825 
+89,67 
+9,69 
+0 
+ 
+4.2 Vue énergétique et environnementale 
+N° 
+Préconisations 
+Total EP 
+(Mwh) 
+Total EP 
+(kWh/m².an) 
+Economie EP 
+(kWh/m².an) 
+Economie EP 
+(%/an) 
+Economie de 
+GES 
+(Kg/m².an) 
+Economie de 
+GES 
+(%/an) 
+0 Etat actuel 
+102,06 
+463,90  
+ 
+ 
+ 
+1 Iso FERMACELLE A + 
+POLYURETHANE BCD 
+99,21 
+450,90 
+13 
+2,80 
+0,44 
+2,84 
+2 Isolation rampants B C D et 
+combles A 
+60,85 
+276,60 
+187 
+40,38 
+6,28 
+40,97 
+3 Remplacement des fenêtres 
+(Bois) 
+97,45 
+442,90 
+21 
+4,52 
+0,70 
+4,59 
+4 ITE CHANVRE B C D + ITI 
+LDV A 
+79,76 
+362,50 
+101 
+21,86 
+3,40 
+22,18 
+5 Mise en place d'en VMR 
+102,12 
+464,20 
+0 
+-0,06 
+0,00 
+0,02 
+6 ETAPE 1 ISOL +VENTIL 
+37,76 
+171,60 
+292 
+63,00 
+9,81 
+64,00 
+7 
+Remplacement d'une 
+chaudière par une PAC 
+AIR/EAU 
+40,46 
+183,90 
+280 
+60,36 
+9,49 
+61,86 
+8 ETAPE 2 CUMUL ETP 1+ 
+PAC AIR EAU 
+14,76 
+67,10 
+397 
+85,54 
+13,23 
+86,29 
+ 
+
+
+----- PAGE 16 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+16/33 
+5. SYNOPTIQUE DES ÉTATS RETENUS 
+ETAPE 1 ISOL +VENTIL 
+Mise en place d'un isolant plancher 
+  
+Isolation de la toiture par l'intérieur. 
+  
+  
+Isolation des murs extérieurs par l'extérieur 
+avec brique de chanvre 
+ Cout annuel 
+ 3407 Euros/an 
+ Investissement (aide déduite) 
+ 69017,0 Euros 
+ Temps de retour 
+ 13,0 ans 
+ 
+ETAPE 2 CUMUL ETP 1+ PAC AIR EAU 
+Mise en place d'un isolant plancher 
+  
+Isolation de la toiture par l'intérieur. 
+  
+  
+Isolation des murs extérieurs par l'extérieur 
+avec brique de chanvre 
+ Cout annuel 
+ 902 Euros/an 
+ Investissement (aide déduite) 
+ 75825,0 Euros 
+ Temps de retour 
+ 9,7 ans 
+ 
+
+
+----- PAGE 17 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+17/33 
+6. PRÉCONISATION 'ETAPE 1 ISOL +VENTIL' 
+6.1 Ma maison 654D975 
+6.1.1 Caractéristiques thermiques 
+Consommations 
+ 
+Consommations 
+Energie finale 
+(kWh/an) 
+Energie 
+primaire 
+(kWhEP/an.m²) 
+Dépenses 
+(€ TTC/an) 
+Consommations 
+en kwhEP/m² de S.Utile 
+ 
+ 
+ 
+ 
+ 
+Chauffage 
+14 800 
+115 
+2 268 
+Refroidissement 
+0 
+0 
+0 
+ECS 
+3 801 
+40 
+817 
+Eclairage 
+409 
+4 
+88 
+Auxiliaires 
+0 
+0 
+0 
+Ventilateurs 
+307 
+3 
+66 
+Autres usages 
+0 
+0 
+0 
+Total 
+19 317 
+162 
+3 239 
+ 
+ 
+ 
+ 
+Abonnements 
+électriques 
+- 
+- 
+168 
+Autres abonnements 
+- 
+- 
+0 
+Entretien 
+- 
+- 
+0 
+Total 
+ 
+ 
+168 
+ 
+ 
+ 
+ 
+Total dépense 
+annuelle 
+- 
+- 
+3 407 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+----- PAGE 18 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+18/33 
+ 
+Répartition des consommations par énergie 
+ 
+Indicateurs de performance 
+Mur(s) extérieur(s) 
+Mur(s) intérieur(s) 
+Plancher(s) 
+Plafond(s) 
+Vitrage(s) 
+Porte(s) 
+
+
+----- PAGE 19 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+19/33 
+ 
+6.1.2 Diagramme de flux 
+ 
+
+
+----- PAGE 20 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+20/33 
+ 
+ 
+6.1.3 Etiquettes DPE 
+ 
+ 
+ 
+ 
+
+
+----- PAGE 21 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+21/33 
+ 
+ 
+6.1.4 ECO-PRET à TAUX ZERO 
+ 
+COMBINAISONS D'ACTIONS D'AMELIORATION DE LA PERFORMANCE ENERGETIQUE 
+    - isolation des plafonds (Si R isolant > 6 m2.°K/W en combles perdus ou R isolant > 
+4.5 m2.°K/W en rampants ou R isolant > 3 m2.°K/W en terrasse ) 
+    - remplacement des fenêtres (Si Uw <=1.3 W/°K.m2 et Sw>=0.3 ou Uw <=1.7 
+W/°K.m2 et Sw>=0.36 ) 
+    - isolation des parois exterieures (Si R isolant > 3.7 m2.°K/W) 
+ 
+ 
+ 
+Nombre de travaux conforme 
+3 
+ 
+ 
+ 
+ 
+ 
+TRAVAUX D'ÉCONOMIES D'ÉNERGIE PERMETTANT D'ATTEINDRE UNE PERFORMANCE 
+ÉNERGÉTIQUE GLOBALE MINIMALE 
+ 
+Désignation 
+Valeur 
+Zone climatique H1c 
+Altitude 193,00 m 
+ 
+ 
+ 
+ 
+Cep initial = 508 kWh/m² 
+ 
+ 
+ 
+ 
+ 
+Cep projet = 161 kWh/m² 
+<= 
+331 kWh/m² 
+ 
+ 
+ 
+Gain = 68 % 
+> 
+35 % 
+ 
+ 
+ 
+ 
+ 
+Projet pouvant bénéficier d'un ECO-Prêt à taux zéro d'une 
+valeur maxi de 50000 Euros 
+ 
+Calcul effectué en conformité avec le Titre II de l'arrêté de 30 mars 2009 relatif aux 
+conditions d'application de dispositions concernant les avances remboursables sans 
+intérêt destinées au financement de travaux de rénovation afin d'améliorer la 
+performance des logements anciens. 
+ 
+Calculs réalisés avec la méthode Th-C-E ex (V1.0.3 du 05/02/09) 
+
+
+----- PAGE 22 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+22/33 
+ 
+ 
+ 
+6.1.5 Label 
+ 
+Désignation 
+Valeur 
+Zone climatique H1c 
+Altitude 193,00 m 
+Coefficient a 1,20 
+Coefficient b 0,00 
+ 
+ 
+LABEL PROMOTELEC RENOVATION RESPONSABLE 
+REFERENTIEL 2017 
+ 
+Conso. initiale 
+: 508,00 kWhep/(m².an) CO2 initial 
+: 17,00 
+kgéqCO2/m² 
+Conso. projet 
+: 161,00 kWhep/(m².an) CO2 Projet 
+: 5,00 
+kgéqCO2/m² 
+ 
+ 
+Consommation projet inférieure ou égale à 150x(a+b)kWhep/(m2.an) 
+ 
+ 
+ 
+LABEL RENOVATION ENERGETIQUE : 
+ 
+ 
+Calculs effectués en conformité avec le référentiel PROMOTELEC de juin 2017. Les calculs 
+de GES sont effectués en conformité avec le référentiel PEBN. 
+ 
+Les consommations initiales et projet intègrent les consommations de chauffage, d'ECS 
+et de refroidissement ramenées à la surface habitable. 
+ 
+Calculs réalisés avec la méthode Th-C-E ex (V1.0.3 du 05/02/09) 
+
+
+----- PAGE 23 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+23/33 
+ 
+LABEL HPE ET BBC RENOVATION 
+ 
+Cep initial 
+: 466,00 kWh/m² 
+Ubat Projet 
+: 0,358 W/m².°C 
+Ubat Réf 
+: 0,36 W/m².°C 
+Cep Projet 
+: 158,85 kWh/m² 
+Cep Réf 
+: 186,81 kWh/m² 
+Tic Projet 
+: 34,60 °C 
+Tic Réf 
+: 29,40 °C 
+ 
+LABEL HPE RENOVATION 2009 
+ 
+ 
+ 
+Cep Projet = 159 kWh/m² 
+<= 
+Cep Max HPE = 180 kWh/m² 
+ 
+ 
+ 
+ 
+ 
+BATIMENT CONFORME AU LABEL HPE RENOVATION 
+2009 
+ 
+LABEL BBC RENOVATION 2009 (Version EFFINERGIE 2021) 
+ 
+ 
+ 
+Cep BBC = 159 kWh/m² 
+> 
+Cep Max BBC = 96 kWh/m² 
+ 
+ 
+ 
+Ubat Projet = 0,358 kWh/m² 
+<= 
+Ubat Max = 0,447 kWh/m² 
+ 
+ 
+ 
+CO2 Projet = 4,87 kgCO2/m² 
+<= 
+CO2 Max = 20,00 kgCO2/m² 
+ 
+ 
+ 
+ 
+ 
+BATIMENT NON CONFORME AU LABEL BBC EFFINERGIE 
+RENOVATION 
+ 
+Calculs effectués en conformité avec l'arrêté du 29 septembre 2009 relatif aux conditions 
+d'attribution du label haute performance énergétiques rénovation. 
+ 
+Calculs réalisés avec la méthode Th-C-E ex (V1.0.3 du 05/02/09) 
+
+
+----- PAGE 24 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+24/33 
+ 
+ 
+6.1.6 Finance 
+ 
+ 
+Investissement 
+: 89017 € 
+Durée de l'ECO prêt 
+: 0,00 ans 
+Primes et aides 
+: 0 € 
+Taux d'intérêt de l'ECO prêt 
+: 0,00 % 
+MaPrimeRénov' 
+: 20000 € 
+Durée de l'emprunt comp. 
+: 0,00 ans 
+ 
+69017 € 
+Taux d'int. de l'emprunt comp. : 0,00 % 
+ 
+Apport 
+: 69017 € 
+ECO Prêt  (maxi : 0 ) 
+: 0 € 
+ 
+Remboursement mensuel : 0 € 
+ 
+Coût global avant travaux : 397332 € 
+Après travaux 
+: 230401 € 
+Economies 
+: 166931 € 
+Coût glob. ann. av. travaux : 13244 €/an Après travaux 
+: 7680 €/an 
+Economies annualisées 
+: 5564 €/an 
+ 
+
+
+----- PAGE 25 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+25/33 
+7. PRÉCONISATION 'ETAPE 2 CUMUL ETP 1+ PAC AIR EAU' 
+7.1 Ma maison 654D975 
+7.1.1 Caractéristiques thermiques 
+Consommations 
+ 
+Consommations 
+Energie finale 
+(kWh/an) 
+Energie 
+primaire 
+(kWhEP/an.m²) 
+Dépenses 
+(€ TTC/an) 
+Consommations 
+en kwhEP/m² de S.Utile 
+ 
+ 
+ 
+ 
+ 
+Chauffage 
+8 090 
+39 
+539 
+Refroidissement 
+0 
+0 
+0 
+ECS 
+708 
+7 
+80 
+Eclairage 
+409 
+4 
+49 
+Auxiliaires 
+206 
+2 
+24 
+Ventilateurs 
+307 
+3 
+36 
+Autres usages 
+0 
+0 
+0 
+Total 
+9 720 
+56 
+728 
+ 
+ 
+ 
+ 
+Abonnements 
+électriques 
+- 
+- 
+173 
+Autres abonnements 
+- 
+- 
+0 
+Entretien 
+- 
+- 
+0 
+Total 
+ 
+ 
+173 
+ 
+ 
+ 
+ 
+Total dépense 
+annuelle 
+- 
+- 
+901 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+----- PAGE 26 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+26/33 
+ 
+Répartition des consommations par énergie 
+ 
+Indicateurs de performance 
+Mur(s) extérieur(s) 
+Mur(s) intérieur(s) 
+Plancher(s) 
+Plafond(s) 
+Vitrage(s) 
+Porte(s) 
+
+
+----- PAGE 27 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+27/33 
+ 
+7.1.2 Diagramme de flux 
+ 
+
+
+----- PAGE 28 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+28/33 
+ 
+ 
+7.1.3 Etiquettes DPE 
+ 
+ 
+ 
+ 
+
+
+----- PAGE 29 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+29/33 
+ 
+ 
+7.1.4 ECO-PRET à TAUX ZERO 
+ 
+COMBINAISONS D'ACTIONS D'AMELIORATION DE LA PERFORMANCE ENERGETIQUE 
+    - isolation des plafonds (Si R isolant > 6 m2.°K/W en combles perdus ou R isolant > 
+4.5 m2.°K/W en rampants ou R isolant > 3 m2.°K/W en terrasse ) 
+    - remplacement des fenêtres (Si Uw <=1.3 W/°K.m2 et Sw>=0.3 ou Uw <=1.7 
+W/°K.m2 et Sw>=0.36 ) 
+    - isolation des parois exterieures (Si R isolant > 3.7 m2.°K/W) 
+    - pose d'une pompe à chaleur 
+ 
+ 
+ 
+Nombre de travaux conforme 
+4 
+ 
+ 
+ 
+ 
+ 
+TRAVAUX D'ÉCONOMIES D'ÉNERGIE PERMETTANT D'ATTEINDRE UNE PERFORMANCE 
+ÉNERGÉTIQUE GLOBALE MINIMALE 
+ 
+Désignation 
+Valeur 
+Zone climatique H1c 
+Altitude 193,00 m 
+ 
+ 
+ 
+ 
+Cep initial = 508 kWh/m² 
+ 
+ 
+ 
+ 
+ 
+Cep projet = 45 kWh/m² 
+<= 
+331 kWh/m² 
+ 
+ 
+ 
+Gain = 91 % 
+> 
+35 % 
+ 
+ 
+ 
+ 
+ 
+Projet pouvant bénéficier d'un ECO-Prêt à taux zéro d'une 
+valeur maxi de 50000 Euros 
+ 
+Calcul effectué en conformité avec le Titre II de l'arrêté de 30 mars 2009 relatif aux 
+conditions d'application de dispositions concernant les avances remboursables sans 
+intérêt destinées au financement de travaux de rénovation afin d'améliorer la 
+performance des logements anciens. 
+ 
+Calculs réalisés avec la méthode Th-C-E ex (V1.0.3 du 05/02/09) 
+
+
+----- PAGE 30 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+30/33 
+ 
+ 
+ 
+7.1.5 Label 
+ 
+Désignation 
+Valeur 
+Zone climatique H1c 
+Altitude 193,00 m 
+Coefficient a 1,20 
+Coefficient b 0,00 
+ 
+ 
+LABEL PROMOTELEC RENOVATION RESPONSABLE 
+REFERENTIEL 2017 
+ 
+Conso. initiale 
+: 508,00 kWhep/(m².an) CO2 initial 
+: 17,00 
+kgéqCO2/m² 
+Conso. projet 
+: 45,00 kWhep/(m².an) 
+CO2 Projet 
+: 1,00 
+kgéqCO2/m² 
+ 
+ 
+Consommation projet inférieure ou égale à 100x(a+b)kWhep/(m2.an) 
+ 
+ 
+ 
+LABEL RENOVATION ENERGETIQUE : 
+ 
+ 
+Calculs effectués en conformité avec le référentiel PROMOTELEC de juin 2017. Les calculs 
+de GES sont effectués en conformité avec le référentiel PEBN. 
+ 
+Les consommations initiales et projet intègrent les consommations de chauffage, d'ECS 
+et de refroidissement ramenées à la surface habitable. 
+ 
+Calculs réalisés avec la méthode Th-C-E ex (V1.0.3 du 05/02/09) 
+
+
+----- PAGE 31 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+31/33 
+ 
+LABEL HPE ET BBC RENOVATION 
+ 
+Cep initial 
+: 466,00 kWh/m² 
+Ubat Projet 
+: 0,358 W/m².°C 
+Ubat Réf 
+: 0,36 W/m².°C 
+Cep Projet 
+: 56,67 kWh/m² 
+Cep Réf 
+: 0,00 kWh/m² 
+Tic Projet 
+: 34,60 °C 
+Tic Réf 
+: 20,00 °C 
+ 
+LABEL HPE RENOVATION 2009 
+ 
+ 
+ 
+Cep Projet = 57 kWh/m² 
+<= 
+Cep Max HPE = 180 kWh/m² 
+ 
+ 
+ 
+ 
+ 
+BATIMENT CONFORME AU LABEL HPE RENOVATION 
+2009 
+ 
+LABEL BBC RENOVATION 2009 (Version EFFINERGIE 2021) 
+ 
+ 
+ 
+Cep BBC = 57 kWh/m² 
+<= 
+Cep Max BBC = 96 kWh/m² 
+ 
+ 
+ 
+Ubat Projet = 0,358 kWh/m² 
+<= 
+Ubat Max = 0,447 kWh/m² 
+ 
+ 
+ 
+CO2 Projet = 1,59 kgCO2/m² 
+<= 
+CO2 Max = 20,00 kgCO2/m² 
+ 
+ 
+ 
+ 
+ 
+BATIMENT CONFORME AU LABEL BBC EFFINERGIE 
+RENOVATION 
+ 
+Calculs effectués en conformité avec l'arrêté du 29 septembre 2009 relatif aux conditions 
+d'attribution du label haute performance énergétiques rénovation. 
+ 
+Calculs réalisés avec la méthode Th-C-E ex (V1.0.3 du 05/02/09) 
+
+
+----- PAGE 32 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+32/33 
+ 
+ 
+7.1.6 Finance 
+ 
+ 
+Investissement 
+: 118557 € 
+Durée de l'ECO prêt 
+: 20,00 ans 
+Primes et aides 
+: 22732 € 
+Taux d'intérêt de l'ECO prêt 
+: 0,00 % 
+MaPrimeRénov' 
+: 20000 € 
+Durée de l'emprunt comp. 
+: 5,00 ans 
+ 
+75825 € 
+Taux d'int. de l'emprunt comp. : 3,00 % 
+ 
+Apport 
+: 0 € 
+ECO Prêt  (maxi : 50000 ) : 50000 € 
+ 
+Remboursement mensuel : 670 € 
+ 
+Coût global avant travaux : 397332 € 
+Après travaux 
+: 119761 € 
+Economies 
+: 277571 € 
+Coût glob. ann. av. travaux : 13244 €/an Après travaux 
+: 3992 €/an 
+Economies annualisées 
+: 9252 €/an 
+ 
+
+
+----- PAGE 33 -----
+
+ 
+Ma maison - ANDRIOT Clyve 
+15/11/2024  
+ 
+33/33 
+8. DOCUMENT EN ANNEXE 
+ 
+Document en annexe 
+ 

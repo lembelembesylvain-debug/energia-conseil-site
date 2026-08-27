@@ -1,0 +1,110 @@
+{
+  "nom": "DEMO Incomplet",
+  "reference": "AUDIT-2026-DEMO-INCOMPLET",
+  "adresse": "À confirmer",
+  "surface": 90,
+  "annee_construction": null,
+  "dpe_actuel": "À confirmer",
+  "dpe_cible": "À confirmer",
+  "type_bien": "À confirmer",
+  "personnes": 2,
+  "revenu_fiscal": null,
+  "profil_anah": "À confirmer",
+  "titre_document": "Rapport de synthèse énergétique et financière personnalisé",
+  "field_status": {
+    "nom": "verified",
+    "adresse": "pending",
+    "surface": "estimated",
+    "dpe_actuel": "pending",
+    "profil_anah": "pending",
+    "budget_travaux": "pending",
+    "mpr": "pending",
+    "cee": "pending"
+  },
+  "justificatifs": [],
+  "photos_logement": [],
+  "devis_references": [],
+  "mar_document": {
+    "present": false,
+    "fichier": null,
+    "status": "pending"
+  },
+  "autoriser_ecart_lignes": true,
+  "budget_ht": null,
+  "budget_travaux": null,
+  "tva_montant": null,
+  "mpr": null,
+  "cee": null,
+  "total_aides": null,
+  "effort_final": null,
+  "ecoptz": null,
+  "duree_pret_mois": 180,
+  "mensualite_ecoptz": null,
+  "economies_annuelles": null,
+  "facture_avant": null,
+  "facture_apres": null,
+  "conso_avant": null,
+  "conso_apres": null,
+  "co2_avant_kg_m2": null,
+  "co2_apres_kg_m2": null,
+  "scenario_recommande": "optimal",
+  "option_photovoltaique": {
+    "active": false,
+    "status": "pending",
+    "statut": "À confirmer"
+  },
+  "echeancier": {
+    "acompte_30": null,
+    "acompte_30_verse": false,
+    "demarrage_40": null,
+    "reception_30": null
+  },
+  "statuts_paiement": {
+    "encaisses": [],
+    "en_attente": [],
+    "aides_attendues": []
+  },
+  "scenarios": {
+    "essentiel": {
+      "label": "ESSENTIEL",
+      "badge": "Travaux prioritaires",
+      "budget": null,
+      "dpe_cible": "À confirmer",
+      "conso_apres": null,
+      "economies_annuelles": null,
+      "travaux": [],
+      "aides": {"mpr": null, "cee": null, "total": null, "reste": null}
+    },
+    "optimal": {
+      "label": "OPTIMAL",
+      "badge": "À confirmer",
+      "budget": null,
+      "dpe_cible": "À confirmer",
+      "conso_apres": null,
+      "economies_annuelles": null,
+      "travaux": [],
+      "aides": {"mpr": null, "cee": null, "total": null, "reste": null}
+    },
+    "excellence": {
+      "label": "EXCELLENCE",
+      "badge": "Option à confirmer",
+      "budget": null,
+      "budget_renovation": null,
+      "option_pv_ttc": null,
+      "dpe_cible": "À confirmer",
+      "travaux": [],
+      "aides": {"mpr": null, "cee": null, "total": null, "reste": null}
+    }
+  },
+  "artisans": [],
+  "enveloppe": {},
+  "points_faibles": [],
+  "points_a_valider": [
+    "Adresse, DPE, profil ANAH et budget à confirmer",
+    "Aucun devis fourni",
+    "Aucune attestation fournie",
+    "Photos logement manquantes (0/4)",
+    "Document MAR absent"
+  ],
+  "dossier_client": "clients/DEMO_INCOMPLET"
+}

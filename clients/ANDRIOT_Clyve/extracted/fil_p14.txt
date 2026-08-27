@@ -1,0 +1,134 @@
+
+
+ 
+Audit énergétique / Scénario 1  
+p.10  
+ 
+ 
+ 
+Résultats après travaux 
+Performance 
+énergétique et 
+environnementale 
+globale du logement 
+(conso. en kWh/m².an et 
+émissions en kg CO2/m².an) 
+Economies 
+d’énergie par 
+rapport à l’état 
+initial 
+ 
+Réduction des 
+GES 
+(gaz à effet de serre) 
+ 
+Confort d’été 
+Dépenses 
+d'énergie 
+estimées/an 
+Coût 
+estimé 
+des 
+travaux 
+(*TTC) 
+ 
+ 
+Faibles déperditions 
+thermiques 
+ Ubat = 0,337 
+W/(m².K) 
+ 
+Logement 
+correctement 
+ventilé 
+-84% 
+(-573 kWhEP/m².an) 
+-80% 
+(-401 kWhEF/m².an) 
+-86% 
+(-18 kg CO2/m².an) 
+ 
+de 1090€ à 
+1520€ 
+~ 237090 € 
+ 
+Répartition des consommations annuelles énergétiques 
+Avant travaux 
+kWh/m².an EP 
+ 
+Après travaux 
+kWh/m².an EP 
+ 
+                                      
+ 
+usage 
+chauffage 
+eau chaude 
+refroidissement 
+éclairage 
+auxiliaires 
+total 
+consommation d’énergie 
+(kWh/m².an) 
+ 
+ bois bûches 
+91,4EP (91,4EF) 
+ 
+ 
+ électricité 
+8,9EP (3,9EF) 
+ 
+   
+0EP (0EF) 
+ 
+ 
+ électricité 
+4,3EP (1,9EF) 
+ 
+ 
+ électricité 
+3,2EP (1,4EF) 
+ 
+107EP 
+(98EF) 
+consommation d'énergie 
+sans déduction 
+photovoltaïque 
+autoconsommée 
+ 
+107EP 
+(98EF) 
+frais annuels d’énergie 
+(fourchette d’estimation **) 
+de 710€ 
+à 980€ 
+de 210€ 
+à 290€ 
+de 0€ 
+à 0€ 
+de 100€ 
+à 140€ 
+de 70€ 
+à 110€ 
+de 1090€ 
+à 1520€ 
+ 
+Conventionnellement, ces chiffres sont donnés pour une température de 
+chauffage  de 19°C réduite à 16°C la nuit ou en cas d’absence du domicile, 
+une climatisation réglée  à 28°C (si présence de climatisation), et une 
+consommation d’eau chaude standardisée par personne et par jour. 
+EP → énergie primaire | EF → énergie finale (voir la définition en annexe) 
+** Prix moyens des énergies indexés au 1 janvier 2023 (abonnements compris) 
+ 
+Seules les consommations d’énergie nécessaires au chauffage, à la 
+climatisation, à la production d’eau chaude sanitaire, à l’éclairage et aux 
+auxiliaires (ventilateurs, pompes) sont prises en compte dans cette 
+estimation. 
+Les factures réelles dépendront de nombreux facteurs : prix des 
+énergies, météo  de l’année (hiver froid ou doux...), nombre de 
+personnes dans le logement et habitudes de vie, entretien des 
+équipements... 
+*Montant estimé à la date de réalisation de l'audit énergétique. Cette estimation ne constitue pas un devis, et les coûts des travaux sont susceptibles d'évoluer dans le 
+temps. Les TVA appliquées par l'auditeur peuvent évoluer en fonction des dispositions législatives ou réglementaires en vigueur lors de la réalisation des travaux. 
+
+

@@ -1,0 +1,86 @@
+
+
+Audit énergétique / État initial du logement  
+p.6 
+ 
+ 
+ 
+ 
+ 
+  Murs 
+Description 
+Isolation 
+Mur 
+habitation/garage 
+(int.) 
+Séparation zone chauffée/garage non chauffé 
+ 
+Mur pisé extérieur 
+60cm (ext.) 
+Sud, Sud Est, Sud Ouest : 85,16 m² 
+Ouest : 16,10 m² 
+Est : 10,03 m² 
+Nord, Nord Est, Nord Ouest : 87,50 m² 
+ 
+ Planchers 
+Description 
+Isolation 
+Plancher sur terre 
+plein (TP) 
+plancher bois isolé paille - aggloméré 2cm 
+ 
+ Toitures 
+Description 
+Isolation 
+Toiture non isolé 
+Toiture traditionnelle non isolée : tuiles canal + aggloméré   
+Tuiles canal (3 cm) + Lame d'air faib 
+ 
+ Menuiseries Description 
+Isolation 
+Fenêtre PVC wc Sud 
+(0,50 x0,35) 
+Fen.bat./ocil. PVC double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Fenêtre PVC cuisine 
+Sud (0,70 x0,40) 
+Fen.bat./ocil. PVC double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Fenetre Bois S-O 
+(0,95 x1,40) 
+Fen.bat./ocil. bois double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Fenêtre Ch2 PVC S-O 
+(0,95 x0,93) 
+Fen.bat./ocil. PVC double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Porte Fenêtre Ch1 
+PVC S-O (1,40 x2,10) 
+Fen.bat./ocil. PVC double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Baie vitrée Salon N-E 
+(2,40 x2,10) 
+Fenêtre battante fixe ou oscillante métal sans rupt double vitrage(VNT) inconnu 
+6mm  
+Sans volet 
+Au nu intérieur 
+Largeur dormant 5 cm 
+ 
+Porte Fenêtre Ch3 
+Bois N-E (0,95 
+x2,10) 
+Fen.bat./ocil. bois double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Fenêtre Buand PVC 
+N-E (0,95 x1,40) 
+Fen.bat./ocil. PVC double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Fenêtre Ch3 PVC N-E 
+(0,95 x1,40) 
+Fen.bat./ocil. PVC double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Porte entrée Sud 
+Porte opaque pleine simple en bois 
+ 
+
+

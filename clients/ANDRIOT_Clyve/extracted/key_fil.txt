@@ -1,0 +1,1397 @@
+﻿=== FIL ROUGE key pages ===
+\n########## PAGE 7 ##########
+
+
+Audit ├®nerg├®tique / ├ëtat initial du logement  
+p.6a 
+ 
+ 
+ 
+(0,90 x2,10) 
+Porte Bois ext ch4 N-
+E (0,90 x1,70) 
+Porte opaque pleine simple en PVC 
+ 
+
+
+
+\n########## PAGE 8 ##########
+
+
+Audit ├®nerg├®tique / ├ëtat initial du logement  
+p.7 
+ 
+ 
+ 
+Observations de lÔÇÖauditeur 
+ 
+Plan ou croquis 
+ 
+ 
+
+
+
+\n########## PAGE 9 ##########
+
+
+Audit ├®nerg├®tique / Sc├®narios de travaux en un clin d'┼ôil 
+p.8 
+ 
+ 
+Sc├®narios de travaux en un clin dÔÇÖ┼ôil 
+Cet audit vous pr├®sente plusieurs sc├®narios de travaux pour ce logement, soit pour une r├®novation  ┬½ 
+en une fois ┬╗, soit pour une r├®novation ┬½ par ├®tapes ┬╗. Ces propositions de travaux vous permettent 
+dÔÇÖam├®liorer de mani├¿re significative la performance ├®nerg├®tique et environnementale de votre 
+logement, et de r├®aliser dÔÇÖimportantes ├®conomies dÔÇÖ├®nergie. Des aides existent pour contribuer ├á 
+financer ces travaux : vous en trouverez le d├®tail dans les pages qui suivent. 
+ 
+Postes de travaux  
+concern├®s 
+Performance 
+├®nerg├®tique et 
+environnementale 
+globale du logement 
+(conso. en kWh/m┬▓.an et 
+├®missions en kg CO2/m┬▓.an) 
+Economies 
+dÔÇÖ├®nergie par 
+rapport ├á 
+lÔÇÖ├®tat initial 
+(├®nergie primaire) 
+Confort 
+dÔÇÖ├®t├® 
+D├®penses 
+d'├®nergie 
+estim├®es/an 
+Co├╗t 
+estim├® des 
+travaux 
+(*TTC) 
+ 
+ 
+ 
+ 
+ 
+ 
+Avant travaux  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Ubat = 1,667 W/(m┬▓.K) 
+Ubat base = 0,356 
+W/(m┬▓.K) 
+ 
+ 
+de 8100 Ôé¼ ├á 
+10990 Ôé¼ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Sc├®nario 1 "r├®novation en une fois" (d├®tails p.9)  
+ Remplacement fen├¬tres 
+triple vitrage + volets 
+roulants 
+ Remplacement 2 portes 
+d'entr├®e/service haute 
+performance 
+ Isolation mur garage par 
+chaux-chanvre ext├®rieur 
+ Isolation thermique 
+ext├®rieure murs pis├® 
+ R├®fection toiture compl├¿te + 
+isolation rampants 
+ Isolation plancher bas terre-
+plein p├®riph├®rique 
+ Installation VMC Double Flux 
+Hygro B haute performance 
+ Changement de la production 
+de chauffage et d'ECS 
+ D├®pose radiateurs 
+├®lectriques posables 
+ Installation plancher 
+chauffant hydraulique 
+ Remplacement ballons 
+├®lectriques par 
+thermodynamiques 
+ 
+  
+Faibles d├®perditions 
+thermiques 
+Ubat = 0,337 
+W/(m┬▓.K) 
+ 
+-84% 
+(-573 kWhEP/m┬▓.an) 
+ 
+de 1090Ôé¼ ├á 
+1520Ôé¼ 
+~ 237090 Ôé¼ 
+ 
+ 
+ 
+ 
+ 
+Sc├®nario 2 "r├®novation par ├®tapes" (d├®tails p.12)  
+Premi├¿re ├®tape 
+ Remplacement fen├¬tres 
+triple vitrage + volets 
+roulants 
+ Remplacement 2 portes 
+d'entr├®e/service haute 
+performance 
+ Isolation mur garage par 
+chaux-chanvre ext├®rieur 
+ 
+  
+Ubat = 1,305 
+W/(m┬▓.K) 
+ 
+-18% 
+(-119 kWhEP/m┬▓.an) 
+ 
+de 6710Ôé¼ ├á 
+9110Ôé¼ 
+~ 97290 Ôé¼ 
+
+
+
+\n########## PAGE 10 ##########
+
+
+Audit ├®nerg├®tique / Sc├®narios de travaux en un clin d'┼ôil 
+p.8a 
+ 
+ 
+ Isolation thermique 
+ext├®rieure murs pis├® 
+ Isolation plancher bas 
+terre-plein p├®riph├®rique 
+ Installation plancher 
+chauffant hydraulique 
+Deuxi├¿me ├®tape 
+ R├®fection toiture compl├¿te 
++ isolation rampants 
+ Installation VMC Double 
+Flux Hygro B haute 
+performance 
+ 
+  
+Faibles d├®perditions 
+thermiques 
+Ubat = 0,337 
+W/(m┬▓.K) 
+ 
+-71% 
+(-481 kWhEP/m┬▓.an) 
+ 
+de 2530Ôé¼ ├á 
+3480Ôé¼ 
+~ 107200 Ôé¼ 
+Troisi├¿me ├®tape 
+ Changement de la 
+production de chauffage et 
+d'ECS 
+ D├®pose radiateurs 
+├®lectriques posables 
+ 
+  
+Faibles d├®perditions 
+thermiques 
+Ubat = 0,337 
+W/(m┬▓.K) 
+ 
+-71% 
+(-481 kWhEP/m┬▓.an) 
+ 
+de 2540Ôé¼ ├á 
+3490Ôé¼ 
+~ 24100 Ôé¼ 
+Quatri├¿me ├®tape 
+ Remplacement ballons 
+├®lectriques par 
+thermodynamiques 
+ 
+  
+Faibles d├®perditions 
+thermiques 
+Ubat = 0,337 
+W/(m┬▓.K) 
+-74% 
+(-500 kWhEP/m┬▓.an) 
+ 
+de 2230Ôé¼ ├á 
+3070Ôé¼ 
+~ 8500 Ôé¼ 
+*Montant estime ├á la date de r├®alisation de l'audit ├®nerg├®tique. Cette estimation ne constitue pas un devis, et les co├╗ts des travaux sont susceptibles d'├®voluer dans le 
+temps. Les TVA appliqu├®es par l'auditeur peuvent ├®voluer en fonction des dispositions l├®gislatives ou r├®glementaires en vigueur lors de la r├®alisation des travaux. 
+
+
+
+\n########## PAGE 11 ##########
+
+
+ 
+ 
+ 
+ 
+Audit ├®nerg├®tique / Sc├®nario 1  
+p.9  
+ 
+Sc├®nario 1 "en une fois" 
+ Il est pr├®f├®rable de r├®aliser des travaux en une fois. Le co├╗t des travaux sera moins ├®lev├® que si vous les 
+faites par ├®tapes, et la performance ├®nerg├®tique et environnementale ├á terme sera meilleure. 
+ 
+ 
+D├®tails des travaux ├®nerg├®tiques 
+ 
+Co├╗t estim├® 
+(*TTC) 
+ 
+Menuiseries 
+ Remplacement de l'ensemble des fen├¬tres et portes-fen├¬tres par menuiseries bois triple 
+vitrage performantes (Uw=1,1 W/m┬▓.K). 
+Pose en d├®pose totale avec volets roulants int├®gr├®s. 
+9 ouvrants trait├®s. Entreprise RGE obligatoire.(Uw <=2,10 W/m2.K (Sw>0.36)  surface des 
+ouvrants : 15,3 m┬▓) 
+ 
+Menuiseries hautes performances - Triple vitrage argon 
+Volets roulants isolation renforc├®e - Confort thermique/acoustique optimis├® 
+Suppression ponts thermiques menuiseries anciennes 
+ 
+~ 22000 Ôé¼ 
+ 
+Menuiseries 
+ Remplacement de 2 portes d'entr├®e et service par portes bois hautes performances (Ud=1,2 
+W/m┬▓.K). 
+Pose en d├®pose totale avec isolation p├®riph├®rique renforc├®e. 
+Quincaillerie s├®curis├®e 3 points. Entreprise RGE obligatoire.(Uw <=3,50 W/m2.K (Sw>0.36)  
+surface des ouvrants : 0,0 m┬▓)  (Ud <=3,50 W/m2.K  surface des portes : 3,4 m┬▓) 
+ 
+Portes thermiquement performantes - Suppression ponts thermiques 
+Am├®lioration ├®tanch├®it├® ├á l'air entr├®es principales 
+Confort thermique et s├®curit├® renforc├®s 
+ 
+~ 5600 Ôé¼ 
+ 
+Murs 
+ Isolation thermique ext├®rieure du mur donnant sur garage non chauff├®. 
+Chaux-chanvre projet├® 24cm (R=5,5) sur mur pis├® existant. 
+Surface : 25m┬▓. Entreprise RGE obligatoire.(R >=5,50 m┬▓.K/W / Surface d'isolant : 25 m┬▓) 
+ 
+Extension ITE sur mur vers local non chauff├® 
+Continuit├® isolation p├®riph├®rie - Suppression pont thermique 
+ 
+~ 4500 Ôé¼ 
+ 
+Murs 
+ Isolation thermique ext├®rieure des murs en pis├® par chaux-chanvre projet├®. 
+Pr├®paration support pis├®, ossature secondaire bois, projection m├®canique chaux-chanvre 
+24cm (R=5,5). 
+Surface : 160m┬▓(R >=5,50 m┬▓.K/W / Surface d'isolant : 25 m┬▓) 
+ 
+Technique ITE adapt├®e au pis├® - Mat├®riaux bio-sourc├®s perspirants 
+Pr├®servation qualit├®s hygrothermiques du b├óti ancien 
+ 
+~ 28800 Ôé¼ 
+Pour en savoir plus sur les aides, 
+rendez-vous sur France R├®nov' : 
+france-renov.gouv.fr 
+ 
+Pour des conseils neutres et  
+gratuits, contactez France R├®nov' :  
+  
+tel :  
+Les aides financi├¿res possibles pour ces travaux 
+Voici les principales aides que vous pouvez solliciter. Certaines aides sont 
+sous conditions de ressources ou d├®pendent du type de travaux. Elles peuvent ├®voluer 
+entre la r├®alisation de l'audit et la concr├®tisation des travaux. 
+ 
+Aides nationales : 
+ÔùÅ MaPrimeR├®nov' parcours Accompagn├® 
+ÔùÅ Certificats d'├®conomie d'├®nergie (CEE) 
+Aides locales : 
+ÔùÅ Aides habitat durable 500? 
+ 
+
+
+
+\n########## PAGE 12 ##########
+
+
+ 
+ 
+ 
+ 
+Audit ├®nerg├®tique / Sc├®nario 1  
+p.9a 
+ 
+Toitures 
+ Isolation thermique rampants de toiture par laine min├®rale 30cm d'├®paisseur. 
+Pose entre chevrons + compl├®ment sous chevrons (R=6,5 m┬▓.K/W). 
+Surface : 275m┬▓. Entreprise RGE obligatoire.(R >=6,50 m┬▓.K/W / Surface d'isolant : 275 m┬▓) 
+ 
+Isolation performante rampants apr├¿s r├®fection charpente 
+Suppression ponts thermiques - ├ëtanch├®it├® ├á l'air renforc├®e 
+Performance thermique optimale long├¿re r├®nov├®e 
+ 
+~ 27500 Ôé¼ 
+ 
+Planchers Bas 
+ Isolation plancher bas sur terre-plein par isolation p├®riph├®rique. 
+Polystyr├¿ne extrud├® 16cm (R=4,0) en p├®riph├®rie + traitement ponts thermiques. 
+Surface : 137m┬▓(R >=4,00 m┬▓.K/W / Surface d'isolant : 137 m┬▓) 
+ 
+Isolation p├®riph├®rique adapt├®e au terre-plein existant 
+Suppression ponts thermiques plancher/murs pis├® 
+Am├®lioration confort pieds froids 
+ 
+~ 8200 Ôé¼ 
+ 
+Ventilation 
+ Installation VMC Double Flux Hygro B avec r├®cup├®ration de chaleur (efficacit├® =85%). 
+Caisson classe ├®nerg├®tique A, r├®seau gain├® isol├®, bouches hygror├®glables. 
+D├®bit adapt├® 180 m┬│/h - Filtres F7. Entreprise RGE obligatoire.(Rendement de l'├®changeur >=  
+%) 
+ 
+Ventilation performante adapt├®e long├¿re pis├® 
+R├®cup├®ration chaleur sur air vici├® - Ma├«trise renouvellement d'air 
+Am├®lioration qualit├® air int├®rieur et ├®conomies ├®nerg├®tiques 
+ 
+~ 6500 Ôé¼ 
+ 
+Chauffage 
+ Installation PAC Air/Eau double service (chauffage + ECS) 15kW. 
+SCOP 4,5 chauffage, COP ECS 3,5. Unit├® ext├®rieure air ext├®rieur. 
+Raccordement hydraulique plancher chauffant + ECS. 
+Entreprise RGE obligatoire.(SCOP >= 4,500 / ETAS >= 1,800 )(COP ECS >=  ) 
+ 
+PAC Air/Eau haute performance - Chauffage principal + production ECS 
+Remplacement chauffage ├®lectrique - ├ëconomies ├®nerg├®tiques majeures 
+Compatible plancher chauffant basse temp├®rature 
+ 
+~ 18000 Ôé¼ 
+ 
+Chauffage 
+ Neutralisation des prises ├®lectriques d├®di├®es 
+ 
+~ 600 Ôé¼ 
+ 
+Chauffage 
+ Installation compl├¿te plancher chauffant hydraulique basse temp├®rature 137m┬▓. Tubes PER, 
+collecteurs, vannes m├®langeuses, r├®gulation par zones. Raccordement ├á la PAC Air/Eau 15kW. 
+ 
+~ 11500 Ôé¼ 
+ 
+Eau Chaude 
+ Remplacement de 2 ballons ├®lectriques (200L + 300L) par 2 ballons thermodynamiques 
+├®quivalents avec COP optimis├®. D├®pose anciens ballons et raccordements 
+├®lectriques/hydrauliques.(COP ECS >= 3,000 )(Volume de Stockage = 500 l) 
+ 
+~ 8500 Ôé¼ 
+ 
+ 
+D├®tails des travaux induits 
+ 
+Co├╗t estim├® 
+(*TTC) 
+ 
+ Finitions p├®riph├®riques menuiseries, habillages int├®rieurs/ext├®rieurs. 
+├ëtanch├®it├® p├®riph├®rique renforc├®e. Retouches peintures. 
+ 
+~ 3500 Ôé¼ 
+ 
+ Finitions p├®riph├®riques 2 portes, seuils ├®tanches, habillages. 
+├ëtanch├®it├® renforc├®e pourtours. Retouches peintures. 
+ 
+~ 1200 Ôé¼ 
+
+
+
+\n########## PAGE 13 ##########
+
+
+ 
+ 
+ 
+ 
+Audit ├®nerg├®tique / Sc├®nario 1  
+p.9b 
+ 
+ Enduit chaux de finition ext├®rieure 2,5cm 
+Protection chaux-chanvre - Surface 25m┬▓ 
+ 
+~ 1250 Ôé¼ 
+ 
+ Enduit chaux de finition ext├®rieure 2,5cm d'├®paisseur 
+Pare-pluie perspirant obligatoire sur chaux-chanvre 
+Surface 160m┬▓ 
+~ 8000 Ôé¼ 
+ 
+ R├®fection compl├¿te charpente + couverture tuiles canal. 
+Reconstruction panne sabli├¿re, remplacement chevrons d├®faillants. 
+Pose couverture neuve ├®tanche. Surface 275m┬▓. 
+~ 70000 Ôé¼ 
+ 
+ ├ëtanch├®it├® p├®riph├®rique + protection isolant 
+Finitions raccords murs - Surface 137m┬▓ 
+ 
+~ 2740 Ôé¼ 
+ 
+ Percements travers├®es murs pis├®, pose r├®seau gain├® isol├®. 
+Finitions passages gaines, habillages bouches. 
+Raccordement ├®lectrique caisson VMC 
+~ 3200 Ôé¼ 
+ 
+ Raccordements hydrauliques PAC, r├®gulation avanc├®e. 
+Mise en service, param├®trage, formation utilisateur. 
+├ëvacuation condensats, protections ├®lectriques. 
+~ 5500 Ôé¼ 
+ 
+*Montant estim├® ├á la date de r├®alisation de l'audit ├®nerg├®tique. Cette estimation ne constitue pas un devis, et les co├╗ts des travaux sont susceptibles d'├®voluer dans le 
+temps. Les TVA appliqu├®es par l'auditeur peuvent ├®voluer en fonction des dispositions l├®gislatives ou r├®glementaires en vigueur lors de la r├®alisation des travaux. 
+
+
+
+\n########## PAGE 14 ##########
+
+
+ 
+Audit ├®nerg├®tique / Sc├®nario 1  
+p.10  
+ 
+ 
+ 
+R├®sultats apr├¿s travaux 
+Performance 
+├®nerg├®tique et 
+environnementale 
+globale du logement 
+(conso. en kWh/m┬▓.an et 
+├®missions en kg CO2/m┬▓.an) 
+Economies 
+dÔÇÖ├®nergie par 
+rapport ├á lÔÇÖ├®tat 
+initial 
+ 
+R├®duction des 
+GES 
+(gaz ├á effet de serre) 
+ 
+Confort dÔÇÖ├®t├® 
+D├®penses 
+d'├®nergie 
+estim├®es/an 
+Co├╗t 
+estim├® 
+des 
+travaux 
+(*TTC) 
+ 
+ 
+Faibles d├®perditions 
+thermiques 
+ Ubat = 0,337 
+W/(m┬▓.K) 
+ 
+Logement 
+correctement 
+ventil├® 
+-84% 
+(-573 kWhEP/m┬▓.an) 
+-80% 
+(-401 kWhEF/m┬▓.an) 
+-86% 
+(-18 kg CO2/m┬▓.an) 
+ 
+de 1090Ôé¼ ├á 
+1520Ôé¼ 
+~ 237090 Ôé¼ 
+ 
+R├®partition des consommations annuelles ├®nerg├®tiques 
+Avant travaux 
+kWh/m┬▓.an EP 
+ 
+Apr├¿s travaux 
+kWh/m┬▓.an EP 
+ 
+                                      
+ 
+usage 
+chauffage 
+eau chaude 
+refroidissement 
+├®clairage 
+auxiliaires 
+total 
+consommation dÔÇÖ├®nergie 
+(kWh/m┬▓.an) 
+ 
+ bois b├╗ches 
+91,4EP (91,4EF) 
+ 
+ 
+ ├®lectricit├® 
+8,9EP (3,9EF) 
+ 
+   
+0EP (0EF) 
+ 
+ 
+ ├®lectricit├® 
+4,3EP (1,9EF) 
+ 
+ 
+ ├®lectricit├® 
+3,2EP (1,4EF) 
+ 
+107EP 
+(98EF) 
+consommation d'├®nergie 
+sans d├®duction 
+photovolta├»que 
+autoconsomm├®e 
+ 
+107EP 
+(98EF) 
+frais annuels dÔÇÖ├®nergie 
+(fourchette dÔÇÖestimation **) 
+de 710Ôé¼ 
+├á 980Ôé¼ 
+de 210Ôé¼ 
+├á 290Ôé¼ 
+de 0Ôé¼ 
+├á 0Ôé¼ 
+de 100Ôé¼ 
+├á 140Ôé¼ 
+de 70Ôé¼ 
+├á 110Ôé¼ 
+de 1090Ôé¼ 
+├á 1520Ôé¼ 
+ 
+Conventionnellement, ces chiffres sont donn├®s pour une temp├®rature de 
+chauffage  de 19┬░C r├®duite ├á 16┬░C la nuit ou en cas dÔÇÖabsence du domicile, 
+une climatisation r├®gl├®e  ├á 28┬░C (si pr├®sence de climatisation), et une 
+consommation dÔÇÖeau chaude standardis├®e par personne et par jour. 
+EP ÔåÆ ├®nergie primaire | EF ÔåÆ ├®nergie finale (voir la d├®finition en annexe) 
+** Prix moyens des ├®nergies index├®s au 1 janvier 2023 (abonnements compris) 
+ 
+Seules les consommations dÔÇÖ├®nergie n├®cessaires au chauffage, ├á la 
+climatisation, ├á la production dÔÇÖeau chaude sanitaire, ├á lÔÇÖ├®clairage et aux 
+auxiliaires (ventilateurs, pompes) sont prises en compte dans cette 
+estimation. 
+Les factures r├®elles d├®pendront de nombreux facteurs : prix des 
+├®nergies, m├®t├®o  de lÔÇÖann├®e (hiver froid ou doux...), nombre de 
+personnes dans le logement et habitudes de vie, entretien des 
+├®quipements... 
+*Montant estim├® ├á la date de r├®alisation de l'audit ├®nerg├®tique. Cette estimation ne constitue pas un devis, et les co├╗ts des travaux sont susceptibles d'├®voluer dans le 
+temps. Les TVA appliqu├®es par l'auditeur peuvent ├®voluer en fonction des dispositions l├®gislatives ou r├®glementaires en vigueur lors de la r├®alisation des travaux. 
+
+
+
+\n########## PAGE 15 ##########
+
+
+Audit ├®nerg├®tique / Recommandations 
+p.11  
+ 
+ 
+ 
+Recommandations de l'auditeur 
+L'auditeur recommande une r├®novation globale en une seule ├®tape portant sur l'ensemble des postes : isolation thermique par 
+l'ext├®rieur (murs et toiture), remplacement des menuiseries, ventilation double flux, mise en place d'un plancher chauffant 
+hydraulique aliment├® par une PAC Air/Eau double service, et suppression des anciens syst├¿mes de chauffage (radiateurs 
+├®lectriques, po├¬le 
+  
+ 
+Avantages 
+Sc├®nario complet garantissant une nette am├®lioration du confort thermique et de la qualit├® d'air, tout en r├®duisant fortement les 
+consommations d'├®nergie primaire et les ├®missions de CO2. Ce projet permet l'abandon des ├®nergies fossiles ou bois peu 
+performants au profit d'une solution bas carbone, tout en facilitant l'obtention d'aides financi├¿res (MaPrimeR├®nov', CEE, ├®co-PTZ). 
+  
+ 
+Plan des travaux 
+ 
+
+
+
+\n########## PAGE 16 ##########
+
+
+ 
+ 
+ 
+ 
+Audit ├®nerg├®tique / Sc├®nario 2 / Premi├¿re ├®tape 
+p.12  
+ 
+Sc├®nario 2 "par ├®tapes" 
+ 
+ 
+Premi├¿re ├®tape 
+ 
+ 
+D├®tails des travaux ├®nerg├®tiques 
+ 
+Co├╗t estim├® 
+(*TTC) 
+ 
+Menuiseries 
+ Remplacement de l'ensemble des fen├¬tres et portes-fen├¬tres par menuiseries bois triple 
+vitrage performantes (Uw=1,1 W/m┬▓.K). 
+Pose en d├®pose totale avec volets roulants int├®gr├®s. 
+9 ouvrants trait├®s. Entreprise RGE obligatoire.(Uw <=2,10 W/m2.K (Sw>0.36)  surface des 
+ouvrants : 15,3 m┬▓) 
+ 
+Menuiseries hautes performances - Triple vitrage argon 
+Volets roulants isolation renforc├®e - Confort thermique/acoustique optimis├® 
+Suppression ponts thermiques menuiseries anciennes 
+ 
+~ 22000 Ôé¼ 
+ 
+Menuiseries 
+ Remplacement de 2 portes d'entr├®e et service par portes bois hautes performances (Ud=1,2 
+W/m┬▓.K). 
+Pose en d├®pose totale avec isolation p├®riph├®rique renforc├®e. 
+Quincaillerie s├®curis├®e 3 points. Entreprise RGE obligatoire.(Uw <=3,50 W/m2.K (Sw>0.36)  
+surface des ouvrants : 0,0 m┬▓)  (Ud <=3,50 W/m2.K  surface des portes : 3,4 m┬▓) 
+ 
+Portes thermiquement performantes - Suppression ponts thermiques 
+Am├®lioration ├®tanch├®it├® ├á l'air entr├®es principales 
+Confort thermique et s├®curit├® renforc├®s 
+ 
+~ 5600 Ôé¼ 
+ 
+Murs 
+ Isolation thermique ext├®rieure du mur donnant sur garage non chauff├®. 
+Chaux-chanvre projet├® 24cm (R=5,5) sur mur pis├® existant. 
+Surface : 25m┬▓. Entreprise RGE obligatoire.(R >=5,50 m┬▓.K/W / Surface d'isolant : 25 m┬▓) 
+ 
+Extension ITE sur mur vers local non chauff├® 
+Continuit├® isolation p├®riph├®rie - Suppression pont thermique 
+ 
+~ 4500 Ôé¼ 
+ 
+Murs 
+ Isolation thermique ext├®rieure des murs en pis├® par chaux-chanvre projet├®. 
+Pr├®paration support pis├®, ossature secondaire bois, projection m├®canique chaux-chanvre 
+24cm (R=5,5). 
+Surface : 160m┬▓(R >=5,50 m┬▓.K/W / Surface d'isolant : 25 m┬▓) 
+ 
+Technique ITE adapt├®e au pis├® - Mat├®riaux bio-sourc├®s perspirants 
+Pr├®servation qualit├®s hygrothermiques du b├óti ancien 
+ 
+~ 28800 Ôé¼ 
+Pour en savoir plus sur les aides, 
+rendez-vous sur France R├®nov' : 
+france-renov.gouv.fr 
+ 
+Pour des conseils neutres et  
+gratuits, contactez France R├®nov' :  
+  
+tel :  
+Les aides financi├¿res possibles pour ces travaux 
+Voici les principales aides que vous pouvez solliciter. Certaines aides sont 
+sous conditions de ressources ou d├®pendent du type de travaux. Elles peuvent ├®voluer 
+entre la r├®alisation de l'audit et la concr├®tisation des travaux. 
+ 
+Aides nationales : 
+ÔùÅ MaPrimeR├®nov' parcours Accompagn├® 
+ÔùÅ Certificats d'├®conomie d'├®nergie (CEE) 
+Aides locales : 
+ÔùÅ Aucune 
+ 
+
+
+
+\n=== FIL ROUGE late pages ===
+\n########## PAGE 17 ##########
+
+
+ 
+ 
+ 
+ 
+Audit ├®nerg├®tique / Sc├®nario 2 / Premi├¿re ├®tape 
+p.12a 
+ 
+Planchers Bas 
+ Isolation plancher bas sur terre-plein par isolation p├®riph├®rique. 
+Polystyr├¿ne extrud├® 16cm (R=4,0) en p├®riph├®rie + traitement ponts thermiques. 
+Surface : 137m┬▓(R >=4,00 m┬▓.K/W / Surface d'isolant : 137 m┬▓) 
+ 
+Isolation p├®riph├®rique adapt├®e au terre-plein existant 
+Suppression ponts thermiques plancher/murs pis├® 
+Am├®lioration confort pieds froids 
+ 
+~ 8200 Ôé¼ 
+ 
+Chauffage 
+ Installation compl├¿te plancher chauffant hydraulique basse temp├®rature 137m┬▓. Tubes PER, 
+collecteurs, vannes m├®langeuses, r├®gulation par zones. Raccordement ├á la PAC Air/Eau 15kW. 
+ 
+~ 11500 Ôé¼ 
+ 
+ 
+D├®tails des travaux induits 
+ 
+Co├╗t estim├® 
+(*TTC) 
+ 
+ Finitions p├®riph├®riques menuiseries, habillages int├®rieurs/ext├®rieurs. 
+├ëtanch├®it├® p├®riph├®rique renforc├®e. Retouches peintures. 
+ 
+~ 3500 Ôé¼ 
+ 
+ Finitions p├®riph├®riques 2 portes, seuils ├®tanches, habillages. 
+├ëtanch├®it├® renforc├®e pourtours. Retouches peintures. 
+ 
+~ 1200 Ôé¼ 
+ 
+ Enduit chaux de finition ext├®rieure 2,5cm 
+Protection chaux-chanvre - Surface 25m┬▓ 
+ 
+~ 1250 Ôé¼ 
+ 
+ Enduit chaux de finition ext├®rieure 2,5cm d'├®paisseur 
+Pare-pluie perspirant obligatoire sur chaux-chanvre 
+Surface 160m┬▓ 
+~ 8000 Ôé¼ 
+ 
+ ├ëtanch├®it├® p├®riph├®rique + protection isolant 
+Finitions raccords murs - Surface 137m┬▓ 
+ 
+~ 2740 Ôé¼ 
+ 
+*Montant estim├® ├á la date de r├®alisation de l'audit ├®nerg├®tique. Cette estimation ne constitue pas un devis, et les co├╗ts des travaux sont susceptibles d'├®voluer dans le 
+temps. Les TVA appliqu├®es par l'auditeur peuvent ├®voluer en fonction des dispositions l├®gislatives ou r├®glementaires en vigueur lors de la r├®alisation des travaux. 
+
+
+
+\n########## PAGE 18 ##########
+
+
+ 
+Audit ├®nerg├®tique / Sc├®nario 2 / Premi├¿re ├®tape 
+p.13  
+ 
+ 
+ 
+R├®sultats apr├¿s travaux 
+Performance 
+├®nerg├®tique et 
+environnementale 
+globale du logement 
+(conso. en kWh/m┬▓.an et 
+├®missions en kg CO2/m┬▓.an) 
+Economies 
+dÔÇÖ├®nergie par 
+rapport ├á lÔÇÖ├®tat 
+initial 
+ 
+R├®duction des 
+GES 
+(gaz ├á effet de serre) 
+ 
+Confort dÔÇÖ├®t├® 
+D├®penses 
+d'├®nergie 
+estim├®es/an 
+Co├╗t 
+estim├® 
+des 
+travaux 
+(*TTC) 
+ 
+ 
+Ubat = 1,305 
+W/(m┬▓.K) 
+ 
+ 
+-18% 
+(-119 kWhEP/m┬▓.an) 
+-18% 
+(-90 kWhEF/m┬▓.an) 
+-19% 
+(-4 kg CO2/m┬▓.an) 
+ 
+de 6710Ôé¼ ├á 
+9110Ôé¼ 
+~ 97290 Ôé¼ 
+ 
+R├®partition des consommations annuelles ├®nerg├®tiques 
+Avant travaux 
+kWh/m┬▓.an EP 
+ 
+Apr├¿s premi├¿re ├®tape 
+kWh/m┬▓.an EP 
+ 
+                                      
+ 
+usage 
+chauffage 
+eau chaude 
+refroidissement 
+├®clairage 
+auxiliaires 
+total 
+consommation dÔÇÖ├®nergie 
+(kWh/m┬▓.an) 
+ 
+ bois b├╗ches 
+293,4EP (293,4EF) 
+ 
+ ├®lectricit├® 
+233,7EP (101,6EF) 
+ 
+ ├®lectricit├® 
+30,0EP (13,0EF) 
+ 
+   
+0EP (0EF) 
+ 
+ 
+ ├®lectricit├® 
+4,3EP (1,9EF) 
+ 
+   
+0EP (0EF) 
+ 
+561EP 
+(409EF) 
+consommation d'├®nergie 
+sans d├®duction 
+photovolta├»que 
+autoconsomm├®e 
+ 
+561EP 
+(409EF) 
+frais annuels dÔÇÖ├®nergie 
+(fourchette dÔÇÖestimation **) 
+de 6150Ôé¼ 
+├á 8340Ôé¼ 
+de 490Ôé¼ 
+├á 670Ôé¼ 
+de 0Ôé¼ 
+├á 0Ôé¼ 
+de 70Ôé¼ 
+├á 100Ôé¼ 
+de 0Ôé¼ 
+├á 0Ôé¼ 
+de 6710Ôé¼ 
+├á 9110Ôé¼ 
+ 
+Conventionnellement, ces chiffres sont donn├®s pour une temp├®rature de 
+chauffage  de 19┬░C r├®duite ├á 16┬░C la nuit ou en cas dÔÇÖabsence du domicile, 
+une climatisation r├®gl├®e  ├á 28┬░C (si pr├®sence de climatisation), et une 
+consommation dÔÇÖeau chaude standardis├®e par personne et par jour. 
+EP ÔåÆ ├®nergie primaire | EF ÔåÆ ├®nergie finale (voir la d├®finition en annexe) 
+** Prix moyens des ├®nergies index├®s au 1 janvier 2023 (abonnements compris) 
+ 
+Seules les consommations dÔÇÖ├®nergie n├®cessaires au chauffage, ├á la 
+climatisation, ├á la production dÔÇÖeau chaude sanitaire, ├á lÔÇÖ├®clairage et aux 
+auxiliaires (ventilateurs, pompes) sont prises en compte dans cette 
+estimation. 
+Les factures r├®elles d├®pendront de nombreux facteurs : prix des 
+├®nergies, m├®t├®o  de lÔÇÖann├®e (hiver froid ou doux...), nombre de 
+personnes dans le logement et habitudes de vie, entretien des 
+├®quipements... 
+*Montant estim├® ├á la date de r├®alisation de l'audit ├®nerg├®tique. Cette estimation ne constitue pas un devis, et les co├╗ts des travaux sont susceptibles d'├®voluer dans le 
+temps. Les TVA appliqu├®es par l'auditeur peuvent ├®voluer en fonction des dispositions l├®gislatives ou r├®glementaires en vigueur lors de la r├®alisation des travaux. 
+
+
+
+\n########## PAGE 19 ##########
+
+
+Audit ├®nerg├®tique / Recommandations 
+p.14  
+ 
+ 
+ 
+Recommandations de l'auditeur 
+Traiter en priorit├® les parois opaques les plus d├®perditives. Mise en oeuvre d'une ITE en blocs de chanvre sur l'ensemble des murs 
+afin d'am├®liorer le confort, r├®duire la facture ├®nerg├®tique et pr├®parer les conditions optimales d'efficacit├® pour la future PAC. 
+ 
+Avantages 
+Ce sc├®nario permet une mont├®e en performance progressive, limitant les investissements simultan├®s. Il assure ├®galement la 
+continuit├® d'usage de l'habitation pendant les travaux. 
+ Chaque ├®tape apporte un gain significatif sur le plan ├®nerg├®tique, permettant un suivi et un pilotage plus fluide des aides, tout en 
+optimisant le confort thermique des occupants et la valorisation du bien. 
+ L'├®tape 1 garantit un gain de 2 classes ├®nerg├®tiques (traitement des parois), comme exig├® dans les sc├®narios par ├®tapes du cadre 
+r├®glementaire. 
+ 
+Plan des travaux 
+ 
+
+
+
+\n########## PAGE 20 ##########
+
+
+ 
+ 
+ 
+ 
+Audit ├®nerg├®tique / Sc├®nario 2 / Deuxi├¿me ├®tape 
+p.15  
+ 
+Sc├®nario 2 "par ├®tapes" 
+ 
+ 
+Deuxi├¿me ├®tape 
+ 
+ 
+D├®tails des travaux ├®nerg├®tiques 
+ 
+Co├╗t estim├® 
+(*TTC) 
+ 
+Toitures 
+ Isolation thermique rampants de toiture par laine min├®rale 30cm d'├®paisseur. 
+Pose entre chevrons + compl├®ment sous chevrons (R=6,5 m┬▓.K/W). 
+Surface : 275m┬▓. Entreprise RGE obligatoire.(R >=6,50 m┬▓.K/W / Surface d'isolant : 275 m┬▓) 
+ 
+Isolation performante rampants apr├¿s r├®fection charpente 
+Suppression ponts thermiques - ├ëtanch├®it├® ├á l'air renforc├®e 
+Performance thermique optimale long├¿re r├®nov├®e 
+ 
+~ 27500 Ôé¼ 
+ 
+Ventilation 
+ Installation VMC Double Flux Hygro B avec r├®cup├®ration de chaleur (efficacit├® =85%). 
+Caisson classe ├®nerg├®tique A, r├®seau gain├® isol├®, bouches hygror├®glables. 
+D├®bit adapt├® 180 m┬│/h - Filtres F7. Entreprise RGE obligatoire.(Rendement de l'├®changeur >=  
+%) 
+ 
+Ventilation performante adapt├®e long├¿re pis├® 
+R├®cup├®ration chaleur sur air vici├® - Ma├«trise renouvellement d'air 
+Am├®lioration qualit├® air int├®rieur et ├®conomies ├®nerg├®tiques 
+ 
+~ 6500 Ôé¼ 
+ 
+ 
+D├®tails des travaux induits 
+ 
+Co├╗t estim├® 
+(*TTC) 
+ 
+ R├®fection compl├¿te charpente + couverture tuiles canal. 
+Reconstruction panne sabli├¿re, remplacement chevrons d├®faillants. 
+Pose couverture neuve ├®tanche. Surface 275m┬▓. 
+~ 70000 Ôé¼ 
+ 
+ Percements travers├®es murs pis├®, pose r├®seau gain├® isol├®. 
+Finitions passages gaines, habillages bouches. 
+Raccordement ├®lectrique caisson VMC 
+~ 3200 Ôé¼ 
+ 
+*Montant estim├® ├á la date de r├®alisation de l'audit ├®nerg├®tique. Cette estimation ne constitue pas un devis, et les co├╗ts des travaux sont susceptibles d'├®voluer dans le 
+temps. Les TVA appliqu├®es par l'auditeur peuvent ├®voluer en fonction des dispositions l├®gislatives ou r├®glementaires en vigueur lors de la r├®alisation des travaux. 
+Pour en savoir plus sur les aides, 
+rendez-vous sur France R├®nov' : 
+france-renov.gouv.fr 
+ 
+Pour des conseils neutres et  
+gratuits, contactez France R├®nov' :  
+  
+tel :  
+Les aides financi├¿res possibles pour ces travaux 
+Voici les principales aides que vous pouvez solliciter. Certaines aides sont 
+sous conditions de ressources ou d├®pendent du type de travaux. Elles peuvent ├®voluer 
+entre la r├®alisation de l'audit et la concr├®tisation des travaux. 
+ 
+Aides nationales : 
+ÔùÅ MaPrimeR├®nov' parcours Accompagn├® 
+ÔùÅ Certificats d'├®conomie d'├®nergie (CEE) 
+Aides locales : 
+ÔùÅ Aucune 
+ 
+
+
+
+\n########## PAGE 21 ##########
+
+
+ 
+Audit ├®nerg├®tique / Sc├®nario 2 / Deuxi├¿me ├®tape 
+p.16  
+ 
+ 
+R├®sultats apr├¿s travaux 
+Performance 
+├®nerg├®tique et 
+environnementale 
+globale du logement 
+(conso. en kWh/m┬▓.an et 
+├®missions en kg CO2/m┬▓.an) 
+Economies 
+dÔÇÖ├®nergie par 
+rapport ├á lÔÇÖ├®tat 
+initial 
+ 
+R├®duction des 
+GES 
+(gaz ├á effet de serre) 
+ 
+Confort dÔÇÖ├®t├® 
+D├®penses 
+d'├®nergie 
+estim├®es/an 
+Co├╗t 
+estim├® 
+des 
+travaux 
+(*TTC) 
+ 
+ 
+Faibles d├®perditions 
+thermiques 
+ Ubat = 0,337 
+W/(m┬▓.K) 
+ 
+Logement 
+correctement 
+ventil├® 
+-71% 
+(-481 kWhEP/m┬▓.an) 
+-72% 
+(-362 kWhEF/m┬▓.an) 
+-71% 
+(-15 kg CO2/m┬▓.an) 
+ 
+de 2530Ôé¼ ├á 
+3480Ôé¼ 
+~ 107200 Ôé¼ 
+ 
+R├®partition des consommations annuelles ├®nerg├®tiques 
+Avant travaux 
+kWh/m┬▓.an EP 
+ 
+Apr├¿s premi├¿re ├®tape 
+kWh/m┬▓.an EP 
+ 
+Apr├¿s deuxi├¿me ├®tape 
+kWh/m┬▓.an EP 
+ 
+                                      
+ 
+usage 
+chauffage 
+eau chaude 
+refroidissement 
+├®clairage 
+auxiliaires 
+total 
+consommation dÔÇÖ├®nergie 
+(kWh/m┬▓.an) 
+ 
+ bois b├╗ches 
+90,2EP (90,2EF) 
+ 
+ ├®lectricit├® 
+71,8EP (31,2EF) 
+ 
+ ├®lectricit├® 
+30,0EP (13,0EF) 
+ 
+   
+0EP (0EF) 
+ 
+ 
+ ├®lectricit├® 
+4,3EP (1,9EF) 
+ 
+ 
+ ├®lectricit├® 
+3,2EP (1,4EF) 
+ 
+199EP 
+(137EF) 
+consommation d'├®nergie 
+sans d├®duction 
+photovolta├»que 
+autoconsomm├®e 
+ 
+199EP 
+(137EF) 
+frais annuels dÔÇÖ├®nergie 
+(fourchette dÔÇÖestimation **) 
+de 1910Ôé¼ 
+├á 2610Ôé¼ 
+de 500Ôé¼ 
+├á 690Ôé¼ 
+de 0Ôé¼ 
+├á 0Ôé¼ 
+de 70Ôé¼ 
+├á 100Ôé¼ 
+de 50Ôé¼ 
+├á 80Ôé¼ 
+de 2530Ôé¼ 
+├á 3480Ôé¼ 
+
+
+
+\n########## PAGE 22 ##########
+
+
+ 
+Audit ├®nerg├®tique / Sc├®nario 2 / Deuxi├¿me ├®tape 
+p.16  
+ 
+ 
+ 
+ 
+Conventionnellement, ces chiffres sont donn├®s pour une temp├®rature de 
+chauffage  de 19┬░C r├®duite ├á 16┬░C la nuit ou en cas dÔÇÖabsence du domicile, 
+une climatisation r├®gl├®e  ├á 28┬░C (si pr├®sence de climatisation), et une 
+consommation dÔÇÖeau chaude standardis├®e par personne et par jour. 
+EP ÔåÆ ├®nergie primaire | EF ÔåÆ ├®nergie finale (voir la d├®finition en annexe) 
+** Prix moyens des ├®nergies index├®s au 1 janvier 2023 (abonnements compris) 
+ 
+Seules les consommations dÔÇÖ├®nergie n├®cessaires au chauffage, ├á la 
+climatisation, ├á la production dÔÇÖeau chaude sanitaire, ├á lÔÇÖ├®clairage et aux 
+auxiliaires (ventilateurs, pompes) sont prises en compte dans cette 
+estimation. 
+Les factures r├®elles d├®pendront de nombreux facteurs : prix des 
+├®nergies, m├®t├®o  de lÔÇÖann├®e (hiver froid ou doux...), nombre de 
+personnes dans le logement et habitudes de vie, entretien des 
+├®quipements... 
+*Montant estim├® ├á la date de r├®alisation de l'audit ├®nerg├®tique. Cette estimation ne constitue pas un devis, et les co├╗ts des travaux sont susceptibles d'├®voluer dans le 
+temps. Les TVA appliqu├®es par l'auditeur peuvent ├®voluer en fonction des dispositions l├®gislatives ou r├®glementaires en vigueur lors de la r├®alisation des travaux. 
+
+
+
+\n########## PAGE 23 ##########
+
+
+Audit ├®nerg├®tique / Recommandations 
+p.17  
+ 
+ 
+ 
+Recommandations de l'auditeur 
+Am├®liorer la qualit├® de l'air int├®rieur et les ├®changes thermiques en proc├®dant ├á l'isolation de la toiture par les rampants ainsi qu'├á 
+la mise en place d'une ventilation double flux. Ces travaux participent ├á l'efficacit├® ├®nerg├®tique globale et au confort des 
+occupants. 
+  
+  
+ 
+Avantages 
+Ce sc├®nario permet une mont├®e en performance progressive, limitant les investissements simultan├®s. Il assure ├®galement la 
+continuit├® d'usage de l'habitation pendant les travaux. 
+ Chaque ├®tape apporte un gain significatif sur le plan ├®nerg├®tique, permettant un suivi et un pilotage plus fluide des aides, tout en 
+optimisant le confort thermique des occupants et la valorisation du bien. 
+ L'├®tape 1 garantit un gain de 2 classes ├®nerg├®tiques (traitement des parois), comme exig├® dans les sc├®narios par ├®tapes du cadre 
+r├®glementaire. 
+ 
+Plan des travaux 
+ 
+
+
+
+\n########## PAGE 24 ##########
+
+
+ 
+ 
+ 
+ 
+Audit ├®nerg├®tique / Sc├®nario 2 / Troisi├¿me ├®tape 
+p.18  
+ 
+Sc├®nario 2 "par ├®tapes" 
+ 
+ 
+Troisi├¿me ├®tape 
+ 
+ 
+D├®tails des travaux ├®nerg├®tiques 
+ 
+Co├╗t estim├® 
+(*TTC) 
+ 
+Chauffage 
+ Installation PAC Air/Eau double service (chauffage + ECS) 15kW. 
+SCOP 4,5 chauffage, COP ECS 3,5. Unit├® ext├®rieure air ext├®rieur. 
+Raccordement hydraulique plancher chauffant + ECS. 
+Entreprise RGE obligatoire.(SCOP >= 4,500 / ETAS >= 1,800 )(COP ECS >=  ) 
+ 
+PAC Air/Eau haute performance - Chauffage principal + production ECS 
+Remplacement chauffage ├®lectrique - ├ëconomies ├®nerg├®tiques majeures 
+Compatible plancher chauffant basse temp├®rature 
+ 
+~ 18000 Ôé¼ 
+ 
+Chauffage 
+ Neutralisation des prises ├®lectriques d├®di├®es 
+ 
+~ 600 Ôé¼ 
+ 
+ 
+D├®tails des travaux induits 
+ 
+Co├╗t estim├® 
+(*TTC) 
+ 
+ Raccordements hydrauliques PAC, r├®gulation avanc├®e. 
+Mise en service, param├®trage, formation utilisateur. 
+├ëvacuation condensats, protections ├®lectriques. 
+~ 5500 Ôé¼ 
+ 
+*Montant estim├® ├á la date de r├®alisation de l'audit ├®nerg├®tique. Cette estimation ne constitue pas un devis, et les co├╗ts des travaux sont susceptibles d'├®voluer dans le 
+temps. Les TVA appliqu├®es par l'auditeur peuvent ├®voluer en fonction des dispositions l├®gislatives ou r├®glementaires en vigueur lors de la r├®alisation des travaux. 
+Pour en savoir plus sur les aides, 
+rendez-vous sur France R├®nov' : 
+france-renov.gouv.fr 
+ 
+Pour des conseils neutres et  
+gratuits, contactez France R├®nov' :  
+  
+tel :  
+Les aides financi├¿res possibles pour ces travaux 
+Voici les principales aides que vous pouvez solliciter. Certaines aides sont 
+sous conditions de ressources ou d├®pendent du type de travaux. Elles peuvent ├®voluer 
+entre la r├®alisation de l'audit et la concr├®tisation des travaux. 
+ 
+Aides nationales : 
+ÔùÅ MaPrimeR├®nov' parcours Accompagn├® 
+ÔùÅ Certificats d'├®conomie d'├®nergie (CEE) 
+Aides locales : 
+ÔùÅ Aucune 
+ 
+
+
+
+\n########## PAGE 25 ##########
+
+
+ 
+Audit ├®nerg├®tique / Sc├®nario 2 / Troisi├¿me ├®tape 
+p.19  
+ 
+ 
+R├®sultats apr├¿s travaux 
+Performance 
+├®nerg├®tique et 
+environnementale 
+globale du logement 
+(conso. en kWh/m┬▓.an et 
+├®missions en kg CO2/m┬▓.an) 
+Economies 
+dÔÇÖ├®nergie par 
+rapport ├á lÔÇÖ├®tat 
+initial 
+ 
+R├®duction des 
+GES 
+(gaz ├á effet de serre) 
+ 
+Confort dÔÇÖ├®t├® 
+D├®penses 
+d'├®nergie 
+estim├®es/an 
+Co├╗t 
+estim├® 
+des 
+travaux 
+(*TTC) 
+ 
+ 
+Faibles d├®perditions 
+thermiques 
+ Ubat = 0,337 
+W/(m┬▓.K) 
+ 
+Logement 
+correctement 
+ventil├® 
+-71% 
+(-481 kWhEP/m┬▓.an) 
+-72% 
+(-362 kWhEF/m┬▓.an) 
+-71% 
+(-15 kg CO2/m┬▓.an) 
+ 
+de 2540Ôé¼ ├á 
+3490Ôé¼ 
+~ 24100 Ôé¼ 
+ 
+R├®partition des consommations annuelles ├®nerg├®tiques 
+Avant travaux 
+kWh/m┬▓.an EP 
+ 
+Apr├¿s premi├¿re ├®tape 
+kWh/m┬▓.an EP 
+ 
+Apr├¿s deuxi├¿me ├®tape 
+kWh/m┬▓.an EP 
+ 
+Apr├¿s troisi├¿me ├®tape 
+kWh/m┬▓.an EP 
+ 
+                                      
+ 
+usage 
+chauffage 
+eau chaude 
+refroidissement 
+├®clairage 
+auxiliaires 
+total 
+consommation dÔÇÖ├®nergie 
+(kWh/m┬▓.an) 
+ 
+ bois b├╗ches 
+90,2EP (90,2EF) 
+ 
+ ├®lectricit├® 
+72,0EP (31,3EF) 
+ 
+ ├®lectricit├® 
+30,0EP (13,0EF) 
+ 
+   
+0EP (0EF) 
+ 
+ 
+ ├®lectricit├® 
+4,3EP (1,9EF) 
+ 
+ 
+ ├®lectricit├® 
+3,2EP (1,4EF) 
+ 
+199EP 
+(137EF) 
+consommation d'├®nergie 
+sans d├®duction 
+photovolta├»que 
+autoconsomm├®e 
+ 
+199EP 
+(137EF) 
+frais annuels dÔÇÖ├®nergie 
+(fourchette dÔÇÖestimation **) 
+de 1920Ôé¼ 
+├á 2620Ôé¼ 
+de 500Ôé¼ 
+├á 690Ôé¼ 
+de 0Ôé¼ 
+├á 0Ôé¼ 
+de 70Ôé¼ 
+├á 100Ôé¼ 
+de 50Ôé¼ 
+├á 80Ôé¼ 
+de 2540Ôé¼ 
+├á 3490Ôé¼ 
+
+
+

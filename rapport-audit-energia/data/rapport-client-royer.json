@@ -1,0 +1,734 @@
+{
+  "meta": {
+    "mode": "client",
+    "demo": false,
+    "version_modele": "1.0.0",
+    "date_generation": "2026-07-16",
+    "reference_dossier": "RAP-2026-ROYER-001",
+    "titre_document": "Rapport d'audit énergétique personnalisé",
+    "sous_titre": "Rénovation d'ampleur — Accompagnement avant, pendant et après projet",
+    "pages_totales_cible": 85,
+    "langue": "fr",
+    "disclaimer_general": "Ce document est un rapport pédagogique et commercial d'accompagnement. Il ne se substitue pas à un audit réglementaire, à un accompagnement MAR, à une étude structurelle ni à une décision d'attribution d'aides.",
+    "sources_utilisees": [
+      "Devis rectificatif ENERGIA ROYER (données reprises du dossier client)",
+      "Données client dossier ROYER_Maixent",
+      "Contenus pédagogiques ENERGIA CONSEIL IA® (généraux, non chiffrés hors données validées)"
+    ],
+    "sources_absentes": [
+      "01 à 09 articles DOCX non trouvés dans le dépôt au moment de la génération — contenus pédagogiques génériques utilisés ; à enrichir si les fichiers sources sont fournis"
+    ]
+  },
+  "entreprise": {
+    "raison_sociale": "ENERGIA CONSEIL IA®",
+    "marque": "ENERGIA CONSEIL IA®",
+    "tagline": "Audit Énergétique Intelligence Artificielle | Bureau d'études & AMO | Contractant Général",
+    "adresse": "16 Rue Cuvier, 69006 Lyon",
+    "telephone": "06 10 59 68 98",
+    "email": "contact@energia-conseil-ia.com",
+    "site": "www.energia-conseil-ia.com",
+    "siret": "94181942700019",
+    "rcs": "Lyon 941819427",
+    "forme": "SASU",
+    "capital": "100 €",
+    "tva_intracom": "FR01941819427"
+  },
+  "contacts": {
+    "amo": {
+      "nom": "Sylvain LEMBELEMBE",
+      "role": "AMO / Contractant Général / Coordinateur",
+      "telephone": "06 10 59 68 98",
+      "email": "contact@energia-conseil-ia.com"
+    },
+    "commercial": {
+      "nom": "DAMIEN",
+      "role": "Conseiller commercial",
+      "telephone": "06 72 68 09 68",
+      "email": "damien.srdconseil@gmail.com"
+    },
+    "courtier": {
+      "nom": "FABIEN",
+      "entite": "VIVONS COURTIER",
+      "role": "Courtier financement",
+      "telephone": "06 71 19 96 45",
+      "email": "À confirmer / sous réserve de validation"
+    },
+    "juriste": {
+      "nom": "Julia",
+      "role": "Juriste",
+      "telephone": "À confirmer / sous réserve de validation",
+      "email": "À confirmer / sous réserve de validation"
+    },
+    "mar": {
+      "nom": "MAR",
+      "entite": "Léo-Energy (France Rénov')",
+      "role": "Accompagnateur Rénov' / Parcours Accompagné",
+      "telephone": "À confirmer / sous réserve de validation",
+      "email": "À confirmer / sous réserve de validation",
+      "precision": "Prestation MAR séparée, non comprise dans le devis principal ENERGIA CONSEIL IA®."
+    }
+  },
+  "client": {
+    "civilite": "M.",
+    "prenom": "Maixent",
+    "nom": "ROYER",
+    "nom_complet": "M. Maixent ROYER",
+    "email": "À confirmer / sous réserve de validation",
+    "telephone": "À confirmer / sous réserve de validation",
+    "adresse_facturation": "À confirmer / sous réserve de validation"
+  },
+  "logement": {
+    "adresse": "6 route de Marcilly, 42600 Chalain-d'Uzore",
+    "code_postal": "42600",
+    "commune": "Chalain-d'Uzore",
+    "departement": "42",
+    "region": "Auvergne-Rhône-Alpes",
+    "zone_climatique": "H1",
+    "zone_geo": "Hors IDF",
+    "type_bien": "Maison individuelle",
+    "surface_habitable_m2": 77,
+    "epoque_construction": "Avant 1948",
+    "annee_construction": "Avant 1948",
+    "description": "Maison individuelle en pierre de taille (~60 cm), non isolée, 2 niveaux",
+    "occupation": "Résidence principale",
+    "nb_occupants": 2,
+    "contraintes_connues": [
+      "Bâti ancien pierre — vigilance hygrothermique",
+      "Toiture à traiter en priorité (déperditions élevées)",
+      "Photos et plans : emplacements prévus — documents à compléter"
+    ],
+    "photos": [],
+    "plans": [],
+    "photos_statut": "Emplacements prévus — documents non disponibles à la date de génération"
+  },
+  "profil_aides": {
+    "rfr": "À confirmer / sous réserve de validation",
+    "nb_personnes_fiscales": 2,
+    "profil_mpr_estime": "À confirmer / sous réserve de validation",
+    "profil_note": "Tout profil couleur et tout montant d'aide restent indicatifs et soumis à instruction ANAH / organismes compétents.",
+    "statut": "estimation"
+  },
+  "performance": {
+    "dpe_initial": "G",
+    "dpe_cible": "C",
+    "conso_avant_kwh_ep_m2_an": "À confirmer / sous réserve de validation",
+    "conso_cible_kwh_ep_m2_an": 117,
+    "ges_avant": "À confirmer / sous réserve de validation",
+    "ges_apres": "À confirmer / sous réserve de validation",
+    "source_performance": "Objectif projet déclaré — à confirmer par audit réglementaire MAR / DPE",
+    "statut": "estimation"
+  },
+  "etat_existant": {
+    "enveloppe": {
+      "toiture": {
+        "etat": "Tuiles anciennes, isolation insuffisante ou absente — isolation rampants / SARKING prévue",
+        "r_estime": "À confirmer / sous réserve de validation",
+        "deperdition_pct_indicatif": 30,
+        "statut": "estimation"
+      },
+      "murs": {
+        "etat": "Pierre de taille ~60 cm, non isolée",
+        "r_estime": "À confirmer / sous réserve de validation",
+        "deperdition_pct_indicatif": 25,
+        "statut": "estimation",
+        "travaux_prevus": false
+      },
+      "planchers": {
+        "etat": "À confirmer / sous réserve de validation",
+        "r_estime": "À confirmer / sous réserve de validation",
+        "deperdition_pct_indicatif": 10,
+        "statut": "estimation",
+        "travaux_prevus": false
+      },
+      "fenetres": {
+        "etat": "Menuiseries à remplacer (simple vitrage ou performance insuffisante — à confirmer sur site)",
+        "uw_estime": "À confirmer / sous réserve de validation",
+        "deperdition_pct_indicatif": 15,
+        "statut": "estimation",
+        "travaux_prevus": true
+      },
+      "ponts_thermiques": {
+        "etat": "Présents sur bâti ancien pierre — traitement partiel via enveloppe et menuiseries",
+        "deperdition_pct_indicatif": 10,
+        "statut": "estimation"
+      },
+      "infiltrations": {
+        "etat": "À confirmer / sous réserve de validation",
+        "deperdition_pct_indicatif": 10,
+        "statut": "estimation"
+      }
+    },
+    "ventilation": {
+      "type": "À confirmer / sous réserve de validation",
+      "etat": "À confirmer / sous réserve de validation"
+    },
+    "chauffage": {
+      "type": "À confirmer / sous réserve de validation",
+      "age": "À confirmer / sous réserve de validation",
+      "puissance": "À confirmer / sous réserve de validation"
+    },
+    "ecs": {
+      "type": "À confirmer / sous réserve de validation"
+    },
+    "regulation": {
+      "type": "À confirmer / sous réserve de validation"
+    },
+    "consommations_avant": {
+      "facture_chauffage_ecs_an": "À confirmer / sous réserve de validation",
+      "commentaire": "Les consommations exactes seront consolidées à partir des factures et de l'audit réglementaire."
+    }
+  },
+  "synthese": {
+    "situation_initiale": "Maison individuelle ancienne (avant 1948), classe DPE G, enveloppe peu performante, objectif de rénovation d'ampleur vers classe C.",
+    "objectif_energetique": "Atteindre la classe C avec une consommation cible indicative de 117 kWhEP/m².an — sous réserve de validation par audit réglementaire et DPE.",
+    "travaux_recommandes": [
+      "Sécurisation et mise en place chantier",
+      "Isolation des rampants / toiture",
+      "Couverture et zinguerie",
+      "Menuiseries",
+      "PAC air/air multisplit",
+      "Chauffe-eau thermodynamique",
+      "Coordination générale et réception"
+    ],
+    "budget_global_ttc": 52000,
+    "budget_global_ht": 47199.69,
+    "budget_tva": 4800.31,
+    "aides_estimatives_total": null,
+    "aides_mention": "Estimations d'aides : à confirmer / sous réserve d'instruction des organismes compétents. Non déduites du devis sauf mention contractuelle explicite.",
+    "reste_a_charge_estimatif": "À confirmer / sous réserve de validation (dépend des aides réellement attribuées)",
+    "planning_previsionnel": "8 à 10 semaines de chantier après démarrage autorisé — délais administratifs en amont à prévoir",
+    "benefices": [
+      "Confort thermique hiver / été",
+      "Valeur patrimoniale du bien",
+      "Réduction des besoins énergétiques",
+      "Réduction de l'empreinte carbone (sous réserve de mesures post-travaux)"
+    ]
+  },
+  "budget": {
+    "total_ht": 47199.69,
+    "total_tva": 4800.31,
+    "total_ttc": 52000,
+    "devise": "EUR",
+    "mar_inclus_dans_devis": false,
+    "mar_precision": "La prestation MAR (Accompagnateur Rénov') est séparée et non comprise dans le devis principal ENERGIA CONSEIL IA®.",
+    "ventilation_tva": [
+      {
+        "taux": 5.5,
+        "lots": "Isolation, PAC, ballon, fenêtres",
+        "base_ht": 17315.92,
+        "tva": 952.38,
+        "ttc": 18268.3
+      },
+      {
+        "taux": 10,
+        "lots": "Chantier, couverture, zinguerie, porte",
+        "base_ht": 21288.14,
+        "tva": 2128.81,
+        "ttc": 23416.95
+      },
+      {
+        "taux": 20,
+        "lots": "Coordination ENERGIA",
+        "base_ht": 8595.63,
+        "tva": 1719.13,
+        "ttc": 10314.76
+      }
+    ]
+  },
+  "lots": [
+    {
+      "n": 1,
+      "designation": "Mise en place chantier",
+      "description": "Protection, sécurisation, accès, benne, organisation",
+      "entreprise": "C2L — Créateur de Lumière",
+      "qualification": "RGE Qualibat N° E-E102269",
+      "montant_ht": 3500,
+      "taux_tva": 10,
+      "montant_tva": 350,
+      "montant_ttc": 3850,
+      "metres": "À confirmer / sous réserve de validation",
+      "materiaux": "Protections, benne, sécurisation chantier",
+      "performance_cible": "Non applicable — lot organisationnel",
+      "ordre_execution": 1,
+      "dependances": [],
+      "reserves": [],
+      "focus_cle": "securisation"
+    },
+    {
+      "n": 2,
+      "designation": "Isolation laine de bois STEICO (rampants / SARKING)",
+      "description": "Isolation toiture ~78 m² — STEICO",
+      "entreprise": "C2L — Créateur de Lumière",
+      "qualification": "RGE Qualibat N° E-E102269",
+      "montant_ht": 6000,
+      "taux_tva": 5.5,
+      "montant_tva": 330,
+      "montant_ttc": 6330,
+      "metres": "~78 m²",
+      "materiaux": "Laine de bois STEICO",
+      "performance_cible": "À confirmer selon fiche technique et pose (R cible sous réserve de validation)",
+      "ordre_execution": 2,
+      "dependances": ["Lot 1"],
+      "reserves": ["Métré définitif après visite technique"],
+      "focus_cle": "isolation_toiture"
+    },
+    {
+      "n": 3,
+      "designation": "Couverture tuiles + lambris",
+      "description": "Détuilage / retuilage, écran sous-toiture, tuiles, lambris",
+      "entreprise": "C2L — Créateur de Lumière",
+      "qualification": "RGE Qualibat N° E-E102269",
+      "montant_ht": 13634.12,
+      "taux_tva": 10,
+      "montant_tva": 1363.41,
+      "montant_ttc": 14997.53,
+      "metres": "À confirmer / sous réserve de validation",
+      "materiaux": "Tuiles, écran sous-toiture, lambris",
+      "performance_cible": "Étanchéité et pérennité de la toiture",
+      "ordre_execution": 3,
+      "dependances": ["Lot 2"],
+      "reserves": [],
+      "focus_cle": "couverture"
+    },
+    {
+      "n": 4,
+      "designation": "Zinguerie",
+      "description": "Zinc, naissances, fonds de chenaux, étanchéité",
+      "entreprise": "C2L — Créateur de Lumière",
+      "qualification": "RGE Qualibat N° E-E102269",
+      "montant_ht": 2254.02,
+      "taux_tva": 10,
+      "montant_tva": 225.4,
+      "montant_ttc": 2479.42,
+      "metres": "À confirmer / sous réserve de validation",
+      "materiaux": "Zinc et accessoires d'évacuation",
+      "performance_cible": "Évacuation des eaux pluviales",
+      "ordre_execution": 4,
+      "dependances": ["Lot 3"],
+      "reserves": [],
+      "focus_cle": "zinguerie"
+    },
+    {
+      "n": 5,
+      "designation": "PAC air-air Daikin",
+      "description": "Bluevolution — 3 splits — COP ≥ 4 (annoncé)",
+      "entreprise": "SMN ENERGIES",
+      "qualification": "QualiPAC N° QPAC/84409",
+      "montant_ht": 3500,
+      "taux_tva": 5.5,
+      "montant_tva": 192.5,
+      "montant_ttc": 3692.5,
+      "metres": "3 unités intérieures",
+      "materiaux": "Daikin Bluevolution multisplit",
+      "performance_cible": "COP ≥ 4 (annonce fabricant — à confirmer à la mise en service)",
+      "ordre_execution": 7,
+      "dependances": ["Isolation toiture réalisée (lots 2–4)"],
+      "reserves": ["Emplacements unités à valider sur site"],
+      "focus_cle": "pac"
+    },
+    {
+      "n": 6,
+      "designation": "Ballon thermodynamique Atlantic",
+      "description": "EGEO 200 L — COP 2,95 — classe A (annoncés)",
+      "entreprise": "SMN ENERGIES",
+      "qualification": "QualiPAC N° QPAC/84409",
+      "montant_ht": 2200,
+      "taux_tva": 5.5,
+      "montant_tva": 121,
+      "montant_ttc": 2321,
+      "metres": "200 litres",
+      "materiaux": "Atlantic EGEO 200 L",
+      "performance_cible": "COP 2,95 / classe A (annonce fabricant — sous réserve)",
+      "ordre_execution": 8,
+      "dependances": ["Lot 5 ou en parallèle selon planning"],
+      "reserves": ["Emplacement technique à confirmer"],
+      "focus_cle": "cet"
+    },
+    {
+      "n": 7,
+      "designation": "Fenêtres PVC",
+      "description": "Double vitrage — pose complète",
+      "entreprise": "SARL Bonheur d'Amarante",
+      "qualification": "RGE Qualibat N° E-E125486",
+      "montant_ht": 5615.92,
+      "taux_tva": 5.5,
+      "montant_tva": 308.87,
+      "montant_ttc": 5924.79,
+      "metres": "À confirmer / sous réserve de validation",
+      "materiaux": "PVC double vitrage",
+      "performance_cible": "Uw à confirmer selon fiches produits retenues",
+      "ordre_execution": 5,
+      "dependances": ["Lots enveloppe toiture priorisés"],
+      "reserves": ["Repérage exact des ouvertures"],
+      "focus_cle": "menuiseries"
+    },
+    {
+      "n": 8,
+      "designation": "Porte d'entrée bois",
+      "description": "Porte bois isolante — pose complète",
+      "entreprise": "SARL Bonheur d'Amarante",
+      "qualification": "RGE Qualibat N° E-E125486",
+      "montant_ht": 1900,
+      "taux_tva": 10,
+      "montant_tva": 190,
+      "montant_ttc": 2090,
+      "metres": "1 unité",
+      "materiaux": "Porte bois isolante",
+      "performance_cible": "Ud à confirmer selon fiche produit",
+      "ordre_execution": 6,
+      "dependances": ["Lot 7"],
+      "reserves": [],
+      "focus_cle": "menuiseries"
+    },
+    {
+      "n": 9,
+      "designation": "Coordination générale",
+      "description": "Sélection / coordination sous-traitants — planning — suivi chantier — réception",
+      "entreprise": "ENERGIA CONSEIL IA®",
+      "qualification": "Contractant Général — CERTIBAT en cours (QUALIBAT)",
+      "montant_ht": 8595.63,
+      "taux_tva": 20,
+      "montant_tva": 1719.13,
+      "montant_ttc": 10314.76,
+      "metres": "Non applicable",
+      "materiaux": "Prestation de coordination",
+      "performance_cible": "Suivi, conformité d'exécution, réception",
+      "ordre_execution": 9,
+      "dependances": ["Ensemble des lots"],
+      "reserves": [],
+      "focus_cle": "coordination"
+    }
+  ],
+  "ordre_execution_resume": "1 → 2 → 3 → 4 → 7 → 8 → 5 → 6 → 9 (isolation avant chauffage)",
+  "scenarios": {
+    "essentiel": {
+      "id": "essentiel",
+      "label": "Scénario Essentiel",
+      "recommande": false,
+      "travaux_inclus": [
+        "Isolation toiture / combles (périmètre réduit)",
+        "Menuiseries prioritaires",
+        "Système de chauffage adapté (périmètre à définir)"
+      ],
+      "budget_estimatif_ttc": "À confirmer / sous réserve de validation",
+      "gains_energetiques": "Gain de classes limité — estimation à confirmer",
+      "dpe_projete": "À confirmer / sous réserve de validation",
+      "niveau_confort": "Amélioration partielle",
+      "avantages": [
+        "Budget plus contenu",
+        "Intervention ciblée sur les postes les plus critiques"
+      ],
+      "limites": [
+        "Gain DPE potentiellement insuffisant pour une rénovation d'ampleur",
+        "Confort et performance inférieurs au scénario Optimal"
+      ],
+      "conditions": "Hypothèses à valider après audit réglementaire et devis détaillés. Chiffres non contractuels tant qu'ils ne figurent pas au devis signé."
+    },
+    "optimal": {
+      "id": "optimal",
+      "label": "Scénario Optimal",
+      "recommande": true,
+      "travaux_inclus": [
+        "Sécurisation chantier",
+        "Isolation rampants / toiture STEICO",
+        "Couverture et zinguerie",
+        "Menuiseries et porte",
+        "PAC air/air multisplit",
+        "Chauffe-eau thermodynamique",
+        "Coordination générale"
+      ],
+      "budget_estimatif_ttc": 52000,
+      "gains_energetiques": "Objectif indicatif : classe C — 117 kWhEP/m².an (sous réserve)",
+      "dpe_projete": "C",
+      "niveau_confort": "Confort nettement amélioré (enveloppe + systèmes)",
+      "avantages": [
+        "Cohérence avec le devis ENERGIA CONSEIL IA®",
+        "Ordre des travaux respecté (isolation avant chauffage)",
+        "Périmètre complet pour une rénovation d'ampleur"
+      ],
+      "limites": [
+        "Murs et planchers non traités dans ce périmètre",
+        "Performance finale dépend de la qualité d'exécution et des contrôles"
+      ],
+      "conditions": "Montant TTC issu du devis travaux. Aides non déduites. Objectif DPE sous réserve d'audit réglementaire et DPE post-travaux."
+    },
+    "excellence": {
+      "id": "excellence",
+      "label": "Scénario Excellence",
+      "recommande": false,
+      "travaux_inclus": [
+        "Ensemble du scénario Optimal",
+        "Options complémentaires éventuelles (PV, isolation murs/planchers, VMC) — à étudier"
+      ],
+      "budget_estimatif_ttc": "À confirmer / sous réserve de validation",
+      "gains_energetiques": "Potentiel supérieur — étude complémentaire requise",
+      "dpe_projete": "À confirmer / sous réserve de validation",
+      "niveau_confort": "Confort maximal (si options validées)",
+      "avantages": [
+        "Vision long terme",
+        "Possibilité d'intégrer production photovoltaïque ou autres postes"
+      ],
+      "limites": [
+        "Budget et délais plus élevés",
+        "Nécessite études techniques complémentaires"
+      ],
+      "conditions": "Aucune option Excellence n'est contractuelle tant qu'elle n'est pas chiffrée et acceptée par avenant ou devis distinct."
+    }
+  },
+  "scenario_retenu": "optimal",
+  "aides": {
+    "disclaimer": "Aides financières 2026 (estimation à titre indicatif). Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE. Les aides ne sont pas déduites du devis sauf mention contractuelle explicite. Elles sont versées au client selon les conditions applicables par les organismes compétents.",
+    "lignes": [
+      {
+        "libelle": "MaPrimeRénov' (parcours / rénovation d'ampleur)",
+        "montant": null,
+        "statut": "estimation",
+        "affichage": "À confirmer / sous réserve d'instruction ANAH",
+        "conditions": "Éligibilité, revenus, gain de classes, artisans RGE, MAR le cas échéant"
+      },
+      {
+        "libelle": "CEE (Certificats d'Économies d'Énergie)",
+        "montant": null,
+        "statut": "estimation",
+        "affichage": "À confirmer / sous réserve d'instruction",
+        "conditions": "Fiches CEE éligibles, dates, acteurs obligés — fourchette variable"
+      },
+      {
+        "libelle": "Éco-PTZ",
+        "montant": null,
+        "statut": "estimation",
+        "affichage": "À confirmer / sous réserve d'acceptation bancaire",
+        "conditions": "Résidence principale, conditions bancaires, RGE — courtier FABIEN"
+      },
+      {
+        "libelle": "Aides locales potentielles",
+        "montant": null,
+        "statut": "estimation",
+        "affichage": "À confirmer auprès de la collectivité",
+        "conditions": "Critères locaux variables selon commune / intercommunalité"
+      }
+    ],
+    "total_estime": null,
+    "total_affichage": "À confirmer / sous réserve de validation",
+    "checklist_justificatifs": [
+      "Pièce d'identité",
+      "Justificatif de domicile",
+      "Avis d'imposition / RFR",
+      "Titre de propriété ou attestation",
+      "RIB",
+      "Devis signés RGE",
+      "Attestations RGE en cours de validité",
+      "Attestations d'assurance des entreprises",
+      "Audit / documents MAR le cas échéant",
+      "Photos avant travaux"
+    ]
+  },
+  "paiements": {
+    "mode": "Échéancier 30 % / 40 % / 30 % sur le montant total TTC du marché",
+    "base_ttc": 52000,
+    "echeances": [
+      {
+        "code": "acompte_30",
+        "libelle": "30 % — Signature / commande",
+        "condition": "À la signature du devis",
+        "montant_ttc": 15600,
+        "statut": "EN COURS",
+        "interdiction": "Ne jamais indiquer « payé » ou « encaissé » tant que le statut n'est pas explicitement mis à jour dans le JSON."
+      },
+      {
+        "code": "mi_chantier_40",
+        "libelle": "40 % — Mi-chantier",
+        "condition": "Après validation écrite de Sylvain LEMBELEMBE (avancement, conformité, ordre des lots)",
+        "montant_ttc": 20800,
+        "statut": "À venir",
+        "interdiction": null
+      },
+      {
+        "code": "reception_30",
+        "libelle": "30 % — Réception",
+        "condition": "À la réception des travaux (PV signé — Sylvain LEMBELEMBE + client)",
+        "montant_ttc": 15600,
+        "statut": "À venir",
+        "interdiction": null
+      }
+    ]
+  },
+  "planning": {
+    "duree_chantier_indicative": "8 à 10 semaines après démarrage",
+    "aleas_possibles": [
+      "Intempéries (toiture / couverture)",
+      "Délais d'approvisionnement matériaux",
+      "Délais administratifs ANAH / aides",
+      "Disponibilité des entreprises",
+      "Découvertes techniques en cours de chantier"
+    ],
+    "avant_chantier": [
+      {
+        "etape": "Constitution du dossier et pièces client",
+        "delai_indicatif": "1 à 2 semaines"
+      },
+      {
+        "etape": "Dépôt / instruction demandes d'aides (si scénario aides)",
+        "delai_indicatif": "Variable — souvent plusieurs semaines à plusieurs mois"
+      },
+      {
+        "etape": "Validation écrite avant démarrage des travaux",
+        "delai_indicatif": "Selon calendrier administratif"
+      },
+      {
+        "etape": "Préparation chantier (sécurisation, accès, planning)",
+        "delai_indicatif": "Semaine 1 chantier"
+      }
+    ],
+    "semaines": [
+      {
+        "periode": "S1–S2",
+        "libelle": "Mise en place + démarrage toiture",
+        "detail": "Sécurisation, isolation rampants / SARKING"
+      },
+      {
+        "periode": "S3–S4",
+        "libelle": "Couverture",
+        "detail": "Détuilage / retuilage, écran, tuiles, lambris"
+      },
+      {
+        "periode": "S5",
+        "libelle": "Zinguerie",
+        "detail": "Zinc, naissances, chenaux, étanchéité"
+      },
+      {
+        "periode": "S6",
+        "libelle": "Menuiseries",
+        "detail": "Fenêtres et porte"
+      },
+      {
+        "periode": "S7",
+        "libelle": "PAC air/air",
+        "detail": "Pose et mise en service multisplit"
+      },
+      {
+        "periode": "S8",
+        "libelle": "Chauffe-eau thermodynamique",
+        "detail": "Pose et mise en service"
+      },
+      {
+        "periode": "S9",
+        "libelle": "Finitions",
+        "detail": "Reprises, contrôles, nettoyage"
+      },
+      {
+        "periode": "S10",
+        "libelle": "Réception",
+        "detail": "PV de réception — levée des réserves"
+      }
+    ],
+    "reception": "Réception avec constat des ouvrages, réserves éventuelles, et documents de fin de chantier."
+  },
+  "entreprises": [
+    {
+      "lots": "1 à 4",
+      "entreprise": "C2L — Créateur de Lumière",
+      "forme": "SARL",
+      "adresse": "14 Rue Edouard Garet, 42160 Andrézieux-Bouthéon",
+      "siret": "53461962200101",
+      "qualification_rge": "RGE Qualibat N° E-E102269",
+      "qualification_validite": "À confirmer / document à vérifier avant ouverture de chantier",
+      "assurance": "GAN Assurances N° 221200149 — Assurance décennale",
+      "assurance_validite": "À confirmer / document à vérifier avant ouverture de chantier",
+      "document_a_verifier": "Attestation RGE + attestation d'assurance à jour"
+    },
+    {
+      "lots": "5 et 6",
+      "entreprise": "SMN ENERGIES",
+      "forme": "SASU",
+      "adresse": "388 Avenue Charles de Gaulle, 69200 Vénissieux",
+      "siret": "994321883",
+      "qualification_rge": "QualiPAC N° QPAC/84409",
+      "qualification_validite": "Valide jusqu'au 27/02/2027 — document à vérifier avant ouverture de chantier",
+      "assurance": "QBE Insurance — Police 008527524644 — RC/DEC",
+      "assurance_validite": "01/01/2026 au 31/12/2026 — document à vérifier avant ouverture de chantier",
+      "document_a_verifier": "Attestation QualiPAC + attestation d'assurance à jour"
+    },
+    {
+      "lots": "7 et 8",
+      "entreprise": "SARL Bonheur d'Amarante",
+      "forme": "SARL",
+      "adresse": "131 Rue du Thivollet, 69770 Chambost-Longessaigne",
+      "telephone": "04 72 18 09 35",
+      "email": "bonheurdamarante@gmail.com",
+      "siret": "79180685400034",
+      "qualification_rge": "RGE Qualibat N° E-E125486 — Qualification 3511 Menuiseries extérieures — Mention RGE",
+      "qualification_validite": "Valide jusqu'au 20/04/2027 — document à vérifier avant ouverture de chantier",
+      "assurance": "AREAS — Police 05683781Y — RC/DEC",
+      "assurance_validite": "01/01/2026 au 31/12/2026 — document à vérifier avant ouverture de chantier",
+      "document_a_verifier": "Attestation RGE + attestation d'assurance à jour"
+    },
+    {
+      "lots": "9",
+      "entreprise": "ENERGIA CONSEIL IA®",
+      "forme": "SASU",
+      "adresse": "16 Rue Cuvier, 69006 Lyon",
+      "telephone": "06 10 59 68 98",
+      "email": "contact@energia-conseil-ia.com",
+      "siret": "94181942700019",
+      "qualification_rge": "Contractant Général — CERTIBAT Rénovation énergétique en cours (QUALIBAT)",
+      "qualification_validite": "En cours d'obtention — statut à actualiser",
+      "assurance": "MIC INSURANCE COMPANY — Police LUNPIB2604975 — RC Décennale + RC Professionnelle",
+      "assurance_validite": "Valide jusqu'au 06/07/2027 — document à vérifier",
+      "document_a_verifier": "Attestation d'assurance + suivi CERTIBAT"
+    }
+  ],
+  "conditions_commerciales": {
+    "source": "Reprises du modèle de devis ENERGIA (éléments validés) — aucune formulation juridique nouvelle",
+    "points": [
+      "Échéancier 30 % à la signature / commande, 40 % à mi-chantier après validation écrite de Sylvain LEMBELEMBE, 30 % à réception (PV signé).",
+      "Travaux supplémentaires uniquement par avenant signé.",
+      "Sous-traitance acceptée par le client — travaux exécutés par les entreprises listées, sous coordination d'ENERGIA CONSEIL IA®.",
+      "Garanties légales applicables : décennale (entreprises), biennale (équipements), parfait achèvement.",
+      "Droit de rétractation selon le mode de conclusion du contrat (à rappeler selon le canal de signature).",
+      "Litiges : tentative de règlement amiable sous 15 jours ; à défaut, tribunaux de Lyon.",
+      "Validité du devis : 3 mois à compter de sa date d'émission.",
+      "Ordre des travaux : isolation avant équipements de chauffage.",
+      "Délais : respect sauf cas de force majeure (intempéries, rupture d'approvisionnement, maladie).",
+      "Chantier propre : nettoyage en fin de chaque phase ; état habitable exigé à réception.",
+      "Réserve de propriété : matériaux et équipements restent propriété du vendeur jusqu'au paiement intégral (loi du 12 mai 1980).",
+      "Pénalités de retard de paiement : taux légal × 3 + indemnité forfaitaire 40 €.",
+      "Révision des prix : si le délai entre devis et démarrage dépasse 60 jours, révision possible sur indice BT01.",
+      "Modification / annulation : avenant écrit obligatoire ; annulation client après signature : frais forfaitaires 500 €.",
+      "Données personnelles : traitement pour la gestion du projet ; conservation 5 ans ; contact@energia-conseil-ia.com.",
+      "Malfaçons : mise en demeure sous 7 jours ; reprise aux frais de l'entreprise défaillante."
+    ]
+  },
+  "annexes": {
+    "devis_detaille": "Voir programme de travaux et ventilation TVA — devis source à joindre en PDF si disponible",
+    "fiches_techniques": "À joindre : STEICO, Daikin, Atlantic EGEO, menuiseries — documents fabricants",
+    "attestations_rge_assurances": "À vérifier et joindre avant ouverture de chantier",
+    "photos_avant": "Emplacements prévus — non disponibles à la date de génération",
+    "prochaines_etapes": [
+      "Compléter les pièces manquantes (identité, RFR, photos, plans)",
+      "Confirmer le scénario retenu (Optimal)",
+      "Finaliser le statut de l'acompte 30 % (actuellement : EN COURS)",
+      "Vérifier attestations RGE et assurances avant démarrage",
+      "Coordonner le parcours MAR (prestation séparée)",
+      "Planifier la visite technique et le démarrage après validation administrative"
+    ]
+  },
+  "focus_actifs": [
+    "securisation",
+    "isolation_toiture",
+    "couverture",
+    "zinguerie",
+    "menuiseries",
+    "pac",
+    "cet",
+    "coordination"
+  ],
+  "option_photovoltaique": {
+    "concerne": false,
+    "statut": "Non inclus dans le devis principal — à étudier séparément si souhait client",
+    "montant": "À confirmer / sous réserve de validation"
+  },
+  "ventilation_concernee": false,
+  "isolation_murs_concernee": false,
+  "isolation_planchers_concernee": false
+}

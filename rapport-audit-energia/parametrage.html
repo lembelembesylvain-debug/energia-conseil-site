@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paramétrage rapport — ENERGIA CONSEIL IA®</title>
+  <link rel="stylesheet" href="css/parametrage.css" />
+</head>
+<body>
+  <header class="top">
+    <h1>Paramétrage du rapport d'audit — ENERGIA CONSEIL IA®</h1>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <a href="rapport.html?mode=royer">Voir rapport ROYER</a>
+      <a href="rapport.html?mode=demo">Mode DEMO</a>
+      <button type="button" class="primary" id="btn-preview">Prévisualiser le rapport</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="banner">
+      Règle : ne jamais inventer une aide, une performance, un SIRET, une qualification RGE ou un montant.
+      Champ vide → le rapport affichera « À confirmer / sous réserve de validation ».
+      Acompte 30 % : statut par défaut <strong>EN COURS</strong> (jamais « payé » / « encaissé » sans mise à jour explicite).
+    </div>
+
+    <div class="grid">
+      <nav class="nav" id="nav">
+        <button type="button" data-panel="client" class="active">Client</button>
+        <button type="button" data-panel="logement">Logement</button>
+        <button type="button" data-panel="travaux">Travaux / budget</button>
+        <button type="button" data-panel="entreprises">Entreprises</button>
+        <button type="button" data-panel="aides">Aides</button>
+        <button type="button" data-panel="planning">Planning</button>
+        <button type="button" data-panel="paiements">Paiements</button>
+        <button type="button" data-panel="json">JSON brut</button>
+      </nav>
+
+      <div>
+        <section class="panel" id="panel-client">
+          <h2>Client & méta</h2>
+          <div class="row">
+            <div><label>Nom complet</label><input id="client_nom" /></div>
+            <div><label>Référence dossier</label><input id="meta_ref" /></div>
+          </div>
+          <div class="row">
+            <div><label>Date génération (AAAA-MM-JJ)</label><input id="meta_date" /></div>
+            <div><label>Mode DEMO</label>
+              <select id="meta_demo">
+                <option value="false">Non — dossier client</option>
+                <option value="true">Oui — Données de démonstration</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div><label>Email</label><input id="client_email" placeholder="À confirmer / sous réserve de validation" /></div>
+            <div><label>Téléphone</label><input id="client_tel" placeholder="À confirmer / sous réserve de validation" /></div>
+          </div>
+        </section>
+
+        <section class="panel hidden" id="panel-logement">
+          <h2>Logement & performance</h2>
+          <div class="row">
+            <div><label>Adresse du bien</label><input id="log_adresse" /></div>
+            <div><label>Type de bien</label><input id="log_type" /></div>
+          </div>
+          <div class="row">
+            <div><label>Surface m²</label><input id="log_surface" type="number" /></div>
+            <div><label>Époque / construction</label><input id="log_epoque" /></div>
+          </div>
+          <div class="row">
+            <div><label>DPE initial</label><input id="dpe_init" /></div>
+            <div><label>DPE cible</label><input id="dpe_cible" /></div>
+          </div>
+          <div class="row">
+            <div><label>Conso cible kWhEP/m².an</label><input id="conso_cible" /></div>
+            <div><label>Occupation</label><input id="log_occup" /></div>
+          </div>
+          <div><label>Description</label><textarea id="log_desc"></textarea></div>
+        </section>
+
+        <section class="panel hidden" id="panel-travaux">
+          <h2>Travaux / budget</h2>
+          <div class="row">
+            <div><label>Budget total HT (€)</label><input id="bud_ht" type="number" step="0.01" /></div>
+            <div><label>Budget total TVA (€)</label><input id="bud_tva" type="number" step="0.01" /></div>
+          </div>
+          <div class="row">
+            <div><label>Budget total TTC (€)</label><input id="bud_ttc" type="number" step="0.01" /></div>
+            <div><label>Scénario retenu</label>
+              <select id="scenario">
+                <option value="essentiel">Essentiel</option>
+                <option value="optimal">Optimal</option>
+                <option value="excellence">Excellence</option>
+              </select>
+            </div>
+          </div>
+          <p class="hint">Le détail des lots se gère dans l’onglet JSON brut (tableau <code>lots</code>) pour éviter toute invention de ligne.</p>
+          <div id="lots-summary"></div>
+        </section>
+
+        <section class="panel hidden" id="panel-entreprises">
+          <h2>Entreprises</h2>
+          <p class="hint">Résumé des entreprises du JSON. Pour modifier SIRET / RGE / assurances, éditez le JSON brut — ne pas inventer de qualification.</p>
+          <div id="entreprises-summary"></div>
+        </section>
+
+        <section class="panel hidden" id="panel-aides">
+          <h2>Aides (indicatif)</h2>
+          <p class="hint">Laissez vide pour afficher « À confirmer / sous réserve de validation ». Aucun montant officiel sans donnée validée.</p>
+          <div class="row">
+            <div><label>Affichage total aides</label><input id="aides_total" placeholder="À confirmer / sous réserve de validation" /></div>
+            <div><label>Profil MPR estimé</label><input id="profil_mpr" placeholder="À confirmer / sous réserve de validation" /></div>
+          </div>
+          <div><label>Disclaimer aides (texte)</label><textarea id="aides_disclaimer"></textarea></div>
+        </section>
+
+        <section class="panel hidden" id="panel-planning">
+          <h2>Planning</h2>
+          <div><label>Durée chantier indicative</label><input id="plan_duree" /></div>
+          <div style="margin-top:.75rem"><label>Réception — texte</label><textarea id="plan_reception"></textarea></div>
+        </section>
+
+        <section class="panel hidden" id="panel-paiements">
+          <h2>Paiements 30 / 40 / 30</h2>
+          <div class="row">
+            <div><label>30 % montant TTC</label><input id="pay_30" type="number" step="0.01" /></div>
+            <div><label>30 % statut</label>
+              <select id="pay_30_statut">
+                <option value="EN COURS">EN COURS</option>
+                <option value="À venir">À venir</option>
+                <option value="Régularisé — statut mis à jour manuellement">Régularisé — statut mis à jour manuellement</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div><label>40 % montant TTC</label><input id="pay_40" type="number" step="0.01" /></div>
+            <div><label>40 % statut</label><input id="pay_40_statut" /></div>
+          </div>
+          <div class="row">
+            <div><label>30 % réception montant</label><input id="pay_r30" type="number" step="0.01" /></div>
+            <div><label>30 % réception statut</label><input id="pay_r30_statut" /></div>
+          </div>
+          <p class="hint">Interdit d’utiliser « payé » ou « encaissé » sans preuve et mise à jour volontaire du JSON.</p>
+        </section>
+
+        <section class="panel hidden" id="panel-json">
+          <h2>JSON brut (source unique)</h2>
+          <textarea id="json_raw" style="min-height:420px;font-family:ui-monospace,Consolas,monospace;font-size:.8rem"></textarea>
+          <p class="hint">Vous pouvez coller un JSON client complet ici, puis « Appliquer le JSON ».</p>
+        </section>
+
+        <div class="panel" style="margin-top:1rem">
+          <div class="actions-bar">
+            <button type="button" id="btn-load-royer">Charger modèle ROYER</button>
+            <button type="button" id="btn-load-demo">Charger modèle DEMO</button>
+            <button type="button" id="btn-apply-json">Appliquer le JSON</button>
+            <button type="button" id="btn-save">Enregistrer dans le navigateur</button>
+            <button type="button" class="primary" id="btn-preview-2">Prévisualiser le rapport</button>
+            <a id="btn-download" href="#">Télécharger JSON</a>
+          </div>
+          <p class="hint" id="save-msg"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/parametrage.js"></script>
+</body>
+</html>

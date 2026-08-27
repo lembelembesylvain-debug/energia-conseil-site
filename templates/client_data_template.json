@@ -1,0 +1,90 @@
+{
+  "nom": "NOM Prenom",
+  "reference": "AUDIT-2026-NOM",
+  "adresse": "À confirmer",
+  "surface": null,
+  "annee_construction": null,
+  "dpe_actuel": "À confirmer",
+  "dpe_cible": "À confirmer",
+  "type_bien": "À confirmer",
+  "personnes": null,
+  "revenu_fiscal": null,
+  "profil_anah": "À confirmer",
+  "field_status": {
+    "nom": "pending",
+    "adresse": "pending",
+    "surface": "pending",
+    "dpe_actuel": "pending",
+    "profil_anah": "pending",
+    "budget_travaux": "pending",
+    "mpr": "estimated",
+    "cee": "estimated"
+  },
+  "justificatifs": [],
+  "photos_logement": [],
+  "devis_references": [],
+  "mar_document": {
+    "present": false,
+    "fichier": null,
+    "status": "pending"
+  },
+  "budget_ht": null,
+  "budget_travaux": null,
+  "tva_montant": null,
+  "mpr": null,
+  "cee": null,
+  "total_aides": null,
+  "effort_final": null,
+  "ecoptz": null,
+  "economies_annuelles": null,
+  "facture_avant": null,
+  "facture_apres": null,
+  "conso_avant": null,
+  "conso_apres": null,
+  "scenario_recommande": "optimal",
+  "option_photovoltaique": {
+    "active": false,
+    "statut": "pending"
+  },
+  "echeancier": {
+    "acompte_30": null,
+    "acompte_30_verse": false,
+    "demarrage_40": null,
+    "reception_30": null
+  },
+  "statuts_paiement": {
+    "encaisses": [],
+    "en_attente": [],
+    "aides_attendues": []
+  },
+  "scenarios": {
+    "essentiel": {
+      "label": "ESSENTIEL",
+      "badge": "Travaux prioritaires",
+      "budget": null,
+      "dpe_cible": "À confirmer",
+      "travaux": [],
+      "aides": {"mpr": null, "cee": null, "total": null, "reste": null}
+    },
+    "optimal": {
+      "label": "OPTIMAL",
+      "badge": "Recommandé",
+      "budget": null,
+      "dpe_cible": "À confirmer",
+      "travaux": [],
+      "aides": {"mpr": null, "cee": null, "total": null, "reste": null}
+    },
+    "excellence": {
+      "label": "EXCELLENCE",
+      "badge": "Option complémentaire",
+      "budget": null,
+      "budget_renovation": null,
+      "option_pv_ttc": null,
+      "dpe_cible": "À confirmer",
+      "travaux": [],
+      "aides": {"mpr": null, "cee": null, "total": null, "reste": null}
+    }
+  },
+  "artisans": [],
+  "points_a_valider": []
+}

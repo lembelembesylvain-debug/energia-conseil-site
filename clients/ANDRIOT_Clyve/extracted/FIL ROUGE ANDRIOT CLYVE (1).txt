@@ -1,0 +1,3832 @@
+
+
+----- PAGE 1 -----
+
+ 
+Audit énergétique 
+ 
+№ audit : [NON EMIS ADEME] 
+date de visite : 06/06/2025 
+date d’établissement : 06/06/2025 
+valable jusqu’au : [AUCUNE] 
+identifiant fiscal du logement :  
+mission : Ma maison complète Clyve ANDRIOT Longère en pisé - Maison ANDRIOT 
+adresse : , 00000 
+type de bien : Maison individuelle  
+année de construction : Avant 1948 
+surface de référence : 220,00 m² 
+Département : 71 
+propriétaire : ANDRIOT Clyve 
+adresse du propriétaire : 654 route departementale 975 Route Départementale 975 
+Grand Veilly 
+71290 La Genête 
+commanditaire : ANDRIOT Clyve 
+ 
+ 
+N° cadastre :  
+nombre de niveaux : 1,0  
+altitude : 193 m 
+ 
+ 
+État initial du logement 
+p.3 
+Scénarios de travaux en un clin 
+d’œil p.8 
+ 
+Scénario 1 "rénovation en une fois" 
+Parcours de travaux global p.9 
+  
+ 
+Scénario 2 "rénovation par étapes" 
+Parcours de travaux échelonnés p.12 
+ 
+ 
+Les principales phases du parcours 
+de rénovation énergétique p.26 
+ 
+Lexique et définitions p.27 
+Propositions de travaux pour réaliser une rénovation énergétique 
+performante de votre logement. 
+ 
+N° SIRET :  
+N° de certification :  
+org. de certification :  
+date de fin de validité : 14/05/2025 
+logiciel : BATIAUDIT V1.2.16.2 
+Informations auditeur 
+Simpl'Office by Clyve 
+86 avenue Avenue Boucicaut 
+Grand veilly 
+71100 Chalon-sur-Saône 
+auditeur : Clyve ANDRIOT  
+tel :  
+email : 
+@ i
+l ffi
+b
+l
+Décret n° 2022-780 du 4 mai 2022 relatif à l’audit énergétique mentionné à l’article L. 126-28-1 du code de la construction et de l’habitation 
+Arrêté du 4 mai 2022 définissant pour la France métropolitaine le contenu de l'audit énergétique réglementaire prévu par l'article L. 126-28-1 du code de la construction et de l'habitation 
+Arrêté du 17 novembre 2020 relatif aux caractéristiques techniques et modalités de réalisation des travaux et prestations dont les dépenses sont éligibles à la prime de transition énergétique 
+A l’attention du propriétaire du bien au moment de la réalisation de l'audit énergétique : Dans le cadre du Règlement général sur la protection des données (RGPD), l’Ademe vous informe que vos 
+données personnelles (Nom-Prénom-Adresse) sont stockées dans la base de données de l’observatoire Audit à des fins de contrôles ou en cas de contestations ou de procédures judiciaires. Ces 
+données sont stockées jusqu’à la date de fin de validité de l'audit. Vous disposez d’un droit d’accès, de rectification, de portabilité, d’effacement ou une limitation du traitement de ces données. Si 
+vous souhaitez faire valoir votre droit, veuillez nous contacter à l'adresse mail indiquée à la page "Contacts" de l'Observatoire Audit. 
+
+
+----- PAGE 2 -----
+
+Audit énergétique 
+p.2 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Pourquoi réaliser des travaux de rénovation 
+énergétique dans votre logement ? 
+Objectifs de cet outil 
+Rénover au bon moment 
+→ L’achat d’un bien, c’est le bon moment pour réaliser  
+des travaux, aménager votre cadre de vie, sans avoir  
+à vivre au milieu du chantier. 
+Profiter des aides financières 
+disponibles 
+→ L’état et les collectivités encouragent les démarches 
+de rénovation des bâtiments par le biais de dispositifs 
+d’aides financières. 
+Réduire les factures d’énergie 
+→ L’énergie est un poste important des dépenses  des 
+ménages. En réalisant des travaux de rénovation 
+énergétique, vous pouvez réduire fortement  ces 
+dépenses, tout en étant moins soumis aux aléas des 
+prix de l’énergie. 
+Vivre dans un logement de qualité 
+→ Un logement correctement rénové, isolé, et ventilé, 
+c’est 
+la 
+garantie d’un confort 
+au quotidien, 
+d'économies d'énergies, et d’une bonne qualité de 
+l’air ! 
+Contribuer à atteindre la neutralité 
+carbone 
+→ En France, le secteur du bâtiment représente environ 
+45% de la consommation finale d'énergie (source 
+:SDES bilan énergétique 2020) et 18% des émissions 
+de CO2(source Citepa 2020). Si nous sommes 
+nombreux à améliorer la performance énergétique de 
+nos logements en les rénovant, nous contribuerons à 
+atteindre la neutralité carbone ! 
+Donner de la valeur à votre bien 
+→ En réalisant des travaux de rénovation énergétique, 
+vous améliorez votre patrimoine en donnant de  la 
+valeur à votre bien, pour de nombreuses années. 
+Louer plus facilement votre bien 
+→ Si vous souhaitez louer votre bien, les travaux de 
+rénovation énergétique vous permettront de fidéliser 
+les locataires et de louer plus facilement, en 
+valorisant la qualité du logement et la maîtrise des 
+charges. 
+→ Vous vous prémunissez également des interdictions 
+progressives de location des logements les plus 
+énergivores. 
+→ Critère énergétique pour un logement décent : 
+- 1er janvier 2023 : CEF < 450 kWh/m2/an 
+   (interdiction de location des CEF ≥ 450 kWh/m²/an) 
+- 1er janvier 2025 : classe DPE entre A et F 
+   (interdiction de location des G) 
+- 1er janvier 2028 : classe DPE entre A et E 
+   (interdiction de location des F) 
+- 1er janvier 2034 : classe DPE entre A et D 
+   (interdiction de location des E) 
+Cet audit énergétique vous permet 
+d'appréhender le potentiel de rénovation 
+énergétique de votre logement. 
+Cet audit énergétique peut être utilisé comme justificatif pour le bénéfice des aides à la rénovation, telles 
+que MaPrimeRénov' et les Certificats d’Économie d’Énergie. Par ailleurs, la réalisation d'un audit 
+énergétique est obligatoire pour la mise en vente de maisons individuelles ou de bâtiments en 
+monopropriété, de performance énergétique ou environnementale E, F ou G, conformément à la loi Climat 
+et Résilience. Ce classement est réalisé dans le cadre de l'établissement du DPE (Diagnostic de 
+Performance Energétique). Cet audit a été réalisé conformément aux exigences réglementaires, il peut 
+donc être utilisé pour respecter cette obligation. 
+L'audit vous propose plusieurs scénarios de travaux vous permettant de réaliser une rénovation 
+performante, correspondant à l'atteinte de la classe A ou B, ou de la classe C pour les passoires 
+énergétiques, sauf exceptions liées à des contraintes architecturales, techniques ou patrimoniales. Il se 
+base sur l'étude de 6 postes : isolation des murs, des planchers bas, de la toiture, remplacement des 
+menuiseries extérieures, ventilation, production de chauffage et d'eau chaude sanitaire. 
+
+
+----- PAGE 3 -----
+
+ 
+Audit énergétique / État initial du logement  
+p.3 
+ 
+ 
+État initial du logement 
+Vous trouverez dans cette partie les informations de diagnostic de votre logement. Il est possible qu’elles 
+diffèrent légèrement de celles mentionnées dans votre DPE (Diagnostic de Performance Énergétique), car 
+les données utilisées pour le calcul peuvent ne pas être exactement les mêmes. 
+Réf du DPE (si utilisé) :  
+ 
+ 
+Performance énergétique et environnementale actuelle du logement 
+Confort d’été (hors climatisation) 
+Performance de l’isolation 
+ 
+ 
+Schéma de déperdition de chaleur 
+ 
+Coefficient de déperditions 
+thermiques  
+Ubat = 1,667 W/(m².K) 
+Coefficient de déperditions 
+thermiques de référence 
+Ubat base = 0,356 W/(m².K) 
+
+
+----- PAGE 4 -----
+
+Audit énergétique / État initial du logement  
+p.4 
+ 
+ 
+Montants et consommations annuels d’énergie 
+ 
+répartition des 
+consommations 
+kWhEP/m².an 
+ 
+ 
+ 
+     
+ 
+ 
+usage 
+chauffage 
+eau chaude 
+refroidissement 
+éclairage 
+auxiliaires 
+total 
+ 
+consommation 
+d’énergie 
+(kWh/m².an) 
+ bois bûches 
+359,4EP (359,4EF) 
+ électricité 
+287,0EP (124,8EF) 
+ électricité 
+30,0EP (13,0EF) 
+ 
+  
+0EP (0EF) 
+ 
+ électricité 
+4,3EP (1,9EF) 
+ 
+  
+0EP (0EF) 
+ 
+680EP (499EF) 
+ 
+consommation 
+d'énergie sans 
+déduction 
+photovoltaïque 
+autoconsommée 
+ 
+680EP (499EF) 
+ 
+frais annuels 
+d’énergie 
+(fourchette 
+d’estimation **) 
+de 7540€ 
+à 10220€ 
+de 490€ 
+à 670€ 
+de 0€ 
+à 0€ 
+de 70€ 
+à 100€ 
+de 0€ 
+à 0€ 
+de 8100€ 
+à 10990€ 
+ 
+Conventionnellement, ces chiffres sont donnés pour une température de chauffage  de 
+19°C réduite à 16°C la nuit ou en cas d’absence du domicile, une climatisation réglée  à 
+28°C (si présence de climatisation), et une consommation d’eau chaude standardisée par 
+personne et par jour. 
+EP → énergie primaire | EF → énergie finale (voir la définition en annexe) 
+** Prix moyens des énergies indexés au 1 janvier 2023 (abonnements compris) 
+Seules les consommations d’énergie nécessaires au chauffage, à la 
+climatisation, à la production d’eau chaude sanitaire, à l’éclairage et 
+aux auxiliaires (ventilateurs, pompes) sont prises en compte dans 
+cette estimation. 
+Les factures réelles dépendront de nombreux facteurs : prix des 
+énergies, météo  de l’année (hiver froid ou doux...), nombre de 
+personnes dans le logement et habitudes de vie, entretien des 
+équipements... 
+ 
+Explications personnalisées sur les éléments pouvant amener à des différences 
+entre consommations estimées et réelles 
+ 
+ 
+
+
+----- PAGE 5 -----
+
+Audit énergétique / État initial du logement  
+p.5 
+ 
+ 
+ 
+Vue d’ensemble du logement  
+ 
+Description du bien 
+ 
+Description 
+nombre de niveaux 
+1 niveau 
+nombre de pièces 
+6 pièces principales : bureau, salon, cuisine, 4 chambres+ wc , sdb dressing, couloirs, 
+lingerie 
+description des pièces 
+Maison de plain pied comprenant :  
+ Espace jour : salon, cuisine, bureau, lingerie 
+ Espace nuit : 4 chambres, salle de bain, dressing 
+ Annexes : WC, couloirs, cellier 
+mitoyenneté 
+Aucune Mitoyenneté - Maison indépendante  
+  
+intégration du bien dans son 
+environnement 
+Maison rural implantée en milieu dégagé 
+ Exposition Sud Est favorable  
+ Environnement calme sans masques significatifs 
+aptitude au confort d'été 
+Murs épais en pisé offrant une bonne inertie thermique  
+ Orientation et ouvertures permettant ventilation naturelle 
+ 
+Vue d’ensemble des équipements 
+type d’équipement 
+description 
+état de l’équipement 
+ 
+chauffage 
+- Convecteur électrique Ancien 
+- Bon 
+- Cuisinière, foyer fermé, poêle bûche, insert 
+- Mauvais 
+ 
+eau chaude sanitaire 
+- ECS Electrique, Volume du ballon 200 L 
+- Mauvais 
+ 
+ 
+climatisation 
+- Sans objet 
+ 
+ 
+ventilation 
+ - Ventilation par ouverture des fenêtres 
+ 
+  
+Ventilation non 
+fonctionnelle 
+ 
+dispositifs de pilotage 
+ - Aucun 
+ 
+Caractéristiques techniques, architecturales ou patrimoniales 
+photo 
+description 
+conseils 
+ 
+Pathologies et risques de pathologies 
+photo 
+description 
+conseils 
+ 
+Contraintes économiques et techniques 
+Sans objet 
+
+
+----- PAGE 6 -----
+
+Audit énergétique / État initial du logement  
+p.6 
+ 
+ 
+ 
+ 
+ 
+  Murs 
+Description 
+Isolation 
+Mur 
+habitation/garage 
+(int.) 
+Séparation zone chauffée/garage non chauffé 
+ 
+Mur pisé extérieur 
+60cm (ext.) 
+Sud, Sud Est, Sud Ouest : 85,16 m² 
+Ouest : 16,10 m² 
+Est : 10,03 m² 
+Nord, Nord Est, Nord Ouest : 87,50 m² 
+ 
+ Planchers 
+Description 
+Isolation 
+Plancher sur terre 
+plein (TP) 
+plancher bois isolé paille - aggloméré 2cm 
+ 
+ Toitures 
+Description 
+Isolation 
+Toiture non isolé 
+Toiture traditionnelle non isolée : tuiles canal + aggloméré   
+Tuiles canal (3 cm) + Lame d'air faib 
+ 
+ Menuiseries Description 
+Isolation 
+Fenêtre PVC wc Sud 
+(0,50 x0,35) 
+Fen.bat./ocil. PVC double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Fenêtre PVC cuisine 
+Sud (0,70 x0,40) 
+Fen.bat./ocil. PVC double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Fenetre Bois S-O 
+(0,95 x1,40) 
+Fen.bat./ocil. bois double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Fenêtre Ch2 PVC S-O 
+(0,95 x0,93) 
+Fen.bat./ocil. PVC double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Porte Fenêtre Ch1 
+PVC S-O (1,40 x2,10) 
+Fen.bat./ocil. PVC double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Baie vitrée Salon N-E 
+(2,40 x2,10) 
+Fenêtre battante fixe ou oscillante métal sans rupt double vitrage(VNT) inconnu 
+6mm  
+Sans volet 
+Au nu intérieur 
+Largeur dormant 5 cm 
+ 
+Porte Fenêtre Ch3 
+Bois N-E (0,95 
+x2,10) 
+Fen.bat./ocil. bois double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Fenêtre Buand PVC 
+N-E (0,95 x1,40) 
+Fen.bat./ocil. PVC double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Fenêtre Ch3 PVC N-E 
+(0,95 x1,40) 
+Fen.bat./ocil. PVC double vitrage(VNT) inconnu 6mm Sans volet 
+ 
+Porte entrée Sud 
+Porte opaque pleine simple en bois 
+ 
+
+
+----- PAGE 7 -----
+
+Audit énergétique / État initial du logement  
+p.6a 
+ 
+ 
+ 
+(0,90 x2,10) 
+Porte Bois ext ch4 N-
+E (0,90 x1,70) 
+Porte opaque pleine simple en PVC 
+ 
+
+
+----- PAGE 8 -----
+
+Audit énergétique / État initial du logement  
+p.7 
+ 
+ 
+ 
+Observations de l’auditeur 
+ 
+Plan ou croquis 
+ 
+ 
+
+
+----- PAGE 9 -----
+
+Audit énergétique / Scénarios de travaux en un clin d'œil 
+p.8 
+ 
+ 
+Scénarios de travaux en un clin d’œil 
+Cet audit vous présente plusieurs scénarios de travaux pour ce logement, soit pour une rénovation  « 
+en une fois », soit pour une rénovation « par étapes ». Ces propositions de travaux vous permettent 
+d’améliorer de manière significative la performance énergétique et environnementale de votre 
+logement, et de réaliser d’importantes économies d’énergie. Des aides existent pour contribuer à 
+financer ces travaux : vous en trouverez le détail dans les pages qui suivent. 
+ 
+Postes de travaux  
+concernés 
+Performance 
+énergétique et 
+environnementale 
+globale du logement 
+(conso. en kWh/m².an et 
+émissions en kg CO2/m².an) 
+Economies 
+d’énergie par 
+rapport à 
+l’état initial 
+(énergie primaire) 
+Confort 
+d’été 
+Dépenses 
+d'énergie 
+estimées/an 
+Coût 
+estimé des 
+travaux 
+(*TTC) 
+ 
+ 
+ 
+ 
+ 
+ 
+Avant travaux  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Ubat = 1,667 W/(m².K) 
+Ubat base = 0,356 
+W/(m².K) 
+ 
+ 
+de 8100 € à 
+10990 € 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Scénario 1 "rénovation en une fois" (détails p.9)  
+ Remplacement fenêtres 
+triple vitrage + volets 
+roulants 
+ Remplacement 2 portes 
+d'entrée/service haute 
+performance 
+ Isolation mur garage par 
+chaux-chanvre extérieur 
+ Isolation thermique 
+extérieure murs pisé 
+ Réfection toiture complète + 
+isolation rampants 
+ Isolation plancher bas terre-
+plein périphérique 
+ Installation VMC Double Flux 
+Hygro B haute performance 
+ Changement de la production 
+de chauffage et d'ECS 
+ Dépose radiateurs 
+électriques posables 
+ Installation plancher 
+chauffant hydraulique 
+ Remplacement ballons 
+électriques par 
+thermodynamiques 
+ 
+  
+Faibles déperditions 
+thermiques 
+Ubat = 0,337 
+W/(m².K) 
+ 
+-84% 
+(-573 kWhEP/m².an) 
+ 
+de 1090€ à 
+1520€ 
+~ 237090 € 
+ 
+ 
+ 
+ 
+ 
+Scénario 2 "rénovation par étapes" (détails p.12)  
+Première étape 
+ Remplacement fenêtres 
+triple vitrage + volets 
+roulants 
+ Remplacement 2 portes 
+d'entrée/service haute 
+performance 
+ Isolation mur garage par 
+chaux-chanvre extérieur 
+ 
+  
+Ubat = 1,305 
+W/(m².K) 
+ 
+-18% 
+(-119 kWhEP/m².an) 
+ 
+de 6710€ à 
+9110€ 
+~ 97290 € 
+
+
+----- PAGE 10 -----
+
+Audit énergétique / Scénarios de travaux en un clin d'œil 
+p.8a 
+ 
+ 
+ Isolation thermique 
+extérieure murs pisé 
+ Isolation plancher bas 
+terre-plein périphérique 
+ Installation plancher 
+chauffant hydraulique 
+Deuxième étape 
+ Réfection toiture complète 
++ isolation rampants 
+ Installation VMC Double 
+Flux Hygro B haute 
+performance 
+ 
+  
+Faibles déperditions 
+thermiques 
+Ubat = 0,337 
+W/(m².K) 
+ 
+-71% 
+(-481 kWhEP/m².an) 
+ 
+de 2530€ à 
+3480€ 
+~ 107200 € 
+Troisième étape 
+ Changement de la 
+production de chauffage et 
+d'ECS 
+ Dépose radiateurs 
+électriques posables 
+ 
+  
+Faibles déperditions 
+thermiques 
+Ubat = 0,337 
+W/(m².K) 
+ 
+-71% 
+(-481 kWhEP/m².an) 
+ 
+de 2540€ à 
+3490€ 
+~ 24100 € 
+Quatrième étape 
+ Remplacement ballons 
+électriques par 
+thermodynamiques 
+ 
+  
+Faibles déperditions 
+thermiques 
+Ubat = 0,337 
+W/(m².K) 
+-74% 
+(-500 kWhEP/m².an) 
+ 
+de 2230€ à 
+3070€ 
+~ 8500 € 
+*Montant estime à la date de réalisation de l'audit énergétique. Cette estimation ne constitue pas un devis, et les coûts des travaux sont susceptibles d'évoluer dans le 
+temps. Les TVA appliquées par l'auditeur peuvent évoluer en fonction des dispositions législatives ou réglementaires en vigueur lors de la réalisation des travaux. 
+
+
+----- PAGE 11 -----
+
+ 
+ 
+ 
+ 
+Audit énergétique / Scénario 1  
+p.9  
+ 
+Scénario 1 "en une fois" 
+ Il est préférable de réaliser des travaux en une fois. Le coût des travaux sera moins élevé que si vous les 
+faites par étapes, et la performance énergétique et environnementale à terme sera meilleure. 
+ 
+ 
+Détails des travaux énergétiques 
+ 
+Coût estimé 
+(*TTC) 
+ 
+Menuiseries 
+ Remplacement de l'ensemble des fenêtres et portes-fenêtres par menuiseries bois triple 
+vitrage performantes (Uw=1,1 W/m².K). 
+Pose en dépose totale avec volets roulants intégrés. 
+9 ouvrants traités. Entreprise RGE obligatoire.(Uw <=2,10 W/m2.K (Sw>0.36)  surface des 
+ouvrants : 15,3 m²) 
+ 
+Menuiseries hautes performances - Triple vitrage argon 
+Volets roulants isolation renforcée - Confort thermique/acoustique optimisé 
+Suppression ponts thermiques menuiseries anciennes 
+ 
+~ 22000 € 
+ 
+Menuiseries 
+ Remplacement de 2 portes d'entrée et service par portes bois hautes performances (Ud=1,2 
+W/m².K). 
+Pose en dépose totale avec isolation périphérique renforcée. 
+Quincaillerie sécurisée 3 points. Entreprise RGE obligatoire.(Uw <=3,50 W/m2.K (Sw>0.36)  
+surface des ouvrants : 0,0 m²)  (Ud <=3,50 W/m2.K  surface des portes : 3,4 m²) 
+ 
+Portes thermiquement performantes - Suppression ponts thermiques 
+Amélioration étanchéité à l'air entrées principales 
+Confort thermique et sécurité renforcés 
+ 
+~ 5600 € 
+ 
+Murs 
+ Isolation thermique extérieure du mur donnant sur garage non chauffé. 
+Chaux-chanvre projeté 24cm (R=5,5) sur mur pisé existant. 
+Surface : 25m². Entreprise RGE obligatoire.(R >=5,50 m².K/W / Surface d'isolant : 25 m²) 
+ 
+Extension ITE sur mur vers local non chauffé 
+Continuité isolation périphérie - Suppression pont thermique 
+ 
+~ 4500 € 
+ 
+Murs 
+ Isolation thermique extérieure des murs en pisé par chaux-chanvre projeté. 
+Préparation support pisé, ossature secondaire bois, projection mécanique chaux-chanvre 
+24cm (R=5,5). 
+Surface : 160m²(R >=5,50 m².K/W / Surface d'isolant : 25 m²) 
+ 
+Technique ITE adaptée au pisé - Matériaux bio-sourcés perspirants 
+Préservation qualités hygrothermiques du bâti ancien 
+ 
+~ 28800 € 
+Pour en savoir plus sur les aides, 
+rendez-vous sur France Rénov' : 
+france-renov.gouv.fr 
+ 
+Pour des conseils neutres et  
+gratuits, contactez France Rénov' :  
+  
+tel :  
+Les aides financières possibles pour ces travaux 
+Voici les principales aides que vous pouvez solliciter. Certaines aides sont 
+sous conditions de ressources ou dépendent du type de travaux. Elles peuvent évoluer 
+entre la réalisation de l'audit et la concrétisation des travaux. 
+ 
+Aides nationales : 
+● MaPrimeRénov' parcours Accompagné 
+● Certificats d'économie d'énergie (CEE) 
+Aides locales : 
+● Aides habitat durable 500? 
+ 
+
+
+----- PAGE 12 -----
+
+ 
+ 
+ 
+ 
+Audit énergétique / Scénario 1  
+p.9a 
+ 
+Toitures 
+ Isolation thermique rampants de toiture par laine minérale 30cm d'épaisseur. 
+Pose entre chevrons + complément sous chevrons (R=6,5 m².K/W). 
+Surface : 275m². Entreprise RGE obligatoire.(R >=6,50 m².K/W / Surface d'isolant : 275 m²) 
+ 
+Isolation performante rampants après réfection charpente 
+Suppression ponts thermiques - Étanchéité à l'air renforcée 
+Performance thermique optimale longère rénovée 
+ 
+~ 27500 € 
+ 
+Planchers Bas 
+ Isolation plancher bas sur terre-plein par isolation périphérique. 
+Polystyrène extrudé 16cm (R=4,0) en périphérie + traitement ponts thermiques. 
+Surface : 137m²(R >=4,00 m².K/W / Surface d'isolant : 137 m²) 
+ 
+Isolation périphérique adaptée au terre-plein existant 
+Suppression ponts thermiques plancher/murs pisé 
+Amélioration confort pieds froids 
+ 
+~ 8200 € 
+ 
+Ventilation 
+ Installation VMC Double Flux Hygro B avec récupération de chaleur (efficacité =85%). 
+Caisson classe énergétique A, réseau gainé isolé, bouches hygroréglables. 
+Débit adapté 180 m³/h - Filtres F7. Entreprise RGE obligatoire.(Rendement de l'échangeur >=  
+%) 
+ 
+Ventilation performante adaptée longère pisé 
+Récupération chaleur sur air vicié - Maîtrise renouvellement d'air 
+Amélioration qualité air intérieur et économies énergétiques 
+ 
+~ 6500 € 
+ 
+Chauffage 
+ Installation PAC Air/Eau double service (chauffage + ECS) 15kW. 
+SCOP 4,5 chauffage, COP ECS 3,5. Unité extérieure air extérieur. 
+Raccordement hydraulique plancher chauffant + ECS. 
+Entreprise RGE obligatoire.(SCOP >= 4,500 / ETAS >= 1,800 )(COP ECS >=  ) 
+ 
+PAC Air/Eau haute performance - Chauffage principal + production ECS 
+Remplacement chauffage électrique - Économies énergétiques majeures 
+Compatible plancher chauffant basse température 
+ 
+~ 18000 € 
+ 
+Chauffage 
+ Neutralisation des prises électriques dédiées 
+ 
+~ 600 € 
+ 
+Chauffage 
+ Installation complète plancher chauffant hydraulique basse température 137m². Tubes PER, 
+collecteurs, vannes mélangeuses, régulation par zones. Raccordement à la PAC Air/Eau 15kW. 
+ 
+~ 11500 € 
+ 
+Eau Chaude 
+ Remplacement de 2 ballons électriques (200L + 300L) par 2 ballons thermodynamiques 
+équivalents avec COP optimisé. Dépose anciens ballons et raccordements 
+électriques/hydrauliques.(COP ECS >= 3,000 )(Volume de Stockage = 500 l) 
+ 
+~ 8500 € 
+ 
+ 
+Détails des travaux induits 
+ 
+Coût estimé 
+(*TTC) 
+ 
+ Finitions périphériques menuiseries, habillages intérieurs/extérieurs. 
+Étanchéité périphérique renforcée. Retouches peintures. 
+ 
+~ 3500 € 
+ 
+ Finitions périphériques 2 portes, seuils étanches, habillages. 
+Étanchéité renforcée pourtours. Retouches peintures. 
+ 
+~ 1200 € 
+
+
+----- PAGE 13 -----
+
+ 
+ 
+ 
+ 
+Audit énergétique / Scénario 1  
+p.9b 
+ 
+ Enduit chaux de finition extérieure 2,5cm 
+Protection chaux-chanvre - Surface 25m² 
+ 
+~ 1250 € 
+ 
+ Enduit chaux de finition extérieure 2,5cm d'épaisseur 
+Pare-pluie perspirant obligatoire sur chaux-chanvre 
+Surface 160m² 
+~ 8000 € 
+ 
+ Réfection complète charpente + couverture tuiles canal. 
+Reconstruction panne sablière, remplacement chevrons défaillants. 
+Pose couverture neuve étanche. Surface 275m². 
+~ 70000 € 
+ 
+ Étanchéité périphérique + protection isolant 
+Finitions raccords murs - Surface 137m² 
+ 
+~ 2740 € 
+ 
+ Percements traversées murs pisé, pose réseau gainé isolé. 
+Finitions passages gaines, habillages bouches. 
+Raccordement électrique caisson VMC 
+~ 3200 € 
+ 
+ Raccordements hydrauliques PAC, régulation avancée. 
+Mise en service, paramétrage, formation utilisateur. 
+Évacuation condensats, protections électriques. 
+~ 5500 € 
+ 
+*Montant estimé à la date de réalisation de l'audit énergétique. Cette estimation ne constitue pas un devis, et les coûts des travaux sont susceptibles d'évoluer dans le 
+temps. Les TVA appliquées par l'auditeur peuvent évoluer en fonction des dispositions législatives ou réglementaires en vigueur lors de la réalisation des travaux. 
+
+
+----- PAGE 14 -----
+
+ 
+Audit énergétique / Scénario 1  
+p.10  
+ 
+ 
+ 
+Résultats après travaux 
+Performance 
+énergétique et 
+environnementale 
+globale du logement 
+(conso. en kWh/m².an et 
+émissions en kg CO2/m².an) 
+Economies 
+d’énergie par 
+rapport à l’état 
+initial 
+ 
+Réduction des 
+GES 
+(gaz à effet de serre) 
+ 
+Confort d’été 
+Dépenses 
+d'énergie 
+estimées/an 
+Coût 
+estimé 
+des 
+travaux 
+(*TTC) 
+ 
+ 
+Faibles déperditions 
+thermiques 
+ Ubat = 0,337 
+W/(m².K) 
+ 
+Logement 
+correctement 
+ventilé 
+-84% 
+(-573 kWhEP/m².an) 
+-80% 
+(-401 kWhEF/m².an) 
+-86% 
+(-18 kg CO2/m².an) 
+ 
+de 1090€ à 
+1520€ 
+~ 237090 € 
+ 
+Répartition des consommations annuelles énergétiques 
+Avant travaux 
+kWh/m².an EP 
+ 
+Après travaux 
+kWh/m².an EP 
+ 
+                                      
+ 
+usage 
+chauffage 
+eau chaude 
+refroidissement 
+éclairage 
+auxiliaires 
+total 
+consommation d’énergie 
+(kWh/m².an) 
+ 
+ bois bûches 
+91,4EP (91,4EF) 
+ 
+ 
+ électricité 
+8,9EP (3,9EF) 
+ 
+   
+0EP (0EF) 
+ 
+ 
+ électricité 
+4,3EP (1,9EF) 
+ 
+ 
+ électricité 
+3,2EP (1,4EF) 
+ 
+107EP 
+(98EF) 
+consommation d'énergie 
+sans déduction 
+photovoltaïque 
+autoconsommée 
+ 
+107EP 
+(98EF) 
+frais annuels d’énergie 
+(fourchette d’estimation **) 
+de 710€ 
+à 980€ 
+de 210€ 
+à 290€ 
+de 0€ 
+à 0€ 
+de 100€ 
+à 140€ 
+de 70€ 
+à 110€ 
+de 1090€ 
+à 1520€ 
+ 
+Conventionnellement, ces chiffres sont donnés pour une température de 
+chauffage  de 19°C réduite à 16°C la nuit ou en cas d’absence du domicile, 
+une climatisation réglée  à 28°C (si présence de climatisation), et une 
+consommation d’eau chaude standardisée par personne et par jour. 
+EP → énergie primaire | EF → énergie finale (voir la définition en annexe) 
+** Prix moyens des énergies indexés au 1 janvier 2023 (abonnements compris) 
+ 
+Seules les consommations d’énergie nécessaires au chauffage, à la 
+climatisation, à la production d’eau chaude sanitaire, à l’éclairage et aux 
+auxiliaires (ventilateurs, pompes) sont prises en compte dans cette 
+estimation. 
+Les factures réelles dépendront de nombreux facteurs : prix des 
+énergies, météo  de l’année (hiver froid ou doux...), nombre de 
+personnes dans le logement et habitudes de vie, entretien des 
+équipements... 
+*Montant estimé à la date de réalisation de l'audit énergétique. Cette estimation ne constitue pas un devis, et les coûts des travaux sont susceptibles d'évoluer dans le 
+temps. Les TVA appliquées par l'auditeur peuvent évoluer en fonction des dispositions législatives ou réglementaires en vigueur lors de la réalisation des travaux. 
+
+
+----- PAGE 15 -----
+
+Audit énergétique / Recommandations 
+p.11  
+ 
+ 
+ 
+Recommandations de l'auditeur 
+L'auditeur recommande une rénovation globale en une seule étape portant sur l'ensemble des postes : isolation thermique par 
+l'extérieur (murs et toiture), remplacement des menuiseries, ventilation double flux, mise en place d'un plancher chauffant 
+hydraulique alimenté par une PAC Air/Eau double service, et suppression des anciens systèmes de chauffage (radiateurs 
+électriques, poêle 
+  
+ 
+Avantages 
+Scénario complet garantissant une nette amélioration du confort thermique et de la qualité d'air, tout en réduisant fortement les 
+consommations d'énergie primaire et les émissions de CO2. Ce projet permet l'abandon des énergies fossiles ou bois peu 
+performants au profit d'une solution bas carbone, tout en facilitant l'obtention d'aides financières (MaPrimeRénov', CEE, éco-PTZ). 
+  
+ 
+Plan des travaux 
+ 
+
+
+----- PAGE 16 -----
+
+ 
+ 
+ 
+ 
+Audit énergétique / Scénario 2 / Première étape 
+p.12  
+ 
+Scénario 2 "par étapes" 
+ 
+ 
+Première étape 
+ 
+ 
+Détails des travaux énergétiques 
+ 
+Coût estimé 
+(*TTC) 
+ 
+Menuiseries 
+ Remplacement de l'ensemble des fenêtres et portes-fenêtres par menuiseries bois triple 
+vitrage performantes (Uw=1,1 W/m².K). 
+Pose en dépose totale avec volets roulants intégrés. 
+9 ouvrants traités. Entreprise RGE obligatoire.(Uw <=2,10 W/m2.K (Sw>0.36)  surface des 
+ouvrants : 15,3 m²) 
+ 
+Menuiseries hautes performances - Triple vitrage argon 
+Volets roulants isolation renforcée - Confort thermique/acoustique optimisé 
+Suppression ponts thermiques menuiseries anciennes 
+ 
+~ 22000 € 
+ 
+Menuiseries 
+ Remplacement de 2 portes d'entrée et service par portes bois hautes performances (Ud=1,2 
+W/m².K). 
+Pose en dépose totale avec isolation périphérique renforcée. 
+Quincaillerie sécurisée 3 points. Entreprise RGE obligatoire.(Uw <=3,50 W/m2.K (Sw>0.36)  
+surface des ouvrants : 0,0 m²)  (Ud <=3,50 W/m2.K  surface des portes : 3,4 m²) 
+ 
+Portes thermiquement performantes - Suppression ponts thermiques 
+Amélioration étanchéité à l'air entrées principales 
+Confort thermique et sécurité renforcés 
+ 
+~ 5600 € 
+ 
+Murs 
+ Isolation thermique extérieure du mur donnant sur garage non chauffé. 
+Chaux-chanvre projeté 24cm (R=5,5) sur mur pisé existant. 
+Surface : 25m². Entreprise RGE obligatoire.(R >=5,50 m².K/W / Surface d'isolant : 25 m²) 
+ 
+Extension ITE sur mur vers local non chauffé 
+Continuité isolation périphérie - Suppression pont thermique 
+ 
+~ 4500 € 
+ 
+Murs 
+ Isolation thermique extérieure des murs en pisé par chaux-chanvre projeté. 
+Préparation support pisé, ossature secondaire bois, projection mécanique chaux-chanvre 
+24cm (R=5,5). 
+Surface : 160m²(R >=5,50 m².K/W / Surface d'isolant : 25 m²) 
+ 
+Technique ITE adaptée au pisé - Matériaux bio-sourcés perspirants 
+Préservation qualités hygrothermiques du bâti ancien 
+ 
+~ 28800 € 
+Pour en savoir plus sur les aides, 
+rendez-vous sur France Rénov' : 
+france-renov.gouv.fr 
+ 
+Pour des conseils neutres et  
+gratuits, contactez France Rénov' :  
+  
+tel :  
+Les aides financières possibles pour ces travaux 
+Voici les principales aides que vous pouvez solliciter. Certaines aides sont 
+sous conditions de ressources ou dépendent du type de travaux. Elles peuvent évoluer 
+entre la réalisation de l'audit et la concrétisation des travaux. 
+ 
+Aides nationales : 
+● MaPrimeRénov' parcours Accompagné 
+● Certificats d'économie d'énergie (CEE) 
+Aides locales : 
+● Aucune 
+ 
+
+
+----- PAGE 17 -----
+
+ 
+ 
+ 
+ 
+Audit énergétique / Scénario 2 / Première étape 
+p.12a 
+ 
+Planchers Bas 
+ Isolation plancher bas sur terre-plein par isolation périphérique. 
+Polystyrène extrudé 16cm (R=4,0) en périphérie + traitement ponts thermiques. 
+Surface : 137m²(R >=4,00 m².K/W / Surface d'isolant : 137 m²) 
+ 
+Isolation périphérique adaptée au terre-plein existant 
+Suppression ponts thermiques plancher/murs pisé 
+Amélioration confort pieds froids 
+ 
+~ 8200 € 
+ 
+Chauffage 
+ Installation complète plancher chauffant hydraulique basse température 137m². Tubes PER, 
+collecteurs, vannes mélangeuses, régulation par zones. Raccordement à la PAC Air/Eau 15kW. 
+ 
+~ 11500 € 
+ 
+ 
+Détails des travaux induits 
+ 
+Coût estimé 
+(*TTC) 
+ 
+ Finitions périphériques menuiseries, habillages intérieurs/extérieurs. 
+Étanchéité périphérique renforcée. Retouches peintures. 
+ 
+~ 3500 € 
+ 
+ Finitions périphériques 2 portes, seuils étanches, habillages. 
+Étanchéité renforcée pourtours. Retouches peintures. 
+ 
+~ 1200 € 
+ 
+ Enduit chaux de finition extérieure 2,5cm 
+Protection chaux-chanvre - Surface 25m² 
+ 
+~ 1250 € 
+ 
+ Enduit chaux de finition extérieure 2,5cm d'épaisseur 
+Pare-pluie perspirant obligatoire sur chaux-chanvre 
+Surface 160m² 
+~ 8000 € 
+ 
+ Étanchéité périphérique + protection isolant 
+Finitions raccords murs - Surface 137m² 
+ 
+~ 2740 € 
+ 
+*Montant estimé à la date de réalisation de l'audit énergétique. Cette estimation ne constitue pas un devis, et les coûts des travaux sont susceptibles d'évoluer dans le 
+temps. Les TVA appliquées par l'auditeur peuvent évoluer en fonction des dispositions législatives ou réglementaires en vigueur lors de la réalisation des travaux. 
+
+
+----- PAGE 18 -----
+
+ 
+Audit énergétique / Scénario 2 / Première étape 
+p.13  
+ 
+ 
+ 
+Résultats après travaux 
+Performance 
+énergétique et 
+environnementale 
+globale du logement 
+(conso. en kWh/m².an et 
+émissions en kg CO2/m².an) 
+Economies 
+d’énergie par 
+rapport à l’état 
+initial 
+ 
+Réduction des 
+GES 
+(gaz à effet de serre) 
+ 
+Confort d’été 
+Dépenses 
+d'énergie 
+estimées/an 
+Coût 
+estimé 
+des 
+travaux 
+(*TTC) 
+ 
+ 
+Ubat = 1,305 
+W/(m².K) 
+ 
+ 
+-18% 
+(-119 kWhEP/m².an) 
+-18% 
+(-90 kWhEF/m².an) 
+-19% 
+(-4 kg CO2/m².an) 
+ 
+de 6710€ à 
+9110€ 
+~ 97290 € 
+ 
+Répartition des consommations annuelles énergétiques 
+Avant travaux 
+kWh/m².an EP 
+ 
+Après première étape 
+kWh/m².an EP 
+ 
+                                      
+ 
+usage 
+chauffage 
+eau chaude 
+refroidissement 
+éclairage 
+auxiliaires 
+total 
+consommation d’énergie 
+(kWh/m².an) 
+ 
+ bois bûches 
+293,4EP (293,4EF) 
+ 
+ électricité 
+233,7EP (101,6EF) 
+ 
+ électricité 
+30,0EP (13,0EF) 
+ 
+   
+0EP (0EF) 
+ 
+ 
+ électricité 
+4,3EP (1,9EF) 
+ 
+   
+0EP (0EF) 
+ 
+561EP 
+(409EF) 
+consommation d'énergie 
+sans déduction 
+photovoltaïque 
+autoconsommée 
+ 
+561EP 
+(409EF) 
+frais annuels d’énergie 
+(fourchette d’estimation **) 
+de 6150€ 
+à 8340€ 
+de 490€ 
+à 670€ 
+de 0€ 
+à 0€ 
+de 70€ 
+à 100€ 
+de 0€ 
+à 0€ 
+de 6710€ 
+à 9110€ 
+ 
+Conventionnellement, ces chiffres sont donnés pour une température de 
+chauffage  de 19°C réduite à 16°C la nuit ou en cas d’absence du domicile, 
+une climatisation réglée  à 28°C (si présence de climatisation), et une 
+consommation d’eau chaude standardisée par personne et par jour. 
+EP → énergie primaire | EF → énergie finale (voir la définition en annexe) 
+** Prix moyens des énergies indexés au 1 janvier 2023 (abonnements compris) 
+ 
+Seules les consommations d’énergie nécessaires au chauffage, à la 
+climatisation, à la production d’eau chaude sanitaire, à l’éclairage et aux 
+auxiliaires (ventilateurs, pompes) sont prises en compte dans cette 
+estimation. 
+Les factures réelles dépendront de nombreux facteurs : prix des 
+énergies, météo  de l’année (hiver froid ou doux...), nombre de 
+personnes dans le logement et habitudes de vie, entretien des 
+équipements... 
+*Montant estimé à la date de réalisation de l'audit énergétique. Cette estimation ne constitue pas un devis, et les coûts des travaux sont susceptibles d'évoluer dans le 
+temps. Les TVA appliquées par l'auditeur peuvent évoluer en fonction des dispositions législatives ou réglementaires en vigueur lors de la réalisation des travaux. 
+
+
+----- PAGE 19 -----
+
+Audit énergétique / Recommandations 
+p.14  
+ 
+ 
+ 
+Recommandations de l'auditeur 
+Traiter en priorité les parois opaques les plus déperditives. Mise en oeuvre d'une ITE en blocs de chanvre sur l'ensemble des murs 
+afin d'améliorer le confort, réduire la facture énergétique et préparer les conditions optimales d'efficacité pour la future PAC. 
+ 
+Avantages 
+Ce scénario permet une montée en performance progressive, limitant les investissements simultanés. Il assure également la 
+continuité d'usage de l'habitation pendant les travaux. 
+ Chaque étape apporte un gain significatif sur le plan énergétique, permettant un suivi et un pilotage plus fluide des aides, tout en 
+optimisant le confort thermique des occupants et la valorisation du bien. 
+ L'étape 1 garantit un gain de 2 classes énergétiques (traitement des parois), comme exigé dans les scénarios par étapes du cadre 
+réglementaire. 
+ 
+Plan des travaux 
+ 
+
+
+----- PAGE 20 -----
+
+ 
+ 
+ 
+ 
+Audit énergétique / Scénario 2 / Deuxième étape 
+p.15  
+ 
+Scénario 2 "par étapes" 
+ 
+ 
+Deuxième étape 
+ 
+ 
+Détails des travaux énergétiques 
+ 
+Coût estimé 
+(*TTC) 
+ 
+Toitures 
+ Isolation thermique rampants de toiture par laine minérale 30cm d'épaisseur. 
+Pose entre chevrons + complément sous chevrons (R=6,5 m².K/W). 
+Surface : 275m². Entreprise RGE obligatoire.(R >=6,50 m².K/W / Surface d'isolant : 275 m²) 
+ 
+Isolation performante rampants après réfection charpente 
+Suppression ponts thermiques - Étanchéité à l'air renforcée 
+Performance thermique optimale longère rénovée 
+ 
+~ 27500 € 
+ 
+Ventilation 
+ Installation VMC Double Flux Hygro B avec récupération de chaleur (efficacité =85%). 
+Caisson classe énergétique A, réseau gainé isolé, bouches hygroréglables. 
+Débit adapté 180 m³/h - Filtres F7. Entreprise RGE obligatoire.(Rendement de l'échangeur >=  
+%) 
+ 
+Ventilation performante adaptée longère pisé 
+Récupération chaleur sur air vicié - Maîtrise renouvellement d'air 
+Amélioration qualité air intérieur et économies énergétiques 
+ 
+~ 6500 € 
+ 
+ 
+Détails des travaux induits 
+ 
+Coût estimé 
+(*TTC) 
+ 
+ Réfection complète charpente + couverture tuiles canal. 
+Reconstruction panne sablière, remplacement chevrons défaillants. 
+Pose couverture neuve étanche. Surface 275m². 
+~ 70000 € 
+ 
+ Percements traversées murs pisé, pose réseau gainé isolé. 
+Finitions passages gaines, habillages bouches. 
+Raccordement électrique caisson VMC 
+~ 3200 € 
+ 
+*Montant estimé à la date de réalisation de l'audit énergétique. Cette estimation ne constitue pas un devis, et les coûts des travaux sont susceptibles d'évoluer dans le 
+temps. Les TVA appliquées par l'auditeur peuvent évoluer en fonction des dispositions législatives ou réglementaires en vigueur lors de la réalisation des travaux. 
+Pour en savoir plus sur les aides, 
+rendez-vous sur France Rénov' : 
+france-renov.gouv.fr 
+ 
+Pour des conseils neutres et  
+gratuits, contactez France Rénov' :  
+  
+tel :  
+Les aides financières possibles pour ces travaux 
+Voici les principales aides que vous pouvez solliciter. Certaines aides sont 
+sous conditions de ressources ou dépendent du type de travaux. Elles peuvent évoluer 
+entre la réalisation de l'audit et la concrétisation des travaux. 
+ 
+Aides nationales : 
+● MaPrimeRénov' parcours Accompagné 
+● Certificats d'économie d'énergie (CEE) 
+Aides locales : 
+● Aucune 
+ 
+
+
+----- PAGE 21 -----
+
+ 
+Audit énergétique / Scénario 2 / Deuxième étape 
+p.16  
+ 
+ 
+Résultats après travaux 
+Performance 
+énergétique et 
+environnementale 
+globale du logement 
+(conso. en kWh/m².an et 
+émissions en kg CO2/m².an) 
+Economies 
+d’énergie par 
+rapport à l’état 
+initial 
+ 
+Réduction des 
+GES 
+(gaz à effet de serre) 
+ 
+Confort d’été 
+Dépenses 
+d'énergie 
+estimées/an 
+Coût 
+estimé 
+des 
+travaux 
+(*TTC) 
+ 
+ 
+Faibles déperditions 
+thermiques 
+ Ubat = 0,337 
+W/(m².K) 
+ 
+Logement 
+correctement 
+ventilé 
+-71% 
+(-481 kWhEP/m².an) 
+-72% 
+(-362 kWhEF/m².an) 
+-71% 
+(-15 kg CO2/m².an) 
+ 
+de 2530€ à 
+3480€ 
+~ 107200 € 
+ 
+Répartition des consommations annuelles énergétiques 
+Avant travaux 
+kWh/m².an EP 
+ 
+Après première étape 
+kWh/m².an EP 
+ 
+Après deuxième étape 
+kWh/m².an EP 
+ 
+                                      
+ 
+usage 
+chauffage 
+eau chaude 
+refroidissement 
+éclairage 
+auxiliaires 
+total 
+consommation d’énergie 
+(kWh/m².an) 
+ 
+ bois bûches 
+90,2EP (90,2EF) 
+ 
+ électricité 
+71,8EP (31,2EF) 
+ 
+ électricité 
+30,0EP (13,0EF) 
+ 
+   
+0EP (0EF) 
+ 
+ 
+ électricité 
+4,3EP (1,9EF) 
+ 
+ 
+ électricité 
+3,2EP (1,4EF) 
+ 
+199EP 
+(137EF) 
+consommation d'énergie 
+sans déduction 
+photovoltaïque 
+autoconsommée 
+ 
+199EP 
+(137EF) 
+frais annuels d’énergie 
+(fourchette d’estimation **) 
+de 1910€ 
+à 2610€ 
+de 500€ 
+à 690€ 
+de 0€ 
+à 0€ 
+de 70€ 
+à 100€ 
+de 50€ 
+à 80€ 
+de 2530€ 
+à 3480€ 
+
+
+----- PAGE 22 -----
+
+ 
+Audit énergétique / Scénario 2 / Deuxième étape 
+p.16  
+ 
+ 
+ 
+ 
+Conventionnellement, ces chiffres sont donnés pour une température de 
+chauffage  de 19°C réduite à 16°C la nuit ou en cas d’absence du domicile, 
+une climatisation réglée  à 28°C (si présence de climatisation), et une 
+consommation d’eau chaude standardisée par personne et par jour. 
+EP → énergie primaire | EF → énergie finale (voir la définition en annexe) 
+** Prix moyens des énergies indexés au 1 janvier 2023 (abonnements compris) 
+ 
+Seules les consommations d’énergie nécessaires au chauffage, à la 
+climatisation, à la production d’eau chaude sanitaire, à l’éclairage et aux 
+auxiliaires (ventilateurs, pompes) sont prises en compte dans cette 
+estimation. 
+Les factures réelles dépendront de nombreux facteurs : prix des 
+énergies, météo  de l’année (hiver froid ou doux...), nombre de 
+personnes dans le logement et habitudes de vie, entretien des 
+équipements... 
+*Montant estimé à la date de réalisation de l'audit énergétique. Cette estimation ne constitue pas un devis, et les coûts des travaux sont susceptibles d'évoluer dans le 
+temps. Les TVA appliquées par l'auditeur peuvent évoluer en fonction des dispositions législatives ou réglementaires en vigueur lors de la réalisation des travaux. 
+
+
+----- PAGE 23 -----
+
+Audit énergétique / Recommandations 
+p.17  
+ 
+ 
+ 
+Recommandations de l'auditeur 
+Améliorer la qualité de l'air intérieur et les échanges thermiques en procédant à l'isolation de la toiture par les rampants ainsi qu'à 
+la mise en place d'une ventilation double flux. Ces travaux participent à l'efficacité énergétique globale et au confort des 
+occupants. 
+  
+  
+ 
+Avantages 
+Ce scénario permet une montée en performance progressive, limitant les investissements simultanés. Il assure également la 
+continuité d'usage de l'habitation pendant les travaux. 
+ Chaque étape apporte un gain significatif sur le plan énergétique, permettant un suivi et un pilotage plus fluide des aides, tout en 
+optimisant le confort thermique des occupants et la valorisation du bien. 
+ L'étape 1 garantit un gain de 2 classes énergétiques (traitement des parois), comme exigé dans les scénarios par étapes du cadre 
+réglementaire. 
+ 
+Plan des travaux 
+ 
+
+
+----- PAGE 24 -----
+
+ 
+ 
+ 
+ 
+Audit énergétique / Scénario 2 / Troisième étape 
+p.18  
+ 
+Scénario 2 "par étapes" 
+ 
+ 
+Troisième étape 
+ 
+ 
+Détails des travaux énergétiques 
+ 
+Coût estimé 
+(*TTC) 
+ 
+Chauffage 
+ Installation PAC Air/Eau double service (chauffage + ECS) 15kW. 
+SCOP 4,5 chauffage, COP ECS 3,5. Unité extérieure air extérieur. 
+Raccordement hydraulique plancher chauffant + ECS. 
+Entreprise RGE obligatoire.(SCOP >= 4,500 / ETAS >= 1,800 )(COP ECS >=  ) 
+ 
+PAC Air/Eau haute performance - Chauffage principal + production ECS 
+Remplacement chauffage électrique - Économies énergétiques majeures 
+Compatible plancher chauffant basse température 
+ 
+~ 18000 € 
+ 
+Chauffage 
+ Neutralisation des prises électriques dédiées 
+ 
+~ 600 € 
+ 
+ 
+Détails des travaux induits 
+ 
+Coût estimé 
+(*TTC) 
+ 
+ Raccordements hydrauliques PAC, régulation avancée. 
+Mise en service, paramétrage, formation utilisateur. 
+Évacuation condensats, protections électriques. 
+~ 5500 € 
+ 
+*Montant estimé à la date de réalisation de l'audit énergétique. Cette estimation ne constitue pas un devis, et les coûts des travaux sont susceptibles d'évoluer dans le 
+temps. Les TVA appliquées par l'auditeur peuvent évoluer en fonction des dispositions législatives ou réglementaires en vigueur lors de la réalisation des travaux. 
+Pour en savoir plus sur les aides, 
+rendez-vous sur France Rénov' : 
+france-renov.gouv.fr 
+ 
+Pour des conseils neutres et  
+gratuits, contactez France Rénov' :  
+  
+tel :  
+Les aides financières possibles pour ces travaux 
+Voici les principales aides que vous pouvez solliciter. Certaines aides sont 
+sous conditions de ressources ou dépendent du type de travaux. Elles peuvent évoluer 
+entre la réalisation de l'audit et la concrétisation des travaux. 
+ 
+Aides nationales : 
+● MaPrimeRénov' parcours Accompagné 
+● Certificats d'économie d'énergie (CEE) 
+Aides locales : 
+● Aucune 
+ 
+
+
+----- PAGE 25 -----
+
+ 
+Audit énergétique / Scénario 2 / Troisième étape 
+p.19  
+ 
+ 
+Résultats après travaux 
+Performance 
+énergétique et 
+environnementale 
+globale du logement 
+(conso. en kWh/m².an et 
+émissions en kg CO2/m².an) 
+Economies 
+d’énergie par 
+rapport à l’état 
+initial 
+ 
+Réduction des 
+GES 
+(gaz à effet de serre) 
+ 
+Confort d’été 
+Dépenses 
+d'énergie 
+estimées/an 
+Coût 
+estimé 
+des 
+travaux 
+(*TTC) 
+ 
+ 
+Faibles déperditions 
+thermiques 
+ Ubat = 0,337 
+W/(m².K) 
+ 
+Logement 
+correctement 
+ventilé 
+-71% 
+(-481 kWhEP/m².an) 
+-72% 
+(-362 kWhEF/m².an) 
+-71% 
+(-15 kg CO2/m².an) 
+ 
+de 2540€ à 
+3490€ 
+~ 24100 € 
+ 
+Répartition des consommations annuelles énergétiques 
+Avant travaux 
+kWh/m².an EP 
+ 
+Après première étape 
+kWh/m².an EP 
+ 
+Après deuxième étape 
+kWh/m².an EP 
+ 
+Après troisième étape 
+kWh/m².an EP 
+ 
+                                      
+ 
+usage 
+chauffage 
+eau chaude 
+refroidissement 
+éclairage 
+auxiliaires 
+total 
+consommation d’énergie 
+(kWh/m².an) 
+ 
+ bois bûches 
+90,2EP (90,2EF) 
+ 
+ électricité 
+72,0EP (31,3EF) 
+ 
+ électricité 
+30,0EP (13,0EF) 
+ 
+   
+0EP (0EF) 
+ 
+ 
+ électricité 
+4,3EP (1,9EF) 
+ 
+ 
+ électricité 
+3,2EP (1,4EF) 
+ 
+199EP 
+(137EF) 
+consommation d'énergie 
+sans déduction 
+photovoltaïque 
+autoconsommée 
+ 
+199EP 
+(137EF) 
+frais annuels d’énergie 
+(fourchette d’estimation **) 
+de 1920€ 
+à 2620€ 
+de 500€ 
+à 690€ 
+de 0€ 
+à 0€ 
+de 70€ 
+à 100€ 
+de 50€ 
+à 80€ 
+de 2540€ 
+à 3490€ 
+
+
+----- PAGE 26 -----
+
+ 
+Audit énergétique / Scénario 2 / Troisième étape 
+p.19  
+ 
+ 
+ 
+ 
+Conventionnellement, ces chiffres sont donnés pour une température de 
+chauffage  de 19°C réduite à 16°C la nuit ou en cas d’absence du domicile, 
+une climatisation réglée  à 28°C (si présence de climatisation), et une 
+consommation d’eau chaude standardisée par personne et par jour. 
+EP → énergie primaire | EF → énergie finale (voir la définition en annexe) 
+** Prix moyens des énergies indexés au 1 janvier 2023 (abonnements compris) 
+ 
+Seules les consommations d’énergie nécessaires au chauffage, à la 
+climatisation, à la production d’eau chaude sanitaire, à l’éclairage et aux 
+auxiliaires (ventilateurs, pompes) sont prises en compte dans cette 
+estimation. 
+Les factures réelles dépendront de nombreux facteurs : prix des 
+énergies, météo  de l’année (hiver froid ou doux...), nombre de 
+personnes dans le logement et habitudes de vie, entretien des 
+équipements... 
+*Montant estimé à la date de réalisation de l'audit énergétique. Cette estimation ne constitue pas un devis, et les coûts des travaux sont susceptibles d'évoluer dans le 
+temps. Les TVA appliquées par l'auditeur peuvent évoluer en fonction des dispositions législatives ou réglementaires en vigueur lors de la réalisation des travaux. 
+
+
+----- PAGE 27 -----
+
+Audit énergétique / Recommandations 
+p.20  
+ 
+ 
+ 
+Recommandations de l'auditeur 
+Cette étape vise à moderniser l'ensemble du système de chauffage. Elle comprend la dépose des anciens radiateurs électriques et 
+du poêle bois, la pose d'un plancher chauffant hydraulique, et l'installation d'une PAC air/eau double service assurant à la fois le 
+chauffage et l'ECS. 
+ 
+Avantages 
+Ce scénario permet une montée en performance progressive, limitant les investissements simultanés. Il assure également la 
+continuité d'usage de l'habitation pendant les travaux. 
+ Chaque étape apporte un gain significatif sur le plan énergétique, permettant un suivi et un pilotage plus fluide des aides, tout en 
+optimisant le confort thermique des occupants et la valorisation du bien. 
+ L'étape 1 garantit un gain de 2 classes énergétiques (traitement des parois), comme exigé dans les scénarios par étapes du cadre 
+réglementaire. 
+ 
+Plan des travaux 
+ 
+
+
+----- PAGE 28 -----
+
+ 
+ 
+ 
+ 
+Audit énergétique / Scénario 2 / Quatrième étape 
+p.21  
+ 
+Scénario 2 "par étapes" 
+ 
+ 
+Quatrième étape 
+ 
+ 
+Détails des travaux énergétiques 
+ 
+Coût estimé 
+(*TTC) 
+ 
+Eau Chaude 
+ Remplacement de 2 ballons électriques (200L + 300L) par 2 ballons thermodynamiques 
+équivalents avec COP optimisé. Dépose anciens ballons et raccordements 
+électriques/hydrauliques.(COP ECS >= 3,000 )(Volume de Stockage = 500 l) 
+ 
+~ 8500 € 
+ 
+ 
+Détails des travaux induits 
+ 
+Coût estimé 
+(*TTC) 
+ 
+*Montant estimé à la date de réalisation de l'audit énergétique. Cette estimation ne constitue pas un devis, et les coûts des travaux sont susceptibles d'évoluer dans le 
+temps. Les TVA appliquées par l'auditeur peuvent évoluer en fonction des dispositions législatives ou réglementaires en vigueur lors de la réalisation des travaux. 
+Pour en savoir plus sur les aides, 
+rendez-vous sur France Rénov' : 
+france-renov.gouv.fr 
+ 
+Pour des conseils neutres et  
+gratuits, contactez France Rénov' :  
+  
+tel :  
+Les aides financières possibles pour ces travaux 
+Voici les principales aides que vous pouvez solliciter. Certaines aides sont 
+sous conditions de ressources ou dépendent du type de travaux. Elles peuvent évoluer 
+entre la réalisation de l'audit et la concrétisation des travaux. 
+ 
+Aides nationales : 
+● MaPrimeRénov' parcours Accompagné 
+● Certificats d'économie d'énergie (CEE) 
+Aides locales : 
+● Aucune 
+ 
+
+
+----- PAGE 29 -----
+
+ 
+Audit énergétique / Scénario 2 / Quatrième étape 
+p.22  
+ 
+ 
+Résultats après travaux 
+Performance 
+énergétique et 
+environnementale 
+globale du logement 
+(conso. en kWh/m².an et 
+émissions en kg CO2/m².an) 
+Economies 
+d’énergie par 
+rapport à l’état 
+initial 
+ 
+Réduction des 
+GES 
+(gaz à effet de serre) 
+ 
+Confort d’été 
+Dépenses 
+d'énergie 
+estimées/an 
+Coût 
+estimé 
+des 
+travaux 
+(*TTC) 
+ 
+ 
+Faibles déperditions 
+thermiques 
+ Ubat = 0,337 
+W/(m².K) 
+ 
+Logement 
+correctement 
+ventilé 
+-74% 
+(-500 kWhEP/m².an) 
+-74% 
+(-369 kWhEF/m².an) 
+-76% 
+(-16 kg CO2/m².an) 
+ 
+de 2230€ à 
+3070€ 
+~ 8500 € 
+ 
+Répartition des consommations annuelles énergétiques 
+Avant travaux 
+kWh/m².an EP 
+ 
+Après première étape 
+kWh/m².an EP 
+ 
+Après deuxième étape 
+kWh/m².an EP 
+ 
+Après troisième étape 
+kWh/m².an EP 
+ 
+Après quatrième étape 
+kWh/m².an EP 
+ 
+                                      
+ 
+usage 
+chauffage 
+eau chaude 
+refroidissement 
+éclairage 
+auxiliaires 
+total 
+consommation d’énergie 
+(kWh/m².an) 
+ 
+ bois bûches 
+91,4EP (91,4EF) 
+ 
+ électricité 
+73,0EP (31,7EF) 
+ 
+ électricité 
+8,9EP (3,9EF) 
+ 
+   
+0EP (0EF) 
+ 
+ 
+ électricité 
+4,3EP (1,9EF) 
+ 
+ 
+ électricité 
+3,2EP (1,4EF) 
+ 
+180EP 
+(130EF) 
+consommation d'énergie 
+sans déduction 
+photovoltaïque 
+autoconsommée 
+ 
+180EP 
+(130EF) 
+
+
+----- PAGE 30 -----
+
+ 
+Audit énergétique / Scénario 2 / Quatrième étape 
+p.22  
+ 
+ 
+ 
+frais annuels d’énergie 
+(fourchette d’estimation **) 
+de 1960€ 
+à 2680€ 
+de 150€ 
+à 210€ 
+de 0€ 
+à 0€ 
+de 70€ 
+à 100€ 
+de 50€ 
+à 80€ 
+de 2230€ 
+à 3070€ 
+ 
+Conventionnellement, ces chiffres sont donnés pour une température de 
+chauffage  de 19°C réduite à 16°C la nuit ou en cas d’absence du domicile, 
+une climatisation réglée  à 28°C (si présence de climatisation), et une 
+consommation d’eau chaude standardisée par personne et par jour. 
+EP → énergie primaire | EF → énergie finale (voir la définition en annexe) 
+** Prix moyens des énergies indexés au 1 janvier 2023 (abonnements compris) 
+ 
+Seules les consommations d’énergie nécessaires au chauffage, à la 
+climatisation, à la production d’eau chaude sanitaire, à l’éclairage et aux 
+auxiliaires (ventilateurs, pompes) sont prises en compte dans cette 
+estimation. 
+Les factures réelles dépendront de nombreux facteurs : prix des 
+énergies, météo  de l’année (hiver froid ou doux...), nombre de 
+personnes dans le logement et habitudes de vie, entretien des 
+équipements... 
+*Montant estimé à la date de réalisation de l'audit énergétique. Cette estimation ne constitue pas un devis, et les coûts des travaux sont susceptibles d'évoluer dans le 
+temps. Les TVA appliquées par l'auditeur peuvent évoluer en fonction des dispositions législatives ou réglementaires en vigueur lors de la réalisation des travaux. 
+
+
+----- PAGE 31 -----
+
+Audit énergétique / Recommandations 
+p.23  
+ 
+ 
+ 
+Recommandations de l'auditeur 
+Cette dernière étape permet d'optimiser le confort sanitaire en remplaçant le ballon d'eau chaude par un modèle plus performant 
+et adapté au nouveau système de chauffage, avec les réglages finaux. 
+ 
+Avantages 
+Ce scénario permet une montée en performance progressive, limitant les investissements simultanés. Il assure également la 
+continuité d'usage de l'habitation pendant les travaux. 
+ Chaque étape apporte un gain significatif sur le plan énergétique, permettant un suivi et un pilotage plus fluide des aides, tout en 
+optimisant le confort thermique des occupants et la valorisation du bien. 
+ L'étape 1 garantit un gain de 2 classes énergétiques (traitement des parois), comme exigé dans les scénarios par étapes du cadre 
+réglementaire. 
+ 
+Plan des travaux 
+ 
+
+
+----- PAGE 32 -----
+
+Audit énergétique / Recommandations 
+p.24  
+ 
+ 
+ 
+Vos projets et la rénovation énergétique 
+ 
+
+
+----- PAGE 33 -----
+
+Audit énergétique / Recommandations 
+p.25  
+ 
+ 
+ 
+ Traitement des interfaces 
+ 
+Le traitement des interfaces entre les postes de travaux lors d’une rénovation énergétique revêt une importance cruciale. Ces points de 
+jonction entre différents éléments structurels, tels que les murs, les planchers et les fenêtres, jouent un rôle déterminant dans l'efficacité 
+énergétique et le confort thermique du bâtiment. 
+ 
+Une réflexion sur l’ensemble des lots de travaux permet d’éviter les impasses de rénovation, de s’assurer de la gestion appropriée des 
+interfaces pour minimiser les ponts thermiques et d'assurer l’étanchéité a l’air. Cette réflexion permet de réduire les pertes d’énergie et 
+d'assurer le respect des bonnes pratiques pour faire face au problème d’humidité, afin d’assurer une bonne qualité de l’air intérieur et à la 
+préservation santé des occupants. 
+ 
+Vous pouvez consulter le guide réalisé par l'ADEME, Travaux par étapes : les points de vigilance. Ce guide fournit des conseils pertinents 
+pour garantir un traitement efficace des interfaces entre 2 lots de travaux réalisés non simultanément sur le chantier, dans une démarche de 
+rénovation performante. 
+ 
+https://librairie.ademe.fr/urbanisme-et-batiment/5492-travaux-par-etapes-les-points-de-vigilance.html 
+ Recommandations de gestion et d’entretien des équipements  
+ 
+Pour maîtriser vos consommations d’énergie, la bonne gestion et l’entretien régulier des équipements de votre logement sont 
+essentiels. 
+ 
+ 
+type d’entretien 
+ 
+ 
+Ventilation 
+Veiller à ouvrir les fenêtres de chaque pièce très régulièrement afin de garantir la qualité de l'air 
+intérieur 
+ 
+ 
+ 
+Insert / poêle 
+Ramonage obligatoire par un professionnel -> au moins 1 fois par an 
+ 
+ 
+ 
+Chauffe-eau 
+Régler la température du chauffe-eau entre 55 et 60°C. 
+Arrêter le chauffe-eau en cas d'absence de plus de 4 jours. 
+ 
+ 
+ 
+Isolation 
+Faire vérifier et compléter les isolants par un professionnel -> tous les 20 ans. 
+ 
+ 
+ 
+Eclairage 
+Nettoyer les ampoules et les luminaires.  
+ 
+ 
+ 
+VMC double flux 
+Ne pas obstruer les entrées d'air. Les nettoyer à l'aide d'un chiffon sec -> 1 fois par an  
+Nettoyer les bouches d'extraction -> tous les 2 ans  
+Nettoyer les filtres de soufflage et d'extraction -> tous les 3 à 6 mois  
+Changer les filtres de soufflage et d'extraction -> au moins 1 fois par an 
+Entretien des conduits par un professionnel -> tous les 3 à 5 ans 
+Veiller à ouvrir les fenêtres de chaque pièce très régulièrement afin de garantir la qualité de l'air 
+intérieur. 
+ 
+ 
+Chauffe-eau 
+thermodynamique 
+Entretien obligatoire par un professionnel -> tous les 2 ans  
+Régler la température du chauffe-eau thermodynamique entre 45 et 50°C.  
+Arrêter le chauffe-eau en cas d'absence de plus de 4 jours. 
+ 
+
+
+----- PAGE 34 -----
+
+ 
+ 
+Audit énergétique 
+ 
+p.26 
+Les principales phases du parcours de 
+rénovation énergétique 
+Recherche des professionnels et 
+demandes de devis 
+→ Un conseiller France Rénov’ peut vous orienter vers des 
+professionnels compétents tout au long de votre projet de 
+rénovation. 
+→ Pour trouver un artisan, demandez à vos proches et 
+regardez les avis laissés sur internet. 
+→ Pour obtenir des aides, vous devez recourir à un 
+professionnel RGE (Reconnu Garant de l’Environnement). 
+→ Lorsque vous avez reçu des devis, vous pouvez lancer 
+votre demandes d'aides. Ne signez pas les devis avant de 
+l'avoir fait. 
+ 
+Pour obtenir une aide financière, il est 
+nécessaire de recourir à un professionnel 
+Reconnu Garant de l’Environnement (RGE). 
+Trouvez votre artisan ici : 
+france-renov.gouv.fr/annuaire-rge 
+Demande d’aides financières 
+→ MaPrimeRénov' et les aides CEE sont les principales 
+aides à la rénovation énergétique, calculées en fonction de 
+vos revenus et des types de travaux réalisés. 
+→ Il existe d’autres aides en fonction de votre situation 
+→ Une fois que vous recevez la confirmation de l’attribution 
+des différentes aides financières et de leurs montants 
+prévisionnels, vous pouvez signer les devis et engager les 
+travaux. 
+ 
+Estimez les aides auxquelles vous avez droit sur 
+Simul’aides : 
+ 
+france-renov.gouv.fr/aides/simulation 
+ 
+Créez votre compte MaPrimeRénov’ : 
+ 
+maprimerenov.gouv.fr/prweb 
+ 
+Vous pouvez également faire une demande 
+d’éco-Prêt à Taux Zéro. Retrouvez la liste 
+des banques qui le proposent ici : 
+ 
+www2.sgfgas.fr/etablissements-affilies 
+Lancement et réalisation des travaux 
+après dépôt de votre dossier d'aides 
+→ Lancement et suivi des travaux. 
+→ Lorsque le chantier est important, il peut être utile de 
+faire appel à un maître d’œuvre dès le début de votre 
+projet, dont la mission sera d’assurer la bonne réalisation 
+des travaux et la cohérence entre les différents artisans. 
+→ Si vous ne faîtes pas appel à une maitrise d’œuvre, nous 
+vous conseillons de rassembler au moins une fois 
+l’ensemble des artisans pour qu’ils se rencontrent et se 
+coordonnent dans la réalisation des travaux. 
+Définition du projet de rénovation 
+→ Préparer votre projet : choix des travaux, 
+renseignement sur les aides, organisation du chantier et 
+de l’articulation entre les artisans… 
+→ Inspirez-vous des propositions de travaux détaillées 
+dans ce document.  
+→ Mon Accompagnateur Rénov’ assure un 
+accompagnement adapté et personnalisé des ménages 
+afin de renforcer la qualité et l’efficacité des travaux de 
+rénovation énergétique qu’ils engagent. Les ménages 
+doivent obligatoirement avoir recours à MAR' agréés par 
+l’Anah (ou ses délégations) pour bénéficier de l’aide 
+MaPrimeRénov’ Parcours accompagné. 
+Vous pouvez être accompagné dans votre 
+préparation de projet par un conseiller France 
+Rénov. Ce conseil est neutre, gratuit et 
+indépendant. Trouvez un conseiller près de chez 
+vous : 
+france-renov.gouv.fr/espaces-conseil-fr 
+ 
+Identifiez l'Accompagnateur Rénov' le plus 
+proche de chez vous : 
+https://france-renov.gouv.fr/annuaires-
+professionnels/mon-accompagnateur-renov 
+Réception des travaux 
+→ À la réception, les travaux doivent être terminés. Ne 
+réceptionnez pas des travaux avant d'avoir vérifié que 
+ceux-ci sont correctement exécutés. 
+→ Lorsque les travaux sont terminés, transmettez les 
+factures sur votre espace MaPrimeRénov’ et effectuez 
+votre demande de paiement. Faites de même pour les 
+autres aides sollicitées. 
+Si vous ne faîtes pas appel à une maîtrise 
+d'œuvre, vous pouvez vous aider de fiches de 
+réception de travaux standardisées, par 
+exemple celles du programme Profeel : 
+https://programmeprofeel.fr/ressources/28-
+fichespratiques-pour-faciliter-la-reception-de-
+vos-travaux/ 
+
+
+----- PAGE 35 -----
+
+ 
+ 
+Audit énergétique 
+ 
+p.27 
+Lexique et définitions 
+Rénovation énergétique performante 
+La rénovation énergétique performante d'un bâtiment ou 
+d'une partie de bâtiment est en principe un ensemble de 
+travaux qui permettent à ce bâtiment ou à cette partie de 
+bâtiment d'atteindre la classe A ou B du DPE après l'étude des 
+6 postes de travaux essentiels à la réussite d'une rénovation 
+énergétique (isolation des murs, isolation des planchers bas, 
+isolation de la toiture, remplacement des menuiseries 
+extérieures, ventilation, production de chauffage et d'eau 
+chaude sanitaire). 
+Photovoltaïque autoconsommée 
+L’autoconsommation photovoltaïque consiste à consommer 
+sa propre production d’électricité solaire. Elle permet donc 
+d’utiliser une énergie locale et abondante. 
+Résistance thermique 
+La résistance thermique, notée R, est la capacité du matériau 
+à résister aux variations de chaleur, c'est-à-dire au chaud 
+comme au froid. Plus la résistance thermique est grande, plus 
+la performance de l'isolant sera élevée. 
+Rénovation énergétique performante 
+globale 
+Une rénovation énergétique performante globale est une 
+rénovation énergétique performante réalisée en une seule 
+fois, dans un délai de moins de 18 mois pour une maison 
+individuelle, et de moins de 36 mois pour un bâtiment 
+d'habitation collective. 
+Neutralité carbone 
+La neutralité carbone vise à parvenir à un équilibre entre les 
+émissions de carbone issues des activités humaines et 
+l'absorption du carbone de l'atmosphère par les puits de 
+carbone. Pour l'atteindre, nous devons utiliser différents 
+moyens pour réduire et compenser les émissions de gaz à 
+effet de serre (GES) produites par les activités humaines, en 
+particulier le CO2, le principal gaz à effet de serre en volume 
+dans l’atmosphère. 
+Gaz à effet de serre 
+Les gaz à effet de serre (GES) sont des gaz qui absorbent une 
+partie du rayonnement solaire en le redistribuant sous la 
+forme de radiations au sein de l’atmosphère terrestre, 
+phénomène appelé effet de serre. 
+Déperditions thermiques 
+Les déperditions thermiques d'un bâtiment désignent la perte 
+de chaleur à travers ses parois et par les échanges d'air avec 
+l'extérieur. 
+Leur ampleur peut être estimée par le calcul d'un coefficient 
+de déperditions thermiques, comparé à une valeur de 
+référence pour le bâtiment. 
+De faibles déperditions thermiques permettent de limiter 
+fortement les besoins de chauffage. 
+Confort d’été 
+Le confort d'été est la capacité d'un bâtiment à maintenir une 
+température intérieure maximale agréable l'été, sans avoir à 
+recourir à un système de climatisation. 
+Énergie finale 
+L’énergie finale (kWh Ef ) correspond à l’énergie directement 
+consommée 
+par 
+l’occupant 
+d’un 
+logement. 
+Elle 
+est 
+comptabilisée au niveau du compteur et sert de base à la 
+facturation. 
+Pathologie 
+Analyse des symptômes, des causes et des remèdes à 
+apporter aux ouvrages qui présentent des désordres. 
+Énergie primaire 
+L’énergie primaire (kWh Ep) est l’énergie contenue dans les 
+ressources naturelles, avant une éventuelle transformation. 
+Elle tient également compte (en plus de l’énergie finale 
+consommée) de l’énergie nécessaire à la production, au 
+stockage, au transport et à la distribution de l’énergie finale. 
+L’Énergie Primaire est la somme de toutes les énergies 
+nécessaires à l’obtention d’une unité d’énergie finale. 
+Système de pilotage 
+Le pilotage est un ensemble de dispositifs de mesure, de 
+régulation et de contrôle dans votre logement. Ils permettent 
+de limiter et d'optimiser les consommations d'énergie au sein 
+de votre logement et de réduire ainsi l'empreinte carbone tout 
+en garantissant le confort et le bien-être des usagers. Ces 
+dispositifs associent le pilotage de l'énergie, des protections 
+mobiles, des ouvrants et la détection des risques techniques. 
+Surface de référence (et surface 
+habitable) 
+La surface prise en compte pour l’établissement de l'audit est 
+la surface de référence du bâtiment. Cette surface est la 
+surface habitable du bâtiment, à laquelle il est ajouté les 
+surfaces des vérandas chauffées ainsi que les surfaces des 
+pièces transformées en pièces de vie. 
+La surface habitable d'un logement est la surface de plancher 
+construite, après déduction des surfaces occupées par les 
+murs, cloisons, marches et cages d'escaliers, gaines, 
+embrasures de portes et de fenêtres; le volume habitable 
+correspond au total des surfaces habitables ainsi définies 
+multipliées par les hauteurs sous plafond. 
+Il n'est pas tenu compte de la superficie des combles non 
+aménagés, caves, sous-sols, remises, garages, terrasses, 
+loggias, balcons, séchoirs extérieurs au logement, vérandas 
+non chauffées, volumes vitrés prévus à l'article R.155-1 du 
+code de la construction et de l'habitation, locaux communs et 
+autres dépendances des logements, ni des parties de locaux 
+d'une hauteur inférieure à 1,80 mètre. 
+Label BBC Rénovation 
+Label 
+de 
+performance 
+énergétique 
+de 
+référence 
+en 
+rénovation. Les bâtiments atteignant le niveau BBC ont de 
+faibles besoins énergétiques et émettent peu de gaz à effet de 
+serre. C'est la performance, inscrite dans la loi, que chaque 
+bâtiment doit viser d'ici à 2050. 
+
+
+----- PAGE 36 -----
+
+ 
+ 
+Lexique et définitions 
+Isolation des murs par l'extérieur 
+Dans le but de réduire d'éliminer les déperditions de 
+chaleur, l'isolation des murs par l'extérieur consiste à 
+envelopper le bâtiment d'un procédé d'isolation composé 
+d'un matériau isolant, d'un dispositif de fixation et de 
+protection (pare vapeur, ...) , en veillant à éviter les ponts 
+thermiques (points d'interruption de l'isolation, qui peuvent 
+constituer des points de condensation et de dégradation 
+des parois intérieures du logement). 
+ 
+Isolation rampants de toiture, plafonds 
+de combles 
+L'isolation des rampants sous toiture consiste à insérer un 
+procédé d'isolation composé d'un matériau isolant, d'un 
+dispositif de fixation et de protection (pare vapeur, écran 
+hautement perméable à la vapeur ...) entre les chevrons 
+et/ou au-dessous des chevrons de la toiture. Le but est 
+de supprimer les déperditions de chaleur. 
+ 
+ 
+ 
+Isolation du plancher bas 
+L'isolation des planchers bas peut se faire par le bas ou par 
+le haut, le but est de supprimer les déperditions de chaleur.  
+La première technique est possible lorsque le sol se trouve 
+au-dessus de locaux non chauffées (cave, vide sanitaire …). 
+Dans ce cas, on applique un isolant sur la face inférieure de 
+votre plancher. Dans le deuxième cas, l'isolant est posé sur 
+le plancher sous forme de panneaux rigides et une chappe 
+est coulée par-dessus et servira de base au nouveau 
+revêtement. 
+ 
+Ventilation double flux 
+La VMC double flux permet de renouveler l'air intérieur avec 
+des débits calculés conformément aux besoins de votre 
+logement. Les déperditions de chaleur sont réduits grâce à 
+un échangeur thermique qui récupère la chaleur de l'air 
+existant pour la transférer vers l'air entrant. 
+ 
+ 
+ 
+Chauffe eau thermodynamique 
+Cet équipement permet de produire de l'eau chaude 
+sanitaire pour votre maison , avec un fonctionnement plus 
+économe en énergie que les chauffe-eau traditionnels. Il 
+récupère les calories présentes dans l'air pour réchauffer un 
+liquide caloporteur. Ce fluide restitue ensuite la chaleur 
+collectée au ballon d'eau pour produire de l'eau chaude 
+sanitaire. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Audit énergétique 
+ 
+p.28 
+
+
+----- PAGE 37 -----
+
+Audit énergétique  
+p.29 
+ 
+ 
+Fiche technique du logement 
+Cette fiche technique liste les caractéristiques techniques du bâtiment ou de la partie de bâtiment audité 
+renseignées par l’auditeur pour obtenir les résultats présentés dans la partie état initial de ce document. 
+ 
+Référence du logiciel validé : BATIAUDIT V1.2.16.2 
+Référence de l’audit : [NON EMIS ADEME] 
+Date de visite du bien : 06/06/2025 
+Identifiant fiscal du logement :  
+Référence de la parcelle cadastrale :   
+Méthode de calcul utilisée pour l’établissement de l’audit : 3CL-DPE2021 (Moteur 
+VV2024.6.1.0) 
+Justificatifs fournis pour établir l’audit :  
+ 
+ 
+ 
+ 
+ 
+donnée d’entrée  
+origine de la donnée 
+valeur renseignée 
+ Département 
+ 
+71 
+ Altitude 
+ 
+Donnée en ligne 
+193 m 
+ Type de bâtiment 
+ 
+Observé/Mesuré 
+Maison individuelle 
+ Zone climatique 
+ 
+H1c 
+ Année de construction 
+ 
+Estimé 
+Avant 1948 
+ Surface de référence 
+ 
+Observé/Mesuré 
+220,00 m² 
+ Nombre de niveaux 
+ 
+Observé/Mesuré 
+1,0 
+ Nombre de logement du bâtiment 
+ 
+Observé/Mesuré 
+1 
+ Hauteur moyenne sous plafond 
+ 
+Observé/Mesuré 
+2,50 m 
+
+
+----- PAGE 38 -----
+
+Audit énergétique  
+p.29a 
+ 
+ 
+ 
+  
+donnée entrée  
+origine de la donnée 
+valeur renseignée 
+Mur habitation/garage (int.)  
+surface 
+ 
+Observé/Mesuré 
+21,25 m²  
+type d'adjacence 
+ 
+Observé/Mesuré 
+Locaux non chauffés non accessible  
+état d'isolation des parois du 
+local non chauffé 
+ 
+Observé/Mesuré 
+local chauffé non accessible  
+Umur (saisie directe) 
+ 
+Document Fourni 
+0,990 W/m².K  
+état d'isolation 
+ 
+Observé/Mesuré 
+non isolé  
+Mur pisé extérieur 60cm (ext.)  
+surface 
+ 
+Observé/Mesuré 
+198,78 m²  
+type d'adjacence 
+ 
+Observé/Mesuré 
+Extérieur  
+Umur (saisie directe) 
+ 
+Document Fourni 
+1,069 W/m².K  
+état d'isolation 
+ 
+Observé/Mesuré 
+non isolé  
+ 
+ 
+ 
+  
+donnée entrée  
+origine de la donnée 
+valeur renseignée 
+Plancher sur terre plein (TP)  
+surface 
+ 
+Observé/Mesuré 
+175,00 m²  
+type d'adjacence 
+ 
+Observé/Mesuré 
+Terre-Plein  
+Upb (saisie directe) 
+ 
+Document Fourni 
+0,500 W/m².K  
+état d'isolation 
+ 
+Observé/Mesuré 
+non isolé  
+ 
+ 
+ 
+  
+donnée entrée  
+origine de la donnée 
+valeur renseignée 
+Toiture non isolé  
+surface 
+ 
+Observé/Mesuré 
+274,00 m²  
+type d'adjacence 
+ 
+Observé/Mesuré 
+Extérieur  
+Uph (saisie directe) 
+ 
+Document Fourni 
+2,576 W/m².K  
+état d'isolation 
+ 
+Observé/Mesuré 
+non isolé  
+ 
+ 
+ 
+  
+donnée entrée  
+origine de la donnée 
+valeur renseignée 
+Fenêtre PVC wc Sud (0,50 x0,35)  
+surface 
+ 
+Observé/Mesuré 
+0,18 m²  
+nombre 
+ 
+Observé/Mesuré 
+1,00  
+type de vitrage 
+ 
+Observé/Mesuré 
+Double vitrage  
+épaisseur lame d'air 
+ 
+Observé/Mesuré 
+6,0 mm  
+présence couche peu émissive 
+ 
+Observé/Mesuré 
+non  
+gaz de remplissage 
+ 
+Observé/Mesuré 
+inconnu  
+largeur du dormant 
+ 
+Observé/Mesuré 
+5 cm  
+inclinaison vitrage 
+ 
+Observé/Mesuré 
+Paroi verticale >=75°  
+type menuiserie 
+ 
+Observé/Mesuré 
+PVC  
+type ouverture 
+ 
+Observé/Mesuré 
+Fenêtre battante  
+type volets 
+ 
+Observé/Mesuré 
+Sans volet  
+type de pose 
+ 
+Observé/Mesuré 
+Nu intérieur  
+menuiserie avec joints 
+ 
+Observé/Mesuré 
+non  
+baies Sud-Ouest/Sud/Sud-Est 
+ 
+Observé/Mesuré 
+0,18 m²  
+type de masque proche 
+ 
+Observé/Mesuré 
+absence de masque proche  
+type de masque lointain 
+ 
+Observé/Mesuré 
+absence de masque lointain  
+Fenêtre PVC cuisine Sud (0,70 
+x0,40)  
+surface 
+ 
+Observé/Mesuré 
+0,28 m²  
+nombre 
+ 
+Observé/Mesuré 
+1,00  
+type de vitrage 
+ 
+Observé/Mesuré 
+Double vitrage  
+épaisseur lame d'air 
+ 
+Observé/Mesuré 
+6,0 mm  
+présence couche peu émissive 
+ 
+Observé/Mesuré 
+non  
+gaz de remplissage 
+ 
+Observé/Mesuré 
+inconnu  
+
+
+----- PAGE 39 -----
+
+Audit énergétique  
+p.29b 
+ 
+ 
+largeur du dormant 
+ 
+Observé/Mesuré 
+5 cm  
+inclinaison vitrage 
+ 
+Observé/Mesuré 
+Paroi verticale >=75°  
+type menuiserie 
+ 
+Observé/Mesuré 
+PVC  
+type ouverture 
+ 
+Observé/Mesuré 
+Fenêtre battante  
+type volets 
+ 
+Observé/Mesuré 
+Sans volet  
+type de pose 
+ 
+Observé/Mesuré 
+Nu intérieur  
+menuiserie avec joints 
+ 
+Observé/Mesuré 
+non  
+baies Sud-Ouest/Sud/Sud-Est 
+ 
+Observé/Mesuré 
+0,28 m²  
+type de masque proche 
+ 
+Observé/Mesuré 
+absence de masque proche  
+type de masque lointain 
+ 
+Observé/Mesuré 
+absence de masque lointain  
+Fenetre Bois S-O (0,95 x1,40)  
+surface 
+ 
+Observé/Mesuré 
+1,33 m²  
+nombre 
+ 
+Observé/Mesuré 
+1,00  
+type de vitrage 
+ 
+Observé/Mesuré 
+Double vitrage  
+épaisseur lame d'air 
+ 
+Observé/Mesuré 
+6,0 mm  
+présence couche peu émissive 
+ 
+Observé/Mesuré 
+non  
+gaz de remplissage 
+ 
+Observé/Mesuré 
+inconnu  
+largeur du dormant 
+ 
+Observé/Mesuré 
+5 cm  
+inclinaison vitrage 
+ 
+Observé/Mesuré 
+Paroi verticale >=75°  
+type menuiserie 
+ 
+Observé/Mesuré 
+Bois ou bois métal  
+type ouverture 
+ 
+Observé/Mesuré 
+Fenêtre battante  
+type volets 
+ 
+Observé/Mesuré 
+Sans volet  
+type de pose 
+ 
+Observé/Mesuré 
+Nu intérieur  
+menuiserie avec joints 
+ 
+Observé/Mesuré 
+non  
+baies Ouest 
+ 
+Observé/Mesuré 
+1,33 m²  
+type de masque proche 
+ 
+Observé/Mesuré 
+absence de masque proche  
+type de masque lointain 
+ 
+Observé/Mesuré 
+absence de masque lointain  
+Fenêtre Ch2 PVC S-O (0,95 x0,93)  
+surface 
+ 
+Observé/Mesuré 
+0,88 m²  
+nombre 
+ 
+Observé/Mesuré 
+1,00  
+type de vitrage 
+ 
+Observé/Mesuré 
+Double vitrage  
+épaisseur lame d'air 
+ 
+Observé/Mesuré 
+6,0 mm  
+présence couche peu émissive 
+ 
+Observé/Mesuré 
+non  
+gaz de remplissage 
+ 
+Observé/Mesuré 
+inconnu  
+largeur du dormant 
+ 
+Observé/Mesuré 
+5 cm  
+inclinaison vitrage 
+ 
+Observé/Mesuré 
+Paroi verticale >=75°  
+type menuiserie 
+ 
+Observé/Mesuré 
+PVC  
+type ouverture 
+ 
+Observé/Mesuré 
+Fenêtre battante  
+type volets 
+ 
+Observé/Mesuré 
+Sans volet  
+type de pose 
+ 
+Observé/Mesuré 
+Nu intérieur  
+menuiserie avec joints 
+ 
+Observé/Mesuré 
+non  
+baies Ouest 
+ 
+Observé/Mesuré 
+0,88 m²  
+type de masque proche 
+ 
+Observé/Mesuré 
+absence de masque proche  
+type de masque lointain 
+ 
+Observé/Mesuré 
+absence de masque lointain  
+Porte Fenêtre Ch1 PVC S-O (1,40 
+x2,10)  
+surface 
+ 
+Observé/Mesuré 
+2,94 m²  
+nombre 
+ 
+Observé/Mesuré 
+1,00  
+type de vitrage 
+ 
+Observé/Mesuré 
+Double vitrage  
+épaisseur lame d'air 
+ 
+Observé/Mesuré 
+6,0 mm  
+présence couche peu émissive 
+ 
+Observé/Mesuré 
+non  
+gaz de remplissage 
+ 
+Observé/Mesuré 
+inconnu  
+largeur du dormant 
+ 
+Observé/Mesuré 
+5 cm  
+inclinaison vitrage 
+ 
+Observé/Mesuré 
+Paroi verticale >=75°  
+type menuiserie 
+ 
+Observé/Mesuré 
+PVC  
+type ouverture 
+ 
+Observé/Mesuré 
+Fenêtre battante  
+type volets 
+ 
+Observé/Mesuré 
+Sans volet  
+type de pose 
+ 
+Observé/Mesuré 
+Nu intérieur  
+menuiserie avec joints 
+ 
+Observé/Mesuré 
+non  
+baies Ouest 
+ 
+Observé/Mesuré 
+2,94 m²  
+type de masque proche 
+ 
+Observé/Mesuré 
+absence de masque proche  
+type de masque lointain 
+ 
+Observé/Mesuré 
+absence de masque lointain  
+Baie vitrée Salon N-E (2,40 x2,10)  
+surface 
+ 
+Observé/Mesuré 
+5,04 m²  
+
+
+----- PAGE 40 -----
+
+Audit énergétique  
+p.29c 
+ 
+ 
+nombre 
+ 
+Observé/Mesuré 
+1,00  
+type de vitrage 
+ 
+Observé/Mesuré 
+Double vitrage  
+épaisseur lame d'air 
+ 
+Observé/Mesuré 
+6,0 mm  
+présence couche peu émissive 
+ 
+Observé/Mesuré 
+non  
+gaz de remplissage 
+ 
+Observé/Mesuré 
+inconnu  
+largeur du dormant 
+ 
+Observé/Mesuré 
+5 cm  
+inclinaison vitrage 
+ 
+Observé/Mesuré 
+Paroi verticale >=75°  
+type menuiserie 
+ 
+Observé/Mesuré 
+Métal  
+type ouverture 
+ 
+Observé/Mesuré 
+Fenêtre battante  
+type volets 
+ 
+Observé/Mesuré 
+Sans volet  
+type de pose 
+ 
+Observé/Mesuré 
+Nu intérieur  
+menuiserie avec joints 
+ 
+Observé/Mesuré 
+non  
+baies Est 
+ 
+Observé/Mesuré 
+5,04 m²  
+type de masque proche 
+ 
+Observé/Mesuré 
+absence de masque proche  
+type de masque lointain 
+ 
+Observé/Mesuré 
+absence de masque lointain  
+Porte Fenêtre Ch3 Bois N-E (0,95 
+x2,10)  
+surface 
+ 
+Observé/Mesuré 
+2,00 m²  
+nombre 
+ 
+Observé/Mesuré 
+1,00  
+type de vitrage 
+ 
+Observé/Mesuré 
+Double vitrage  
+épaisseur lame d'air 
+ 
+Observé/Mesuré 
+6,0 mm  
+présence couche peu émissive 
+ 
+Observé/Mesuré 
+non  
+gaz de remplissage 
+ 
+Observé/Mesuré 
+inconnu  
+largeur du dormant 
+ 
+Observé/Mesuré 
+5 cm  
+inclinaison vitrage 
+ 
+Observé/Mesuré 
+Paroi verticale >=75°  
+type menuiserie 
+ 
+Observé/Mesuré 
+Bois ou bois métal  
+type ouverture 
+ 
+Observé/Mesuré 
+Fenêtre battante  
+type volets 
+ 
+Observé/Mesuré 
+Sans volet  
+type de pose 
+ 
+Observé/Mesuré 
+Nu intérieur  
+menuiserie avec joints 
+ 
+Observé/Mesuré 
+non  
+baies Est 
+ 
+Observé/Mesuré 
+2,00 m²  
+type de masque proche 
+ 
+Observé/Mesuré 
+absence de masque proche  
+type de masque lointain 
+ 
+Observé/Mesuré 
+absence de masque lointain  
+Fenêtre Buand PVC N-E (0,95 
+x1,40)  
+surface 
+ 
+Observé/Mesuré 
+1,33 m²  
+nombre 
+ 
+Observé/Mesuré 
+1,00  
+type de vitrage 
+ 
+Observé/Mesuré 
+Double vitrage  
+épaisseur lame d'air 
+ 
+Observé/Mesuré 
+6,0 mm  
+présence couche peu émissive 
+ 
+Observé/Mesuré 
+non  
+gaz de remplissage 
+ 
+Observé/Mesuré 
+inconnu  
+largeur du dormant 
+ 
+Observé/Mesuré 
+5 cm  
+inclinaison vitrage 
+ 
+Observé/Mesuré 
+Paroi verticale >=75°  
+type menuiserie 
+ 
+Observé/Mesuré 
+PVC  
+type ouverture 
+ 
+Observé/Mesuré 
+Fenêtre battante  
+type volets 
+ 
+Observé/Mesuré 
+Sans volet  
+type de pose 
+ 
+Observé/Mesuré 
+Nu intérieur  
+menuiserie avec joints 
+ 
+Observé/Mesuré 
+non  
+baies Est 
+ 
+Observé/Mesuré 
+1,33 m²  
+type de masque proche 
+ 
+Observé/Mesuré 
+absence de masque proche  
+type de masque lointain 
+ 
+Observé/Mesuré 
+absence de masque lointain  
+Fenêtre Ch3 PVC N-E (0,95 x1,40)  
+surface 
+ 
+Observé/Mesuré 
+1,33 m²  
+nombre 
+ 
+Observé/Mesuré 
+1,00  
+type de vitrage 
+ 
+Observé/Mesuré 
+Double vitrage  
+épaisseur lame d'air 
+ 
+Observé/Mesuré 
+6,0 mm  
+présence couche peu émissive 
+ 
+Observé/Mesuré 
+non  
+gaz de remplissage 
+ 
+Observé/Mesuré 
+inconnu  
+largeur du dormant 
+ 
+Observé/Mesuré 
+5 cm  
+inclinaison vitrage 
+ 
+Observé/Mesuré 
+Paroi verticale >=75°  
+type menuiserie 
+ 
+Observé/Mesuré 
+PVC  
+type ouverture 
+ 
+Observé/Mesuré 
+Fenêtre battante  
+type volets 
+ 
+Observé/Mesuré 
+Sans volet  
+type de pose 
+ 
+Observé/Mesuré 
+Nu intérieur  
+
+
+----- PAGE 41 -----
+
+Audit énergétique  
+p.29d 
+ 
+ 
+menuiserie avec joints 
+ 
+Observé/Mesuré 
+non  
+baies Est 
+ 
+Observé/Mesuré 
+1,33 m²  
+type de masque proche 
+ 
+Observé/Mesuré 
+absence de masque proche  
+type de masque lointain 
+ 
+Observé/Mesuré 
+absence de masque lointain  
+ 
+ 
+ 
+  
+donnée entrée  
+origine de la donnée 
+valeur renseignée 
+Porte entrée Sud (0,90 x2,10)  
+surface 
+ 
+Observé/Mesuré 
+1,89  
+nombre 
+ 
+Observé/Mesuré 
+1,00  
+Porte Bois ext ch4 N-E (0,90 x1,70)  
+surface 
+ 
+Observé/Mesuré 
+1,53  
+nombre 
+ 
+Observé/Mesuré 
+1,00  
+ 
+ 
+ 
+  
+donnée entrée  
+origine de la donnée 
+valeur renseignée 
+pont thermique 1  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur extérieur / Plancher bas  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k (saisie directe) 
+ 
+Document Fourni 
+0,34  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+78 m  
+pont thermique 2  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur extérieur / Refend  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k (saisie directe) 
+ 
+Document Fourni 
+0,97  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+8,5 m  
+pont thermique 3  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur / Portes  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k 
+ 
+Valeur par défaut 
+0,38  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+5,1 m  
+largeur du dormant menuiserie 
+ 
+Observé/Mesuré 
+5 cm  
+retour isolation autour 
+menuiserie 
+ 
+Observé/Mesuré 
+non  
+position menuiserie 
+ 
+Observé/Mesuré 
+en nu intérieur  
+pont thermique 4  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur extérieur / Fenêtre et Portes-fenêtre  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k 
+ 
+Valeur par défaut 
+0,38  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+1,7 m  
+largeur du dormant menuiserie 
+ 
+Observé/Mesuré 
+5 cm  
+retour isolation autour 
+menuiserie 
+ 
+Observé/Mesuré 
+non  
+position menuiserie 
+ 
+Observé/Mesuré 
+en nu intérieur  
+pont thermique 5  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur extérieur / Fenêtre et Portes-fenêtre  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k 
+ 
+Valeur par défaut 
+0,38  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+2,2 m  
+largeur du dormant menuiserie 
+ 
+Observé/Mesuré 
+5 cm  
+retour isolation autour 
+menuiserie 
+ 
+Observé/Mesuré 
+non  
+position menuiserie 
+ 
+Observé/Mesuré 
+en nu intérieur  
+pont thermique 6  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur extérieur / Fenêtre et Portes-fenêtre  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k 
+ 
+Valeur par défaut 
+0,38  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+4,7 m  
+largeur du dormant menuiserie 
+ 
+Observé/Mesuré 
+5 cm  
+
+
+----- PAGE 42 -----
+
+Audit énergétique  
+p.29e 
+ 
+ 
+retour isolation autour 
+menuiserie 
+ 
+Observé/Mesuré 
+non  
+position menuiserie 
+ 
+Observé/Mesuré 
+en nu intérieur  
+pont thermique 7  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur extérieur / Fenêtre et Portes-fenêtre  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k 
+ 
+Valeur par défaut 
+0,38  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+3,76 m  
+largeur du dormant menuiserie 
+ 
+Observé/Mesuré 
+5 cm  
+retour isolation autour 
+menuiserie 
+ 
+Observé/Mesuré 
+non  
+position menuiserie 
+ 
+Observé/Mesuré 
+en nu intérieur  
+pont thermique 8  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur extérieur / Fenêtre et Portes-fenêtre  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k 
+ 
+Valeur par défaut 
+0,38  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+7 m  
+largeur du dormant menuiserie 
+ 
+Observé/Mesuré 
+5 cm  
+retour isolation autour 
+menuiserie 
+ 
+Observé/Mesuré 
+non  
+position menuiserie 
+ 
+Observé/Mesuré 
+en nu intérieur  
+pont thermique 9  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur extérieur / Fenêtre et Portes-fenêtre  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k 
+ 
+Valeur par défaut 
+0,38  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+9 m  
+largeur du dormant menuiserie 
+ 
+Observé/Mesuré 
+5 cm  
+retour isolation autour 
+menuiserie 
+ 
+Observé/Mesuré 
+non  
+position menuiserie 
+ 
+Observé/Mesuré 
+en nu intérieur  
+pont thermique 10  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur extérieur / Fenêtre et Portes-fenêtre  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k 
+ 
+Valeur par défaut 
+0,38  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+6,1 m  
+largeur du dormant menuiserie 
+ 
+Observé/Mesuré 
+5 cm  
+retour isolation autour 
+menuiserie 
+ 
+Observé/Mesuré 
+non  
+position menuiserie 
+ 
+Observé/Mesuré 
+en nu intérieur  
+pont thermique 11  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur extérieur / Fenêtre et Portes-fenêtre  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k 
+ 
+Valeur par défaut 
+0,38  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+4,7 m  
+largeur du dormant menuiserie 
+ 
+Observé/Mesuré 
+5 cm  
+retour isolation autour 
+menuiserie 
+ 
+Observé/Mesuré 
+non  
+position menuiserie 
+ 
+Observé/Mesuré 
+en nu intérieur  
+pont thermique 12  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur extérieur / Fenêtre et Portes-fenêtre  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k 
+ 
+Valeur par défaut 
+0,38  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+4,7 m  
+largeur du dormant menuiserie 
+ 
+Observé/Mesuré 
+5 cm  
+retour isolation autour 
+menuiserie 
+ 
+Observé/Mesuré 
+non  
+position menuiserie 
+ 
+Observé/Mesuré 
+en nu intérieur  
+pont thermique 13  
+type de pont thermique 
+ 
+Observé/Mesuré 
+Liaison Mur / Portes  
+type isolation 
+ 
+Observé/Mesuré 
+Non isolé  
+valeur PT k 
+ 
+Valeur par défaut 
+0,38  
+longueur du pont thermique 
+ 
+Observé/Mesuré 
+4,3 m  
+largeur du dormant menuiserie 
+ 
+Observé/Mesuré 
+5 cm  
+retour isolation autour 
+menuiserie 
+ 
+Observé/Mesuré 
+non  
+position menuiserie 
+ 
+Observé/Mesuré 
+en nu intérieur  
+ 
+
+
+----- PAGE 43 -----
+
+Audit énergétique  
+p.29f 
+ 
+ 
+ 
+ 
+ 
+donnée entrée  
+origine de la donnée 
+valeur renseignée 
+Système de ventilation 
+type de ventilation 
+ 
+Observé/Mesuré 
+Ventilation par ouverture des fenêtres  
+façades exposées 
+ 
+Observé/Mesuré 
+Plusieurs façades exposées  
+ 
+
+
+----- PAGE 44 -----
+
+Audit énergétique  
+p.29g 
+ 
+ 
+ 
+ 
+ 
+donnée entrée  
+origine de la donnée 
+valeur renseignée 
+Système de chauffage 1 
+type d'installation de chauffage 
+ 
+Observé/Mesuré 
+installation de chauffage simple  
+type de cascade 
+ 
+Observé/Mesuré 
+Générateur(s) indépendant(s)  
+Type de combustible bois 
+ 
+Observé/Mesuré 
+Sans_objet  
+type d'émetteur 
+ 
+Observé/Mesuré 
+Convecteur électrique Ancien  
+Année d'installation émetteur 
+ 
+Observé/Mesuré 
+2023  
+type de chauffage 
+ 
+Observé/Mesuré 
+chauffage divisé  
+type de régulation 
+ 
+Observé/Mesuré 
+oui  
+Equipement d'intermittence 
+ 
+Observé/Mesuré 
+absent  
+Système de chauffage 2 
+type d'installation de chauffage 
+ 
+Observé/Mesuré 
+installation de chauffage simple  
+type de cascade 
+ 
+Observé/Mesuré 
+Générateur(s) indépendant(s)  
+Type de combustible bois 
+ 
+Observé/Mesuré 
+Bûches  
+type d'émetteur 
+ 
+Observé/Mesuré 
+Cuisinière, foyer fermé, poêle bûche, insert  
+Année d'installation émetteur 
+ 
+Observé/Mesuré 
+1945  
+type de chauffage 
+ 
+Observé/Mesuré 
+chauffage divisé  
+type de régulation 
+ 
+Observé/Mesuré 
+oui  
+Equipement d'intermittence 
+ 
+Observé/Mesuré 
+absent  
+ 
+ 
+ 
+donnée entrée  
+origine de la donnée 
+valeur renseignée 
+Système de production d'eau 
+chaude sanitaire 1 
+Production 
+instantanée/accumulation 
+ 
+Observé/Mesuré 
+A accumulation   
+catégorie de ballon 
+ 
+Observé/Mesuré 
+Chauffe eau vertical autres ou inconnue   
+Type de production 
+ 
+Observé/Mesuré 
+Electrique classique  
+type d'installation 
+ 
+Observé/Mesuré 
+installation ECS individuelle  
+année d'installation 
+ 
+Observé/Mesuré 
+1945  
+volume de stockage 
+ 
+Observé/Mesuré 
+200,00 L  
+pièces alimentées contiguës 
+ 
+Observé/Mesuré 
+Les pièces alimentées en ECS ne sont pas contigues  
+production hors volume 
+habitable 
+ 
+Observé/Mesuré 
+En volume chauffé  
+ 

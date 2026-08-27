@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rapport audit ENERGIA CONSEIL IA® — Accueil</title>
+  <style>
+    :root {
+      --bleu: #0b1f33;
+      --vert: #0f766e;
+      --font: "Segoe UI", Calibri, Helvetica, Arial, sans-serif;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      min-height: 100vh;
+      background: linear-gradient(160deg, #0b1f33 0%, #14324d 45%, #0f3d3a 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .card {
+      max-width: 560px;
+      width: 100%;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 14px;
+      padding: 2rem;
+      backdrop-filter: blur(6px);
+    }
+    h1 { margin: 0 0 .5rem; font-size: 1.55rem; }
+    h1 span { color: #14b8a6; }
+    p { opacity: .9; line-height: 1.5; }
+    .links { display: flex; flex-direction: column; gap: .6rem; margin-top: 1.4rem; }
+    a {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      background: var(--vert);
+      padding: .75rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    a.secondary { background: transparent; border: 1px solid rgba(255,255,255,.35); }
+    .note { font-size: .8rem; opacity: .75; margin-top: 1.2rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>ENERGIA CONSEIL <span>IA®</span></h1>
+    <p>Générateur de rapport d’audit énergétique premium (PDF A4 · ~85 pages).</p>
+    <div class="links">
+      <a href="rapport.html?mode=royer">Ouvrir le rapport ROYER</a>
+      <a href="rapport.html?mode=demo" class="secondary">Mode DEMO (données de démonstration)</a>
+      <a href="parametrage.html" class="secondary">Paramétrage / JSON client</a>
+    </div>
+    <p class="note">Dossier isolé <code>rapport-audit-energia/</code> — ne modifie pas le simulateur, le site ni le kit Damien.<br>Pied de page : Généré par Limova · Pagination Page X / 85</p>
+  </div>
+</body>
+</html>

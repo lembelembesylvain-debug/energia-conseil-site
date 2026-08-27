@@ -1,0 +1,82 @@
+{
+  "generated_at": "2026-07-16T12:08:33",
+  "client": "ROYER Maixent",
+  "reference": "AUDIT-2026-MAIXENT",
+  "dossier": "C:\\Users\\lembe\\energia-conseil-site\\energia-conseil-site",
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "field_status[cee] invalide : excluded",
+      "Scénario optimal : somme des lignes (57971 €) ≠ budget TTC (52000 €) — écart 5971 € — écart autorisé (total devis signé fait foi)",
+      "Scénario excellence : somme travaux (57971) ≠ budget_renovation (52000) — écart autorisé (total devis signé fait foi)"
+    ],
+    "alerts": [
+      "Photos logement : 0/4 — galerie à compléter",
+      "Scénario optimal : somme des lignes (57971 €) ≠ budget TTC (52000 €) — écart 5971 €",
+      "Scénario excellence : somme travaux (57971) ≠ budget_renovation (52000)"
+    ],
+    "field_status": {
+      "nom": "verified",
+      "adresse": "verified",
+      "surface": "verified",
+      "dpe_actuel": "estimated",
+      "profil_anah": "estimated",
+      "budget_travaux": "verified",
+      "mpr": "estimated",
+      "cee": "excluded",
+      "option_photovoltaique": "estimated"
+    },
+    "points_a_valider": [
+      "Écart somme lignes travaux Optimal (57 971 €) vs budget TTC signé (52 000 €) — total signé fait foi",
+      "Photos logement à compléter (0/4)",
+      "Justificatif assurance PDF à déposer dans attestations/",
+      "Document MAR réglementaire non joint — ne pas afficher « recommandations du MAR » comme source réglementaire unique"
+    ]
+  },
+  "documents": {
+    "devis": [],
+    "attestations": [],
+    "photos": []
+  },
+  "donnees_confirmees": [
+    "nom",
+    "adresse",
+    "surface",
+    "budget_travaux"
+  ],
+  "donnees_estimatives": [
+    "dpe_actuel",
+    "profil_anah",
+    "mpr",
+    "option_photovoltaique"
+  ],
+  "donnees_pending": [],
+  "documents_manquants": [
+    "Aucune attestation dans attestations/",
+    "Photos logement < 4"
+  ],
+  "certifications_a_verifier": [
+    "assurance_rc",
+    "certibat",
+    "certification_sylvain (mention JSON)"
+  ],
+  "photos_manquantes": 4,
+  "incoherences_calcul": [],
+  "pages_impactees": [
+    "p.1–3 identité / mentions",
+    "p.11 déperditions",
+    "p.15 avant/après",
+    "p.18–19 photos",
+    "p.22/33/45 scénarios",
+    "p.60 aides",
+    "p.68 récap paiement",
+    "p.82 accompagnement / certifications"
+  ],
+  "points_a_valider": [
+    "Écart somme lignes travaux Optimal (57 971 €) vs budget TTC signé (52 000 €) — total signé fait foi",
+    "Photos logement à compléter (0/4)",
+    "Justificatif assurance PDF à déposer dans attestations/",
+    "Document MAR réglementaire non joint — ne pas afficher « recommandations du MAR » comme source réglementaire unique"
+  ]
+}
