@@ -19,6 +19,11 @@ import {
   type ComparisonState,
   type ValidationState,
 } from "../data/rapportCompletMaisonClyve";
+import {
+  BANDEAU_PROJECTION,
+  LEGENDE_PROJECTION,
+  PAIRES_PROJECTION,
+} from "../data/projectionMaisonClyve";
 
 const MARGIN = 14;
 const PAGE_W = 210;
@@ -34,6 +39,10 @@ function t(value: string): string {
     .replace(/“|”/g, '"')
     .replace(/–|—/g, "-")
     .replace(/€/g, " EUR");
+}
+
+function imageFormat(src: string): "PNG" | "JPEG" {
+  return /\.jpe?g$/i.test(src) ? "JPEG" : "PNG";
 }
 
 async function loadImageDataUrl(src: string): Promise<string | null> {
@@ -191,7 +200,7 @@ export async function generateRapportClyvePdf(input: {
       if (dataUrl) {
         y = ensureSpace(doc, y, 48);
         try {
-          doc.addImage(dataUrl, "PNG", MARGIN, y, 70, 42);
+          doc.addImage(dataUrl, imageFormat(photo.imageSrc), MARGIN, y, 70, 42);
           y += 46;
         } catch {
           y = para(doc, y, "Image avant non integrable dans le PDF.", 8);
@@ -203,7 +212,7 @@ export async function generateRapportClyvePdf(input: {
   }
 
   y = title(doc, y, "11. Galerie photos apres travaux");
-  y = para(doc, y, "Aucune photo apres travaux n'a ete generee. Emplacements a completer manuellement.");
+  y = para(doc, y, "Aucune photo apres travaux n'a ete generee automatiquement. Statut : PHOTO APRES TRAVAUX REELLE A AJOUTER. Emplacements a completer manuellement.");
   const categories = CATEGORIES_PHOTO;
   for (const categorie of categories) {
     const after = input.afterPhotos[categorie];
@@ -212,7 +221,7 @@ export async function generateRapportClyvePdf(input: {
       y,
       after?.dataUrl
         ? `${categorie} : photo deposee manuellement le ${after.datePrise || "date non saisie"} - ${after.description || "sans description"}. Statut : a verifier.`
-        : `${categorie} : Photo apres travaux non disponible - A COMPLETER.`,
+        : `${categorie} : PHOTO APRES TRAVAUX REELLE A AJOUTER.`,
       8,
     );
     if (after?.dataUrl) {
@@ -226,7 +235,47 @@ export async function generateRapportClyvePdf(input: {
     }
   }
 
-  y = title(doc, y, "12. Comparaison avant / apres");
+  y = title(doc, y, "12. Projections illustratives apres travaux");
+  y = para(doc, y, t(BANDEAU_PROJECTION), 8);
+  y = para(doc, y, t(LEGENDE_PROJECTION), 8);
+  for (const paire of PAIRES_PROJECTION) {
+    y = para(doc, y, `${paire.categorie} - ${paire.photoAvantNom} - confiance ${paire.confiance}`, 9);
+    y = para(doc, y, `Travaux representes : ${paire.travauxRepresentes.join(" ; ")}`, 8);
+    y = para(doc, y, `Confirmes : ${paire.elementsConfirmes.join(" ; ")}`, 8);
+    y = para(doc, y, `Estimatifs : ${paire.elementsEstimatifs.join(" ; ")}`, 8);
+    y = para(doc, y, `A valider : ${paire.pointsAValider.join(" ; ")}`, 8);
+    if (paire.noteLimitation) y = para(doc, y, paire.noteLimitation, 8);
+    y = ensureSpace(doc, y, 58);
+    const avant = await loadImageDataUrl(paire.photoAvantSrc);
+    if (avant) {
+      try {
+        doc.addImage(avant, imageFormat(paire.photoAvantSrc), MARGIN, y, 58, 36);
+      } catch {
+        /* ignore */
+      }
+    }
+    doc.setFontSize(6);
+    doc.text("AVANT - PHOTO REELLE", MARGIN, y + 40);
+    let x = MARGIN + 62;
+    for (const version of paire.versions) {
+      const img = await loadImageDataUrl(version.src);
+      if (img) {
+        try {
+          doc.addImage(img, "PNG", x, y, 58, 36);
+        } catch {
+          /* ignore */
+        }
+      }
+      doc.setFontSize(6);
+      doc.text(t(version.statut), x, y + 40, { maxWidth: 58 });
+      x += 62;
+    }
+    y += 48;
+    y = para(doc, y, t(BANDEAU_PROJECTION), 7);
+    y = para(doc, y, t(LEGENDE_PROJECTION), 7);
+  }
+
+  y = title(doc, y, "13. Comparaison avant / apres");
   const avantAvecImage = PHOTOS_AVANT.filter((item) => item.imageSrc);
   for (const photo of avantAvecImage) {
     const cmp = input.comparisons[photo.id];

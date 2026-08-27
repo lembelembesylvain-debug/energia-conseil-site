@@ -14,7 +14,10 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import CarteVisite from "./components/CarteVisite";
 import TestMaisonClyve from "./components/TestMaisonClyve";
+import TestMaisonRoyer from "./components/TestMaisonRoyer";
 import RapportCompletMaisonClyve from "./components/RapportCompletMaisonClyve";
+import PresentationMaisonClyve from "./components/PresentationMaisonClyve";
+import ChiffrageAmpleurModule from "./components/chiffrage/ChiffrageAmpleurModule";
 
 const AdminDashboard = lazy(() => import("./vite-pages/AdminDashboard"));
 const DetailAudit = lazy(() => import("./vite-pages/DetailAudit"));
@@ -1927,6 +1930,18 @@ function isTestMaisonClyveRapportPath(path: string): boolean {
   return path === "/test-maison-clyve/rapport-complet";
 }
 
+function isTestMaisonClyvePresentationPath(path: string): boolean {
+  return path === "/test-maison-clyve/presentation";
+}
+
+function isTestMaisonRoyerPath(path: string): boolean {
+  return path === "/test-maison-royer";
+}
+
+function isChiffragePath(path: string): boolean {
+  return path === "/chiffrage";
+}
+
 function isAdminPath(path: string): boolean {
   return (
     path === "/admin" ||
@@ -2017,8 +2032,20 @@ export default function App() {
     return <RapportCompletMaisonClyve />;
   }
 
+  if (isTestMaisonClyvePresentationPath(pathname)) {
+    return <PresentationMaisonClyve />;
+  }
+
   if (isTestMaisonClyvePath(pathname)) {
     return <TestMaisonClyve />;
+  }
+
+  if (isTestMaisonRoyerPath(pathname)) {
+    return <TestMaisonRoyer />;
+  }
+
+  if (isChiffragePath(pathname)) {
+    return <ChiffrageAmpleurModule />;
   }
 
   if (isAdminPath(pathname)) {

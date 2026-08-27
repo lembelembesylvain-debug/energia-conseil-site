@@ -34,6 +34,8 @@ import {
   type ValidationState,
 } from "../data/rapportCompletMaisonClyve";
 import { generateRapportClyvePdf } from "../lib/generateRapportClyvePdf";
+import ProjectionAvantApresMaisonClyve from "./ProjectionAvantApresMaisonClyve";
+import { BANDEAU_PROJECTION, LEGENDE_PROJECTION, PAIRES_PROJECTION } from "../data/projectionMaisonClyve";
 
 const STATUT_CLASS: Record<StatutRapport, string> = {
   EXTRAIT: "bg-emerald-100 text-emerald-900 border-emerald-300",
@@ -77,11 +79,12 @@ const SECTIONS = [
   ["#phases", "9. Plan d’action"],
   ["#photos-avant", "10. Photos avant"],
   ["#photos-apres", "11. Photos après"],
-  ["#comparaison", "12. Comparaison"],
-  ["#manquantes", "13. Données manquantes"],
-  ["#controles", "14. Contrôles"],
-  ["#validation", "15. Validation"],
-  ["#final", "16. Rapport final"],
+  ["#projections", "12. Projections"],
+  ["#comparaison", "13. Comparaison"],
+  ["#manquantes", "14. Données manquantes"],
+  ["#controles", "15. Contrôles"],
+  ["#validation", "16. Validation"],
+  ["#final", "17. Rapport final"],
 ] as const;
 
 function Badge({ statut }: { statut: StatutRapport }) {
@@ -766,12 +769,17 @@ export default function RapportCompletMaisonClyve() {
             {PHOTOS_AVANT.map((photo) => (
               <article key={photo.id} className="overflow-hidden rounded-xl border">
                 {photo.imageSrc && !brokenImages[photo.id] ? (
-                  <img
-                    src={photo.imageSrc}
-                    alt={photo.nom}
-                    className="h-52 w-full object-cover"
-                    onError={() => setBrokenImages((prev) => ({ ...prev, [photo.id]: true }))}
-                  />
+                  <figure>
+                    <p className="bg-slate-900 px-3 py-1.5 text-center text-[11px] font-semibold uppercase tracking-wide text-white">
+                      AVANT — PHOTO RÉELLE
+                    </p>
+                    <img
+                      src={photo.imageSrc}
+                      alt={photo.nom}
+                      className="h-52 w-full object-cover"
+                      onError={() => setBrokenImages((prev) => ({ ...prev, [photo.id]: true }))}
+                    />
+                  </figure>
                 ) : (
                   <div className="flex h-40 items-center justify-center bg-slate-100 px-3 text-center text-sm text-slate-600">
                     Photo avant non fournie dans le corpus — {photo.categorie}
@@ -816,7 +824,10 @@ export default function RapportCompletMaisonClyve() {
                   )}
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="font-semibold">{categorie}</h3>
-                    <Badge statut="À COMPLÉTER" />
+                    <Badge statut={after?.dataUrl ? "CONFIRMÉ" : "À COMPLÉTER"} />
+                    <span className="rounded-full border border-slate-300 bg-slate-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-slate-800">
+                      {after?.dataUrl ? "APRÈS — PHOTO RÉELLE" : "PHOTO APRÈS TRAVAUX RÉELLE À AJOUTER"}
+                    </span>
                   </div>
                   <div className="mt-2 grid gap-2 text-sm">
                     <label>
@@ -883,32 +894,66 @@ export default function RapportCompletMaisonClyve() {
           </div>
         </Section>
 
-        <Section id="comparaison" number={12} title="Comparaison avant / après">
+        <Section id="projections" number={12} title="Projection visuelle après travaux">
+          <ProjectionAvantApresMaisonClyve afterPhotos={draft.afterPhotos} />
+        </Section>
+
+        <Section id="comparaison" number={13} title="Comparaison avant / après">
+          <p className="text-sm text-slate-700">
+            À gauche : photo réelle. À droite : photo après réelle si elle a été ajoutée, sinon projection illustrative WOW (pas un résultat garanti).
+          </p>
           <div className="grid gap-4">
             {photosAvantAvecImage.map((photo) => {
               const after = draft.afterPhotos[photo.categorie];
               const cmp = draft.comparisons[photo.id];
+              const paire = PAIRES_PROJECTION.find(
+                (item) => item.photoAvantSrc.endsWith(photo.imageSrc?.split("/").pop() ?? "") || item.categoriePhotoApres === photo.categorie,
+              );
+              const projectionWow = paire?.versions.find((item) => item.id === "wow")?.src ?? paire?.projectionSrc;
               return (
                 <article key={photo.id} className="rounded-xl border p-3">
                   <h3 className="font-semibold">{photo.categorie}</h3>
+                  <p className="text-xs text-slate-500">{photo.nom}</p>
                   <div className="mt-2 grid gap-3 md:grid-cols-2">
                     <div>
-                      <p className="text-xs uppercase text-slate-500">Photo avant</p>
-                      <img src={photo.imageSrc} alt={`Avant ${photo.nom}`} className="mt-1 h-44 w-full rounded object-cover" />
+                      <p className="bg-slate-900 px-2 py-1 text-center text-[11px] font-semibold uppercase text-white">
+                        AVANT — PHOTO RÉELLE
+                      </p>
+                      <img src={photo.imageSrc} alt={`Avant ${photo.nom}`} className="h-44 w-full object-cover" />
                       <p className="mt-1 text-xs">Date avant : {photo.date}</p>
                     </div>
                     <div>
-                      <p className="text-xs uppercase text-slate-500">Photo après</p>
                       {after?.dataUrl ? (
-                        <img src={after.dataUrl} alt={`Après ${photo.categorie}`} className="mt-1 h-44 w-full rounded object-cover" />
+                        <>
+                          <p className="bg-emerald-800 px-2 py-1 text-center text-[11px] font-semibold uppercase text-white">
+                            APRÈS — PHOTO RÉELLE
+                          </p>
+                          <img src={after.dataUrl} alt={`Après ${photo.categorie}`} className="h-44 w-full object-cover" />
+                        </>
+                      ) : projectionWow ? (
+                        <>
+                          <p className="bg-amber-500 px-2 py-1 text-center text-[11px] font-semibold uppercase text-slate-950">
+                            APRÈS — PROJECTION ILLUSTRATIVE
+                          </p>
+                          <img src={projectionWow} alt={`Projection ${photo.categorie}`} className="h-44 w-full object-cover" />
+                          <p className="border-t border-amber-200 bg-amber-50 px-2 py-1 text-center text-[10px] font-semibold uppercase text-amber-950">
+                            {BANDEAU_PROJECTION}
+                          </p>
+                          <p className="mt-1 text-[11px] text-slate-600">{LEGENDE_PROJECTION}</p>
+                        </>
                       ) : (
-                        <div className="mt-1 flex h-44 items-center justify-center rounded bg-slate-50 p-3 text-center text-sm text-slate-600">
-                          Photo après travaux non disponible — à compléter après réalisation.
+                        <div className="flex h-44 items-center justify-center rounded bg-slate-50 p-3 text-center text-sm text-slate-600">
+                          PHOTO APRÈS TRAVAUX RÉELLE À AJOUTER — pas de projection pour cette vue.
                         </div>
                       )}
-                      <p className="mt-1 text-xs">Date après : {after?.datePrise || MANQUANT}</p>
+                      <p className="mt-1 text-xs">Date après réelle : {after?.datePrise || MANQUANT}</p>
                     </div>
                   </div>
+                  {after?.dataUrl && projectionWow ? (
+                    <p className="mt-2 text-xs text-slate-500">
+                      Photo réelle après travaux affichée ici. La projection WOW reste dans la section 12, séparément.
+                    </p>
+                  ) : null}
                   <div className="mt-3 grid gap-2 text-sm md:grid-cols-2">
                     <label>
                       Description du changement
@@ -956,7 +1001,7 @@ export default function RapportCompletMaisonClyve() {
           </div>
         </Section>
 
-        <Section id="manquantes" number={13} title="Données manquantes et points à confirmer">
+        <Section id="manquantes" number={14} title="Données manquantes et points à confirmer">
           <h3 className="text-base font-semibold">Données manquantes</h3>
           <ul className="list-disc pl-5 text-sm">
             {DONNEES_MANQUANTES.map((item) => (
@@ -975,7 +1020,7 @@ export default function RapportCompletMaisonClyve() {
           </ul>
         </Section>
 
-        <Section id="controles" number={14} title="Contrôles de cohérence">
+        <Section id="controles" number={15} title="Contrôles de cohérence">
           <div className="space-y-3">
             {CONTROLES.map((item) => (
               <article key={item.titre} className="rounded-xl border p-3">
@@ -989,7 +1034,7 @@ export default function RapportCompletMaisonClyve() {
           </div>
         </Section>
 
-        <Section id="validation" number={15} title="Validation humaine">
+        <Section id="validation" number={16} title="Validation humaine">
           <p className="rounded-xl border border-amber-400 bg-amber-50 px-3 py-2 text-sm font-medium text-amber-950">
             Ce rapport contient des extractions, observations et hypothèses. Il ne constitue pas un audit réglementaire final.
           </p>
@@ -1067,7 +1112,7 @@ export default function RapportCompletMaisonClyve() {
           </div>
         </Section>
 
-        <Section id="final" number={16} title="Préparation du rapport final">
+        <Section id="final" number={17} title="Préparation du rapport final">
           <p className="text-sm">
             Le présent document prépare un rapport final. Il ne le remplace pas. Les éléments suivants restent
             indispensables avant tout audit réglementaire, DPE ou devis ENERGIA.

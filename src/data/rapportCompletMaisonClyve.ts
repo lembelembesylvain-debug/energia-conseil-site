@@ -30,12 +30,13 @@ export type CategoriePhoto =
   | "Pignon"
   | "Toiture"
   | "Sous-face de toiture"
-  | "Murs intérieurs"
+  | "Murs et enduits"
+  | "Combles"
   | "Menuiseries"
   | "Chauffage"
   | "Ventilation"
   | "Tableau électrique"
-  | "Plan"
+  | "Plan intérieur"
   | "Autre";
 
 export const CATEGORIES_PHOTO: CategoriePhoto[] = [
@@ -44,12 +45,13 @@ export const CATEGORIES_PHOTO: CategoriePhoto[] = [
   "Pignon",
   "Toiture",
   "Sous-face de toiture",
-  "Murs intérieurs",
+  "Murs et enduits",
+  "Combles",
   "Menuiseries",
   "Chauffage",
   "Ventilation",
   "Tableau électrique",
-  "Plan",
+  "Plan intérieur",
   "Autre",
 ];
 
@@ -63,7 +65,8 @@ export const AVERTISSEMENTS = [
   "Ce document n’est pas un devis ENERGIA-CONSEIL IA®.",
   "Les montants d’aides, classes DPE, consommations et économies ne sont pas calculés : les données nécessaires sont absentes du corpus.",
   "Chaque information porte un statut (EXTRAIT, À VÉRIFIER, DONNÉE MANQUANTE, INCOHÉRENCE, HYPOTHÈSE). Une observation visuelle n’est pas une certitude technique.",
-  "Les photos « après travaux » ne sont pas générées. Les emplacements restent vides jusqu’à dépôt manuel.",
+  "Les photos « après travaux » réelles ne sont pas générées. Les emplacements restent vides jusqu’à dépôt manuel.",
+  "Des projections illustratives existent (badge sous l’image : PROJECTION ILLUSTRATIVE — APRÈS TRAVAUX — À VALIDER). Elles ne remplacent pas une photo réelle.",
   "Les deux devis toiture (Faivre et Madinier) ne sont pas cumulables.",
 ];
 
@@ -135,9 +138,52 @@ export const PHOTOS_AVANT: PhotoAvant[] = [
     imageSrc: "/test-maison-clyve/pignon.png",
   },
   {
+    id: "pignon-nord",
+    nom: "PIGNON NORD .JPG",
+    categorie: "Pignon",
+    date: MANQUANT,
+    source: "Photo réelle jointe (clients/ANDRIOT_Clyve/images) — original non retouché",
+    description: "Même pignon nord : rive dégradée, enduit taché, végétation, haie au premier plan.",
+    confiance: "moyen",
+    observations: [
+      "Fichier original distinct conservé (basse définition)",
+      "Correspond visuellement à PHOTO-2026-07-28-21-36-39.png",
+    ],
+    statut: "EXTRAIT",
+    imageSrc: "/test-maison-clyve/pignon-nord.jpg",
+  },
+  {
+    id: "pignon-sud",
+    nom: "PIGNON SUD.JPG",
+    categorie: "Pignon",
+    date: MANQUANT,
+    source: "Photo réelle jointe (clients/ANDRIOT_Clyve/images) — original non retouché",
+    description: "Contre-plongée rive / faîtage : tuiles irrégulières, enduit taché, câble apparent.",
+    confiance: "moyen",
+    observations: ["Faîtage irrégulier", "Sous-face d’égout vieillie", "Câble blanc en rive"],
+    statut: "EXTRAIT",
+    imageSrc: "/test-maison-clyve/pignon-sud.jpg",
+  },
+  {
+    id: "toiture-exterieur",
+    nom: "TOITURE EXTERIEUR.jpg",
+    categorie: "Toiture",
+    date: MANQUANT,
+    source: "Photo réelle jointe (vue aérienne basse définition) — original non retouché",
+    description: "Emprise de longère vue du ciel, toiture tuiles, souches visibles.",
+    confiance: "faible",
+    observations: [
+      "Résolution très limitée",
+      "Emprise allongée cohérente avec les façades",
+      "Ne permet pas un diagnostic tuile par tuile",
+    ],
+    statut: "EXTRAIT",
+    imageSrc: "/test-maison-clyve/toiture-exterieur.jpg",
+  },
+  {
     id: "toiture-combles",
     nom: "PHOTO-2026-07-28-21-10-34.png",
-    categorie: "Toiture",
+    categorie: "Combles",
     date: "28/07/2026 (horodatage du nom de fichier)",
     source: "Photo jointe au test local Maison Clyve",
     description: "Combles / étage en travaux : charpente et liteaux exposés, jour traversant.",
@@ -171,7 +217,7 @@ export const PHOTOS_AVANT: PhotoAvant[] = [
   {
     id: "murs-interieurs",
     nom: "PHOTO-2026-07-28-22-05-52.png",
-    categorie: "Murs intérieurs",
+    categorie: "Murs et enduits",
     date: "28/07/2026 (horodatage du nom de fichier)",
     source: "Même cliché que la sous-face — PHOTO-2026-07-28-22-05-52.png",
     description:
@@ -206,7 +252,7 @@ export const PHOTOS_AVANT: PhotoAvant[] = [
   {
     id: "plan",
     nom: "PHOTO-2026-07-28-21-03-21.png",
-    categorie: "Plan",
+    categorie: "Plan intérieur",
     date: "28/07/2026 (horodatage du nom de fichier)",
     source: "Plan d’aménagement meublé joint au test local",
     description:
