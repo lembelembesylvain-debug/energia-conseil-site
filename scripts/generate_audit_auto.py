@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Générateur automatique d'audit énergétique PDF — ENERGIA-CONSEIL IA®
-Produit un document personnalisé de 85 pages à partir d'un dictionnaire client.
+Générateur automatique d'audit énergétique PDF — ENERGIA CONSEIL IA® v15
+Contractant Général · Mandataire Administratif ANAH — 85 pages
 
 Usage:
     python scripts/generate_audit_auto.py
@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import io
+import math
 import re
 import sys
 from datetime import datetime
@@ -27,6 +28,15 @@ from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT, TA_RIGHT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import cm, mm
+from reportlab.graphics.shapes import (
+    Circle,
+    Drawing,
+    Line,
+    Polygon,
+    Rect,
+    String,
+    Wedge,
+)
 from reportlab.platypus import (
     KeepTogether,
     PageBreak,
@@ -46,11 +56,13 @@ TVA_REDUITE = 0.055
 
 C = {
     "primary": colors.HexColor("#0f766e"),
+    "primary_end": colors.HexColor("#10b981"),
     "primary_light": colors.HexColor("#f0fdfa"),
-    "secondary": colors.HexColor("#1e40af"),
+    "secondary": colors.HexColor("#10b981"),
+    "gray_bg": colors.HexColor("#F3F4F6"),
     "text": colors.HexColor("#0f172a"),
     "muted": colors.HexColor("#475569"),
-    "border": colors.HexColor("#e2e8f0"),
+    "border": colors.HexColor("#0f766e"),
     "red": colors.HexColor("#be123c"),
     "green": colors.HexColor("#16a34a"),
     "orange": colors.HexColor("#f97316"),
@@ -64,29 +76,155 @@ C = {
     "legal_bg": colors.HexColor("#fff7ed"),
 }
 
+DPE_COLORS = {
+    "A": colors.HexColor("#00933d"),
+    "B": colors.HexColor("#52ae32"),
+    "C": colors.HexColor("#c8d413"),
+    "D": colors.HexColor("#feed01"),
+    "E": colors.HexColor("#fbba00"),
+    "F": colors.HexColor("#eb8235"),
+    "G": colors.HexColor("#e2001a"),
+}
+
+MPR_TAUX = {"BLEU": 0.80, "JAUNE": 0.60, "VIOLET": 0.45, "ROSE": 0.30}
+MPR_PLAFOND = {"BLEU": 24000, "JAUNE": 18000, "VIOLET": 13500, "ROSE": 3000}
+GENERATOR_VERSION = "27"
+
+SCHEMA_PEDAGO_NOTE = (
+    "Schéma pédagogique indicatif et non contractuel. Les caractéristiques définitives "
+    "sont confirmées par les devis, l'audit réglementaire, les relevés techniques et les entreprises."
+)
+AUDIT_HEADER_LABEL = "AUDIT ÉNERGÉTIQUE IA"
+
+
+def register_brand_fonts() -> Tuple[str, str]:
+    """Enregistre Montserrat / Inter si disponibles, sinon Helvetica."""
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.ttfonts import TTFont
+
+    root = Path(__file__).resolve().parent.parent
+    title_path = root / "assets" / "fonts" / "Montserrat-Bold.ttf"
+    body_path = root / "assets" / "fonts" / "Inter-Regular.ttf"
+    title_font, body_font = "Helvetica-Bold", "Helvetica"
+    try:
+        if title_path.is_file():
+            pdfmetrics.registerFont(TTFont("Montserrat-Bold", str(title_path)))
+            title_font = "Montserrat-Bold"
+        if body_path.is_file():
+            pdfmetrics.registerFont(TTFont("Inter-Regular", str(body_path)))
+            body_font = "Inter-Regular"
+    except Exception:
+        pass
+    return title_font, body_font
+
+
+FONT_TITLE, FONT_BODY = register_brand_fonts()
+
 ENTREPRISE = {
-    "nom": "ENERGIA-CONSEIL IA®",
-    "tagline": "Audit Énergétique Intelligence Artificielle | Marque déposée INPI | Bureau d'études & AMO",
+    "nom": "ENERGIA CONSEIL IA®",
+    "statut": "Contractant Général · Mandataire Administratif ANAH",
+    "tagline": (
+        "Audit Énergétique Intelligence Artificielle | Marque déposée INPI | "
+        "Contractant Général · Mandataire Administratif ANAH"
+    ),
     "adresse": "16 Rue Cuvier, 69006 Lyon",
     "tel": "06 10 59 68 98",
-    "email": "contact@energia-conseil.com",
-    "web": "www.energia-conseil.com",
+    "email": "contact@energia-conseil-ia.com",
+    "web": "www.energia-conseil-ia.com",
     "siret": "94181942700019",
     "rcs": "Lyon 941819427",
     "decennale": "LUNPIB2604975",
 }
 
+HEADER_LABEL = "Contractant Général & Mandataire ANAH"
+
+IDENTITE_LEGALE = (
+    "<b>ENERGIA CONSEIL IA®</b><br/>"
+    "Contractant Général en rénovation énergétique globale<br/>"
+    "Coordination des intervenants travaux — interlocuteur projet côté travaux et suivi client<br/>"
+    "<i>Mandataire administratif uniquement si le mandat correspondant est signé et enregistré.</i>"
+)
+
+POSITIONNEMENT_ENERGIA = (
+    "ENERGIA CONSEIL IA® assure la <b>coordination globale</b> de votre rénovation énergétique "
+    "en qualité de Contractant Général. "
+    "Les aides MaPrimeRénov' sont versées sur votre compte bancaire "
+    "après validation du dossier et réception des travaux."
+)
+
+SYNTHESE_ENCADRE = (
+    "Scénario OPTIMAL ⭐ recommandé — isolation toiture SARKING, menuiseries, PAC air-air, "
+    "ballon thermodynamique. Objectif DPE G → C. "
+    "Les aides MaPrimeRénov' sont versées sur le compte du client ; le reste à charge peut être financé "
+    "via Éco-PTZ (banque) ou UMAFI (8 jours)."
+)
+
+MAR_FRAIS_TEXTE = (
+    "Les frais d'accompagnement MAR (Mandataire Administratif Rénov') s'élèvent à 9 885 € TTC, "
+    "couverts en grande partie par MaPrimeRénov'. Une participation directe de 1 250 € "
+    "a été réglée par le client à la signature du mandat."
+)
+
+ECOPTZ_TEXTE = (
+    "Prêt à Taux Zéro accordé directement par <b>VOTRE BANQUE</b>. "
+    "Délai d'instruction : 2 à 3 mois. "
+    "Idéal si vous n'êtes pas pressé et souhaitez financer votre reste à charge à taux zéro."
+)
+
+UMAFI_BLOC = (
+    "<b>⚡ Besoin de financer rapidement ?</b><br/><br/>"
+    "<b>FABIEN BARRAS — Enseigne UMAFI</b><br/>"
+    "Courtier partenaire indépendant d'ENERGIA CONSEIL IA®<br/>"
+    "Spécialisé en financement de travaux et regroupement de crédits.<br/><br/>"
+    "<b>✅ SOLUTION 1 — PRÊT TRAVAUX SUR DEVIS :</b><br/>"
+    "• De 6 000 € à 75 000 €<br/>"
+    "• Prêt personnel — fonds libres<br/>"
+    "• L'argent sur votre compte en 8 jours<br/>"
+    "• Dossier simplifié : CNI, justif. domicile, RIB, devis, avis d'imposition — c'est tout !<br/><br/>"
+    "<b>✅ SOLUTION 2 — REGROUPEMENT DE CRÉDITS + TRAVAUX :</b><br/>"
+    "• Rachat de vos crédits conso en cours<br/>"
+    "• Intégration du budget travaux<br/>"
+    "• Une seule mensualité lissée sur votre budget<br/>"
+    "• Réalisez vos travaux sans alourdir votre budget<br/><br/>"
+    "📞 06 71 19 96 45 | 📧 contact@umafi.fr | 🌐 umafi.fr | 💬 WhatsApp disponible"
+)
+
+UMAFI_MENTIONS_LEGALES = (
+    "Fabien BARRAS — Enseigne UMAFI — EI — "
+    "870 Route de Permillac, 46800 Montlauzun — SIREN 837 514 942 — RCS Cahors — "
+    "MIOBSP, mandataire Budgetlyss — ORIAS 26 009 255 — "
+    "RC Pro : Everest Insurance — Supervisé ACPR. "
+    "Un crédit vous engage et doit être remboursé. "
+    "Vérifiez vos capacités de remboursement."
+)
+
+RGPD_CONSENT_UMAFI = (
+    "□ J'autorise ENERGIA CONSEIL IA® à collecter et transmettre mes pièces justificatives "
+    "à son partenaire de financement agréé UMAFI dans le cadre exclusif de l'étude de mon dossier."
+)
+
+CONTRACTANT_GENERAL = POSITIONNEMENT_ENERGIA
+
 CONTACTS = (
-    "Sylvain LEMBELEMBE (AMO) 06 10 59 68 98 | "
-    "DAMIEN (Commercial) 06 72 68 09 68 | "
-    "FABIEN (VIVONS COURTIER) 06 71 19 96 45 | "
-    "Julia (Juriste) | MAR Léo-Energy"
+    "Sylvain LEMBELEMBE (Contractant Général) 06 10 59 68 98 | "
+    "Hub Admin (coordination administrative) clyve.a@hub-admin.fr | "
+    "Lionel MFEGUE / LEO ENERGY (Accompagnateur Rénov') | "
+    "Fabien BARRAS (UMAFI) 06 71 19 96 45 | "
+    "DAMIEN (Commercial) 06 72 68 09 68 | Julia (Juriste)"
 )
 
 AIDS_DISCLAIMER = (
     "<b>Aides financières 2026 (estimation à titre indicatif).</b> "
-    "Aides à valider selon revenus réels du client et éligibilité en vigueur. "
-    "Montants définitifs après instruction ANAH et CEE."
+    "Montants estimatifs, soumis aux règles en vigueur, "
+    "à l'éligibilité du dossier et à l'instruction des organismes. "
+    "Montants définitifs après instruction ANAH. "
+    "L'Éco-PTZ et les prêts sont des financements, jamais des aides."
+)
+
+AIDS_MPR_ONLY_NOTE = (
+    "Les aides présentées correspondent uniquement à MaPrimeRénov' Parcours Accompagné. "
+    "Les certificats d'économies d'énergie éventuellement générés par le projet ne constituent "
+    "pas une prime distincte déduite du présent document."
 )
 
 ORDRE_TRAVAUX = (
@@ -134,11 +272,106 @@ client = CLIENT_DEFAULT
 # ─────────────────────────────────────────────────────────────────────────────
 
 
-def format_euro(val: float | int, signed: bool = False) -> str:
-    n = int(round(float(val)))
+def format_euro(val: float | int | None, signed: bool = False) -> str:
+    if val is None or val == "" or val == "À confirmer":
+        return "À confirmer"
+    try:
+        n = int(round(float(val)))
+    except (TypeError, ValueError):
+        return "À confirmer"
     prefix = "+" if signed and n > 0 else ("-" if signed and n < 0 else "")
     body = f"{abs(n):,}".replace(",", " ")
     return f"{prefix}{body} €"
+
+
+def build_mandat_admin_anah(total_aides: float) -> str:
+    amt = format_euro(total_aides)
+    return (
+        "<b>Dossier administratif en cours de constitution.</b><br/><br/>"
+        "ENERGIA CONSEIL IA® assure la coordination du projet côté travaux. "
+        "La gestion administrative du dossier d'aides est coordonnée avec Hub Admin. "
+        f"Les montants d'aides ({amt}) sont <b>estimés à titre indicatif</b> et restent "
+        "soumis à l'enregistrement du dossier, à l'instruction des organismes et aux "
+        "conditions applicables.<br/><br/>"
+        "Avant tout démarrage de travaux, une <b>confirmation écrite</b> du bon "
+        "enregistrement administratif du dossier doit être obtenue."
+    )
+
+
+def build_equipe_roles(_total_aides: float = 24000) -> str:
+    return (
+        "<b>SYLVAIN LEMBELEMBE — ENERGIA CONSEIL IA®</b><br/>"
+        "→ <b>Contractant Général</b> en rénovation énergétique globale : coordination des "
+        "intervenants travaux, interlocuteur projet côté travaux et suivi client.<br/>"
+        "→ <b>Mandataire administratif</b> uniquement si le mandat correspondant est "
+        "effectivement signé et enregistré.<br/><br/>"
+        "<b>Coordination administrative : Hub Admin</b><br/>"
+        "→ Centralisation des documents et suivi administratif.<br/>"
+        "→ Interface administrative avec les intervenants.<br/>"
+        "→ Contact : clyve.a@hub-admin.fr<br/><br/>"
+        "<b>Accompagnateur Rénov' : Lionel MFEGUE / LEO ENERGY</b><br/>"
+        "→ Accompagnateur Rénov' proposé pour le dossier.<br/>"
+        "→ Désignation à finaliser par le client sur MonProjetAnah.<br/>"
+        "→ Une fois sélectionné et mandaté : Accompagnateur Rénov' du dossier.<br/><br/>"
+        "<b>FABIEN BARRAS — UMAFI</b> (Courtier partenaire)<br/>"
+        "→ Courtier spécialisé financement de travaux et regroupement de crédits (MIOBSP/ORIAS).<br/>"
+        "→ Partenariat indépendant avec ENERGIA CONSEIL IA® — 06 71 19 96 45 | umafi.fr"
+    )
+
+
+PARCOURS_ACCOMPAGNE_NOTE = (
+    "<b>Étape préalable au dépôt :</b><br/>"
+    "M. ROYER doit créer son espace personnel MonProjetAnah et y sélectionner "
+    "<b>Lionel MFEGUE / LEO ENERGY</b> comme Accompagnateur Rénov'.<br/><br/>"
+    "Le dépôt de la demande d'aide, les montants définitifs et le démarrage du chantier "
+    "restent conditionnés à la bonne constitution et à l'enregistrement du dossier."
+)
+
+DOSSIER_ADMIN_FLUX_NOTE = (
+    "<b>Dossier administratif en cours de constitution.</b><br/><br/>"
+    "Avant tout démarrage de travaux, une confirmation écrite du bon enregistrement "
+    "du dossier et du respect des conditions applicables doit être obtenue.<br/><br/>"
+    "L'acompte de <b>{acompte}</b> est appelé mais reste en attente de réception, "
+    "dans l'attente de la finalisation du cadre administratif et financier du projet."
+)
+
+
+def build_dossier_admin_flux_note(acompte_30: float) -> str:
+    return DOSSIER_ADMIN_FLUX_NOTE.format(acompte=format_euro(acompte_30))
+
+PARCOURS_ADMIN_HUB = (
+    "<b>Parcours administratif du dossier :</b><br/>"
+    "1. Création de l'espace MonProjetAnah par le client<br/>"
+    "2. Sélection de <b>Lionel MFEGUE / LEO ENERGY</b> comme Accompagnateur Rénov'<br/>"
+    "3. Transmission et contrôle des pièces<br/>"
+    "4. Coordination administrative par Hub Admin<br/>"
+    "5. Constitution de la demande d'aide<br/>"
+    "6. Confirmation écrite avant démarrage des travaux<br/>"
+    "7. Suivi jusqu'aux demandes de paiement"
+)
+
+PLANNING_AVANT_DEMARRAGE = (
+    "Aucun démarrage de travaux ne doit intervenir avant la confirmation écrite "
+    "du bon enregistrement administratif du dossier."
+)
+
+PLANNING_PHASE_1 = (
+    "Création MonProjetAnah, désignation Accompagnateur Rénov', "
+    "constitution dossier, confirmation écrite avant démarrage"
+)
+
+
+def build_flux_financier(budget: float, total_aides: float, reste: float) -> str:
+    return (
+        f"<b>1. Montant total du projet :</b> {format_euro(budget)} TTC<br/>"
+        f"<b>2. Total des aides attendues :</b> {format_euro(total_aides)} "
+        "(MaPrimeRénov' — versement sur votre compte bancaire après instruction ANAH)<br/>"
+        f"<b>3. Reste à charge client :</b> {format_euro(reste)}"
+    )
+
+
+EQUIPE_ROLES = build_equipe_roles(24000)
+MANDAT_FINANCIER_ANAH = build_mandat_admin_anah(24000)
 
 
 def slug_client(nom: str) -> str:
@@ -152,48 +385,163 @@ def pct_reduction(avant: float, apres: float) -> int:
     return int(round((1 - apres / avant) * 100))
 
 
+def calc_cee_auto(surface: int) -> float:
+    return surface * 50 + 3000
+
+
+def calc_mpr_auto(budget: float, profil: str) -> float:
+    taux = MPR_TAUX.get(profil.upper(), 0.60)
+    plafond = MPR_PLAFOND.get(profil.upper(), 18000)
+    return min(budget * taux, plafond)
+
+
+def _num(val: Any, default: float = 0.0) -> float:
+    """Convertit en float ; ne calcule / n'invente rien si absent."""
+    if val is None or val == "" or val == "À confirmer":
+        return float(default)
+    try:
+        return float(val)
+    except (TypeError, ValueError):
+        return float(default)
+
+
+def _nint(val: Any, default: int = 0) -> int:
+    return int(round(_num(val, default)))
+
+
 class ClientContext:
     """Données client + valeurs dérivées pour la génération PDF."""
 
     def __init__(self, raw: dict[str, Any]):
         self.raw = dict(raw)
-        self.nom = raw.get("nom", "Client")
-        self.slug = slug_client(self.nom)
-        self.ref = f"AUDIT-2026-{self.slug}"
+        self.nom = raw.get("nom") or "À confirmer"
+        self.slug = slug_client(self.nom if self.nom != "À confirmer" else "CLIENT")
+        self.ref = raw.get("reference") or f"AUDIT-2026-{self.slug}"
         self.date_str = datetime.now().strftime("%d/%m/%Y")
-        self.surface = int(raw.get("surface", 100))
-        self.budget = float(raw.get("budget_travaux", 80000))
-        self.mpr = float(raw.get("mpr", 0))
-        self.cee = float(raw.get("cee", 0))
-        self.total_aides = self.mpr + self.cee
-        self.reste = float(raw.get("effort_final", self.budget - self.total_aides))
-        self.ecoptz = float(raw.get("ecoptz", min(50000, self.budget)))
-        self.eco_mois = float(raw.get("economies_annuelles", 2000)) / 12
-        self.duree_pret = int(raw.get("duree_pret_mois", 240))
-        self.mensualite = self.ecoptz / self.duree_pret if self.duree_pret else 0
+        self.surface = _nint(raw.get("surface"), 0) or 1  # éviter /0
+        profil_raw = raw.get("profil_anah") or "À confirmer"
+        self.profil = str(profil_raw).upper() if str(profil_raw).upper() in MPR_TAUX else str(profil_raw)
+        self.budget = _num(raw.get("budget_travaux"), 0)
+        travaux_optimal = raw.get("scenarios", {}).get("optimal", {}).get("travaux", []) or []
+        travaux_sum = sum(_num(t.get("cout"), 0) for t in travaux_optimal)
+        self.budget_ht = _num(raw.get("budget_ht"), travaux_sum if travaux_sum else 0)
+        self.tva_montant = _num(raw.get("tva_montant"), max(0, self.budget - self.budget_ht) if self.budget else 0)
+        # Ne jamais inventer MPR/CEE : 0 si absent → affichage à confirmer côté sections
+        self.mpr = _num(raw.get("mpr"), 0)
+        self.cee = _num(raw.get("cee"), 0)
+        self.cee_detail = raw.get("cee_detail") or {}
+        self.total_aides = _num(raw.get("total_aides"), self.mpr + self.cee)
+        self.reste = _num(raw.get("effort_final"), max(0, self.budget - self.total_aides) if self.budget else 0)
+        self.ecoptz = _num(raw.get("ecoptz"), min(50000, self.reste) if self.reste else 0)
+        self.duree_pret = _nint(raw.get("duree_pret_mois"), 180) or 180
+        self.mensualite = _num(raw.get("mensualite_ecoptz"), 0) or (
+            self.ecoptz / self.duree_pret if self.duree_pret and self.ecoptz else 0
+        )
+        self.economies_annuelles = _num(raw.get("economies_annuelles"), 0)
+        self.eco_mois = self.economies_annuelles / 12 if self.economies_annuelles else 0
         self.gain_net_mois = self.eco_mois - self.mensualite
-        self.roi = self.reste / max(float(raw.get("economies_annuelles", 1)), 1)
-        self.facture_avant = float(raw.get("facture_avant", 3000))
-        self.facture_apres = float(raw.get("facture_apres", 800))
-        self.facture_res = float(raw.get("facture_residuelle", self.facture_apres))
-        self.dpe_actuel = raw.get("dpe_actuel", "F")
-        self.dpe_cible = raw.get("dpe_cible", "C")
-        self.profil = raw.get("profil_anah", "BLEU").upper()
+        self.roi = self.reste / max(self.economies_annuelles, 1) if self.economies_annuelles else 0
+        self.facture_avant = _num(raw.get("facture_avant"), 0)
+        self.facture_apres = _num(raw.get("facture_apres"), 0)
+        self.facture_res = _num(raw.get("facture_residuelle"), self.facture_apres)
+        self.dpe_actuel = raw.get("dpe_actuel") or "À confirmer"
+        self.dpe_cible = raw.get("dpe_cible") or "À confirmer"
+        self.conso_avant = _nint(raw.get("conso_avant"), 0)
+        self.conso_apres = _nint(raw.get("conso_apres"), 0)
+        self.co2_avant = _num(raw.get("co2_avant_kg_m2"), _num(raw.get("co2_avant_t"), 0))
+        self.co2_apres = _num(raw.get("co2_apres_kg_m2"), _num(raw.get("co2_apres_t"), 0))
+        self.reduction_conso_pct = _nint(
+            raw.get("reduction_conso_pct"),
+            pct_reduction(self.conso_avant, self.conso_apres) if self.conso_avant else 0,
+        )
+        self.reduction_ges_pct = _nint(
+            raw.get("reduction_ges_pct"),
+            pct_reduction(self.co2_avant, self.co2_apres) if self.co2_avant else 0,
+        )
+        ech = raw.get("echeancier") or {}
+        self.acompte_30 = _num(ech.get("acompte_30"), self.budget * 0.30 if self.budget else 0)
+        self.mi_40 = _num(ech.get("demarrage_40"), self.budget * 0.40 if self.budget else 0)
+        self.reception_30 = _num(ech.get("reception_30"), self.budget * 0.30 if self.budget else 0)
+        self.acompte_verse = bool(ech.get("acompte_30_verse", False))
+        self.mar_participation = _num(raw.get("mar_participation_client"), 0)
+        self.mar_participation_versee = bool(raw.get("mar_participation_versee", False))
+        self.valorisation_pct = _nint(raw.get("valorisation_pct"), 0)
         self.pv = bool(raw.get("option_solaire", False))
-        self.puissance_pv = float(raw.get("puissance_pv", 6))
-        self.production_pv = float(raw.get("production_pv", 10000))
-        self.scenario_confort = float(raw.get("budget_confort", 42000))
-        self.scenario_perf = float(raw.get("budget_performance", 85000))
-        self.acompte_30 = self.budget * 0.30
-        self.mi_40 = self.budget * 0.40
-        self.reception_30 = self.budget * 0.30
-        self.avance_anah = self.mpr * 0.50 if self.profil == "BLEU" else self.mpr * 0.30
+        self.option_pv = raw.get("option_photovoltaique") or {}
+        self.puissance_pv = _num(self.option_pv.get("puissance_kwc"), _num(raw.get("puissance_pv"), 0))
+        self.production_pv = _num(raw.get("production_pv"), 0)
+        self.scenario_recommande = raw.get("scenario_recommande") or "optimal"
+        self.scenarios = self._load_scenarios(raw)
+        self.enveloppe = raw.get("enveloppe") or {}
+        self.points_faibles = raw.get("points_faibles") or []
+        self.artisans = raw.get("artisans") or []
+        self.points_a_valider = list(raw.get("points_a_valider") or [])
+        self.photos_logement = list(raw.get("photos_logement") or [])
+        self.justificatifs = list(raw.get("justificatifs") or [])
+        self.mar_document = raw.get("mar_document") or {"present": False, "status": "pending"}
+        self.titre_document = raw.get("titre_document") or (
+            "Rapport de synthèse énergétique et financière personnalisé"
+        )
+        taux_profil = MPR_TAUX.get(str(self.profil).upper())
+        self.avance_anah = self.mpr * 0.50 if str(self.profil).upper() == "BLEU" else (self.mpr * 0.30 if taux_profil else 0)
         self.avance_ecoptz = self.ecoptz * 0.30
         self.avance_fabien = max(0, self.acompte_30 - self.avance_anah - self.avance_ecoptz)
         self.tresorerie = self.avance_anah + self.avance_ecoptz + self.avance_fabien
-        self.is_pise = "pisé" in raw.get("type_bien", "").lower() or "pise" in raw.get("type_bien", "").lower()
-        self.conso_avant = int(raw.get("conso_avant", 292))
-        self.conso_apres = int(raw.get("conso_apres", 67))
+        self.is_pise = "pisé" in str(raw.get("type_bien", "")).lower() or "pise" in str(raw.get("type_bien", "")).lower()
+        self.tva_economie = self.budget * TVA_REDUITE * 0.15 if self.budget else 0
+
+    def _load_scenarios(self, raw: dict[str, Any]) -> dict[str, Any]:
+        defaults = {
+            "essentiel": {"label": "ESSENTIEL", "badge": "Travaux prioritaires", "budget": 0, "dpe_cible": "À confirmer",
+                          "conso_apres": 0, "economies_annuelles": 0, "travaux": []},
+            "optimal": {"label": "OPTIMAL", "badge": "Recommandé", "budget": self.budget,
+                        "dpe_cible": self.dpe_cible, "conso_apres": self.conso_apres,
+                        "economies_annuelles": self.economies_annuelles, "travaux": []},
+            "excellence": {"label": "EXCELLENCE", "badge": "Option complémentaire", "budget": 0,
+                           "dpe_cible": "À confirmer", "conso_apres": 0, "economies_annuelles": 0, "travaux": []},
+        }
+        custom = raw.get("scenarios") or {}
+        for key in defaults:
+            if key in custom and isinstance(custom[key], dict):
+                defaults[key].update(custom[key])
+            if defaults[key].get("budget") is None:
+                defaults[key]["budget"] = 0
+            for nk in ("conso_apres", "economies_annuelles", "roi"):
+                if defaults[key].get(nk) is None:
+                    defaults[key][nk] = 0
+            aides = defaults[key].get("aides")
+            if isinstance(aides, dict):
+                for ak, av in list(aides.items()):
+                    if av is None:
+                        aides[ak] = 0
+        return defaults
+
+    def aides_scenario(self, scenario_key: str) -> dict[str, float]:
+        sc = self.scenarios[scenario_key]
+        budget = _num(sc.get("budget"), 0)
+        aids_data = sc.get("aides") or {}
+        # Ne jamais inventer d'aides : uniquement JSON ou totaux client déjà renseignés
+        if any(aids_data.get(k) is not None for k in ("mpr", "cee", "total", "reste")):
+            mpr = _num(aids_data.get("mpr"), 0)
+            cee = _num(aids_data.get("cee"), 0)
+            prime_pv = _num(aids_data.get("prime_pv"), 0)
+            tva_pv = _num(aids_data.get("tva_pv"), 0)
+            total = _num(aids_data.get("total"), mpr + cee + prime_pv + tva_pv)
+            reste = _num(aids_data.get("reste"), max(0, budget - total) if budget else 0)
+        elif scenario_key == "optimal" and (self.mpr or self.cee):
+            mpr, cee = self.mpr, self.cee
+            total = mpr + cee
+            reste = max(0, budget - total) if budget else 0
+            prime_pv = tva_pv = 0
+        else:
+            mpr = cee = prime_pv = tva_pv = total = 0
+            reste = budget
+        ecoptz = min(50000, reste) if reste else 0
+        return {
+            "mpr": mpr, "cee": cee, "prime_pv": prime_pv, "tva_pv": tva_pv,
+            "total": total, "reste": reste,
+            "ecoptz": ecoptz, "mensualite": ecoptz / 180 if ecoptz else 0,
+        }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -205,20 +553,20 @@ class StyleFactory:
     def __init__(self):
         base = getSampleStyleSheet()
         self.h1 = ParagraphStyle(
-            "H1", parent=base["Heading1"], fontName="Helvetica-Bold",
+            "H1", parent=base["Heading1"], fontName=FONT_TITLE,
             fontSize=20, textColor=C["primary"], spaceAfter=8, spaceBefore=4,
         )
         self.h2 = ParagraphStyle(
-            "H2", parent=base["Heading2"], fontName="Helvetica-Bold",
+            "H2", parent=base["Heading2"], fontName=FONT_TITLE,
             fontSize=13, textColor=C["text"], spaceAfter=6, spaceBefore=10,
             borderPadding=4, leftIndent=0,
         )
         self.h3 = ParagraphStyle(
-            "H3", parent=base["Normal"], fontName="Helvetica-Bold",
+            "H3", parent=base["Normal"], fontName=FONT_TITLE,
             fontSize=11, textColor=C["secondary"], spaceAfter=4,
         )
         self.body = ParagraphStyle(
-            "Body", parent=base["Normal"], fontName="Helvetica",
+            "Body", parent=base["Normal"], fontName=FONT_BODY,
             fontSize=9.5, textColor=C["text"], alignment=TA_JUSTIFY,
             leading=13, spaceAfter=4,
         )
@@ -262,20 +610,20 @@ class PDFComponents:
 
     def header_block(self, section: str, page: int) -> List[Any]:
         data = [[
-            Paragraph(f"<b>{ENTREPRISE['nom']}</b>", self.s.h3),
-            Paragraph(f"Réf. {self.ctx.ref} | Page {page}/{TOTAL_PAGES}", self.s.muted),
-        ], [
-            Paragraph(section, self.s.header_sub),
-            "",
+            Paragraph(
+                f"<b>{ENTREPRISE['nom']}</b> — {AUDIT_HEADER_LABEL} | Réf. {self.ctx.ref}",
+                self.s.h3,
+            ),
+            Paragraph(f"Réf. {self.ctx.ref}", self.s.muted),
         ]]
         t = Table(data, colWidths=[11 * cm, 6 * cm])
         t.setStyle(TableStyle([
             ("VALIGN", (0, 0), (-1, -1), "TOP"),
             ("ALIGN", (1, 0), (1, 0), "RIGHT"),
-            ("LINEBELOW", (0, 1), (-1, 1), 1.5, C["primary"]),
-            ("BOTTOMPADDING", (0, 1), (-1, 1), 6),
+            ("LINEBELOW", (0, 0), (-1, 0), 1.5, C["primary"]),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
         ]))
-        return [t, self.spacer(0.25)]
+        return [t, self.p(f"<b>{section}</b>", self.s.body_sm), self.spacer(0.15)]
 
     def table(
         self,
@@ -287,16 +635,19 @@ class PDFComponents:
         cw = col_widths or [self.WIDTH / len(rows[0])] * len(rows[0])
         t = Table(rows, colWidths=cw, repeatRows=1 if header else 0)
         style_cmds = [
-            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("FONTNAME", (0, 0), (-1, 0), FONT_TITLE),
             ("FONTSIZE", (0, 0), (-1, -1), 8.5),
-            ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#f8fafc")),
-            ("TEXTCOLOR", (0, 0), (-1, 0), C["muted"]),
-            ("GRID", (0, 0), (-1, -1), 0.4, C["border"]),
+            ("BACKGROUND", (0, 0), (-1, 0), C["primary"]),
+            ("TEXTCOLOR", (0, 0), (-1, 0), C["white"]),
+            ("GRID", (0, 0), (-1, -1), 0.6, C["border"]),
             ("VALIGN", (0, 0), (-1, -1), "TOP"),
             ("TOPPADDING", (0, 0), (-1, -1), 5),
             ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
             ("LEFTPADDING", (0, 0), (-1, -1), 6),
         ]
+        for i in range(1, len(rows)):
+            if i % 2 == 0:
+                style_cmds.append(("BACKGROUND", (0, i), (-1, i), C["green_bg"]))
         if total_row is not None:
             style_cmds += [
                 ("BACKGROUND", (0, total_row), (-1, total_row), C["primary_light"]),
@@ -348,926 +699,368 @@ class PDFComponents:
     def aids_box(self) -> Table:
         return self.box(AIDS_DISCLAIMER, "info")
 
+    def dpe_gauge(self, actuel: str, cible: str) -> Table:
+        letters = ["A", "B", "C", "D", "E", "F", "G"]
+        actuel_ok = actuel if actuel in DPE_COLORS else ""
+        cible_ok = cible if cible in DPE_COLORS else ""
+        cells = []
+        for letter in letters:
+            bg = DPE_COLORS[letter]
+            bold = letter in (actuel_ok, cible_ok) and letter != ""
+            marker = " ◄" if letter == actuel_ok else (" ►" if letter == cible_ok else "")
+            cells.append(Paragraph(
+                f'<para align="center"><b>{letter}{marker}</b></para>' if bold else letter,
+                ParagraphStyle("dpe", parent=self.s.center, fontSize=9,
+                               textColor=C["white"] if bold else C["text"],
+                               fontName=FONT_TITLE if bold else FONT_BODY),
+            ))
+        t = Table([cells], colWidths=[self.WIDTH / 7] * 7)
+        cmds = [("ALIGN", (0, 0), (-1, -1), "CENTER"), ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 6)]
+        for i, letter in enumerate(letters):
+            cmds.append(("BACKGROUND", (i, 0), (i, 0), DPE_COLORS[letter]))
+        t.setStyle(TableStyle(cmds))
+        return t
+
+    def bar_chart(self, items: Sequence[Tuple[str, float, str]]) -> Table:
+        max_val = max(v for _, v, _ in items) or 1
+        rows = [["Poste", "Part", ""]]
+        for label, val, color_hex in items:
+            w = max(1, int(10 * val / max_val))
+            bar = "█" * w
+            rows.append([label, f"{int(val)} €", bar])
+        t = self.table(rows, [5 * cm, 3 * cm, 9 * cm])
+        return t
+
+    def schema_note(self) -> Paragraph:
+        return Paragraph(f"<i>{SCHEMA_PEDAGO_NOTE}</i>", self.s.muted)
+
+    def legend_badges(self, items: Sequence[Tuple[str, str]]) -> Table:
+        """Badges légende compactes : (label, couleur_hex)."""
+        cells = []
+        for label, color_hex in items:
+            cells.append(Paragraph(
+                f'<font color="{color_hex}">●</font> {label}',
+                ParagraphStyle("badge", parent=self.s.body_sm, fontSize=8.5, leading=11),
+            ))
+        ncols = min(3, max(1, len(cells)))
+        rows = [cells[i:i + ncols] for i in range(0, len(cells), ncols)]
+        while rows and len(rows[-1]) < ncols:
+            rows[-1].append("")
+        t = Table(rows, colWidths=[self.WIDTH / ncols] * ncols)
+        t.setStyle(TableStyle([
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("TOPPADDING", (0, 0), (-1, -1), 2),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+            ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#DCFCE7")),
+            ("BOX", (0, 0), (-1, -1), 0.4, C["primary"]),
+        ]))
+        return t
+
+    def pie_chart_deperditions(
+        self,
+        slices: Optional[Sequence[Tuple[str, float, str]]] = None,
+    ) -> Drawing:
+        # Palette monochrome vert ENERGIA — du plus important au moins important
+        data = list(slices or [
+            ("Toiture", 30, "#0F766E"),
+            ("Murs", 25, "#059669"),
+            ("Fenêtres", 15, "#10B981"),
+            ("Plancher bas", 10, "#34D399"),
+            ("Ponts thermiques", 10, "#6EE7B7"),
+            ("Infiltrations d'air", 10, "#DCFCE7"),
+        ])
+        dark_labels = {"Toiture", "Murs"}  # texte blanc sur parts foncées
+        d = Drawing(480, 175)
+        cx, cy, r = 95, 90, 68
+        start = 90
+        for i, (label, pct, hex_c) in enumerate(data):
+            extent = -360 * (pct / 100.0)
+            d.add(Wedge(cx, cy, r, start, start + extent,
+                        fillColor=colors.HexColor(hex_c),
+                        strokeColor=colors.white, strokeWidth=1.5))
+            mid = math.radians(start + extent / 2)
+            lx = cx + (r * 0.58) * math.cos(mid)
+            ly_lab = cy + (r * 0.58) * math.sin(mid)
+            txt_color = colors.white if label in dark_labels else colors.HexColor("#0F766E")
+            d.add(String(lx, ly_lab - 3, f"{int(pct)} %", fontSize=8, fontName="Helvetica-Bold",
+                         fillColor=txt_color, textAnchor="middle"))
+            start += extent
+            if i < 2:
+                d.add(Circle(cx, cy, r + 4, strokeColor=colors.HexColor(hex_c),
+                             strokeWidth=2, fillColor=None))
+        d.add(Circle(cx, cy, 28, fillColor=colors.white, strokeColor=colors.HexColor("#0F766E"), strokeWidth=1))
+        d.add(String(cx, cy - 4, "55 %", fontSize=11, fontName="Helvetica-Bold",
+                     fillColor=colors.HexColor("#0F766E"), textAnchor="middle"))
+        d.add(String(cx, cy - 16, "prio.", fontSize=7, fillColor=colors.HexColor("#0F766E"), textAnchor="middle"))
+        ly = 150
+        for i, (label, pct, hex_c) in enumerate(data):
+            prio = " ★" if i < 2 else ""
+            d.add(Rect(200, ly - 4, 10, 10, fillColor=colors.HexColor(hex_c),
+                       strokeColor=colors.HexColor("#0F766E"), strokeWidth=0.4))
+            d.add(String(216, ly - 2, f"{label} : {int(pct)} %{prio}", fontSize=8.5,
+                         fillColor=colors.HexColor("#0F766E")))
+            ly -= 22
+        return d
+
+    def before_after_bar_chart(
+        self,
+        comparisons: Optional[Sequence[Tuple[str, float, float, str]]] = None,
+    ) -> Drawing:
+        """comparisons: (label, avant, apres, unite)."""
+        comps = list(comparisons or [
+            ("Consommation", 577, 117, "kWhEP/m²/an"),
+            ("Facture", 2985, 535, "€/an"),
+            ("CO₂", 20, 3, "kgCO₂/m²/an"),
+        ])
+        d = Drawing(480, 155)
+        d.add(Rect(0, 0, 480, 155, fillColor=colors.HexColor("#F3F4F6"), strokeColor=None))
+        bar_w = 22
+        gap = 40
+        base_y = 28
+        max_h = 95
+        for i, (label, avant, apres, unit) in enumerate(comps):
+            x0 = 55 + i * 145
+            scale = max_h / max(avant, apres, 1)
+            h_a = max(8, avant * scale)
+            h_b = max(8, apres * scale)
+            d.add(Rect(x0, base_y, bar_w, h_a,
+                       fillColor=colors.HexColor("#f97316"), strokeColor=None))
+            d.add(Rect(x0 + bar_w + 8, base_y, bar_w, h_b,
+                       fillColor=C["primary"], strokeColor=None))
+            d.add(String(x0 + bar_w / 2, base_y + h_a + 4, f"{int(avant)}",
+                         fontSize=7.5, textAnchor="middle", fillColor=colors.HexColor("#9a3412")))
+            d.add(String(x0 + bar_w + 8 + bar_w / 2, base_y + h_b + 4, f"{int(apres)}",
+                         fontSize=7.5, textAnchor="middle", fillColor=C["primary"]))
+            d.add(String(x0 + bar_w + 4, 12, label, fontSize=8, textAnchor="middle",
+                         fillColor=C["text"], fontName="Helvetica-Bold"))
+            d.add(String(x0 + bar_w + 4, 2, unit, fontSize=6.5, textAnchor="middle",
+                         fillColor=C["muted"]))
+        d.add(Rect(360, 125, 10, 10, fillColor=colors.HexColor("#f97316"), strokeColor=None))
+        d.add(String(374, 127, "Avant", fontSize=8, fillColor=C["text"]))
+        d.add(Rect(420, 125, 10, 10, fillColor=C["primary"], strokeColor=None))
+        d.add(String(434, 127, "Après", fontSize=8, fillColor=C["text"]))
+        return d
+
+    def house_scenario_diagram(self, mode: str = "optimal") -> Drawing:
+        """Maison pédagogique : essentiel | optimal | excellence."""
+        d = Drawing(480, 195)
+        d.add(Rect(0, 0, 480, 195, fillColor=colors.HexColor("#F3F4F6"), strokeColor=None))
+        # Sol
+        d.add(Rect(40, 20, 280, 8, fillColor=colors.HexColor("#cbd5e1"), strokeColor=None))
+        # Façade
+        d.add(Rect(80, 28, 180, 90, fillColor=colors.HexColor("#ecfdf5"),
+                   strokeColor=C["primary"], strokeWidth=1.5))
+        # Toiture
+        d.add(Polygon([70, 118, 170, 165, 270, 118],
+                      fillColor=C["primary"] if mode != "essentiel" else colors.HexColor("#94a3b8"),
+                      strokeColor=C["primary"], strokeWidth=1.2))
+        # Porte
+        d.add(Rect(155, 28, 28, 42, fillColor=colors.HexColor("#0f766e"), strokeColor=None))
+        # Fenêtres
+        win_c = C["primary_end"] if mode != "essentiel" else colors.HexColor("#64748b")
+        for wx in (95, 220):
+            d.add(Rect(wx, 70, 32, 28, fillColor=colors.white, strokeColor=win_c, strokeWidth=1.5))
+            d.add(Line(wx + 16, 70, wx + 16, 98, strokeColor=win_c, strokeWidth=0.8))
+            d.add(Line(wx, 84, wx + 32, 84, strokeColor=win_c, strokeWidth=0.8))
+        if mode == "essentiel":
+            d.add(Rect(95, 70, 32, 28, fillColor=colors.HexColor("#DCFCE7"),
+                       strokeColor=C["primary"], strokeWidth=2))
+        # PAC extérieure
+        d.add(Rect(275, 28, 36, 32, fillColor=colors.HexColor("#10b981"),
+                   strokeColor=C["primary"], strokeWidth=1))
+        d.add(String(293, 40, "PAC", fontSize=7, textAnchor="middle", fillColor=colors.white,
+                     fontName="Helvetica-Bold"))
+        # Ballon
+        d.add(Rect(95, 35, 18, 28, fillColor=colors.HexColor("#34d399"), strokeColor=C["primary"]))
+        d.add(String(104, 45, "BT", fontSize=6, textAnchor="middle", fillColor=C["text"]))
+        # Labels
+        d.add(String(170, 175, "Schéma pédagogique — non contractuel", fontSize=7,
+                     textAnchor="middle", fillColor=C["muted"]))
+        if mode in ("optimal", "excellence"):
+            d.add(String(170, 150, "SARKING 78 m²", fontSize=7.5, textAnchor="middle",
+                         fillColor=colors.white, fontName="Helvetica-Bold"))
+            d.add(String(300, 100, "Zinguerie", fontSize=7, fillColor=C["primary"]))
+            d.add(Line(265, 115, 295, 105, strokeColor=C["primary"], strokeWidth=0.8))
+            d.add(String(85, 105, "5 fenêtres", fontSize=7, fillColor=C["primary"]))
+            d.add(String(210, 105, "2 portes", fontSize=7, fillColor=C["primary"]))
+        if mode == "excellence":
+            # Panneaux en pointillés
+            for i in range(6):
+                x = 95 + i * 22
+                d.add(Rect(x, 148, 18, 10, fillColor=colors.HexColor("#bae6fd"),
+                           strokeColor=colors.HexColor("#0284c8"), strokeWidth=0.8,
+                           strokeDashArray=[2, 2]))
+            d.add(String(170, 138, "Option PV 6 kWc (à confirmer)", fontSize=7,
+                         textAnchor="middle", fillColor=colors.HexColor("#0369a1")))
+            d.add(Rect(320, 55, 50, 28, fillColor=colors.HexColor("#e0f2fe"),
+                       strokeColor=colors.HexColor("#0284c8"), strokeWidth=1,
+                       strokeDashArray=[3, 2]))
+            d.add(String(345, 70, "Batterie", fontSize=7, textAnchor="middle",
+                         fillColor=colors.HexColor("#0369a1")))
+            d.add(String(345, 58, "7 kWh", fontSize=7, textAnchor="middle",
+                         fillColor=colors.HexColor("#0369a1")))
+            d.add(Line(260, 155, 320, 80, strokeColor=colors.HexColor("#0284c8"),
+                       strokeWidth=0.9, strokeDashArray=[3, 2]))
+            d.add(String(380, 120, "☀ → logement → batterie", fontSize=7.5,
+                         fillColor=colors.HexColor("#0369a1")))
+        # Légende texte droite
+        legend = {
+            "essentiel": ["Fenêtres prioritaires", "PAC air-air", "Ballon thermo", "Isolation ciblée"],
+            "optimal": ["Toiture SARKING", "Menuiseries", "PAC 3 splits", "Ballon EGEO", "Zinguerie"],
+            "excellence": ["Rénovation optimale", "+ Option PV 6 kWc", "+ Batterie 7 kWh", "Autoconsommation"],
+        }.get(mode, [])
+        ly = 160
+        for txt in legend:
+            d.add(String(370, ly, f"• {txt}", fontSize=8, fillColor=C["text"]))
+            ly -= 16
+        return d
+
+    def gantt_chantier(self) -> Drawing:
+        phases = [
+            ("Constitution dossier", 0, 2),
+            ("Toiture SARKING", 1, 3),
+            ("Zinguerie", 4, 1),
+            ("Menuiseries", 5, 1),
+            ("PAC air-air", 6, 1),
+            ("Ballon thermo", 7, 1),
+            ("Finitions", 8, 1),
+            ("Réception", 9, 1),
+        ]
+        d = Drawing(480, 175)
+        left, top, row_h, col_w = 110, 155, 16, 34
+        d.add(String(240, 165, "Planning prévisionnel S1 → S10", fontSize=9,
+                     textAnchor="middle", fontName="Helvetica-Bold", fillColor=C["primary"]))
+        for i in range(10):
+            x = left + i * col_w
+            d.add(String(x + col_w / 2, top + 8, f"S{i + 1}", fontSize=7,
+                         textAnchor="middle", fillColor=C["muted"]))
+            d.add(Line(x, 18, x, top + 4, strokeColor=colors.HexColor("#e2e8f0"), strokeWidth=0.4))
+        for i, (name, start, dur) in enumerate(phases):
+            y = top - (i + 1) * row_h
+            d.add(String(4, y + 3, name, fontSize=7.5, fillColor=C["text"]))
+            d.add(Rect(left + start * col_w + 2, y + 2, dur * col_w - 4, row_h - 5,
+                       fillColor=C["primary"] if i % 2 == 0 else C["primary_end"],
+                       strokeColor=None))
+        d.add(Rect(left, 15, 10 * col_w, 1, fillColor=C["primary"], strokeColor=None))
+        return d
+
+    def aids_split_bar(
+        self,
+        total: float = 52000,
+        aides: float = 24000,
+        reste: float = 28000,
+        mpr: float = 24000,
+        cee: float = 0,
+    ) -> Drawing:
+        d = Drawing(480, 95)
+        d.add(String(0, 80, f"Total projet : {int(total):,} € TTC".replace(",", " "),
+                     fontSize=9, fontName="Helvetica-Bold", fillColor=C["primary"]))
+        bar_x, bar_y, bar_w, bar_h = 0, 42, 480, 26
+        w_aides = bar_w * (aides / total) if total else 0
+        d.add(Rect(bar_x, bar_y, w_aides, bar_h, fillColor=C["primary"], strokeColor=None))
+        d.add(Rect(bar_x + w_aides, bar_y, bar_w - w_aides, bar_h,
+                   fillColor=colors.HexColor("#1e3a5f"), strokeColor=None))
+        d.add(String(bar_x + 8, bar_y + 8, f"Aides {int(aides):,} €".replace(",", " "),
+                     fontSize=8, fillColor=colors.white, fontName="Helvetica-Bold"))
+        d.add(String(bar_x + w_aides + 8, bar_y + 8, f"RAC {int(reste):,} €".replace(",", " "),
+                     fontSize=8, fillColor=colors.white, fontName="Helvetica-Bold"))
+        d.add(String(0, 22, f"MaPrimeRénov' : {int(mpr):,} €".replace(",", " "),
+                     fontSize=8, fillColor=C["text"]))
+        d.add(String(220, 22, f"Reste à charge net estimé : {int(reste):,} €".replace(",", " "),
+                     fontSize=8, fillColor=C["text"], fontName="Helvetica-Bold"))
+        return d
+
+    def energy_local_flow(self) -> Drawing:
+        """Soleil → PV 6 kWc → logement → batterie 7 kWh."""
+        d = Drawing(480, 90)
+        boxes = [
+            (10, 30, 90, 40, "#fef3c7", "☀ Soleil"),
+            (130, 30, 100, 40, "#bae6fd", "Panneaux 6 kWc"),
+            (260, 30, 90, 40, "#DCFCE7", "Logement"),
+            (380, 30, 90, 40, "#e0f2fe", "Batterie 7 kWh"),
+        ]
+        for x, y, w, h, col, txt in boxes:
+            d.add(Rect(x, y, w, h, fillColor=colors.HexColor(col),
+                       strokeColor=C["primary"], strokeWidth=1))
+            d.add(String(x + w / 2, y + 15, txt, fontSize=8, textAnchor="middle",
+                         fillColor=C["text"], fontName="Helvetica-Bold"))
+        for x in (105, 235, 355):
+            d.add(Line(x, 50, x + 20, 50, strokeColor=C["primary"], strokeWidth=1.5))
+            d.add(String(x + 8, 54, "→", fontSize=10, fillColor=C["primary"]))
+        d.add(String(240, 10, "Autoconsommation prioritaire — valeurs à confirmer par étude solaire",
+                     fontSize=7, textAnchor="middle", fillColor=C["muted"]))
+        return d
+
     def page_footer_note(self) -> Paragraph:
         return Paragraph(
-            f"{ENTREPRISE['nom']} — Décennale MIC Insurance N° {ENTREPRISE['decennale']}",
+            f"{ENTREPRISE['nom']} — {HEADER_LABEL}",
             self.s.muted,
         )
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# PLAN DES 85 PAGES
+# PLAN DES 85 PAGES & BUILDER (module audit_sections)
 # ─────────────────────────────────────────────────────────────────────────────
 
-PAGE_PLAN: List[Tuple[str, str]] = [
-    ("I", "Couverture & synthèse exécutive"),
-    ("I", "Sommaire & stratégie ENERGIA"),
-    ("II", "Fiche client détaillée"),
-    ("II.BIS", "Ponts thermiques — introduction"),
-    ("II.BIS", "Schéma mur / toiture"),
-    ("II.BIS", "Schémas plancher & menuiseries"),
-    ("II", "État des lieux technique — isolation"),
-    ("II", "État des lieux — chauffage & ventilation"),
-    ("I", "Synthèse visuelle & KPI financiers"),
-    ("II.TER", "Bilan carbone — état des lieux"),
-    ("II.TER", "Le tournant écologique"),
-    ("II.TER", "Graphique comparatif GES"),
-    ("II.TER", "Synthèse & valorisation écologique"),
-    ("II.QUATER", "Façades Nord & Sud"),
-    ("II.QUATER", "Façades Est & Ouest"),
-    ("IV", "Catalogue — Isolation combles"),
-    ("IV", "Catalogue — ITI murs pisé"),
-    ("IV", "Catalogue — Plancher bas"),
-    ("IV", "Catalogue — Menuiseries"),
-    ("IV", "Catalogue — VMC hygroréglable"),
-    ("IV", "Catalogue — PAC air/eau"),
-    ("IV", "Catalogue — Ballon thermodynamique"),
-    ("IV", "Catalogue — Dépose fioul"),
-    ("IV", "Catalogue — Coordination AMO"),
-    ("IV", "Fiche technique photovoltaïque"),
-    ("IV", "Deep dive — Bifacialité & albedo"),
-    ("IV", "Deep dive — Sécurité AC vs DC"),
-    ("IV", "Deep dive — Autoconsommation"),
-    ("IV", "Deep dive — Stockage LFP"),
-    ("IV", "Catalogue — Micro-onduleurs Enphase"),
-    ("IV", "Catalogue — Batterie domestique"),
-    ("IV", "Catalogue — Pilotage Enlighten"),
-    ("IV", "Catalogue — Garanties équipements"),
-    ("IV", "Catalogue — Artisans RGE isolation"),
-    ("IV", "Catalogue — Artisans RGE CVC/PV"),
-    ("V", "Les 3 scénarios de rénovation"),
-    ("V", "Scénario 1 — Confort (F→D)"),
-    ("V", "Scénario 1 — Gains thermiques"),
-    ("V", "Scénario 2 — Performance (F→C)"),
-    ("V", "Scénario 2 — Gains & financement"),
-    ("V", "Scénario 3 — Excellence (F→A) ⭐"),
-    ("V", "Scénario 3 — Détail travaux lot par lot"),
-    ("V", "Scénario 3 — Gains thermiques & DPE"),
-    ("V", "Scénario 3 — Option solaire DualSun"),
-    ("V", "Comparatif des 3 scénarios"),
-    ("VI", "Profils MaPrimeRénov' 2026"),
-    ("VI", "Calcul aides — profil client"),
-    ("VI", "CEE & Coup de Pouce 2026"),
-    ("VI", "Écrêtement & plafonds Parcours"),
-    ("VII", "Plan de financement & scénarios démarrage"),
-    ("VII", "Scénario A — Aides maximum"),
-    ("VII", "Scénario B — Démarrage rapide"),
-    ("VII", "Process FABIEN — montant total"),
-    ("VII", "Déblocage 30/40/30 détaillé"),
-    ("VII", "Trésorerie zéro apport"),
-    ("VII", "Projection 30 ans"),
-    ("VII", "Fast-Track démarrage"),
-    ("VIII", "Planning S1-S6"),
-    ("VIII", "Planning S7-S12 & équipe"),
-    ("IX", "Bon pour accord & garanties"),
-    ("X", "Annexe A — Barèmes MPR Parcours 2026 (1/3)"),
-    ("X", "Annexe A — Barèmes MPR geste par geste (2/3)"),
-    ("X", "Annexe A — Seuils revenus IDF / Hors IDF (3/3)"),
-    ("X", "Annexe B — CEE & obligés (1/2)"),
-    ("X", "Annexe B — Fourchettes CEE par poste (2/2)"),
-    ("X", "Annexe C — Éco-PTZ & prêt travaux"),
-    ("X", "Annexe D — Artisans RGE réseau ENERGIA"),
-    ("X", "Annexe E — Certifications & labels"),
-    ("X", "Annexe F — TVA 5,5 % rénovation"),
-    ("X", "Annexe G — Ordre optimal des travaux"),
-    ("X", "Annexe H — Modèle déblocage 30/40/30"),
-    ("X", "Annexe I — Dimensionnements POST-isolation"),
-    ("X", "Annexe I — PAC, VMC, PV — formules"),
-    ("X", "Annexe I — Malus planning & météo"),
-    ("X", "Annexe I — Protections juridiques (12 clauses)"),
-    ("X", "Annexe I — Clause Julia Protection Aides"),
-    ("X", "Annexe I — ROI & projection 20 ans"),
-    ("X", "Annexe I — FAQ rénovation 2026"),
-    ("X", "Annexe I — Glossaire technique"),
-    ("X", "Annexe I — Checklist réception chantier"),
-    ("X", "Annexe I — Schéma déperditions par poste"),
-    ("X", "Annexe I — Comparatif aides vs reste à charge"),
-    ("X", "Annexe I — Prochaines étapes client"),
-    ("XI", "Contacts projet — 5 acteurs"),
-    ("XI", "Mentions légales & confidentialité"),
-]
+from audit_sections import PAGE_PLAN, AuditPageBuilder as _AuditPageBuilderV2  # noqa: E402
 
 assert len(PAGE_PLAN) == TOTAL_PAGES, f"PAGE_PLAN={len(PAGE_PLAN)} ≠ TOTAL_PAGES={TOTAL_PAGES}"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# GÉNÉRATEUR DE CONTENU PAR PAGE
-# ─────────────────────────────────────────────────────────────────────────────
-
-
-class AuditPageBuilder:
-    def __init__(self, ctx: ClientContext):
-        self.ctx = ctx
-        self.s = StyleFactory()
-        self.c = PDFComponents(ctx, self.s)
-
-    def build_page(self, page_num: int) -> List[Any]:
-        section, title = PAGE_PLAN[page_num - 1]
-        dispatch: dict[int, Callable[[], List[Any]]] = {
-            1: self._page_cover,
-            2: self._page_sommaire,
-            3: self._page_fiche_client,
-            9: self._page_synthese_kpi,
-            36: self._page_scenarios_overview,
-            41: self._page_scenario3_detail,
-            44: self._page_solaire,
-            46: self._page_profils_mpr,
-            47: self._page_aides_client,
-            50: self._page_plan_financement,
-            54: self._page_deblocage,
-            55: self._page_tresorerie,
-            58: self._page_planning_s1,
-            60: self._page_bon_accord,
-            84: self._page_contacts,
-            85: self._page_mentions,
-        }
-        if page_num in dispatch:
-            els = dispatch[page_num]()
-        else:
-            els = self._page_generic(page_num, section, title)
-        if page_num == 1:
-            return els
-        return self.c.header_block(f"SECTION {section} — {title.upper()}", page_num) + els
-
-    def _page_cover(self) -> List[Any]:
-        c = self.ctx
-        cover = Table(
-            [[Paragraph(f"<b>{ENTREPRISE['nom']}</b>", self.s.cover_sub)],
-             [Paragraph("AUDIT ÉNERGÉTIQUE", self.s.cover_title)],
-             [Paragraph("RÉNOVATION GLOBALE — EXCELLENCE 2026", self.s.cover_sub)],
-             [Spacer(1, 0.8 * cm)],
-             [Paragraph(f"<b>{c.nom}</b>", self.s.cover_white)],
-             [Paragraph(c.raw.get("adresse", ""), self.s.cover_white)],
-             [Spacer(1, 0.5 * cm)],
-             [Paragraph(
-                 f"Profil MaPrimeRénov' <b>{c.profil}</b> | DPE {c.dpe_actuel} → {c.dpe_cible} | "
-                 f"{c.surface} m² | {c.raw.get('type_bien', '')}",
-                 self.s.cover_white,
-             )],
-             [Spacer(1, 0.6 * cm)],
-             [Paragraph(
-                 f"Budget {format_euro(c.budget)} TTC | Aides {format_euro(c.total_aides)} | "
-                 f"Reste {format_euro(c.reste)} | Gain net {format_euro(c.gain_net_mois, True)}/mois",
-                 self.s.cover_white,
-             )],
-             [Spacer(1, 1 * cm)],
-             [Paragraph(f"Document généré le {c.date_str} — Confidentiel", self.s.cover_white)],
-             [Paragraph(AIDS_DISCLAIMER, ParagraphStyle("d", parent=self.s.cover_white, fontSize=8))],
-            ],
-            colWidths=[17 * cm],
-        )
-        cover.setStyle(TableStyle([
-            ("BACKGROUND", (0, 0), (-1, -1), C["primary"]),
-            ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-            ("TOPPADDING", (0, 0), (-1, -1), 14),
-            ("BOTTOMPADDING", (0, 0), (-1, -1), 14),
-        ]))
-        return [Spacer(1, 2 * cm), cover]
-
-    def _page_sommaire(self) -> List[Any]:
-        c = self.ctx
-        els: List[Any] = [
-            self.c.p("<b>I. Synthèse exécutive</b> — Contexte, chiffres clés, recommandation AMO.", self.s.body),
-            self.c.p("<b>II. Fiche client & diagnostic</b> — État des lieux, pisé, déperditions, ponts thermiques.", self.s.body),
-            self.c.p("<b>III–IV. Catalogue technique</b> — Spécifications postes, ordre optimal, dimensionnements.", self.s.body),
-            self.c.p("<b>V. Scénarios</b> — Confort / Performance / Excellence avec budgets et gains DPE.", self.s.body),
-            self.c.p("<b>VI. Aides 2026</b> — MaPrimeRénov', CEE, plafonds (estimation indicative).", self.s.body),
-            self.c.p("<b>VII. Financement</b> — Plan FABIEN, Éco-PTZ, 30/40/30, trésorerie zéro apport.", self.s.body),
-            self.c.p("<b>VIII. Planning</b> — 12 semaines, malus, équipe 5 acteurs.", self.s.body),
-            self.c.p("<b>IX. Bon pour accord</b> — Choix scénario, garanties, signatures.", self.s.body),
-            self.c.p("<b>X–XI. Annexes & mentions légales</b> — Barèmes 2026, clauses Julia, contacts.", self.s.body),
-            self.c.spacer(0.4),
-            self.c.box(
-                f"<b>Recommandation AMO :</b> Scénario Excellence — budget {format_euro(c.budget)} TTC — "
-                f"objectif DPE <b>{c.dpe_actuel} → {c.dpe_cible}</b>. "
-                f"Économies {format_euro(c.raw.get('economies_annuelles', 0))}/an. "
-                f"ROI {c.roi:.1f} ans. {ORDRE_TRAVAUX}.",
-                "green",
-            ),
-            self.c.spacer(0.3),
-            self.c.aids_box(),
-        ]
-        return els
-
-    def _page_fiche_client(self) -> List[Any]:
-        c = self.ctx
-        rows = [
-            ["Élément", "Valeur"],
-            ["Client", c.nom],
-            ["Email", c.raw.get("email_client", "—")],
-            ["Adresse", c.raw.get("adresse", "—")],
-            ["Type de bien", c.raw.get("type_bien", "—")],
-            ["Surface habitable", f"{c.surface} m²"],
-            ["Année construction", str(c.raw.get("annee_construction", "—"))],
-            ["Zone géographique", c.raw.get("zone_geo", "Hors IDF")],
-            ["Région", c.raw.get("region", "—")],
-            ["Personnes foyer", str(c.raw.get("personnes", "—"))],
-            ["Revenu fiscal (RFR)", format_euro(c.raw.get("revenu_fiscal", 0))],
-            ["Profil MaPrimeRénov'", f"{c.profil} (Parcours Accompagné MAR obligatoire)"],
-            ["DPE actuel / cible", f"{c.dpe_actuel} → {c.dpe_cible}"],
-            ["Facture énergie avant", f"{format_euro(c.facture_avant)}/an"],
-            ["Facture après travaux", f"{format_euro(c.facture_apres)}/an"],
-            ["Interlocuteur commercial", "DAMIEN — 06 72 68 09 68 — damien.srdconseil@gmail.com"],
-        ]
-        return [
-            self.c.p(f"<b>II. Fiche client — {c.nom}</b>", self.s.h1),
-            self.c.table(rows, [5 * cm, 12 * cm], total_row=len(rows) - 1),
-            self.c.spacer(0.3),
-            self.c.box(
-                "<b>⚠️ Règle ANAH :</b> Les travaux ne peuvent démarrer QU'APRÈS validation officielle "
-                "du dossier MaPrimeRénov' par l'ANAH (Scénario A) ou selon protocole Fast-Track avec AR de dépôt.",
-                "warn",
-            ),
-            self.c.p(f"<b>Contacts :</b> {CONTACTS}", self.s.body_sm),
-        ]
-
-    def _page_synthese_kpi(self) -> List[Any]:
-        c = self.ctx
-        return [
-            self.c.p("<b>Synthèse visuelle — Chiffres clés</b>", self.s.h1),
-            self.c.kpi_row([
-                ("BUDGET TTC", format_euro(c.budget)),
-                ("TOTAL AIDES", format_euro(c.total_aides)),
-                ("RESTE À CHARGE", format_euro(c.reste)),
-                ("GAIN NET/MOIS", format_euro(c.gain_net_mois, True)),
-            ]),
-            self.c.spacer(0.3),
-            self.c.kpi_row([
-                ("DPE", f"{c.dpe_actuel} → {c.dpe_cible}"),
-                ("ÉCONOMIES/AN", format_euro(c.raw.get("economies_annuelles", 0))),
-                ("FACTURE APRÈS", format_euro(c.facture_apres)),
-                ("ROI (ANS)", f"{c.roi:.1f}"),
-            ]),
-            self.c.spacer(0.3),
-            self.c.table([
-                ["Indicateur", "Avant", "Après", "Gain"],
-                ["Facture énergie/an", format_euro(c.facture_avant), format_euro(c.facture_apres),
-                 f"-{pct_reduction(c.facture_avant, c.facture_apres)} %"],
-                ["Conso kWhEP/m²/an", str(c.conso_avant), str(c.conso_apres),
-                 f"-{pct_reduction(c.conso_avant, c.conso_apres)} %"],
-                ["Émissions GES (eq.)", "92 kg CO₂/m²/an", "5 kg CO₂/m²/an", "-94 %"],
-            ], [4.5 * cm, 4 * cm, 4 * cm, 4.5 * cm]),
-            self.c.spacer(0.2),
-            self.c.aids_box(),
-        ]
-
-    def _page_scenarios_overview(self) -> List[Any]:
-        c = self.ctx
-        return [
-            self.c.p("<b>V. Les 3 scénarios de rénovation</b>", self.s.h1),
-            self.c.p(
-                f"Trois niveaux d'ambition — <b>{c.nom}</b>, {c.surface} m², "
-                f"{c.raw.get('adresse', '')}. Ordre optimal respecté.",
-                self.s.muted,
-            ),
-            self.c.table([
-                ["Scénario", "Objectif DPE", "Budget TTC", "Facture/an", "Recommandation"],
-                ["1 — Confort", f"{c.dpe_actuel} → D", format_euro(c.scenario_confort), "5 200 €", "Minimal"],
-                ["2 — Performance", f"{c.dpe_actuel} → C", format_euro(c.scenario_perf), "3 100 €", "Intermédiaire"],
-                ["3 — Excellence ⭐", f"{c.dpe_actuel} → {c.dpe_cible}", format_euro(c.budget),
-                 format_euro(c.facture_apres), "AMO — RETENU"],
-            ], [3.2 * cm, 2.8 * cm, 3 * cm, 3 * cm, 5 * cm]),
-            self.c.spacer(0.2),
-            self.c.table([
-                ["Règle", "Application"],
-                ["Ordre optimal", ORDRE_TRAVAUX],
-                ["Pisé" if c.is_pise else "Bâti", "ITI respirante laine de bois — sans pare-vapeur" if c.is_pise else "Matériaux adaptés au bâti existant"],
-                ["Profil ANAH", f"{c.profil} — MAR Léo-Energy obligatoire"],
-            ], [4 * cm, 13 * cm]),
-            self.c.aids_box(),
-        ]
-
-    def _page_scenario3_detail(self) -> List[Any]:
-        c = self.ctx
-        surf = c.surface
-        rows = [
-            ["N°", "Lot", "Spécifications", "TTC"],
-            ["1", "Combles", f"Laine roche soufflée 40 cm R≥7 — {surf} m²", "4 264 €"],
-            ["2", "Plancher", f"PSE 10 cm R≥3 — {surf} m²", "3 500 €"],
-            ["3", "ITI pisé", "Laine bois 14 cm — 260 m² — R≥3,7 respirant", "32 000 €"],
-            ["4", "Menuiseries", "21 ouvrants PVC Uw≤1,3 + porte", "39 300 €"],
-            ["5", "VMC Hygro B", "Post-isolation — centrale + bouches", "2 800 €"],
-            ["6", "PAC air/eau", "12 kW post-isolation — COP≥4,5", "14 500 €"],
-            ["7", "Ballon thermo", "200 L — COP≥3,5", "2 800 €"],
-            ["8", "PV DualSun" if c.pv else "PV (option)", f"{c.puissance_pv:.0f} kWc Enphase — prod. {int(c.production_pv):,} kWh/an".replace(",", " "), "18 000 €" if c.pv else "—"],
-            ["9", "Dépose fioul", "Dégazage cuve + certificat", "3 500 €"],
-            ["10", "MAR + AMO", "Parcours ANAH + coordination 12 sem.", "3 336 €"],
-            ["", "TOTAL", "", format_euro(c.budget)],
-        ]
-        return [
-            self.c.p(f"<b>Scénario 3 — Excellence — {format_euro(c.budget)} TTC</b>", self.s.h1),
-            self.c.table(rows, [1 * cm, 2.5 * cm, 9.5 * cm, 4 * cm], total_row=len(rows) - 1),
-            self.c.box(
-                "<b>🚨 Ordre impératif :</b> Isolation AVANT PAC et VMC. PV en dernier. "
-                "PAC dimensionnée POST-isolation (12 kW pour 164 m² pisé isolé).",
-                "warn",
-            ),
-        ]
-
-    def _page_solaire(self) -> List[Any]:
-        c = self.ctx
-        if not c.pv:
-            return [self.c.p("Option photovoltaïque non retenue pour ce dossier.", self.s.body)]
-        return [
-            self.c.p("<b>Option solaire — Scénario Excellence</b>", self.s.h1),
-            self.c.kpi_row([
-                ("PUISSANCE", f"{c.puissance_pv:.0f} kWc"),
-                ("PRODUCTION/AN", f"{int(c.production_pv):,} kWh".replace(",", " ")),
-                ("ÉCONOMIES PV", format_euro(c.raw.get("economies_solaires", 0))),
-                ("FACTURE RÉSID.", format_euro(c.facture_res)),
-            ]),
-            self.c.spacer(0.2),
-            self.c.p(
-                f"Production région {c.raw.get('region', 'ARA')} : ~1 850 kWh/kWc/an. "
-                f"Autoconsommation cible 85–90 % avec pilotage Enlighten + batterie LFP. "
-                f"Facture résiduelle <b>{format_euro(c.facture_res)}/an</b> (énergie réseau minimale).",
-                self.s.body,
-            ),
-            self.c.box(
-                "Photovoltaïque en <b>dernier poste</b> — après réduction des besoins par isolation et PAC. "
-                "Évite le surdimensionnement et maximise l'autoconsommation.",
-                "blue",
-            ),
-        ]
-
-    def _page_profils_mpr(self) -> List[Any]:
-        c = self.ctx
-        return [
-            self.c.p("<b>VI. Profils MaPrimeRénov' 2026 (Hors IDF)</b>", self.s.h1),
-            self.c.table([
-                ["Profil", "RFR 1 pers.", "Taux Parcours", "Plafond max"],
-                ["Bleu", "< 17 363 €", "80 %", "24 000 €"],
-                ["Jaune", "< 22 259 €", "60 %", "18 000 €"],
-                ["Violet", "< 31 185 €", "45 %", "13 500 €"],
-                ["Rose", "> Violet", "10 %", "3 000 €"],
-            ], [3 * cm, 4 * cm, 4 * cm, 6 * cm]),
-            self.c.spacer(0.2),
-            self.c.box(
-                f"Profil client retenu : <b>{c.profil}</b> — RFR {format_euro(c.raw.get('revenu_fiscal', 0))} — "
-                f"{c.raw.get('personnes', 1)} personne(s). MAR Léo-Energy : 2 000–4 000 € (plafond 2 000 €).",
-                "info" if c.profil == "BLEU" else "warn",
-            ),
-            self.c.aids_box(),
-        ]
-
-    def _page_aides_client(self) -> List[Any]:
-        c = self.ctx
-        rows = [
-            ["Aide", "Montant indicatif"],
-            [f"MaPrimeRénov' Parcours ({c.profil})", format_euro(c.mpr)],
-            ["CEE (fourchette)", format_euro(c.cee)],
-            ["TOTAL AIDES ESTIMÉES", format_euro(c.total_aides)],
-            ["Reste à charge", format_euro(c.reste)],
-        ]
-        return [
-            self.c.p(f"<b>Calcul aides — {c.nom}</b>", self.s.h1),
-            self.c.table(rows, [10 * cm, 7 * cm], total_row=3),
-            self.c.spacer(0.2),
-            self.c.box(
-                "<b>Clause Julia Protection Aides :</b> responsabilité ENERGIA plafonnée à 2 000 € "
-                "en cas d'écart &gt; 10 % imputable à une erreur prouvée d'ENERGIA ; 0 % si erreur client ou ANAH/CEE.",
-                "legal",
-            ),
-            self.c.aids_box(),
-        ]
-
-    def _page_plan_financement(self) -> List[Any]:
-        c = self.ctx
-        return [
-            self.c.p("<b>PLAN DE FINANCEMENT & SCÉNARIOS DE DÉMARRAGE</b>", self.s.h1),
-            self.c.table([
-                ["Critère", "Scénario A — Aides Max", "Scénario B — Rapide"],
-                ["Délai démarrage", "3 à 6 mois", "3 semaines"],
-                ["MaPrimeRénov'", "Oui", "Non"],
-                ["Éco-PTZ", "Oui", "Oui"],
-                ["Prêt FABIEN", "Oui", "Oui"],
-                ["CEE (hors ITE/ITI)", "Oui", "Oui"],
-                ["Financement max", "MPR + 125 000 €", "125 000 €"],
-                ["Reste à charge", "Minimisé", "Plus élevé"],
-                ["Contrainte", "Accord ANAH obligatoire", "Aucune"],
-                ["Idéal pour", "BLEU / JAUNE / VIOLET", "ROSE / Pressé"],
-            ], [4.5 * cm, 6.25 * cm, 6.25 * cm]),
-            self.c.spacer(0.2),
-            self.c.box(
-                "<b>NE JAMAIS SIGNER LES DEVIS DÉFINITIFS AVANT L'ACCORD ÉCRIT DE L'ANAH</b> "
-                "(sinon perte définitive et irrémédiable du MPR). — Avis Julia, Mars 2026.",
-                "legal",
-            ),
-            self.c.p(
-                f"<b>FABIEN — VIVONS COURTIER — 06 71 19 96 45</b> | Éco-PTZ {format_euro(c.ecoptz)} | "
-                f"Prêt travaux jusqu'à 75 000 € | 0 € apport | Acceptation 48–72 h.",
-                self.s.body_sm,
-            ),
-        ]
-
-    def _page_deblocage(self) -> List[Any]:
-        c = self.ctx
-        return [
-            self.c.p("<b>Déblocage progressif 30/40/30</b>", self.s.h1),
-            self.c.p("Validation Sylvain LEMBELEMBE obligatoire avant chaque déblocage 40 % et 30 %.", self.s.muted),
-            self.c.table([
-                ["Échéance", "%", "Montant", "Condition"],
-                ["Signature", "30 %", format_euro(c.acompte_30), "Engagement client + dépôt ANAH"],
-                ["Mi-chantier", "40 %", format_euro(c.mi_40), "Validation Sylvain LEMBELEMBE (AMO)"],
-                ["Réception", "30 %", format_euro(c.reception_30), "PV avec Sylvain + MAR + client"],
-                ["TOTAL", "100 %", format_euro(c.budget), "—"],
-            ], [3.5 * cm, 1.5 * cm, 4 * cm, 8 * cm], total_row=4),
-            self.c.box(
-                f"Exemple reste à charge {format_euro(c.reste)} : "
-                f"30 % = {format_euro(c.reste * 0.30)} | "
-                f"40 % = {format_euro(c.reste * 0.40)} | "
-                f"30 % = {format_euro(c.reste * 0.30)}.",
-                "info",
-            ),
-        ]
-
-    def _page_tresorerie(self) -> List[Any]:
-        c = self.ctx
-        return [
-            self.c.p("<b>Trésorerie « Zéro Apport » — Scénario Excellence</b>", self.s.h1),
-            self.c.table([
-                ["Bloc", "Source", "Montant"],
-                ["1", f"Avance ANAH ({'50' if c.profil == 'BLEU' else '30'} % MPR)", format_euro(c.avance_anah)],
-                ["2", "Avance Éco-PTZ (30 % prêt)", format_euro(c.avance_ecoptz)],
-                ["3", "Acompte prêt FABIEN", format_euro(c.avance_fabien)],
-                ["", "TOTAL TRÉSORERIE", format_euro(c.tresorerie)],
-            ], [1.5 * cm, 9 * cm, 6.5 * cm], total_row=4),
-            self.c.spacer(0.2),
-            self.c.box(
-                f"Acompte artisans 30 % = {format_euro(c.acompte_30)} → "
-                f"{'COUVERT ✅' if c.tresorerie >= c.acompte_30 else 'À compléter'} | "
-                f"Excédent sécurité : {format_euro(max(0, c.tresorerie - c.acompte_30), True)}.",
-                "green" if c.tresorerie >= c.acompte_30 else "warn",
-            ),
-            self.c.p(
-                "FABIEN finance le <b>montant TOTAL</b> des travaux (jusqu'à 75 000 €). "
-                "Client rembourse capital après versement ANAH — mensualités recalculées à la baisse.",
-                self.s.body_sm,
-            ),
-        ]
-
-    def _page_planning_s1(self) -> List[Any]:
-        return [
-            self.c.p("<b>VIII. Planning prévisionnel — Semaines 1 à 6</b>", self.s.h1),
-            self.c.table([
-                ["Sem.", "Phase", "Actions", "Resp."],
-                ["S1", "Préparation admin.", "Dépôt ANAH, commande matériaux", "MAR + Sylvain"],
-                ["S2", "Validation", "Accord ANAH, financement FABIEN, réunion J-7", "Sylvain"],
-                ["S3", "Combles", f"Soufflage laine roche 40 cm — {self.ctx.surface} m²", "RGE Isolation"],
-                ["S4", "Plancher bas", "PSE 10 cm sous plancher", "RGE Isolation"],
-                ["S5", "ITI pisé (1/2)", "Façades Nord + Est — laine bois 14 cm", "2C ENERGIES"],
-                ["S6", "ITI pisé (2/2)", "Façades Sud + Ouest — point mi-chantier Sylvain", "2C ENERGIES"],
-            ], [1.5 * cm, 3.5 * cm, 9 * cm, 3 * cm]),
-            self.c.box(
-                "<b>Malus :</b> ITE Nov–Mars +30–50 % | Juil–Août +20–40 % | "
-                "Coordination &gt;3 corps métier +15–25 % | Budget sécurisé × 1,10–1,15.",
-                "warn",
-            ),
-        ]
-
-    def _page_bon_accord(self) -> List[Any]:
-        c = self.ctx
-        return [
-            self.c.p("<b>IX. Bon pour accord & garanties</b>", self.s.h1),
-            self.c.p(
-                f"Je soussigné(e) <b>{c.nom}</b>, reconnais avoir pris connaissance de l'audit "
-                f"{c.ref} et des scénarios de rénovation.",
-                self.s.body,
-            ),
-            self.c.box(
-                f"☐ Scénario 1 — Confort — {format_euro(c.scenario_confort)} TTC<br/>"
-                f"☐ Scénario 2 — Performance — {format_euro(c.scenario_perf)} TTC<br/>"
-                f"☐ Scénario 3 — Excellence ⭐ — {format_euro(c.budget)} TTC",
-                "warn",
-            ),
-            self.c.spacer(0.3),
-            self.c.p("Fait à _______________, le ___/___/2026", self.s.body),
-            self.c.p("Signature client _________________________", self.s.body),
-            self.c.p("Sylvain LEMBELEMBE — AMO ENERGIA-CONSEIL IA®", self.s.body),
-            self.c.spacer(0.2),
-            self.c.aids_box(),
-        ]
-
-    def _page_contacts(self) -> List[Any]:
-        return [
-            self.c.p("<b>XI. Contacts projet — 5 acteurs</b>", self.s.h1),
-            self.c.table([
-                ["Rôle", "Contact", "Mission"],
-                ["AMO / Coordination", "Sylvain LEMBELEMBE — 06 10 59 68 98 — contact@energia-conseil.com",
-                 "Pilotage, validation 30/40/30, suivi chantier"],
-                ["Commercial", "DAMIEN — 06 72 68 09 68 — damien.srdconseil@gmail.com",
-                 "Premier contact, négociation, signature"],
-                ["Financement", "FABIEN — VIVONS COURTIER — 06 71 19 96 45",
-                 "Éco-PTZ & prêt travaux jusqu'à 75 000 €"],
-                ["Juriste", "Julia — via contact@energia-conseil.com",
-                 "Avis juridique, Clause Protection Aides"],
-                ["MAR", "Léo-Energy (France Rénov')",
-                 "Parcours Accompagné, dépôt ANAH"],
-            ], [3.5 * cm, 7 * cm, 6.5 * cm]),
-        ]
-
-    def _page_mentions(self) -> List[Any]:
-        return [
-            self.c.p("<b>XI. Mentions légales</b>", self.s.h1),
-            self.c.p(
-                f"{ENTREPRISE['nom']} — {ENTREPRISE['adresse']} — "
-                f"SIRET {ENTREPRISE['siret']} — RCS {ENTREPRISE['rcs']} — SASU Capital 100 €.",
-                self.s.body_sm,
-            ),
-            self.c.p(
-                "Document confidentiel — © 2026 ENERGIA-CONSEIL IA® — Tous droits réservés. "
-                "Audit à titre consultatif ; montants d'aides indicatifs ; performances sous réserve "
-                "de réalisation conforme du scénario retenu et du comportement des occupants.",
-                self.s.body_sm,
-            ),
-            self.c.p(
-                "<b>RGPD :</b> Données conservées 5 ans — droits d'accès : contact@energia-conseil.com.",
-                self.s.body_sm,
-            ),
-            self.c.aids_box(),
-            self.c.spacer(0.5),
-            self.c.p(
-                f"<b>{ENTREPRISE['nom']}</b> | {ENTREPRISE['tel']} | {ENTREPRISE['email']} | {ENTREPRISE['web']}",
-                self.s.center,
-            ),
-        ]
-
-    def _catalogue_content(self, page: int) -> List[Any]:
-        """Contenu technique catalogue pages 16–35."""
-        specs = {
-            16: ("Isolation combles perdus", "Laine roche soufflée 400 mm — R≥7 — λ 0,04", f"{self.ctx.surface} m²"),
-            17: ("ITI murs pisé", "Laine de bois 140 mm — R≥3,7 — parement BA13 — sans pare-vapeur", "260 m²"),
-            18: ("Plancher bas", "PSE 100 mm — R≥3 — sous-face accessible", f"{self.ctx.surface} m²"),
-            19: ("Menuiseries PVC", "Double vitrage Uw≤1,3 — Sw≥0,39 — pose dépose", "21 ouvrants"),
-            20: ("VMC hygroréglable B", "Débits cuisine 105 m³/h — SdB 30 m³/h — post-isolation", "1 lot"),
-            21: ("PAC air/eau", f"12 kW POST-isolation — COP≥4,5 — SCOP≥3,5 — zone H1", "1 lot"),
-            22: ("Ballon thermodynamique", "200 L — COP≥3,5 — appoint PAC", "1 u"),
-            23: ("Dépose fioul", "Dégazage cuve — évacuation — certificat — fin subvention fioul", "1 lot"),
-            24: ("Coordination AMO", "2–3 devis/poste — planning — réception — DPE garanti", "12 semaines"),
-            25: ("Photovoltaïque", f"{self.ctx.puissance_pv:.0f} kWc bifacial — Enphase IQ8", f"{int(self.ctx.production_pv):,} kWh/an".replace(",", " ")),
-        }
-        if page in specs:
-            titre, spec, qte = specs[page]
-            return [
-                self.c.p(f"<b>Catalogue technique — {titre}</b>", self.s.h1),
-                self.c.table([
-                    ["Paramètre", "Valeur"],
-                    ["Désignation", titre],
-                    ["Spécifications", spec],
-                    ["Quantité", qte],
-                    ["Ordre séquence", str((page - 15))],
-                    ["Artisan type", "Réseau RGE ENERGIA — sélection Sylvain LEMBELEMBE"],
-                ], [4 * cm, 13 * cm]),
-                self.c.box(f"Poste {page - 15} dans l'ordre optimal ENERGIA 2026. {ORDRE_TRAVAUX}.", "info"),
-            ]
-        deep_dives = {
-            26: "Bifacialité & albedo — gain +5–25 % vs monofacial — toiture claire recommandée.",
-            27: "Sécurité AC vs DC — micro-onduleurs Enphase — coupure automatique par module.",
-            28: "Pilotage Enlighten — autoconsommation 85–90 % — charges décalées.",
-            29: "Chimie LFP vs NMC — durée vie 6000 cycles — sécurité thermique supérieure.",
-            30: "Micro-onduleurs Enphase IQ8 — garantie 25 ans — monitoring temps réel.",
-            31: "Batterie domestique 5–10 kWh — arbitrage autoconsommation / revente.",
-            32: "Application Enlighten — courbes prod/consommation — alertes panne.",
-            33: "Garanties — décennale RGE — constructeur PAC 5–7 ans — PV 25 ans linear.",
-            34: "Artisans isolation — 2C ENERGIES RGE E-E210966 — mise en concurrence 2–3 devis.",
-            35: "Artisans CVC/PV — ECO SYSTÈME DURABLE — Rhône Génie Clim — réseau partenaires.",
-        }
-        if page in deep_dives:
-            return [
-                self.c.p(f"<b>Catalogue — {PAGE_PLAN[page - 1][1]}</b>", self.s.h1),
-                self.c.p(deep_dives[page], self.s.body),
-                self.c.p(
-                    "Validation technique AMO Sylvain LEMBELEMBE avant commande. "
-                    "Photos avant/après obligatoires — anti-margoulins ENERGIA.",
-                    self.s.body_sm,
-                ),
-            ]
-        return []
-
-    def _annexe_content(self, page: int) -> List[Any]:
-        """Annexes X — pages 61–83."""
-        if page == 61:
-            return [
-                self.c.p("<b>Annexe A — MaPrimeRénov' Parcours 2026</b>", self.s.h1),
-                self.c.table([
-                    ["Profil", "Taux", "Plafond 2 classes", "Plafond 3+ classes"],
-                    ["Bleu", "80 %", "24 000 €", "32 000 €"],
-                    ["Jaune", "60 %", "18 000 €", "24 000 €"],
-                    ["Violet", "45 %", "13 500 €", "18 000 €"],
-                    ["Rose", "10 %", "3 000 €", "4 000 €"],
-                ], [3 * cm, 2.5 * cm, 5.75 * cm, 5.75 * cm]),
-                self.c.aids_box(),
-            ]
-        if page == 62:
-            return [
-                self.c.p("<b>Annexe A — Geste par geste (€/unité)</b>", self.s.h1),
-                self.c.table([
-                    ["Geste", "Bleu", "Jaune", "Violet", "Rose"],
-                    ["Combles €/m²", "25", "20", "15", "0"],
-                    ["ITI €/m²", "25", "20", "15", "7"],
-                    ["ITE €/m²", "75", "60", "40", "15"],
-                    ["PAC air-eau", "5 000", "4 000", "3 000", "0"],
-                    ["VMC DF", "4 000", "3 000", "2 000", "0"],
-                ], [3.5 * cm, 3.4 * cm, 3.4 * cm, 3.4 * cm, 3.3 * cm]),
-            ]
-        if page == 63:
-            return [
-                self.c.p("<b>Annexe A — Seuils revenus 2026</b>", self.s.h1),
-                self.c.table([
-                    ["Parts", "Bleu HD", "Jaune HD", "Violet HD"],
-                    ["1", "17 363 €", "22 259 €", "31 185 €"],
-                    ["2", "25 393 €", "32 553 €", "45 842 €"],
-                    ["3", "30 540 €", "39 148 €", "55 196 €"],
-                ], [3 * cm, 4.5 * cm, 4.5 * cm, 5 * cm]),
-                self.c.p("Écrêtement TTC : Bleu 100 % | Jaune/Violet 80 % | Rose 50 %.", self.s.muted),
-            ]
-        if page in (64, 65):
-            topics = {
-                64: ("CEE — principes 2026", "Classiques −30 à −40 % — variation obligés 20–40 %."),
-                65: ("CEE par poste", "Isolation 10–25 €/m² | PAC 2 500–4 000 € | VMC 400–600 € | Coup de pouce 4 700–5 800 €."),
-            }
-            t, d = topics[page]
-            return [self.c.p(f"<b>Annexe B — {t}</b>", self.s.h1), self.c.p(d, self.s.body), self.c.aids_box()]
-        if page == 66:
-            return [
-                self.c.p("<b>Annexe C — Éco-PTZ & prêt travaux</b>", self.s.h1),
-                self.c.table([
-                    ["Type", "Montant max", "Durée", "Taux"],
-                    ["1 action", "15 000 €", "15 ans", "0 %"],
-                    ["2 actions", "25 000 €", "15 ans", "0 %"],
-                    ["Rénovation globale", "50 000 €", "20 ans", "0 %"],
-                    ["Prêt FABIEN", "75 000 €", "10–20 ans", "Négocié"],
-                ], [4 * cm, 4 * cm, 4 * cm, 5 * cm]),
-                self.c.p("Courtier : FABIEN — 06 71 19 96 45 — Acceptation 48–72 h.", self.s.body_sm),
-            ]
-        if page == 67:
-            return [
-                self.c.p("<b>Annexe D — Artisans RGE partenaires</b>", self.s.h1),
-                self.c.table([
-                    ["Poste", "Entreprise", "Certification", "Contact"],
-                    ["ITI / ITE", "2C ENERGIES", "RGE E-E210966", "09 72 57 47 47"],
-                    ["PAC / Ballon", "ECO SYSTÈME DURABLE", "QualiPAC", "01 70 93 97 15"],
-                    ["VMC", "Réseau partenaires", "Qualification VMC", "Sélection Sylvain"],
-                    ["Menuiseries", "Réseau partenaires", "RGE Fenêtres", "2–3 devis/poste"],
-                ], [2.5 * cm, 4.5 * cm, 4 * cm, 6 * cm]),
-            ]
-        if page == 68:
-            return [
-                self.c.p("<b>Annexe E — Certifications</b>", self.s.h1),
-                self.c.p(
-                    "ACERMI / CEKAL isolation — NF PAC — CSTBat — RGE obligatoire pour aides 2026. "
-                    "Marque France Rénov' pour MAR. Audit ENERGIA conforme barèmes ANAH 2026.",
-                    self.s.body,
-                ),
-            ]
-        if page == 69:
-            return [self.c.p("<b>Annexe F — TVA 5,5 %</b>", self.s.h1),
-                    self.c.p("Travaux de rénovation énergétique sur logement &gt; 2 ans — résidence principale — artisans RGE.", self.s.body)]
-        if page == 70:
-            return [self.c.p("<b>Annexe G — Ordre optimal</b>", self.s.h1),
-                    self.c.box(f"<b>Ordre impératif :</b> {ORDRE_TRAVAUX}", "warn")]
-        if page == 71:
-            c = self.ctx
-            return [
-                self.c.p("<b>Annexe H — Déblocage 30/40/30</b>", self.s.h1),
-                self.c.p(
-                    f"30 % signature {format_euro(c.acompte_30)} — "
-                    f"40 % mi-chantier {format_euro(c.mi_40)} (validation Sylvain) — "
-                    f"30 % réception {format_euro(c.reception_30)}.",
-                    self.s.body,
-                ),
-            ]
-        if page in (72, 73):
-            return [
-                self.c.p(f"<b>Annexe I — Dimensionnements ({'PAC/VMC' if page == 73 else 'Isolation'})</b>", self.s.h1),
-                self.c.p(
-                    f"PAC POST-isolation : {self.ctx.surface} m² × 0,04–0,05 kW/m² × 1,15 ≈ 8–12 kW retenu 12 kW. "
-                    f"VMC DF : cuisine 105 m³/h — 3 chambres × 15 m³/h. "
-                    f"PV : {self.ctx.puissance_pv:.0f} kWc — prod. {int(self.ctx.production_pv):,} kWh/an ARA.".replace(",", " "),
-                    self.s.body,
-                ),
-            ]
-        if page == 74:
-            return [self.c.p("<b>Annexe I — Malus planning</b>", self.s.h1),
-                    self.c.p("ITE Nov–Mars +30–50 % | PV hiver +20 % | Juil–Août +20–40 % | Imprévus +10–15 %.", self.s.body)]
-        if page == 75:
-            clauses = [
-                "Planning artisans (pénalités retard)",
-                "Chantier propre obligatoire",
-                "Réserve de propriété",
-                "Pénalités retard paiement",
-                "Assurance DO recommandée &gt; 80 k€",
-                "Révision prix (&gt; 60 j — indice BT01)",
-            ]
-            return [self.c.p("<b>Protections juridiques (extrait)</b>", self.s.h1)] + [
-                self.c.p(f"• {cl}", self.s.body_sm) for cl in clauses
-            ]
-        if page == 76:
-            return [self.c.p("<b>Clause Julia Protection Aides</b>", self.s.h1),
-                    self.c.box("Plafond responsabilité ENERGIA : 2 000 € par projet si erreur prouvée et écart &gt; 10 %.", "legal")]
-        if page == 77:
-            c = self.ctx
-            eco = float(c.raw.get("economies_annuelles", 0))
-            return [
-                self.c.p("<b>ROI & projection 20 ans</b>", self.s.h1),
-                self.c.p(f"ROI = {format_euro(c.reste)} / {format_euro(eco)}/an = <b>{c.roi:.1f} ans</b>.", self.s.body),
-                self.c.p(f"Gain net 20 ans (post-prêt) ≈ {format_euro(eco * 20 - c.reste, True)} hors plus-value immobilière.", self.s.body),
-            ]
-        if page == 78:
-            faqs = [
-                ("Quand démarrer les travaux ?", "Après accord ANAH (Scénario A) ou AR dépôt (Fast-Track)."),
-                ("ITI seule éligible MPR ?", "Non — ITI en geste isolé exclu MPR 2026 — Parcours global requis."),
-                ("PAC avant isolation ?", "Interdit — surcoût 4 000–6 000 € — dimensionnement post-isolation."),
-            ]
-            return [self.c.p("<b>FAQ rénovation 2026</b>", self.s.h1)] + [
-                self.c.p(f"<b>Q :</b> {q}<br/><b>R :</b> {a}", self.s.body_sm) for q, a in faqs
-            ]
-        if page == 79:
-            return [
-                self.c.p("<b>Glossaire</b>", self.s.h1),
-                self.c.p("<b>DPE</b> — Diagnostic Performance Énergétique | <b>MPR</b> — MaPrimeRénov' | "
-                         "<b>CEE</b> — Certificats Économie Énergie | <b>MAR</b> — Mon Accompagnateur Rénov' | "
-                         "<b>ITI/ITE</b> — Isolation thermique intérieure/extérieure | <b>COP</b> — Coefficient performance.", self.s.body_sm),
-            ]
-        if page == 80:
-            return [
-                self.c.p("<b>Checklist réception chantier</b>", self.s.h1),
-                self.c.p(
-                    "☐ Photos avant/après par poste · ☐ PV contradictoire signé · "
-                    "☐ Ordre travaux respecté · ☐ DPE post-travaux commandé · "
-                    "☐ Dossier paiement ANAH MAR · ☐ Validation Sylvain mi-chantier et réception.",
-                    self.s.body,
-                ),
-            ]
-        if page == 81:
-            c = self.ctx
-            return [
-                self.c.p("<b>Schéma déperditions par poste</b>", self.s.h1),
-                self.c.table([
-                    ["Poste", "Part déperditions", "Priorité"],
-                    ["Combles", "25–30 %", "1 — Combles"],
-                    ["Murs", "20–25 %", "2 — ITI pisé"],
-                    ["Fenêtres", "10–15 %", "4 — Menuiseries"],
-                    ["Plancher", "7–10 %", "3 — Plancher"],
-                    ["Ventilation", "15–20 %", "5 — VMC"],
-                ], [4 * cm, 4 * cm, 9 * cm]),
-                self.c.p(f"Surface {c.surface} m² — ordre optimal ENERGIA appliqué au scénario Excellence.", self.s.muted),
-            ]
-        if page == 82:
-            c = self.ctx
-            return [
-                self.c.p("<b>Comparatif aides vs reste à charge</b>", self.s.h1),
-                self.c.table([
-                    ["Scénario", "Budget TTC", "Aides indic.", "Reste"],
-                    ["Confort", format_euro(c.scenario_confort), "21 200 €", format_euro(c.scenario_confort - 21200)],
-                    ["Performance", format_euro(c.scenario_perf), format_euro(c.total_aides), format_euro(c.scenario_perf - c.total_aides)],
-                    ["Excellence ⭐", format_euro(c.budget), format_euro(c.total_aides), format_euro(c.reste)],
-                ], [3.5 * cm, 4 * cm, 4 * cm, 5.5 * cm]),
-                self.c.aids_box(),
-            ]
-        if page == 83:
-            return [
-                self.c.p("<b>Prochaines étapes client</b>", self.s.h1),
-                self.c.p("1. Choix scénario avec DAMIEN · 2. Dépôt dossier MAR Léo-Energy · "
-                         "3. Montage financement FABIEN · 4. Validation ANAH · "
-                         "5. Signature devis RGE · 6. Démarrage travaux S3 · 7. Réception S12.", self.s.body),
-                self.c.p(f"<b>Contacts :</b> {CONTACTS}", self.s.body_sm),
-            ]
-        return []
-
-    def _page_generic(self, page: int, section: str, title: str) -> List[Any]:
-        c = self.ctx
-        if 16 <= page <= 35:
-            content = self._catalogue_content(page)
-            if content:
-                return content
-        if 61 <= page <= 83:
-            content = self._annexe_content(page)
-            if content:
-                return content
-
-        # Pages thématiques génériques (ponts thermiques, carbone, façades, scénarios, financement…)
-        thematic: dict[str, List[Any]] = {
-            "II.BIS": [
-                self.c.p(f"<b>{title}</b>", self.s.h1),
-                self.c.p(
-                    f"Analyse des ponts thermiques — {c.nom} — bâti "
-                    f"{'pisé (U≈1,45 W/m².K)' if c.is_pise else 'ancien'} — {c.surface} m².",
-                    self.s.body,
-                ),
-                self.c.table([
-                    ["Zone", "Risque", "Traitement"],
-                    ["Linteaux", "Ponts thermiques majeurs", "Calfeutrage + ITI continue"],
-                    ["Plancher/murs", "Déperditions 7–10 %", "Isolation plancher + ITI"],
-                    ["Menuiseries", "10–15 % déperditions", "Uw≤1,3 post-isolation murs"],
-                ], [4 * cm, 5 * cm, 8 * cm]),
-                self.c.box("ITI pisé : matériaux perspirants — laine de bois — sans pare-vapeur.", "warn") if c.is_pise else Spacer(1, 1),
-            ],
-            "II.TER": [
-                self.c.p(f"<b>{title}</b>", self.s.h1),
-                self.c.p(
-                    f"Empreinte carbone avant rénovation : ~92 kg CO₂/m²/an — "
-                    f"Après scénario Excellence : ~5 kg CO₂/m²/an (−94 %). "
-                    f"Chauffage fioul → PAC + PV = décarbonation massive.",
-                    self.s.body,
-                ),
-                self.c.kpi_row([
-                    ("AVANT", "92 kg/m²"),
-                    ("APRÈS", "5 kg/m²"),
-                    ("RÉDUCTION", "-94 %"),
-                    ("FEED-IN", f"{int(c.production_pv):,} kWh".replace(",", " ") if c.pv else "N/A"),
-                ]),
-            ],
-            "II.QUATER": [
-                self.c.p(f"<b>{title}</b>", self.s.h1),
-                self.c.p(
-                    "Zone H1 — Analyse par orientation — priorités ITI et apports solaires passifs / PV.",
-                    self.s.muted,
-                ),
-                self.c.table([
-                    ["Façade", "Exposition", "Priorité travaux", "Remarque"],
-                    ["Nord", "Faible ensoleillement", "ITI prioritaire", "Ponts thermiques"],
-                    ["Sud", "Apports solaires", "ITI + protections solaires", "Potentiel PV"],
-                    ["Est/Ouest", "Intermédiaire", "ITI + menuiseries", "Équilibrage déperditions"],
-                ], [2.5 * cm, 4 * cm, 5 * cm, 5.5 * cm]),
-            ],
-            "II": [
-                self.c.p(f"<b>{title}</b>", self.s.h1),
-                self.c.table([
-                    ["Poste", "État actuel", "Action recommandée"],
-                    ["Combles", "Isolation insuffisante R≈1,2", "Soufflage 40 cm R≥7"],
-                    ["Murs", "Pisé nu" if c.is_pise else "Non isolés", "ITI laine bois R≥3,7"],
-                    ["Plancher", "Non isolé", "PSE 10 cm R≥3"],
-                    ["Menuiseries", "Simple vitrage partiel", "21 ouvrants PVC Uw≤1,3"],
-                    ["Chauffage", "Fioul ancien", "PAC 12 kW post-isolation"],
-                    ["Ventilation", "Naturelle", "VMC hygroréglable B"],
-                ], [3.5 * cm, 5.5 * cm, 8 * cm]),
-            ],
-            "V": [
-                self.c.p(f"<b>{title}</b>", self.s.h1),
-                self.c.p(f"Comparatif scénarios — budget retenu Excellence {format_euro(c.budget)}.", self.s.muted),
-                self.c.table([
-                    ["Critère", "S1 Confort", "S2 Perf.", "S3 Excellence"],
-                    ["Budget", format_euro(c.scenario_confort), format_euro(c.scenario_perf), format_euro(c.budget)],
-                    ["DPE", f"{c.dpe_actuel}→D", f"{c.dpe_actuel}→C", f"{c.dpe_actuel}→{c.dpe_cible}"],
-                    ["Facture/an", "5 200 €", "3 100 €", format_euro(c.facture_apres)],
-                ], [4 * cm, 4.3 * cm, 4.3 * cm, 4.4 * cm]),
-                self.c.aids_box(),
-            ],
-            "VI": [
-                self.c.p(f"<b>{title}</b>", self.s.h1),
-                self.c.p("Barèmes ANAH 2026 — estimation indicative — instruction MAR Léo-Energy.", self.s.muted),
-                self.c.aids_box(),
-            ],
-            "VII": [
-                self.c.p(f"<b>{title}</b>", self.s.h1),
-                self.c.p(
-                    f"Financement total {format_euro(c.budget)} — Éco-PTZ {format_euro(c.ecoptz)} — "
-                    f"Mensualité ~{format_euro(c.mensualite)}/mois — Économies ~{format_euro(c.eco_mois)}/mois — "
-                    f"Gain net {format_euro(c.gain_net_mois, True)}/mois.",
-                    self.s.body,
-                ),
-                self.c.box(
-                    "NE JAMAIS SIGNER LES DEVIS DÉFINITIFS AVANT L'ACCORD ÉCRIT DE L'ANAH (Scénario A).",
-                    "legal",
-                ),
-            ],
-            "VIII": [
-                self.c.p(f"<b>{title}</b>", self.s.h1),
-                self.c.table([
-                    ["Sem.", "Phase", "Actions"],
-                    ["S7-S8", "Menuiseries", "21 ouvrants PVC — pose RGE"],
-                    ["S9", "VMC", "Mise en service hygroréglable"],
-                    ["S10", "PAC + Ballon", "Mise en service — réglages"],
-                    ["S11", "PV" if c.pv else "Finitions", "DualSun 6 kWc" if c.pv else "Reprises peinture"],
-                    ["S12", "Réception", "PV signé — DPE post-travaux — solde MAR"],
-                ], [2 * cm, 4 * cm, 11 * cm]),
-            ],
-        }
-        base = thematic.get(section.split(".")[0], thematic.get(section))
-        if base:
-            return base
-        return [
-            self.c.p(f"<b>{title}</b>", self.s.h1),
-            self.c.p(
-                f"Audit énergétique {c.ref} — {c.nom} — {c.raw.get('adresse', '')} — "
-                f"Section {section} — page {page}/{TOTAL_PAGES}.",
-                self.s.body,
-            ),
-            self.c.aids_box(),
-        ]
+def _make_page_builder(ctx: ClientContext) -> _AuditPageBuilderV2:
+    styles = StyleFactory()
+    components = PDFComponents(ctx, styles)
+    equipe_roles = build_equipe_roles(ctx.total_aides)
+    mandat_admin = build_mandat_admin_anah(ctx.total_aides)
+    flux_financier = build_flux_financier(ctx.budget, ctx.total_aides, ctx.reste)
+    dossier_admin_flux = build_dossier_admin_flux_note(ctx.acompte_30)
+    constants = {
+        "C": C,
+        "ENTREPRISE": ENTREPRISE,
+        "CONTACTS": CONTACTS,
+        "IDENTITE_LEGALE": IDENTITE_LEGALE,
+        "EQUIPE_ROLES": equipe_roles,
+        "MANDAT_FINANCIER_ANAH": mandat_admin,
+        "MANDAT_ADMIN_ANAH": mandat_admin,
+        "FLUX_FINANCIER": flux_financier,
+        "PARCOURS_ACCOMPAGNE_NOTE": PARCOURS_ACCOMPAGNE_NOTE,
+        "DOSSIER_ADMIN_FLUX_NOTE": dossier_admin_flux,
+        "PARCOURS_ADMIN_HUB": PARCOURS_ADMIN_HUB,
+        "PLANNING_AVANT_DEMARRAGE": PLANNING_AVANT_DEMARRAGE,
+        "PLANNING_PHASE_1": PLANNING_PHASE_1,
+        "MAR_FRAIS_TEXTE": MAR_FRAIS_TEXTE,
+        "ECOPTZ_TEXTE": ECOPTZ_TEXTE,
+        "UMAFI_BLOC": UMAFI_BLOC,
+        "UMAFI_MENTIONS_LEGALES": UMAFI_MENTIONS_LEGALES,
+        "RGPD_CONSENT_UMAFI": RGPD_CONSENT_UMAFI,
+        "HEADER_LABEL": HEADER_LABEL,
+        "POSITIONNEMENT_ENERGIA": POSITIONNEMENT_ENERGIA,
+        "SYNTHESE_ENCADRE": SYNTHESE_ENCADRE,
+        "CONTRACTANT_GENERAL": CONTRACTANT_GENERAL,
+        "ECOPTZ_DISCLAIMER": (
+            "L'Éco-PTZ est un prêt à taux zéro accordé directement par votre banque. "
+            "Délai d'instruction et de déblocage : 2 à 3 mois."
+        ),
+        "AIDS_DISCLAIMER": AIDS_DISCLAIMER,
+        "AIDS_MPR_ONLY_NOTE": AIDS_MPR_ONLY_NOTE,
+        "ORDRE_TRAVAUX": ORDRE_TRAVAUX,
+        "MPR_TAUX": MPR_TAUX,
+        "MPR_PLAFOND": MPR_PLAFOND,
+        "format_euro": format_euro,
+        "pct_reduction": pct_reduction,
+    }
+    return _AuditPageBuilderV2(ctx, styles, components, constants)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # ASSEMBLAGE PDF
 # ─────────────────────────────────────────────────────────────────────────────
 
-
 class AuditPDFGenerator:
     def __init__(self, client: dict[str, Any]):
         self.ctx = ClientContext(client)
-        self.builder = AuditPageBuilder(self.ctx)
+        self.builder = _make_page_builder(self.ctx)
         self._page_counter = 0
 
     def _on_page(self, canvas, doc):
@@ -1276,18 +1069,32 @@ class AuditPDFGenerator:
         canvas.saveState()
         w, h = A4
         if page == 1:
-            canvas.setFillColor(C["primary"])
-            canvas.rect(0, 0, w, h, fill=1, stroke=0)
-        canvas.setFont("Helvetica", 7)
-        canvas.setFillColor(C["muted"])
-        footer = (
-            f"{ENTREPRISE['nom']} | SIRET {ENTREPRISE['siret']} | "
-            f"Décennale {ENTREPRISE['decennale']} | Page {page}/{TOTAL_PAGES}"
-        )
-        canvas.drawCentredString(w / 2, 12 * mm, footer)
+            steps = 50
+            for i in range(steps):
+                t = i / max(steps - 1, 1)
+                r = 0.059 + t * (0.063 - 0.059)
+                g = 0.463 + t * (0.725 - 0.463)
+                b = 0.431 + t * (0.506 - 0.431)
+                canvas.setFillColor(colors.Color(r, g, b))
+                y0 = h * i / steps
+                y1 = h * (i + 1) / steps
+                canvas.rect(0, y0, w, y1 - y0, fill=1, stroke=0)
         if page > 1:
-            canvas.setFont("Helvetica", 7)
-            canvas.drawString(20 * mm, h - 12 * mm, ENTREPRISE["nom"])
+            canvas.setFont(FONT_BODY, 7)
+            canvas.setFillColor(C["primary"])
+            canvas.drawString(
+                20 * mm, h - 12 * mm,
+                f"{ENTREPRISE['nom']} — {AUDIT_HEADER_LABEL} | Réf. {self.ctx.ref}",
+            )
+            canvas.setFillColor(C["muted"])
+            canvas.drawRightString(w - 20 * mm, h - 12 * mm, f"Réf. {self.ctx.ref}")
+            canvas.setStrokeColor(C["primary"])
+            canvas.setLineWidth(1)
+            canvas.line(20 * mm, h - 14 * mm, w - 20 * mm, h - 14 * mm)
+        canvas.setFont(FONT_BODY, 7)
+        canvas.setFillColor(C["muted"])
+        footer = f"© 2026 ENERGIA CONSEIL IA® — Confidentiel | Page {page}/{TOTAL_PAGES}"
+        canvas.drawCentredString(w / 2, 12 * mm, footer)
         canvas.restoreState()
 
     def build_story(self) -> List[Any]:
@@ -1303,6 +1110,8 @@ class AuditPDFGenerator:
         doc = SimpleDocTemplate(
             str(output_path),
             pagesize=A4,
+            pageCompression=1,
+            invariant=0,
             leftMargin=20 * mm,
             rightMargin=20 * mm,
             topMargin=22 * mm,
