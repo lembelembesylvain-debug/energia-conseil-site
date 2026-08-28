@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { generateFullAudit } from '../lib/generateAuditPDF'
+import EnergiaCoPilot from '../components/EnergiaCoPilot'
 const ENERGIA_GREEN = '#0f766e'  
  
 function val(value) {  
@@ -160,7 +161,26 @@ export default function DetailAudit() {
         </div>  
       </div>  
     )  
-  }  
+  }
+
+  const copilotSynthese = [
+    `Audit de production${audit.id ? ` #${String(audit.id).slice(0, 8)}` : ''}.`,
+    audit.surface_habitable ? `Surface habitable : ${audit.surface_habitable} m².` : null,
+    audit.annee_construction ? `Année de construction : ${audit.annee_construction}.` : null,
+    audit.type_chauffage ? `Chauffage actuel : ${audit.type_chauffage}.` : null,
+    audit.dpe_actuel ? `DPE actuel : ${audit.dpe_actuel}.` : null,
+    audit.isolation_actuelle ? `Isolation actuelle : ${audit.isolation_actuelle}.` : null,
+    audit.consommation_annuelle ? `Consommation annuelle déclarée : ${audit.consommation_annuelle}.` : null,
+    typeof audit.facture_annuelle === 'number'
+      ? `Facture annuelle déclarée : ${audit.facture_annuelle.toLocaleString('fr-FR')} €.`
+      : null,
+    typeof audit.aides_montant === 'number'
+      ? `Aides estimées (indicatif 2026) : ${audit.aides_montant.toLocaleString('fr-FR')} € — à valider ANAH / CEE.`
+      : 'Aides 2026 à titre indicatif, à valider selon revenus réels et instruction ANAH / CEE.',
+    'Parcours conseillé : isolation (combles, murs, planchers) puis menuiseries, VMC, PAC dimensionnée post-isolation. Financement UMAFI via FABIEN. Aucune marge nette ni coût d’achat matériel n’est communiqué.',
+  ]
+    .filter(Boolean)
+    .join(' ')
   
   return (  
     <div className="min-h-screen bg-slate-50">
@@ -368,7 +388,9 @@ export default function DetailAudit() {
             </p>  
           )}  
         </div>  
-      </main>  
+      </main>
+
+      <EnergiaCoPilot syntheseAudit={copilotSynthese} />
     </div>  
   )  
 }  
