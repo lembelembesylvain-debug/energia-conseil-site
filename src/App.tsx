@@ -2058,6 +2058,8 @@ export default function App() {
     return <TestMaisonPereira />;
   }
 
+  // /test-maison-marjollet : module absent du dépôt Git — route non branchée.
+
   if (isPresentationEnergiaPath(pathname)) {
     return <PresentationEnergia />;
   }
