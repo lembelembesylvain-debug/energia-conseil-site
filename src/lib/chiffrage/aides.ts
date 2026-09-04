@@ -52,6 +52,18 @@ export const AIDES_GABARITS: AideEstimative[] = [
     commentaire: "Coût MAR 2 000–4 000 € ; part prise en charge selon profil (Bleu/Jaune 100 %, Violet 80 %, Rose 40 %).",
   },
   {
+    id: "prime-autoconso-pv",
+    libelle: "Prime à l’autoconsommation photovoltaïque (versement unique)",
+    organisme: "État / EDF OA — barème septembre 2026",
+    conditionsAVerifier:
+      "≤ 9 kWc : 80 €/kWc ; > 9 et ≤ 36 kWc : 120 €/kWc ; > 36 et ≤ 100 kWc : 60 €/kWc. TVA 5,5 % si ≤ 9 kWc, sinon 20 %.",
+    dateValidite: "2026-12-31",
+    montantEstimatif: null,
+    montantRetenu: 0,
+    commentaire:
+      "Tarif d’achat EDF OA unique 0,011 €/kWh (surplus ou total). Batterie 3,5–30 kWh indispensable pour le ROI.",
+  },
+  {
     id: "locales",
     libelle: "Aides locales (commune, EPCI, département, région)",
     organisme: "Collectivité territoriale",

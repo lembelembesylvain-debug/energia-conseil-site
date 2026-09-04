@@ -146,9 +146,11 @@ export default function Dashboard() {
   const nbGestes = [combles, ite, iti, plancher, coutPacAirEau, vmcDouble ? 1 : 0, fenetres].filter((v) => v > 0).length
   const ecoPTZMax = nbGestes === 1 ? 15000 : nbGestes === 2 ? 25000 : nbGestes >= 3 ? 30000 : 0
 
-  const primeAutoConsommation = pvKwc <= 0 || pvMode === 'batterie' ? 0 : pvKwc <= 9 ? pvKwc * 80 : pvKwc <= 36 ? pvKwc * 140 : pvKwc * 70
+  const primeAutoConsommation = pvKwc <= 0 ? 0 : pvKwc <= 9 ? pvKwc * 80 : pvKwc <= 36 ? pvKwc * 120 : pvKwc <= 100 ? pvKwc * 60 : 0
   const productionAnnuelle = pvKwc * 1100
-  const tarifRachat = pvKwc <= 9 ? 0.04 : 0.0536
+  const tarifRachat = 0.011
+  const tvaPv = pvKwc > 0 && pvKwc <= 9 ? 0.055 : pvKwc > 9 ? 0.2 : 0.055
+  const batterieRecommandeeKwh = pvKwc <= 0 ? 0 : Math.min(30, Math.max(3.5, Math.round(pvKwc * 2 * 2) / 2))
   const revenuSurplusAnnuel = pvMode === 'edfoa' ? Math.round(productionAnnuelle * 0.4 * tarifRachat) : 0
   const economieBatterieAnnuelle = pvMode === 'batterie' ? Math.round(productionAnnuelle * 0.85 * 0.25) : 0
 
@@ -218,10 +220,12 @@ export default function Dashboard() {
           <div className='border rounded-xl p-4 bg-gray-50 space-y-3'>
             <input type='number' value={pvKwc || ''} onChange={(e) => setPvKwc(Number(e.target.value))} className='w-full border rounded-lg px-3 py-2 bg-white' placeholder={`PV kWc (rec ${pvRecommande || 0})`} />
             <input type='number' value={pvPrix || ''} onChange={(e) => setPvPrix(Number(e.target.value))} className='w-full border rounded-lg px-3 py-2 bg-white' placeholder={`PV prix (auto ${fmt(tarifPVParKwc)}/kWc)`} />
+            <p className='text-sm text-gray-700'>TVA PV septembre 2026 : {pvKwc <= 9 ? '5,5 % (≤ 9 kWc)' : '20 % (> 9 kWc)'} · Batterie recommandée : {batterieRecommandeeKwh || '3,5–30'} kWh</p>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
-              <label className={`flex items-center gap-3 border-2 rounded-xl p-3 cursor-pointer transition ${pvMode === 'edfoa' ? 'border-yellow-400 bg-yellow-50' : 'border-gray-200 bg-white'}`}><input type='radio' checked={pvMode === 'edfoa'} onChange={() => setPvMode('edfoa')} /> EDF OA</label>
-              <label className={`flex items-center gap-3 border-2 rounded-xl p-3 cursor-pointer transition ${pvMode === 'batterie' ? 'border-green-400 bg-green-50' : 'border-gray-200 bg-white'}`}><input type='radio' checked={pvMode === 'batterie'} onChange={() => setPvMode('batterie')} /> Batterie 5000€</label>
+              <label className={`flex items-center gap-3 border-2 rounded-xl p-3 cursor-pointer transition ${pvMode === 'edfoa' ? 'border-yellow-400 bg-yellow-50' : 'border-gray-200 bg-white'}`}><input type='radio' checked={pvMode === 'edfoa'} onChange={() => setPvMode('edfoa')} /> EDF OA (1,1 c€/kWh)</label>
+              <label className={`flex items-center gap-3 border-2 rounded-xl p-3 cursor-pointer transition ${pvMode === 'batterie' ? 'border-green-400 bg-green-50' : 'border-gray-200 bg-white'}`}><input type='radio' checked={pvMode === 'batterie'} onChange={() => setPvMode('batterie')} /> Batterie {batterieRecommandeeKwh || '3,5–30'} kWh</label>
             </div>
+            <p className='rounded-lg border border-orange-300 bg-orange-50 px-3 py-2 text-sm font-semibold text-orange-900'>ATTENTION : Le tarif de rachat est passé à 1,1 c€/kWh. Le stockage par batterie est désormais INDISPENSABLE pour garantir le ROI.</p>
           </div>
         </section>
 
@@ -259,7 +263,7 @@ export default function Dashboard() {
               <div className='flex justify-between py-3 px-4 bg-green-600 rounded-xl text-white'><span className='font-bold'>Reste a charge</span><span className='font-black'>{fmt(resteACharge)}</span></div>
             </div>
             {ecoPTZMax > 0 && <p className='mt-3'>Eco-PTZ: jusqu&apos;a {fmt(ecoPTZMax)} ({nbGestes} gestes)</p>}
-            {pvKwc > 0 && <p className='mt-2'>PV {pvKwc} kWc: prime {fmt(primeAutoConsommation)} | surplus {fmt(revenuSurplusAnnuel)} | batterie {fmt(economieBatterieAnnuelle)}/an</p>}
+            {pvKwc > 0 && <p className='mt-2'>PV {pvKwc} kWc: TVA {(tvaPv * 100).toLocaleString('fr-FR')} % | prime {fmt(primeAutoConsommation)} | surplus {fmt(revenuSurplusAnnuel)} | batterie {batterieRecommandeeKwh} kWh ({fmt(economieBatterieAnnuelle)}/an)</p>}
             <p className='mt-2'>Economies: -{fmt(totalEconomiesMois)}/mois | -{fmt(totalEconomiesAn)}/an</p>
           </section>
         )}

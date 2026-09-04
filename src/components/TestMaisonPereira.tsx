@@ -3,6 +3,7 @@ import EnergiaCoPilot from "./EnergiaCoPilot";
 import ProjectEstimation from "./ProjectEstimation";
 import {
   PEREIRA_A_RELEVER,
+  PEREIRA_AUDIT_ID,
   PEREIRA_AUDIT_PDF_HREF,
   PEREIRA_AUDITEUR,
   PEREIRA_CONTRADICTIONS,
@@ -68,8 +69,9 @@ export default function TestMaisonPereira() {
           <p className="max-w-3xl text-sm leading-relaxed text-slate-300">
             Audit réglementaire LEO ENERGY — propriétaire et commanditaire{" "}
             <strong className="text-white">SUCCESSION PIGNARD</strong>. Le nom « Pereira » n’apparaît pas dans le
-            PDF. Route <code className="text-sky-200">/test-maison-pereira</code> — hors production, sans UUID
-            d’audit, sans enregistrement Supabase.
+            PDF. Route <code className="text-sky-200">/test-maison-pereira</code> — hors production. Identifiant
+            d’audit <code className="text-sky-200">{PEREIRA_AUDIT_ID}</code> — enregistrement local de
+            l’estimation.
           </p>
         </div>
       </header>
@@ -188,7 +190,7 @@ export default function TestMaisonPereira() {
           <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-300">
             Estimation des travaux (test local)
           </h2>
-          <ProjectEstimation auditId="" />
+          <ProjectEstimation auditId={PEREIRA_AUDIT_ID} />
         </section>
       </main>
 

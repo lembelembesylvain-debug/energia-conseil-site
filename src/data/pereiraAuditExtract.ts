@@ -1,5 +1,8 @@
 /** Données extraites uniquement de l’audit BATIAUDIT / LEO ENERGY (visite 03/07/2026). Hors production. */
 
+/** Identifiant d’audit ENERGIA — Monsieur Pereira S. (dossier local, hors UUID Supabase). */
+export const PEREIRA_AUDIT_ID = "AUDIT-PEREIRA-2026-001";
+
 export const PEREIRA_AUDIT_PDF_HREF = "/test-maison-pereira/audit-pignard-batiment-01.pdf";
 
 export const PEREIRA_A_RELEVER = "À relever lors de la visite";
@@ -7,10 +10,11 @@ export const PEREIRA_A_RELEVER = "À relever lors de la visite";
 export type ChampPereira = {
   label: string;
   valeur: string;
-  source: "pdf" | "manquant";
+  source: "pdf" | "manquant" | "energia";
 };
 
 export const PEREIRA_IDENTITE: ChampPereira[] = [
+  { label: "Identifiant d’audit ENERGIA", valeur: PEREIRA_AUDIT_ID, source: "energia" },
   { label: "Désignation interne ENERGIA", valeur: "Dossier Pereira (nom absent du PDF)", source: "manquant" },
   { label: "Propriétaire", valeur: "SUCCESSION PIGNARD", source: "pdf" },
   { label: "Commanditaire", valeur: "SUCCESSION PIGNARD", source: "pdf" },

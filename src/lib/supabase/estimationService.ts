@@ -1,3 +1,5 @@
+import { isAuditIdValide, isUuidAuditId } from "../auditId";
+import { getEstimationLocale, saveEstimationLocale } from "../estimationLocale";
 import { supabase } from "../supabase";
 
 export type TypeProjetEstimation = "photovoltaique" | "renovation_globale" | "autre";
@@ -56,8 +58,7 @@ export type SaveEstimationInput = {
   totaux: TotauxEstimation;
 };
 
-const UUID_RE =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+export { isAuditIdValide };
 
 const TYPES_PROJET: TypeProjetEstimation[] = [
   "photovoltaique",
@@ -75,10 +76,6 @@ const MESSAGE_MAUVAIS_AUDIT =
 
 const MESSAGE_RLS =
   "Accès refusé. Connectez-vous avec votre compte équipe ENERGIA.";
-
-export function isAuditIdValide(auditId: string | null | undefined): auditId is string {
-  return typeof auditId === "string" && UUID_RE.test(auditId.trim());
-}
 
 function normaliserId(value: string): string {
   return value.trim().toLowerCase();
@@ -321,6 +318,43 @@ async function insertOuUpdate(
   return reponseLigne(asRecord(data), auditId, "L’enregistrement n’a renvoyé aucune ligne.");
 }
 
+function totauxDepuisInconnu(value: unknown): TotauxEstimation {
+  const row = asRecord(value) ?? {};
+  return {
+    totalMaterielHt: toNumber(row.totalMaterielHt),
+    totalArtisansHt: toNumber(row.totalArtisansHt),
+    totalCoutRevientHt: toNumber(row.totalCoutRevientHt),
+    totalVenteHt: toNumber(row.totalVenteHt),
+    totalTva: toNumber(row.totalTva),
+    totalVenteTtc: toNumber(row.totalVenteTtc),
+    margeBruteTotale: toNumber(row.margeBruteTotale),
+    tauxMargeGlobal: toNumber(row.tauxMargeGlobal),
+    commissionDamienHt: toNumber(row.commissionDamienHt),
+    prestationClyveHt: toNumber(row.prestationClyveHt),
+    margeEstimeeApresFraisHt: toNumber(row.margeEstimeeApresFraisHt),
+    totalEstimeTheoriqueHt: toNumber(row.totalEstimeTheoriqueHt),
+    totalDevisRecusHt: toNumber(row.totalDevisRecusHt),
+    totalContractuelValideTtc: toNumber(row.totalContractuelValideTtc),
+  };
+}
+
+function depuisLocale(auditId: string): { data: EstimationEnregistree | null; error: string | null } {
+  const locale = getEstimationLocale(auditId);
+  if (locale.error) return { data: null, error: locale.error };
+  if (!locale.data) return { data: null, error: null };
+  return {
+    data: {
+      id: locale.data.id,
+      auditId: locale.data.auditId,
+      typeProjet: locale.data.typeProjet,
+      statut: locale.data.statut,
+      lignes: locale.data.lignes.map(mapLigne).filter((ligne): ligne is LigneEstimationJson => ligne !== null),
+      totaux: totauxDepuisInconnu(locale.data.totaux),
+    },
+    error: null,
+  };
+}
+
 export async function getEstimationByAuditId(
   auditId: string,
 ): Promise<{ data: EstimationEnregistree | null; error: string | null }> {
@@ -329,6 +363,10 @@ export async function getEstimationByAuditId(
   }
 
   const id = auditId.trim();
+  if (!isUuidAuditId(id)) {
+    return depuisLocale(id);
+  }
+
   const { data, error } = await supabase
     .from("estimations")
     .select("*")
@@ -354,6 +392,24 @@ export async function saveEstimation(
   }
 
   const auditId = input.auditId.trim();
+  if (!isUuidAuditId(auditId)) {
+    const locale = saveEstimationLocale({ ...input, auditId });
+    if (locale.error || !locale.data) {
+      return { data: null, error: locale.error ?? "Impossible d’enregistrer l’estimation localement." };
+    }
+    return {
+      data: {
+        id: locale.data.id,
+        auditId: locale.data.auditId,
+        typeProjet: locale.data.typeProjet,
+        statut: locale.data.statut,
+        lignes: locale.data.lignes.map(mapLigne).filter((ligne): ligne is LigneEstimationJson => ligne !== null),
+        totaux: totauxDepuisInconnu(locale.data.totaux),
+      },
+      error: null,
+    };
+  }
+
   const auditManquant = await verifierAuditExiste(auditId);
   if (auditManquant) {
     return { data: null, error: auditManquant };

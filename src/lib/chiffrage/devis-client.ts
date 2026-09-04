@@ -9,6 +9,7 @@ import { CATALOGUE_POSTES } from "./catalogue-postes";
 import type {
   DevisClientChiffrage,
   LigneCommercialeClient,
+  LigneDevisClientDetail,
   ParametresChiffrage,
   PosteCalcule,
   PosteId,
@@ -131,8 +132,80 @@ export function construireDevisClient(
 
   return {
     lignes: lignesClient,
+    lignesDetaillees: construireLignesDevisClientDetaillees(
+      lignes,
+      deplacements,
+      parametres,
+    ),
     totalHt: totalSortantHt,
     totalTva,
     totalTtc,
   };
+}
+
+/**
+ * Prestations telles qu’elles doivent figurer sur le devis client :
+ * désignation, quantité, prix de vente HT, TVA, TTC.
+ * Jamais : coût d’achat, marge, commission, Clyve, prix sous-traitant.
+ */
+export function construireLignesDevisClientDetaillees(
+  lignes: PosteCalcule[],
+  deplacements: ResultatDeplacements,
+  parametres: ParametresChiffrage,
+): LigneDevisClientDetail[] {
+  const details: LigneDevisClientDetail[] = [];
+
+  for (const ligne of lignes) {
+    if (!ligne.inclus || !ligne.prixRenseigne || ligne.prixSortantHt == null) continue;
+    const quantite = ligne.quantite > 0 ? ligne.quantite : 1;
+    const montantHt = round2(ligne.prixSortantHt);
+    const montantTva = round2(ligne.montantTva ?? montantHt * ligne.tauxTva);
+    details.push({
+      id: ligne.id,
+      designation: ligne.nom,
+      quantite,
+      unite: ligne.unite,
+      prixUnitaireHt: round2(montantHt / quantite),
+      montantHt,
+      tauxTva: ligne.tauxTva,
+      montantTva,
+      montantTtc: round2(ligne.prixSortantTtc ?? montantHt + montantTva),
+    });
+  }
+
+  const denom = 1 - parametres.tauxMarge;
+  if (parametres.fraisStructureHt > 0 && denom > 0) {
+    const ht = round2(parametres.fraisStructureHt / denom);
+    const tva = round2(ht * parametres.tauxTvaDefaut);
+    details.push({
+      id: "frais_structure",
+      designation: "Frais de structure et pilotage",
+      quantite: 1,
+      unite: "forfait",
+      prixUnitaireHt: ht,
+      montantHt: ht,
+      tauxTva: parametres.tauxTvaDefaut,
+      montantTva: tva,
+      montantTtc: round2(ht + tva),
+    });
+  }
+
+  const travelInterne = deplacements.totalAjoutesHt;
+  if (travelInterne > 0 && denom > 0) {
+    const ht = round2(travelInterne / denom);
+    const tva = round2(ht * parametres.tauxTvaDefaut);
+    details.push({
+      id: "deplacements_visites",
+      designation: "Déplacements et visites",
+      quantite: 1,
+      unite: "forfait",
+      prixUnitaireHt: ht,
+      montantHt: ht,
+      tauxTva: parametres.tauxTvaDefaut,
+      montantTva: tva,
+      montantTtc: round2(ht + tva),
+    });
+  }
+
+  return details;
 }

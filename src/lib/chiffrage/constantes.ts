@@ -61,13 +61,37 @@ export const UNITES_LABEL: Record<string, string> = {
   ml: "ml",
   unite: "Unité",
   kWc: "kWc",
+  panneau: "Panneau",
 };
+
+export const LOGO_PUBLIC_PATH = "/assets/LOGO.png";
 
 export const CONTACT_CHIFFRAGE = {
   enseigne: "ENERGIA CONSEIL IA®",
   qualite: "Contractant général – étude, coordination et pilotage des travaux",
+  fondateurQualite: "Fondateur & CEO — Contractant Général Digital",
   email: "contact@energia-conseil-ia.com",
+  telephone: "06 10 59 68 98",
+  adresse: "16 Rue Cuvier, 69006 Lyon",
+  siret: "94181942700019",
+  rcs: "Lyon 941819427",
+  forme: "SASU Capital 100€",
+  /** Aucun numéro de police ENERGIA n’est présent dans le projet — mention des devis existants. */
+  assurances:
+    "Assurances des entreprises intervenantes : décennale et responsabilité civile professionnelle (attestations à jour exigées).",
 } as const;
+
+export const CGV_DEVIS_CLIENT = [
+  "Document estimatif, valable 3 mois à compter de sa date d’émission, sauf mention contraire.",
+  "Les travaux sont réalisés par des artisans certifiés RGE, sélectionnés et coordonnés par ENERGIA CONSEIL IA®.",
+  "Paiement par déblocage progressif 30/40/30 : 30 % à la signature, 40 % mi-chantier après validation de Sylvain LEMBELEMBE (AMO ENERGIA-CONSEIL IA®), 30 % à réception.",
+  "Les aides financières 2026 sont indiquées à titre indicatif. Elles sont à valider selon les revenus réels du client et l’éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.",
+  "Les travaux éligibles à MaPrimeRénov' Parcours ne peuvent démarrer qu’après validation officielle du dossier par l’ANAH.",
+  "TVA applicable selon la nature des travaux, l’âge du logement et les conditions d’éligibilité, à confirmer poste par poste.",
+  "Garanties légales : décennale (entreprises), biennale (équipements), garantie de parfait achèvement.",
+  "Le client est informé de l’opportunité de souscrire une assurance Dommages-Ouvrage ; ENERGIA ne peut être tenue responsable du défaut de souscription.",
+  "Litiges : tentative de résolution amiable sous 15 jours, puis compétence des tribunaux de Lyon.",
+] as const;
 
 export const MENTIONS_COMMERCIALES = [
   "Les montants présentés sont indicatifs et doivent être confirmés par des devis actualisés.",

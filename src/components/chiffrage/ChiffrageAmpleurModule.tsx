@@ -367,6 +367,8 @@ export default function ChiffrageAmpleurModule() {
         <DevisClientPanel
           devis={resultat.devisClient}
           libelleProjet={parametres.libelleProjet}
+          clientAdresse={parametres.adresseChantier}
+          mentionTva={AVERTISSEMENT_TVA}
         />
 
         <AidesChiffragePanel

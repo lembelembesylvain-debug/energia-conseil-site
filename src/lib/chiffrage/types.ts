@@ -6,7 +6,7 @@
  */
 
 /** Unités de métrés autorisées dans la grille. */
-export type UnitePoste = "forfait" | "m2" | "ml" | "unite" | "kWc";
+export type UnitePoste = "forfait" | "m2" | "ml" | "unite" | "kWc" | "panneau";
 
 /**
  * Origine du coût entrant. Ne jamais laisser un prix sans source.
@@ -196,8 +196,22 @@ export type LigneCommercialeClient = {
   montantHt: number;
 };
 
+/** Ligne commerciale détaillée — prix client uniquement, sans coûts internes. */
+export type LigneDevisClientDetail = {
+  id: string;
+  designation: string;
+  quantite: number;
+  unite: string;
+  prixUnitaireHt: number;
+  montantHt: number;
+  tauxTva: number;
+  montantTva: number;
+  montantTtc: number;
+};
+
 export type DevisClientChiffrage = {
   lignes: LigneCommercialeClient[];
+  lignesDetaillees: LigneDevisClientDetail[];
   totalHt: number;
   totalTva: number;
   totalTtc: number;

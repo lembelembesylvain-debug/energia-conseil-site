@@ -114,6 +114,24 @@ export const AID_RULES_2026 = {
     postesNonEligiblesMpr: ["maconnerie", "pv", "autre"],
   },
 
+  photovoltaique: {
+    version: "PV-2026.09",
+    dateEntreeEnVigueur: "2026-09-01",
+    tva: {
+      jusqua9Kwc: 0.055,
+      auDela9Kwc: 0.2,
+    },
+    primeAutoconsoEurKwc: {
+      jusqua9Kwc: 80,
+      de9a36Kwc: 120,
+      de36a100Kwc: 60,
+    },
+    tarifAchatEdfOaEurKwh: 0.011,
+    batterieKwh: { min: 3.5, max: 30 },
+    alerteTarifRachat:
+      "ATTENTION : Le tarif de rachat est passé à 1,1 c€/kWh. Le stockage par batterie est désormais INDISPENSABLE pour garantir le ROI.",
+  },
+
   cumul: {
     description:
       "Le cumul MaPrimeRénov’ + CEE + aides locales + autres ne peut pas dépasser 100 % des dépenses éligibles, ni le taux d’écrêtement du profil.",

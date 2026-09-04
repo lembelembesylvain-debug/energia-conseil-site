@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fiche technique – Matériels et garanties – Marjollet</title>
+  <style>
+    :root {
+      --navy: #0b1f33;
+      --turquoise: #0f766e;
+      --gold: #c9a227;
+      --gold-s: #e8d48b;
+      --paper: #fbfaf6;
+      --text: #1a2330;
+      --muted: #5b6775;
+      --line: #d7ddd8;
+    }
+    * { box-sizing: border-box; }
+    html { font-size: 13px; }
+    body {
+      margin: 0;
+      background: #e8eef2;
+      color: var(--text);
+      font-family: "Segoe UI", Calibri, Arial, sans-serif;
+      line-height: 1.38;
+    }
+    .doc { max-width: 210mm; margin: 0 auto; background: #fff; }
+
+    table.page-chrome {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    table.page-chrome > thead > tr > td,
+    table.page-chrome > tbody > tr > td,
+    table.page-chrome > tfoot > tr > td {
+      border: 0;
+      padding: 0;
+      vertical-align: top;
+    }
+    table.page-chrome > thead { display: table-header-group; }
+    table.page-chrome > tfoot { display: table-footer-group; }
+
+    .sheet { padding: 0 16px 18px; }
+
+    .doc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 3px solid var(--navy);
+      padding: 10px 16px 8px;
+      margin: 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      flex: 1;
+    }
+    .brand-text {
+      min-width: 0;
+      width: 100%;
+      text-align: center;
+    }
+    .brand-text .person {
+      display: block;
+      font-size: 0.9rem;
+      color: #111;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .brand-text .role {
+      margin: 1px 0 4px;
+      font-size: 0.68rem;
+      color: #333;
+    }
+    .brand-text h1 {
+      margin: 0 0 3px;
+      font-size: 1.1rem;
+      color: var(--navy);
+      letter-spacing: 0.04em;
+    }
+    .brand-text p {
+      margin: 0;
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+    .doc-meta {
+      text-align: right;
+      font-size: 0.74rem;
+      color: var(--navy);
+      flex-shrink: 0;
+      max-width: 11.5rem;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--navy);
+      color: var(--gold-s);
+      font-size: 0.62rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 999px;
+      margin-bottom: 5px;
+    }
+    .doc-footer {
+      border-top: 1px solid var(--line);
+      padding: 6px 16px 10px;
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.35;
+      background: #fff;
+    }
+    h2 {
+      margin: 10px 0 8px;
+      color: var(--navy);
+      font-size: 1rem;
+      border-left: 4px solid var(--gold);
+      padding-left: 8px;
+    }
+    h3 {
+      margin: 0 0 4px;
+      color: var(--navy);
+      font-size: 0.86rem;
+      background: var(--paper);
+      border-top: 2px solid var(--turquoise);
+      padding: 5px 8px;
+    }
+    p, li { font-size: 0.8rem; }
+    .small { font-size: 0.72rem; color: var(--muted); }
+    .intro {
+      border-left: 4px solid var(--turquoise);
+      background: #f0fdfa;
+      padding: 8px 10px;
+      margin: 0 0 8px;
+      font-size: 0.78rem;
+    }
+    .bloc { margin: 0 0 8px; }
+    table.fiche {
+      width: 100%;
+      max-width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      margin: 0;
+      font-size: 0.72rem;
+    }
+    table.fiche th, table.fiche td {
+      border: 1px solid var(--line);
+      padding: 4px 7px;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+    table.fiche th {
+      width: 30%;
+      background: #f4f7f6;
+      color: var(--navy);
+      text-align: left;
+      font-weight: 650;
+    }
+
+    @media screen and (max-width: 800px) {
+      .sheet { padding: 0 12px 16px; }
+      .doc-header { flex-direction: column; align-items: flex-start; }
+      .doc-meta { text-align: left; max-width: none; }
+    }
+    @media print {
+      body { background: #fff; }
+      .sheet { padding: 4px 0 8px; }
+      .doc-header { padding: 0 0 6px; }
+      .doc-footer { padding: 5px 0 0; font-size: 7.2pt; }
+      h3, .bloc { break-inside: avoid; page-break-inside: avoid; }
+      table.fiche { break-inside: avoid; }
+      @page {
+        size: A4;
+        margin: 10mm 12mm 10mm 12mm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="doc">
+    <table class="page-chrome">
+      <thead>
+        <tr>
+          <td>
+            <header class="doc-header">
+              <div class="brand">
+                <div class="brand-text">
+                  <h1>ENERGIA CONSEIL IA®</h1>
+                  <span class="person">Sylvain Lembelembe</span>
+                  <div class="role">Fondateur &amp; CEO — Contractant Général Digital</div>
+                  <p>
+                    Fiche technique · Matériels et garanties<br>
+                    06 10 59 68 98 · contact@energia-conseil-ia.com<br>
+                    Client : Monsieur Marjollet
+                  </p>
+                </div>
+              </div>
+              <div class="doc-meta">
+                <div class="badge">Fiche technique du devis estimatif</div><br>
+                <strong>DEVIS-MARJOLLET-2026-001</strong><br>
+                85 rue des Bleuets<br>
+                42210 Montrond-les-Bains
+              </div>
+            </header>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <section class="sheet">
+              <h2>Fiches matériels envisagés</h2>
+              <div class="intro">
+                Les éléments ci-dessous décrivent les matériels <strong>envisagés</strong>.
+                Toute caractéristique, certification ou garantie non confirmée est indiquée comme telle.
+                Phrase de réserve : <em>à confirmer lors de la visite technique ou dans le devis fournisseur</em>.
+                Les garanties fabricant s’appliquent uniquement selon les conditions officielles du modèle effectivement retenu.
+              </div>
+
+              <div class="bloc">
+                <h3>1. Panneaux DualSun</h3>
+                <table class="fiche">
+                  <tr><th>Marque</th><td>DualSun</td></tr>
+                  <tr><th>Modèle envisagé</th><td>FLASH 500 Glass-Glass TOPCon 2.0 — à confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Puissance envisagée</th><td>500 Wc par panneau</td></tr>
+                  <tr><th>Quantité</th><td>18</td></tr>
+                  <tr><th>Puissance totale</th><td>18 × 500 Wc = 9 000 Wc = 9 kWc</td></tr>
+                  <tr><th>Technologie</th><td>À reprendre uniquement selon la fiche fabricant du modèle retenu. À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Garantie de performance</th><td>Jusqu’à 30 ans selon les conditions fabricant et la fiche technique du modèle retenu. Distincte de la garantie produit. À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Garantie produit</th><td>25 ans selon les conditions DualSun du modèle retenu. Extension éventuelle jusqu’à 30 ans uniquement si elle est confirmée dans les conditions fabricant du modèle retenu. À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                </table>
+              </div>
+
+              <div class="bloc">
+                <h3>2. Micro-onduleurs Enphase</h3>
+                <table class="fiche">
+                  <tr><th>Marque</th><td>Enphase</td></tr>
+                  <tr><th>Série et modèle exacts</th><td>À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Architecture</th><td>18 micro-onduleurs Enphase, soit 1 micro-onduleur par panneau. Pas d’onduleur central.</td></tr>
+                  <tr><th>Passerelle et supervision</th><td>Enphase — à confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Garantie</th><td>Uniquement la durée figurant dans la garantie officielle du modèle retenu. À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                </table>
+              </div>
+
+              <div class="bloc">
+                <h3>3. Batterie de stockage</h3>
+                <table class="fiche">
+                  <tr><th>Modèle exact</th><td>À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Capacité envisagée</th><td>Environ 10 kWh</td></tr>
+                  <tr><th>Technologie</th><td>À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Compatibilité</th><td>À valider par le professionnel avec l’architecture Enphase.</td></tr>
+                  <tr><th>Garantie</th><td>Uniquement la garantie officielle du modèle retenu. À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                </table>
+              </div>
+
+              <div class="bloc">
+                <h3>4. Climatisation air/air – 3 splits</h3>
+                <table class="fiche">
+                  <tr><th>Marque et modèles</th><td>À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Configuration</th><td>3 splits : 2 pour chauffer et rafraîchir le salon de 45 m², 1 pour chauffer et rafraîchir la chambre.</td></tr>
+                  <tr><th>Groupe extérieur</th><td>Multisplit, liaisons, condensats, mise en service et essais.</td></tr>
+                  <tr><th>SCOP, SEER, puissance</th><td>À confirmer selon le modèle choisi, lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Surface chambre</th><td>À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Garanties</th><td>À confirmer selon le modèle choisi. Aucune durée n’est indiquée en l’absence de modèle retenu.</td></tr>
+                </table>
+              </div>
+
+              <div class="bloc">
+                <h3>5. PAC piscine</h3>
+                <table class="fiche">
+                  <tr><th>Marque et modèle</th><td>À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Technologie</th><td>Full Inverter</td></tr>
+                  <tr><th>Puissance indicative</th><td>Environ 10 kW — puissance définitive à confirmer après vérification du bassin, de la couverture, de la température souhaitée et de la période d’utilisation.</td></tr>
+                  <tr><th>Volume</th><td>Piscine couverte de 45 à 50 m³</td></tr>
+                  <tr><th>Hydraulique</th><td>By-pass existant à contrôler (diamètre, débit, état, conformité).</td></tr>
+                  <tr><th>COP, niveau sonore, fluide</th><td>À confirmer selon la fiche fabricant du modèle retenu.</td></tr>
+                  <tr><th>Garanties</th><td>À confirmer selon la fiche fabricant. Aucune garantie échangeur, compresseur ou générale n’est indiquée ici.</td></tr>
+                </table>
+              </div>
+
+              <div class="bloc">
+                <h3>6. Borne de recharge</h3>
+                <table class="fiche">
+                  <tr><th>Marque et modèle</th><td>À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Puissance indicative</th><td>Environ 7,4 kW</td></tr>
+                  <tr><th>Pilotage solaire et délestage</th><td>À confirmer lors de la visite technique ou dans le devis fournisseur.</td></tr>
+                  <tr><th>Raccordement</th><td>Monophasé ou triphasé, puissance souscrite, tableau et véhicule à vérifier.</td></tr>
+                  <tr><th>Garantie</th><td>À confirmer selon le modèle retenu.</td></tr>
+                </table>
+              </div>
+
+              <p class="small" style="margin-top:10px;">
+                Document lié au devis DEVIS-MARJOLLET-2026-001. Les garanties indiquées pour DualSun distinguent
+                la <strong>garantie produit</strong> (25 ans, extension éventuelle selon conditions fabricant)
+                et la <strong>garantie de performance</strong> (jusqu’à 30 ans selon conditions fabricant du modèle retenu).
+              </p>
+            </section>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>
+            <div class="doc-footer">Devis estimatif non contractuel – sous réserve de visite technique, validation du dimensionnement et confirmation des matériels, garanties, prix et taux de TVA. · DEVIS-MARJOLLET-2026-001</div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</body>
+</html>

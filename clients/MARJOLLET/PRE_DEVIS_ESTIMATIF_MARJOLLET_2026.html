@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pré-devis estimatif – M. Marjollet | ENERGIA CONSEIL IA®</title>
+  <style>
+    :root {
+      --navy: #1a3c5e;
+      --navy-2: #0f2740;
+      --orange: #ea580c;
+      --orange-s: #f97316;
+      --cream: #fff7ed;
+      --line: #d6dee8;
+      --text: #1e293b;
+      --muted: #475569;
+      --ok: #166534;
+      --warn: #9a3412;
+    }
+    * { box-sizing: border-box; }
+    html { font-size: 14px; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Segoe UI", Calibri, Arial, sans-serif;
+      line-height: 1.4;
+      background: #e8eef4;
+    }
+    .doc {
+      max-width: 210mm;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 8px 32px rgba(15, 39, 64, 0.12);
+    }
+    .page { padding: 10mm 12mm 12mm; position: relative; }
+    .cover {
+      background: linear-gradient(165deg, var(--navy-2) 0%, var(--navy) 58%, #245079 100%);
+      color: #fff;
+      padding: 16mm 14mm 12mm;
+    }
+    .cover-brand { letter-spacing: 0.08em; font-size: 0.78rem; text-transform: uppercase; opacity: 0.85; }
+    .cover h1 { font-size: 2.05rem; line-height: 1.15; margin: 18px 0 10px; font-weight: 700; }
+    .cover .sub { font-size: 1.05rem; opacity: 0.95; max-width: 38rem; }
+    .badge {
+      display: inline-block;
+      border: 1px solid #fdba74;
+      color: #ffedd5;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .cover-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 20px;
+      margin-top: 18px;
+      font-size: 0.9rem;
+    }
+    .cover-meta strong { display: block; color: #fdba74; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
+    .cover-foot { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 14px; font-size: 0.78rem; opacity: 0.9; }
+    h2 {
+      color: var(--navy);
+      font-size: 1.12rem;
+      margin: 0 0 8px;
+      padding-bottom: 5px;
+      border-bottom: 3px solid var(--orange-s);
+    }
+    h3 {
+      color: var(--navy);
+      font-size: 0.98rem;
+      margin: 14px 0 6px;
+    }
+    h2, h3 { break-after: avoid; page-break-after: avoid; }
+    p, li { font-size: 0.88rem; }
+    .muted { color: var(--muted); }
+    .small { font-size: 0.8rem; color: var(--muted); }
+    .box {
+      border-left: 5px solid var(--navy);
+      background: #f8fafc;
+      padding: 8px 10px;
+      margin: 8px 0 10px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .box.warn { border-left-color: var(--orange); background: var(--cream); }
+    .box.crit { border-left-color: #b91c1c; background: #fef2f2; }
+    .box.ok { border-left-color: var(--ok); background: #f0fdf4; }
+    .box.internal { border-left-color: #7c3aed; background: #f5f3ff; }
+    table { width: 100%; border-collapse: collapse; margin: 6px 0 10px; font-size: 0.78rem; }
+    th, td { border: 1px solid var(--line); padding: 5px 6px; vertical-align: top; }
+    th { background: var(--navy); color: #fff; font-weight: 650; text-align: left; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    tr.total { background: var(--navy); color: #fff; font-weight: 700; }
+    tr.total td { border-color: #2c5278; }
+    tr.sub { background: #eef4fa; font-weight: 650; }
+    tr.alt { background: #f8fafc; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card { border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: #fff; }
+    .kpi { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
+    .kpi div { background: #f8fafc; border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+    .kpi strong { display: block; color: var(--navy); font-size: 1.05rem; }
+    .kpi span { font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+    ul.tight { margin: 6px 0 10px 18px; padding: 0; }
+    ul.tight li { margin: 3px 0; }
+    .footer-print { display: none; }
+    .print-footer-fixed {
+      display: block;
+      font-size: 0.75rem;
+      color: #64748b;
+      border-top: 1px solid var(--line);
+      padding: 10px 14px 16px;
+      max-width: 210mm;
+      margin: 0 auto;
+      background: #fff;
+    }
+    .no-break { break-inside: avoid; page-break-inside: avoid; }
+    .page-break { page-break-before: always; break-before: page; }
+    @media screen and (max-width: 800px) {
+      .doc { box-shadow: none; }
+      .page, .cover { padding: 16px 14px 22px; }
+      .cover h1 { font-size: 1.45rem; }
+      .cover-meta, .grid-2, .kpi { grid-template-columns: 1fr; }
+      table { font-size: 0.75rem; }
+      th, td { padding: 6px; }
+    }
+    @media print {
+      body { background: #fff; }
+      .doc { box-shadow: none; max-width: none; }
+      .page { padding: 0 0 10mm; }
+      h2, h3 { break-after: avoid; page-break-after: avoid; }
+      .cover { padding: 12mm 8mm 10mm; }
+      a { color: inherit; text-decoration: none; }
+      .print-footer-fixed {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        font-size: 7.5pt;
+        color: #64748b;
+        border-top: 1px solid #d6dee8;
+        padding: 4px 0 0;
+        background: #fff;
+      }
+      @page {
+        size: A4;
+        margin: 10mm 10mm 14mm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="doc">
+
+    <!-- COUVERTURE -->
+    <section class="cover">
+      <div>
+        <div class="cover-brand">ENERGIA CONSEIL IA® · Bureau d’études &amp; AMO · Marque déposée INPI</div>
+        <span class="badge">Pré-devis estimatif · non contractuel</span>
+        <h1>Solution énergétique<br>résidentielle – projet Marjollet</h1>
+        <p class="sub">Photovoltaïque jusqu’à 9&nbsp;kWc, stockage, climatisation réversible, chauffage de piscine et recharge de véhicule électrique. Objectif&nbsp;: <strong>autonomie énergétique maximale visée</strong> par autoconsommation, sans promesse d’autonomie de 100&nbsp;%.</p>
+        <div class="cover-meta">
+          <div><strong>Client</strong>Monsieur Marjollet</div>
+          <div><strong>Chantier</strong>85 rue des Bleuets<br>42210 Montrond-les-Bains</div>
+          <div><strong>Référence</strong>PRE-2026-MARJOLLET-001</div>
+          <div><strong>Date</strong>4 septembre 2026</div>
+          <div><strong>Apporteur d’affaires</strong>Damien Richards</div>
+          <div><strong>Interlocuteur</strong>Sylvain Lembelembe<br>06&nbsp;10&nbsp;59&nbsp;68&nbsp;98<br>contact@energia-conseil-ia.com</div>
+        </div>
+      </div>
+      <div class="cover-foot">
+        ENERGIA CONSEIL IA® · 16 Rue Cuvier, 69006 Lyon · SIRET 94181942700019 · RCS Lyon 941819427 · SASU capital 100&nbsp;€<br>
+        Ce document n’est pas un devis définitif. Montants fourchette de marché, hors validation des métrés, puissances, TVA et devis des poseurs.
+      </div>
+    </section>
+
+    <!-- IDENTIFICATION -->
+    <section class="page">
+      <h2>1. Identification du projet</h2>
+      <table class="no-break">
+        <tr><th style="width:34%">Élément</th><th>Information retenue</th></tr>
+        <tr><td>Client</td><td>Monsieur Marjollet</td></tr>
+        <tr class="alt"><td>Adresse du chantier</td><td>85 rue des Bleuets, 42210 Montrond-les-Bains</td></tr>
+        <tr><td>Téléphone / e-mail client</td><td>Non communiqués – non inventés</td></tr>
+        <tr class="alt"><td>Nature du projet</td><td>Production solaire, stockage, chauffage / climatisation air-air, chauffage de piscine, recharge d’un véhicule électrique</td></tr>
+        <tr><td>Facture d’électricité communiquée</td><td>Environ 120&nbsp;€ par mois, soit 1&nbsp;440&nbsp;€ TTC par an. Répartition abonnement / consommation non fournie.</td></tr>
+        <tr class="alt"><td>Apporteur d’affaires</td><td>Damien Richards</td></tr>
+        <tr><td>Entreprise émettrice</td><td>ENERGIA CONSEIL IA®</td></tr>
+        <tr class="alt"><td>Contact projet</td><td>Sylvain Lembelembe – 06&nbsp;10&nbsp;59&nbsp;68&nbsp;98 – contact@energia-conseil-ia.com</td></tr>
+        <tr><td>Document</td><td>Pré-devis estimatif n° PRE-2026-MARJOLLET-001 – validité de l’estimation&nbsp;: 30 jours</td></tr>
+      </table>
+
+      <div class="box crit">
+        <strong>Nature du document.</strong> Il s’agit d’un pré-devis estimatif non contractuel. Il ne vaut pas devis définitif, ni bon de commande, ni engagement de performance. Il reste subordonné à une visite technique, à la validation des dimensionnements, des taux de TVA et des devis des professionnels poseurs.
+      </div>
+
+      <div class="no-break">
+      <h2>2. Objectif du projet</h2>
+      <p>Présenter une solution visant l’<strong>autoconsommation maximale</strong> de l’électricité produite, afin de couvrir prioritairement&nbsp;:</p>
+      <ul class="tight">
+        <li>les besoins électriques actuels de la maison&nbsp;;</li>
+        <li>les trois unités intérieures air/air envisagées&nbsp;;</li>
+        <li>le chauffage de la piscine couverte&nbsp;;</li>
+        <li>la recharge du véhicule électrique.</li>
+      </ul>
+      <div class="box warn">
+        <strong>Autonomie énergétique maximale visée – pas une autonomie de 100&nbsp;%.</strong>
+        Le réseau électrique peut rester nécessaire en hiver, la nuit, en cas de faible production solaire, ou lors des pics de consommation (recharge, piscine, chauffage). Aucune autonomie totale n’est promise.
+      </div>
+      </div>
+    </section>
+
+    <!-- SYNTHESE FINANCIERE -->
+    <section class="page">
+      <h2>3. Synthèse financière estimative</h2>
+      <p class="small">Fourchettes de marché communiquées pour ce pré-devis, à remplacer par les devis réels des poseurs. Médiane = moyenne arithmétique du bas et du haut, sauf Clyve (montant unique à confirmer).</p>
+
+      <div class="kpi">
+        <div><span>Total bas HT</span><strong>28&nbsp;300&nbsp;€</strong><em class="small">avec batterie + Clyve</em></div>
+        <div><span>Total médian HT</span><strong>34&nbsp;200&nbsp;€</strong><em class="small">avec batterie + Clyve</em></div>
+        <div><span>Total haut HT</span><strong>40&nbsp;100&nbsp;€</strong><em class="small">avec batterie + Clyve</em></div>
+      </div>
+
+      <h3>3.1 Variante avec batterie 10&nbsp;kWh</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Poste</th>
+            <th class="num">Bas HT</th>
+            <th class="num">Médian HT</th>
+            <th class="num">Haut HT</th>
+            <th>TVA hypothèse</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Photovoltaïque jusqu’à 9&nbsp;kWc</td><td class="num">12&nbsp;000&nbsp;€</td><td class="num">14&nbsp;000&nbsp;€</td><td class="num">16&nbsp;000&nbsp;€</td><td>5,5&nbsp;% si éligible – à valider</td></tr>
+          <tr class="alt"><td>Batterie 10&nbsp;kWh</td><td class="num">6&nbsp;000&nbsp;€</td><td class="num">7&nbsp;500&nbsp;€</td><td class="num">9&nbsp;000&nbsp;€</td><td>20&nbsp;% – à valider</td></tr>
+          <tr><td>Multisplit 3 unités air/air</td><td class="num">5&nbsp;500&nbsp;€</td><td class="num">6&nbsp;450&nbsp;€</td><td class="num">7&nbsp;400&nbsp;€</td><td>20&nbsp;% de prudence – à valider</td></tr>
+          <tr class="alt"><td>PAC piscine ~10&nbsp;kW (by-pass existant)</td><td class="num">2&nbsp;700&nbsp;€</td><td class="num">3&nbsp;600&nbsp;€</td><td class="num">4&nbsp;500&nbsp;€</td><td>20&nbsp;% – à valider</td></tr>
+          <tr><td>Borne ~7,4&nbsp;kW</td><td class="num">1&nbsp;000&nbsp;€</td><td class="num">1&nbsp;550&nbsp;€</td><td class="num">2&nbsp;100&nbsp;€</td><td>5,5&nbsp;% si IRVE éligible – à valider</td></tr>
+          <tr class="alt"><td>Prestation administrative Clyve</td><td class="num">1&nbsp;100&nbsp;€</td><td class="num">1&nbsp;100&nbsp;€</td><td class="num">1&nbsp;100&nbsp;€</td><td>20&nbsp;% – à confirmer</td></tr>
+          <tr class="sub"><td>Total HT</td><td class="num">28&nbsp;300&nbsp;€</td><td class="num">34&nbsp;200&nbsp;€</td><td class="num">40&nbsp;100&nbsp;€</td><td></td></tr>
+          <tr><td>TVA calculée sur les hypothèses ci-dessus</td><td class="num">3&nbsp;775,00&nbsp;€</td><td class="num">4&nbsp;585,25&nbsp;€</td><td class="num">5&nbsp;395,50&nbsp;€</td><td>Non opposable</td></tr>
+          <tr class="total"><td>Total TTC indicatif (après hypothèses de taux)</td><td class="num">32&nbsp;075,00&nbsp;€</td><td class="num">38&nbsp;785,25&nbsp;€</td><td class="num">45&nbsp;495,50&nbsp;€</td><td>Sous réserve</td></tr>
+        </tbody>
+      </table>
+
+      <h3>3.2 Variante sans batterie</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Poste</th>
+            <th class="num">Bas HT</th>
+            <th class="num">Médian HT</th>
+            <th class="num">Haut HT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Même périmètre hors batterie 10&nbsp;kWh</td><td class="num">22&nbsp;300&nbsp;€</td><td class="num">26&nbsp;700&nbsp;€</td><td class="num">31&nbsp;100&nbsp;€</td></tr>
+          <tr><td>TVA sur hypothèses de taux</td><td class="num">2&nbsp;575,00&nbsp;€</td><td class="num">3&nbsp;085,25&nbsp;€</td><td class="num">3&nbsp;595,50&nbsp;€</td></tr>
+          <tr class="total"><td>Total TTC indicatif</td><td class="num">24&nbsp;875,00&nbsp;€</td><td class="num">29&nbsp;785,25&nbsp;€</td><td class="num">34&nbsp;695,50&nbsp;€</td></tr>
+        </tbody>
+      </table>
+
+      <div class="box warn">
+        <strong>TVA – lecture obligatoire.</strong> 5,5&nbsp;% n’est pas appliqué à tous les équipements. Les totaux TTC ci-dessus ne deviennent opposables qu’après validation du taux de chaque ligne par le poseur et, le cas échéant, son conseil fiscal. Si le photovoltaïque et la batterie étaient facturés en lot indissociable, le taux de 20&nbsp;% pourrait s’appliquer à l’ensemble de cette opération (doctrine BOFiP BOI-TVA-LIQ-30-20-97 du 10/06/2026, exemples 2 et 3). Sensibilité «&nbsp;tout à 20&nbsp;%&nbsp;» avec batterie + Clyve&nbsp;: 33&nbsp;960&nbsp;€ / 41&nbsp;040&nbsp;€ / 48&nbsp;120&nbsp;€ TTC (bas / médian / haut).
+      </div>
+      <p class="small">Les honoraires ENERGIA et la commission apporteur ne sont <strong>pas</strong> inclus dans ces totaux fournisseurs. Voir l’annexe interne §&nbsp;9.</p>
+    </section>
+
+    <!-- DETAIL TECHNIQUE -->
+    <section class="page">
+      <h2>4. Détail technique par poste</h2>
+      <p class="small">Aucune marque, certification, puissance définitive ni garantie constructeur n’est attribuée. Les descriptifs ci-dessous décrivent le périmètre à étudier, pas un matériel déjà choisi.</p>
+
+      <h3>A. Photovoltaïque – jusqu’à 9&nbsp;kWc</h3>
+      <table class="no-break">
+        <tr><th>Paramètre</th><th>Valeur envisagée</th><th>Statut</th></tr>
+        <tr><td>Puissance</td><td>Jusqu’à 9&nbsp;kWc</td><td>À caler sur la toiture utile</td></tr>
+        <tr class="alt"><td>Modules</td><td>500&nbsp;Wc × environ 18 panneaux = 9&nbsp;000&nbsp;Wc</td><td>Sous réserve des dimensions réelles</td></tr>
+        <tr><td>Périmètre estimé</td><td>Structure, protections DC/AC, onduleur adapté, câblage, monitoring, pose, mise en service</td><td>À détailler par le poseur</td></tr>
+        <tr class="alt"><td>Fourchette</td><td>12&nbsp;000 à 16&nbsp;000&nbsp;€ HT</td><td>Estimation de marché</td></tr>
+        <tr><td>À vérifier sur site</td><td>Orientation, inclinaison, ombrage, état de la toiture, urbanisme, raccordement, conformité électrique, SGE pour TVA réduite</td><td>Visite technique obligatoire</td></tr>
+      </table>
+
+      <h3>B. Batterie de stockage – 10&nbsp;kWh</h3>
+      <table class="no-break">
+        <tr><th>Paramètre</th><th>Valeur envisagée</th><th>Statut</th></tr>
+        <tr><td>Capacité</td><td>10&nbsp;kWh</td><td>À dimensionner selon consommations nocturnes réelles</td></tr>
+        <tr class="alt"><td>Compatibilité</td><td>Analyse obligatoire avec l’onduleur retenu (hybride ou coupleur)</td><td>Non vérifiée</td></tr>
+        <tr><td>Fourchette</td><td>6&nbsp;000 à 9&nbsp;000&nbsp;€ HT</td><td>Estimation de marché</td></tr>
+        <tr class="alt"><td>Variante</td><td>Le projet reste lisible sans batterie (voir §&nbsp;3.2 et §&nbsp;6)</td><td>Choix à arbitrer après courbe de charge</td></tr>
+      </table>
+
+      <h3>C. Climatisation réversible – multisplit 3 unités air/air</h3>
+      <table class="no-break">
+        <tr><th>Paramètre</th><th>Valeur envisagée</th><th>Statut</th></tr>
+        <tr><td>Système</td><td>1 groupe extérieur + 3 unités intérieures air/air</td><td>Puissance non confirmée</td></tr>
+        <tr class="alt"><td>Périmètre estimé</td><td>Liaisons frigorifiques, évacuation des condensats, alimentation, mise en service, essais</td><td>Longueurs à métrer</td></tr>
+        <tr><td>Fourchette</td><td>5&nbsp;500 à 7&nbsp;400&nbsp;€ HT</td><td>Estimation de marché</td></tr>
+        <tr class="alt"><td>À relever</td><td>Surfaces, volumes, isolation, orientation des pièces, contraintes d’implantation</td><td>Visite technique</td></tr>
+      </table>
+    </section>
+
+    <section class="page">
+      <h3>D. Chauffage de piscine – PAC Full Inverter ~10&nbsp;kW</h3>
+      <table class="no-break">
+        <tr><th>Paramètre</th><th>Valeur envisagée</th><th>Statut</th></tr>
+        <tr><td>Bassin</td><td>Piscine couverte, 45 à 50&nbsp;m³</td><td>Volume exact à confirmer</td></tr>
+        <tr class="alt"><td>Équipement étudié</td><td>PAC piscine Full Inverter d’environ 10&nbsp;kW</td><td>Puissance à justifier après relevé</td></tr>
+        <tr><td>Hydraulique</td><td>Raccordement sur by-pass existant, vannes nécessaires</td><td>By-pass à contrôler sur place</td></tr>
+        <tr class="alt"><td>Périmètre estimé</td><td>Raccordement hydraulique, alimentation électrique, régulation, mise en service</td><td>À détailler par le poseur</td></tr>
+        <tr><td>Fourchette</td><td>2&nbsp;700 à 4&nbsp;500&nbsp;€ HT</td><td>Si by-pass existant exploitable</td></tr>
+      </table>
+      <div class="box warn">
+        La couverture de piscine réduit les pertes mais <strong>ne supprime pas</strong> les besoins énergétiques. La PAC piscine créera une consommation nouvelle, distincte de la facture actuelle de 120&nbsp;€/mois.
+      </div>
+
+      <h3>E. Borne de recharge – environ 7,4&nbsp;kW</h3>
+      <table class="no-break">
+        <tr><th>Paramètre</th><th>Valeur envisagée</th><th>Statut</th></tr>
+        <tr><td>Puissance</td><td>Environ 7,4&nbsp;kW (typiquement 32&nbsp;A en monophasé, à confirmer)</td><td>Selon type de raccordement</td></tr>
+        <tr class="alt"><td>Périmètre estimé</td><td>Protection dédiée, câble, délestage dynamique, pilotage selon production solaire, pose, essais</td><td>Longueur de câble inconnue</td></tr>
+        <tr><td>Fourchette</td><td>1&nbsp;000 à 2&nbsp;100&nbsp;€ HT</td><td>Estimation de marché</td></tr>
+        <tr class="alt"><td>À vérifier</td><td>Monophasé / triphasé, puissance souscrite, état du tableau, cheminement du câble</td><td>Visite technique</td></tr>
+      </table>
+
+      <h3>F. Prestation administrative Clyve</h3>
+      <p>Montant indiqué&nbsp;: <strong>1&nbsp;100&nbsp;€ HT, à confirmer</strong>. Le contenu exact de la prestation n’est pas détaillé dans les éléments transmis&nbsp;; il devra l’être avant tout engagement.</p>
+    </section>
+
+    <!-- HYPOTHESES -->
+    <section class="page">
+      <h2>5. Hypothèses et éléments à confirmer par visite technique</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin-top:0">Données disponibles</h3>
+          <ul class="tight">
+            <li>Identité&nbsp;: M. Marjollet</li>
+            <li>Adresse chantier complète</li>
+            <li>Facture actuelle ≈ 120&nbsp;€/mois</li>
+            <li>Périmètre fonctionnel décrit ci-dessus</li>
+            <li>Fourchettes de prix de marché fournies</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Données non transmises</h3>
+          <ul class="tight">
+            <li>Coordonnées client (tél., e-mail)</li>
+            <li>Facture détaillée (kWh, option, puissance souscrite)</li>
+            <li>Surfaces des pièces, DPE, isolation</li>
+            <li>Plans toiture, photos, ombrage</li>
+            <li>Usages VE, piscine, consignes de chauffage</li>
+            <li>Marques, RGE, garanties poseurs</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Checklist visite technique</h3>
+      <table>
+        <thead><tr><th>Poste</th><th>Points de contrôle</th><th>Impact</th></tr></thead>
+        <tbody>
+          <tr><td>Toiture / PV</td><td>Surface utile, orientation, inclinaison, masques, charpente, couverture, accès chantier, urbanisme</td><td>Nombre de modules et productible</td></tr>
+          <tr class="alt"><td>Électricité</td><td>Tableau, mono/tri, puissance souscrite, terre, sections, place pour protections, Enedis / Consuel</td><td>Faisabilité borne, PAC, PV</td></tr>
+          <tr><td>Splits</td><td>Volumes, apports solaires, liaisons, condensats, niveau sonore, implantation groupe</td><td>Puissance et prix</td></tr>
+          <tr class="alt"><td>Piscine</td><td>Volume réel, by-pass, local technique, consigne d’eau, saison d’usage</td><td>PAC 10&nbsp;kW confirmée ou non</td></tr>
+          <tr><td>IRVE</td><td>Emplacement véhicule, longueur câble, délestage, compatibilité SGE / solaire</td><td>Coût câble et protection</td></tr>
+          <tr class="alt"><td>Batterie</td><td>Local hors gel / ventilation, compatibilité onduleur, besoin nocturne mesuré</td><td>Intérêt économique de la batterie</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Régimes de TVA – hypothèses de travail, non validées</h3>
+      <table>
+        <thead><tr><th>Ligne</th><th>Hypothèse</th><th>Condition / réserve</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Photovoltaïque ≤&nbsp;9&nbsp;kWc</td>
+            <td>5,5&nbsp;%</td>
+            <td>Logement, puissance ≤&nbsp;9&nbsp;kWc, critères modules (arrêté du 8 septembre 2025), système gestionnaire d’énergie. CGI art.&nbsp;278-0&nbsp;bis&nbsp;P. BOFiP 10/06/2026. Si une condition manque → 20&nbsp;%.</td>
+          </tr>
+          <tr class="alt">
+            <td>Batterie</td>
+            <td>20&nbsp;%</td>
+            <td>Élément non accessoire. Si vendue en lot indissociable avec le PV, le 20&nbsp;% peut contaminer l’opération unique. Facturation séparée à étudier.</td>
+          </tr>
+          <tr>
+            <td>Multisplit air/air</td>
+            <td>20&nbsp;% (prudence)</td>
+            <td>5,5&nbsp;% non appliqué automatiquement. Un taux de 10&nbsp;% n’est retenu que s’il est démontré pour ce logement et cette prestation. À faire qualifier par le poseur.</td>
+          </tr>
+          <tr class="alt">
+            <td>PAC piscine</td>
+            <td>20&nbsp;%</td>
+            <td>Équipement de piscine, distinct des travaux d’amélioration énergétique du logement.</td>
+          </tr>
+          <tr>
+            <td>Borne IRVE</td>
+            <td>5,5&nbsp;% si éligible</td>
+            <td>Sous réserve des conditions propres aux bornes de recharge en logement. Sinon 20&nbsp;%.</td>
+          </tr>
+          <tr class="alt">
+            <td>Clyve</td>
+            <td>20&nbsp;%</td>
+            <td>Prestation de service – à confirmer sur la facture émetteur.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ROI -->
+    <section class="page">
+      <h2>6. Simulation de retour sur investissement</h2>
+      <div class="box crit">
+        <strong>Simulation indicative, ne constitue pas une garantie de rentabilité.</strong>
+        Aucune aide, prime à l’autoconsommation ni tarif de vente de surplus n’est intégré (non communiqués, donc non inventés).
+      </div>
+
+      <h3>6.1 Hypothèses modifiables</h3>
+      <table>
+        <thead><tr><th>Hypothèse</th><th>Valeur saisie</th><th>Source / date</th></tr></thead>
+        <tbody>
+          <tr><td>Facture actuelle</td><td>120&nbsp;€/mois soit 1&nbsp;440&nbsp;€ TTC/an</td><td>Déclaration client – détail de facture non fourni</td></tr>
+          <tr class="alt"><td>Prix d’achat de l’électricité</td><td>0,1985&nbsp;€ TTC/kWh</td><td>TRVE option Base, puissances ≥&nbsp;9&nbsp;kVA, grille TTC au 1er&nbsp;août 2026. Réf. délibération CRE n°&nbsp;2026-147 du 15/07/2026. Contrat réel du client non fourni. Si 6&nbsp;kVA Base&nbsp;: 0,2001&nbsp;€ TTC/kWh.</td></tr>
+          <tr><td>Production solaire</td><td>1&nbsp;000 / 1&nbsp;150 / 1&nbsp;250 kWh/kWc·an × 9&nbsp;kWc → 9&nbsp;000 / 10&nbsp;350 / 11&nbsp;250 kWh/an</td><td>Fourchette de travail pour la Loire (42), non simulée sur cette toiture. Orientation, inclinaison et ombrage inconnus.</td></tr>
+          <tr class="alt"><td>Autoconsommation avec batterie</td><td>55&nbsp;% / 70&nbsp;% / 80&nbsp;%</td><td>Hypothèses basse / centrale / haute – à recaler sur courbe de charge</td></tr>
+          <tr><td>Autoconsommation sans batterie</td><td>30&nbsp;% / 40&nbsp;% / 50&nbsp;%</td><td>Idem</td></tr>
+          <tr class="alt"><td>3 splits + PAC piscine + VE</td><td>Non chiffrés</td><td>Usages à collecter. Ne sont pas des économies sur la facture actuelle.</td></tr>
+          <tr><td>Maintenance + provision onduleur</td><td>250&nbsp;€ TTC/an</td><td>Hypothèse de travail&nbsp;: 100&nbsp;€ entretien + 150&nbsp;€ de provision (ordre de grandeur 1&nbsp;800&nbsp;€ / 12&nbsp;ans). Non devisé.</td></tr>
+          <tr class="alt"><td>Injection / surplus</td><td>kWh affichés, valeur 0&nbsp;€</td><td>Tarif de rachat ou de surplus non communiqué</td></tr>
+        </tbody>
+      </table>
+
+      <h3>6.2 Distinctions comptables (obligatoires)</h3>
+      <table>
+        <thead><tr><th>Poste</th><th>Traitement dans cette simulation</th></tr></thead>
+        <tbody>
+          <tr><td>Économies sur la facture actuelle</td><td>Uniquement l’électricité solaire qui se substitue à des kWh déjà payés dans les 1&nbsp;440&nbsp;€/an. Plafonnées à 1&nbsp;440&nbsp;€/an. L’abonnement réseau n’est pas évitable.</td></tr>
+          <tr class="alt"><td>Coût des nouveaux usages</td><td>Splits, PAC piscine et VE n’existent pas dans la facture actuelle. Leur consommation future n’est <strong>pas</strong> comptée comme une économie. Ligne à renseigner après collecte.</td></tr>
+          <tr><td>Énergie solaire autoconsommée</td><td>Affichée en kWh. Une partie pourra alimenter les nouveaux usages plutôt que réduire la facture actuelle.</td></tr>
+          <tr class="alt"><td>Énergie éventuellement injectée</td><td>Affichée en kWh, non valorisée (0&nbsp;€) dans les totaux d’économie.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="page">
+      <h3>6.3 Scénarios avec batterie – lecture «&nbsp;facture actuelle&nbsp;»</h3>
+      <p class="small">Investissement TTC = total indicatif avec batterie + Clyve, selon les taux de TVA hypothétiques du §&nbsp;3. Scénario prudent = fourchette haute + productible bas + autoconsommation basse. Scénario favorable = fourchette basse + productible haut + autoconsommation haute.</p>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th class="num">Prudent</th>
+            <th class="num">Central</th>
+            <th class="num">Favorable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Investissement total TTC indicatif</td><td class="num">45&nbsp;495,50&nbsp;€</td><td class="num">38&nbsp;785,25&nbsp;€</td><td class="num">32&nbsp;075,00&nbsp;€</td></tr>
+          <tr class="alt"><td>Production solaire estimée</td><td class="num">9&nbsp;000 kWh/an</td><td class="num">10&nbsp;350 kWh/an</td><td class="num">11&nbsp;250 kWh/an</td></tr>
+          <tr><td>Autoconsommation hypothèse</td><td class="num">55&nbsp;% → 4&nbsp;950 kWh</td><td class="num">70&nbsp;% → 7&nbsp;245 kWh</td><td class="num">80&nbsp;% → 9&nbsp;000 kWh</td></tr>
+          <tr class="alt"><td>Énergie éventuellement injectée</td><td class="num">4&nbsp;050 kWh · 0&nbsp;€</td><td class="num">3&nbsp;105 kWh · 0&nbsp;€</td><td class="num">2&nbsp;250 kWh · 0&nbsp;€</td></tr>
+          <tr><td>Économie brute théorique (kWh × 0,1985&nbsp;€)</td><td class="num">982,58&nbsp;€/an</td><td class="num">1&nbsp;438,13&nbsp;€/an</td><td class="num">1&nbsp;786,50&nbsp;€/an</td></tr>
+          <tr class="alt"><td>Économie retenue sur facture actuelle (plafond 1&nbsp;440&nbsp;€)</td><td class="num">982,58&nbsp;€/an</td><td class="num">1&nbsp;438,13&nbsp;€/an</td><td class="num">1&nbsp;440,00&nbsp;€/an</td></tr>
+          <tr><td>Coût résiduel estimé de la facture actuelle</td><td class="num">457,42&nbsp;€/an</td><td class="num">1,87&nbsp;€/an</td><td class="num">0,00&nbsp;€/an</td></tr>
+          <tr class="alt"><td>Maintenance + provision onduleur</td><td class="num">250&nbsp;€/an</td><td class="num">250&nbsp;€/an</td><td class="num">250&nbsp;€/an</td></tr>
+          <tr><td>Économie nette sur facture actuelle</td><td class="num">732,58&nbsp;€/an</td><td class="num">1&nbsp;188,13&nbsp;€/an</td><td class="num">1&nbsp;190,00&nbsp;€/an</td></tr>
+          <tr class="alt"><td>Coût des nouveaux usages (splits, piscine, VE)</td><td class="num">À renseigner</td><td class="num">À renseigner</td><td class="num">À renseigner</td></tr>
+          <tr class="total"><td>Temps de retour simple du projet complet / facture actuelle</td><td class="num">≈ 62 ans</td><td class="num">≈ 33 ans</td><td class="num">≈ 27 ans</td></tr>
+        </tbody>
+      </table>
+      <p class="small">Détail des retours&nbsp;: 45&nbsp;495,50 / 732,58 ≈ 62,1&nbsp;ans · 38&nbsp;785,25 / 1&nbsp;188,13 ≈ 32,6&nbsp;ans · 32&nbsp;075,00 / 1&nbsp;190,00 ≈ 27,0&nbsp;ans. Le coût résiduel «&nbsp;favorable&nbsp;» à 0&nbsp;€ est un artefact du plafond 1&nbsp;440&nbsp;€&nbsp;: il ne signifie pas l’absence de réseau, ni la disparition de l’abonnement.</p>
+
+      <h3>6.4 Même simulation, lot solaire seul (PV ± batterie)</h3>
+      <p class="small">Lecture plus pertinente pour le solaire, car splits, piscine et borne sont surtout des usages de confort / mobilité, pas des économies sur la facture actuelle.</p>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th class="num">Prudent</th>
+            <th class="num">Central</th>
+            <th class="num">Favorable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>PV + batterie TTC indicatif</td><td class="num">27&nbsp;680,00&nbsp;€</td><td class="num">23&nbsp;770,00&nbsp;€</td><td class="num">19&nbsp;860,00&nbsp;€</td></tr>
+          <tr class="alt"><td>Économie nette / facture actuelle</td><td class="num">732,58&nbsp;€/an</td><td class="num">1&nbsp;188,13&nbsp;€/an</td><td class="num">1&nbsp;190,00&nbsp;€/an</td></tr>
+          <tr class="total"><td>Temps de retour simple PV + batterie</td><td class="num">≈ 38 ans</td><td class="num">≈ 20 ans</td><td class="num">≈ 17 ans</td></tr>
+          <tr><td>PV seul TTC indicatif (sans batterie)</td><td class="num">16&nbsp;880,00&nbsp;€</td><td class="num">14&nbsp;770,00&nbsp;€</td><td class="num">12&nbsp;660,00&nbsp;€</td></tr>
+          <tr class="alt"><td>Autoconsommation sans batterie</td><td class="num">30&nbsp;% → 2&nbsp;700 kWh</td><td class="num">40&nbsp;% → 4&nbsp;140 kWh</td><td class="num">50&nbsp;% → 5&nbsp;625 kWh</td></tr>
+          <tr><td>Injection non valorisée</td><td class="num">6&nbsp;300 kWh</td><td class="num">6&nbsp;210 kWh</td><td class="num">5&nbsp;625 kWh</td></tr>
+          <tr class="alt"><td>Économie retenue / facture actuelle</td><td class="num">535,95&nbsp;€/an</td><td class="num">821,79&nbsp;€/an</td><td class="num">1&nbsp;116,56&nbsp;€/an</td></tr>
+          <tr><td>Économie nette après 250&nbsp;€ de maintenance</td><td class="num">285,95&nbsp;€/an</td><td class="num">571,79&nbsp;€/an</td><td class="num">866,56&nbsp;€/an</td></tr>
+          <tr class="total"><td>Temps de retour simple PV seul</td><td class="num">≈ 59 ans</td><td class="num">≈ 26 ans</td><td class="num">≈ 15 ans</td></tr>
+        </tbody>
+      </table>
+      <p class="small">PV + batterie&nbsp;: 27&nbsp;680 / 732,58 ≈ 37,8&nbsp;ans · 23&nbsp;770 / 1&nbsp;188,13 ≈ 20,0&nbsp;ans · 19&nbsp;860 / 1&nbsp;190 ≈ 16,7&nbsp;ans. PV seul&nbsp;: 16&nbsp;880 / 285,95 ≈ 59,0&nbsp;ans · 14&nbsp;770 / 571,79 ≈ 25,8&nbsp;ans · 12&nbsp;660 / 866,56 ≈ 14,6&nbsp;ans.</p>
+    </section>
+
+    <section class="page">
+      <div class="box warn">
+        <strong>Pourquoi ces temps de retour sont longs.</strong>
+        La facture actuelle (environ 120&nbsp;€/mois) offre un gisement d’économie plafonné à 1&nbsp;440&nbsp;€/an. Un champ jusqu’à 9&nbsp;kWc est dimensionné pour l’ensemble du projet, y compris des usages qui n’existent pas encore. Le temps de retour du projet <em>complet</em> rapporté à la seule facture actuelle n’est donc pas un critère de décision suffisant.
+      </div>
+
+      <h3>6.5 Nouveaux usages – à renseigner après collecte</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Usage nouveau</th>
+            <th>Donnée à collecter</th>
+            <th>Coût réseau estimé</th>
+            <th>Part couverte par le solaire</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>3 splits air/air</td><td>Consignes, heures, isolation, surfaces</td><td>À renseigner</td><td>À renseigner</td></tr>
+          <tr class="alt"><td>PAC piscine ~10&nbsp;kW</td><td>Saison, température d’eau, volume réel, couverture</td><td>À renseigner</td><td>À renseigner</td></tr>
+          <tr><td>Véhicule électrique</td><td>km/an, kWh/100&nbsp;km, part recharge domicile</td><td>À renseigner</td><td>À renseigner</td></tr>
+        </tbody>
+      </table>
+      <p>Tant que ces lignes sont vides, le <strong>coût résiduel global d’électricité</strong> (facture actuelle diminuée + nouveaux usages) ne peut pas être chiffré sans inventer des consommations.</p>
+      <p><strong>Simulation indicative, ne constitue pas une garantie de rentabilité.</strong></p>
+
+      <h2>7. Planning indicatif</h2>
+      <p class="small">Calendrier de méthode, non contractuel. Durées de pose = ordres de grandeur, à reprendre dans les devis poseurs.</p>
+      <table>
+        <thead><tr><th>Étape</th><th>Contenu</th><th>Ordre de grandeur</th></tr></thead>
+        <tbody>
+          <tr><td>0. Cadrage</td><td>Validation du présent pré-devis comme base d’étude, pas comme commande</td><td>J0</td></tr>
+          <tr class="alt"><td>1. Visite technique</td><td>Toiture, tableau, pièces, by-pass piscine, IRVE, photos, métrés</td><td>J+7 à J+21 selon disponibilités</td></tr>
+          <tr><td>2. Études</td><td>Productible, puissances, mono/tri, urbanisme, schéma électrique, TVA par ligne</td><td>Après visite</td></tr>
+          <tr class="alt"><td>3. Devis définitifs</td><td>Devis séparés PV, batterie, climatisation, piscine, borne, Clyve</td><td>Sous réserve retours poseurs</td></tr>
+          <tr><td>4. Autorisations / raccordement</td><td>Urbanisme, Enedis, Consuel selon lots</td><td>Délais administratifs non maîtrisés ici</td></tr>
+          <tr class="alt"><td>5. Travaux</td><td>PV (souvent 2 à 3 semaines), splits, PAC piscine, borne, essais, monitoring</td><td>Séquençage après devis signés</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- EXCLUSIONS -->
+    <section class="page">
+      <h2>8. Exclusions, réserves et conditions de validité</h2>
+      <h3>Exclusions (non chiffrées, non promises)</h3>
+      <ul class="tight">
+        <li>Renforcement de charpente, remplacement de couverture, échafaudage spécifique non prévu par le poseur.</li>
+        <li>Mise aux normes générale du tableau au-delà des départs des lots étudiés.</li>
+        <li>Modification lourde du local technique piscine si le by-pass existant n’est pas exploitable.</li>
+        <li>Frais Enedis, Consuel, urbanisme, études de sol, maçonnerie, tranchées de câble longues.</li>
+        <li>Toute aide, prime, CEE, TVA définitive, tarif de surplus ou garantie constructeur.</li>
+        <li>Marques, modèles, certifications RGE et numéros d’assurance des poseurs (non désignés).</li>
+        <li>Performance de chauffage de piscine en toute saison, confort thermique pièce par pièce, autonomie énergétique de 100&nbsp;%.</li>
+        <li>Honoraires ENERGIA et commission apporteur (traités à part, §&nbsp;9).</li>
+      </ul>
+
+      <h3>Réserves</h3>
+      <ul class="tight">
+        <li>Les fourchettes 12–16 / 6–9 / 5,5–7,4 / 2,7–4,5 / 1–2,1 k€ HT sont des estimations de marché, pas des prix de poseurs identifiés.</li>
+        <li>18 modules de 500&nbsp;Wc = 9,00&nbsp;kWc seulement si la surface utile et les dimensions réelles le permettent.</li>
+        <li>La PAC piscine ~10&nbsp;kW et les 3 splits restent à dimensionner après relevé.</li>
+        <li>Le réseau public demeure un appoint possible&nbsp;: hiver, nuit, faible production, pics.</li>
+        <li>Ce document n’est pas un devis conforme au code de la consommation. Il n’emporte aucun «&nbsp;bon pour accord&nbsp;».</li>
+      </ul>
+
+      <h3>Conditions de validité du pré-devis</h3>
+      <div class="box">
+        <ul class="tight">
+          <li>Validité de l’estimation&nbsp;: 30 jours à compter du 4 septembre 2026.</li>
+          <li>Caducité automatique si les métrés, puissances, contraintes techniques, taux de TVA ou devis poseurs diffèrent.</li>
+          <li>Transformation en devis définitif uniquement après visite technique, chiffrage poseurs, qualification TVA ligne à ligne, et relecture juridique / comptable.</li>
+          <li>L’espace «&nbsp;bon pour accord&nbsp;» n’est volontairement pas inclus, le document n’étant pas un devis conforme.</li>
+        </ul>
+      </div>
+
+      <h3>Contacts</h3>
+      <p class="no-break">
+        <strong>ENERGIA CONSEIL IA®</strong> – 16 Rue Cuvier, 69006 Lyon<br>
+        Sylvain Lembelembe – 06&nbsp;10&nbsp;59&nbsp;68&nbsp;98 – contact@energia-conseil-ia.com<br>
+        Apporteur d’affaires&nbsp;: Damien Richards (coordonnées non communiquées par ailleurs dans le dossier transmis).
+      </p>
+    </section>
+
+    <!-- ANNEXE INTERNE -->
+    <section class="page">
+      <h2>9. Annexe interne – honoraires et commission</h2>
+      <div class="box internal">
+        <strong>Calcul interne / à valider contractuellement.</strong>
+        Cette page n’est pas un tarif client opposable. La présentation au client doit être validée juridiquement et comptablement avant envoi. Ces prestations ne sont pas masquées dans les coûts fournisseurs du §&nbsp;3.
+      </div>
+
+      <h3>Règle contractuelle (à écrire dans le contrat signé)</h3>
+      <ul class="tight">
+        <li>Commission Damien Richards&nbsp;: 10&nbsp;% de la <strong>base HT définie dans le contrat signé</strong>.</li>
+        <li>Prestation de pilotage ENERGIA CONSEIL IA®&nbsp;: 10&nbsp;% de <strong>la même base HT</strong>, uniquement si cette base et cette prestation sont confirmées.</li>
+        <li>Régime de TVA de ces lignes&nbsp;: à qualifier comptablement (hypothèse de travail fréquente pour une prestation de service&nbsp;: 20&nbsp;% – non validée ici).</li>
+      </ul>
+
+      <div class="box crit">
+        <strong>Base de calcul actuelle&nbsp;: non définie contractuellement.</strong>
+        Aucun montant de 10&nbsp;% ne peut donc être présenté comme dû. Les chiffres ci-dessous sont une <em>illustration arithmétique</em> sur des totaux provisoires de marché, clairement identifiés. Ils ne doivent pas être facturés tels quels.
+      </div>
+
+      <h3>Illustration – si la base retenue était l’un des totaux HT provisoires suivants</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Base illustrée (provisoire, non contractuelle)</th>
+            <th class="num">Montant HT de la base</th>
+            <th class="num">10&nbsp;% Damien HT</th>
+            <th class="num">10&nbsp;% ENERGIA HT</th>
+            <th class="num">20&nbsp;% cumulé HT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Travaux avec batterie, hors Clyve – bas</td><td class="num">27&nbsp;200&nbsp;€</td><td class="num">2&nbsp;720&nbsp;€</td><td class="num">2&nbsp;720&nbsp;€</td><td class="num">5&nbsp;440&nbsp;€</td></tr>
+          <tr class="alt"><td>Travaux avec batterie, hors Clyve – médian</td><td class="num">33&nbsp;100&nbsp;€</td><td class="num">3&nbsp;310&nbsp;€</td><td class="num">3&nbsp;310&nbsp;€</td><td class="num">6&nbsp;620&nbsp;€</td></tr>
+          <tr><td>Travaux avec batterie, hors Clyve – haut</td><td class="num">39&nbsp;000&nbsp;€</td><td class="num">3&nbsp;900&nbsp;€</td><td class="num">3&nbsp;900&nbsp;€</td><td class="num">7&nbsp;800&nbsp;€</td></tr>
+          <tr class="alt"><td>Total fournisseurs avec batterie + Clyve – médian</td><td class="num">34&nbsp;200&nbsp;€</td><td class="num">3&nbsp;420&nbsp;€</td><td class="num">3&nbsp;420&nbsp;€</td><td class="num">6&nbsp;840&nbsp;€</td></tr>
+          <tr><td>Travaux sans batterie, hors Clyve – médian</td><td class="num">25&nbsp;600&nbsp;€</td><td class="num">2&nbsp;560&nbsp;€</td><td class="num">2&nbsp;560&nbsp;€</td><td class="num">5&nbsp;120&nbsp;€</td></tr>
+          <tr class="alt"><td>PV + batterie seuls – médian</td><td class="num">21&nbsp;500&nbsp;€</td><td class="num">2&nbsp;150&nbsp;€</td><td class="num">2&nbsp;150&nbsp;€</td><td class="num">4&nbsp;300&nbsp;€</td></tr>
+        </tbody>
+      </table>
+      <p class="small">
+        Formule unique&nbsp;: montant = 10&nbsp;% × base HT contractuelle. Tant que la base n’est pas écrite au contrat, le résultat est zéro euro opposable, même si l’illustration ci-dessus est arithmétiquement exacte.
+        Si le 10&nbsp;% ENERGIA n’est pas confirmé, seule la ligne Damien s’applique, toujours sur la base contractuelle.
+      </p>
+
+      <h3>Contrôle interne avant transmission client</h3>
+      <ul class="tight">
+        <li>Puissances&nbsp;: 18 × 500&nbsp;Wc = 9,00&nbsp;kWc (maximum envisagé, pas un métré) · batterie 10&nbsp;kWh · PAC piscine ~10&nbsp;kW · borne ~7,4&nbsp;kW · 3 splits sans kW.</li>
+        <li>TVA&nbsp;: 5,5&nbsp;% limité au PV (sous conditions) et éventuellement à la borne IRVE · 20&nbsp;% batterie, PAC piscine, Clyve, et prudence air/air · risque 20&nbsp;% sur PV+batterie en lot unique.</li>
+        <li>Base 10&nbsp;%&nbsp;: non contractuelle · illustrations séparées des prix poseurs.</li>
+        <li>ROI&nbsp;: plafonné à la facture actuelle · nouveaux usages exclus des économies · injection à 0&nbsp;€ · mention «&nbsp;simulation indicative, ne constitue pas une garantie de rentabilité&nbsp;».</li>
+        <li>Validation juridique et comptable requise avant envoi au client, notamment pour l’annexe §&nbsp;9.</li>
+      </ul>
+
+      <p class="small">Document établi par ENERGIA CONSEIL IA® le 4 septembre 2026. Annexe interne à valider juridiquement et comptablement avant envoi au client.</p>
+    </section>
+  </div>
+  <div class="print-footer-fixed">Pré-devis estimatif – sous réserve de visite technique, validation du dimensionnement et devis définitifs des professionnels. · PRE-2026-MARJOLLET-001</div>
+</body>
+</html>
