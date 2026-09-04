@@ -15,6 +15,10 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import CarteVisite from "./components/CarteVisite";
 import TestMaisonClyve from "./components/TestMaisonClyve";
 import TestMaisonRoyer from "./components/TestMaisonRoyer";
+import TestMaisonPereira from "./components/TestMaisonPereira";
+import TestMaisonMarjollet from "./components/TestMaisonMarjollet";
+import TestDashboardCRM from "./vite-pages/TestDashboardCRM";
+import PresentationEnergia from "./vite-pages/PresentationEnergia";
 import RapportCompletMaisonClyve from "./components/RapportCompletMaisonClyve";
 import PresentationMaisonClyve from "./components/PresentationMaisonClyve";
 import ChiffrageAmpleurModule from "./components/chiffrage/ChiffrageAmpleurModule";
@@ -1938,6 +1942,22 @@ function isTestMaisonRoyerPath(path: string): boolean {
   return path === "/test-maison-royer";
 }
 
+function isTestMaisonPereiraPath(path: string): boolean {
+  return path === "/test-maison-pereira";
+}
+
+function isTestMaisonMarjolletPath(path: string): boolean {
+  return path === "/test-maison-marjollet";
+}
+
+function isTestDashboardCrmPath(path: string): boolean {
+  return path === "/test-dashboard-crm";
+}
+
+function isPresentationEnergiaPath(path: string): boolean {
+  return path === "/presentation-energia";
+}
+
 function isChiffragePath(path: string): boolean {
   return path === "/chiffrage";
 }
@@ -2042,6 +2062,22 @@ export default function App() {
 
   if (isTestMaisonRoyerPath(pathname)) {
     return <TestMaisonRoyer />;
+  }
+
+  if (isTestMaisonPereiraPath(pathname)) {
+    return <TestMaisonPereira />;
+  }
+
+  if (isTestMaisonMarjolletPath(pathname)) {
+    return <TestMaisonMarjollet />;
+  }
+
+  if (isPresentationEnergiaPath(pathname)) {
+    return <PresentationEnergia />;
+  }
+
+  if (isTestDashboardCrmPath(pathname)) {
+    return <TestDashboardCRM />;
   }
 
   if (isChiffragePath(pathname)) {
