@@ -34,6 +34,7 @@ import {
   PEREIRA_PRET_RELAIS_ANAH,
   PEREIRA_PROFIL_MPR,
   PEREIRA_RAC_NET_TTC,
+  PEREIRA_RAC_THEORIQUE_TTC,
   PEREIRA_REMISE_COMMERCIALE_TTC,
   PEREIRA_STATUT_DEVIS,
   PEREIRA_TAUX_MPR_VIOLET,
@@ -259,14 +260,34 @@ export default function TestMaisonPereira() {
             Étude financière — devis client septembre 2026
           </h2>
           <div className="grid gap-4 p-4 sm:grid-cols-2 sm:p-5">
-            <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4">
-              <p className="text-xs font-semibold uppercase tracking-wide text-emerald-200">Vente client</p>
-              <p className="mt-2 text-2xl font-semibold text-white">{formatEuro(PEREIRA_TOTAL_NET_TTC)} TTC net</p>
-              <p className="mt-1 text-xs text-slate-400">
-                Bouquet {formatEuro(PEREIRA_TOTAL_VENTE_TTC)} TTC avant remise. Geste commercial −
-                {formatEuro(PEREIRA_REMISE_COMMERCIALE_TTC)} sur les honoraires de coordination (VMC Hygro B{" "}
-                {formatEuro(PEREIRA_VMC_TTC)} TTC). {PEREIRA_PAC_DESIGNATION} (12 kW,
-                estimation audit à confirmer) — une seule ligne, sans ballon thermodynamique séparé.
+            <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4 sm:col-span-2">
+              <p className="text-xs font-semibold uppercase tracking-wide text-emerald-200">Récapitulatif client</p>
+              <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+                <div className="flex justify-between gap-3 sm:block">
+                  <dt className="text-xs uppercase tracking-wide text-slate-400">Total avant remise</dt>
+                  <dd className="font-semibold text-white">{formatEuro(PEREIRA_TOTAL_VENTE_TTC)} TTC</dd>
+                </div>
+                <div className="flex justify-between gap-3 sm:block">
+                  <dt className="text-xs uppercase tracking-wide text-slate-400">Remise</dt>
+                  <dd className="font-semibold text-emerald-200">−{formatEuro(PEREIRA_REMISE_COMMERCIALE_TTC)}</dd>
+                </div>
+                <div className="flex justify-between gap-3 sm:block">
+                  <dt className="text-xs uppercase tracking-wide text-slate-400">Total net</dt>
+                  <dd className="text-lg font-semibold text-white">{formatEuro(PEREIRA_TOTAL_NET_TTC)} TTC</dd>
+                </div>
+                <div className="flex justify-between gap-3 sm:block">
+                  <dt className="text-xs uppercase tracking-wide text-slate-400">Aides estimatives</dt>
+                  <dd className="font-semibold text-sky-200">{formatEuro(PEREIRA_MPR_PARCOURS_TTC)}</dd>
+                </div>
+                <div className="flex justify-between gap-3 sm:col-span-2 sm:block">
+                  <dt className="text-xs uppercase tracking-wide text-slate-400">Reste à charge après remise</dt>
+                  <dd className="text-lg font-semibold text-white">{formatEuro(PEREIRA_RAC_NET_TTC)} TTC</dd>
+                </div>
+              </dl>
+              <p className="mt-3 text-xs text-slate-400">
+                Combles 60 m² déroulés, plancher bas 19 m². {PEREIRA_PAC_DESIGNATION} (12 kW, estimation audit à
+                confirmer) — une seule ligne, sans ballon thermodynamique séparé. Geste commercial sur les honoraires
+                de coordination (VMC Hygro B {formatEuro(PEREIRA_VMC_TTC)} TTC).
               </p>
             </div>
             <div className="rounded-xl border border-sky-500/20 bg-sky-500/10 p-4">
@@ -274,15 +295,19 @@ export default function TestMaisonPereira() {
               <p className="mt-2 text-2xl font-semibold text-white">{formatEuro(PEREIRA_MPR_PARCOURS_TTC)}</p>
               <p className="mt-1 text-xs text-slate-400">
                 {PEREIRA_TAUX_MPR_VIOLET * 100} % du plafond {formatEuro(PEREIRA_PLAFOND_MPR_HT)} HT (3 classes et plus),
-                hors bonus supprimés — septembre 2026.
+                hors bonus supprimés — septembre 2026. Estimation à titre indicatif.
+              </p>
+            </div>
+            <div className="rounded-xl border border-slate-700 bg-slate-950/40 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">Reste à charge après remise</p>
+              <p className="mt-2 text-2xl font-semibold text-white">{formatEuro(PEREIRA_RAC_NET_TTC)} TTC</p>
+              <p className="mt-1 text-xs text-slate-400">
+                {formatEuro(PEREIRA_TOTAL_NET_TTC)} TTC net − {formatEuro(PEREIRA_MPR_PARCOURS_TTC)} d’aides
+                estimatives.
               </p>
             </div>
           </div>
           <dl className="grid gap-3 border-t border-slate-800 px-4 py-4 text-sm sm:grid-cols-2 sm:px-5">
-            <div>
-              <dt className="text-xs uppercase tracking-wide text-slate-500">Reste à charge net</dt>
-              <dd className="mt-1 text-lg font-semibold text-white">{formatEuro(PEREIRA_RAC_NET_TTC)} TTC</dd>
-            </div>
             <div>
               <dt className="text-xs uppercase tracking-wide text-slate-500">Solutions exclusives UMAFI</dt>
               <dd className="mt-1 text-white">Option A ou Option B — simulations indicatives à valider</dd>
@@ -291,22 +316,25 @@ export default function TestMaisonPereira() {
               <dt className="text-xs uppercase tracking-wide text-slate-500">Option A — Éco-PTZ + préfinancement</dt>
               <dd className="mt-1 text-white">
                 Éco-PTZ {formatEuro(PEREIRA_ECO_PTZ_MONTANT)} (taux 0 %, {PEREIRA_ECO_PTZ_DUREE_ANS} ans,{" "}
-                {formatEuro(PEREIRA_ECO_PTZ_MENSUALITE)} / mois) + apport {formatEuro(PEREIRA_APPORT_PERSONNEL)} + relais
-                ANAH {formatEuro(PEREIRA_PRET_RELAIS_ANAH)}
+                {formatEuro(PEREIRA_ECO_PTZ_MENSUALITE)} / mois) + apport {formatEuro(PEREIRA_APPORT_PERSONNEL)} — reste
+                à charge après remise {formatEuro(PEREIRA_RAC_NET_TTC)} couvert (RAC théorique hors geste commercial{" "}
+                {formatEuro(PEREIRA_RAC_THEORIQUE_TTC)}). Relais ANAH {formatEuro(PEREIRA_PRET_RELAIS_ANAH)} (Fabien —
+                UMAFI).
               </dd>
             </div>
             <div>
               <dt className="text-xs uppercase tracking-wide text-slate-500">Option B — Regroupement global</dt>
               <dd className="mt-1 text-white">
-                Intégration de l’enveloppe nette {formatEuro(PEREIRA_TOTAL_NET_TTC)} dans les encours existants —
-                mensualité unique à étudier par Fabien (UMAFI)
+                Intégration de l’enveloppe de travaux {formatEuro(PEREIRA_TOTAL_VENTE_TTC)} dans les encours existants —
+                mensualité unique à étudier par Fabien (UMAFI — ORIAS 26 009 255)
               </dd>
             </div>
           </dl>
           <p className="border-t border-slate-800 px-4 py-3 text-xs leading-relaxed text-slate-400 sm:px-5">
             Aides financières 2026 (estimation à titre indicatif). Aides à valider selon revenus réels du client et
-            éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE. {UMAFI.mentionConventionB}{" "}
-            {UMAFI.contact.libelle}.
+            éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE. Études de financement réalisées
+            sous réserve d’acceptation définitive par les partenaires financiers. Aucun accord de prêt ou de regroupement
+            n’est garanti avant étude complète du dossier. {UMAFI.contact.libelle}.
           </p>
         </section>
 
@@ -376,7 +404,7 @@ export default function TestMaisonPereira() {
       <EnergiaCoPilot
         syntheseAudit={`Dossier SUCCESSION PIGNARD (désignation interne Pereira) — 1 route de Mizérieux, 42510 Nervieux (42, H1c, 315 m). Maison 164 m², 2 niveaux, construction 1948–1974.
 
-Enveloppe : murs pisé / béton de terre 60–65 cm non isolés (193 m² de façades) ; plafond solives 120 m² non isolé ; dalle 60 m² sur sous-sol non isolée ; bois simple vitrage (7 fenêtres + 2 portes). Fissures façade notées.
+Enveloppe : murs pisé / béton de terre 60–65 cm non isolés (193 m² de façades) ; plafond solives 120 m² (audit) — travaux confirmés : 60 m² déroulés R ≥ 7 ; dalle 60 m² (audit) — travaux confirmés : 19 m² R ≥ 3 ; bois simple vitrage (7 fenêtres + 2 portes). Fissures façade notées.
 
 Systèmes : chaudière fioul 1969 35 kW + radiateurs HT ; ballon électrique 100 L (mauvais état) ; ventilation par ouverture des fenêtres (non fonctionnelle).
 
@@ -384,7 +412,7 @@ Conso initiale auditeur : 320 kWhEP/m².an (304 EF), facture conventionnelle 6 5
 
 Chiffrage auditeur LEO ENERGY (TTC document, pas un coût d’achat ENERGIA) : scénario 1 ~ 53 397 € TTC (texte auditeur ~ 125 000 € — contradiction à lever) ; scénario 3 ~ 42 952 € TTC sans plancher. Surfaces ITI / combles / ouvrants incohérentes — à relever en visite.
 
-Devis client ENERGIA (septembre 2026) : 75 000,00 € TTC avant remise, 73 500,00 € TTC net après geste commercial (−1 500,00 € TTC sur honoraires de coordination, équivalent VMC Hygro B fourniture et pose). Remplacement chaudière fioul par PAC air/eau haute température double service (chauffage + ECS, 12 kW estimation audit à confirmer) — une seule ligne, sans ballon thermodynamique séparé. Dépose et évacuation chaudière / cuve fioul à confirmer. MaPrimeRénov’ Parcours profil Violet 20 000 € (50 % du plafond 40 000 € HT, hors bonus). Reste à charge 53 500 €. Solutions de financement exclusives (simulations indicatives) : Option A = Éco-PTZ 50 000 € / 20 ans (208,33 €/mois) + apport 5 000 € + prêt relais ANAH 20 000 € ; OU Option B = regroupement de crédits global UMAFI sur l’enveloppe nette 73 500 €. Statut : estimation à confirmer par devis artisan RGE.
+Devis client ENERGIA (septembre 2026) : ${formatEuro(PEREIRA_TOTAL_VENTE_TTC)} TTC avant remise, ${formatEuro(PEREIRA_TOTAL_NET_TTC)} TTC net après geste commercial (−${formatEuro(PEREIRA_REMISE_COMMERCIALE_TTC)} TTC sur honoraires de coordination, équivalent VMC Hygro B fourniture et pose). Combles 60 m² déroulés R ≥ 7 ; plancher bas 19 m² R ≥ 3. Remplacement chaudière fioul par PAC air/eau haute température double service (chauffage + ECS, 12 kW estimation audit à confirmer) — une seule ligne, sans ballon thermodynamique séparé. Dépose et évacuation chaudière / cuve fioul à confirmer. MaPrimeRénov’ Parcours profil Violet ${formatEuro(PEREIRA_MPR_PARCOURS_TTC)} (50 % du plafond ${formatEuro(PEREIRA_PLAFOND_MPR_HT)} HT, hors bonus). Reste à charge net ${formatEuro(PEREIRA_RAC_NET_TTC)}. Plan de financement exclusif (simulations indicatives) : Option A = Éco-PTZ ${formatEuro(PEREIRA_ECO_PTZ_MONTANT)} / ${PEREIRA_ECO_PTZ_DUREE_ANS} ans (${formatEuro(PEREIRA_ECO_PTZ_MENSUALITE)}/mois) + apport ${formatEuro(PEREIRA_APPORT_PERSONNEL)} pour un RAC théorique ${formatEuro(PEREIRA_RAC_THEORIQUE_TTC)} (${formatEuro(PEREIRA_TOTAL_VENTE_TTC)} − ${formatEuro(PEREIRA_MPR_PARCOURS_TTC)} MPR) + prêt relais ANAH ${formatEuro(PEREIRA_PRET_RELAIS_ANAH)} ; OU Option B = regroupement de crédits global UMAFI sur l’enveloppe de travaux ${formatEuro(PEREIRA_TOTAL_VENTE_TTC)}. Statut : estimation à confirmer par devis artisan RGE.
 
 Ordre ENERGIA : isolation (combles, murs ITI pisé perspirant, planchers) puis menuiseries, VMC, PAC air/eau HT double service dimensionnée post-isolation.`}
       />

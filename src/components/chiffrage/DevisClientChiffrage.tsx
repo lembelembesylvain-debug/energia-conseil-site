@@ -335,17 +335,21 @@ export default function DevisClientPanel({
             ) : null}
           </div>
           <div className="flex items-center justify-between bg-[#14532d] px-5 py-3.5 text-white">
-            <span className="font-bold">Total TTC</span>
+            <span className="font-bold">
+              {totaux.remiseCommercialeTtc ? "Total TTC net" : "Total TTC"}
+            </span>
             <span className="text-xl font-bold">{formatEuro(totaux.totalTtc)}</span>
           </div>
           {etudeFinanciere ? (
             <div className="space-y-2 border-t border-slate-100 px-5 py-3 text-sm">
               <div className="flex justify-between gap-4 text-[#14532d]">
-                <span>Aides estimées (déduites)</span>
+                <span>Aides estimatives</span>
                 <span className="font-semibold">{formatEuro(etudeFinanciere.totalAides)}</span>
               </div>
               <div className="flex justify-between gap-4 rounded-lg bg-[#1a3c5e] px-3 py-2 text-white">
-                <span className="font-semibold">Reste à charge net TTC</span>
+                <span className="font-semibold">
+                  {totaux.remiseCommercialeTtc ? "Reste à charge après remise TTC" : "Reste à charge net TTC"}
+                </span>
                 <span className="font-bold">{formatEuro(etudeFinanciere.resteACharge)}</span>
               </div>
             </div>
@@ -377,7 +381,7 @@ export default function DevisClientPanel({
                 </div>
               ))}
               <div className="mt-3 flex justify-between gap-4 border-t border-emerald-200 pt-3 text-sm font-semibold text-[#1a3c5e]">
-                <span>Reste à charge net TTC</span>
+                <span>Reste à charge après remise TTC</span>
                 <span>{formatEuro(etudeFinanciere.resteACharge)}</span>
               </div>
             </div>

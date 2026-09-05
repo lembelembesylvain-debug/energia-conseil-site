@@ -131,12 +131,12 @@ export const PEREIRA_PAIRE_PAC = {
   portrait: true,
 } as const;
 
-export const PEREIRA_MENUISERIE_MATERIAU = "PVC" as const;
+export const PEREIRA_MENUISERIE_MATERIAU = "ALUMINIUM" as const;
 
 export const PEREIRA_LABEL_AVANT_MENUISERIE = "Avant — photo réelle des menuiseries existantes";
 
 export const PEREIRA_LABEL_APRES_MENUISERIE =
-  "Après — projection visuelle indicative du remplacement de la menuiserie (Matériau : PVC)";
+  "Après — projection visuelle indicative du remplacement de la menuiserie (Matériau : ALUMINIUM)";
 
 export const PEREIRA_MENTION_MENUISERIE =
   "Image simulée — ne constitue pas une photo réelle après travaux, une mesure thermique, un relevé définitif ou un engagement de résultat.";
@@ -148,7 +148,7 @@ export const PEREIRA_ECART_MENUISERIE =
   "Écart documentaire : l’audit mentionne 6 fenêtres/portes-fenêtres ; le devis actuel mentionne 7 fenêtres + 2 portes.";
 
 export const PEREIRA_RESUME_MENUISERIE =
-  "Galerie dédiée aux ouvertures photographiées du logement. À gauche : photo réelle des menuiseries bois existantes (tableaux, appuis, encadrements). À droite : projection visuelle indicative d’un remplacement en PVC double vitrage peu émissif, Uw ≤ 1,30 W/m².K si confirmé par l’audit, porte isolante Ud ≤ 1,50 si applicable. Teinte blanche indicative, alignée sur les cadres peints existants — teinte définitive à confirmer. Aucune marque, aucun modèle. Ces projections ne sont pas des photos réelles après travaux.";
+  "Galerie dédiée aux ouvertures photographiées du logement. À gauche : photo réelle des menuiseries bois existantes (tableaux, appuis, encadrements). À droite : projection visuelle indicative d’un remplacement en ALUMINIUM avec rupture de pont thermique, double vitrage peu émissif, Uw ≤ 1,30 W/m².K si confirmé par l’audit, porte isolante Ud ≤ 1,50 si applicable. Teinte blanche indicative, alignée sur les cadres peints existants — teinte définitive à confirmer. Aucune marque, aucun modèle. Ces projections ne sont pas des photos réelles après travaux.";
 
 export type CategorieMenuiseriePereira = "fenetre" | "porte-fenetre" | "porte-entree";
 

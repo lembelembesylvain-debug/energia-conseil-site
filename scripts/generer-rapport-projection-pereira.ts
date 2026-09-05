@@ -123,7 +123,7 @@ function drawCover(doc: jsPDF, logo: LogoPdf) {
   doc.setTextColor(148, 163, 184);
   const coverNotes = doc.splitTextToSize(
     pdfText(
-      "8 vues ITI 12 cm + 1 vue chauffage / ECS (PAC air/eau haute temperature double service) + menuiseries PVC (fenetres, porte-fenetre, porte d'entree, projections indicatives). Aucune marque, aucun modele. Quantites a confirmer. Aucun resultat energetique garanti. Document indicatif - hors devis contractuel - estimation a confirmer par devis artisan RGE.",
+      "8 vues ITI 12 cm + 1 vue chauffage / ECS (PAC air/eau haute temperature double service) + menuiseries ALUMINIUM (fenetres, porte-fenetre, porte d'entree, projections indicatives). Aucune marque, aucun modele. Quantites a confirmer. Aucun resultat energetique garanti. Document indicatif - hors devis contractuel - estimation a confirmer par devis artisan RGE.",
     ),
     160,
   ) as string[];
@@ -247,7 +247,7 @@ function drawMenuiseriesIntro(doc: jsPDF) {
   doc.setTextColor(...SLATE);
   const intro = doc.splitTextToSize(
     pdfText(
-      "Projection visuelle indicative du remplacement des menuiseries photographiees. Materiau retenu au devis : PVC, double vitrage peu emissif. Uw <= 1,30 W/m2.K si confirme par l'audit. Porte isolante Ud <= 1,50 si applicable. Tableaux et appuis repris. Teinte blanche indicative, alignee sur les cadres peints existants - teinte definitive a confirmer. Aucune marque, aucun modele, aucune photo reelle apres travaux.",
+      "Projection visuelle indicative du remplacement des menuiseries photographiees. Materiau retenu au devis : ALUMINIUM avec rupture de pont thermique, double vitrage peu emissif. Uw <= 1,30 W/m2.K si confirme par l'audit. Porte isolante Ud <= 1,50 si applicable. Tableaux et appuis repris. Teinte blanche indicative, alignee sur les cadres peints existants - teinte definitive a confirmer. Aucune marque, aucun modele, aucune photo reelle apres travaux.",
     ),
     PAGE_W - MARGIN * 2,
   ) as string[];
@@ -394,7 +394,7 @@ function main() {
         pairesIti: PEREIRA_PAIRES_ITI.length,
         pairePac: 1,
         pairesMenuiseries: PEREIRA_PAIRES_MENUISERIES.length,
-        materiauMenuiseries: "PVC",
+        materiauMenuiseries: "ALUMINIUM",
         titre: "Rapport de Projection Visuelle ITI, chauffage et menuiseries - M. PEREIRA",
       },
       null,

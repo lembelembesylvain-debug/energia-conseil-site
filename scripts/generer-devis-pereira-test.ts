@@ -5,12 +5,19 @@ import {
   PEREIRA_MPR_PARCOURS_TTC,
   PEREIRA_PAC_DESIGNATION,
   PEREIRA_RAC_NET_TTC,
+  PEREIRA_RAC_THEORIQUE_TTC,
   PEREIRA_REMISE_COMMERCIALE_TTC,
   PEREIRA_STATUT_DEVIS,
   PEREIRA_TOTAL_NET_TTC,
   PEREIRA_TOTAL_VENTE_TTC,
   construireDevisPereiraTest,
 } from "../src/data/pereiraDevisTest";
+import {
+  PEREIRA_COMBLES_SURFACE_M2,
+  PEREIRA_COMBLES_TTC,
+  PEREIRA_PLANCHER_SURFACE_M2,
+  PEREIRA_PLANCHER_TTC,
+} from "../src/data/pereiraItiEstimation";
 import {
   createDevisPdfDocument,
   logoFromPngBytes,
@@ -58,6 +65,25 @@ if (!input.gesteCommercial || input.gesteCommercial.remiseMontantTtc !== PEREIRA
 if (!input.lignes.some((ligne) => /coordination et pilotage/i.test(ligne.designation))) {
   throw new Error("La ligne Coordination et pilotage est absente du devis Pereira.");
 }
+const ligneMenuiseries = input.lignes.find((ligne) => /menuiseries/i.test(ligne.designation));
+if (!ligneMenuiseries || !/ALUMINIUM/i.test(ligneMenuiseries.designation)) {
+  throw new Error("La ligne menuiseries aluminium est absente du devis Pereira.");
+}
+if (ligneMenuiseries.prixUnitaireHt !== 900.71 || ligneMenuiseries.montantHt !== 8106.39) {
+  throw new Error("Le tarif aluminium des menuiseries Pereira n'est pas à jour (900,71 € HT / 8 106,39 € HT).");
+}
+const ligneCombles = input.lignes.find((ligne) => /isolation combles/i.test(ligne.designation));
+if (!ligneCombles || ligneCombles.quantite !== PEREIRA_COMBLES_SURFACE_M2 || ligneCombles.montantTtc !== PEREIRA_COMBLES_TTC) {
+  throw new Error("La ligne combles Pereira doit être à 60 m² / 1 250,00 € TTC.");
+}
+const lignePlancher = input.lignes.find((ligne) => /isolation plancher/i.test(ligne.designation));
+if (
+  !lignePlancher ||
+  lignePlancher.quantite !== PEREIRA_PLANCHER_SURFACE_M2 ||
+  lignePlancher.montantTtc !== PEREIRA_PLANCHER_TTC
+) {
+  throw new Error("La ligne plancher Pereira doit être à 19 m² (prorata 10 445 € TTC).");
+}
 
 const totaux = totauxDevisClient(input);
 const ht = totaux.totalHt ?? 0;
@@ -80,7 +106,18 @@ if (input.etudeFinanciere?.totalAides !== PEREIRA_MPR_PARCOURS_TTC) {
   throw new Error("MaPrimeRénov’ Parcours attendu : 20 000,00 €.");
 }
 if (input.etudeFinanciere?.resteACharge !== PEREIRA_RAC_NET_TTC) {
-  throw new Error("Reste à charge net attendu : 55 000,00 €.");
+  throw new Error(`Reste à charge net attendu : ${PEREIRA_RAC_NET_TTC} €.`);
+}
+const optionA = JSON.stringify(input.etudeFinanciere?.solutionsExclusives?.optionA ?? {});
+const optionB = JSON.stringify(input.etudeFinanciere?.solutionsExclusives?.optionB ?? {});
+if (!optionA.includes("votre banque partenaire")) {
+  throw new Error("L'option A (Éco-PTZ + préfinancement) est incomplète.");
+}
+if (!optionB.includes("ORIAS 26 009 255")) {
+  throw new Error("L'option B doit porter la mention ORIAS UMAFI.");
+}
+if (!/partenaires financiers/i.test(input.etudeFinanciere?.mentionFinancement ?? "")) {
+  throw new Error("La mention de prudence du financement est absente.");
 }
 
 const logoBytes = new Uint8Array(readFileSync(logoPath));
@@ -99,6 +136,21 @@ if (header !== "%PDF-") {
   throw new Error(`Le fichier genere n'est pas un PDF (${header})`);
 }
 
+const pdfLatin = Buffer.from(bytes).toString("latin1");
+const extraits = [...pdfLatin.matchAll(/\((?:\\.|[^\\)]){8,180}\)/g)].map((item) =>
+  item[0].slice(1, -1).replace(/\\n/g, " "),
+);
+const textePdf = extraits.join("\n");
+if (/75[\s\u00a0]?000|73[\s\u00a0]?500|55[\s\u00a0]?000|53[\s\u00a0]?500/.test(textePdf)) {
+  throw new Error("Le PDF Pereira contient encore un ancien montant 75 000 / 73 500 / 55 000 / 53 500.");
+}
+if (totaux.totalTtcAvantRemise !== 66612.58 || totaux.totalTtc !== 65112.58) {
+  throw new Error("Les totaux TTC Pereira (66 612,58 / 65 112,58) ne sont pas à jour.");
+}
+if (input.etudeFinanciere?.resteACharge !== 45112.58 || input.etudeFinanciere?.totalAides !== 20000) {
+  throw new Error("Les aides 20 000,00 € ou le RAC après remise 45 112,58 € ne sont pas à jour.");
+}
+
 const pages = doc.getNumberOfPages();
 console.log(
   JSON.stringify(
@@ -110,6 +162,10 @@ console.log(
       totalTtcAvantRemise: totaux.totalTtcAvantRemise,
       remiseCommercialeTtc: totaux.remiseCommercialeTtc,
       totalTtc: totaux.totalTtc,
+      acompteTtc: totaux.acompteTtc,
+      miChantierTtc: totaux.miChantierTtc,
+      soldeTtc: totaux.soldeTtc,
+      racTheorique: PEREIRA_RAC_THEORIQUE_TTC,
       tvaParTaux: totaux.tvaParTaux,
       mpr: input.etudeFinanciere?.totalAides,
       resteACharge: input.etudeFinanciere?.resteACharge,
@@ -120,6 +176,6 @@ console.log(
     2,
   ),
 );
-if (pages > 3) {
-  throw new Error(`Le devis tient sur ${pages} pages (objectif : 2, maximum 3).`);
+if (pages > 2) {
+  throw new Error(`Le devis tient sur ${pages} pages (maximum 2).`);
 }

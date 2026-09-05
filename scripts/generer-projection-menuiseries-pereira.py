@@ -9,7 +9,7 @@ ASSETS = Path(
 )
 ROOT = Path(__file__).resolve().parents[1] / "public" / "test-maison-pereira"
 
-TITRE = "Après — projection visuelle indicative du remplacement de la menuiserie (Matériau : PVC)"
+TITRE = "Après — projection visuelle indicative du remplacement de la menuiserie (Matériau : ALUMINIUM)"
 DISCLAIMER = (
     "Image simulée — ne constitue pas une photo réelle après travaux, "
     "une mesure thermique, un relevé définitif ou un engagement de résultat."
@@ -20,51 +20,51 @@ JOBS = [
     (
         1,
         "fenetre",
-        "pereira-menuiserie-fenetre-baie-encastree.png",
+        "pereira-menuiserie-alu-fenetre-baie-encastree.png",
         "interieur-baie-encastree.jpg",
-        "projection-menuiserie-pvc-baie-encastree.jpg",
+        "projection-menuiserie-alu-baie-encastree.jpg",
     ),
     (
         2,
         "fenetre",
-        "pereira-menuiserie-fenetre-evier.png",
+        "pereira-menuiserie-alu-fenetre-evier.png",
         "interieur-evier.jpg",
-        "projection-menuiserie-pvc-evier.jpg",
+        "projection-menuiserie-alu-evier.jpg",
     ),
     (
         3,
         "fenetre",
-        "pereira-menuiserie-fenetre-etagere.png",
+        "pereira-menuiserie-alu-fenetre-etagere.png",
         "interieur-etagere.jpg",
-        "projection-menuiserie-pvc-etagere.jpg",
+        "projection-menuiserie-alu-etagere.jpg",
     ),
     (
         4,
         "fenetre",
-        "pereira-menuiserie-fenetre-coin-radiateur.png",
+        "pereira-menuiserie-alu-fenetre-coin-radiateur.png",
         "interieur-coin-radiateur.jpg",
-        "projection-menuiserie-pvc-coin-radiateur.jpg",
+        "projection-menuiserie-alu-coin-radiateur.jpg",
     ),
     (
         5,
         "fenetre",
-        "pereira-menuiserie-fenetre-facade-porche.png",
+        "pereira-menuiserie-alu-fenetre-facade-porche.png",
         "facade-porche.png",
-        "projection-menuiserie-pvc-facade-porche.jpg",
+        "projection-menuiserie-alu-facade-porche.jpg",
     ),
     (
         6,
         "porte-fenetre",
-        "pereira-menuiserie-porte-fenetre-voliere.png",
+        "pereira-menuiserie-alu-porte-fenetre-voliere.png",
         "interieur-voliere.jpg",
-        "projection-menuiserie-pvc-porte-fenetre-voliere.jpg",
+        "projection-menuiserie-alu-porte-fenetre-voliere.jpg",
     ),
     (
         7,
         "porte-entree",
-        "pereira-menuiserie-porte-entree-facade.png",
+        "pereira-menuiserie-alu-porte-entree-facade.png",
         "facade-angle.png",
-        "projection-menuiserie-pvc-porte-entree-facade.jpg",
+        "projection-menuiserie-alu-porte-entree-facade.jpg",
     ),
 ]
 

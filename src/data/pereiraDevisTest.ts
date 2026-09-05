@@ -1,6 +1,8 @@
 /**
  * Devis de test AUDIT-PEREIRA-2026-001 — bouquet client septembre 2026.
- * Total vente 75 000,00 € TTC avant remise, 73 500,00 € TTC net après geste commercial.
+ * Surfaces confirmées : combles 60 m² déroulés R ≥ 7 ; plancher bas 19 m² R ≥ 3.
+ * ITI 270 m², PAC, menuiseries ALUMINIUM et VMC inchangés.
+ * Coordination figée (plus-value aluminium déjà absorbée) — le total suit les surfaces.
  * Hors dossier Royer.
  */
 
@@ -15,17 +17,26 @@ import {
   type DevisClientPdfLigne,
 } from "../lib/generateDevisPdf";
 import { PEREIRA_AUDIT_ID, PEREIRA_IDENTITE } from "./pereiraAuditExtract";
-import { PEREIRA_ITI_NOM, PEREIRA_ITI_SURFACE_M2, PEREIRA_ITI_TTC_AUDIT } from "./pereiraItiEstimation";
+import {
+  PEREIRA_COMBLES_RESISTANCE,
+  PEREIRA_COMBLES_SURFACE_M2,
+  PEREIRA_COMBLES_TTC,
+  PEREIRA_ITI_NOM,
+  PEREIRA_ITI_SURFACE_M2,
+  PEREIRA_ITI_TTC_AUDIT,
+  PEREIRA_PLANCHER_RESISTANCE,
+  PEREIRA_PLANCHER_SURFACE_M2,
+  PEREIRA_PLANCHER_TTC,
+} from "./pereiraItiEstimation";
 
 const TAUX_TVA_TRAVAUX = 0.055;
 const TAUX_TVA_ADMIN = 0.2;
 
-export const PEREIRA_TOTAL_VENTE_TTC = 75000;
 export const PEREIRA_VMC_TTC = 1500;
 export const PEREIRA_REMISE_COMMERCIALE_TTC = 1500;
-export const PEREIRA_TOTAL_NET_TTC = 73500;
 export const PEREIRA_MPR_PARCOURS_TTC = 20000;
-export const PEREIRA_RAC_NET_TTC = 53500;
+/** Honoraires figés après absorption de la plus-value aluminium — ne pas rééquilibrer sur un forfait commercial fixe. */
+export const PEREIRA_COORDINATION_TTC = 1672.76;
 export const PEREIRA_PROFIL_MPR = "Violet";
 export const PEREIRA_PLAFOND_MPR_HT = 40000;
 export const PEREIRA_TAUX_MPR_VIOLET = 0.5;
@@ -88,11 +99,12 @@ export const PEREIRA_STATUT_DEVIS =
 /** Lots travaux (hors ballon thermodynamique, hors coordination). */
 export const PEREIRA_DEVIS_LIGNES_TRAVAUX: DevisClientPdfLigne[] = [
   ligneDepuisTtc({
-    designation: "Menuiseries PVC Uw ≤ 1,30",
-    description: "7 fenêtres + 2 portes. Surface des ouvrants à confirmer en visite.",
+    designation: "Menuiseries ALUMINIUM Uw ≤ 1,30",
+    description:
+      "Aluminium avec rupture de pont thermique. 7 fenêtres + 2 portes. Coloris blanc indicatif. Surface des ouvrants à confirmer en visite.",
     quantite: 9,
     unite: "unite",
-    ttc: 6226,
+    ttc: 8552.24,
   }),
   ligneDepuisTtc({
     designation: PEREIRA_ITI_NOM,
@@ -103,17 +115,17 @@ export const PEREIRA_DEVIS_LIGNES_TRAVAUX: DevisClientPdfLigne[] = [
   }),
   ligneDepuisTtc({
     designation: "Isolation combles, R ≥ 7",
-    description: "Isolation des combles perdus, 120 m².",
-    quantite: 120,
+    description: `Isolation des combles perdus, ${PEREIRA_COMBLES_SURFACE_M2} m² de surface déroulée, ${PEREIRA_COMBLES_RESISTANCE}.`,
+    quantite: PEREIRA_COMBLES_SURFACE_M2,
     unite: "m2",
-    ttc: 2500,
+    ttc: PEREIRA_COMBLES_TTC,
   }),
   ligneDepuisTtc({
     designation: "Isolation plancher, R ≥ 3",
-    description: "Plancher bas / dalle sur sous-sol, 60 m².",
-    quantite: 60,
+    description: `Plancher bas / dalle sur sous-sol, ${PEREIRA_PLANCHER_SURFACE_M2} m², ${PEREIRA_PLANCHER_RESISTANCE}.`,
+    quantite: PEREIRA_PLANCHER_SURFACE_M2,
     unite: "m2",
-    ttc: 10445,
+    ttc: PEREIRA_PLANCHER_TTC,
   }),
   ligneDepuisTtc({
     designation: "VMC Hygro B — fourniture et pose",
@@ -138,32 +150,34 @@ export const PEREIRA_DEVIS_LIGNES_TRAVAUX: DevisClientPdfLigne[] = [
   }),
 ];
 
-function ttcLignes(lignes: DevisClientPdfLigne[]): number {
-  return roundEuro(lignes.reduce((acc, item) => acc + (item.montantTtc ?? 0), 0));
-}
-
-function ligneCoordinationPourCible(travaux: DevisClientPdfLigne[]): DevisClientPdfLigne {
-  const ttcTravaux = ttcLignes(travaux);
-  const ttcCoordination = roundEuro(PEREIRA_TOTAL_VENTE_TTC - ttcTravaux);
-  if (ttcCoordination < 0) {
-    throw new Error(
-      `Le total travaux (${ttcTravaux} € TTC) dépasse la cible ${PEREIRA_TOTAL_VENTE_TTC} € TTC.`,
-    );
-  }
+function ligneCoordinationFigee(): DevisClientPdfLigne {
   return ligneDepuisTtc({
     designation: "Coordination et pilotage",
     description: "AMO, sélection artisans RGE, planning et suivi jusqu’à réception.",
     quantite: 1,
     unite: "forfait",
-    ttc: ttcCoordination,
+    ttc: PEREIRA_COORDINATION_TTC,
     tauxTva: TAUX_TVA_ADMIN,
   });
 }
 
 export const PEREIRA_DEVIS_LIGNES_TEST: DevisClientPdfLigne[] = [
   ...PEREIRA_DEVIS_LIGNES_TRAVAUX,
-  ligneCoordinationPourCible(PEREIRA_DEVIS_LIGNES_TRAVAUX),
+  ligneCoordinationFigee(),
 ];
+
+export function totauxLignesPereira(lignes: DevisClientPdfLigne[] = PEREIRA_DEVIS_LIGNES_TEST) {
+  const totalHt = roundEuro(lignes.reduce((acc, item) => acc + (item.montantHt ?? 0), 0));
+  const totalTva = roundEuro(lignes.reduce((acc, item) => acc + (item.montantTva ?? 0), 0));
+  const totalTtc = roundEuro(lignes.reduce((acc, item) => acc + (item.montantTtc ?? 0), 0));
+  return { totalHt, totalTva, totalTtc };
+}
+
+export const PEREIRA_TOTAL_VENTE_TTC = totauxLignesPereira().totalTtc;
+export const PEREIRA_TOTAL_NET_TTC = roundEuro(PEREIRA_TOTAL_VENTE_TTC - PEREIRA_REMISE_COMMERCIALE_TTC);
+export const PEREIRA_RAC_NET_TTC = roundEuro(PEREIRA_TOTAL_NET_TTC - PEREIRA_MPR_PARCOURS_TTC);
+/** RAC théorique présenté au financement : total TTC avant remise − MPR (hors geste commercial). */
+export const PEREIRA_RAC_THEORIQUE_TTC = roundEuro(PEREIRA_TOTAL_VENTE_TTC - PEREIRA_MPR_PARCOURS_TTC);
 
 export const PEREIRA_GESTE_COMMERCIAL: DevisClientPdfGesteCommercial = {
   titre: "Geste commercial exceptionnel",
@@ -203,7 +217,7 @@ export const PEREIRA_ETUDE_FINANCIERE: DevisClientPdfEtudeFinanciere = {
           titre: "1. Financement du Reste à Charge",
           lignes: [
             {
-              libelle: "Éco-PTZ (Prêt d'État à Taux 0% - via banque partenaire)",
+              libelle: "Éco-PTZ (Prêt d'État à Taux 0% - via votre banque partenaire)",
               detail: `${formatEuro(PEREIRA_ECO_PTZ_MONTANT)} (Mensualité indicative : ${formatEuro(PEREIRA_ECO_PTZ_MENSUALITE)} / mois sur ${PEREIRA_ECO_PTZ_DUREE_ANS} ans)`,
             },
             {
@@ -211,14 +225,14 @@ export const PEREIRA_ETUDE_FINANCIERE: DevisClientPdfEtudeFinanciere = {
               detail: formatEuro(PEREIRA_APPORT_PERSONNEL),
             },
           ],
-          note: `Reste à charge théorique de ${formatEuro(PEREIRA_RAC_NET_TTC)} intégralement couvert.`,
+          note: `Reste à charge après remise : ${formatEuro(PEREIRA_RAC_NET_TTC)}. RAC théorique hors geste commercial : ${formatEuro(PEREIRA_RAC_THEORIQUE_TTC)}. Couvert par Éco-PTZ ${formatEuro(PEREIRA_ECO_PTZ_MONTANT)} + apport ${formatEuro(PEREIRA_APPORT_PERSONNEL)}.`,
         },
         {
           titre: "2. Préfinancement de l'aide ANAH (Période d'attente de 6 à 12 mois)",
           lignes: [
             {
               libelle: "Prêt de trésorerie complémentaire / relais UMAFI",
-              detail: `${formatEuro(PEREIRA_PRET_RELAIS_ANAH)} (Recherche de financement par Fabien - UMAFI pour couvrir l'échéancier pendant les travaux, remboursable en une fois à la réception de l'aide de l'Anah).`,
+              detail: `${formatEuro(PEREIRA_PRET_RELAIS_ANAH)} (Recherche de financement par notre partenaire Fabien - UMAFI pour couvrir l'échéancier pendant les travaux, remboursable en une fois à la réception de votre aide de l'Anah).`,
             },
           ],
         },
@@ -233,7 +247,7 @@ export const PEREIRA_ETUDE_FINANCIERE: DevisClientPdfEtudeFinanciere = {
           lignes: [
             {
               libelle: "Regroupement de crédits global",
-              detail: `Fabien (UMAFI) étudie l'intégration complète de l'enveloppe nette de ${formatEuro(PEREIRA_TOTAL_NET_TTC)} dans vos encours de crédits actuels.`,
+              detail: `Notre partenaire courtier Fabien (UMAFI - ORIAS 26 009 255) étudie l'intégration complète de l'enveloppe de travaux de ${formatEuro(PEREIRA_TOTAL_VENTE_TTC)} dans vos encours de crédits actuels.`,
             },
           ],
           note: "Objectif : Lisser l'intégralité du projet de rénovation en une seule mensualité unique et optimisée, sans impacter votre reste à vivre.",
@@ -242,15 +256,8 @@ export const PEREIRA_ETUDE_FINANCIERE: DevisClientPdfEtudeFinanciere = {
     },
   },
   mentionFinancement:
-    "Études de financement réalisées par UMAFI, Mandataire IOBSP (ORIAS 26 009 255). Sous réserve d'étude et d'acceptation définitive par les partenaires bancaires. Aucun accord de prêt ou de regroupement n'est garanti avant étude complète du dossier.",
+    "Études de financement réalisées sous réserve d'acceptation définitive par les partenaires financiers. Aucun accord de prêt ou de regroupement n'est garanti avant étude complète du dossier.",
 };
-
-export function totauxLignesPereira(lignes: DevisClientPdfLigne[] = PEREIRA_DEVIS_LIGNES_TEST) {
-  const totalHt = roundEuro(lignes.reduce((acc, item) => acc + (item.montantHt ?? 0), 0));
-  const totalTva = roundEuro(lignes.reduce((acc, item) => acc + (item.montantTva ?? 0), 0));
-  const totalTtc = roundEuro(lignes.reduce((acc, item) => acc + (item.montantTtc ?? 0), 0));
-  return { totalHt, totalTva, totalTtc };
-}
 
 export function construireDevisPereiraTest(): DevisClientPdfInput {
   const brut = totauxLignesPereira();
@@ -290,6 +297,65 @@ export function construireDevisPereiraTest(): DevisClientPdfInput {
   if (!/estimation à confirmer par devis artisan RGE/i.test(`${lignePac.description} ${PEREIRA_STATUT_DEVIS}`)) {
     throw new Error("Le statut « estimation à confirmer par devis artisan RGE » est absent.");
   }
+  const ligneMenuiseries = PEREIRA_DEVIS_LIGNES_TEST.find((ligne) => /menuiseries/i.test(ligne.designation));
+  if (!ligneMenuiseries) {
+    throw new Error("La ligne Menuiseries est absente du devis Pereira.");
+  }
+  if (/PVC/i.test(`${ligneMenuiseries.designation} ${ligneMenuiseries.description}`)) {
+    throw new Error("Le devis Pereira ne doit plus mentionner du PVC pour les menuiseries.");
+  }
+  if (!/ALUMINIUM/i.test(ligneMenuiseries.designation) || !/rupture de pont thermique/i.test(ligneMenuiseries.description ?? "")) {
+    throw new Error("Les menuiseries Pereira doivent être en ALUMINIUM avec rupture de pont thermique.");
+  }
+  if (ligneMenuiseries.prixUnitaireHt !== 900.71) {
+    throw new Error(`Prix unitaire HT menuiseries Pereira ${ligneMenuiseries.prixUnitaireHt} ≠ 900,71 €.`);
+  }
+  if (ligneMenuiseries.montantHt !== 8106.39) {
+    throw new Error(`Total HT menuiseries Pereira ${ligneMenuiseries.montantHt} ≠ 8 106,39 €.`);
+  }
+  const ligneCombles = PEREIRA_DEVIS_LIGNES_TEST.find((ligne) => /isolation combles/i.test(ligne.designation));
+  if (!ligneCombles || ligneCombles.quantite !== PEREIRA_COMBLES_SURFACE_M2 || ligneCombles.montantTtc !== PEREIRA_COMBLES_TTC) {
+    throw new Error("Les combles Pereira doivent rester à 60 m² déroulés (prorata du forfait 2 500 € TTC).");
+  }
+  const lignePlancher = PEREIRA_DEVIS_LIGNES_TEST.find((ligne) => /isolation plancher/i.test(ligne.designation));
+  if (!lignePlancher || lignePlancher.quantite !== PEREIRA_PLANCHER_SURFACE_M2 || lignePlancher.montantTtc !== PEREIRA_PLANCHER_TTC) {
+    throw new Error("Le plancher Pereira doit rester à 19 m² (prorata du forfait 10 445 € TTC).");
+  }
+  const ligneIti = PEREIRA_DEVIS_LIGNES_TEST.find((ligne) => ligne.designation.includes("ITI 12 cm"));
+  if (!ligneIti || ligneIti.quantite !== 270 || ligneIti.montantTtc !== PEREIRA_ITI_TTC_AUDIT) {
+    throw new Error("L’ITI Pereira 270 m² ne doit pas être modifiée.");
+  }
+  const ligneCoordination = PEREIRA_DEVIS_LIGNES_TEST.find((ligne) => /coordination et pilotage/i.test(ligne.designation));
+  if (!ligneCoordination || ligneCoordination.montantTtc !== PEREIRA_COORDINATION_TTC) {
+    throw new Error("Les honoraires de coordination Pereira ne doivent pas être rééquilibrés.");
+  }
+  if (PEREIRA_MPR_PARCOURS_TTC !== 20000) {
+    throw new Error("MaPrimeRénov’ Parcours Pereira doit rester à 20 000,00 € (recalcul prudent).");
+  }
+  const optionA = PEREIRA_ETUDE_FINANCIERE.solutionsExclusives?.optionA;
+  const optionB = PEREIRA_ETUDE_FINANCIERE.solutionsExclusives?.optionB;
+  const texteA = JSON.stringify(optionA ?? {});
+  const texteB = JSON.stringify(optionB ?? {});
+  if (!/via votre banque partenaire/i.test(texteA) || !texteA.includes(formatEuro(PEREIRA_RAC_NET_TTC))) {
+    throw new Error("L’option A du financement Pereira n’est pas à jour (banque partenaire / RAC après remise).");
+  }
+  if (!/hors geste commercial/i.test(texteA) || !texteA.includes(formatEuro(PEREIRA_RAC_THEORIQUE_TTC))) {
+    throw new Error("L’option A doit distinguer le RAC après remise du RAC théorique hors geste commercial.");
+  }
+  if (!/ORIAS 26 009 255/i.test(texteB) || !texteB.includes(formatEuro(PEREIRA_TOTAL_VENTE_TTC))) {
+    throw new Error("L’option B du financement Pereira doit porter sur le nouveau total TTC (ORIAS UMAFI).");
+  }
+  if (!/sous réserve d'acceptation définitive par les partenaires financiers/i.test(PEREIRA_ETUDE_FINANCIERE.mentionFinancement ?? "")) {
+    throw new Error("La mention de prudence du financement Pereira est absente ou incomplète.");
+  }
+  const texteClient = [
+    JSON.stringify(PEREIRA_ETUDE_FINANCIERE),
+    PEREIRA_OBJET_TRAVAUX,
+    PEREIRA_DEVIS_LIGNES_TEST.map((ligne) => `${ligne.designation} ${ligne.description}`).join(" "),
+  ].join(" ");
+  if (/75[\s\u00a0]?000|73[\s\u00a0]?500|55[\s\u00a0]?000|53[\s\u00a0]?500/.test(texteClient)) {
+    throw new Error("Un ancien montant 75 000 / 73 500 / 55 000 / 53 500 apparaît encore dans le devis Pereira.");
+  }
 
   const brouillon: DevisClientPdfInput = {
     numero: PEREIRA_DEVIS_NUMERO,
@@ -312,6 +378,7 @@ export function construireDevisPereiraTest(): DevisClientPdfInput {
     mentionTva: `${AVERTISSEMENT_TVA} TVA 5,5 % sur les travaux de rénovation, 20 % sur la coordination et les frais administratifs.`,
     etudeFinanciere: PEREIRA_ETUDE_FINANCIERE,
     gesteCommercial: PEREIRA_GESTE_COMMERCIAL,
+    modeCompact: true,
     filename: `Devis_${PEREIRA_AUDIT_ID}.pdf`,
   };
 

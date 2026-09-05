@@ -523,18 +523,19 @@ function drawGesteCommercial(
   doc: jsPDF,
   y: number,
   geste: DevisClientPdfGesteCommercial,
+  compact = false,
 ): number {
   const innerW = CONTENT_W - 12;
-  const lineH = 3.4;
+  const lineH = compact ? 3.1 : 3.4;
   const vmc = `${geste.vmcLibelle} : ${formatEuro(geste.vmcMontantTtc)} TTC`;
   const remise = `${geste.remiseLibelle} : -${formatEuro(geste.remiseMontantTtc)} TTC`;
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(8);
-  let contentH = 8;
-  contentH += wrapHeight(doc, vmc, innerW, lineH) + 2;
-  contentH += wrapHeight(doc, geste.titre, innerW, 3.6) + 2;
-  contentH += wrapHeight(doc, remise, innerW, lineH) + 3;
-  contentH += wrapHeight(doc, geste.mention, innerW, 3.3) + 4;
+  doc.setFontSize(compact ? 7.4 : 8);
+  let contentH = compact ? 6 : 8;
+  contentH += wrapHeight(doc, vmc, innerW, lineH) + (compact ? 1 : 2);
+  contentH += wrapHeight(doc, geste.titre, innerW, compact ? 3.3 : 3.6) + (compact ? 1 : 2);
+  contentH += wrapHeight(doc, remise, innerW, lineH) + (compact ? 2 : 3);
+  contentH += wrapHeight(doc, geste.mention, innerW, compact ? 3 : 3.3) + (compact ? 2.5 : 4);
   y = needPage(doc, y, contentH + 4);
 
   doc.setFillColor(255, 247, 237);
@@ -542,27 +543,27 @@ function drawGesteCommercial(
   doc.setLineWidth(0.4);
   doc.roundedRect(MARGIN, y, CONTENT_W, contentH, 1.6, 1.6, "FD");
 
-  let iy = y + 5.5;
+  let iy = y + (compact ? 4.4 : 5.5);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(8);
+  doc.setFontSize(compact ? 7.4 : 8);
   doc.setTextColor(...NAVY);
   iy = drawWrapped(doc, vmc, MARGIN + 5, iy, innerW, lineH);
-  iy += 2;
+  iy += compact ? 1 : 2;
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(8.2);
+  doc.setFontSize(compact ? 7.6 : 8.2);
   doc.setTextColor(...GREEN);
-  iy = drawWrapped(doc, geste.titre, MARGIN + 5, iy, innerW, 3.6);
-  iy += 1.2;
+  iy = drawWrapped(doc, geste.titre, MARGIN + 5, iy, innerW, compact ? 3.3 : 3.6);
+  iy += compact ? 0.8 : 1.2;
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(8);
+  doc.setFontSize(compact ? 7.4 : 8);
   doc.setTextColor(...GREEN);
   iy = drawWrapped(doc, remise, MARGIN + 5, iy, innerW, lineH);
-  iy += 2;
+  iy += compact ? 1.2 : 2;
   doc.setFont("helvetica", "italic");
-  doc.setFontSize(6.6);
+  doc.setFontSize(compact ? 6.2 : 6.6);
   doc.setTextColor(...SLATE);
-  drawWrapped(doc, geste.mention, MARGIN + 5, iy, innerW, 3.3);
-  return y + contentH + 4;
+  drawWrapped(doc, geste.mention, MARGIN + 5, iy, innerW, compact ? 3 : 3.3);
+  return y + contentH + (compact ? 2.5 : 4);
 }
 
 function drawRecap(
@@ -570,6 +571,7 @@ function drawRecap(
   y: number,
   totaux: TotauxDevisCalcules,
   etude?: DevisClientPdfEtudeFinanciere,
+  compact = false,
 ): number {
   const rows: [string, string, "normal" | "ttc" | "aide" | "rac" | "remise"][] = [
     ["Total HT", formatMontant(totaux.totalHt), "normal"],
@@ -585,23 +587,30 @@ function drawRecap(
   if (totaux.totalTtcAvantRemise != null && totaux.remiseCommercialeTtc != null) {
     rows.push(["Total TTC avant remise", formatEuro(totaux.totalTtcAvantRemise), "normal"]);
     rows.push(["Remise commerciale", `-${formatEuro(totaux.remiseCommercialeTtc)}`, "remise"]);
+    rows.push(["Total TTC net", formatMontant(totaux.totalTtc), "ttc"]);
+  } else {
+    rows.push(["Total TTC", formatMontant(totaux.totalTtc), "ttc"]);
   }
-  rows.push(["Total TTC", formatMontant(totaux.totalTtc), "ttc"]);
   if (etude) {
-    rows.push(["Aides estimees (deduites)", formatEuro(etude.totalAides), "aide"]);
-    rows.push(["Reste a charge net TTC", formatEuro(etude.resteACharge), "rac"]);
+    rows.push(["Aides estimatives", formatEuro(etude.totalAides), "aide"]);
+    rows.push([
+      totaux.remiseCommercialeTtc ? "Reste a charge apres remise TTC" : "Reste a charge net TTC",
+      formatEuro(etude.resteACharge),
+      "rac",
+    ]);
   }
 
+  const rowH = compact ? 6.2 : 7.2;
   const boxW = CONTENT_W;
   const x = MARGIN;
-  const h = 8 + rows.length * 7.2 + 4;
-  y = needPage(doc, y, h + 12);
+  const h = (compact ? 6 : 8) + rows.length * rowH + (compact ? 2 : 4);
+  y = needPage(doc, y, h + (compact ? 8 : 12));
 
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(10.5);
+  doc.setFontSize(compact ? 9.5 : 10.5);
   doc.setTextColor(...NAVY);
   doc.text("Recapitulatif financier", MARGIN, y);
-  y += 5;
+  y += compact ? 4 : 5;
 
   doc.setDrawColor(...LINE);
   doc.setFillColor(255, 255, 255);
@@ -618,18 +627,18 @@ function drawRecap(
       doc.text(pdfText(label), x + 4, rowY + 1.4);
       doc.setFontSize(12);
       doc.text(pdfText(value), x + boxW - 4, rowY + 1.4, { align: "right" });
-      rowY += 11;
+      rowY += compact ? 9.2 : 11;
       continue;
     }
     if (kind === "rac") {
       doc.setFillColor(...NAVY);
-      doc.rect(x, rowY - 4.4, boxW, 9.2, "F");
+      doc.rect(x, rowY - 4.4, boxW, compact ? 8 : 9.2, "F");
       doc.setFont("helvetica", "bold");
       doc.setFontSize(8.5);
       doc.setTextColor(255, 255, 255);
       doc.text(pdfText(label), x + 4, rowY + 1.2);
       doc.text(pdfText(value), x + boxW - 4, rowY + 1.2, { align: "right" });
-      rowY += 10;
+      rowY += compact ? 8.4 : 10;
       continue;
     }
     if (kind === "remise") {
@@ -638,7 +647,7 @@ function drawRecap(
       doc.setTextColor(...GREEN);
       doc.text(pdfText(label), x + 4, rowY);
       doc.text(pdfText(value), x + boxW - 4, rowY, { align: "right" });
-      rowY += 7.2;
+      rowY += rowH;
       continue;
     }
     doc.setFont("helvetica", kind === "aide" ? "bold" : "normal");
@@ -648,86 +657,104 @@ function drawRecap(
     doc.setFont("helvetica", "bold");
     doc.setTextColor(...INK);
     doc.text(pdfText(value), x + boxW - 4, rowY, { align: "right" });
-    rowY += 7.2;
+    rowY += rowH;
   }
-  return y + h + 8;
+  return y + h + (compact ? 4 : 8);
 }
 
 function drawEtudeFinanciere(
   doc: jsPDF,
   y: number,
   etude: DevisClientPdfEtudeFinanciere,
+  compact = false,
 ): number {
-  y = needPage(doc, y, 62);
+  y = needPage(doc, y, compact ? 18 : 62);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(10.5);
+  doc.setFontSize(compact ? 9.5 : 10.5);
   doc.setTextColor(...NAVY);
   doc.text("Etude financiere et aides 2026 (simulation indicative)", MARGIN, y);
-  y += 5;
+  y += compact ? 4 : 5;
   if (etude.profil) {
     doc.setFont("helvetica", "italic");
-    doc.setFontSize(7.5);
+    doc.setFontSize(compact ? 7 : 7.5);
     doc.setTextColor(...SLATE);
     doc.text(pdfText(etude.profil), MARGIN, y);
-    y += 4.5;
+    y += compact ? 3.6 : 4.5;
   }
 
-  const aidesH = 10 + etude.aides.length * 7 + 12;
-  doc.setFillColor(...GREEN_SOFT);
-  doc.setDrawColor(22, 163, 74);
-  doc.setLineWidth(0.35);
-  doc.roundedRect(MARGIN, y, CONTENT_W, aidesH, 1.6, 1.6, "FD");
-  let inner = y + 6;
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(8);
-  doc.setTextColor(...GREEN);
-  doc.text("MaPrimeRenov' Parcours Accompagne", MARGIN + 5, inner);
-  inner += 6;
-  for (const aide of etude.aides) {
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(7.6);
-    doc.setTextColor(...INK);
-    const label = doc.splitTextToSize(pdfText(aide.libelle), CONTENT_W - 46) as string[];
-    doc.text(label[0] ?? "", MARGIN + 5, inner);
+  if (compact) {
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(9.5);
-    doc.text(pdfText(formatEuro(aide.montant)), PAGE_W - MARGIN - 5, inner, { align: "right" });
-    inner += 7;
+    doc.setFontSize(7.2);
+    doc.setTextColor(...GREEN);
+    doc.text(pdfText(`Aides estimatives : ${formatEuro(etude.totalAides)}`), MARGIN, y);
+    doc.setTextColor(...NAVY);
+    doc.text(
+      pdfText(`Reste a charge apres remise : ${formatEuro(etude.resteACharge)}`),
+      PAGE_W - MARGIN,
+      y,
+      { align: "right" },
+    );
+    y += 4.2;
   }
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(8.5);
-  doc.setTextColor(...NAVY);
-  doc.text("Reste a charge net TTC", MARGIN + 5, inner + 1);
-  doc.setFontSize(10.5);
-  doc.text(pdfText(formatEuro(etude.resteACharge)), PAGE_W - MARGIN - 5, inner + 1, {
-    align: "right",
-  });
-  y += aidesH + 3;
+
+  if (!compact) {
+    const aidesH = 10 + etude.aides.length * 7 + 12;
+    doc.setFillColor(...GREEN_SOFT);
+    doc.setDrawColor(22, 163, 74);
+    doc.setLineWidth(0.35);
+    doc.roundedRect(MARGIN, y, CONTENT_W, aidesH, 1.6, 1.6, "FD");
+    let inner = y + 6;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(...GREEN);
+    doc.text("MaPrimeRenov' Parcours Accompagne", MARGIN + 5, inner);
+    inner += 6;
+    for (const aide of etude.aides) {
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7.6);
+      doc.setTextColor(...INK);
+      const label = doc.splitTextToSize(pdfText(aide.libelle), CONTENT_W - 46) as string[];
+      doc.text(label[0] ?? "", MARGIN + 5, inner);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9.5);
+      doc.text(pdfText(formatEuro(aide.montant)), PAGE_W - MARGIN - 5, inner, { align: "right" });
+      inner += 7;
+    }
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8.5);
+    doc.setTextColor(...NAVY);
+    doc.text("Reste a charge apres remise TTC", MARGIN + 5, inner + 1);
+    doc.setFontSize(10.5);
+    doc.text(pdfText(formatEuro(etude.resteACharge)), PAGE_W - MARGIN - 5, inner + 1, {
+      align: "right",
+    });
+    y += aidesH + 3;
+  }
 
   doc.setFont("helvetica", "italic");
-  doc.setFontSize(6.8);
+  doc.setFontSize(compact ? 6.4 : 6.8);
   doc.setTextColor(...SLATE);
   doc.text(pdfText(etude.disclaimers.join(" ")), MARGIN, y, { maxWidth: CONTENT_W });
-  y += 8;
+  y += compact ? 6 : 8;
 
-  y = drawFinancement(doc, y, etude);
+  y = drawFinancement(doc, y, etude, compact);
   return y;
 }
 
-function mesureOption(doc: jsPDF, option: DevisClientPdfSolutionOption, innerW: number): number {
-  const lineH = 3.5;
+function mesureOption(doc: jsPDF, option: DevisClientPdfSolutionOption, innerW: number, compact = false): number {
+  const lineH = compact ? 3.2 : 3.5;
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(7.3);
-  let h = 11;
-  if (option.sousTitre) h += 6;
+  doc.setFontSize(compact ? 6.9 : 7.3);
+  let h = compact ? 8.5 : 11;
+  if (option.sousTitre) h += compact ? 5 : 6;
   for (const bloc of option.blocs) {
-    if (bloc.titre) h += 5.5;
+    if (bloc.titre) h += compact ? 4.6 : 5.5;
     for (const ligne of bloc.lignes) {
-      h += wrapHeight(doc, `- ${ligne.libelle} : ${ligne.detail}`, innerW, lineH) + 1.2;
+      h += wrapHeight(doc, `- ${ligne.libelle} : ${ligne.detail}`, innerW, lineH) + (compact ? 0.8 : 1.2);
     }
-    if (bloc.note) h += wrapHeight(doc, bloc.note, innerW, 3.3) + 2.2;
+    if (bloc.note) h += wrapHeight(doc, bloc.note, innerW, compact ? 3 : 3.3) + (compact ? 1.6 : 2.2);
   }
-  return h + 4;
+  return h + (compact ? 3 : 4);
 }
 
 function drawOptionBox(
@@ -735,10 +762,11 @@ function drawOptionBox(
   y: number,
   option: DevisClientPdfSolutionOption,
   variant: "A" | "B",
+  compact = false,
 ): number {
   const innerW = CONTENT_W - 10;
-  const lineH = 3.5;
-  const h = mesureOption(doc, option, innerW);
+  const lineH = compact ? 3.2 : 3.5;
+  const h = mesureOption(doc, option, innerW, compact);
   y = needPage(doc, y, h);
 
   const fill = variant === "A" ? GREEN_SOFT : SKY;
@@ -750,48 +778,48 @@ function drawOptionBox(
   doc.setLineWidth(0.35);
   doc.roundedRect(MARGIN, y, CONTENT_W, h, 1.6, 1.6, "FD");
 
-  let iy = y + 5.5;
+  let iy = y + (compact ? 4.4 : 5.5);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(8.2);
+  doc.setFontSize(compact ? 7.6 : 8.2);
   doc.setTextColor(...accent);
-  iy = drawWrapped(doc, `SOLUTION OPTION ${option.code} : ${option.titre}`, MARGIN + 5, iy, innerW, 3.8);
+  iy = drawWrapped(doc, `SOLUTION OPTION ${option.code} : ${option.titre}`, MARGIN + 5, iy, innerW, compact ? 3.5 : 3.8);
   if (option.sousTitre) {
     doc.setFont("helvetica", "italic");
-    doc.setFontSize(7.2);
+    doc.setFontSize(compact ? 6.7 : 7.2);
     doc.setTextColor(...SLATE);
-    iy = drawWrapped(doc, option.sousTitre, MARGIN + 5, iy + 0.6, innerW, 3.4);
-    iy += 1.2;
+    iy = drawWrapped(doc, option.sousTitre, MARGIN + 5, iy + 0.4, innerW, compact ? 3.1 : 3.4);
+    iy += compact ? 0.8 : 1.2;
   } else {
-    iy += 1.4;
+    iy += compact ? 1 : 1.4;
   }
 
   for (const bloc of option.blocs) {
     if (bloc.titre) {
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(7.6);
+      doc.setFontSize(compact ? 7.1 : 7.6);
       doc.setTextColor(...NAVY);
-      iy = drawWrapped(doc, bloc.titre, MARGIN + 5, iy + 1.2, innerW, 3.5);
+      iy = drawWrapped(doc, bloc.titre, MARGIN + 5, iy + (compact ? 0.8 : 1.2), innerW, compact ? 3.2 : 3.5);
     }
     for (const ligne of bloc.lignes) {
       doc.setFont("helvetica", "normal");
-      doc.setFontSize(7.3);
+      doc.setFontSize(compact ? 6.9 : 7.3);
       doc.setTextColor(...INK);
-      iy = drawWrapped(doc, `- ${ligne.libelle} : ${ligne.detail}`, MARGIN + 5, iy + 0.6, innerW, lineH);
+      iy = drawWrapped(doc, `- ${ligne.libelle} : ${ligne.detail}`, MARGIN + 5, iy + (compact ? 0.4 : 0.6), innerW, lineH);
     }
     if (bloc.note) {
       doc.setFont("helvetica", "italic");
-      doc.setFontSize(7);
+      doc.setFontSize(compact ? 6.6 : 7);
       doc.setTextColor(...SLATE);
-      iy = drawWrapped(doc, bloc.note, MARGIN + 5, iy + 0.8, innerW, 3.3);
-      iy += 1;
+      iy = drawWrapped(doc, bloc.note, MARGIN + 5, iy + (compact ? 0.5 : 0.8), innerW, compact ? 3 : 3.3);
+      iy += compact ? 0.6 : 1;
     }
   }
-  return y + h + 2.5;
+  return y + h + (compact ? 1.6 : 2.5);
 }
 
-function drawOuSeparator(doc: jsPDF, y: number, label = "OU"): number {
-  y = needPage(doc, y, 10);
-  const midY = y + 3.5;
+function drawOuSeparator(doc: jsPDF, y: number, label = "OU", compact = false): number {
+  y = needPage(doc, y, compact ? 7 : 10);
+  const midY = y + (compact ? 2.6 : 3.5);
   doc.setDrawColor(...LINE);
   doc.setLineWidth(0.3);
   const gap = 16;
@@ -799,28 +827,28 @@ function drawOuSeparator(doc: jsPDF, y: number, label = "OU"): number {
   doc.line(MARGIN, midY, midX - gap, midY);
   doc.line(midX + gap, midY, PAGE_W - MARGIN, midY);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(8.5);
+  doc.setFontSize(compact ? 7.8 : 8.5);
   doc.setTextColor(...NAVY);
   doc.text(label, midX, midY + 1, { align: "center" });
-  return y + 9;
+  return y + (compact ? 6 : 9);
 }
 
-function drawFinancement(doc: jsPDF, y: number, etude: DevisClientPdfEtudeFinanciere): number {
-  y = needPage(doc, y, 18);
+function drawFinancement(doc: jsPDF, y: number, etude: DevisClientPdfEtudeFinanciere, compact = false): number {
+  y = needPage(doc, y, compact ? 14 : 18);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
+  doc.setFontSize(compact ? 9.2 : 10);
   doc.setTextColor(...NAVY);
   doc.text(
     pdfText(etude.financementTitre || "Solutions de financement (simulations indicatives a valider)"),
     MARGIN,
     y,
   );
-  y += 5;
+  y += compact ? 4 : 5;
 
   if (etude.solutionsExclusives) {
-    y = drawOptionBox(doc, y, etude.solutionsExclusives.optionA, "A");
-    y = drawOuSeparator(doc, y, etude.solutionsExclusives.separateur || "OU");
-    y = drawOptionBox(doc, y, etude.solutionsExclusives.optionB, "B");
+    y = drawOptionBox(doc, y, etude.solutionsExclusives.optionA, "A", compact);
+    y = drawOuSeparator(doc, y, etude.solutionsExclusives.separateur || "OU", compact);
+    y = drawOptionBox(doc, y, etude.solutionsExclusives.optionB, "B", compact);
   } else {
     const finH = 6 + etude.financement.length * 6.6;
     y = needPage(doc, y, finH + 4);
@@ -843,17 +871,17 @@ function drawFinancement(doc: jsPDF, y: number, etude: DevisClientPdfEtudeFinanc
   }
 
   if (etude.mentionFinancement) {
-    y = needPage(doc, y, 14);
+    y = needPage(doc, y, compact ? 10 : 14);
     const wrapped = doc.splitTextToSize(pdfText(etude.mentionFinancement), CONTENT_W) as string[];
     doc.setFont("helvetica", "italic");
-    doc.setFontSize(6.7);
+    doc.setFontSize(compact ? 6.3 : 6.7);
     doc.setTextColor(...SLATE);
     for (const line of wrapped) {
-      y = needPage(doc, y, 4);
+      y = needPage(doc, y, 3.5);
       doc.text(line, MARGIN, y);
-      y += 3.3;
+      y += compact ? 2.9 : 3.3;
     }
-    y += 2;
+    y += compact ? 1.2 : 2;
   }
   return y;
 }
@@ -862,13 +890,14 @@ function drawPaiementEtMentions(
   doc: jsPDF,
   y: number,
   conditions: ReturnType<typeof conditionsEffectives>,
+  compact = false,
 ): number {
-  y = needPage(doc, y, 36);
+  y = needPage(doc, y, compact ? 28 : 36);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
+  doc.setFontSize(compact ? 9.2 : 10);
   doc.setTextColor(...NAVY);
   doc.text("Conditions de paiement", MARGIN, y);
-  y += 5;
+  y += compact ? 4 : 5;
   const rows: [string, string][] = [
     ["Acompte", conditions.acompte],
     ["Echeances", conditions.echeances],
@@ -878,49 +907,50 @@ function drawPaiementEtMentions(
   for (const [label, value] of rows) {
     const wrapped = doc.splitTextToSize(pdfText(value), CONTENT_W - 38) as string[];
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(7.5);
+    doc.setFontSize(compact ? 7 : 7.5);
     doc.setTextColor(...SLATE);
     doc.text(pdfText(label), MARGIN, y);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(...INK);
     doc.text(wrapped[0] ?? "", MARGIN + 32, y);
-    y += 5.4;
+    y += compact ? 4.6 : 5.4;
   }
 
-  y += 2;
+  y += compact ? 1.2 : 2;
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
+  doc.setFontSize(compact ? 9.2 : 10);
   doc.setTextColor(...NAVY);
   doc.text("Mentions legales", MARGIN, y);
-  y += 4.5;
+  y += compact ? 3.6 : 4.5;
   const mention =
     "Document estimatif, valable 3 mois. Travaux RGE coordonnes par ENERGIA CONSEIL IA®. Aides 2026 a titre indicatif, a valider selon revenus reels. Montants definitifs apres ANAH et CEE. Financement sous reserve d'etude et d'acceptation bancaire. Garanties legales : decennale, biennale, parfait achevement. Assurance DO recommandee (non souscrite par ENERGIA). Travaux MaPrimeRenov' : ne pas demarrer avant l'accord ANAH.";
   const wrapped = doc.splitTextToSize(pdfText(mention), CONTENT_W) as string[];
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(7);
+  doc.setFontSize(compact ? 6.5 : 7);
   doc.setTextColor(51, 65, 85);
   for (const line of wrapped) {
     doc.text(line, MARGIN, y);
-    y += 3.3;
+    y += compact ? 2.9 : 3.3;
   }
 
-  y += 5;
+  y += compact ? 3.5 : 5;
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
+  doc.setFontSize(compact ? 9.2 : 10);
   doc.setTextColor(...NAVY);
   doc.text("Bon pour accord", MARGIN, y);
-  y += 5;
+  y += compact ? 4 : 5;
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(8);
+  doc.setFontSize(compact ? 7.5 : 8);
   doc.setTextColor(...SLATE);
   doc.text(pdfText("Fait a ____________________    le ____________________"), MARGIN, y);
-  y += 6;
+  y += compact ? 4.5 : 6;
   doc.setDrawColor(...LINE);
   doc.setLineWidth(0.4);
-  doc.roundedRect(MARGIN, y, 88, 20, 1.4, 1.4, "S");
+  const signH = compact ? 14 : 20;
+  doc.roundedRect(MARGIN, y, 88, signH, 1.4, 1.4, "S");
   doc.setFontSize(8);
   doc.text("Signature du client", MARGIN + 4, y + 5);
-  return y + 22;
+  return y + signH + (compact ? 1 : 2);
 }
 
 function footer(
@@ -960,6 +990,7 @@ export function createDevisPdfDocument(input: DevisClientPdfInput, logo: LogoPdf
   assertClientSafe(input);
   const totaux = totauxDevisClient(input);
   const conditions = conditionsEffectives(input, totaux);
+  const compact = Boolean(input.modeCompact);
   const doc = new jsPDF({ unit: "mm", format: "a4" });
 
   let y = drawHeader(doc, logo, input);
@@ -995,8 +1026,10 @@ export function createDevisPdfDocument(input: DevisClientPdfInput, logo: LogoPdf
       : [["Aucune prestation chiffrée", "À compléter", "—", "—", "À compléter", "—", "À compléter"]],
     styles: {
       font: "helvetica",
-      fontSize: 7.4,
-      cellPadding: { top: 2, bottom: 2, left: 1.3, right: 1.3 },
+      fontSize: compact ? 7 : 7.4,
+      cellPadding: compact
+        ? { top: 1.35, bottom: 1.35, left: 1.2, right: 1.2 }
+        : { top: 2, bottom: 2, left: 1.3, right: 1.3 },
       overflow: "linebreak",
       valign: "top",
       textColor: INK,
@@ -1007,10 +1040,12 @@ export function createDevisPdfDocument(input: DevisClientPdfInput, logo: LogoPdf
       fillColor: GREEN,
       textColor: 255,
       fontStyle: "bold",
-      fontSize: 7.2,
+      fontSize: compact ? 6.8 : 7.2,
       overflow: "linebreak",
       valign: "middle",
-      cellPadding: { top: 2.6, bottom: 2.6, left: 1.3, right: 1.3 },
+      cellPadding: compact
+        ? { top: 1.8, bottom: 1.8, left: 1.2, right: 1.2 }
+        : { top: 2.6, bottom: 2.6, left: 1.3, right: 1.3 },
     },
     alternateRowStyles: { fillColor: ALT_ROW },
     columnStyles: {
@@ -1031,29 +1066,29 @@ export function createDevisPdfDocument(input: DevisClientPdfInput, logo: LogoPdf
     rowPageBreak: "avoid",
   });
 
-  y = ((doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? y) + 6;
+  y = ((doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? y) + (compact ? 4 : 6);
 
   if (input.gesteCommercial) {
-    y = drawGesteCommercial(doc, y, input.gesteCommercial);
+    y = drawGesteCommercial(doc, y, input.gesteCommercial, compact);
   }
 
-  y = drawRecap(doc, y, totaux, input.etudeFinanciere);
+  y = drawRecap(doc, y, totaux, input.etudeFinanciere, compact);
   if (input.mentionTva) {
     const wrapped = doc.splitTextToSize(pdfText(input.mentionTva), CONTENT_W) as string[];
     doc.setFont("helvetica", "italic");
-    doc.setFontSize(7);
+    doc.setFontSize(compact ? 6.5 : 7);
     doc.setTextColor(...SLATE);
     for (const line of wrapped) {
       y = needPage(doc, y, 4);
       doc.text(line, MARGIN, y);
-      y += 3.4;
+      y += compact ? 3 : 3.4;
     }
-    y += 4;
+    y += compact ? 2.5 : 4;
   }
   if (input.etudeFinanciere) {
-    y = drawEtudeFinanciere(doc, y, input.etudeFinanciere);
+    y = drawEtudeFinanciere(doc, y, input.etudeFinanciere, compact);
   }
-  drawPaiementEtMentions(doc, y, conditions);
+  drawPaiementEtMentions(doc, y, conditions, compact);
 
   const pages = doc.getNumberOfPages();
   for (let i = 1; i <= pages; i += 1) {

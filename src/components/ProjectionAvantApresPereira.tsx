@@ -341,7 +341,7 @@ function GalerieMenuiseriesPereira() {
         labelAvant={PEREIRA_LABEL_AVANT_MENUISERIE}
         labelApres={PEREIRA_LABEL_APRES_MENUISERIE}
         mention={PEREIRA_MENTION_MENUISERIE}
-        ariaLabel="Comparer la photo réelle et la projection visuelle indicative du remplacement de menuiserie PVC"
+        ariaLabel="Comparer la photo réelle et la projection visuelle indicative du remplacement de menuiserie ALUMINIUM"
       />
       <p className="text-xs leading-relaxed text-slate-400">{PEREIRA_MENTION_MENUISERIE}</p>
     </div>
