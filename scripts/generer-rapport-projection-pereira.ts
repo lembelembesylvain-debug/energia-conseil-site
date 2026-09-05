@@ -3,13 +3,20 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { jsPDF } from "jspdf";
 import {
+  PEREIRA_CATEGORIE_MENUISERIE,
+  PEREIRA_ECART_MENUISERIE,
   PEREIRA_LABEL_APRES,
+  PEREIRA_LABEL_APRES_MENUISERIE,
   PEREIRA_LABEL_APRES_PAC,
+  PEREIRA_LABEL_AVANT_MENUISERIE,
   PEREIRA_LABEL_AVANT_PAC,
+  PEREIRA_MENTION_MENUISERIE,
   PEREIRA_MENTION_PAC,
   PEREIRA_MENTION_SIMULATION,
   PEREIRA_PAIRE_PAC,
   PEREIRA_PAIRES_ITI,
+  PEREIRA_PAIRES_MENUISERIES,
+  PEREIRA_QUANTITES_MENUISERIE,
 } from "../src/data/pereiraProjection";
 import { logoFromPngBytes, type LogoPdf } from "../src/lib/generateDevisPdf";
 
@@ -93,7 +100,7 @@ function drawCover(doc: jsPDF, logo: LogoPdf) {
   doc.setFont("helvetica", "normal");
   doc.setFontSize(12);
   doc.setTextColor(253, 224, 71);
-  doc.text(pdfText("Rapport de Projection Visuelle ITI et chauffage - M. PEREIRA"), PAGE_W / 2, y + 8, {
+  doc.text(pdfText("Rapport de Projection Visuelle ITI, chauffage et menuiseries - M. PEREIRA"), PAGE_W / 2, y + 8, {
     align: "center",
   });
 
@@ -116,7 +123,7 @@ function drawCover(doc: jsPDF, logo: LogoPdf) {
   doc.setTextColor(148, 163, 184);
   const coverNotes = doc.splitTextToSize(
     pdfText(
-      "8 vues ITI 12 cm + 1 vue chauffage / ECS (PAC air/eau haute temperature double service, projection indicative). Aucune marque, aucun modele. Puissance et implantation a confirmer. Aucun resultat energetique garanti. Document indicatif - hors devis contractuel - estimation a confirmer par devis artisan RGE.",
+      "8 vues ITI 12 cm + 1 vue chauffage / ECS (PAC air/eau haute temperature double service) + menuiseries PVC (fenetres, porte-fenetre, porte d'entree, projections indicatives). Aucune marque, aucun modele. Quantites a confirmer. Aucun resultat energetique garanti. Document indicatif - hors devis contractuel - estimation a confirmer par devis artisan RGE.",
     ),
     160,
   ) as string[];
@@ -215,6 +222,85 @@ function drawPairPage(doc: jsPDF, avantBuf: Buffer, apresBuf: Buffer, options: P
   doc.text(mentionLines, PAGE_W / 2, mentionTop + 6, { align: "center" });
 }
 
+function drawMenuiseriesIntro(doc: jsPDF) {
+  doc.setFillColor(...NAVY);
+  doc.rect(0, 0, PAGE_W, 18, "F");
+  doc.setFillColor(...GOLD);
+  doc.rect(0, 18, PAGE_W, 1.2, "F");
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(253, 230, 138);
+  doc.text("ENERGIA-CONSEIL IA", MARGIN, 8);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.setTextColor(255, 255, 255);
+  doc.text("Rapport de Projection Visuelle", PAGE_W - MARGIN, 8, { align: "right" });
+  doc.text("Menuiseries - fenetres, portes-fenetres et porte d'entree", MARGIN, 14.5);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  doc.setTextColor(...NAVY);
+  doc.text(pdfText("Menuiseries — fenêtres, portes-fenêtres et porte d'entrée"), MARGIN, 32);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(...SLATE);
+  const intro = doc.splitTextToSize(
+    pdfText(
+      "Projection visuelle indicative du remplacement des menuiseries photographiees. Materiau retenu au devis : PVC, double vitrage peu emissif. Uw <= 1,30 W/m2.K si confirme par l'audit. Porte isolante Ud <= 1,50 si applicable. Tableaux et appuis repris. Teinte blanche indicative, alignee sur les cadres peints existants - teinte definitive a confirmer. Aucune marque, aucun modele, aucune photo reelle apres travaux.",
+    ),
+    PAGE_W - MARGIN * 2,
+  ) as string[];
+  let y = 42;
+  for (const line of intro) {
+    doc.text(line, MARGIN, y);
+    y += 5.2;
+  }
+
+  y += 4;
+  doc.setFillColor(255, 247, 237);
+  doc.roundedRect(MARGIN, y, PAGE_W - MARGIN * 2, 28, 2, 2, "F");
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(146, 64, 14);
+  doc.text(pdfText(PEREIRA_ECART_MENUISERIE), MARGIN + 4, y + 8, {
+    maxWidth: PAGE_W - MARGIN * 2 - 8,
+  });
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.text(pdfText(PEREIRA_QUANTITES_MENUISERIE), MARGIN + 4, y + 20, {
+    maxWidth: PAGE_W - MARGIN * 2 - 8,
+  });
+
+  y += 36;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.setTextColor(...NAVY);
+  doc.text("Vues de cette section", MARGIN, y);
+  y += 6;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(...SLATE);
+  for (const paire of PEREIRA_PAIRES_MENUISERIES) {
+    doc.text(
+      pdfText(
+        `Vue ${paire.index}/${PEREIRA_PAIRES_MENUISERIES.length} - ${PEREIRA_CATEGORIE_MENUISERIE[paire.categorie]} - ${paire.titre}`,
+      ),
+      MARGIN,
+      y,
+    );
+    y += 6;
+  }
+
+  y += 8;
+  doc.setFillColor(255, 247, 237);
+  doc.roundedRect(MARGIN, y, PAGE_W - MARGIN * 2, 22, 1.5, 1.5, "F");
+  doc.setFontSize(8);
+  doc.setTextColor(146, 64, 14);
+  const mentionLines = doc.splitTextToSize(pdfText(PEREIRA_MENTION_MENUISERIE), PAGE_W - MARGIN * 2 - 8) as string[];
+  doc.text(mentionLines, PAGE_W / 2, y + 8, { align: "center" });
+}
+
 function main() {
   const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
   const galerie = resolve(root, "public/test-maison-pereira/galerie");
@@ -263,6 +349,25 @@ function main() {
     mentionBoxH: 28,
   });
 
+  doc.addPage();
+  drawMenuiseriesIntro(doc);
+
+  for (const paire of PEREIRA_PAIRES_MENUISERIES) {
+    const pad = String(paire.index).padStart(2, "0");
+    const avantBuf = readFileSync(resolve(galerie, `avant-menuiserie-${pad}.jpg`));
+    const apresBuf = readFileSync(resolve(galerie, `apres-menuiserie-${pad}.jpg`));
+    doc.addPage();
+    drawPairPage(doc, avantBuf, apresBuf, {
+      headerRight: "Menuiseries - fenetres, portes-fenetres et porte d'entree",
+      bandeau: `Vue ${paire.index}/${PEREIRA_PAIRES_MENUISERIES.length}  |  ${PEREIRA_CATEGORIE_MENUISERIE[paire.categorie]}  |  ${paire.titre}`,
+      titre: paire.titre,
+      captionAvant: PEREIRA_LABEL_AVANT_MENUISERIE,
+      captionApres: PEREIRA_LABEL_APRES_MENUISERIE,
+      mention: `${PEREIRA_MENTION_MENUISERIE} ${PEREIRA_QUANTITES_MENUISERIE}`,
+      mentionBoxH: 28,
+    });
+  }
+
   const total = doc.getNumberOfPages();
   for (let i = 2; i <= total; i += 1) {
     doc.setPage(i);
@@ -288,7 +393,9 @@ function main() {
         pages: total,
         pairesIti: PEREIRA_PAIRES_ITI.length,
         pairePac: 1,
-        titre: "Rapport de Projection Visuelle ITI et chauffage - M. PEREIRA",
+        pairesMenuiseries: PEREIRA_PAIRES_MENUISERIES.length,
+        materiauMenuiseries: "PVC",
+        titre: "Rapport de Projection Visuelle ITI, chauffage et menuiseries - M. PEREIRA",
       },
       null,
       2,

@@ -16,7 +16,8 @@ import CarteVisite from "./components/CarteVisite";
 import TestMaisonClyve from "./components/TestMaisonClyve";
 import TestMaisonRoyer from "./components/TestMaisonRoyer";
 import TestMaisonPereira from "./components/TestMaisonPereira";
-import PresentationEnergia from "./vite-pages/PresentationEnergia";
+import PresentationEnergia from "./vite-pages/PresentationEnergia.jsx";
+import TestDashboardCRM from "./vite-pages/TestDashboardCRM.jsx";
 import RapportCompletMaisonClyve from "./components/RapportCompletMaisonClyve";
 import PresentationMaisonClyve from "./components/PresentationMaisonClyve";
 import ChiffrageAmpleurModule from "./components/chiffrage/ChiffrageAmpleurModule";
@@ -1913,70 +1914,21 @@ function AuditSimulatorView({ onBack }: AuditSimulatorViewProps) {
 const ADMIN_PASSWORD = "admin-energia-2026";
 const ADMIN_SESSION_KEY = "energia-admin-authenticated";
 
-function normalizePathname(path: string): string {
-  if (path.length > 1 && path.endsWith("/")) {
-    return path.slice(0, -1);
-  }
-  return path;
-}
-
-function isCarteVisitePath(path: string): boolean {
-  return path === "/carte-visite";
-}
-
-function isTestMaisonClyvePath(path: string): boolean {
-  return path === "/test-maison-clyve";
-}
-
-function isTestMaisonClyveRapportPath(path: string): boolean {
-  return path === "/test-maison-clyve/rapport-complet";
-}
-
-function isTestMaisonClyvePresentationPath(path: string): boolean {
-  return path === "/test-maison-clyve/presentation";
-}
-
-function isTestMaisonRoyerPath(path: string): boolean {
-  return path === "/test-maison-royer";
-}
-
-function isTestMaisonPereiraPath(path: string): boolean {
-  return path === "/test-maison-pereira";
-}
-
-function isPresentationEnergiaPath(path: string): boolean {
-  return path === "/presentation-energia";
-}
-
-function isChiffragePath(path: string): boolean {
-  return path === "/chiffrage";
-}
-
-function isAdminPath(path: string): boolean {
-  return (
-    path === "/admin" ||
-    path === "/nouvel-audit" ||
-    path.startsWith("/audit/")
-  );
-}
-
 function AdminRoutes() {
   return (
-    <BrowserRouter>
-      <Suspense
-        fallback={
-          <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-600">
-            Chargement…
-          </div>
-        }
-      >
-        <Routes>
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/nouvel-audit" element={<NouvelAudit />} />
-          <Route path="/audit/:id" element={<DetailAudit />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-600">
+          Chargement…
+        </div>
+      }
+    >
+      <Routes>
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/nouvel-audit" element={<NouvelAudit />} />
+        <Route path="/audit/:id" element={<DetailAudit />} />
+      </Routes>
+    </Suspense>
   );
 }
 
@@ -2019,62 +1971,35 @@ function AdminProtectedShell() {
   return <AdminRoutes />;
 }
 
-export default function App() {
-  const [pathname, setPathname] = useState(() =>
-    normalizePathname(window.location.pathname),
-  );
+function PublicHome() {
   const [showSimulator, setShowSimulator] = useState(false);
-
-  useEffect(() => {
-    const syncPathname = () => {
-      setPathname(normalizePathname(window.location.pathname));
-    };
-
-    window.addEventListener("popstate", syncPathname);
-    return () => window.removeEventListener("popstate", syncPathname);
-  }, []);
-
-  if (isCarteVisitePath(pathname)) {
-    return <CarteVisite />;
-  }
-
-  if (isTestMaisonClyveRapportPath(pathname)) {
-    return <RapportCompletMaisonClyve />;
-  }
-
-  if (isTestMaisonClyvePresentationPath(pathname)) {
-    return <PresentationMaisonClyve />;
-  }
-
-  if (isTestMaisonClyvePath(pathname)) {
-    return <TestMaisonClyve />;
-  }
-
-  if (isTestMaisonRoyerPath(pathname)) {
-    return <TestMaisonRoyer />;
-  }
-
-  if (isTestMaisonPereiraPath(pathname)) {
-    return <TestMaisonPereira />;
-  }
-
-  // /test-maison-marjollet : module absent du dépôt Git — route non branchée.
-
-  if (isPresentationEnergiaPath(pathname)) {
-    return <PresentationEnergia />;
-  }
-
-  if (isChiffragePath(pathname)) {
-    return <ChiffrageAmpleurModule />;
-  }
-
-  if (isAdminPath(pathname)) {
-    return <AdminProtectedShell />;
-  }
 
   if (showSimulator) {
     return <AuditSimulatorView onBack={() => setShowSimulator(false)} />;
   }
 
   return <LandingView onStartAudit={() => setShowSimulator(true)} />;
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/test-dashboard-crm" element={<TestDashboardCRM />} />
+        <Route path="/presentation-energia" element={<PresentationEnergia />} />
+        <Route path="/carte-visite" element={<CarteVisite />} />
+        <Route path="/test-maison-clyve/rapport-complet" element={<RapportCompletMaisonClyve />} />
+        <Route path="/test-maison-clyve/presentation" element={<PresentationMaisonClyve />} />
+        <Route path="/test-maison-clyve" element={<TestMaisonClyve />} />
+        <Route path="/test-maison-royer" element={<TestMaisonRoyer />} />
+        <Route path="/test-maison-pereira" element={<TestMaisonPereira />} />
+        <Route path="/chiffrage" element={<ChiffrageAmpleurModule />} />
+        <Route path="/admin" element={<AdminProtectedShell />} />
+        <Route path="/nouvel-audit" element={<AdminProtectedShell />} />
+        <Route path="/audit/:id" element={<AdminProtectedShell />} />
+        <Route path="/" element={<PublicHome />} />
+        <Route path="*" element={<PublicHome />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }

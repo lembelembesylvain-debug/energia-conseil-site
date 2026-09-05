@@ -130,3 +130,122 @@ export const PEREIRA_PAIRE_PAC = {
   apresFichier: "public/test-maison-pereira/galerie/apres-pac.jpg",
   portrait: true,
 } as const;
+
+export const PEREIRA_MENUISERIE_MATERIAU = "PVC" as const;
+
+export const PEREIRA_LABEL_AVANT_MENUISERIE = "Avant — photo réelle des menuiseries existantes";
+
+export const PEREIRA_LABEL_APRES_MENUISERIE =
+  "Après — projection visuelle indicative du remplacement de la menuiserie (Matériau : PVC)";
+
+export const PEREIRA_MENTION_MENUISERIE =
+  "Image simulée — ne constitue pas une photo réelle après travaux, une mesure thermique, un relevé définitif ou un engagement de résultat.";
+
+export const PEREIRA_QUANTITES_MENUISERIE =
+  "Quantités et dimensions à confirmer par relevé contradictoire et visite technique avant devis définitif.";
+
+export const PEREIRA_ECART_MENUISERIE =
+  "Écart documentaire : l’audit mentionne 6 fenêtres/portes-fenêtres ; le devis actuel mentionne 7 fenêtres + 2 portes.";
+
+export const PEREIRA_RESUME_MENUISERIE =
+  "Galerie dédiée aux ouvertures photographiées du logement. À gauche : photo réelle des menuiseries bois existantes (tableaux, appuis, encadrements). À droite : projection visuelle indicative d’un remplacement en PVC double vitrage peu émissif, Uw ≤ 1,30 W/m².K si confirmé par l’audit, porte isolante Ud ≤ 1,50 si applicable. Teinte blanche indicative, alignée sur les cadres peints existants — teinte définitive à confirmer. Aucune marque, aucun modèle. Ces projections ne sont pas des photos réelles après travaux.";
+
+export type CategorieMenuiseriePereira = "fenetre" | "porte-fenetre" | "porte-entree";
+
+export const PEREIRA_CATEGORIE_MENUISERIE: Record<CategorieMenuiseriePereira, string> = {
+  fenetre: "Fenêtres",
+  "porte-fenetre": "Portes-fenêtres",
+  "porte-entree": "Porte d’entrée",
+};
+
+export type PairePereiraMenuiserie = {
+  id: string;
+  index: number;
+  titre: string;
+  categorie: CategorieMenuiseriePereira;
+  avantSrc: string;
+  avantFichier: string;
+  projectionSrc: string;
+  apresFichier: string;
+  portrait: boolean;
+};
+
+export const PEREIRA_PAIRES_MENUISERIES: readonly PairePereiraMenuiserie[] = [
+  {
+    id: "menu-01",
+    index: 1,
+    titre: "Fenêtre 2 vantaux — tableau encastré",
+    categorie: "fenetre",
+    avantSrc: "/test-maison-pereira/galerie/avant-menuiserie-01.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-baie-encastree.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-menuiserie-01.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-menuiserie-01.jpg",
+    portrait: true,
+  },
+  {
+    id: "menu-02",
+    index: 2,
+    titre: "Fenêtre 2 vantaux — évier",
+    categorie: "fenetre",
+    avantSrc: "/test-maison-pereira/galerie/avant-menuiserie-02.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-evier.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-menuiserie-02.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-menuiserie-02.jpg",
+    portrait: true,
+  },
+  {
+    id: "menu-03",
+    index: 3,
+    titre: "Fenêtre 2 vantaux — étagère et radiateur",
+    categorie: "fenetre",
+    avantSrc: "/test-maison-pereira/galerie/avant-menuiserie-03.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-etagere.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-menuiserie-03.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-menuiserie-03.jpg",
+    portrait: true,
+  },
+  {
+    id: "menu-04",
+    index: 4,
+    titre: "Fenêtre 2 vantaux — coin radiateur",
+    categorie: "fenetre",
+    avantSrc: "/test-maison-pereira/galerie/avant-menuiserie-04.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-coin-radiateur.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-menuiserie-04.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-menuiserie-04.jpg",
+    portrait: true,
+  },
+  {
+    id: "menu-05",
+    index: 5,
+    titre: "Fenêtres en façade — porche",
+    categorie: "fenetre",
+    avantSrc: "/test-maison-pereira/galerie/avant-menuiserie-05.jpg",
+    avantFichier: "public/test-maison-pereira/avant/facade-porche.png",
+    projectionSrc: "/test-maison-pereira/galerie/apres-menuiserie-05.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-menuiserie-05.jpg",
+    portrait: true,
+  },
+  {
+    id: "menu-06",
+    index: 6,
+    titre: "Porte vitrée existante",
+    categorie: "porte-fenetre",
+    avantSrc: "/test-maison-pereira/galerie/avant-menuiserie-06.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-voliere.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-menuiserie-06.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-menuiserie-06.jpg",
+    portrait: false,
+  },
+  {
+    id: "menu-07",
+    index: 7,
+    titre: "Façade d’angle",
+    categorie: "porte-entree",
+    avantSrc: "/test-maison-pereira/galerie/avant-menuiserie-07.jpg",
+    avantFichier: "public/test-maison-pereira/avant/facade-angle.png",
+    projectionSrc: "/test-maison-pereira/galerie/apres-menuiserie-07.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-menuiserie-07.jpg",
+    portrait: false,
+  },
+];

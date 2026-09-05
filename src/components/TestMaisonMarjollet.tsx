@@ -40,12 +40,16 @@ export default function TestMaisonMarjollet() {
     setPdfBusy(true);
     setPdfMessage(null);
     try {
-      await generateDevisPdf({
+        await generateDevisPdf({
         numero: MARJOLLET_DEVIS_NUMERO,
         date: "4 septembre 2026",
         validite: "30 jours",
         clientNom: MARJOLLET_IDENTITE.nom,
         clientAdresse: MARJOLLET_IDENTITE.adresse,
+        clientEmail: MARJOLLET_IDENTITE.email,
+        clientTelephone: MARJOLLET_IDENTITE.telephone,
+        referenceDossier: MARJOLLET_AUDIT_ID,
+        statut: MARJOLLET_IDENTITE.statut,
         libelleProjet: MARJOLLET_IDENTITE.typeProjet,
         lignes: MARJOLLET_DEVIS_LIGNES.map((ligne) => ({
           designation: ligne.designation,
