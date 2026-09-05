@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import EnergiaCoPilot from "./EnergiaCoPilot";
 import ProjectEstimation from "./ProjectEstimation";
+import ProjectionAvantApresPereira from "./ProjectionAvantApresPereira";
 import {
   PEREIRA_A_RELEVER,
   PEREIRA_AUDIT_ID,
@@ -102,6 +103,7 @@ export default function TestMaisonPereira() {
 
         <TableauChamps titre="Identité et adresse" champs={PEREIRA_IDENTITE} />
         <TableauChamps titre="Logement" champs={PEREIRA_LOGEMENT} />
+        <ProjectionAvantApresPereira />
         <TableauChamps titre="DPE et consommations" champs={PEREIRA_DPE} />
         <TableauChamps titre="Chauffage, ECS, ventilation, isolation" champs={PEREIRA_EQUIPEMENTS} />
 
