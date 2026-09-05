@@ -68,6 +68,8 @@ export const LOGO_PUBLIC_PATH = "/assets/LOGO.png";
 
 export const CONTACT_CHIFFRAGE = {
   enseigne: "ENERGIA CONSEIL IA®",
+  /** Identité déjà affichée sur le logo officiel et la page présentation. */
+  dirigeant: "Sylvain Lembelembe",
   qualite: "Contractant général – étude, coordination et pilotage des travaux",
   fondateurQualite: "Fondateur & CEO — Contractant Général Digital",
   email: "contact@energia-conseil-ia.com",
@@ -80,6 +82,19 @@ export const CONTACT_CHIFFRAGE = {
   assurances:
     "Assurances des entreprises intervenantes : décennale et responsabilité civile professionnelle (attestations à jour exigées).",
 } as const;
+
+/** Conditions déjà définies dans les CGV devis — aucun IBAN ni moyen de paiement dans le projet. */
+export const CONDITIONS_PAIEMENT_DEVIS = {
+  acompte: "30 % à la signature",
+  echeances:
+    "40 % mi-chantier après validation de Sylvain LEMBELEMBE (AMO ENERGIA-CONSEIL IA®)",
+  solde: "30 % à réception",
+  moyensPaiement: "À compléter",
+  validite: "3 mois à compter de la date d’émission",
+} as const;
+
+export const OBJET_TRAVAUX_DEFAUT =
+  "Travaux de rénovation énergétique selon l’estimation et les prestations sélectionnées.";
 
 export const CGV_DEVIS_CLIENT = [
   "Document estimatif, valable 3 mois à compter de sa date d’émission, sauf mention contraire.",

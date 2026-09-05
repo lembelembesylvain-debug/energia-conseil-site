@@ -113,3 +113,20 @@ export const PEREIRA_RESUME_ITI =
 
 export const PEREIRA_LIMITE_ITI =
   "Aucune température, aucun pourcentage de confort et aucune économie financière ne sont simulés ici. Les consommations et classes DPE restent celles de l’audit joint (320 kWhEP/m².an en état initial ; 73 kWhEP/m².an après scénarios 1 et 2 de l’auditeur).";
+
+export const PEREIRA_LABEL_AVANT_PAC = "Avant — chaudière fioul et installation existante";
+export const PEREIRA_LABEL_APRES_PAC =
+  "Après — projection visuelle indicative d’une PAC air/eau haute température double service";
+export const PEREIRA_MENTION_PAC =
+  "Image simulée — projection indicative uniquement. Aucune marque ni modèle. Puissance à confirmer. Implantation à confirmer. Ne constitue pas une photo réelle après travaux, une mesure thermographique ou un engagement de résultat énergétique.";
+
+export const PEREIRA_PAIRE_PAC = {
+  id: "vue-pac",
+  titre: "Chauffage et eau chaude sanitaire",
+  avantSrc: "/test-maison-pereira/galerie/avant-pac.jpg",
+  avantFichier: "public/test-maison-pereira/avant/chaudiere-fioul.jpg",
+  avantSource: "PHOTO-2026-09-02-09-23-22 (1).jpg",
+  projectionSrc: "/test-maison-pereira/galerie/apres-pac.jpg",
+  apresFichier: "public/test-maison-pereira/galerie/apres-pac.jpg",
+  portrait: true,
+} as const;

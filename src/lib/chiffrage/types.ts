@@ -200,6 +200,7 @@ export type LigneCommercialeClient = {
 export type LigneDevisClientDetail = {
   id: string;
   designation: string;
+  description?: string;
   quantite: number;
   unite: string;
   prixUnitaireHt: number;

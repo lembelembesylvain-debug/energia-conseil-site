@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import EnergiaCoPilot from "./EnergiaCoPilot";
 import ProjectEstimation from "./ProjectEstimation";
+import DevisClientPanel from "./chiffrage/DevisClientChiffrage";
 import ProjectionAvantApresPereira from "./ProjectionAvantApresPereira";
 import {
   PEREIRA_A_RELEVER,
@@ -16,6 +17,34 @@ import {
   PEREIRA_SCENARIOS,
   type ChampPereira,
 } from "../data/pereiraAuditExtract";
+import { generateDevisPdf } from "../lib/generateDevisPdf";
+import {
+  PEREIRA_ADRESSE_CHANTIER,
+  PEREIRA_ADRESSE_FACTURATION,
+  PEREIRA_APPORT_PERSONNEL,
+  PEREIRA_CLIENT_NOM,
+  PEREIRA_DEVIS_NUMERO,
+  PEREIRA_ECO_PTZ_DUREE_ANS,
+  PEREIRA_ECO_PTZ_MENSUALITE,
+  PEREIRA_ECO_PTZ_MONTANT,
+  PEREIRA_MPR_PARCOURS_TTC,
+  PEREIRA_OBJET_TRAVAUX,
+  PEREIRA_PAC_DESIGNATION,
+  PEREIRA_PLAFOND_MPR_HT,
+  PEREIRA_PRET_RELAIS_ANAH,
+  PEREIRA_PROFIL_MPR,
+  PEREIRA_RAC_NET_TTC,
+  PEREIRA_REMISE_COMMERCIALE_TTC,
+  PEREIRA_STATUT_DEVIS,
+  PEREIRA_TAUX_MPR_VIOLET,
+  PEREIRA_TOTAL_NET_TTC,
+  PEREIRA_TOTAL_VENTE_TTC,
+  PEREIRA_VMC_TTC,
+  construireDevisPereiraTest,
+} from "../data/pereiraDevisTest";
+import { PEREIRA_LIGNES_ESTIMATION_INITIALES } from "../data/pereiraItiEstimation";
+import { formatEuro } from "../lib/chiffrage";
+import { UMAFI } from "../data/umafi";
 
 function ChampValeur({ champ }: { champ: ChampPereira }) {
   if (champ.source === "manquant") {
@@ -53,9 +82,51 @@ function TableauChamps({ titre, champs }: { titre: string; champs: ChampPereira[
 
 /** Dossier SUCCESSION PIGNARD / Pereira — audit LEO ENERGY. Hors production. Ne pas confondre avec Royer. */
 export default function TestMaisonPereira() {
+  const [pdfBusy, setPdfBusy] = useState(false);
+  const [pdfMessage, setPdfMessage] = useState<string | null>(null);
+  const devisPereira = useMemo(() => construireDevisPereiraTest(), []);
+  const devisApercu = useMemo(
+    () => ({
+      lignes: devisPereira.lignes.map((ligne, index) => ({
+        id: `pereira-${index}`,
+        libelle: ligne.designation,
+        montantHt: ligne.montantHt ?? 0,
+      })),
+      lignesDetaillees: devisPereira.lignes.map((ligne, index) => ({
+        id: `pereira-${index}`,
+        designation: ligne.designation,
+        description: ligne.description,
+        quantite: ligne.quantite,
+        unite: ligne.unite,
+        prixUnitaireHt: ligne.prixUnitaireHt ?? 0,
+        montantHt: ligne.montantHt ?? 0,
+        tauxTva: ligne.tauxTva ?? 0.055,
+        montantTva: ligne.montantTva ?? 0,
+        montantTtc: ligne.montantTtc ?? 0,
+      })),
+      totalHt: devisPereira.totalHt ?? 0,
+      totalTva: devisPereira.totalTva ?? 0,
+      totalTtc: devisPereira.totalTtc,
+    }),
+    [devisPereira],
+  );
+
   useEffect(() => {
     document.title = "TEST LOCAL — PEREIRA | ENERGIA CONSEIL IA®";
   }, []);
+
+  async function genererDevisPdfPereira() {
+    setPdfBusy(true);
+    setPdfMessage(null);
+    try {
+      await generateDevisPdf(construireDevisPereiraTest());
+      setPdfMessage("PDF client de test généré pour AUDIT-PEREIRA-2026-001.");
+    } catch (error) {
+      setPdfMessage(error instanceof Error ? error.message : "Export PDF impossible.");
+    } finally {
+      setPdfBusy(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
@@ -175,6 +246,68 @@ export default function TestMaisonPereira() {
               </tbody>
             </table>
           </div>
+          <p className="border-t border-slate-800 px-4 py-3 text-xs text-slate-400 sm:px-5">
+            Tableau auditeur ci-dessus (PAC air/air + ballon) : données du PDF LEO ENERGY, non reprises telles
+            quelles. Devis ENERGIA : une seule ligne « {PEREIRA_PAC_DESIGNATION} ». Puissance 12 kW = estimation
+            issue de l’audit, à confirmer. Dépose / évacuation chaudière et cuve fioul à confirmer. Pas de ballon
+            thermodynamique séparé. {PEREIRA_STATUT_DEVIS}.
+          </p>
+        </section>
+
+        <section className="overflow-hidden rounded-2xl border border-emerald-500/30 bg-slate-900/80">
+          <h2 className="border-b border-slate-800 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-emerald-200 sm:px-5">
+            Étude financière — devis client septembre 2026
+          </h2>
+          <div className="grid gap-4 p-4 sm:grid-cols-2 sm:p-5">
+            <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-emerald-200">Vente client</p>
+              <p className="mt-2 text-2xl font-semibold text-white">{formatEuro(PEREIRA_TOTAL_NET_TTC)} TTC net</p>
+              <p className="mt-1 text-xs text-slate-400">
+                Bouquet {formatEuro(PEREIRA_TOTAL_VENTE_TTC)} TTC avant remise. Geste commercial −
+                {formatEuro(PEREIRA_REMISE_COMMERCIALE_TTC)} sur les honoraires de coordination (VMC Hygro B{" "}
+                {formatEuro(PEREIRA_VMC_TTC)} TTC). {PEREIRA_PAC_DESIGNATION} (12 kW,
+                estimation audit à confirmer) — une seule ligne, sans ballon thermodynamique séparé.
+              </p>
+            </div>
+            <div className="rounded-xl border border-sky-500/20 bg-sky-500/10 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-sky-200">MaPrimeRénov’ Parcours</p>
+              <p className="mt-2 text-2xl font-semibold text-white">{formatEuro(PEREIRA_MPR_PARCOURS_TTC)}</p>
+              <p className="mt-1 text-xs text-slate-400">
+                {PEREIRA_TAUX_MPR_VIOLET * 100} % du plafond {formatEuro(PEREIRA_PLAFOND_MPR_HT)} HT (3 classes et plus),
+                hors bonus supprimés — septembre 2026.
+              </p>
+            </div>
+          </div>
+          <dl className="grid gap-3 border-t border-slate-800 px-4 py-4 text-sm sm:grid-cols-2 sm:px-5">
+            <div>
+              <dt className="text-xs uppercase tracking-wide text-slate-500">Reste à charge net</dt>
+              <dd className="mt-1 text-lg font-semibold text-white">{formatEuro(PEREIRA_RAC_NET_TTC)} TTC</dd>
+            </div>
+            <div>
+              <dt className="text-xs uppercase tracking-wide text-slate-500">Solutions exclusives UMAFI</dt>
+              <dd className="mt-1 text-white">Option A ou Option B — simulations indicatives à valider</dd>
+            </div>
+            <div>
+              <dt className="text-xs uppercase tracking-wide text-slate-500">Option A — Éco-PTZ + préfinancement</dt>
+              <dd className="mt-1 text-white">
+                Éco-PTZ {formatEuro(PEREIRA_ECO_PTZ_MONTANT)} (taux 0 %, {PEREIRA_ECO_PTZ_DUREE_ANS} ans,{" "}
+                {formatEuro(PEREIRA_ECO_PTZ_MENSUALITE)} / mois) + apport {formatEuro(PEREIRA_APPORT_PERSONNEL)} + relais
+                ANAH {formatEuro(PEREIRA_PRET_RELAIS_ANAH)}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-xs uppercase tracking-wide text-slate-500">Option B — Regroupement global</dt>
+              <dd className="mt-1 text-white">
+                Intégration de l’enveloppe nette {formatEuro(PEREIRA_TOTAL_NET_TTC)} dans les encours existants —
+                mensualité unique à étudier par Fabien (UMAFI)
+              </dd>
+            </div>
+          </dl>
+          <p className="border-t border-slate-800 px-4 py-3 text-xs leading-relaxed text-slate-400 sm:px-5">
+            Aides financières 2026 (estimation à titre indicatif). Aides à valider selon revenus réels du client et
+            éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE. {UMAFI.mentionConventionB}{" "}
+            {UMAFI.contact.libelle}.
+          </p>
         </section>
 
         <section className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 sm:p-5">
@@ -189,10 +322,54 @@ export default function TestMaisonPereira() {
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-300">
-            Estimation des travaux (test local)
-          </h2>
-          <ProjectEstimation auditId={PEREIRA_AUDIT_ID} />
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-300">
+              Estimation des travaux (test local)
+            </h2>
+            <button
+              type="button"
+              onClick={() => void genererDevisPdfPereira()}
+              disabled={pdfBusy}
+              className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[#1a3c5e] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+            >
+              {pdfBusy ? "Génération PDF…" : "Télécharger le devis PDF de test"}
+            </button>
+          </div>
+          {pdfMessage ? (
+            <p className="text-sm text-sky-200" role="status">
+              {pdfMessage}
+            </p>
+          ) : null}
+          <DevisClientPanel
+            devis={devisApercu}
+            libelleProjet={devisPereira.libelleProjet}
+            objetTravaux={devisPereira.objetTravaux}
+            introductionProjet={devisPereira.introductionProjet}
+            numero={devisPereira.numero}
+            clientNom={devisPereira.clientNom}
+            clientAdresse={devisPereira.clientAdresse}
+            clientEmail={devisPereira.clientEmail}
+            clientTelephone={devisPereira.clientTelephone}
+            adresseFacturation={devisPereira.adresseFacturation}
+            referenceDossier={devisPereira.referenceDossier}
+            statut={devisPereira.statut}
+            date={devisPereira.date}
+            validite={devisPereira.validite}
+            mentionTva={devisPereira.mentionTva}
+            etudeFinanciere={devisPereira.etudeFinanciere}
+            gesteCommercial={devisPereira.gesteCommercial}
+          />
+          <ProjectEstimation
+            auditId={PEREIRA_AUDIT_ID}
+            clientNom={PEREIRA_CLIENT_NOM}
+            clientAdresse={PEREIRA_ADRESSE_CHANTIER}
+            adresseFacturation={PEREIRA_ADRESSE_FACTURATION}
+            numeroDevis={PEREIRA_DEVIS_NUMERO}
+            objetTravaux={PEREIRA_OBJET_TRAVAUX}
+            statutDevis={PEREIRA_STATUT_DEVIS}
+            lignesInitiales={PEREIRA_LIGNES_ESTIMATION_INITIALES}
+            afficherDevisClient={false}
+          />
         </section>
       </main>
 
@@ -207,7 +384,9 @@ Conso initiale auditeur : 320 kWhEP/m².an (304 EF), facture conventionnelle 6 5
 
 Chiffrage auditeur LEO ENERGY (TTC document, pas un coût d’achat ENERGIA) : scénario 1 ~ 53 397 € TTC (texte auditeur ~ 125 000 € — contradiction à lever) ; scénario 3 ~ 42 952 € TTC sans plancher. Surfaces ITI / combles / ouvrants incohérentes — à relever en visite.
 
-Ordre ENERGIA : isolation (combles, murs ITI pisé perspirant, planchers) puis menuiseries, VMC, PAC dimensionnée post-isolation (l’audit propose un air/air 12 kW à recaler), ballon thermo.`}
+Devis client ENERGIA (septembre 2026) : 75 000,00 € TTC avant remise, 73 500,00 € TTC net après geste commercial (−1 500,00 € TTC sur honoraires de coordination, équivalent VMC Hygro B fourniture et pose). Remplacement chaudière fioul par PAC air/eau haute température double service (chauffage + ECS, 12 kW estimation audit à confirmer) — une seule ligne, sans ballon thermodynamique séparé. Dépose et évacuation chaudière / cuve fioul à confirmer. MaPrimeRénov’ Parcours profil Violet 20 000 € (50 % du plafond 40 000 € HT, hors bonus). Reste à charge 53 500 €. Solutions de financement exclusives (simulations indicatives) : Option A = Éco-PTZ 50 000 € / 20 ans (208,33 €/mois) + apport 5 000 € + prêt relais ANAH 20 000 € ; OU Option B = regroupement de crédits global UMAFI sur l’enveloppe nette 73 500 €. Statut : estimation à confirmer par devis artisan RGE.
+
+Ordre ENERGIA : isolation (combles, murs ITI pisé perspirant, planchers) puis menuiseries, VMC, PAC air/eau HT double service dimensionnée post-isolation.`}
       />
     </div>
   );

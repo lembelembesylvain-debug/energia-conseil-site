@@ -400,6 +400,25 @@ function isUnitePoste(value: string): value is UnitePoste {
   );
 }
 
+function mentionEstimationLigne(ligne: Pick<LigneCalculee, "statut" | "description" | "prixVenteHt">): string | null {
+  if (ligne.statut !== "estimation" && ligne.prixVenteHt > 0) return null;
+  if (ligne.description.includes("à confirmer par métrage")) {
+    return null;
+  }
+  return MENTION_ESTIMATION_PV;
+}
+
+function fusionnerLignesInitiales(
+  existantes: LigneEstimation[],
+  initiales: LigneEstimation[],
+): LigneEstimation[] {
+  if (initiales.length === 0) return existantes;
+  const ids = new Set(existantes.map((ligne) => ligne.id));
+  const extra = initiales.filter((ligne) => !ids.has(ligne.id));
+  if (existantes.length === 0) return extra;
+  return extra.length > 0 ? [...extra, ...existantes] : existantes;
+}
+
 function hydraterLigne(raw: {
   id: string;
   posteId: string;
@@ -460,13 +479,24 @@ function hydraterLigne(raw: {
   };
 }
 
+const LIGNES_INITIALES_VIDES: Array<Parameters<typeof hydraterLigne>[0]> = [];
+
 type ProjectEstimationProps = {
   auditId: string;
   clientNom?: string;
   clientAdresse?: string;
+  clientEmail?: string;
+  clientTelephone?: string;
+  adresseFacturation?: string;
   numeroDevis?: string;
+  objetTravaux?: string;
+  statutDevis?: string;
+  /** Lignes préremplies propres au dossier (ex. Pereira). Non utilisées par Royer. */
+  lignesInitiales?: Array<Parameters<typeof hydraterLigne>[0]>;
   /** Réservé administrateur : coûts, marge, Clyve, commission, prix plancher. */
   voirCoutsInternes?: boolean;
+  /** Masquer l’aperçu devis client (ex. Pereira affiche le devis premium à part). */
+  afficherDevisClient?: boolean;
 };
 
 const inputClass =
@@ -772,8 +802,15 @@ export default function ProjectEstimation({
   auditId,
   clientNom = "",
   clientAdresse = "",
+  clientEmail,
+  clientTelephone,
+  adresseFacturation,
   numeroDevis,
+  objetTravaux,
+  statutDevis,
+  lignesInitiales = LIGNES_INITIALES_VIDES,
   voirCoutsInternes = true,
+  afficherDevisClient = true,
 }: ProjectEstimationProps) {
   const [lignes, setLignes] = useState<LigneEstimation[]>([]);
   const [typeProjet, setTypeProjet] = useState<TypeProjet>("autre");
@@ -812,6 +849,7 @@ export default function ProjectEstimation({
       .map((ligne) => ({
         id: ligne.id,
         designation: ligne.nom,
+        description: ligne.description,
         quantite: ligne.quantite,
         unite: ligne.unite,
         prixUnitaireHt: ligne.prixVenteUnitaireHt,
@@ -883,6 +921,10 @@ export default function ProjectEstimation({
       }
       if (!result.data) {
         setEstimationId(null);
+        const initiales = lignesInitiales
+          .map(hydraterLigne)
+          .filter((ligne): ligne is LigneEstimation => ligne !== null);
+        setLignes(initiales);
         return;
       }
       if (result.data.auditId.trim().toLowerCase() !== auditId.trim().toLowerCase()) {
@@ -897,9 +939,13 @@ export default function ProjectEstimation({
       setEstimationId(result.data.id);
       setTypeProjet(result.data.typeProjet);
       setTypeProjetConfirme(typeProjetClyveConfirme(result.data.typeProjet));
-      setLignes(
-        result.data.lignes.map(hydraterLigne).filter((ligne): ligne is LigneEstimation => ligne !== null),
-      );
+      const existantes = result.data.lignes
+        .map(hydraterLigne)
+        .filter((ligne): ligne is LigneEstimation => ligne !== null);
+      const initiales = lignesInitiales
+        .map(hydraterLigne)
+        .filter((ligne): ligne is LigneEstimation => ligne !== null);
+      setLignes(fusionnerLignesInitiales(existantes, initiales));
     };
 
     if (estAuditIdLocal(auditId)) {
@@ -947,7 +993,7 @@ export default function ProjectEstimation({
     return () => {
       annule = true;
     };
-  }, [auditId, auditIdValide]);
+  }, [auditId, auditIdValide, lignesInitiales]);
 
   useEffect(() => {
     if (!modalOpen) return;
@@ -1340,6 +1386,9 @@ export default function ProjectEstimation({
                       <p className="text-[11px] text-slate-500">
                         {CATEGORIE_LABEL[ligne.categorie]} · {formatUnite(ligne.unite)}
                       </p>
+                      {ligne.description ? (
+                        <p className="mt-1 text-[11px] leading-relaxed text-slate-400">{ligne.description}</p>
+                      ) : null}
                       {ligne.artisan ? (
                         <p className="mt-1 text-[11px] text-slate-300">
                           Artisan RGE : <span className="font-medium text-white">{ligne.artisan}</span>
@@ -1347,8 +1396,8 @@ export default function ProjectEstimation({
                       ) : (
                         <p className="mt-1 text-[11px] text-slate-600">Artisan non renseigné</p>
                       )}
-                      {ligne.statut === "estimation" || ligne.prixVenteHt <= 0 ? (
-                        <p className="mt-1 text-[11px] text-amber-200">{MENTION_ESTIMATION_PV}</p>
+                      {mentionEstimationLigne(ligne) ? (
+                        <p className="mt-1 text-[11px] text-amber-200">{mentionEstimationLigne(ligne)}</p>
                       ) : null}
                       {ligne.prixVenteHt <= 0 ? (
                         <p className="mt-1 text-[11px] text-red-300">Montant 0 € — tarif à renseigner.</p>
@@ -1375,7 +1424,7 @@ export default function ProjectEstimation({
                         <p className="text-[11px] text-slate-500">
                           {ligne.sourceCout === "devis_reel"
                             ? "Devis artisan réel"
-                            : `Estimé · mat. ${formatEuro(ligne.totalMaterielHt)} + MO ${formatEuro(ligne.totalMainOeuvreHt)}`}
+                            : `Estimé · matériel ${formatEuro(ligne.totalMaterielHt)} · pose ${formatEuro(ligne.totalMainOeuvreHt)}`}
                         </p>
                       </td>
                     ) : null}
@@ -1438,6 +1487,9 @@ export default function ProjectEstimation({
                   {CATEGORIE_LABEL[ligne.categorie]} · {ligne.quantite.toLocaleString("fr-FR")}{" "}
                   {formatUnite(ligne.unite)}
                 </p>
+                {ligne.description ? (
+                  <p className="mt-1 text-xs leading-relaxed text-slate-400">{ligne.description}</p>
+                ) : null}
                 {ligne.artisan ? (
                   <p className="mt-1 text-xs text-slate-300">
                     Artisan RGE : <span className="font-medium text-white">{ligne.artisan}</span>
@@ -1445,12 +1497,20 @@ export default function ProjectEstimation({
                 ) : (
                   <p className="mt-1 text-xs text-slate-600">Artisan non renseigné</p>
                 )}
-                {ligne.statut === "estimation" || ligne.prixVenteHt <= 0 ? (
-                  <p className="mt-1 text-[11px] text-amber-200">{MENTION_ESTIMATION_PV}</p>
+                {mentionEstimationLigne(ligne) ? (
+                  <p className="mt-1 text-[11px] text-amber-200">{mentionEstimationLigne(ligne)}</p>
                 ) : null}
                 <dl className="mt-3 grid grid-cols-2 gap-2 text-xs">
                   {voirCoutsInternes ? (
                     <>
+                      <div>
+                        <dt className="text-slate-500">Coût matériel HT</dt>
+                        <dd>{formatEuro(ligne.totalMaterielHt)}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-slate-500">Coût de pose HT</dt>
+                        <dd>{formatEuro(ligne.totalMainOeuvreHt)}</dd>
+                      </div>
                       <div>
                         <dt className="text-slate-500">Coût de revient HT</dt>
                         <dd className={ligne.sourceCout === "devis_reel" ? "font-semibold text-sky-200" : ""}>
@@ -1666,15 +1726,23 @@ export default function ProjectEstimation({
         </div>
       </div>
 
+      {afficherDevisClient ? (
       <div className="rounded-2xl bg-slate-100 p-1 sm:p-2">
         <DevisClientPanel
           devis={devisClient}
           libelleProjet="Estimation des travaux"
+          objetTravaux={objetTravaux}
           numero={numeroDevis ?? `DEV-2026-${auditId || "PROJET"}`}
           clientNom={clientNom}
           clientAdresse={clientAdresse}
+          clientEmail={clientEmail}
+          clientTelephone={clientTelephone}
+          adresseFacturation={adresseFacturation}
+          referenceDossier={auditId}
+          statut={statutDevis}
         />
       </div>
+      ) : null}
 
       {modalOpen ? (
         <div

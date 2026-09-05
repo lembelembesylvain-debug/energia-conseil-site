@@ -163,6 +163,7 @@ export function construireLignesDevisClientDetaillees(
     details.push({
       id: ligne.id,
       designation: ligne.nom,
+      description: CATALOGUE_POSTES.find((poste) => poste.id === ligne.id)?.description,
       quantite,
       unite: ligne.unite,
       prixUnitaireHt: round2(montantHt / quantite),
