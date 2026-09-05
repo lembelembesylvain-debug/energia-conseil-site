@@ -1,171 +1,115 @@
-/** Comparaison visuelle Pereira uniquement. Photos réelles (audit + client). Projection ITI visuelle indicative, jamais une photo réelle après travaux. */
+/** Comparaison visuelle Pereira uniquement. 8 paires Avant / Après ITI. Jamais une photo réelle après travaux. */
 
 export const PEREIRA_LABEL_AVANT = "Avant — photo réelle";
 export const PEREIRA_LABEL_APRES = "Après — projection visuelle indicative de l’ITI 12 cm";
 export const PEREIRA_MENTION_SIMULATION =
   "Image simulée — ne constitue pas une photo réelle après travaux, une mesure thermographique ou un engagement de résultat.";
-export const PEREIRA_PLACEHOLDER_APRES = "Projection réaliste à générer";
+export const PEREIRA_PLACEHOLDER_APRES =
+  "Projection après indisponible — vue à générer après validation technique";
 
-const SOURCE_AUDIT = "Photo réelle extraite de l’audit LEO ENERGY (visite 03/07/2026).";
-const SOURCE_CLIENT =
-  "Photo réelle fournie pour le dossier AUDIT-PEREIRA-2026-001. Murs existants sans isolation intérieure.";
+export type PairePereiraIti = {
+  id: string;
+  index: number;
+  titre: string;
+  avantSrc: string;
+  avantFichier: string;
+  projectionSrc: string | null;
+  apresFichier: string | null;
+  portrait: boolean;
+};
 
-export const PEREIRA_PHOTOS_AVANT = [
+export const PEREIRA_PAIRES_ITI: readonly PairePereiraIti[] = [
   {
-    id: "facade-angle",
-    src: "/test-maison-pereira/avant/facade-angle.png",
-    titre: "Façade d’angle — état des lieux",
-    source: SOURCE_AUDIT,
-  },
-  {
-    id: "facade-porche",
-    src: "/test-maison-pereira/avant/facade-porche.png",
-    titre: "Façade porche — état des lieux",
-    source: SOURCE_AUDIT,
-  },
-  {
-    id: "interieur-angle",
-    src: "/test-maison-pereira/avant/interieur-angle.png",
-    titre: "Angle intérieur — murs pisé existants",
-    source: SOURCE_AUDIT,
-  },
-  {
-    id: "interieur-voliere",
-    src: "/test-maison-pereira/avant/interieur-voliere.jpg",
+    id: "vue-01",
+    index: 1,
     titre: "Pièce intérieure occupée",
-    source: SOURCE_CLIENT,
-  },
-  {
-    id: "interieur-fenetre",
-    src: "/test-maison-pereira/avant/interieur-fenetre.jpg",
-    titre: "Pièce avec baie et sommier",
-    source: SOURCE_CLIENT,
-  },
-  {
-    id: "interieur-evier",
-    src: "/test-maison-pereira/avant/interieur-evier.jpg",
-    titre: "Pièce technique — évier et baie",
-    source: SOURCE_CLIENT,
-  },
-  {
-    id: "interieur-frigo",
-    src: "/test-maison-pereira/avant/interieur-frigo.jpg",
-    titre: "Pièce avec radiateur et baie",
-    source: SOURCE_CLIENT,
-  },
-  {
-    id: "interieur-etagere",
-    src: "/test-maison-pereira/avant/interieur-etagere.jpg",
-    titre: "Pièce avec étagère et baie",
-    source: SOURCE_CLIENT,
-  },
-  {
-    id: "interieur-voliere-baie",
-    src: "/test-maison-pereira/avant/interieur-voliere-baie.jpg",
-    titre: "Pièce occupée — baie et radiateur",
-    source: SOURCE_CLIENT,
-  },
-  {
-    id: "interieur-coin-radiateur",
-    src: "/test-maison-pereira/avant/interieur-coin-radiateur.jpg",
-    titre: "Angle — baie et radiateur",
-    source: SOURCE_CLIENT,
-  },
-  {
-    id: "interieur-stockage",
-    src: "/test-maison-pereira/avant/interieur-stockage.jpg",
-    titre: "Pièce de stockage — baie",
-    source: SOURCE_CLIENT,
-  },
-  {
-    id: "interieur-loire",
-    src: "/test-maison-pereira/avant/interieur-loire.jpg",
-    titre: "Pièce vide — baie sur rue",
-    source: SOURCE_CLIENT,
-  },
-  {
-    id: "interieur-baie-encastree",
-    src: "/test-maison-pereira/avant/interieur-baie-encastree.jpg",
-    titre: "Baie encastrée — tableau existant",
-    source: SOURCE_CLIENT,
-  },
-] as const;
-
-export const PEREIRA_PAIRES_ITI = [
-  {
-    id: "iti-12cm-voliere",
-    titre: "Pièce intérieure occupée",
-    avantSrc: "/test-maison-pereira/avant/interieur-voliere.jpg",
-    projectionSrc: "/test-maison-pereira/projections/projection-realiste-iti-voliere.jpg",
+    avantSrc: "/test-maison-pereira/galerie/avant-01.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-voliere.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-01.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-01.jpg",
     portrait: false,
   },
   {
-    id: "iti-12cm-fenetre",
+    id: "vue-02",
+    index: 2,
     titre: "Pièce avec baie et sommier",
-    avantSrc: "/test-maison-pereira/avant/interieur-fenetre.jpg",
-    projectionSrc: "/test-maison-pereira/projections/projection-realiste-iti-fenetre.jpg",
+    avantSrc: "/test-maison-pereira/galerie/avant-02.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-fenetre.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-02.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-02.jpg",
     portrait: true,
   },
   {
-    id: "iti-12cm-evier",
+    id: "vue-03",
+    index: 3,
     titre: "Pièce technique — évier et baie",
-    avantSrc: "/test-maison-pereira/avant/interieur-evier.jpg",
-    projectionSrc: "/test-maison-pereira/projections/projection-realiste-iti-evier.jpg",
+    avantSrc: "/test-maison-pereira/galerie/avant-03.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-evier.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-03.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-03.jpg",
     portrait: true,
   },
   {
-    id: "iti-12cm-frigo",
+    id: "vue-04",
+    index: 4,
     titre: "Pièce avec radiateur et baie",
-    avantSrc: "/test-maison-pereira/avant/interieur-frigo.jpg",
-    projectionSrc: "/test-maison-pereira/projections/projection-realiste-iti-frigo.jpg",
+    avantSrc: "/test-maison-pereira/galerie/avant-04.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-frigo.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-04.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-04.jpg",
     portrait: true,
   },
   {
-    id: "iti-12cm-etagere",
+    id: "vue-05",
+    index: 5,
     titre: "Pièce avec étagère et baie",
-    avantSrc: "/test-maison-pereira/avant/interieur-etagere.jpg",
-    projectionSrc: "/test-maison-pereira/projections/projection-realiste-iti-etagere.jpg",
+    avantSrc: "/test-maison-pereira/galerie/avant-05.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-etagere.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-05.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-05.jpg",
     portrait: true,
   },
   {
-    id: "iti-12cm-voliere-baie",
+    id: "vue-06",
+    index: 6,
     titre: "Pièce occupée — baie et radiateur",
-    avantSrc: "/test-maison-pereira/avant/interieur-voliere-baie.jpg",
-    projectionSrc: "/test-maison-pereira/projections/projection-realiste-iti-voliere-baie.jpg",
+    avantSrc: "/test-maison-pereira/galerie/avant-06.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-voliere-baie.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-06.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-06.jpg",
     portrait: true,
   },
   {
-    id: "iti-12cm-coin-radiateur",
+    id: "vue-07",
+    index: 7,
     titre: "Angle — baie et radiateur",
-    avantSrc: "/test-maison-pereira/avant/interieur-coin-radiateur.jpg",
-    projectionSrc: "/test-maison-pereira/projections/projection-realiste-iti-coin-radiateur.jpg",
+    avantSrc: "/test-maison-pereira/galerie/avant-07.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-coin-radiateur.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-07.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-07.jpg",
     portrait: true,
   },
   {
-    id: "iti-12cm-stockage",
-    titre: "Pièce de stockage — baie",
-    avantSrc: "/test-maison-pereira/avant/interieur-stockage.jpg",
-    projectionSrc: "/test-maison-pereira/projections/projection-realiste-iti-stockage.jpg",
-    portrait: true,
-  },
-  {
-    id: "iti-12cm-loire",
-    titre: "Pièce vide — baie sur rue",
-    avantSrc: "/test-maison-pereira/avant/interieur-loire.jpg",
-    projectionSrc: "/test-maison-pereira/projections/projection-realiste-iti-loire.jpg",
-    portrait: true,
-  },
-  {
-    id: "iti-12cm-baie-encastree",
+    id: "vue-08",
+    index: 8,
     titre: "Baie encastrée — tableau existant",
-    avantSrc: "/test-maison-pereira/avant/interieur-baie-encastree.jpg",
-    projectionSrc: "/test-maison-pereira/projections/projection-realiste-iti-baie-encastree.jpg",
+    avantSrc: "/test-maison-pereira/galerie/avant-08.jpg",
+    avantFichier: "public/test-maison-pereira/avant/interieur-baie-encastree.jpg",
+    projectionSrc: "/test-maison-pereira/galerie/apres-08.jpg",
+    apresFichier: "public/test-maison-pereira/galerie/apres-08.jpg",
     portrait: true,
   },
-] as const;
+];
+
+export const PEREIRA_PHOTOS_AVANT = PEREIRA_PAIRES_ITI.map((paire) => ({
+  id: paire.id,
+  src: paire.avantSrc,
+  titre: paire.titre,
+  source: "Photo réelle fournie pour le dossier AUDIT-PEREIRA-2026-001. Murs existants sans isolation intérieure.",
+}));
 
 export const PEREIRA_RESUME_ITI =
-  "À gauche : photo réelle du logement. À droite : projection visuelle de la même pièce après doublage ITI 12 cm (murs régularisés, tableaux adaptés, finition plâtre / peinture neutre). Ce n’est pas une photo réelle après travaux.";
+  "Galerie de 8 vues du logement. À gauche : photo réelle. À droite : projection visuelle indicative de la même pièce après doublage ITI 12 cm (murs régularisés, tableaux adaptés, finition plâtre / peinture neutre). Ces projections ne sont pas des photos réelles après travaux et ne figurent pas au devis contractuel.";
 
 export const PEREIRA_LIMITE_ITI =
   "Aucune température, aucun pourcentage de confort et aucune économie financière ne sont simulés ici. Les consommations et classes DPE restent celles de l’audit joint (320 kWhEP/m².an en état initial ; 73 kWhEP/m².an après scénarios 1 et 2 de l’auditeur).";

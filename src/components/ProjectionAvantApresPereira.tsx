@@ -10,6 +10,8 @@ import {
   PEREIRA_RESUME_ITI,
 } from "../data/pereiraProjection";
 
+const TOTAL_VUES = PEREIRA_PAIRES_ITI.length;
+
 function SliderAvantProjection({
   avantSrc,
   apresSrc,
@@ -23,7 +25,7 @@ function SliderAvantProjection({
   const fit = portrait ? "object-contain" : "object-cover";
   return (
     <div className="relative overflow-hidden rounded-xl border border-slate-700 bg-slate-950">
-      <div className={portrait ? "relative h-[28rem] sm:h-[36rem]" : "relative h-72 sm:h-96"}>
+      <div className={portrait ? "relative h-[28rem] md:h-[36rem]" : "relative h-72 md:h-96"}>
         <img src={avantSrc} alt={PEREIRA_LABEL_AVANT} className={`absolute inset-0 h-full w-full ${fit}`} />
         <div className="absolute inset-0" style={{ clipPath: `inset(0 0 0 ${pos}%)` }}>
           {apresSrc ? (
@@ -59,9 +61,56 @@ function SliderAvantProjection({
   );
 }
 
+function MiniaturesRangee({
+  paireId,
+  onSelect,
+  cote,
+}: {
+  paireId: string;
+  onSelect: (id: string) => void;
+  cote: "avant" | "apres";
+}) {
+  return (
+    <div className="grid grid-cols-4 gap-2 md:grid-cols-8">
+      {PEREIRA_PAIRES_ITI.map((item) => {
+        const src = cote === "avant" ? item.avantSrc : item.projectionSrc;
+        const selected = item.id === paireId;
+        return (
+          <button
+            key={`${cote}-${item.id}`}
+            type="button"
+            onClick={() => onSelect(item.id)}
+            className={`overflow-hidden rounded-lg border ${
+              selected ? "border-amber-400 ring-2 ring-amber-400/40" : "border-slate-700"
+            }`}
+            aria-pressed={selected}
+            aria-label={`${cote === "avant" ? PEREIRA_LABEL_AVANT : PEREIRA_LABEL_APRES} — vue ${item.index}/${TOTAL_VUES}`}
+          >
+            {src ? (
+              <img src={src} alt="" className="h-16 w-full object-cover md:h-20" />
+            ) : (
+              <span className="flex h-16 items-center justify-center bg-slate-900 px-1 text-center text-[9px] leading-tight text-amber-200 md:h-20">
+                {PEREIRA_PLACEHOLDER_APRES}
+              </span>
+            )}
+            <span className="block bg-slate-900 px-1 py-0.5 text-center text-[10px] text-slate-200">
+              {item.index}/{TOTAL_VUES}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function ProjectionAvantApresPereira() {
-  const [paireId, setPaireId] = useState(PEREIRA_PAIRES_ITI[0].id);
-  const paire = PEREIRA_PAIRES_ITI.find((item) => item.id === paireId) ?? PEREIRA_PAIRES_ITI[0];
+  const [index, setIndex] = useState(0);
+  const paire = PEREIRA_PAIRES_ITI[index] ?? PEREIRA_PAIRES_ITI[0];
+
+  function aller(id: string) {
+    const next = PEREIRA_PAIRES_ITI.findIndex((item) => item.id === id);
+    if (next >= 0) setIndex(next);
+  }
 
   return (
     <section className="space-y-4 overflow-hidden rounded-2xl border border-amber-500/30 bg-slate-900/80 p-4 sm:p-5">
@@ -72,13 +121,13 @@ export default function ProjectionAvantApresPereira() {
         <p className="mt-2 text-sm leading-relaxed text-slate-300">{PEREIRA_RESUME_ITI}</p>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {PEREIRA_PHOTOS_AVANT.map((photo) => (
           <figure key={photo.id} className="overflow-hidden rounded-xl border border-slate-700 bg-slate-950">
             <p className="bg-slate-800 px-3 py-1.5 text-center text-[11px] font-semibold text-white">
               {PEREIRA_LABEL_AVANT}
             </p>
-            <img src={photo.src} alt={photo.titre} className="h-40 w-full object-cover sm:h-44" />
+            <img src={photo.src} alt={photo.titre} className="h-36 w-full object-cover md:h-40" />
             <figcaption className="space-y-1 px-3 py-2 text-[11px] leading-snug text-slate-400">
               <span className="block font-medium text-slate-200">{photo.titre}</span>
               {photo.source}
@@ -88,26 +137,37 @@ export default function ProjectionAvantApresPereira() {
       </div>
 
       <div className="space-y-3">
-        <h3 className="text-sm font-semibold text-white">ITI 12 cm — {paire.titre}</h3>
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          {PEREIRA_PAIRES_ITI.map((item) => (
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h3 className="text-sm font-semibold text-white">
+            Vue {paire.index}/{TOTAL_VUES} — {paire.titre}
+          </h3>
+          <div className="flex gap-2">
             <button
-              key={item.id}
               type="button"
-              onClick={() => setPaireId(item.id)}
-              className={`shrink-0 overflow-hidden rounded-lg border ${
-                item.id === paire.id ? "border-amber-400 ring-2 ring-amber-400/40" : "border-slate-700"
-              }`}
-              aria-pressed={item.id === paire.id}
-              aria-label={`Afficher la comparaison : ${item.titre}`}
+              onClick={() => setIndex((value) => (value - 1 + TOTAL_VUES) % TOTAL_VUES)}
+              className="rounded-lg border border-slate-600 px-3 py-2 text-sm text-slate-100"
             >
-              <img src={item.avantSrc} alt="" className="h-16 w-24 object-cover" />
-              <span className="block max-w-24 truncate bg-slate-900 px-1 py-0.5 text-[10px] text-slate-200">
-                {item.titre}
-              </span>
+              Vue précédente
             </button>
-          ))}
+            <button
+              type="button"
+              onClick={() => setIndex((value) => (value + 1) % TOTAL_VUES)}
+              className="rounded-lg bg-amber-400 px-3 py-2 text-sm font-semibold text-slate-950"
+            >
+              Vue suivante
+            </button>
+          </div>
         </div>
+
+        <div className="space-y-2">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">{PEREIRA_LABEL_AVANT}</p>
+          <MiniaturesRangee paireId={paire.id} onSelect={aller} cote="avant" />
+        </div>
+        <div className="space-y-2">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">{PEREIRA_LABEL_APRES}</p>
+          <MiniaturesRangee paireId={paire.id} onSelect={aller} cote="apres" />
+        </div>
+
         <SliderAvantProjection
           key={paire.id}
           avantSrc={paire.avantSrc}
