@@ -149,3 +149,21 @@ body {
 .animate-scan-pulse {
   animation: scan-pulse 2s ease-in-out infinite;
 }
+
+/* --- SUPPRESSION MARQUE BLANCHE DU BADGE BOLT --- */
+a[href*="bolt.new"],
+div:has(> a[href*="bolt.new"]),
+[class*="bolt-badge"],
+[id*="bolt-badge"],
+iframe[src*="bolt.new"],
+button[aria-label*="bolt" i],
+a[aria-label*="bolt" i] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  z-index: -9999 !important;
+}
