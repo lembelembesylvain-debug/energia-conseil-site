@@ -428,32 +428,89 @@ export function composerPacPdf(etude: EtudePac, clientNom: string, tint: number)
   }
 
   y += recapH + 4;
-  const avis =
-    "Aides CEE 2026, estimation à titre indicatif. BAR-TH-104, BAT-TH-113 et BAT-TH-116 sont à valider selon la fiche en vigueur, les revenus et l'éligibilité du bâtiment. Montants définitifs après instruction. Garantie décennale et responsabilité civile professionnelle. Marque déposée INPI n° 5213845. Avis établi par Julia, juriste ENERGIA-CONSEIL IA, 2026.";
-  const avisLignes = doc.splitTextToSize(latin(avis), utile - 8) as string[];
-  const avisH = 10 + avisLignes.length * 3.4;
-  doc.setFillColor(255, 247, 237);
-  doc.roundedRect(MARGE, y, utile, avisH, 1.3, 1.3, "F");
-  doc.setFillColor(249, 115, 22);
-  doc.rect(MARGE, y + 1.2, 1.4, avisH - 2.4, "F");
+  const rac = devis.resteAChargeTtc;
+  const acompte = Math.round(rac * 30) / 100;
+  const demarrage = Math.round(rac * 40) / 100;
+  const solde = Math.round((rac - acompte - demarrage) * 100) / 100;
+  const centimes = (montant: number) => {
+    const cents = Math.round(montant * 100);
+    const entierPart = Math.trunc(Math.abs(cents) / 100);
+    const dec = String(Math.abs(cents) % 100).padStart(2, "0");
+    return `${String(entierPart).replace(/\B(?=(\d{3})+(?!\d))/g, " ")},${dec} EUR`;
+  };
+  const echeances: [string, string][] = [
+    ["Acompte 30 % a la signature", centimes(acompte)],
+    ["40 % au demarrage des travaux", centimes(demarrage)],
+    ["Solde 30 % a la reception sans reserve", centimes(solde)],
+  ];
+  const blocH = 36;
+  const gauche = utile * 0.58;
+  doc.setDrawColor(...FILET);
+  doc.roundedRect(MARGE, y, gauche - 3, blocH, 1.2, 1.2, "S");
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(8);
-  doc.setTextColor(154, 52, 18);
-  doc.text("Avis juridique Julia", MARGE + 4, y + 5);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(7.2);
-  doc.text(avisLignes, MARGE + 4, y + 9.5);
-  doc.setFontSize(8);
-  doc.setTextColor(...ENCRE);
-  doc.text("Bon pour accord : Fait à ______________  le ______________     Signature du client : ________________________", MARGE, y + avisH + 6);
-  doc.setFontSize(6.6);
+  doc.setFontSize(7);
+  doc.setTextColor(...CYAN_ENCRE);
+  doc.text("ECHEANCIER DU RESTE A CHARGE", MARGE + 3, y + 5);
+  echeances.forEach((ligneEcheance, index) => {
+    const yy = y + 11 + index * 6.2;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7);
+    doc.setTextColor(...ENCRE);
+    doc.text(ligneEcheance[0], MARGE + 3, yy);
+    doc.text(ligneEcheance[1], MARGE + gauche - 6, yy, { align: "right" });
+  });
+  doc.setFontSize(6);
   doc.setTextColor(...ARDOISE);
-  doc.text(doc.splitTextToSize(CONTACTS, utile) as string[], MARGE, y + avisH + 11);
+  doc.text("40 % et solde apres validation de Sylvain LEMBELEMBE.", MARGE + 3, y + blocH - 2.5);
+
+  const signX = MARGE + gauche;
+  const signW = utile - gauche;
+  doc.setLineDashPattern([1.1, 1.1], 0);
+  doc.setDrawColor(...ENCRE);
+  doc.roundedRect(signX, y, signW, blocH, 1.2, 1.2, "S");
+  doc.setLineDashPattern([], 0);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(6.4);
+  doc.setTextColor(...ENCRE);
+  doc.text("CADRE RESERVE AU CLIENT", signX + 2.5, y + 5);
+  doc.setFont("helvetica", "normal");
+  doc.text(doc.splitTextToSize("Mention manuscrite : Bon pour accord et marche de travaux accepte. Date et signature.", signW - 5) as string[], signX + 2.5, y + 10);
+  doc.text("Date : ________    Signature :", signX + 2.5, y + blocH - 5);
+
+  y += blocH + 4;
+  doc.setFontSize(6.5);
+  doc.setTextColor(...ENCRE);
+  doc.text("Garantie Decennale Calypso Assurances n° LUNPIB2604975 - ENERGIA CONSEIL IA.", MARGE, y);
+  y += 3.6;
+  doc.setFontSize(6.3);
+  doc.setTextColor(...ARDOISE);
+  doc.text("Aides financieres 2026, estimation a titre indicatif. Montants definitifs apres instruction ANAH et CEE. Avis Julia, 2026.", MARGE, y);
+  y += 3.6;
+  doc.text(doc.splitTextToSize(CONTACTS, utile) as string[], MARGE, y);
 
   pied(doc);
   return doc;
 }
 
-export function telechargerPacPdf(etude: EtudePac, clientNom: string, tint: number) {
-  composerPacPdf(etude, clientNom, tint).save(`dimensionnement-pac-${slug(clientNom)}.pdf`);
+export function telechargerPacPdf(
+  etude: EtudePac,
+  clientNom: string,
+  tint: number,
+  partie: "rapport" | "devis" | "complet" = "complet",
+) {
+  const doc = composerPacPdf(etude, clientNom, tint);
+  if (partie === "rapport" && doc.getNumberOfPages() > 1) doc.deletePage(2);
+  if (partie === "devis" && doc.getNumberOfPages() > 1) doc.deletePage(1);
+  const prefixe = partie === "rapport" ? "rapport-technique" : partie === "devis" ? "devis-chiffre" : "etude-et-devis";
+  doc.save(`${prefixe}-${slug(clientNom)}.pdf`);
+}
+
+/** PDF texte, page 1 = rapport d'ingénierie, page 2 = devis. */
+export function pacPdfBase64(etude: EtudePac, clientNom: string, tint: number, partie: "rapport" | "devis"): string {
+  const doc = composerPacPdf(etude, clientNom, tint);
+  if (partie === "rapport" && doc.getNumberOfPages() > 1) doc.deletePage(2);
+  if (partie === "devis" && doc.getNumberOfPages() > 1) doc.deletePage(1);
+  const brut = doc.output("datauristring");
+  const coupe = brut.indexOf(",");
+  return coupe >= 0 ? brut.slice(coupe + 1) : brut;
 }

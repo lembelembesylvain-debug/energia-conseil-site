@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
-import { AlertTriangle, Download, Droplets, FileText, Flame, Gauge, Thermometer } from "lucide-react";
+import { AlertTriangle, Download, Droplets, FileText, Flame, Gauge, Mail, Thermometer } from "lucide-react";
+import { ouvrirMessagerie } from "../messaging/navigation";
+import { CHEMIN_DEVIS_MASSON, CLIENT_MASSON, MASSON_DOSSIER_ID, TITRE_MASSON } from "../../lib/crm/massonToulonOfficiel.js";
 import { lireRoleStocke, peutVoirCoutsInternes } from "../../lib/crm/roles.js";
 import { COEFFICIENTS_G, DEPARTEMENTS_CLIMAT, DELTA_T_CHAUDIERE, DELTA_T_PAC, tintParDefaut } from "./calcul";
 import { etatInitialPac, evaluerPac } from "./devis";
@@ -147,10 +149,41 @@ export default function PacDimensionnement({ clientNomInitial = "", dossierId = 
         <p className="mt-2 max-w-3xl text-sm text-slate-300">
           Déperditions, relève de chaudière et génie hydraulique. Le chauffage se dimensionne après l'isolation, jamais l'inverse.
         </p>
-        <label className="mt-4 block max-w-md">
-          <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">Foyer</span>
-          <input className={CHAMP} value={etat.clientNom} placeholder="Nom du client" onChange={(event) => patch({ clientNom: event.target.value })} />
-        </label>
+        <div className="mt-4 flex flex-wrap items-end gap-3">
+          <label className="block max-w-md flex-1">
+            <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">Foyer</span>
+            <input className={CHAMP} value={etat.clientNom} placeholder="Nom du client" onChange={(event) => patch({ clientNom: event.target.value })} />
+          </label>
+          <button
+            type="button"
+            data-testid="pac-envoyer-email"
+            onClick={() =>
+              ouvrirMessagerie({
+                dossierId: MASSON_DOSSIER_ID,
+                clientNom: "Mme Kristell MASSON",
+                destinataire: String(CLIENT_MASSON.email || ""),
+                modeleId: "etude-pac",
+                contexte: {
+                  clientNom: "Mme Kristell MASSON",
+                  ville: "Toulon (83000)",
+                  projet: TITRE_MASSON,
+                  lien: CHEMIN_DEVIS_MASSON,
+                  puissanceThermiqueKw: etude.pDepKw,
+                  puissanceKw: etude.puissancePacKw,
+                  economiesAnnuelles: etude.economieAnnuelleEur,
+                  ceeEur: etude.devis.totalAidesEur,
+                  resteACharge: etude.devis.resteAChargeTtc,
+                  totalTtc: etude.devis.totalTtc,
+                },
+                pieces: [{ nom: "Devis officiel PAC — Mme Kristell MASSON", url: CHEMIN_DEVIS_MASSON }],
+              })
+            }
+            className="inline-flex items-center gap-2 rounded-xl border border-cyan-300/40 bg-cyan-400/10 px-3 py-2 text-sm font-semibold text-cyan-50"
+          >
+            <Mail className="h-4 w-4" aria-hidden />
+            Envoyer par email
+          </button>
+        </div>
       </header>
 
       <div className="grid gap-3 border-b border-white/10 px-5 py-4 sm:grid-cols-2 sm:px-6 xl:grid-cols-4">
