@@ -8,6 +8,7 @@ import {
 import BannieresOpportunite from "./BannieresOpportunite";
 import StatutTransactionBloc from "./StatutTransactionBloc";
 import BlocEtudeSolaire from "./ExportEtudeSolaire";
+import BlocEtudeDecarbonation from "./ExportEtudeDecarbonation";
 
 function euro(valeur) {
   if (valeur == null || !Number.isFinite(Number(valeur))) return "—";
@@ -33,6 +34,7 @@ function surfaceTerrain(m2) {
 export default function PanneauSniperProptech({
   sniper,
   logement = null,
+  typeBatiment = "individuel",
   chargement,
   erreur,
   onFermer,
@@ -70,6 +72,18 @@ export default function PanneauSniperProptech({
 
       <ExportFicheTerrainPdf fiche={fiche} />
       <BlocEtudeSolaire fiche={fiche} />
+      <BlocEtudeDecarbonation
+        logement={logement}
+        typeBatiment={typeBatiment}
+        contexte={{
+          reference: fiche.reference,
+          adresseComplete: logement?.adresse
+            ? [logement.adresse, logement.codePostal, logement.commune].filter(Boolean).join(", ")
+            : fiche.adresseComplete,
+          section: fiche.section,
+          numero: fiche.numero,
+        }}
+      />
       <StatutTransactionBloc statut={fiche.statutTransaction} />
 
       {chargement ? <p className="mt-3 text-xs text-amber-100">Interrogation des APIs ouvertes…</p> : null}

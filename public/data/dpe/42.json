@@ -1,0 +1,110 @@
+{
+  "departement": "42",
+  "nom": "Loire",
+  "villePrincipale": {
+    "nom": "Roanne / Saint-Étienne / Bussières",
+    "lat": 45.74,
+    "lng": 4.23,
+    "zoom": 9
+  },
+  "source": "pack de prospection terrain Damien — 5 particuliers F/G, Loire",
+  "logements": [
+    {
+      "id": "42-DPE-0001",
+      "adresse": "12 Route de Feurs",
+      "commune": "Bussières",
+      "code_postal": "42510",
+      "etiquette_dpe": "G",
+      "surface_habitable": 118,
+      "annee_construction": 1954,
+      "type_batiment": "maison",
+      "lat": 45.8362,
+      "lng": 4.2614,
+      "conso_energie": 512,
+      "type_chauffage": "fioul",
+      "motif_dpe": "location",
+      "statut_occupation": "bailleur",
+      "date_dpe": "2023-04-12",
+      "couverture_dvf_ans": 12,
+      "mutations_dvf": [
+        { "date": "2016-06-08", "prix_net": 86000, "prix_m2": 729, "surface_m2": 118 }
+      ]
+    },
+    {
+      "id": "42-DPE-0002",
+      "adresse": "8 Rue du Stade",
+      "commune": "Bussières",
+      "code_postal": "42510",
+      "etiquette_dpe": "F",
+      "surface_habitable": 96,
+      "annee_construction": 1968,
+      "type_batiment": "maison",
+      "lat": 45.8298,
+      "lng": 4.2746,
+      "conso_energie": 368,
+      "type_chauffage": "fioul",
+      "motif_dpe": "autre",
+      "statut_occupation": "occupant",
+      "date_dpe": "2024-09-02"
+    },
+    {
+      "id": "42-DPE-0003",
+      "adresse": "24 Rue Jean Jaures",
+      "commune": "Roanne",
+      "code_postal": "42300",
+      "etiquette_dpe": "G",
+      "surface_habitable": 132,
+      "annee_construction": 1949,
+      "type_batiment": "maison",
+      "lat": 46.0372,
+      "lng": 4.0688,
+      "conso_energie": 476,
+      "type_chauffage": "fioul",
+      "statut_occupation": "occupant",
+      "date_dpe": "2022-11-18",
+      "couverture_dvf_ans": 12,
+      "mutations_dvf": [
+        { "date": "2012-03-21", "prix_net": 104000, "prix_m2": 788, "surface_m2": 132 }
+      ]
+    },
+    {
+      "id": "42-DPE-0004",
+      "adresse": "15 Avenue de Paris",
+      "commune": "Roanne",
+      "code_postal": "42300",
+      "etiquette_dpe": "F",
+      "surface_habitable": 108,
+      "annee_construction": 1972,
+      "type_batiment": "maison",
+      "lat": 46.0465,
+      "lng": 4.0892,
+      "conso_energie": 394,
+      "type_chauffage": "fioul",
+      "motif_dpe": "vente",
+      "date_dpe": "2025-06-20",
+      "couverture_dvf_ans": 12,
+      "mutations_dvf": [
+        { "date": "2026-02-14", "prix_net": 121000, "prix_m2": 1120, "surface_m2": 108 }
+      ]
+    },
+    {
+      "id": "42-DPE-0005",
+      "adresse": "6 Impasse des Tilleuls",
+      "commune": "Roanne",
+      "code_postal": "42300",
+      "etiquette_dpe": "G",
+      "surface_habitable": 141,
+      "annee_construction": 1938,
+      "type_batiment": "maison",
+      "lat": 46.0284,
+      "lng": 4.0516,
+      "conso_energie": 540,
+      "type_chauffage": "fioul",
+      "date_dpe": "2025-01-09",
+      "couverture_dvf_ans": 12,
+      "mutations_dvf": [
+        { "date": "2025-11-03", "prix_net": 98000, "prix_m2": 695, "surface_m2": 141 }
+      ]
+    }
+  ]
+}

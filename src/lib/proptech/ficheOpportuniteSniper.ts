@@ -193,6 +193,7 @@ export const COULEURS_ADEME: Record<EtiquetteDpe, { fond: string; texte: string;
 
 const DEPARTEMENTS: Record<string, string> = {
   "21": "Côte-d'Or",
+  "42": "Loire",
   "69": "Rhône",
   "71": "Saône-et-Loire",
 };

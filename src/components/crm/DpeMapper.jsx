@@ -5,6 +5,7 @@ import {
   COULEURS_DPE,
   DEPARTEMENT_DPE_DEFAUT,
   DEPARTEMENTS_DPE,
+  libelleOptionDepartement,
   TYPES_BATIMENT_DPE,
   TYPE_BATIMENT_DPE_DEFAUT,
   chargerDpeDepartement,
@@ -22,6 +23,8 @@ import {
   estCibleSolaire,
 } from "../../lib/proptech/statutMarcheDpe";
 import { classerStatutTransaction, retenirNouvelAcquereur } from "../../lib/proptech/statutTransactionDvf";
+import { correspondFiltreB2b, estModeB2b, FILTRES_B2B } from "../../lib/proptech/decarbonationB2bSniper";
+import { NB_CIBLES_B2B_42, NB_PARTICULIERS_42 } from "../../lib/proptech/packProspectionLoire42";
 import BannieresOpportunite from "./BannieresOpportunite";
 import StatutTransactionBloc from "./StatutTransactionBloc";
 
@@ -146,6 +149,7 @@ export default function DpeMapper() {
   const [filtreBailleur, setFiltreBailleur] = useState(false);
   const [filtreSolaire, setFiltreSolaire] = useState(false);
   const [filtreTransaction, setFiltreTransaction] = useState("tous");
+  const [filtreB2b, setFiltreB2b] = useState("tous");
   const [typeBatiment, setTypeBatiment] = useState(TYPE_BATIMENT_DPE_DEFAUT);
   const [selection, setSelection] = useState(null);
   const [cibleVille, setCibleVille] = useState(null);
@@ -174,15 +178,16 @@ export default function DpeMapper() {
     () => (payload?.logements ?? []).filter((item) => logementVisible(item, filtre)),
     [payload, filtre],
   );
-  const logementsAffiches = useMemo(
-    () =>
-      apresClasse.filter(
-        (item) =>
-          correspondMarche(item, filtreVente, filtreBailleur, filtreSolaire) &&
-          correspondTransaction(item, filtreTransaction),
-      ),
-    [apresClasse, filtreVente, filtreBailleur, filtreSolaire, filtreTransaction],
-  );
+  const modeB2b = estModeB2b(typeBatiment);
+  const logementsAffiches = useMemo(() => {
+    const residentiel = apresClasse.filter(
+      (item) =>
+        correspondMarche(item, filtreVente, filtreBailleur, filtreSolaire) &&
+        correspondTransaction(item, filtreTransaction),
+    );
+    if (!modeB2b) return residentiel;
+    return residentiel.filter((item) => correspondFiltreB2b(item, filtreB2b));
+  }, [apresClasse, filtreVente, filtreBailleur, filtreSolaire, filtreTransaction, modeB2b, filtreB2b]);
 
   const nbBailleursUrgence = useMemo(
     () => apresClasse.filter((item) => estBailleurEnInfraction(item)).length,
@@ -194,6 +199,17 @@ export default function DpeMapper() {
     () => apresClasse.filter((item) => classerStatutTransaction(item)?.id === "vente_active").length,
     [apresClasse],
   );
+
+  const comptesB2b = useMemo(() => {
+    const compte = (id) => apresClasse.filter((item) => correspondFiltreB2b(item, id)).length;
+    return {
+      decret: compte("decret"),
+      bacs: compte("bacs"),
+      solaire: compte("solaire"),
+      chaleur: compte("chaleur"),
+      tous: apresClasse.length,
+    };
+  }, [apresClasse]);
 
   const nbPassoires = useMemo(
     () => (payload?.logements ?? []).filter((item) => item?.etiquette === "F" || item?.etiquette === "G").length,
@@ -542,6 +558,17 @@ export default function DpeMapper() {
     if (id === "passoires") setFiltre("passoires");
   };
 
+  const choisirPack42 = (type) => {
+    setSelection(null);
+    setTypeBatiment(type);
+    setFiltre("tous");
+    setFiltreVente(false);
+    setFiltreBailleur(false);
+    setFiltreSolaire(false);
+    setFiltreTransaction("tous");
+    setFiltreB2b("tous");
+  };
+
   const classeBadge = (actif, actifClasse) =>
     `rounded-full border px-3 py-1.5 text-xs font-medium ${
       actif ? actifClasse : "border-slate-700 bg-slate-900 text-slate-300 hover:border-slate-500"
@@ -555,17 +582,29 @@ export default function DpeMapper() {
             Sélectionner le département
           </span>
           <select
+            data-testid="select-departement"
             value={code}
             onChange={(e) => {
+              const suivant = e.target.value;
               setCibleVille(null);
               setNoticeVille("");
-              setCode(e.target.value);
+              setSelection(null);
+              setCode(suivant);
+              if (suivant === "42") {
+                setTypeBatiment("individuel");
+                setFiltre("tous");
+                setFiltreVente(false);
+                setFiltreBailleur(false);
+                setFiltreSolaire(false);
+                setFiltreTransaction("tous");
+                setFiltreB2b("tous");
+              }
             }}
             className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
           >
             {DEPARTEMENTS_DPE.map((dept) => (
               <option key={dept.code} value={dept.code}>
-                {dept.code} — {dept.nom} ({dept.villePrincipale})
+                {libelleOptionDepartement(dept)}
               </option>
             ))}
           </select>
@@ -575,10 +614,18 @@ export default function DpeMapper() {
             Type de bâtiment
           </span>
           <select
+            data-testid="select-type-batiment"
             value={typeBatiment}
             onChange={(e) => {
+              const suivant = e.target.value;
               setSelection(null);
-              setTypeBatiment(e.target.value);
+              setTypeBatiment(suivant);
+              setFiltre("tous");
+              setFiltreVente(false);
+              setFiltreBailleur(false);
+              setFiltreSolaire(false);
+              setFiltreTransaction("tous");
+              setFiltreB2b("tous");
             }}
             className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
           >
@@ -612,64 +659,106 @@ export default function DpeMapper() {
       </div>
 
       <div className="flex flex-wrap items-center gap-2 mb-3">
-        <button
-          type="button"
-          data-testid="filtre-dpe-acquereurs"
-          aria-pressed={filtreTransaction === "acquereurs"}
-          onClick={() => choisirRapide("acquereurs")}
-          className={classeBadge(filtreTransaction === "acquereurs", "border-emerald-300 bg-emerald-500/25 text-emerald-50")}
-        >
-          🟢 Nouveaux Acquéreurs (Vendus &lt; 24 mois) ({nbAcquereurs})
-        </button>
-        <button
-          type="button"
-          data-testid="filtre-dpe-vente-active"
-          aria-pressed={filtreTransaction === "vente"}
-          onClick={() => choisirRapide("vente")}
-          className={classeBadge(filtreTransaction === "vente", "border-cyan-300 bg-cyan-500/25 text-cyan-50")}
-        >
-          🔵 En Vente Active ({nbVenteActive})
-        </button>
-        <button
-          type="button"
-          data-testid="filtre-dpe-bailleurs-bloques"
-          aria-pressed={filtreBailleur}
-          onClick={() => choisirRapide("bailleurs")}
-          className={classeBadge(filtreBailleur, "border-rose-300 bg-rose-600/30 text-rose-50")}
-        >
-          🔴 Bailleurs Urgence G/F ({nbBailleursUrgence})
-        </button>
-        <button
-          type="button"
-          data-testid="filtre-dpe-solaire"
-          aria-pressed={filtreSolaire}
-          onClick={() => choisirRapide("solaire")}
-          className={classeBadge(filtreSolaire, "border-amber-300 bg-amber-600/30 text-amber-50")}
-        >
-          ☀️ Cibles Solaires 100 kWc ({nbSolaire})
-        </button>
-        <button
-          type="button"
-          data-testid="filtre-dpe-passoires"
-          aria-pressed={filtre === "passoires"}
-          onClick={() => choisirRapide("passoires")}
-          className={classeBadge(filtre === "passoires", "border-orange-300 bg-orange-500/25 text-orange-50")}
-        >
-          Passoires F/G ({nbPassoires})
-        </button>
-        <button
-          type="button"
-          data-testid="filtre-dpe-tous-biens"
-          aria-pressed={toutEfface}
-          onClick={() => choisirRapide("tous")}
-          className={classeBadge(toutEfface, "border-emerald-400/60 bg-emerald-500/20 text-emerald-100")}
-        >
-          Tous
-        </button>
+        {code === "42" ? (
+          <>
+            <button
+              type="button"
+              data-testid="compteur-42-particuliers"
+              aria-pressed={!modeB2b}
+              onClick={() => choisirPack42("individuel")}
+              className={classeBadge(!modeB2b, "border-orange-300 bg-orange-500/25 text-orange-50")}
+            >
+              {NB_PARTICULIERS_42} Particuliers F/G à rénover
+            </button>
+            <button
+              type="button"
+              data-testid="compteur-42-b2b"
+              aria-pressed={modeB2b}
+              onClick={() => choisirPack42("industriel")}
+              className={classeBadge(modeB2b, "border-sky-300 bg-sky-500/25 text-sky-50")}
+            >
+              {NB_CIBLES_B2B_42} Cibles B2B Décarbonation / Solaire
+            </button>
+          </>
+        ) : modeB2b ? (
+          FILTRES_B2B.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              data-testid={item.testid}
+              aria-pressed={filtreB2b === item.id}
+              onClick={() => setFiltreB2b(item.id)}
+              className={classeBadge(filtreB2b === item.id, item.actif)}
+            >
+              {item.label} ({comptesB2b[item.id]})
+            </button>
+          ))
+        ) : (
+          <>
+            <button
+              type="button"
+              data-testid="filtre-dpe-acquereurs"
+              aria-pressed={filtreTransaction === "acquereurs"}
+              onClick={() => choisirRapide("acquereurs")}
+              className={classeBadge(filtreTransaction === "acquereurs", "border-emerald-300 bg-emerald-500/25 text-emerald-50")}
+            >
+              🟢 Nouveaux Acquéreurs (Vendus &lt; 24 mois) ({nbAcquereurs})
+            </button>
+            <button
+              type="button"
+              data-testid="filtre-dpe-vente-active"
+              aria-pressed={filtreTransaction === "vente"}
+              onClick={() => choisirRapide("vente")}
+              className={classeBadge(filtreTransaction === "vente", "border-cyan-300 bg-cyan-500/25 text-cyan-50")}
+            >
+              🔵 En Vente Active ({nbVenteActive})
+            </button>
+            <button
+              type="button"
+              data-testid="filtre-dpe-bailleurs-bloques"
+              aria-pressed={filtreBailleur}
+              onClick={() => choisirRapide("bailleurs")}
+              className={classeBadge(filtreBailleur, "border-rose-300 bg-rose-600/30 text-rose-50")}
+            >
+              🔴 Bailleurs Urgence G/F ({nbBailleursUrgence})
+            </button>
+            <button
+              type="button"
+              data-testid="filtre-dpe-solaire"
+              aria-pressed={filtreSolaire}
+              onClick={() => choisirRapide("solaire")}
+              className={classeBadge(filtreSolaire, "border-amber-300 bg-amber-600/30 text-amber-50")}
+            >
+              ☀️ Cibles Solaires 100 kWc ({nbSolaire})
+            </button>
+            <button
+              type="button"
+              data-testid="filtre-dpe-passoires"
+              aria-pressed={filtre === "passoires"}
+              onClick={() => choisirRapide("passoires")}
+              className={classeBadge(filtre === "passoires", "border-orange-300 bg-orange-500/25 text-orange-50")}
+            >
+              Passoires F/G ({nbPassoires})
+            </button>
+            <button
+              type="button"
+              data-testid="filtre-dpe-tous-biens"
+              aria-pressed={toutEfface}
+              onClick={() => choisirRapide("tous")}
+              className={classeBadge(toutEfface, "border-emerald-400/60 bg-emerald-500/20 text-emerald-100")}
+            >
+              Tous
+            </button>
+          </>
+        )}
       </div>
       <p className="mb-3 text-xs text-slate-400" data-testid="compteur-marche-dpe">
-        {chargement ? "Chargement du fichier JSON…" : `${logementsAffiches.length} bâtiment(s)`}
-        {!chargement && payload ? ` · ${nbPassoires} passoires F/G` : ""}
+        {chargement
+          ? "Chargement du fichier JSON…"
+          : code === "42"
+            ? `${NB_PARTICULIERS_42} Particuliers F/G à rénover · ${NB_CIBLES_B2B_42} Cibles B2B Décarbonation / Solaire`
+            : `${logementsAffiches.length} ${modeB2b ? "site(s) B2B" : "bâtiment(s)"}`}
+        {!chargement && payload && code !== "42" ? ` · ${nbPassoires} passoires F/G` : ""}
         <span className="text-slate-500">
           {" "}
           · {trouverTypeBatimentDpe(typeBatiment)?.icone} {trouverTypeBatimentDpe(typeBatiment)?.label}
@@ -899,6 +988,7 @@ export default function DpeMapper() {
           <PanneauSniperProptech
             sniper={sniper}
             logement={selection}
+            typeBatiment={typeBatiment}
             chargement={sniperChargement}
             erreur={sniperErreur}
             onFermer={() => {

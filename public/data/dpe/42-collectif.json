@@ -1,0 +1,13 @@
+{
+  "departement": "42",
+  "nom": "Loire",
+  "villePrincipale": {
+    "nom": "Roanne / Saint-Étienne / Bussières",
+    "lat": 45.74,
+    "lng": 4.23,
+    "zoom": 9
+  },
+  "type_batiment": "collectif",
+  "source": "pack Loire — pas de collectif dans le pack Damien",
+  "logements": []
+}

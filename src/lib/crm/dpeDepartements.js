@@ -38,15 +38,23 @@ export const DEPARTEMENTS_DPE = [
     lng: 4.8539,
     zoom: 12,
   },
+  {
+    code: "42",
+    nom: "Loire",
+    villePrincipale: "Roanne / Saint-Étienne / Bussières",
+    lat: 45.74,
+    lng: 4.23,
+    zoom: 9,
+  },
 ];
 
 export const DEPARTEMENT_DPE_DEFAUT = "71";
 
 export const TYPES_BATIMENT_DPE = [
-  { id: "individuel", label: "Maison individuelle", icone: "🏠" },
-  { id: "collectif", label: "Logement collectif", icone: "🏢" },
-  { id: "tertiaire", label: "Tertiaire", icone: "🏬" },
-  { id: "industriel", label: "Industriel", icone: "🏭" },
+  { id: "individuel", label: "Maison individuelle / Résidentiel", icone: "🏠" },
+  { id: "collectif", label: "Logement collectif / Résidentiel", icone: "🏘️" },
+  { id: "tertiaire", label: "Tertiaire & Commerces (Décret BACS & Décret Tertiaire)", icone: "🏢" },
+  { id: "industriel", label: "Industrie & Logistique (Décarbonation CEE)", icone: "🏭" },
 ];
 
 export const TYPE_BATIMENT_DPE_DEFAUT = "individuel";
@@ -55,6 +63,10 @@ const cacheDepartements = new Map();
 
 export function trouverDepartementDpe(code) {
   return DEPARTEMENTS_DPE.find((item) => item.code === String(code)) ?? null;
+}
+
+export function libelleOptionDepartement(dept) {
+  return `${dept.code} — ${dept.nom} (${dept.villePrincipale})`;
 }
 
 export function trouverTypeBatimentDpe(id) {
