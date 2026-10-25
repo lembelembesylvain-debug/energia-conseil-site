@@ -153,6 +153,11 @@ function ApercuFicheA4({ vue }: { vue: PresentationFiche }) {
 
         <div className="mt-2.5 grid grid-cols-2 gap-2.5">
           <Cadre titre="4 — Marché et données DVF 5 ans">
+            {vue.encadreMutation ? (
+              <p className="mb-2 border-l-2 border-emerald-600 bg-emerald-50 px-2 py-1.5 text-[9.5px] font-semibold leading-snug text-emerald-950">
+                {vue.encadreMutation}
+              </p>
+            ) : null}
             <ul className="space-y-1 text-[10px] leading-snug">
               {vue.marche.map((ligne) => (
                 <li key={ligne}>{ligne}</li>

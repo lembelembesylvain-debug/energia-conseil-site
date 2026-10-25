@@ -12,6 +12,7 @@ import {
   type MotifDpe,
   type StatutOccupation,
 } from "./statutMarcheDpe";
+import { classerStatutTransaction, type MutationParcelle, type StatutTransaction } from "./statutTransactionDvf";
 
 export type EtiquetteDpe = "A" | "B" | "C" | "D" | "E" | "F" | "G";
 export type ModeAffichage = "pdf" | "ecran";
@@ -37,6 +38,9 @@ export interface LogementPourFiche {
   conso?: number | null;
   motifDpe?: MotifDpe | null;
   statutOccupation?: StatutOccupation | null;
+  dateDpe?: string | null;
+  couvertureDixAns?: boolean | null;
+  mutationsDvf?: MutationParcelle[] | null;
 }
 
 export interface SniperPourFiche {
@@ -125,6 +129,7 @@ export interface FicheOpportunite {
   upliftPct: number | null;
   noteMarche: string;
   preconisations: readonly string[];
+  statutTransaction: StatutTransaction;
 }
 
 export interface PaireFiche {
@@ -145,6 +150,7 @@ export interface PresentationFiche {
   deperditions: string;
   impact: string;
   marche: string[];
+  encadreMutation: string;
   preconisations: readonly string[];
   mentionAides: string;
   piedConfidentialite: string;
@@ -632,6 +638,31 @@ function dateEditionFr(): string {
   });
 }
 
+function mutationsPourStatut(
+  cible: CibleLocale | null,
+  logement: LogementPourFiche | null | undefined,
+  sniper: SniperPourFiche | null | undefined,
+): MutationParcelle[] {
+  const locales = cible?.transactions?.length ? cible.transactions : logement?.mutationsDvf ?? [];
+  if (locales.length) {
+    return locales.map((mutation) => ({
+      date: mutation.date,
+      prixNet: mutation.prixNet,
+      prixM2: mutation.prixM2,
+      surfaceM2: mutation.surfaceM2,
+      surParcelle: true,
+    }));
+  }
+  if (sniper?.dvf?.perimetre !== "parcelle") return [];
+  return (sniper.dvf.mutations ?? []).map((mutation) => ({
+    date: mutation.date,
+    prixNet: mutation.prixNet,
+    prixM2: mutation.prixM2,
+    surfaceM2: mutation.surfaceM2,
+    surParcelle: true,
+  }));
+}
+
 function transactionsLive(sniper: SniperPourFiche | null | undefined): TransactionFiche[] {
   const liste = sniper?.dvf?.mutations ?? [];
   return liste.slice(0, 4).map((mutation) => ({
@@ -683,6 +714,17 @@ export function composerFicheOpportunite(
   const ratio = terrain != null && terrain > 0 && emprise != null ? emprise / terrain : null;
   const motifDpe = cible?.motifDpe ?? logement?.motifDpe ?? null;
   const statutOccupation = cible?.statutOccupation ?? logement?.statutOccupation ?? null;
+  const statutTransaction = classerStatutTransaction({
+    motifDpe,
+    statutOccupation,
+    etiquette,
+    chauffage,
+    conso,
+    surface,
+    dateDpe: logement?.dateDpe,
+    couvertureDixAns: logement?.couvertureDixAns,
+    mutationsDvf: mutationsPourStatut(cible, logement, sniper),
+  });
 
   return {
     ancreeSurReleve: cible != null,
@@ -723,6 +765,7 @@ export function composerFicheOpportunite(
     upliftPct: valeurSectorielle != null ? uplift : null,
     noteMarche: cible?.noteMarche || "",
     preconisations: preconisationsDe(chauffage),
+    statutTransaction,
   };
 }
 
@@ -810,6 +853,11 @@ export function presenterFiche(fiche: FicheOpportunite, mode: ModeAffichage): Pr
   }
   if (fiche.noteMarche) marche.push(fiche.noteMarche);
 
+  const encadreMutation =
+    fiche.statutTransaction.id === "vendu_recent" && fiche.statutTransaction.prixNet != null
+      ? `Historique de mutation : Bien acquis le ${formaterDateTransaction(fiche.statutTransaction.dateMutation || "")} pour ${montant(fiche.statutTransaction.prixNet, mode)} - Profil : Acquéreur récent en phase de programmation travaux.`
+      : "";
+
   return {
     reference: fiche.reference,
     dateEdition: fiche.dateEdition,
@@ -840,6 +888,7 @@ export function presenterFiche(fiche: FicheOpportunite, mode: ModeAffichage): Pr
     deperditions: fiche.deperditions,
     impact: fiche.impactCombustible,
     marche,
+    encadreMutation,
     preconisations: fiche.preconisations,
     mentionAides: MENTION_AIDES,
     piedConfidentialite: `Document confidentiel d'aide à la décision immobilière et technique - Édité par ${marque(mode)}`,
@@ -1083,10 +1132,11 @@ function dessinerListe(
     curseur = ecrireParagraphe(doc, ligne, zone.x, curseur, zone.w) + 1.1;
   });
   if (encart) {
+    const mutation = encart.startsWith("Historique de mutation");
     const hEncart = hauteurParagraphe(doc, encart, zone.w - 3) + 3;
-    remplir(doc, ENCRE.encart);
+    remplir(doc, mutation ? [236, 253, 245] : ENCRE.encart);
     doc.rect(zone.x, curseur - 0.5, zone.w, hEncart, "F");
-    remplir(doc, [249, 115, 22]);
+    remplir(doc, mutation ? [5, 150, 105] : [249, 115, 22]);
     doc.rect(zone.x, curseur - 0.5, 1, hEncart, "F");
     ecrireParagraphe(doc, encart, zone.x + 2.2, curseur + 2.6, zone.w - 3.4);
   }
@@ -1131,10 +1181,10 @@ export function mettreEnPageFiche(fiche: FicheOpportunite): { pdf: jsPDF; bas: n
   y += hThermo + 3;
 
   const precoLignes = vue.preconisations.map((ligne, index) => `${index + 1}. ${ligne}`);
-  const hMarche = hauteurListe(pdf, vue.marche, "", utile);
+  const hMarche = hauteurListe(pdf, vue.marche, vue.encadreMutation, utile);
   const hPreco = hauteurListe(pdf, precoLignes, vue.mentionAides, utile);
   const hBas = Math.max(hMarche, hPreco);
-  dessinerListe(pdf, MARGE, y, COL, hBas, "4  -  Marché et données DVF 5 ans", vue.marche, "");
+  dessinerListe(pdf, MARGE, y, COL, hBas, "4  -  Marché et données DVF 5 ans", vue.marche, vue.encadreMutation);
   dessinerListe(
     pdf,
     MARGE + COL + 3,

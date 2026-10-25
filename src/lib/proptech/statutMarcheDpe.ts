@@ -49,16 +49,16 @@ export function normaliserStatutOccupation(valeur: unknown): StatutOccupation | 
   return undefined;
 }
 
-export function estBienEnVente(bien: MarcheDpe): boolean {
-  return bien.motifDpe === "vente";
+export function estBienEnVente(bien: MarcheDpe | null | undefined): boolean {
+  return bien?.motifDpe === "vente";
 }
 
-export function estBailleur(bien: MarcheDpe): boolean {
-  return bien.motifDpe === "location" || bien.statutOccupation === "bailleur";
+export function estBailleur(bien: MarcheDpe | null | undefined): boolean {
+  return bien?.motifDpe === "location" || bien?.statutOccupation === "bailleur";
 }
 
-export function estBailleurEnInfraction(bien: MarcheDpe): boolean {
-  return estBailleur(bien) && (bien.etiquette === "F" || bien.etiquette === "G");
+export function estBailleurEnInfraction(bien: MarcheDpe | null | undefined): boolean {
+  return estBailleur(bien) && (bien?.etiquette === "F" || bien?.etiquette === "G");
 }
 
 export function formaterEntierFr(valeur: number): string {
@@ -71,12 +71,12 @@ function nombreUtile(valeur: number | null | undefined): number | null {
   return valeur != null && Number.isFinite(valeur) ? valeur : null;
 }
 
-export function consoDuBien(bien: MarcheDpe): number | null {
-  return nombreUtile(bien.conso) ?? nombreUtile(bien.consoKwhM2);
+export function consoDuBien(bien: MarcheDpe | null | undefined): number | null {
+  return nombreUtile(bien?.conso) ?? nombreUtile(bien?.consoKwhM2);
 }
 
-export function surfaceDuBien(bien: MarcheDpe): number | null {
-  return nombreUtile(bien.surface) ?? nombreUtile(bien.surfaceHabitableM2);
+export function surfaceDuBien(bien: MarcheDpe | null | undefined): number | null {
+  return nombreUtile(bien?.surface) ?? nombreUtile(bien?.surfaceHabitableM2);
 }
 
 export function estChauffageElectrique(chauffage: unknown): boolean {
@@ -93,8 +93,8 @@ export function factureEdfEstimee(
   return Math.round(surface * conso * PRIX_KWH_EDF_EUR);
 }
 
-export function estCibleSolaire(bien: MarcheDpe): boolean {
-  if (!estChauffageElectrique(bien.chauffage)) return false;
+export function estCibleSolaire(bien: MarcheDpe | null | undefined): boolean {
+  if (!bien || !estChauffageElectrique(bien?.chauffage)) return false;
   const conso = consoDuBien(bien);
   if (conso != null && conso >= 250) return true;
   const facture = factureEdfEstimee(surfaceDuBien(bien), conso);

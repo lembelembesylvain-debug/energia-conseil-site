@@ -21,7 +21,12 @@
       "lat": 46.79091321439035,
       "lng": 4.8559240761265166,
       "conso_energie": 266,
-      "type_chauffage": "gaz"
+      "type_chauffage": "gaz",
+      "date_dpe": "2012-04-03",
+      "couverture_dvf_ans": 12,
+      "mutations_dvf": [
+        { "date": "2014-05-12", "prix_net": 142000, "prix_m2": 1434, "surface_m2": 99 }
+      ]
     },
     {
       "id": "71-DPE-0002",
@@ -51,7 +56,11 @@
       "lat": 46.77349412345439,
       "lng": 4.843300335312821,
       "conso_energie": 446,
-      "type_chauffage": "fioul"
+      "type_chauffage": "fioul",
+      "date_dpe": "2024-06-01",
+      "mutations_dvf": [
+        { "date": "2025-09-18", "prix_net": 98000, "prix_m2": 1342, "surface_m2": 73 }
+      ]
     },
     {
       "id": "71-DPE-0004",
@@ -293,7 +302,8 @@
       "lat": 46.912281794857606,
       "lng": 4.741772415360808,
       "conso_energie": 475,
-      "type_chauffage": "fioul"
+      "type_chauffage": "fioul",
+      "date_dpe": "2026-07-15"
     },
     {
       "id": "71-DPE-0021",
@@ -580,7 +590,11 @@
       "lat": 46.81941560216341,
       "lng": 4.453991222809627,
       "conso_energie": 365,
-      "type_chauffage": "électrique"
+      "type_chauffage": "électrique",
+      "date_dpe": "2025-11-02",
+      "mutations_dvf": [
+        { "date": "2026-03-12", "prix_net": 185000, "prix_m2": 2102, "surface_m2": 88 }
+      ]
     },
     {
       "id": "71-DPE-0041",

@@ -6,6 +6,7 @@ import {
   formaterRatio,
 } from "../../lib/proptech/ficheOpportuniteSniper";
 import BannieresOpportunite from "./BannieresOpportunite";
+import StatutTransactionBloc from "./StatutTransactionBloc";
 import BlocEtudeSolaire from "./ExportEtudeSolaire";
 
 function euro(valeur) {
@@ -69,6 +70,7 @@ export default function PanneauSniperProptech({
 
       <ExportFicheTerrainPdf fiche={fiche} />
       <BlocEtudeSolaire fiche={fiche} />
+      <StatutTransactionBloc statut={fiche.statutTransaction} />
 
       {chargement ? <p className="mt-3 text-xs text-amber-100">Interrogation des APIs ouvertes…</p> : null}
       {erreur ? <p className="mt-3 text-xs text-rose-200">{erreur}</p> : null}

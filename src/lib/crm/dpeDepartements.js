@@ -82,10 +82,11 @@ function nombre(valeur) {
 }
 
 export function normaliserLogementDpe(brut, index = 0) {
-  const geopoint = String(brut._geopoint || brut.geopoint || "");
+  if (!brut || typeof brut !== "object") return null;
+    const geopoint = String(brut?._geopoint || brut?.geopoint || "");
   const [geoLat, geoLng] = geopoint.split(",").map((part) => Number(part.trim()));
   const etiquette = String(
-    brut.etiquette_dpe || brut.Etiquette_DPE || brut.etiquette || "",
+    brut?.etiquette_dpe || brut?.Etiquette_DPE || brut?.etiquette || "",
   )
     .trim()
     .toUpperCase();
@@ -114,7 +115,28 @@ export function normaliserLogementDpe(brut, index = 0) {
     statutOccupation: normaliserStatutOccupation(
       brut.statut_occupation ?? brut.statutOccupation,
     ),
+    dateDpe: dateIso(brut.date_dpe ?? brut.dateDpe ?? brut.date_etablissement_dpe),
+    couvertureDixAns: Number(brut.couverture_dvf_ans) >= 10,
+    mutationsDvf: normaliserMutationsLocales(brut.mutations_dvf ?? brut.mutationsDvf),
   };
+}
+
+function dateIso(valeur) {
+  const brut = String(valeur || "").slice(0, 10);
+  return /^\d{4}-\d{2}-\d{2}$/.test(brut) ? brut : null;
+}
+
+function normaliserMutationsLocales(liste) {
+  if (!Array.isArray(liste)) return [];
+  return liste
+    .map((item) => ({
+      date: dateIso(item?.date),
+      prixNet: nombre(item?.prix_net ?? item?.prixNet),
+      prixM2: nombre(item?.prix_m2 ?? item?.prixM2),
+      surfaceM2: nombre(item?.surface_m2 ?? item?.surfaceM2),
+      surParcelle: item?.sur_parcelle === false || item?.surParcelle === false ? false : true,
+    }))
+    .filter((item) => item.date);
 }
 
 export function normaliserPayloadDpe(code, brut) {
@@ -132,7 +154,7 @@ export function normaliserPayloadDpe(code, brut) {
     },
     logements: extraireListe(brut)
       .map(normaliserLogementDpe)
-      .filter((item) => item.lat != null && item.lng != null),
+      .filter((item) => item?.lat != null && item?.lng != null),
   };
 }
 

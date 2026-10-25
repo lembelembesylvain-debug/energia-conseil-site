@@ -21,22 +21,27 @@ import {
   estBienEnVente,
   estCibleSolaire,
 } from "../../lib/proptech/statutMarcheDpe";
+import { classerStatutTransaction, retenirNouvelAcquereur } from "../../lib/proptech/statutTransactionDvf";
 import BannieresOpportunite from "./BannieresOpportunite";
+import StatutTransactionBloc from "./StatutTransactionBloc";
 
 const URL_CALCULATEUR_AIDES = "/?simulate=1";
 const URL_ANNONCES_DEMO = "/data/dpe/annonces_demo.json";
 
-const FILTRES = [
-  { id: "tous", label: "Tous" },
-  { id: "passoires", label: "Passoires F / G" },
-  { id: "E", label: "E" },
-  { id: "D", label: "D et mieux" },
-];
-
 function logementVisible(logement, filtre) {
-  if (filtre === "passoires") return logement.etiquette === "F" || logement.etiquette === "G";
-  if (filtre === "E") return logement.etiquette === "E";
-  if (filtre === "D") return ["A", "B", "C", "D"].includes(logement.etiquette);
+  const etiquette = logement?.etiquette;
+  if (filtre === "passoires") return etiquette === "F" || etiquette === "G";
+  if (filtre === "E") return etiquette === "E";
+  if (filtre === "D") return ["A", "B", "C", "D"].includes(etiquette);
+  return true;
+}
+
+function correspondTransaction(logement, filtreTransaction) {
+  if (!filtreTransaction || filtreTransaction === "tous") return true;
+  const statut = classerStatutTransaction(logement ?? {});
+  if (filtreTransaction === "acquereurs") return retenirNouvelAcquereur(logement ?? {});
+  if (filtreTransaction === "vente") return statut?.id === "vente_active";
+  if (filtreTransaction === "bailleurs") return statut?.id === "bailleur_interdit";
   return true;
 }
 
@@ -97,16 +102,27 @@ function svgTypeBatiment(typeBatiment, couleur) {
 
 function pastilleMarche(logement) {
   const badges = [];
-  if (estBienEnVente(logement)) badges.push(`<i class="dpe-marche-badge dpe-marche-vente">VENTE</i>`);
-  if (estBailleurEnInfraction(logement)) badges.push(`<i class="dpe-marche-badge dpe-marche-bailleur">BAILLEUR / G-F</i>`);
-  if (estCibleSolaire(logement)) badges.push(`<i class="dpe-marche-badge dpe-marche-solaire">CIBLE SOLAIRE</i>`);
+  let statut = null;
+  try {
+    statut = classerStatutTransaction(logement ?? {});
+  } catch {
+    statut = null;
+  }
+  if (statut?.id === "vendu_recent") badges.push(`<i class="dpe-marche-badge dpe-marche-acquereur">${statut.badge}</i>`);
+  else if (statut?.id === "vente_active") badges.push(`<i class="dpe-marche-badge dpe-marche-vente-active">${statut.badge}</i>`);
+  else if (estBienEnVente(logement ?? {})) badges.push(`<i class="dpe-marche-badge dpe-marche-vente">VENTE</i>`);
+  if (statut?.id !== "vendu_recent" && (statut?.id === "bailleur_interdit" || estBailleurEnInfraction(logement ?? {}))) {
+    badges.push(`<i class="dpe-marche-badge dpe-marche-bailleur">BAILLEUR / G-F</i>`);
+  }
+  if (statut?.id === "occupant_historique") badges.push(`<i class="dpe-marche-badge dpe-marche-historique">${statut.badge}</i>`);
+  if (estCibleSolaire(logement ?? {})) badges.push(`<i class="dpe-marche-badge dpe-marche-solaire">CIBLE SOLAIRE</i>`);
   if (!badges.length) return "";
   return `<span class="dpe-marche-badges">${badges.join("")}</span>`;
 }
 
 function iconeTypeBatiment(logement, typeBatiment) {
-  const couleur = COULEURS_DPE[logement.etiquette] ?? "#dc2626";
-  const lettre = echapperHtml(logement.etiquette);
+  const couleur = COULEURS_DPE[logement?.etiquette] ?? "#dc2626";
+  const lettre = echapperHtml(logement?.etiquette ?? "?");
   const meta = trouverTypeBatimentDpe(typeBatiment);
   return L.divIcon({
     className: "dpe-type-icon",
@@ -129,6 +145,7 @@ export default function DpeMapper() {
   const [filtreVente, setFiltreVente] = useState(false);
   const [filtreBailleur, setFiltreBailleur] = useState(false);
   const [filtreSolaire, setFiltreSolaire] = useState(false);
+  const [filtreTransaction, setFiltreTransaction] = useState("tous");
   const [typeBatiment, setTypeBatiment] = useState(TYPE_BATIMENT_DPE_DEFAUT);
   const [selection, setSelection] = useState(null);
   const [cibleVille, setCibleVille] = useState(null);
@@ -141,7 +158,6 @@ export default function DpeMapper() {
   const [sniperChargement, setSniperChargement] = useState(false);
   const [sniperErreur, setSniperErreur] = useState("");
   const [sniperMasque, setSniperMasque] = useState(false);
-  const [filtresMasques, setFiltresMasques] = useState(false);
   const [cartePrete, setCartePrete] = useState(false);
   const carteRef = useRef(null);
   const mapRef = useRef(null);
@@ -159,20 +175,28 @@ export default function DpeMapper() {
     [payload, filtre],
   );
   const logementsAffiches = useMemo(
-    () => apresClasse.filter((item) => correspondMarche(item, filtreVente, filtreBailleur, filtreSolaire)),
-    [apresClasse, filtreVente, filtreBailleur, filtreSolaire],
+    () =>
+      apresClasse.filter(
+        (item) =>
+          correspondMarche(item, filtreVente, filtreBailleur, filtreSolaire) &&
+          correspondTransaction(item, filtreTransaction),
+      ),
+    [apresClasse, filtreVente, filtreBailleur, filtreSolaire, filtreTransaction],
   );
 
-  const nbVente = useMemo(() => apresClasse.filter((item) => estBienEnVente(item)).length, [apresClasse]);
   const nbBailleursUrgence = useMemo(
     () => apresClasse.filter((item) => estBailleurEnInfraction(item)).length,
     [apresClasse],
   );
   const nbSolaire = useMemo(() => apresClasse.filter((item) => estCibleSolaire(item)).length, [apresClasse]);
-  const filtresEliteActifs = filtreVente || filtreBailleur || filtreSolaire || filtre !== "tous";
+  const nbAcquereurs = useMemo(() => apresClasse.filter((item) => retenirNouvelAcquereur(item)).length, [apresClasse]);
+  const nbVenteActive = useMemo(
+    () => apresClasse.filter((item) => classerStatutTransaction(item)?.id === "vente_active").length,
+    [apresClasse],
+  );
 
   const nbPassoires = useMemo(
-    () => (payload?.logements ?? []).filter((item) => item.etiquette === "F" || item.etiquette === "G").length,
+    () => (payload?.logements ?? []).filter((item) => item?.etiquette === "F" || item?.etiquette === "G").length,
     [payload],
   );
 
@@ -271,20 +295,12 @@ export default function DpeMapper() {
     const ajuster = () => map.invalidateSize();
     ajuster();
     const frame = requestAnimationFrame(ajuster);
-    const timer = window.setTimeout(ajuster, 80);
+    const timer = window.setTimeout(ajuster, 180);
     return () => {
       cancelAnimationFrame(frame);
       window.clearTimeout(timer);
     };
-  }, [filtresMasques, cartePrete]);
-
-  const basculerFiltres = (masques) => {
-    setFiltresMasques(masques);
-    requestAnimationFrame(() => {
-      mapRef.current?.invalidateSize();
-      requestAnimationFrame(() => mapRef.current?.invalidateSize());
-    });
-  };
+  }, [cartePrete]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -330,24 +346,34 @@ export default function DpeMapper() {
     calque.clearLayers();
 
     logementsAffiches.forEach((logement) => {
-      const marqueur = L.marker([logement.lat, logement.lng], {
-        icon: iconeTypeBatiment(logement, typeBatiment),
-        keyboard: true,
-        title: `${logement.etiquette} · ${logement.adresse}, ${logement.commune}`,
-      });
-      marqueur.bindTooltip(
-        `${trouverTypeBatimentDpe(typeBatiment).icone} ${logement.etiquette} · ${logement.adresse}, ${logement.commune}`,
-        { direction: "top", opacity: 0.95 },
-      );
-      marqueur.on("click", (event) => {
-        L.DomEvent.stopPropagation(event);
-        mapRef.current?.closePopup();
-        setAnnonceActive(null);
-        setCibleAdresse(null);
-        setSniperMasque(false);
-        setSelection(logement);
-      });
-      marqueur.addTo(calque);
+      const lat = Number(logement?.lat);
+      const lng = Number(logement?.lng);
+      if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+      try {
+        const etiquette = logement?.etiquette ?? "?";
+        const adresse = logement?.adresse ?? "Adresse non renseignée";
+        const commune = logement?.commune ?? "";
+        const marqueur = L.marker([lat, lng], {
+          icon: iconeTypeBatiment(logement, typeBatiment),
+          keyboard: true,
+          title: `${etiquette} · ${adresse}, ${commune}`,
+        });
+        marqueur.bindTooltip(
+          `${trouverTypeBatimentDpe(typeBatiment)?.icone ?? ""} ${etiquette} · ${adresse}, ${commune}`,
+          { direction: "top", opacity: 0.95 },
+        );
+        marqueur.on("click", (event) => {
+          L.DomEvent.stopPropagation(event);
+          mapRef.current?.closePopup();
+          setAnnonceActive(null);
+          setCibleAdresse(null);
+          setSniperMasque(false);
+          setSelection(logement);
+        });
+        marqueur.addTo(calque);
+      } catch {
+        /* une fiche incomplète ne bloque pas les autres marqueurs */
+      }
     });
   }, [logementsAffiches, typeBatiment]);
 
@@ -500,10 +526,162 @@ export default function DpeMapper() {
     if (dept && dept !== code && trouverDepartementDpe(dept)) setCode(dept);
   };
 
+  const toutEfface =
+    filtre === "tous" && !filtreVente && !filtreBailleur && !filtreSolaire && filtreTransaction === "tous";
+
+  const choisirRapide = (id) => {
+    setFiltre("tous");
+    setFiltreVente(false);
+    setFiltreBailleur(false);
+    setFiltreSolaire(false);
+    setFiltreTransaction("tous");
+    if (id === "acquereurs") setFiltreTransaction("acquereurs");
+    if (id === "vente") setFiltreTransaction("vente");
+    if (id === "bailleurs") setFiltreBailleur(true);
+    if (id === "solaire") setFiltreSolaire(true);
+    if (id === "passoires") setFiltre("passoires");
+  };
+
+  const classeBadge = (actif, actifClasse) =>
+    `rounded-full border px-3 py-1.5 text-xs font-medium ${
+      actif ? actifClasse : "border-slate-700 bg-slate-900 text-slate-300 hover:border-slate-500"
+    }`;
+
   return (
-    <section className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80">
-      <div className={`relative ${filtresMasques ? "h-[85vh] min-h-[85vh]" : "min-h-[70vh]"}`}>
-        <div ref={carteRef} className={`dpe-mapper-carte absolute inset-0 z-0 h-full w-full ${filtresMasques ? "min-h-[85vh]" : "min-h-[70vh]"}`} />
+    <section className="rounded-2xl border border-slate-800 bg-slate-900/80 p-3">
+      <div className="mb-3 flex flex-col gap-3 lg:flex-row lg:items-end">
+        <label className="block min-w-[14rem] flex-1">
+          <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
+            Sélectionner le département
+          </span>
+          <select
+            value={code}
+            onChange={(e) => {
+              setCibleVille(null);
+              setNoticeVille("");
+              setCode(e.target.value);
+            }}
+            className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
+          >
+            {DEPARTEMENTS_DPE.map((dept) => (
+              <option key={dept.code} value={dept.code}>
+                {dept.code} — {dept.nom} ({dept.villePrincipale})
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="block min-w-[14rem] flex-1">
+          <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
+            Type de bâtiment
+          </span>
+          <select
+            value={typeBatiment}
+            onChange={(e) => {
+              setSelection(null);
+              setTypeBatiment(e.target.value);
+            }}
+            className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
+          >
+            {TYPES_BATIMENT_DPE.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.icone} {item.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <RechercheVilleBan onChoisir={choisirVille} latProximite={meta?.lat} lngProximite={meta?.lng} />
+        <RechercheVilleBan mode="adresse" onChoisir={choisirAdresse} latProximite={meta?.lat} lngProximite={meta?.lng} />
+        <button
+          type="button"
+          aria-pressed={voirAnnonces}
+          onClick={() => {
+            setVoirAnnonces((actuel) => {
+              const suivant = !actuel;
+              if (!suivant) setAnnonceActive(null);
+              return suivant;
+            });
+          }}
+          className={`h-10 shrink-0 rounded-xl border px-3 text-xs font-medium ${
+            voirAnnonces
+              ? "border-sky-400/70 bg-sky-500/20 text-sky-100"
+              : "border-slate-700 bg-slate-900 text-slate-300 hover:border-sky-500/40"
+          }`}
+        >
+          Biens à vendre
+        </button>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2 mb-3">
+        <button
+          type="button"
+          data-testid="filtre-dpe-acquereurs"
+          aria-pressed={filtreTransaction === "acquereurs"}
+          onClick={() => choisirRapide("acquereurs")}
+          className={classeBadge(filtreTransaction === "acquereurs", "border-emerald-300 bg-emerald-500/25 text-emerald-50")}
+        >
+          🟢 Nouveaux Acquéreurs (Vendus &lt; 24 mois) ({nbAcquereurs})
+        </button>
+        <button
+          type="button"
+          data-testid="filtre-dpe-vente-active"
+          aria-pressed={filtreTransaction === "vente"}
+          onClick={() => choisirRapide("vente")}
+          className={classeBadge(filtreTransaction === "vente", "border-cyan-300 bg-cyan-500/25 text-cyan-50")}
+        >
+          🔵 En Vente Active ({nbVenteActive})
+        </button>
+        <button
+          type="button"
+          data-testid="filtre-dpe-bailleurs-bloques"
+          aria-pressed={filtreBailleur}
+          onClick={() => choisirRapide("bailleurs")}
+          className={classeBadge(filtreBailleur, "border-rose-300 bg-rose-600/30 text-rose-50")}
+        >
+          🔴 Bailleurs Urgence G/F ({nbBailleursUrgence})
+        </button>
+        <button
+          type="button"
+          data-testid="filtre-dpe-solaire"
+          aria-pressed={filtreSolaire}
+          onClick={() => choisirRapide("solaire")}
+          className={classeBadge(filtreSolaire, "border-amber-300 bg-amber-600/30 text-amber-50")}
+        >
+          ☀️ Cibles Solaires 100 kWc ({nbSolaire})
+        </button>
+        <button
+          type="button"
+          data-testid="filtre-dpe-passoires"
+          aria-pressed={filtre === "passoires"}
+          onClick={() => choisirRapide("passoires")}
+          className={classeBadge(filtre === "passoires", "border-orange-300 bg-orange-500/25 text-orange-50")}
+        >
+          Passoires F/G ({nbPassoires})
+        </button>
+        <button
+          type="button"
+          data-testid="filtre-dpe-tous-biens"
+          aria-pressed={toutEfface}
+          onClick={() => choisirRapide("tous")}
+          className={classeBadge(toutEfface, "border-emerald-400/60 bg-emerald-500/20 text-emerald-100")}
+        >
+          Tous
+        </button>
+      </div>
+      <p className="mb-3 text-xs text-slate-400" data-testid="compteur-marche-dpe">
+        {chargement ? "Chargement du fichier JSON…" : `${logementsAffiches.length} bâtiment(s)`}
+        {!chargement && payload ? ` · ${nbPassoires} passoires F/G` : ""}
+        <span className="text-slate-500">
+          {" "}
+          · {trouverTypeBatimentDpe(typeBatiment)?.icone} {trouverTypeBatimentDpe(typeBatiment)?.label}
+          · centrée sur {villeLabel}
+          {cibleVille ? " · zoom 14" : ""} · {urlJsonDepartement(code, typeBatiment).replace("/data/dpe/", "")} uniquement
+          {voirAnnonces ? ` · ${annonces.length} biens à vendre (démo)` : ""}
+        </span>
+      </p>
+      {noticeVille ? <p className="mb-3 text-[11px] text-amber-200">{noticeVille}</p> : null}
+
+      <div className="w-full h-[650px] relative rounded-xl overflow-hidden">
+        <div ref={carteRef} className="dpe-mapper-carte absolute inset-0 z-0 h-full w-full" />
         <style>{`
           .dpe-mapper-carte.leaflet-container { background: #020617; font: inherit; }
           .dpe-mapper-carte img { max-width: none !important; }
@@ -546,6 +724,21 @@ export default function DpeMapper() {
             background: #b45309;
             color: #fef3c7;
             border: 1px solid #fde68a;
+          }
+          .dpe-marche-acquereur {
+            background: #059669;
+            color: #ecfdf5;
+            border: 1px solid #6ee7b7;
+          }
+          .dpe-marche-vente-active {
+            background: #0891b2;
+            color: #ecfeff;
+            border: 1px solid #67e8f9;
+          }
+          .dpe-marche-historique {
+            background: #475569;
+            color: #f1f5f9;
+            border: 1px solid #94a3b8;
           }
           .dpe-marche-bailleur {
             background: #be123c;
@@ -637,196 +830,13 @@ export default function DpeMapper() {
           .dpe-annonce-btn-simuler { background: #059669; color: #fff; }
         `}</style>
 
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-[2000] flex flex-col gap-3 p-3 sm:p-4">
-          {filtresMasques ? (
-            <button
-              type="button"
-              data-testid="dpe-afficher-filtres"
-              onClick={() => basculerFiltres(false)}
-              className="pointer-events-auto w-fit rounded-full border border-white/15 bg-[#0a0f1d]/75 px-3 py-1.5 text-[11px] font-medium text-slate-200 shadow-lg backdrop-blur hover:border-cyan-300/40 hover:text-white"
-            >
-              🔽 Afficher les filtres
-            </button>
-          ) : (
-            <div className="flex justify-end">
-              <button
-                type="button"
-                data-testid="dpe-plein-ecran"
-                onClick={() => basculerFiltres(true)}
-                className="pointer-events-auto rounded-xl border border-cyan-300/50 bg-[#0a0f1d]/92 px-3.5 py-2 text-xs font-semibold tracking-wide text-cyan-50 shadow-[0_8px_24px_rgba(8,47,73,0.45)] backdrop-blur hover:border-cyan-200 hover:bg-cyan-950"
-              >
-                ⛶ Mode Plein Écran
-              </button>
-            </div>
-          )}
-          {!filtresMasques ? (
-          <div className="pointer-events-auto rounded-2xl border border-slate-700/80 bg-slate-950/90 p-3 shadow-xl backdrop-blur">
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-end">
-              <label className="block min-w-[14rem] flex-1">
-                <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
-                  Sélectionner le département
-                </span>
-                <select
-                  value={code}
-                  onChange={(e) => {
-                    setCibleVille(null);
-                    setNoticeVille("");
-                    setCode(e.target.value);
-                  }}
-                  className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
-                >
-                  {DEPARTEMENTS_DPE.map((dept) => (
-                    <option key={dept.code} value={dept.code}>
-                      {dept.code} — {dept.nom} ({dept.villePrincipale})
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="block min-w-[14rem] flex-1">
-                <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
-                  Type de bâtiment
-                </span>
-                <select
-                  value={typeBatiment}
-                  onChange={(e) => {
-                    setSelection(null);
-                    setTypeBatiment(e.target.value);
-                  }}
-                  className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
-                >
-                  {TYPES_BATIMENT_DPE.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.icone} {item.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <RechercheVilleBan
-                onChoisir={choisirVille}
-                latProximite={meta?.lat}
-                lngProximite={meta?.lng}
-              />
-              <RechercheVilleBan
-                mode="adresse"
-                onChoisir={choisirAdresse}
-                latProximite={meta?.lat}
-                lngProximite={meta?.lng}
-              />
-              <div className="flex flex-wrap gap-2 pb-0.5">
-                {FILTRES.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setFiltre(item.id)}
-                    className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
-                      filtre === item.id
-                        ? "border-emerald-400/60 bg-emerald-500/20 text-emerald-100"
-                        : "border-slate-700 bg-slate-900 text-slate-300 hover:border-slate-500"
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-                <button
-                  type="button"
-                  data-testid="filtre-dpe-vente"
-                  aria-pressed={filtreVente}
-                  onClick={() => setFiltreVente((actuel) => !actuel)}
-                  className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
-                    filtreVente
-                      ? "border-amber-200 bg-amber-500/25 text-amber-50 shadow-[0_0_16px_rgba(251,191,36,0.35)]"
-                      : "border-slate-700 bg-slate-900 text-slate-300 hover:border-amber-300/60"
-                  }`}
-                >
-                  🏷️ En Vente ({nbVente})
-                </button>
-                <button
-                  type="button"
-                  data-testid="filtre-dpe-bailleur"
-                  aria-pressed={filtreBailleur}
-                  onClick={() => setFiltreBailleur((actuel) => !actuel)}
-                  className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
-                    filtreBailleur
-                      ? "border-rose-300 bg-rose-600/30 text-rose-50 shadow-[0_0_16px_rgba(244,63,94,0.35)]"
-                      : "border-slate-700 bg-slate-900 text-slate-300 hover:border-rose-400/60"
-                  }`}
-                >
-                  🔑 Bailleurs Urgence G/F ({nbBailleursUrgence})
-                </button>
-                <button
-                  type="button"
-                  data-testid="filtre-dpe-solaire"
-                  aria-pressed={filtreSolaire}
-                  onClick={() => setFiltreSolaire((actuel) => !actuel)}
-                  className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
-                    filtreSolaire
-                      ? "border-amber-300 bg-amber-600/30 text-amber-50 shadow-[0_0_16px_rgba(245,158,11,0.35)]"
-                      : "border-slate-700 bg-slate-900 text-slate-300 hover:border-amber-400/60"
-                  }`}
-                >
-                  ⚡ Cibles Solaire EDF ({nbSolaire})
-                </button>
-                <button
-                  type="button"
-                  data-testid="filtre-dpe-reset"
-                  disabled={!filtresEliteActifs}
-                  onClick={() => {
-                    setFiltre("tous");
-                    setFiltreVente(false);
-                    setFiltreBailleur(false);
-                    setFiltreSolaire(false);
-                  }}
-                  className="rounded-full border border-slate-600 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-400 disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  Réinitialiser les filtres
-                </button>
-                <button
-                  type="button"
-                  aria-pressed={voirAnnonces}
-                  onClick={() => {
-                    setVoirAnnonces((actuel) => {
-                      const suivant = !actuel;
-                      if (!suivant) setAnnonceActive(null);
-                      return suivant;
-                    });
-                  }}
-                  className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
-                    voirAnnonces
-                      ? "border-sky-400/70 bg-sky-500/20 text-sky-100 shadow-[0_0_16px_rgba(56,189,248,0.25)]"
-                      : "border-slate-700 bg-slate-900 text-slate-300 hover:border-sky-500/40"
-                  }`}
-                >
-                  🏠 Afficher les biens à vendre
-                </button>
-              </div>
-            </div>
-            <p className="mt-2 text-xs text-slate-400" data-testid="compteur-marche-dpe">
-              {chargement ? "Chargement du fichier JSON…" : `${logementsAffiches.length} bâtiment(s)`}
-              {!chargement && payload ? ` · ${nbPassoires} passoires F/G` : ""}
-              <span className="text-slate-500">
-                {" "}
-                · {trouverTypeBatimentDpe(typeBatiment).icone} {trouverTypeBatimentDpe(typeBatiment).label}
-                · centrée sur {villeLabel}
-                {cibleVille ? " · zoom 14" : ""} · {urlJsonDepartement(code, typeBatiment).replace("/data/dpe/", "")} uniquement
-                {voirAnnonces ? ` · ${annonces.length} biens à vendre (démo)` : ""}
-                {" "}
-                · clic maison / adresse / carte → cadastre IGN, DVF Etalab, Géorisques
-              </span>
-            </p>
-            {noticeVille ? (
-              <p className="mt-1 text-[11px] text-amber-200">{noticeVille}</p>
-            ) : null}
-          </div>
-          ) : null}
-
-          <div className="pointer-events-auto ml-auto flex max-w-full flex-wrap gap-1.5 rounded-xl border border-slate-700/70 bg-slate-950/85 px-2.5 py-2 text-[10px] font-semibold uppercase tracking-wide text-slate-200">
-            {Object.entries(COULEURS_DPE).map(([lettre, couleur]) => (
-              <span key={lettre} className="inline-flex items-center gap-1">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: couleur }} />
-                {lettre}
-              </span>
-            ))}
-          </div>
+        <div className="pointer-events-none absolute bottom-3 left-3 z-[1200] flex flex-wrap gap-1.5 rounded-xl border border-slate-700/70 bg-slate-950/85 px-2.5 py-2 text-[10px] font-semibold uppercase tracking-wide text-slate-200">
+          {Object.entries(COULEURS_DPE).map(([lettre, couleur]) => (
+            <span key={lettre} className="inline-flex items-center gap-1">
+              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: couleur }} />
+              {lettre}
+            </span>
+          ))}
         </div>
 
         {chargement && !cibleVille ? (
@@ -918,6 +928,7 @@ export default function DpeMapper() {
               </button>
             </div>
             <BannieresOpportunite bien={selection} />
+            <StatutTransactionBloc statut={classerStatutTransaction(selection)} />
             <p className="mt-3 font-medium text-white">{selection.adresse}</p>
             <p className="text-sm text-slate-300">
               {selection.codePostal} {selection.commune}
