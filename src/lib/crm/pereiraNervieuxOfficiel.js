@@ -1,6 +1,6 @@
 /**
  * Contrat de Contractant Général — David Emmanuel PEREIRA, Nervieux (42).
- * Panier sans ITI, sans Velux, sans rampants. Prix fermes du marché 16/09/2026.
+ * Panier sans ITI, sans Velux, sans rampants. Marché de travaux de Contractant Général du 26/10/2026.
  * Fiscalité : avis d’imposition 2025 (situation 2026) — RFR 27 522 €, 1 part, province.
  * Distinct du fixture de test `demo-pereira` (ne pas fusionner).
  */
@@ -20,8 +20,8 @@ import {
 export { PRESTATAIRE_ENERGIA };
 
 export const PEREIRA_NERVIEUX_DOSSIER_ID = "projet-manuel-pereira-nervieux";
-export const PEREIRA_NERVIEUX_NUMERO = "CONTRAT-2026-PEREIRA-NERVIEUX-SANS-ITI";
-export const PEREIRA_NERVIEUX_DATE = "2026-09-16";
+export const PEREIRA_NERVIEUX_NUMERO = "DEV-2026-PEREIRA-01";
+export const PEREIRA_NERVIEUX_DATE = "2026-10-26";
 export const PEREIRA_NERVIEUX_DATE_VISITE = "2026-09-03";
 export const PEREIRA_CONTRAT_TITRE =
   "CONTRAT DE CONTRACTANT GÉNÉRAL — MARCHÉ DE RÉNOVATION GLOBALE CLÉ EN MAIN";
@@ -35,7 +35,7 @@ export const FICHIER_SAUVEGARDE_PEREIRA_NERVIEUX_CALCULE = "client-pereira-nervi
 export const FICHIER_SAUVEGARDE_PEREIRA_NERVIEUX_LEGACY = "client-pereira-nervieux.json";
 
 const TVA_TRAVAUX = 0.055;
-const TVA_CG = 0.2;
+const TVA_CG = 0.055;
 
 function round2(n) {
   return Math.round((Number(n) + Number.EPSILON) * 100) / 100;
@@ -337,11 +337,11 @@ export const POSTES_PEREIRA_NERVIEUX = [
     artisan: "À sélectionner RGE",
     quantite: 1,
     unite: "lot",
-    puHt: 1421.8,
+    puHt: 1160.9,
     tauxTva: TVA_TRAVAUX,
-    totalHt: 1421.8,
-    totalTva: 78.2,
-    totalTtc: 1500,
+    totalHt: 1160.9,
+    totalTva: 63.85,
+    totalTtc: 1224.75,
     ordreThermique: 5,
     ordreContractuel: 4,
     prestationId: "marche-vmc-sf-hygro",
@@ -355,11 +355,11 @@ export const POSTES_PEREIRA_NERVIEUX = [
     artisan: "À sélectionner RGE (ECO SYSTÈME DURABLE)",
     quantite: 1,
     unite: "lot",
-    puHt: 12500,
+    puHt: 9772.67,
     tauxTva: TVA_TRAVAUX,
-    totalHt: 12500,
-    totalTva: 687.5,
-    totalTtc: 13187.5,
+    totalHt: 9772.67,
+    totalTva: 537.49,
+    totalTtc: 10310.16,
     ordreThermique: 6,
     ordreContractuel: 5,
     prestationId: "marche-pac-ae-6kw",
@@ -405,15 +405,15 @@ export const POSTES_PEREIRA_NERVIEUX = [
     familleId: "",
     nom: "Direction & Contractant Général — Sylvain LEMBELEMBE — ENERGIA-CONSEIL IA®",
     specifications:
-      `Coordination TCE, pilotage de chantier, engagement sur les délais et prix ferme garanti, responsabilité décennale complète (MIC Insurance). TVA 20 %. Clyve (${HONORAIRES_HUB_ADMIN_HT.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} € HT) est un coût interne, non facturé au client.`,
+      `Coordination TCE, pilotage de chantier. Marché de travaux de Contractant Général. Responsabilité décennale complète (MIC Insurance). TVA 5,5 %. Clyve (${HONORAIRES_HUB_ADMIN_HT.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} € HT) est un coût interne, non facturé au client.`,
     artisan: "ENERGIA-CONSEIL IA®",
     quantite: 1,
     unite: "lot",
     puHt: 5200,
     tauxTva: TVA_CG,
     totalHt: 5200,
-    totalTva: 1040,
-    totalTtc: 6240,
+    totalTva: 286,
+    totalTtc: 5486,
     ordreThermique: 9,
     ordreContractuel: 8,
     prestationId: "energia-contractant-general",
@@ -421,54 +421,53 @@ export const POSTES_PEREIRA_NERVIEUX = [
 ];
 
 export const TOTAUX_TRAVAUX_55_PEREIRA = {
-  totalHt: 28499.13,
-  totalTva: 1567.45,
-  totalTtc: 30066.58,
+  totalHt: 25510.9,
+  totalTva: 1403.1,
+  totalTtc: 26914,
 };
 
 export const TOTAUX_CG_20_PEREIRA = {
   totalHt: 5200,
-  totalTva: 1040,
-  totalTtc: 6240,
+  totalTva: 286,
+  totalTtc: 5486,
 };
 
 export const TOTAUX_PEREIRA_NERVIEUX = {
-  totalHt: 33699.13,
-  totalTva: 2607.45,
-  totalTtc: 36306.58,
+  totalHt: 30710.9,
+  totalTva: 1689.1,
+  totalTtc: 32400,
 };
 
 export const FINANCEMENT_PEREIRA_CG = {
-  acompte: 10891.97,
-  intermediaire: 14522.63,
-  solde: 10891.97,
+  acompte: 5070,
+  intermediaire: 6760,
+  solde: 5070,
   ecoPtzDuree: 20,
 };
 
-/** MPR 2026 officiel Violet 45 % sur travaux 5,5 % HT + MAR 80 % × 2 000 €. */
+/** MPR 2026 Violet + CEE Coup de pouce sortie de fioul — marché du 26/10/2026. */
 export const AIDES_PEREIRA_VIOLET = {
   profil: "violet",
   rfr: 27522,
   parts: 1,
-  travauxEligiblesHt: 28499.13,
+  travauxEligiblesHt: 25510.9,
   tauxParcours: 0.45,
   plafondHt: 40000,
   maxProfil: 18000,
   tauxMar: 0.8,
-  mpr: 12824.61,
-  mar: 1600,
-  cee: 0,
+  mpr: 11500,
+  mar: 0,
+  cee: 4000,
   locales: 0,
   coupDePouce: 0,
-  totalAides: 14424.61,
+  totalAides: 15500,
   ecretementTtc: 0.8,
-  plafondEcretement: 29045.26,
+  plafondEcretement: 25920,
   ecrete: false,
-  resteACharge: 21881.97,
-  mensualite20: 91.17,
+  resteACharge: 16900,
+  mensualite20: 70.42,
   libelleMpr: "MaPrimeRénov’ Parcours Accompagné (Violet 45 %, 3 classes, base HT travaux 5,5 %)",
-  libelleCee:
-    "CEE Prime énergie PAC air/eau haute température (valorisation intégrée dans MaPrimeRénov')",
+  libelleCee: "Prime CEE Coup de pouce sortie de fioul",
 };
 
 export function lignesTravauxPereiraNervieux() {
@@ -522,9 +521,9 @@ export function editionOfficiellePereiraNervieux() {
       parts: a.parts,
       overrides: {
         mpr: a.mpr,
-        cee: 0,
+        cee: a.cee,
         locales: 0,
-        coupDePouce: 0,
+        coupDePouce: a.coupDePouce,
         mar: a.mar,
       },
     },
