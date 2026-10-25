@@ -5,6 +5,8 @@ import {
   formaterHectares,
   formaterRatio,
 } from "../../lib/proptech/ficheOpportuniteSniper";
+import BannieresOpportunite from "./BannieresOpportunite";
+import BlocEtudeSolaire from "./ExportEtudeSolaire";
 
 function euro(valeur) {
   if (valeur == null || !Number.isFinite(Number(valeur))) return "—";
@@ -66,6 +68,7 @@ export default function PanneauSniperProptech({
       </div>
 
       <ExportFicheTerrainPdf fiche={fiche} />
+      <BlocEtudeSolaire fiche={fiche} />
 
       {chargement ? <p className="mt-3 text-xs text-amber-100">Interrogation des APIs ouvertes…</p> : null}
       {erreur ? <p className="mt-3 text-xs text-rose-200">{erreur}</p> : null}
@@ -73,6 +76,7 @@ export default function PanneauSniperProptech({
       {logement || fiche.etiquette || fiche.consoKwhM2 != null ? (
         <section className="mt-3 rounded-xl border border-slate-800 bg-slate-900/70 p-3">
           <p className="text-[10px] font-semibold uppercase tracking-wide text-orange-200">Diagnostic DPE</p>
+          <BannieresOpportunite bien={fiche} valeurVenale={fiche.valeurSectorielle} />
           <div className="mt-2 flex items-start gap-2.5">
             <span
               className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-sm font-bold"

@@ -16,6 +16,12 @@ import RechercheVilleBan from "./RechercheVilleBan";
 import PanneauSniperProptech from "./PanneauSniperProptech";
 import { chargerSniperViaApi } from "../../lib/proptech/sniper";
 import { memoriserSniperSession } from "../../lib/crm/sauvegardeProptech";
+import {
+  estBailleurEnInfraction,
+  estBienEnVente,
+  estCibleSolaire,
+} from "../../lib/proptech/statutMarcheDpe";
+import BannieresOpportunite from "./BannieresOpportunite";
 
 const URL_CALCULATEUR_AIDES = "/?simulate=1";
 const URL_ANNONCES_DEMO = "/data/dpe/annonces_demo.json";
@@ -32,6 +38,14 @@ function logementVisible(logement, filtre) {
   if (filtre === "E") return logement.etiquette === "E";
   if (filtre === "D") return ["A", "B", "C", "D"].includes(logement.etiquette);
   return true;
+}
+
+function correspondMarche(logement, venteSeule, bailleurSeul, solaireSeul) {
+  if (!venteSeule && !bailleurSeul && !solaireSeul) return true;
+  const okVente = venteSeule && estBienEnVente(logement);
+  const okBailleur = bailleurSeul && estBailleurEnInfraction(logement);
+  const okSolaire = solaireSeul && estCibleSolaire(logement);
+  return okVente || okBailleur || okSolaire;
 }
 
 function echapperHtml(valeur) {
@@ -81,6 +95,15 @@ function svgTypeBatiment(typeBatiment, couleur) {
   return `<path fill="${couleur}" stroke="#0f172a" stroke-width="1.3" d="M4 15.2 16 5.2 28 15.2V27a1.4 1.4 0 0 1-1.4 1.4H5.4A1.4 1.4 0 0 1 4 27V15.2Z"/><path fill="#0f172a" d="M13 18.6h6v9.4h-6z"/>`;
 }
 
+function pastilleMarche(logement) {
+  const badges = [];
+  if (estBienEnVente(logement)) badges.push(`<i class="dpe-marche-badge dpe-marche-vente">VENTE</i>`);
+  if (estBailleurEnInfraction(logement)) badges.push(`<i class="dpe-marche-badge dpe-marche-bailleur">BAILLEUR / G-F</i>`);
+  if (estCibleSolaire(logement)) badges.push(`<i class="dpe-marche-badge dpe-marche-solaire">CIBLE SOLAIRE</i>`);
+  if (!badges.length) return "";
+  return `<span class="dpe-marche-badges">${badges.join("")}</span>`;
+}
+
 function iconeTypeBatiment(logement, typeBatiment) {
   const couleur = COULEURS_DPE[logement.etiquette] ?? "#dc2626";
   const lettre = echapperHtml(logement.etiquette);
@@ -92,6 +115,7 @@ function iconeTypeBatiment(logement, typeBatiment) {
     html: `<span class="dpe-type-mark" title="${meta.icone} ${meta.label} DPE ${lettre}">
       <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">${svgTypeBatiment(typeBatiment, couleur)}</svg>
       <em>${lettre}</em>
+      ${pastilleMarche(logement)}
     </span>`,
   });
 }
@@ -102,6 +126,9 @@ export default function DpeMapper() {
   const [chargement, setChargement] = useState(true);
   const [erreur, setErreur] = useState("");
   const [filtre, setFiltre] = useState("tous");
+  const [filtreVente, setFiltreVente] = useState(false);
+  const [filtreBailleur, setFiltreBailleur] = useState(false);
+  const [filtreSolaire, setFiltreSolaire] = useState(false);
   const [typeBatiment, setTypeBatiment] = useState(TYPE_BATIMENT_DPE_DEFAUT);
   const [selection, setSelection] = useState(null);
   const [cibleVille, setCibleVille] = useState(null);
@@ -127,9 +154,22 @@ export default function DpeMapper() {
 
   const meta = trouverDepartementDpe(code);
 
-  const logementsAffiches = useMemo(() => {
-    return (payload?.logements ?? []).filter((item) => logementVisible(item, filtre));
-  }, [payload, filtre]);
+  const apresClasse = useMemo(
+    () => (payload?.logements ?? []).filter((item) => logementVisible(item, filtre)),
+    [payload, filtre],
+  );
+  const logementsAffiches = useMemo(
+    () => apresClasse.filter((item) => correspondMarche(item, filtreVente, filtreBailleur, filtreSolaire)),
+    [apresClasse, filtreVente, filtreBailleur, filtreSolaire],
+  );
+
+  const nbVente = useMemo(() => apresClasse.filter((item) => estBienEnVente(item)).length, [apresClasse]);
+  const nbBailleursUrgence = useMemo(
+    () => apresClasse.filter((item) => estBailleurEnInfraction(item)).length,
+    [apresClasse],
+  );
+  const nbSolaire = useMemo(() => apresClasse.filter((item) => estCibleSolaire(item)).length, [apresClasse]);
+  const filtresEliteActifs = filtreVente || filtreBailleur || filtreSolaire || filtre !== "tous";
 
   const nbPassoires = useMemo(
     () => (payload?.logements ?? []).filter((item) => item.etiquette === "F" || item.etiquette === "G").length,
@@ -312,6 +352,14 @@ export default function DpeMapper() {
   }, [logementsAffiches, typeBatiment]);
 
   useEffect(() => {
+    if (!selection) return;
+    if (logementsAffiches.some((item) => item.id === selection.id)) return;
+    setSelection(null);
+    setSniper(null);
+    setSniperErreur("");
+  }, [logementsAffiches, selection]);
+
+  useEffect(() => {
     const calque = annoncesLayerRef.current;
     if (!calque) return;
     calque.clearLayers();
@@ -462,7 +510,7 @@ export default function DpeMapper() {
           .dpe-mapper-carte .leaflet-popup-pane { z-index: 2500; }
           .dpe-mapper-carte .leaflet-tooltip-pane { z-index: 2400; }
           .dpe-annonce-icon { background: none; border: 0; }
-          .dpe-type-icon { background: none; border: 0; }
+          .dpe-type-icon { background: none; border: 0; overflow: visible !important; }
           .dpe-type-mark {
             position: relative;
             display: flex;
@@ -470,6 +518,52 @@ export default function DpeMapper() {
             justify-content: center;
             width: 34px;
             height: 34px;
+            overflow: visible;
+          }
+          .dpe-marche-badges {
+            position: absolute;
+            top: -7px;
+            left: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            pointer-events: none;
+            z-index: 3;
+          }
+          .dpe-marche-badge {
+            display: inline-block;
+            padding: 0 3px;
+            border-radius: 999px;
+            font-style: normal;
+            font-size: 7px;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            line-height: 1.35;
+            white-space: nowrap;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+          }
+          .dpe-marche-vente {
+            background: #b45309;
+            color: #fef3c7;
+            border: 1px solid #fde68a;
+          }
+          .dpe-marche-bailleur {
+            background: #be123c;
+            color: #fff1f2;
+            border: 1px solid #fb7185;
+            animation: dpe-pulse-bailleur 1.15s ease-in-out infinite;
+          }
+          .dpe-marche-solaire {
+            background: #d97706;
+            color: #fffbeb;
+            border: 1px solid #fde68a;
+          }
+          @keyframes dpe-pulse-bailleur {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.35; }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .dpe-marche-bailleur { animation: none; }
           }
           .dpe-type-mark em {
             position: absolute;
@@ -635,6 +729,59 @@ export default function DpeMapper() {
                 ))}
                 <button
                   type="button"
+                  data-testid="filtre-dpe-vente"
+                  aria-pressed={filtreVente}
+                  onClick={() => setFiltreVente((actuel) => !actuel)}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
+                    filtreVente
+                      ? "border-amber-200 bg-amber-500/25 text-amber-50 shadow-[0_0_16px_rgba(251,191,36,0.35)]"
+                      : "border-slate-700 bg-slate-900 text-slate-300 hover:border-amber-300/60"
+                  }`}
+                >
+                  🏷️ En Vente ({nbVente})
+                </button>
+                <button
+                  type="button"
+                  data-testid="filtre-dpe-bailleur"
+                  aria-pressed={filtreBailleur}
+                  onClick={() => setFiltreBailleur((actuel) => !actuel)}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
+                    filtreBailleur
+                      ? "border-rose-300 bg-rose-600/30 text-rose-50 shadow-[0_0_16px_rgba(244,63,94,0.35)]"
+                      : "border-slate-700 bg-slate-900 text-slate-300 hover:border-rose-400/60"
+                  }`}
+                >
+                  🔑 Bailleurs Urgence G/F ({nbBailleursUrgence})
+                </button>
+                <button
+                  type="button"
+                  data-testid="filtre-dpe-solaire"
+                  aria-pressed={filtreSolaire}
+                  onClick={() => setFiltreSolaire((actuel) => !actuel)}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
+                    filtreSolaire
+                      ? "border-amber-300 bg-amber-600/30 text-amber-50 shadow-[0_0_16px_rgba(245,158,11,0.35)]"
+                      : "border-slate-700 bg-slate-900 text-slate-300 hover:border-amber-400/60"
+                  }`}
+                >
+                  ⚡ Cibles Solaire EDF ({nbSolaire})
+                </button>
+                <button
+                  type="button"
+                  data-testid="filtre-dpe-reset"
+                  disabled={!filtresEliteActifs}
+                  onClick={() => {
+                    setFiltre("tous");
+                    setFiltreVente(false);
+                    setFiltreBailleur(false);
+                    setFiltreSolaire(false);
+                  }}
+                  className="rounded-full border border-slate-600 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-400 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Réinitialiser les filtres
+                </button>
+                <button
+                  type="button"
                   aria-pressed={voirAnnonces}
                   onClick={() => {
                     setVoirAnnonces((actuel) => {
@@ -653,7 +800,7 @@ export default function DpeMapper() {
                 </button>
               </div>
             </div>
-            <p className="mt-2 text-xs text-slate-400">
+            <p className="mt-2 text-xs text-slate-400" data-testid="compteur-marche-dpe">
               {chargement ? "Chargement du fichier JSON…" : `${logementsAffiches.length} bâtiment(s)`}
               {!chargement && payload ? ` · ${nbPassoires} passoires F/G` : ""}
               <span className="text-slate-500">
@@ -770,6 +917,7 @@ export default function DpeMapper() {
                 Fermer
               </button>
             </div>
+            <BannieresOpportunite bien={selection} />
             <p className="mt-3 font-medium text-white">{selection.adresse}</p>
             <p className="text-sm text-slate-300">
               {selection.codePostal} {selection.commune}

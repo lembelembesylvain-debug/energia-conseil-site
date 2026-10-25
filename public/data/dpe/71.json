@@ -35,7 +35,9 @@
       "lat": 46.78405263360608,
       "lng": 4.837770807562023,
       "conso_energie": 448,
-      "type_chauffage": "fioul"
+      "type_chauffage": "fioul",
+      "motif_dpe": "location",
+      "statut_occupation": "bailleur"
     },
     {
       "id": "71-DPE-0003",
@@ -236,6 +238,8 @@
     {
       "id": "71-DPE-0017",
       "adresse": "150 Rue des Halles",
+      "motif_dpe": "location",
+      "statut_occupation": "bailleur",
       "commune": "Chagny",
       "code_postal": "71150",
       "etiquette_dpe": "D",
@@ -278,6 +282,8 @@
     {
       "id": "71-DPE-0020",
       "adresse": "15 Rue de la République",
+      "motif_dpe": "vente",
+      "statut_occupation": "occupant",
       "commune": "Chagny",
       "code_postal": "71150",
       "etiquette_dpe": "G",
@@ -292,6 +298,8 @@
     {
       "id": "71-DPE-0021",
       "adresse": "68 Rue de la République",
+      "motif_dpe": "location",
+      "statut_occupation": "bailleur",
       "commune": "Chagny",
       "code_postal": "71150",
       "etiquette_dpe": "G",
@@ -306,6 +314,8 @@
     {
       "id": "71-DPE-0022",
       "adresse": "149 Rue des Halles",
+      "motif_dpe": "vente",
+      "statut_occupation": "occupant",
       "commune": "Chagny",
       "code_postal": "71150",
       "etiquette_dpe": "D",
@@ -320,6 +330,8 @@
     {
       "id": "71-DPE-0023",
       "adresse": "103 Rue de la République",
+      "motif_dpe": "vente",
+      "statut_occupation": "occupant",
       "commune": "Chagny",
       "code_postal": "71150",
       "etiquette_dpe": "F",
@@ -558,6 +570,7 @@
     {
       "id": "71-DPE-0040",
       "adresse": "109 Rue de la République",
+      "motif_dpe": "vente",
       "commune": "Le Creusot",
       "code_postal": "71200",
       "etiquette_dpe": "F",

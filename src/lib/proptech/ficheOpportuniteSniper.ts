@@ -4,6 +4,14 @@
  * parce que les coordonnées de démonstration ne tombent pas toujours sur la parcelle réelle.
  */
 import { jsPDF } from "jspdf";
+import {
+  alerteBailleur,
+  factureEdfEstimee,
+  formaterEntierFr,
+  libelleMotifDpe,
+  type MotifDpe,
+  type StatutOccupation,
+} from "./statutMarcheDpe";
 
 export type EtiquetteDpe = "A" | "B" | "C" | "D" | "E" | "F" | "G";
 export type ModeAffichage = "pdf" | "ecran";
@@ -27,6 +35,8 @@ export interface LogementPourFiche {
   type?: string;
   chauffage?: string;
   conso?: number | null;
+  motifDpe?: MotifDpe | null;
+  statutOccupation?: StatutOccupation | null;
 }
 
 export interface SniperPourFiche {
@@ -68,6 +78,8 @@ interface CibleLocale {
   chauffage: string;
   consoKwhM2: number;
   etiquette: EtiquetteDpe;
+  motifDpe?: MotifDpe;
+  statutOccupation?: StatutOccupation;
   section: string;
   numero: string;
   terrainM2: number | null;
@@ -99,6 +111,9 @@ export interface FicheOpportunite {
   potentielFoncier: string;
   etiquette: EtiquetteDpe | null;
   consoKwhM2: number | null;
+  motifDpe: MotifDpe | null;
+  statutOccupation: StatutOccupation | null;
+  libelleMotif: string;
   statutClimat: string;
   deperditions: string;
   impactCombustible: string;
@@ -202,6 +217,8 @@ export const CIBLES_TERRAIN_CHAGNY: readonly CibleLocale[] = [
     chauffage: "bois",
     consoKwhM2: 354,
     etiquette: "F",
+    motifDpe: "vente",
+    statutOccupation: "occupant",
     section: "AB",
     numero: "0102",
     terrainM2: 10320,
@@ -223,6 +240,8 @@ export const CIBLES_TERRAIN_CHAGNY: readonly CibleLocale[] = [
     chauffage: "gaz",
     consoKwhM2: 438,
     etiquette: "G",
+    motifDpe: "location",
+    statutOccupation: "bailleur",
     section: "AB",
     numero: "0049",
     terrainM2: 30390,
@@ -244,6 +263,8 @@ export const CIBLES_TERRAIN_CHAGNY: readonly CibleLocale[] = [
     chauffage: "fioul",
     consoKwhM2: 475,
     etiquette: "G",
+    motifDpe: "vente",
+    statutOccupation: "occupant",
     section: "",
     numero: "",
     terrainM2: null,
@@ -266,6 +287,8 @@ export const CIBLES_TERRAIN_CHAGNY: readonly CibleLocale[] = [
     consoKwhM2: 209,
     // 209 kWhEP/m².an est en classe D (bande 181-250). Le relevé de nuit indiquait E.
     etiquette: "D",
+    motifDpe: "vente",
+    statutOccupation: "occupant",
     section: "AC",
     numero: "0033",
     terrainM2: 1257,
@@ -295,6 +318,8 @@ export const CIBLES_TERRAIN_CHAGNY: readonly CibleLocale[] = [
     chauffage: "fioul",
     consoKwhM2: 218,
     etiquette: "D",
+    motifDpe: "location",
+    statutOccupation: "bailleur",
     section: "AD",
     numero: "0058",
     terrainM2: 12257,
@@ -468,7 +493,19 @@ function typeBatiDepuis(brut: string): string {
   return "Maison individuelle";
 }
 
-function statutClimat(etiquette: EtiquetteDpe | null, conso: number | null): string {
+function statutClimat(
+  etiquette: EtiquetteDpe | null,
+  conso: number | null,
+  motifDpe: MotifDpe | null,
+  statutOccupation: StatutOccupation | null,
+): string {
+  const urgence = alerteBailleur({ motifDpe, statutOccupation, etiquette });
+  if (urgence) {
+    if (etiquette === "G" && conso != null && conso >= 450) {
+      return `${urgence} Consommation G extrême.`;
+    }
+    return urgence;
+  }
   if (etiquette === "G") {
     const extreme = conso != null && conso >= 450 ? " G extrême." : "";
     return `Passoire thermique G - location interdite depuis le 1er janvier 2025, gel des loyers, audit énergétique obligatoire pour la vente.${extreme}`;
@@ -501,7 +538,7 @@ function deperditionsDe(etiquette: EtiquetteDpe | null): string {
   return "Déperditions à quantifier par l'audit. L'ordre des travaux reste : isolation, puis ventilation, puis chauffage.";
 }
 
-function impactDe(chauffage: string): string {
+function impactDe(chauffage: string, surface: number | null, conso: number | null): string {
   if (chauffage === "Fioul") {
     return "Fioul : énergie fossile, coût volatil, émissions élevées. Substitution par PAC air/eau après isolation.";
   }
@@ -512,9 +549,19 @@ function impactDe(chauffage: string): string {
     return "Bois : appoint possible si l'appareil est performant. Une PAC en base se dimensionne après isolation.";
   }
   if (chauffage === "Électricité") {
-    return "Effet Joule : coût d'usage élevé. PAC air/eau après traitement de l'enveloppe.";
+    const facture = factureEdfEstimee(surface, conso);
+    const montant = facture != null ? `${formaterEntierFr(facture)} EUR` : "non chiffrable";
+    return `Effet Joule : coût d'usage élevé. Facture EDF annuelle estimée : ${montant}. PAC air/eau après traitement de l'enveloppe.`;
   }
   return "Combustible à qualifier sur place. Le générateur se choisit après l'enveloppe.";
+}
+
+function preconisationsDe(chauffage: string): readonly string[] {
+  if (chauffage !== "Électricité") return PRECONISATIONS;
+  return [
+    ...PRECONISATIONS,
+    "Centrale solaire en toiture 6-9 kWc + Stockage Tesla Powerwall 3 pour effacement tarifaire.",
+  ];
 }
 
 function potentielLive(terrain: number | null, emprise: number | null): string {
@@ -634,6 +681,8 @@ export function composerFicheOpportunite(
     valeurSectorielle != null && uplift != null ? arrondir(valeurSectorielle * (1 + uplift), 100) : null;
   const id = cible?.id || texte(logement?.id);
   const ratio = terrain != null && terrain > 0 && emprise != null ? emprise / terrain : null;
+  const motifDpe = cible?.motifDpe ?? logement?.motifDpe ?? null;
+  const statutOccupation = cible?.statutOccupation ?? logement?.statutOccupation ?? null;
 
   return {
     ancreeSurReleve: cible != null,
@@ -658,9 +707,12 @@ export function composerFicheOpportunite(
     potentielFoncier: cible?.potentielFoncier || potentielLive(terrain, emprise),
     etiquette,
     consoKwhM2: conso,
-    statutClimat: statutClimat(etiquette, conso),
+    motifDpe,
+    statutOccupation,
+    libelleMotif: libelleMotifDpe({ motifDpe, statutOccupation, etiquette }),
+    statutClimat: statutClimat(etiquette, conso, motifDpe, statutOccupation),
     deperditions: deperditionsDe(etiquette),
-    impactCombustible: impactDe(chauffage),
+    impactCombustible: impactDe(chauffage, surface, conso),
     perimetreMarche: cible
       ? "Relevé DVF 5 ans - secteur immédiat"
       : `DVF 5 ans - ${texte(sniper?.dvf?.perimetre) || "périmètre non précisé"}`,
@@ -670,7 +722,7 @@ export function composerFicheOpportunite(
     valeurApresReno,
     upliftPct: valeurSectorielle != null ? uplift : null,
     noteMarche: cible?.noteMarche || "",
-    preconisations: PRECONISATIONS,
+    preconisations: preconisationsDe(chauffage),
   };
 }
 
@@ -764,6 +816,7 @@ export function presenterFiche(fiche: FicheOpportunite, mode: ModeAffichage): Pr
     source: fiche.source,
     identite: [
       { label: "Adresse", valeur: fiche.adresseComplete },
+      { label: "Motif DPE / Statut", valeur: fiche.libelleMotif },
       { label: "Type de bâti", valeur: fiche.typeBati },
       { label: "Surface habitable", valeur: surfaceTexte(fiche.surfaceHabitableM2, mode, false) },
       {

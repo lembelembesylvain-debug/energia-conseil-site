@@ -57,13 +57,20 @@ assert.equal(cible103.valeurSectorielle, 161 * 1375);
 assert.equal(cible103.reference, `SNIPER-71-${annee}-AB0102`);
 assert.match(cible103.statutClimat, /Passoire thermique F/);
 assert.match(cible103.statutClimat, /gel des loyers/);
+assert.equal(cible103.libelleMotif, "VENTE EN COURS");
+assert.equal(cible103.motifDpe, "vente");
+assert.equal(cible103.statutOccupation, "occupant");
 
 const cible68 = composerFicheOpportunite(logementDe("71-DPE-0021"), null);
 assert.equal(cible68.terrainM2, 30390);
 assert.equal(cible68.numero, "0049");
 assert.equal(cible68.etiquette, "G");
 assert.equal(cible68.valeurSectorielle, 129 * 1475);
-assert.match(cible68.statutClimat, /Passoire thermique G/);
+assert.equal(cible68.libelleMotif, "LOCATION (PROPRIÉTAIRE BAILLEUR)");
+assert.equal(cible68.motifDpe, "location");
+assert.equal(cible68.statutOccupation, "bailleur");
+assert.match(cible68.statutClimat, /URGENCE BAILLEUR/);
+assert.match(cible68.statutClimat, /1er janvier 2025/);
 
 const cible15 = composerFicheOpportunite(logementDe("71-DPE-0020"), null);
 assert.equal(cible15.etiquette, "G");
@@ -72,6 +79,8 @@ assert.equal(cible15.section, "");
 assert.equal(cible15.prixM2Median, null);
 assert.equal(cible15.reference, `SNIPER-71-${annee}-0020`);
 assert.match(cible15.statutClimat, /G extrême/);
+assert.equal(cible15.libelleMotif, "VENTE EN COURS");
+assert.doesNotMatch(cible15.statutClimat, /URGENCE BAILLEUR/);
 assert.match(cible15.noteMarche, /historique/i);
 
 const cible149 = composerFicheOpportunite(logementDe("71-DPE-0022"), null);
@@ -83,12 +92,15 @@ assert.equal(cible149.terrainM2, 1257);
 assert.equal(cible149.empriseM2, 246);
 assert.equal(cible149.transactions[0]?.prixNet, 400000);
 assert.equal(cible149.valeurSectorielle, null);
+assert.equal(cible149.libelleMotif, "VENTE EN COURS");
 
 const cible150 = composerFicheOpportunite(logementDe("71-DPE-0017"), null);
 assert.equal(cible150.etiquette, "D");
 assert.equal(cible150.terrainM2, 12257);
 assert.equal(cible150.empriseM2, 161);
 assert.equal(cible150.numero, "0058");
+assert.equal(cible150.libelleMotif, "LOCATION (PROPRIÉTAIRE BAILLEUR)");
+assert.doesNotMatch(cible150.statutClimat, /URGENCE BAILLEUR/);
 
 const cible48 = composerFicheOpportunite(logementDe("71-DPE-0018"), null);
 assert.equal(cible48.etiquette, "E");
@@ -167,6 +179,13 @@ for (const cible of CIBLES_TERRAIN_CHAGNY) {
   assert.equal(latin.includes("Ã©"), false, "accent mal encodé");
   if (fiche.prixM2Median != null || fiche.transactions.some((mutation) => mutation.prixNet != null)) {
     assert.ok(latin.includes("EUR"), `${fiche.reference} : montant en EUR`);
+  }
+  if (fiche.adresseComplete.startsWith("68 Rue")) {
+    assert.ok(latin.includes("URGENCE BAILLEUR"), "alerte bailleur G");
+    assert.ok(latin.includes("LOCATION"), "motif location");
+  }
+  if (fiche.adresseComplete.startsWith("103 Rue")) {
+    assert.ok(latin.includes("VENTE EN COURS"), "motif vente");
   }
 }
 

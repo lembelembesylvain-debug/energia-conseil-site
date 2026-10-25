@@ -67,8 +67,12 @@ function Paires({ lignes }: { lignes: PresentationFiche["identite"] }) {
     <dl className="grid grid-cols-[7.4rem_1fr] gap-x-2 gap-y-1">
       {lignes.map((ligne) => (
         <div key={ligne.label} className="contents">
-          <dt className="text-[10px] text-slate-500">{ligne.label}</dt>
-          <dd className="text-[11px] font-semibold text-slate-900">{ligne.valeur}</dd>
+          <dt className={ligne.label.startsWith("Motif") ? "text-[10px] font-semibold text-[#1d4ed8]" : "text-[10px] text-slate-500"}>
+            {ligne.label}
+          </dt>
+          <dd className={ligne.label.startsWith("Motif") ? "text-[11px] font-bold text-[#6d28d9]" : "text-[11px] font-semibold text-slate-900"}>
+            {ligne.valeur}
+          </dd>
         </div>
       ))}
     </dl>
@@ -129,11 +133,21 @@ function ApercuFicheA4({ vue }: { vue: PresentationFiche }) {
               <PastilleDpe lettre={vue.etiquette} />
               <div className="min-w-0 space-y-1 text-[10.5px] leading-snug">
                 <p className="font-semibold text-slate-900">{vue.conso}</p>
-                <p>{vue.statut}</p>
+                <p className={vue.statut.startsWith("URGENCE BAILLEUR") ? "rounded bg-rose-50 px-1.5 py-1 font-semibold text-rose-800" : ""}>
+                  {vue.statut}
+                </p>
               </div>
             </div>
             <p className="mt-2 text-[10.5px] leading-snug">{vue.deperditions}</p>
-            <p className="mt-1 text-[10.5px] leading-snug">{vue.impact}</p>
+            <p
+              className={
+                vue.impact.includes("Facture EDF")
+                  ? "mt-1 rounded bg-amber-50 px-1.5 py-1 text-[10.5px] font-semibold leading-snug text-amber-950"
+                  : "mt-1 text-[10.5px] leading-snug"
+              }
+            >
+              {vue.impact}
+            </p>
           </Cadre>
         </div>
 
