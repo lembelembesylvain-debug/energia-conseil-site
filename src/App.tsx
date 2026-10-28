@@ -13,6 +13,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import CarteVisite from "./components/CarteVisite";
+import MaisonMartinsShowcase from "./components/maison-martins/MaisonMartinsShowcase";
 import TestMaisonClyve from "./components/TestMaisonClyve";
 import TestMaisonRoyer from "./components/TestMaisonRoyer";
 import TestMaisonPereira from "./components/TestMaisonPereira";
@@ -789,6 +790,7 @@ function LandingView({ onStartAudit }: LandingViewProps) {
               ["#", "Accueil"],
               ["#comment-ca-marche", "Comment ça marche"],
               ["#aides-2026", "Aides 2026"],
+              ["/maison-martins", "Maison Martins"],
               ["#contact", "Nous contacter"],
             ].map(([href, label]) => (
               <a
@@ -801,6 +803,12 @@ function LandingView({ onStartAudit }: LandingViewProps) {
             ))}
           </nav>
 
+          <a
+            href="/maison-martins"
+            className="shrink-0 text-[11px] font-medium uppercase tracking-[0.16em] text-[#D4AF37] transition hover:text-[#F6E7B2] md:hidden"
+          >
+            Martins
+          </a>
           <button
             type="button"
             onClick={onStartAudit}
@@ -1987,6 +1995,7 @@ export default function App() {
       <Routes>
         <Route path="/test-dashboard-crm" element={<TestDashboardCRM />} />
         <Route path="/presentation-energia" element={<PresentationEnergia />} />
+        <Route path="/maison-martins" element={<MaisonMartinsShowcase />} />
         <Route path="/carte-visite" element={<CarteVisite />} />
         <Route path="/test-maison-clyve/rapport-complet" element={<RapportCompletMaisonClyve />} />
         <Route path="/test-maison-clyve/presentation" element={<PresentationMaisonClyve />} />

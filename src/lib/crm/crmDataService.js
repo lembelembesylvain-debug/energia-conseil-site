@@ -142,6 +142,12 @@ export function regrouperPipeline(audits) {
 
 export const PAGES_TEST_LOCALES = [
   {
+    id: "maison-martins",
+    label: "Maison Martins — Édition Privée",
+    href: "/maison-martins",
+    hint: "Vitrine prestige Bourgogne — consultation duo 390 € et leads CRM",
+  },
+  {
     id: "royer",
     label: "Page de test Royer",
     href: "/test-maison-royer",
