@@ -1,9 +1,9 @@
 import { useEffect, useId, useState, type FormEvent, type ReactNode } from "react";
-import { enregistrerProjetManuel } from "../../lib/crm/projetsManuels.js";
 import {
   CONSULTATION_DUO_CATARINA,
   MONTANT_CONSULTATION_DUO_TTC,
   SOURCE_APPORTEUR_CATARINA,
+  libelleSourceApporteur,
 } from "../../lib/crm/operationnelCrm.js";
 
 const OR = "#D4AF37";
@@ -195,6 +195,17 @@ function messageErreur(erreurs: Record<string, string> | undefined) {
   return Object.values(erreurs).find(Boolean) || "Le dossier n'a pas pu être créé.";
 }
 
+const STORAGE_LEADS = "energia-crm-projets-manuels-v1";
+
+function nomCompare(valeur: string) {
+  return valeur
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function deposerLead(entree: {
   prenom: string;
   nom: string;
@@ -209,25 +220,75 @@ function deposerLead(entree: {
   consultationDuo?: boolean;
   dateVisiteTechnique?: string;
 }) {
-  return enregistrerProjetManuel({
-    prenom: entree.prenom.trim(),
-    nom: entree.nom.trim(),
-    telephone: entree.telephone.trim(),
-    email: entree.email.trim(),
-    ville: entree.ville.trim(),
-    codePostal: entree.codePostal.trim(),
-    adresse: entree.adresse.trim(),
+  const nom = entree.nom.trim();
+  const prenom = entree.prenom.trim();
+  const ville = entree.ville.trim();
+  const codePostal = entree.codePostal.trim();
+  const erreurs: Record<string, string> = {};
+  if (nom.length < 2) erreurs.nom = "Nom du client requis.";
+  if (ville.length < 2) erreurs.ville = "Ville requise.";
+  if (!/^\d{5}$/.test(codePostal)) erreurs.codePostal = "Code postal à 5 chiffres.";
+  if (Object.keys(erreurs).length > 0) return { ok: false as const, erreurs, projet: undefined };
+
+  let liste: Array<Record<string, unknown>> = [];
+  try {
+    const brut = localStorage.getItem(STORAGE_LEADS);
+    const lu = brut ? JSON.parse(brut) : [];
+    if (Array.isArray(lu)) liste = lu;
+  } catch {
+    liste = [];
+  }
+
+  const doublon = liste.some((item) => {
+    return (
+      nomCompare(String(item.nom ?? "")) === nomCompare(nom) &&
+      nomCompare(String(item.ville ?? "")) === nomCompare(ville) &&
+      String(item.codePostal ?? "") === codePostal
+    );
+  });
+  if (doublon) {
+    return {
+      ok: false as const,
+      erreurs: { nom: "Un dossier existe déjà pour ce client et cette localisation." },
+      projet: undefined,
+    };
+  }
+
+  const montantEstimeTtc = entree.montantEstimeTtc ?? null;
+  const projet = {
+    id: `projet-manuel-${Date.now()}`,
+    nom,
+    prenom,
+    ville,
+    codePostal,
+    rfr: null,
     statut: "Nouveau Lead — À Contacter",
-    apporteurId: SOURCE_APPORTEUR_CATARINA,
     typeProjet: entree.typeProjet,
     description: entree.description,
-    montantEstimeTtc: entree.montantEstimeTtc,
+    montantEstimeTtc,
+    montantHt: montantEstimeTtc == null ? null : Math.round((montantEstimeTtc / 1.1) * 100) / 100,
+    equipe: {
+      direction: "Sylvain LEMBELEMBE",
+      commercial: "Damien",
+      design: "Catarina Martins",
+      coordination: "Mohamed",
+    },
+    apporteurId: SOURCE_APPORTEUR_CATARINA,
+    apporteurNom: libelleSourceApporteur(SOURCE_APPORTEUR_CATARINA, { select: true }),
     consultationDuo: entree.consultationDuo === true,
     dateVisiteTechnique: entree.dateVisiteTechnique || "",
-    equipeDesign: "Catarina Martins",
-    equipeDirection: "Sylvain LEMBELEMBE",
-    equipeCommercial: "Damien",
-  }) as { ok: boolean; erreurs?: Record<string, string>; projet?: { id?: string } };
+    source: "manuel",
+    createdAt: new Date().toISOString().slice(0, 10),
+    adresse: entree.adresse.trim(),
+    telephone: entree.telephone.trim(),
+    email: entree.email.trim(),
+    archive: false,
+    jalonsValides: [],
+    travaux: [],
+  };
+  liste.push(projet);
+  localStorage.setItem(STORAGE_LEADS, JSON.stringify(liste));
+  return { ok: true as const, erreurs: undefined, projet };
 }
 
 function Champ({
