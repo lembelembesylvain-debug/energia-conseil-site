@@ -7,6 +7,19 @@ import {
 } from "../../lib/crm/operationnelCrm.js";
 
 const OR = "#D4AF37";
+const LOGO_MAISON = "/assets/maison-martins/logo-maison-martins.jpg";
+
+function Blason({ className = "h-12 w-12" }: { className?: string }) {
+  return (
+    <span className={`relative inline-block shrink-0 overflow-hidden rounded-md border border-[#D4AF37]/50 bg-black ${className}`}>
+      <img
+        src={LOGO_MAISON}
+        alt=""
+        className="absolute left-1/2 top-[-42%] h-[230%] w-[230%] max-w-none -translate-x-1/2"
+      />
+    </span>
+  );
+}
 
 const DEPARTEMENTS = [
   {
@@ -989,8 +1002,12 @@ export default function MaisonMartinsShowcase() {
 
       <header className="fixed inset-x-0 top-0 z-40 border-b border-[#D4AF37]/20 bg-[#0B0F17]/85 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <a href="#haut" className="mm-serif shrink-0 text-sm tracking-[0.28em] whitespace-nowrap text-[#F6E7B2] sm:text-base">
-            MAISON MARTINS
+          <a href="#haut" className="flex shrink-0 items-center gap-3">
+            <Blason className="h-12 w-12" />
+            <span className="flex flex-col justify-center">
+              <span className="mm-serif whitespace-nowrap text-sm tracking-[0.28em] text-[#F6E7B2] sm:text-base">MAISON MARTINS</span>
+              <span className="mt-1 text-[9px] uppercase tracking-[0.28em] text-[#C4B48A]">Édition privée · Bourgogne</span>
+            </span>
           </a>
           <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] uppercase tracking-[0.2em] text-[#C4B48A] sm:gap-6 sm:text-[11px]" aria-label="Navigation Maison Martins">
             <a className="shrink-0 hover:text-[#F6E7B2]" href="#departements">Départements</a>
@@ -1009,8 +1026,9 @@ export default function MaisonMartinsShowcase() {
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F17] via-[#0B0F17]/75 to-[#0B0F17]/25" />
-          <div className="relative mx-auto w-full max-w-6xl px-5 pb-16 pt-32 sm:pb-20">
-            <p className="text-[11px] uppercase tracking-[0.42em] text-[#D4AF37]">Maison Martins · Édition Privée</p>
+          <div className="relative mx-auto w-full max-w-6xl px-5 pb-16 pt-36 sm:pb-20">
+            <Blason className="h-16 w-16 sm:h-20 sm:w-20" />
+            <p className="mt-5 text-[11px] uppercase tracking-[0.42em] text-[#D4AF37]">Maison Martins · Édition Privée</p>
             <h1 className="mm-serif mm-or mt-5 max-w-4xl text-4xl leading-[1.05] font-medium sm:text-6xl lg:text-7xl">
               L&apos;Art de Vivre &amp; La Signature Immobilière d&apos;Exception en Bourgogne
             </h1>
@@ -1126,7 +1144,8 @@ export default function MaisonMartinsShowcase() {
       <footer className="border-t border-[#D4AF37]/20 bg-[#0B0F17] px-5 py-14">
         <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-3 md:items-start md:gap-8">
           <div>
-            <p className="mm-serif text-lg tracking-[0.16em] text-[#F6E7B2]">MAISON MARTINS · ÉDITION PRIVÉE</p>
+            <Blason className="h-14 w-14" />
+            <p className="mm-serif mt-4 text-lg tracking-[0.16em] text-[#F6E7B2]">MAISON MARTINS · ÉDITION PRIVÉE</p>
             <p className="mt-3 text-xs leading-relaxed text-[#C4B48A]">Direction Artistique : Catarina Martins</p>
           </div>
           <nav className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] uppercase tracking-[0.18em] text-[#C4B48A] md:justify-center" aria-label="Informations">
