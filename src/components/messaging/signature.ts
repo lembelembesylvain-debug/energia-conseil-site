@@ -1,5 +1,5 @@
-export const EXPEDITEUR_NOM = "ENERGIA CONSEIL IA®";
-export const EXPEDITEUR_EMAIL = "contact@energia-conseil-ia.com";
+export const EXPEDITEUR_NOM = "ENERGIA CONSEIL IA®️";
+export const EXPEDITEUR_EMAIL = "contact@renovoptim-ia.com";
 export const EXPEDITEUR_FROM = `${EXPEDITEUR_NOM} <${EXPEDITEUR_EMAIL}>`;
 
 export const SIGNATURE_OFFICIELLE = [

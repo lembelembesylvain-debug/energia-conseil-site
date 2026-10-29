@@ -1,4 +1,4 @@
-const CLE_MARQUE = "energia-messagerie-marque-v1";
+const CLE_MARQUE = "energia-messagerie-marque-v2";
 
 export const LOGO_ARBRES = "/assets/energia-logo-arbres.png";
 
@@ -24,8 +24,8 @@ export type MarqueEmail = {
 
 export const MARQUE_DEFAUT: MarqueEmail = {
   logoUrl: LOGO_ARBRES,
-  nomExpediteur: "ENERGIA CONSEIL IA®",
-  emailExpediteur: "contact@energia-conseil-ia.com",
+  nomExpediteur: "ENERGIA CONSEIL IA®️",
+  emailExpediteur: "contact@renovoptim-ia.com",
   signature: SIGNATURE_DEUX_SITES,
 };
 

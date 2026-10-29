@@ -7,13 +7,22 @@ import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { Resend } from "resend";
 
-const FROM = "ENERGIA CONSEIL IA® <contact@energia-conseil-ia.com>";
-const REPLY_TO = "contact@energia-conseil-ia.com";
+const FROM = "ENERGIA CONSEIL IA®️ <contact@renovoptim-ia.com>";
+const REPLY_TO = "contact@renovoptim-ia.com";
+const ADRESSE_VERIFIEE = "contact@renovoptim-ia.com";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const fenetre = [];
 
 function texte(value) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+function lireTexteEnv(chemin) {
+  const brut = readFileSync(chemin);
+  const utf16 =
+    (brut.length >= 2 && brut[0] === 0xff && brut[1] === 0xfe) ||
+    (brut.length >= 4 && brut[1] === 0x00 && brut[3] === 0x00);
+  return (utf16 ? brut.toString("utf16le") : brut.toString("utf8")).replace(/^\uFEFF/, "");
 }
 
 function lireCle() {
@@ -22,7 +31,7 @@ function lireCle() {
   for (const fichier of [".env.local", ".env"]) {
     const chemin = resolve(process.cwd(), fichier);
     if (!existsSync(chemin)) continue;
-    const contenu = readFileSync(chemin, "utf8");
+    const contenu = lireTexteEnv(chemin);
     const serveur = contenu.match(/^RESEND_API_KEY\s*=\s*(.+)$/m);
     const vite = contenu.match(/^VITE_RESEND_API_KEY\s*=\s*(.+)$/m);
     const brut = (serveur || vite)?.[1]?.trim().replace(/^["']|["']$/g, "");
@@ -61,10 +70,10 @@ function htmlSur(html, texteBrut) {
 }
 
 function expediteur(from) {
-  const brut = texte(from).replace(/[<>\r\n]/g, "");
-  const nom = brut.includes("<") ? brut.split("<")[0].trim() : brut;
-  const propre = nom.slice(0, 80);
-  return propre ? `${propre} <contact@energia-conseil-ia.com>` : FROM;
+  const brut = texte(from).replace(/[\r\n]/g, "");
+  const nomBrut = brut.includes("<") ? brut.split("<")[0] : brut;
+  const nom = nomBrut.replace(/[<>]/g, "").trim().slice(0, 80);
+  return nom ? `${nom} <${ADRESSE_VERIFIEE}>` : FROM;
 }
 
 function piecesJointes(liste) {

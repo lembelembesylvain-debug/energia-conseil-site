@@ -100,16 +100,15 @@ async function tenterProxy(
     if (reponse.ok) {
       return {
         ok: true,
-        canal: "proxy",
+        canal: "resend",
         resendId: corps.id,
         message: `Email envoyé avec succès à ${to}`,
-        detail: corps.id ? `Resend ${corps.id}` : "Remise acceptée par le serveur ENERGIA",
+        detail: corps.id ? `Resend ${corps.id}` : "Remise acceptée par Resend",
       };
     }
-    if (reponse.status >= 500) return null;
     return {
       ok: false,
-      canal: "proxy",
+      canal: "resend",
       message: messageErreur(corps, "Le serveur de messagerie a refusé l'envoi."),
     };
   } catch {
@@ -141,22 +140,17 @@ export async function envoyerEmailProfessionnel(saisie: {
     return { ok: false, canal: "simulation", message: "Le message doit contenir entre 20 et 20 000 caractères." };
   }
 
-  const direct = await tenterResendDirect(from, to, subject, text, html, attachments);
-  if (direct?.ok) return direct;
-  if (direct && !direct.ok && direct.message && !/cors|failed to fetch|network/i.test(direct.message)) {
-    const proxyApresRefus = await tenterProxy(from, to, subject, text, html, attachments);
-    if (proxyApresRefus?.ok) return proxyApresRefus;
-    return direct;
-  }
-
   const proxy = await tenterProxy(from, to, subject, text, html, attachments);
   if (proxy?.ok) return proxy;
   if (proxy && !proxy.ok) return proxy;
 
+  const direct = await tenterResendDirect(from, to, subject, text, html, attachments);
+  if (direct) return direct;
+
   return {
-    ok: true,
+    ok: false,
     canal: "simulation",
-    message: `Email envoyé avec succès à ${to}`,
-    detail: "Resend est injoignable depuis le navigateur (CORS ou clé absente). L'email est horodaté dans l'historique de ce dossier. Renseignez RESEND_API_KEY pour la remise réelle.",
+    message: "L'email n'a pas été envoyé.",
+    detail: "Resend est injoignable. Vérifiez VITE_RESEND_API_KEY dans .env, puis redémarrez Vite.",
   };
 }
