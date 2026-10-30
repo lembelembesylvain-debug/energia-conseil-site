@@ -49,8 +49,8 @@ export default function RadarCeeMarches({ voirMarges = false }: { voirMarges?: b
   const [site, setSite] = useState("");
 
   const fiches = useMemo(() => fichesRadarParSegment(filtre), [filtre]);
-  const operations = useMemo(() => operationsB2b(actif), [actif]);
-  const operation = operations.find((fiche) => fiche.id === operationId) ?? operations[0];
+  const toutesOperations = useMemo(() => fichesRadarParSegment("tous"), []);
+  const operation = toutesOperations.find((fiche) => fiche.id === operationId) ?? toutesOperations[0];
 
   const choisirActif = (next: ActifNote) => {
     setActif(next);
@@ -112,16 +112,30 @@ export default function RadarCeeMarches({ voirMarges = false }: { voirMarges?: b
               </div>
             </fieldset>
             <label className="block">
-              <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">Opération ciblée</span>
+              <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+                Opération ciblée — {toutesOperations.length} fiches
+              </span>
               <select
+                data-testid="select-operation-cee"
                 value={operation.id}
-                onChange={(event) => setOperationId(event.target.value)}
+                onChange={(event) => {
+                  const id = event.target.value;
+                  setOperationId(id);
+                  const choisie = toutesOperations.find((fiche) => fiche.id === id);
+                  if (choisie) setActif(choisie.segment);
+                }}
                 className="mt-1.5 w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-amber-300"
               >
-                {operations.map((fiche) => (
-                  <option key={fiche.id} value={fiche.id}>
-                    {fiche.code} — {fiche.intitule}
-                  </option>
+                {ACTIFS_NOTE.map((groupe) => (
+                  <optgroup key={groupe.id} label={`${groupe.label} — ${groupe.detail}`}>
+                    {toutesOperations
+                      .filter((fiche) => fiche.segment === groupe.id)
+                      .map((fiche) => (
+                        <option key={fiche.id} value={fiche.id}>
+                          {fiche.code} — {fiche.intitule}
+                        </option>
+                      ))}
+                  </optgroup>
                 ))}
               </select>
             </label>

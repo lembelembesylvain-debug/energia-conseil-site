@@ -83,6 +83,11 @@ export function peutVoirCentreControle(role) {
   return role === ROLE_ADMIN;
 }
 
+/** Book de vente Damien : admin, commercial et présentation client. */
+export function peutVoirCatalogueCommercial(role) {
+  return role === ROLE_ADMIN || role === ROLE_COMMERCIAL || role === ROLE_PRESENTATION;
+}
+
 export function peutVoirCrmCommercial(role) {
   return role === ROLE_ADMIN || role === ROLE_COMMERCIAL;
 }

@@ -26,9 +26,11 @@ import {
   lireRoleStocke,
   peutVoirCentreControle,
   peutVoirCoutsInternes,
+  peutVoirCatalogueCommercial,
   peutVoirCrmCommercial,
 } from "../lib/crm/roles";
 
+import CatalogueCommercial from "../components/crm/CatalogueCommercial";
 const CentreControleInterne = lazy(() => import("../components/crm/CentreControleInterne"));
 const CatalogueMetiers = lazy(() => import("../components/crm/CatalogueMetiers"));
 
@@ -41,6 +43,7 @@ const VUES = [
   "artisans",
   "presentation",
   "catalogue",
+  "catalogue-commercial",
   "controle-interne",
 ];
 
@@ -285,7 +288,10 @@ export default function TestDashboardCRM() {
     ) {
       aller("dashboard");
     }
-    if (estPresentationClient(role) && !["presentation", "dashboard"].includes(vue)) {
+    if (vue === "catalogue-commercial" && !peutVoirCatalogueCommercial(role)) {
+      aller("dashboard");
+    }
+    if (estPresentationClient(role) && !["presentation", "dashboard", "catalogue-commercial"].includes(vue)) {
       aller("presentation");
     }
   }, [role, vue]);
@@ -342,6 +348,11 @@ export default function TestDashboardCRM() {
     { id: "partenaires", label: "Partenaires", visible: peutVoirCrmCommercial(role) },
     { id: "artisans", label: "Artisans RGE", visible: peutVoirCrmCommercial(role) },
     { id: "presentation", label: "Présentation client", visible: true },
+    {
+      id: "catalogue-commercial",
+      label: "Catalogue Commercial 2026",
+      visible: peutVoirCatalogueCommercial(role),
+    },
     {
       id: "catalogue",
       label: "Catalogue métiers",
@@ -415,6 +426,8 @@ export default function TestDashboardCRM() {
                 <h1 className="bg-gradient-to-r from-emerald-300 via-teal-200 to-sky-300 bg-clip-text text-2xl font-semibold tracking-tight text-transparent sm:text-3xl">
                   {vue === "controle-interne"
                     ? "Centre de Contrôle Interne"
+                    : vue === "catalogue-commercial"
+                      ? "Catalogue Commercial 2026"
                     : vue === "catalogue"
                       ? "Catalogue métiers"
                       : "Tableau de bord CRM"}
@@ -828,6 +841,10 @@ export default function TestDashboardCRM() {
               tablette={grosBouton}
               voirMargesInternes={voirMargesInternes}
             />
+          ) : null}
+
+          {vue === "catalogue-commercial" && peutVoirCatalogueCommercial(role) ? (
+            <CatalogueCommercial />
           ) : null}
 
           {vue === "catalogue" && peutVoirCentreControle(role) ? (
