@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEV-2026-OUSSARA-02 | ENERGIA CONSEIL IA®</title>
+  <style>
+    :root { --encre: #0B1F3A; --bleu: #1a3c5e; --ligne: #d5e0ea; --fond: #f4f7fb; --orange: #f97316; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #e8eef4; color: var(--encre); font-family: "Segoe UI", Calibri, sans-serif; font-size: 11.5px; line-height: 1.4; }
+    .barre { position: sticky; top: 0; display: flex; gap: 8px; justify-content: flex-end; padding: 8px 16px; background: #0b1f3a; }
+    .barre button, .barre a { color: white; background: #1a3c5e; border: 1px solid #7dd3fc; border-radius: 8px; padding: 8px 12px; font-weight: 650; text-decoration: none; cursor: pointer; }
+    .page { width: 210mm; min-height: 297mm; margin: 12px auto; background: white; padding: 12mm 13mm 14mm; box-shadow: 0 8px 28px rgba(11,31,58,.12); }
+    header { display: grid; grid-template-columns: 58mm 1fr; gap: 8px 12px; align-items: start; border-bottom: 3px solid var(--bleu); padding-bottom: 8px; }
+    header img { width: 54mm; height: auto; }
+    h1 { margin: 0; font-size: 13px; letter-spacing: .01em; color: var(--bleu); }
+    .meta { margin: 2px 0 0; font-size: 10px; color: #334155; }
+    h2 { margin: 14px 0 6px; font-size: 12.5px; color: var(--bleu); text-transform: uppercase; letter-spacing: .03em; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid var(--ligne); padding: 5px 7px; vertical-align: top; }
+    th { background: var(--bleu); color: white; text-align: left; font-size: 10.5px; }
+    td.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .detail { color: #475569; font-size: 10px; }
+    .bilan td:first-child { width: 72%; }
+    .net { background: #f0fdf4; font-weight: 750; }
+    .geste { color: #9a3412; }
+    .rib { border: 2px solid var(--bleu); background: var(--fond); padding: 10px 12px; }
+    .rib strong { color: var(--bleu); }
+    .iban { font-family: Consolas, "Courier New", monospace; font-size: 13px; letter-spacing: .02em; }
+    .sign { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+    .cadre { border: 1px dashed #94a3b8; min-height: 34mm; padding: 8px; }
+    .mention { font-family: "Segoe Script", "Segoe Print", cursive; font-size: 14px; color: #1e3a5f; }
+    .julia { background: #fff7ed; border-left: 4px solid var(--orange); padding: 8px 10px; }
+    .avert { font-size: 10px; color: #334155; }
+    @media print {
+      body { background: white; }
+      .barre { display: none; }
+      .page { margin: 0; box-shadow: none; width: auto; min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="barre">
+    <button type="button" onclick="window.print()">Imprimer le Devis</button>
+    <a href="/DEVIS_OUSSARA_COLOMBIER_SAUGNIEU_2026.pdf" download>Télécharger le Devis Officiel PDF A4</a>
+  </div>
+  <article class="page">
+    <header>
+      <img src="/assets/energia-logo-arbres.png" alt="ENERGIA CONSEIL IA — trois arbres verts">
+      <div>
+        <h1>ENERGIA CONSEIL IA® — Bureau d'Études Thermiques &amp; Contractant Général Digital</h1>
+        <p class="meta">SASU au capital de 100 € — Siège : 16 Rue Cuvier, 69006 Lyon</p>
+        <p class="meta">SIRET 941 819 427 00019 — RCS Lyon — TVA FR01941819427</p>
+        <p class="meta">Marque déposée INPI n° 5213845</p>
+        <p class="meta">Garantie décennale Calypso Assurances n° LUNPIB2604975</p>
+        <p class="meta">Référent Technique Rénovation Globale Certibat / Réno-Perf (28/30)</p>
+        <p class="meta"><strong>Direction de marché &amp; Interlocuteur Unique : Sylvain LEMBELEMBE (06 10 59 68 98 — contact@renovoptim-ia.com)</strong></p>
+      </div>
+    </header>
+
+    <h2>Identité du client</h2>
+    <table>
+      <tr><th>Maîtres d'ouvrage</th><td>M. et Mme Youssef OUSSARA</td></tr>
+      <tr><th>Projet</th><td>Construction Maison Individuelle RE2020 — Lot Menuiseries &amp; Volets Roulants</td></tr>
+      <tr><th>Adresse du chantier</th><td>Rue des Verchères, 69124 COLOMBIER SAUGNIEU</td></tr>
+      <tr><th>Référence</th><td>DEV-2026-OUSSARA-02 (Avenant rectifié)</td></tr>
+      <tr><th>Date</th><td>30 octobre 2026 — Validité : 30 jours — jusqu'au 29 novembre 2026</td></tr>
+      <tr><th>Interlocuteur unique</th><td>Direction de marché &amp; Interlocuteur Unique : Sylvain LEMBELEMBE (06 10 59 68 98 — contact@renovoptim-ia.com)</td></tr>
+    </table>
+
+    <h2>Détail des postes techniques</h2>
+    <p class="avert">Forfait unique. Les quatorze postes ci-dessous sont inclus dans le montant net, sans prix unitaire séparé.</p>
+    <table>
+      <thead><tr><th style="width:14mm">N°</th><th>Désignation</th></tr></thead>
+      <tbody>
+        <tr>
+      <td class="num">1</td>
+      <td><strong>Grande baie coulissante Séjour 2 vantaux (2,40 × 2,15 m) en Aluminium RAL 7016 + VR alu</strong><br><span class="detail">Aluminium à rupture de pont thermique, gris anthracite RAL 7016, avec volet roulant aluminium.</span></td>
+    </tr>
+<tr>
+      <td class="num">2</td>
+      <td><strong>Baie coulissante Séjour 2 vantaux (1,80 × 2,15 m) en Aluminium RAL 7016 + VR alu</strong><br><span class="detail">Aluminium à rupture de pont thermique, gris anthracite RAL 7016, avec volet roulant aluminium.</span></td>
+    </tr>
+<tr>
+      <td class="num">3</td>
+      <td><strong>Porte-fenêtre Séjour (1,40 × 2,15 m) en PVC RE2020 extérieur RAL 7016 + VR alu</strong><br><span class="detail">PVC haute performance RE2020, finition extérieure RAL 7016 assortie, avec volet roulant aluminium.</span></td>
+    </tr>
+<tr>
+      <td class="num">4</td>
+      <td><strong>Fenêtre panoramique Cuisine allège 140 (1,67 × 0,60 m) en PVC RE2020 + VR alu</strong><br><span class="detail">PVC haute performance RE2020, finition extérieure RAL 7016, avec volet roulant aluminium.</span></td>
+    </tr>
+<tr>
+      <td class="num">5</td>
+      <td><strong>Porte d'entrée monobloc Aluminium haute sécurité serrure 5 points A2P*, Ud &lt;= 1.0</strong><br><span class="detail">Monobloc aluminium haute sécurité, serrure 5 points A2P*, Ud inférieur ou égal à 1,0.</span></td>
+    </tr>
+<tr>
+      <td class="num">6</td>
+      <td><strong>Porte-fenêtre Suite Parentale RDC (1,40 × 2,15 m) en PVC RE2020 + VR alu</strong><br><span class="detail">PVC haute performance RE2020, finition extérieure RAL 7016, avec volet roulant aluminium.</span></td>
+    </tr>
+<tr>
+      <td class="num">7</td>
+      <td><strong>Fenêtre oscillo-battante SDE Parentale dépolie (0,90 × 1,25 m) en PVC RE2020 + VR alu</strong><br><span class="detail">Vitrage dépoli, PVC haute performance RE2020, finition extérieure RAL 7016, avec volet roulant aluminium.</span></td>
+    </tr>
+<tr>
+      <td class="num">8</td>
+      <td><strong>Porte de service isolée Cellier / Buanderie (0,90 × 2,15 m)</strong><br><span class="detail">Porte de service isolée, PVC haute performance RE2020, finition extérieure RAL 7016.</span></td>
+    </tr>
+<tr>
+      <td class="num">9</td>
+      <td><strong>Fenêtre Chambre 1 R+1 (2 vantaux oscillo-battants 1,15 × 1,25 m) en PVC RE2020 + VR alu</strong><br><span class="detail">PVC haute performance RE2020, finition extérieure RAL 7016, avec volet roulant aluminium.</span></td>
+    </tr>
+<tr>
+      <td class="num">10</td>
+      <td><strong>Fenêtre Chambre 2 R+1 (2 vantaux oscillo-battants 1,15 × 1,25 m) en PVC RE2020 + VR alu</strong><br><span class="detail">PVC haute performance RE2020, finition extérieure RAL 7016, avec volet roulant aluminium.</span></td>
+    </tr>
+<tr>
+      <td class="num">11</td>
+      <td><strong>Fenêtre Chambre 3 R+1 (2 vantaux oscillo-battants 1,15 × 1,25 m) en PVC RE2020 + VR alu</strong><br><span class="detail">PVC haute performance RE2020, finition extérieure RAL 7016, avec volet roulant aluminium.</span></td>
+    </tr>
+<tr>
+      <td class="num">12</td>
+      <td><strong>Fenêtre Salle de bains R+1 dépolie (0,90 × 1,25 m) en PVC RE2020 + VR alu</strong><br><span class="detail">Vitrage dépoli, PVC haute performance RE2020, finition extérieure RAL 7016, avec volet roulant aluminium.</span></td>
+    </tr>
+<tr>
+      <td class="num">13</td>
+      <td><strong>Châssis WC / Palier (0,60 × 0,80 m) en PVC RE2020 + VR alu</strong><br><span class="detail">PVC haute performance RE2020, finition extérieure RAL 7016, avec volet roulant aluminium.</span></td>
+    </tr>
+<tr>
+      <td class="num">14</td>
+      <td><strong>11 volets roulants motorisés filaires en coffre tunnel invisible (compatibles smartphone)</strong><br><span class="detail">Lames aluminium isolées, intégration en coffres tunnel invisibles, commandes murales individuelles, compatibles domotique smartphone.</span></td>
+    </tr>
+      </tbody>
+    </table>
+
+    <h2>Récapitulatif financier</h2>
+    <table class="bilan">
+      <tr><td>Montant total des travaux HT</td><td class="num">13 000,00 € HT</td></tr>
+      <tr class="geste"><td>Geste commercial exceptionnel de Direction</td><td class="num">− 300,00 € HT</td></tr>
+      <tr><td>Montant total net HT</td><td class="num">12 700,00 € HT</td></tr>
+      <tr><td>TVA applicable 20 % (construction neuve)</td><td class="num">2 540,00 €</td></tr>
+      <tr class="net"><td>Montant total net TTC</td><td class="num">15 240,00 € TTC</td></tr>
+    </table>
+
+    <h2>Échéancier d'appels de fonds</h2>
+    <table class="bilan">
+      <tr><td>Acompte 1 à la commande ferme (40 %)</td><td class="num">6 096,00 € TTC</td></tr>
+      <tr><td>Acompte 2 à la livraison matériel / démarrage pose (40 %)</td><td class="num">6 096,00 € TTC</td></tr>
+      <tr><td>Solde à la réception sans réserve (20 %)</td><td class="num">3 048,00 € TTC</td></tr>
+    </table>
+    <p class="avert">Régime fiscal : construction neuve, TVA au taux de 20 %. Le présent lot n'est pas un parcours MaPrimeRénov'. Les travaux de ce lot peuvent démarrer après signature et encaissement de l'acompte de 40 %. Ce marché porte sur une construction neuve (TVA 20 %). Aucune aide MaPrimeRénov' ni CEE n'est chiffrée. Aides financières 2026 (estimation à titre indicatif) : non intégrées à ce devis. Toute aide sollicitée par ailleurs reste à valider selon les revenus réels du client et l'éligibilité en vigueur. Montants définitifs après instruction des organismes compétents. Clause Julia Protection Aides : responsabilité ENERGIA plafonnée à 2 000 € en cas d'écart &gt; 10 % imputable à une erreur prouvée d'ENERGIA ; 0 % si erreur client ou décision ANAH/CEE.</p>
+
+    <h2>Coordonnées bancaires — virement de l'acompte</h2>
+    <div class="rib">
+      <p><strong>Titulaire du compte :</strong> ENERGIA CONSEIL</p>
+      <p><strong>Établissement bancaire :</strong> Qonto SA (6 Impasse Bonne Nouvelle, 75010 Paris)</p>
+      <p><strong>IBAN :</strong> <span class="iban">FR76 1695 8000 0186 6836 4808 772</span></p>
+      <p><strong>Code BIC / SWIFT :</strong> <span class="iban">QNTOFRP1XXX</span></p>
+      <p>Merci d'indiquer la référence 'DEV-OUSSARA' dans le libellé de votre virement d'acompte.</p>
+    </div>
+
+    <h2>Cadre de validation et signature</h2>
+    <p>Le maître d'ouvrage porte la mention manuscrite <strong>Bon pour accord et commande ferme</strong>, date et signe. ENERGIA CONSEIL IA® appose son cachet.</p>
+    <div class="sign">
+      <div class="cadre">
+        <p class="mention">Bon pour accord et commande ferme</p>
+        <p>Fait à ________________, le ________________</p>
+        <p>Signature du client<br>M. et Mme Youssef OUSSARA</p>
+      </div>
+      <div class="cadre">
+        <p><strong>Cachet officiel ENERGIA CONSEIL IA®</strong></p>
+        <p>Direction de marché &amp; Interlocuteur Unique : Sylvain LEMBELEMBE (06 10 59 68 98 — contact@renovoptim-ia.com)</p>
+      </div>
+    </div>
+
+    <h2>Avis juridique</h2>
+    <div class="julia">
+      <p>Conformité : artisans RGE, TVA 20 % construction neuve, forfait menuiseries et volets, échéancier 40 / 40 / 20, validité 30 jours. Aucune aide publique n'est déduite de ce devis.</p>
+      <p>Ce marché porte sur une construction neuve (TVA 20 %). Aucune aide MaPrimeRénov' ni CEE n'est chiffrée. Aides financières 2026 (estimation à titre indicatif) : non intégrées à ce devis. Toute aide sollicitée par ailleurs reste à valider selon les revenus réels du client et l'éligibilité en vigueur. Montants définitifs après instruction des organismes compétents. Clause Julia Protection Aides : responsabilité ENERGIA plafonnée à 2 000 € en cas d'écart &gt; 10 % imputable à une erreur prouvée d'ENERGIA ; 0 % si erreur client ou décision ANAH/CEE.</p>
+      <p>Avis établi sous la responsabilité de Julia, juriste ENERGIA CONSEIL IA® — 30 octobre 2026.</p>
+    </div>
+
+    <h2>Contacts du projet</h2>
+    <ul>
+      <li>Direction de marché &amp; Interlocuteur Unique : Sylvain LEMBELEMBE (06 10 59 68 98 — contact@renovoptim-ia.com)</li>
+      <li>Courtier financement : FABIEN — VIVONS COURTIER — 06 71 19 96 45</li>
+      <li>Juriste : Julia</li>
+      <li>MAR : Antoine BARATIER – Cabinet C2ET</li>
+    </ul>
+    <p class="avert">Données traitées pour la gestion du projet. Conservation 5 ans. Droits : contact@energia-conseil-ia.com. Réclamation possible auprès de la CNIL.</p>
+  </article>
+</body>
+</html>
