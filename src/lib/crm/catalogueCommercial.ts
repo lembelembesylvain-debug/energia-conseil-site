@@ -237,7 +237,7 @@ export const PLANCHES_B2B: PlancheCatalogue[] = [
 ];
 
 export const SLOGAN_INSTITUTIONNEL =
-  "L'intelligence artificielle et l'ingénierie thermique au service de votre transition énergétique durable.";
+  "L'intelligence artificielle et l'ingénierie thermique au service de votre transition patrimoniale durable.";
 
 export type ProfilClient = {
   id: string;
