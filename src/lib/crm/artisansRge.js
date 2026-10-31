@@ -3,7 +3,7 @@
  * Les PU client (devis) ne sont jamais réécrits ici — uniquement les coûts internes CG.
  */
 
-import seed from "../../../data/artisans-rge-referentiel.json" with { type: "json" };
+import seedJson from "./artisans-rge-referentiel.json" with { type: "json" };
 
 export const ARTISANS_RGE_STORAGE_KEY = "energia-crm-artisans-rge-v1";
 export const MODE_FOURNITURE_POSE = "fourniture_pose";
@@ -12,7 +12,24 @@ export const MENTION_AUTOLIQUIDATION_TVA =
   "Sous-traitance de travaux de bâtiment — TVA autoliquidée par le preneur assujetti (Article 283-2 nonies du Code Général des Impôts)";
 export const ARTICLE_CGI_AUTOLIQUIDATION = "Art. 283-2 nonies du CGI";
 
-export const REFERENTIEL_SEED = seed;
+/** Fallback si le référentiel JSON est absent ou invalide. */
+export const REFERENTIEL_VIDE = Object.freeze({
+  version: 1,
+  annee: 2026,
+  mentionAutoliquidation: MENTION_AUTOLIQUIDATION_TVA,
+  articleCgi: ARTICLE_CGI_AUTOLIQUIDATION,
+  contractantGeneral: {
+    nom: "Sylvain LEMBELEMBE",
+    role: "Contractant Général",
+    entreprise: "ENERGIA-CONSEIL IA®",
+    telephone: "06 10 59 68 98",
+    email: "contact@energia-conseil-ia.com",
+  },
+  artisans: [],
+});
+
+export const REFERENTIEL_SEED =
+  seedJson && Array.isArray(seedJson.artisans) ? seedJson : REFERENTIEL_VIDE;
 
 function round2(n) {
   return Math.round((Number(n) + Number.EPSILON) * 100) / 100;

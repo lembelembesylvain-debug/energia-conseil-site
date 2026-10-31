@@ -1,0 +1,420 @@
+{
+  "version": 1,
+  "annee": 2026,
+  "mentionAutoliquidation": "Sous-traitance de travaux de bâtiment — TVA autoliquidée par le preneur assujetti (Article 283-2 nonies du Code Général des Impôts)",
+  "articleCgi": "Art. 283-2 nonies du CGI",
+  "contractantGeneral": {
+    "nom": "Sylvain LEMBELEMBE",
+    "role": "Contractant Général",
+    "entreprise": "ENERGIA-CONSEIL IA®",
+    "telephone": "06 10 59 68 98",
+    "email": "contact@energia-conseil-ia.com"
+  },
+  "artisans": [
+    {
+      "id": "c2l-isolation",
+      "raisonSociale": "C2L Isolation",
+      "enseigne": "C2L — Créateur de Lumière",
+      "forme": "SARL",
+      "dirigeant": "À confirmer sur Kbis",
+      "siret": "53461962200101",
+      "siretStatut": "officiel",
+      "telephone": "À confirmer",
+      "email": "À confirmer",
+      "adresse": "14 Rue Edouard Garet, 42160 Andrézieux-Bouthéon",
+      "zones": [
+        "42",
+        "69",
+        "71",
+        "01",
+        "21"
+      ],
+      "specialites": [
+        "Combles perdus",
+        "ITE",
+        "Isolation planchers bas"
+      ],
+      "rge": {
+        "organisme": "Qualibat RGE",
+        "numero": "E-E102269",
+        "validite": "2027-12-31"
+      },
+      "decennale": {
+        "compagnie": "GAN Assurances",
+        "police": "221200149"
+      },
+      "contratSousTraitance": {
+        "statut": "actif",
+        "type": "Contrat de sous-traitance BTP",
+        "autoliquidationTva": true,
+        "article": "Art. 283-2 nonies du CGI"
+      },
+      "modeDefaut": "fourniture_pose",
+      "grilles": [
+        {
+          "id": "combles-soufflage",
+          "metier": "Isolation combles perdus — soufflage",
+          "familleId": "isolation",
+          "motsCles": [
+            "comble",
+            "souffl",
+            "ouate",
+            "laine"
+          ],
+          "unite": "m²",
+          "fourniturePosePuHt": 22,
+          "poseSeulePuHt": 8,
+          "materielDirectPuHt": 11
+        },
+        {
+          "id": "ite-murs",
+          "metier": "ITE murs extérieurs",
+          "familleId": "isolation",
+          "motsCles": [
+            "ite",
+            "enduit",
+            "mur ext",
+            "isolation par l'extérieur"
+          ],
+          "unite": "m²",
+          "fourniturePosePuHt": 95,
+          "poseSeulePuHt": 35,
+          "materielDirectPuHt": 48
+        },
+        {
+          "id": "planchers-bas",
+          "metier": "Isolation planchers bas",
+          "familleId": "isolation",
+          "motsCles": [
+            "plancher",
+            "cave",
+            "vide sanitaire"
+          ],
+          "unite": "m²",
+          "fourniturePosePuHt": 45,
+          "poseSeulePuHt": 18,
+          "materielDirectPuHt": 22
+        }
+      ]
+    },
+    {
+      "id": "bonheur-amarante",
+      "raisonSociale": "SARL Bonheur d'Amarante",
+      "enseigne": "Bonheur d'Amarante",
+      "forme": "SARL",
+      "dirigeant": "À confirmer sur Kbis",
+      "siret": "79180685400034",
+      "siretStatut": "officiel",
+      "telephone": "04 72 18 09 35",
+      "email": "bonheurdamarante@gmail.com",
+      "adresse": "131 Rue du Thivollet, 69770 Chambost-Longessaigne",
+      "zones": [
+        "42",
+        "69",
+        "71",
+        "01",
+        "21"
+      ],
+      "specialites": [
+        "Menuiseries PVC/Alu",
+        "Portes isolantes",
+        "Volets solaires"
+      ],
+      "rge": {
+        "organisme": "Qualibat RGE",
+        "numero": "Attestation Qualibat RGE — n° à confirmer",
+        "validite": "2027-12-31"
+      },
+      "decennale": {
+        "compagnie": "À confirmer",
+        "police": "À confirmer"
+      },
+      "contratSousTraitance": {
+        "statut": "actif",
+        "type": "Contrat de sous-traitance BTP",
+        "autoliquidationTva": true,
+        "article": "Art. 283-2 nonies du CGI"
+      },
+      "modeDefaut": "fourniture_pose",
+      "grilles": [
+        {
+          "id": "menuiseries-fenetres",
+          "metier": "Fenêtres PVC/Alu — pose",
+          "familleId": "menuiseries",
+          "motsCles": [
+            "fenetre",
+            "fenêtre",
+            "menuiser",
+            "pvc",
+            "alu"
+          ],
+          "unite": "u",
+          "fourniturePosePuHt": 480,
+          "poseSeulePuHt": 130,
+          "materielDirectPuHt": 280
+        },
+        {
+          "id": "portes-isolantes",
+          "metier": "Portes isolantes",
+          "familleId": "menuiseries",
+          "motsCles": [
+            "porte"
+          ],
+          "unite": "u",
+          "fourniturePosePuHt": 1200,
+          "poseSeulePuHt": 180,
+          "materielDirectPuHt": 850
+        },
+        {
+          "id": "volets-solaires",
+          "metier": "Volets solaires",
+          "familleId": "menuiseries",
+          "motsCles": [
+            "volet"
+          ],
+          "unite": "u",
+          "fourniturePosePuHt": 420,
+          "poseSeulePuHt": 90,
+          "materielDirectPuHt": 260
+        }
+      ]
+    },
+    {
+      "id": "smn-energies",
+      "raisonSociale": "SMN ENERGIES",
+      "enseigne": "SMN Energies",
+      "forme": "SASU",
+      "dirigeant": "À confirmer sur Kbis",
+      "siret": "994321883",
+      "siretStatut": "a_confirmer",
+      "telephone": "À confirmer",
+      "email": "À confirmer",
+      "adresse": "388 Avenue Charles de Gaulle, 69200 Vénissieux",
+      "zones": [
+        "42",
+        "69",
+        "71",
+        "01",
+        "21"
+      ],
+      "specialites": [
+        "PAC Air/Eau",
+        "PAC Air/Air",
+        "Ballon thermodynamique",
+        "VMC"
+      ],
+      "rge": {
+        "organisme": "QualiPAC & RGE",
+        "numero": "QPAC/84409",
+        "validite": "2027-12-31"
+      },
+      "decennale": {
+        "compagnie": "À confirmer",
+        "police": "À confirmer"
+      },
+      "contratSousTraitance": {
+        "statut": "actif",
+        "type": "Contrat de sous-traitance BTP",
+        "autoliquidationTva": true,
+        "article": "Art. 283-2 nonies du CGI"
+      },
+      "modeDefaut": "fourniture_pose",
+      "grilles": [
+        {
+          "id": "pac-air-eau",
+          "metier": "PAC Air/Eau posée",
+          "familleId": "chauffage",
+          "motsCles": [
+            "pac",
+            "pompe à chaleur",
+            "air/eau",
+            "air-eau",
+            "air eau"
+          ],
+          "unite": "forfait",
+          "fourniturePosePuHt": 10500,
+          "poseSeulePuHt": 2500,
+          "materielDirectPuHt": 7500
+        },
+        {
+          "id": "pac-air-air",
+          "metier": "PAC Air/Air posée",
+          "familleId": "chauffage",
+          "motsCles": [
+            "air/air",
+            "air-air",
+            "split"
+          ],
+          "unite": "forfait",
+          "fourniturePosePuHt": 8900,
+          "poseSeulePuHt": 1800,
+          "materielDirectPuHt": 6100
+        },
+        {
+          "id": "ballon-thermo",
+          "metier": "Ballon thermodynamique",
+          "familleId": "ecs",
+          "motsCles": [
+            "ballon",
+            "cet",
+            "thermodynamique",
+            "ecs"
+          ],
+          "unite": "forfait",
+          "fourniturePosePuHt": 2800,
+          "poseSeulePuHt": 550,
+          "materielDirectPuHt": 1250
+        },
+        {
+          "id": "vmc",
+          "metier": "VMC (simple ou double flux)",
+          "familleId": "ventilation",
+          "motsCles": [
+            "vmc"
+          ],
+          "unite": "forfait",
+          "fourniturePosePuHt": 1800,
+          "poseSeulePuHt": 450,
+          "materielDirectPuHt": 980
+        }
+      ]
+    },
+    {
+      "id": "bmi-mohamed-benaouda",
+      "raisonSociale": "BMI",
+      "enseigne": "BMI",
+      "forme": "Entreprise Individuelle",
+      "dirigeant": "Mohamed BENAOUDA",
+      "siren": "488327784",
+      "siret": "48832778400010",
+      "siretStatut": "a_confirmer",
+      "telephone": "",
+      "email": "",
+      "adresse": "5 Grande Rue, 71260 Lugny",
+      "zones": [
+        "71",
+        "69",
+        "01",
+        "21"
+      ],
+      "specialites": [
+        "Électricité",
+        "Plomberie - installations sanitaires",
+        "Plâtrerie - staff - stuc - gypserie (isolation thermique et acoustique intérieure)"
+      ],
+      "rge": {
+        "organisme": "Non renseigné",
+        "numero": "Non renseigné",
+        "validite": "Non renseignée"
+      },
+      "decennale": {
+        "compagnie": "Entoria (Fidelidade)",
+        "police": "CRCD04-001151",
+        "courtier": "Advance Assurances (Vénissieux)",
+        "validiteDu": "2025-11-01",
+        "validiteAu": "2026-10-31",
+        "statut": "valide",
+        "activitesGaranties": [
+          "Électricité",
+          "Plomberie - installations sanitaires",
+          "Plâtrerie - staff - stuc - gypserie (isolation thermique et acoustique intérieure)"
+        ]
+      },
+      "contratSousTraitance": {
+        "statut": "actif",
+        "type": "Contrat de sous-traitance BTP",
+        "autoliquidationTva": true,
+        "article": "Art. 283-2 nonies du CGI"
+      },
+      "modeDefaut": "fourniture_pose",
+      "grilles": []
+    },
+    {
+      "id": "hezen-mustafa",
+      "nom": "HEZEN MUSTAFA — Maçonnerie, Façade & IPN",
+      "raisonSociale": "HEZEN MUSTAFA",
+      "enseigne": "HEZEN MUSTAFA — Maçonnerie, Façade & IPN",
+      "dirigeant": "Mustafa HEZEN",
+      "forme": "Entreprise Individuelle",
+      "siren": "848215448",
+      "siret": "84821544800010",
+      "siretStatut": "a_confirmer",
+      "telephone": "06 00 00 00 00",
+      "email": "contact@hezen-macon.fr",
+      "adresse": "96 Rue du Beaujolais, 71000 Mâcon",
+      "zones": [
+        "71",
+        "01",
+        "69",
+        "21"
+      ],
+      "specialites": [
+        "Maçonnerie et gros œuvre",
+        "Ouverture de baies et linteaux IPN",
+        "Ravalement de façade et ITE extérieure"
+      ],
+      "rge": {
+        "organisme": "Qualibat RGE Façade / Maçonnerie",
+        "numero": "À confirmer",
+        "validite": "2027-06-30"
+      },
+      "decennale": {
+        "compagnie": "Protect SA / Entoria",
+        "police": "00/S.10001.018293",
+        "courtier": "Massa Clivio Assurances (Mâcon)",
+        "validite": "2027-06-30",
+        "validiteDu": "2026-07-01",
+        "validiteAu": "2027-06-30",
+        "statut": "valide",
+        "activitesGaranties": [
+          "Maçonnerie et gros œuvre",
+          "Ouverture de baies et linteaux IPN",
+          "Ravalement de façade et ITE extérieure"
+        ]
+      },
+      "contratSousTraitance": {
+        "statut": "actif",
+        "type": "Contrat de sous-traitance BTP",
+        "autoliquidationTva": true,
+        "article": "Art. 283-2 nonies du CGI"
+      },
+      "modeDefaut": "fourniture_pose",
+      "charteSurete6": {
+        "adhesion": true,
+        "statut": "signee"
+      },
+      "grilles": [
+        {
+          "id": "linteau-ipn-baie",
+          "metier": "Ouverture baie & pose linteau IPN",
+          "familleId": "maconnerie",
+          "motsCles": [
+            "ipn",
+            "linteau",
+            "ouverture",
+            "maconnerie"
+          ],
+          "unite": "forfait",
+          "fourniturePosePuHt": 6200,
+          "poseSeulePuHt": 2500,
+          "materielDirectPuHt": 3700
+        },
+        {
+          "id": "ravalement-facade",
+          "metier": "Ravalement de façade & enduit ITE",
+          "familleId": "facade",
+          "motsCles": [
+            "facade",
+            "ravalement",
+            "ite",
+            "enduit"
+          ],
+          "unite": "forfait",
+          "fourniturePosePuHt": 10750,
+          "poseSeulePuHt": 4500,
+          "materielDirectPuHt": 6250
+        }
+      ]
+    }
+  ]
+}
