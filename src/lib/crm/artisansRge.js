@@ -3,7 +3,7 @@
  * Les PU client (devis) ne sont jamais réécrits ici — uniquement les coûts internes CG.
  */
 
-import seedJson from "./artisans-rge-referentiel.json" with { type: "json" };
+const seed = [];
 
 export const ARTISANS_RGE_STORAGE_KEY = "energia-crm-artisans-rge-v1";
 export const MODE_FOURNITURE_POSE = "fourniture_pose";
@@ -25,11 +25,10 @@ export const REFERENTIEL_VIDE = Object.freeze({
     telephone: "06 10 59 68 98",
     email: "contact@energia-conseil-ia.com",
   },
-  artisans: [],
+  artisans: seed,
 });
 
-export const REFERENTIEL_SEED =
-  seedJson && Array.isArray(seedJson.artisans) ? seedJson : REFERENTIEL_VIDE;
+export const REFERENTIEL_SEED = REFERENTIEL_VIDE;
 
 function round2(n) {
   return Math.round((Number(n) + Number.EPSILON) * 100) / 100;
