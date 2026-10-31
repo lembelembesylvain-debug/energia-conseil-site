@@ -26,7 +26,7 @@
 <body class="bg-gradient-hero p-4 md:p-8 min-h-screen">
   <div class="max-w-4xl mx-auto">
     <!-- Config Supabase : créez public/config.upload.js (voir config.upload.example.js) pour surcharger -->
-    <script src="/config.upload.js"></script>
+    <script type="module" src="./config.upload.js"></script>
     <script>
       window.SUPABASE_CONFIG = window.SUPABASE_CONFIG || { url: 'YOUR_SUPABASE_URL', anonKey: 'YOUR_SUPABASE_ANON_KEY' };
     </script>

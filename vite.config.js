@@ -218,7 +218,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        'diagnostic-rapide': resolve(__dirname, 'diagnostic-rapide.html'),
         'immobilier-chagny': resolve(__dirname, 'immobilier-chagny.html'),
         'upload-audit': resolve(__dirname, 'src/vite-pages/upload-audit.html'),
         'maison-3d': resolve(__dirname, 'maison-3d-thermique-interactive.html'),
