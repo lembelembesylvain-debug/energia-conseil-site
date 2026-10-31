@@ -1,3 +1,6 @@
+import { Component } from "react";
+import { badgeProximiteChalon } from "../../lib/crm/dpeDepartements";
+import ContactProprietaireSniper from "./ContactProprietaireSniper";
 import ExportFicheTerrainPdf from "./ExportFicheSniper";
 import {
   COULEURS_ADEME,
@@ -31,18 +34,32 @@ function surfaceTerrain(m2) {
   return ha ? `${metres} (${ha} ha)` : metres;
 }
 
-export default function PanneauSniperProptech({
+function adressePourContact(logement, fiche) {
+  const rue = String(logement?.adresse || "").trim();
+  if (!rue) return fiche.adresseComplete;
+  if (/\b\d{5}\b/.test(rue)) return rue;
+  return [rue, logement?.codePostal, logement?.commune].filter(Boolean).join(", ");
+}
+
+function PanneauSniperProptech({
   sniper,
   logement = null,
   typeBatiment = "individuel",
+  codeDepartement = "",
   chargement,
   erreur,
   onFermer,
   onAppliquerPrixM2,
 }) {
-  const fiche = composerFicheOpportunite(logement, sniper);
+  const fiche = composerFicheOpportunite(logement, sniper, { codeDepartement });
+  const proximite = badgeProximiteChalon(codeDepartement || fiche.codeDep);
+  const tonProximite =
+    proximite?.ton === "souverain"
+      ? "border-emerald-400/40 bg-emerald-500/15 text-emerald-100"
+      : proximite?.ton === "bassin"
+        ? "border-sky-400/40 bg-sky-500/15 text-sky-100"
+        : "border-violet-400/40 bg-violet-500/15 text-violet-100";
   const parcelle = sniper?.cadastre?.parcelle;
-  const bati = sniper?.cadastre?.bati;
   const dvf = sniper?.dvf;
   const risques = sniper?.georisques?.resume;
   const teinte = fiche.etiquette ? COULEURS_ADEME[fiche.etiquette] : null;
@@ -62,6 +79,11 @@ export default function PanneauSniperProptech({
             Carto sniper · Cadastre + DPE + DVF
           </p>
           <p className="mt-1 text-sm font-semibold text-white">Enrichissement parcelle</p>
+          {proximite ? (
+            <p className={`mt-2 inline-flex rounded-full border px-2 py-0.5 text-[10px] font-medium tracking-wide ${tonProximite}`}>
+              {proximite.libelle}
+            </p>
+          ) : null}
         </div>
         {onFermer ? (
           <button type="button" className="text-xs text-slate-400 hover:text-white" onClick={onFermer}>
@@ -69,6 +91,23 @@ export default function PanneauSniperProptech({
           </button>
         ) : null}
       </div>
+
+      <ContactProprietaireSniper
+        variante="sombre"
+        identifiant={logement?.id || fiche.reference}
+        typeBati={typeBatiment === "individuel" ? "Maison individuelle" : typeBatiment}
+        adresse={adressePourContact(logement, fiche)}
+        codePostal={logement?.codePostal || ""}
+        commune={logement?.commune || fiche.commune}
+        codeDep={codeDepartement || fiche.codeDep}
+        etiquette={fiche.etiquette || logement?.etiquette || ""}
+        consoKwhM2={fiche.consoKwhM2 ?? logement?.conso ?? null}
+        surfaceHabitableM2={fiche.surfaceHabitableM2 ?? logement?.surface ?? null}
+        anneeConstruction={fiche.anneeConstruction ?? logement?.annee ?? null}
+        section={fiche.section || parcelle?.section || ""}
+        numero={fiche.numero || parcelle?.numero || ""}
+        chauffage={fiche.chauffage || logement?.chauffage || ""}
+      />
 
       <ExportFicheTerrainPdf fiche={fiche} />
       <BlocEtudeSolaire fiche={fiche} />
@@ -136,7 +175,7 @@ export default function PanneauSniperProptech({
                 <Ligne label="Terrain" value={surfaceTerrain(fiche.terrainM2)} />
                 <Ligne
                   label="Emprise au sol"
-                  value={fiche.empriseM2 != null ? `${fiche.empriseM2.toLocaleString("fr-FR")} m²` : "Non communiquée"}
+                  value={fiche.empriseM2 != null ? `${Math.round(fiche.empriseM2).toLocaleString("fr-FR")} m²` : "Non communiquée"}
                 />
                 <Ligne label="Ratio d'occupation" value={formaterRatio(fiche.ratioOccupation)} />
                 <Ligne label="Commune" value={`${fiche.commune} (${fiche.codeDep})`} />
@@ -151,12 +190,20 @@ export default function PanneauSniperProptech({
                 />
                 <Ligne
                   label="Emprise au sol"
-                  value={bati?.empriseSolM2 != null ? `${bati.empriseSolM2.toLocaleString("fr-FR")} m²` : "Non fournie"}
+                  value={fiche.empriseM2 != null ? `${Math.round(fiche.empriseM2).toLocaleString("fr-FR")} m²` : "Non fournie"}
                 />
                 <Ligne label="Commune" value={parcelle.commune || parcelle.codeInsee} />
               </>
             )}
           </ul>
+          {fiche.empriseSource === "estimee" ? (
+            <p className="mt-2 text-[10px] leading-snug text-slate-400">
+              Emprise estimée d&apos;après la surface habitable et le nombre de niveaux
+              {fiche.empriseIgnM2 != null
+                ? ` (le flux IGN renvoyait ${Math.round(fiche.empriseIgnM2).toLocaleString("fr-FR")} m², une dépendance).`
+                : "."}
+            </p>
+          ) : null}
           {fiche.ancreeSurReleve ? (
             <p className="mt-2 text-[10px] leading-relaxed text-slate-400">{fiche.potentielFoncier}</p>
           ) : null}
@@ -210,10 +257,10 @@ export default function PanneauSniperProptech({
         <section className="mt-3 rounded-xl border border-slate-800 bg-slate-900/70 p-3">
           <p className="text-[10px] font-semibold uppercase tracking-wide text-orange-300">Géorisques</p>
           <ul className="mt-2 space-y-1.5">
-            <Ligne label={risques.rga.libelle} value={risques.rga.niveau} />
-            <Ligne label={risques.inondation.libelle} value={risques.inondation.niveau} />
-            <Ligne label={risques.sismicite.libelle} value={risques.sismicite.niveau} />
-            <Ligne label={risques.radon.libelle} value={risques.radon.niveau} />
+            <Ligne label={risques.rga?.libelle || "RGA"} value={risques.rga?.niveau || "—"} />
+            <Ligne label={risques.inondation?.libelle || "Inondation"} value={risques.inondation?.niveau || "—"} />
+            <Ligne label={risques.sismicite?.libelle || "Sismicité"} value={risques.sismicite?.niveau || "—"} />
+            <Ligne label={risques.radon?.libelle || "Radon"} value={risques.radon?.niveau || "—"} />
           </ul>
         </section>
       ) : null}
@@ -222,3 +269,42 @@ export default function PanneauSniperProptech({
     </aside>
   );
 }
+
+class FiletPanneauSniper extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { plante: false, message: "" };
+  }
+
+  static getDerivedStateFromError(erreur) {
+    return { plante: true, message: erreur instanceof Error ? erreur.message : "Erreur inattendue" };
+  }
+
+  render() {
+    if (this.state.plante) {
+      return (
+        <aside className="absolute bottom-4 right-4 z-[2100] w-[min(100%-2rem,24rem)] rounded-2xl border border-rose-400/40 bg-slate-950/96 p-4 text-sm text-rose-100 shadow-2xl">
+          <p>Ce panneau a rencontré une erreur. La carte reste disponible.</p>
+          {this.state.message ? <p className="mt-2 text-[11px] leading-snug text-rose-200">{this.state.message}</p> : null}
+          <div className="mt-3 flex gap-3">
+            <button
+              type="button"
+              className="text-xs font-semibold text-white hover:text-amber-200"
+              onClick={() => this.setState({ plante: false, message: "" })}
+            >
+              Réessayer
+            </button>
+            {this.props.onFermer ? (
+              <button type="button" className="text-xs text-slate-400 hover:text-white" onClick={this.props.onFermer}>
+                Fermer
+              </button>
+            ) : null}
+          </div>
+        </aside>
+      );
+    }
+    return <PanneauSniperProptech {...this.props} />;
+  }
+}
+
+export default FiletPanneauSniper;

@@ -5,6 +5,8 @@
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js'
+import { BRANDING, fitLogo, LOGO_BOX, LOGO_PUBLIC_PATH } from './branding'
+import { ecrirePiedIdentite } from './piedLegalPdf'
 
 Chart.register(ArcElement, Tooltip, Legend)
 
@@ -52,15 +54,44 @@ function createPieChartImage(data) {
 }
 
 /** Ajoute en-tête et pied de page */
-function addPageMeta(doc, pageNum, totalPages) {
+function addPageMeta(doc, pageNum, totalPages, logo) {
+  if (logo) {
+    const size = fitLogo(logo.width, logo.height, LOGO_BOX.header.maxWidthMm, LOGO_BOX.header.maxHeightMm)
+    doc.addImage(logo.dataUrl, 'PNG', MARGIN, 4, size.width, size.height)
+  }
   doc.setDrawColor(200, 200, 200)
   doc.setLineWidth(0.1)
-  doc.line(MARGIN, 12, PAGE_W - MARGIN, 12)
+  doc.line(MARGIN, 22, PAGE_W - MARGIN, 22)
   doc.setFontSize(8)
   doc.setTextColor(...GRAY)
-  doc.text('Energia-Conseil - Audit Énergétique Réglementaire', MARGIN, 10)
+  doc.text(`${BRANDING.nom} - Audit Énergétique Réglementaire`, MARGIN + 42, 10)
   doc.text(`Page ${pageNum} / ${totalPages}`, PAGE_W - MARGIN, 10, { align: 'right' })
+  ecrirePiedIdentite(doc, MARGIN, PAGE_H - 24, PAGE_W - MARGIN * 2)
   doc.setTextColor(0, 0, 0)
+}
+
+async function loadOfficialLogo() {
+  try {
+    const response = await fetch(LOGO_PUBLIC_PATH)
+    if (!response.ok) return null
+    const blob = await response.blob()
+    const dataUrl = await new Promise((resolve) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(typeof reader.result === 'string' ? reader.result : null)
+      reader.onerror = () => resolve(null)
+      reader.readAsDataURL(blob)
+    })
+    if (!dataUrl) return null
+    const dims = await new Promise((resolve, reject) => {
+      const img = new Image()
+      img.onload = () => resolve({ width: img.naturalWidth, height: img.naturalHeight })
+      img.onerror = () => reject(new Error('logo'))
+      img.src = dataUrl
+    })
+    return { dataUrl, ...dims }
+  } catch {
+    return null
+  }
 }
 
 /** Vérifie si une nouvelle page est nécessaire */
@@ -74,6 +105,7 @@ function checkNewPage(doc, y, need = 30) {
 
 export async function generateFullAudit(clientData = {}, photosAnalysis = {}, images3D = {}) {
   const doc = new jsPDF()
+  const logo = await loadOfficialLogo()
   const d = clientData
   const pa = photosAnalysis || {}
   const img3 = images3D || {}
@@ -93,15 +125,19 @@ export async function generateFullAudit(clientData = {}, photosAnalysis = {}, im
   // ─── PAGE 1 : COUVERTURE ─────────────────────────────────────────
   doc.setFillColor(...PRIMARY)
   doc.rect(0, 0, PAGE_W, 100, 'F')
+  if (logo) {
+    const size = fitLogo(logo.width, logo.height, LOGO_BOX.cover.maxWidthMm, LOGO_BOX.cover.maxHeightMm)
+    doc.addImage(logo.dataUrl, 'PNG', (PAGE_W - size.width) / 2, 8, size.width, size.height)
+  }
   doc.setTextColor(255, 255, 255)
   doc.setFontSize(24)
   doc.setFont('helvetica', 'bold')
-  doc.text('ENERGIA-CONSEIL', PAGE_W / 2, 35, { align: 'center' })
+  doc.text(BRANDING.nom, PAGE_W / 2, logo ? 48 : 35, { align: 'center' })
   doc.setFontSize(18)
   doc.setFont('helvetica', 'normal')
-  doc.text('Audit Énergétique Réglementaire', PAGE_W / 2, 55, { align: 'center' })
+  doc.text('Audit Énergétique Réglementaire', PAGE_W / 2, logo ? 62 : 55, { align: 'center' })
   doc.setFontSize(12)
-  doc.text('Conforme ANAH', PAGE_W / 2, 75, { align: 'center' })
+  doc.text('Conforme ANAH', PAGE_W / 2, logo ? 78 : 75, { align: 'center' })
 
   doc.setTextColor(0, 0, 0)
   y = 120
@@ -776,7 +812,7 @@ export async function generateFullAudit(clientData = {}, photosAnalysis = {}, im
   const nbPages = doc.getNumberOfPages()
   for (let i = 1; i <= nbPages; i++) {
     doc.setPage(i)
-    addPageMeta(doc, i, nbPages)
+    addPageMeta(doc, i, nbPages, logo)
   }
 
   const filename = `Audit_${(nomAffichage === 'Non renseigné' ? 'Client' : nomAffichage).replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`

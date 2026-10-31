@@ -122,6 +122,7 @@ export default function AuditEnergetiqueModule({
   auditData,
   documentsList,
   scenarios,
+  rapportClient,
 }: AuditEnergetiqueModuleProps) {
   const [brokenImages, setBrokenImages] = useState<Record<string, boolean>>({});
   const [selectedScenarioId, setSelectedScenarioId] = useState(
@@ -528,6 +529,7 @@ export default function AuditEnergetiqueModule({
               foyer={projectData.foyer}
               scenarios={scenarios}
               alertesCorpus={auditData.alertesAides}
+              admin
             />
           </section>
         ) : null}
@@ -552,6 +554,7 @@ export default function AuditEnergetiqueModule({
               </ul>
             </div>
           ) : null}
+          {rapportClient}
           {projectData.footer ? <p className="mt-6 text-xs text-slate-500">{projectData.footer}</p> : null}
         </section>
       </main>

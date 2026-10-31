@@ -56,6 +56,9 @@ function aide(montantRetenu: number): AideEstimative {
     organisme: "ANAH",
     conditionsAVerifier: "Test",
     dateValidite: "2026-12-31",
+    dateVerificationWeb: null,
+    verifieeWeb: false,
+    sourceVerificationUrl: "https://www.anah.gouv.fr",
     montantEstimatif: montantRetenu,
     montantRetenu,
     commentaire: "",
@@ -200,6 +203,8 @@ function artisanLocal(inclusDansDevis: boolean): DeplacementArtisanSaisie {
     ...creerArtisanVide(),
     nomArtisan: "2C ENERGIES",
     adresseDepart: "12 rue des Artisans, 69100 Villeurbanne",
+    distanceAllerKm: 4,
+    joursDePose: 1,
     distanceAllerRetourKm: 8,
     sourceDistance: "saisie_manuelle",
     nombreDeplacements: 2,
@@ -221,7 +226,7 @@ paramsDeplacement.tauxMarge = 0.1;
 
 console.log("— Artisan local, déplacement déjà inclus dans le devis —");
 const artisanInclus = calculerDeplacementArtisan(artisanLocal(true), paramsDeplacement.adresseChantier, null);
-assert(almostEqual(artisanInclus.fraisEstimesHt ?? -1, 8.8), `estimé 8,80 €, obtenu ${artisanInclus.fraisEstimesHt}`);
+assert(almostEqual(artisanInclus.fraisEstimesHt ?? -1, 0), `zone incluse = 0 €, obtenu ${artisanInclus.fraisEstimesHt}`);
 assert(artisanInclus.fraisAjoutesHt === 0, "inclus : 0 € ajouté au coût interne");
 assert(artisanInclus.statutFacturation === "inclus_dans_devis", "statut inclus dans le devis");
 assert(artisanInclus.adresseDepart.includes("Villeurbanne"), "adresse artisan, pas Lyon par défaut");
@@ -229,8 +234,17 @@ assert(!creerArtisanVide().adresseDepart, "nouvel artisan : adresse de départ v
 
 console.log("— Artisan local, déplacement non inclus —");
 const artisanAjoute = calculerDeplacementArtisan(artisanLocal(false), paramsDeplacement.adresseChantier, null);
-assert(almostEqual(artisanAjoute.fraisAjoutesHt, 8.8), "non inclus : 8,80 € ajoutés");
+assert(almostEqual(artisanAjoute.fraisAjoutesHt, 0), "dans la zone : aucun frais ajouté");
 assert(artisanAjoute.statutFacturation === "ajoute_separement", "statut ajouté séparément");
+
+const artisanHorsZone = calculerDeplacementArtisan(
+  { ...artisanLocal(false), distanceAllerKm: 45, joursDePose: 2 },
+  paramsDeplacement.adresseChantier,
+  null,
+);
+assert(artisanHorsZone.distanceHorsZoneKm === 15, "15 km hors zone incluse");
+assert(artisanHorsZone.trajetsAR === 3, "1 visite technique + 2 jours de pose");
+assert(almostEqual(artisanHorsZone.fraisDeplacementHt ?? -1, 180), "45 km aller, 2 jours = 180 € HT");
 
 console.log("— ENERGIA : une visite —");
 const energiaBase = creerDeplacementEnergia(paramsDeplacement.adresseDepartEnergia, paramsDeplacement.deplacement);
@@ -259,7 +273,13 @@ assert(almostEqual(plusieursVisites.fraisDeplacementHt ?? -1, 80), "80 € pour 
 
 console.log("— Distance inconnue —");
 const inconnu = calculerDeplacementArtisan(
-  { ...artisanLocal(false), distanceAllerRetourKm: null, coutPeageHt: 0, coutStationnementHt: 0 },
+  {
+    ...artisanLocal(false),
+    distanceAllerKm: null,
+    distanceAllerRetourKm: null,
+    coutPeageHt: 0,
+    coutStationnementHt: 0,
+  },
   paramsDeplacement.adresseChantier,
   null,
 );
@@ -273,12 +293,15 @@ const avecAnnexes = calculerDeplacementArtisan(
   paramsDeplacement.adresseChantier,
   null,
 );
-assert(almostEqual(avecAnnexes.fraisEstimesHt ?? -1, 28.8), `8,80 + 12 + 8 = 28,80, obtenu ${avecAnnexes.fraisEstimesHt}`);
+assert(almostEqual(avecAnnexes.fraisEstimesHt ?? -1, 20), `zone incluse + 12 + 8 = 20, obtenu ${avecAnnexes.fraisEstimesHt}`);
 
 console.log("— Absence de double comptabilisation —");
 const mixte = calculerDeplacements(
   {
-    artisans: [artisanLocal(true), artisanLocal(false)],
+    artisans: [
+      { ...artisanLocal(true), distanceAllerKm: 40 },
+      { ...artisanLocal(false), distanceAllerKm: 40 },
+    ],
     energia: {
       ...energiaBase,
       visites: visitesEnergiaParDefaut().map((visite) =>
@@ -292,10 +315,10 @@ const mixte = calculerDeplacements(
   },
   paramsDeplacement,
 );
-assert(almostEqual(mixte.totalArtisansEstimesHt, 17.6), "deux artisans estimés 17,60 €");
-assert(almostEqual(mixte.totalArtisansAjoutesHt, 8.8), "un seul artisan ajouté (l’autre déjà inclus)");
+assert(almostEqual(mixte.totalArtisansEstimesHt, 160), "deux artisans estimés 160 €");
+assert(almostEqual(mixte.totalArtisansAjoutesHt, 80), "un seul artisan ajouté (l’autre déjà inclus)");
 assert(almostEqual(mixte.totalEnergiaHt, 20), "ENERGIA 20 € séparément");
-assert(almostEqual(mixte.totalAjoutesHt, 28.8), "ajouté au coût interne : 8,80 + 20 = 28,80");
+assert(almostEqual(mixte.totalAjoutesHt, 100), "ajouté au coût interne : 80 + 20 = 100");
 assert(
   mixte.artisans[0].adresseDepart !== paramsDeplacement.adresseDepartEnergia,
   "l’artisan n’utilise pas la base ENERGIA / Lyon",
@@ -304,6 +327,7 @@ assert(
 console.log("— Marge réelle 10 %, 12 % et 15 % avec déplacements —");
 const deplacementsMarge = creerDeplacementsInitiaux(paramsDeplacement);
 deplacementsMarge.artisans = [artisanLocal(false)];
+deplacementsMarge.artisans[0].distanceAllerKm = 40;
 deplacementsMarge.energia = {
   ...energiaBase,
   visites: visitesEnergiaParDefaut().map((visite) =>
@@ -312,7 +336,7 @@ deplacementsMarge.energia = {
   distanceAllerRetourKm: 40,
   coutKilometriqueHt: 0.5,
 };
-const travelAjoute = 8.8 + 20;
+const travelAjoute = 80 + 20;
 const interneAvecTravel = 4440 + travelAjoute;
 
 for (const taux of [0.1, 0.12, 0.15] as const) {

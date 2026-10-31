@@ -11,9 +11,18 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+.env.*
+!.env.example
 
 # Config upload (clés Supabase)
 public/config.upload.js
+
+# Coffre documents clients (hors Git, hors public/, hors src/assets/)
+private/kyc/
+private/kyc/**
+private/imports/
+private/imports/**
 
 # Editor directories and files
 .vscode/*
@@ -26,3 +35,8 @@ public/config.upload.js
 *.sln
 *.sw?
 .next/
+tmp-avis-pereira/
+tmp-avis-pereira/**
+
+# Photos de relevés terrain (données clients)
+data/releves-photos/

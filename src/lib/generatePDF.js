@@ -1,5 +1,7 @@
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
+import { LOGO_PUBLIC_PATH } from './branding'
+import { ecrirePiedIdentite } from './piedLegalPdf'
 
 export const generateAuditPDF = (audit, client, photos = []) => {
   const doc = new jsPDF()
@@ -10,6 +12,11 @@ export const generateAuditPDF = (audit, client, photos = []) => {
 
   doc.setFillColor(...primaryColor)
   doc.rect(0, 0, pageWidth, 80, 'F')
+  try {
+    doc.addImage(LOGO_PUBLIC_PATH, 'PNG', 15, 8, 36, 21)
+  } catch {
+    /* logo chargé côté navigateur si disponible */
+  }
 
   doc.setTextColor(255, 255, 255)
   doc.setFontSize(28)
@@ -35,5 +42,6 @@ export const generateAuditPDF = (audit, client, photos = []) => {
   doc.text(`Email : ${client?.email || '-'}`, 20, 148)
   doc.text(`Téléphone : ${client?.telephone || '-'}`, 20, 156)
 
+  ecrirePiedIdentite(doc, 14, pageHeight - 28, pageWidth - 28)
   doc.save(`Audit_${audit.id.substring(0, 8)}_${new Date().toISOString().split('T')[0]}.pdf`)
 }

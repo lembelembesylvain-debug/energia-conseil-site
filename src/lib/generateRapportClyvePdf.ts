@@ -1,4 +1,5 @@
 import jsPDF from "jspdf";
+import { ecrirePiedIdentite } from "./piedLegalPdf";
 import autoTable from "jspdf-autotable";
 import {
   AVERTISSEMENTS,
@@ -82,9 +83,10 @@ function footerNote(doc: jsPDF) {
   doc.text(
     t("Pre-rapport interne. Validation humaine obligatoire. Non constitutif d'un audit reglementaire."),
     PAGE_W / 2,
-    PAGE_H - 8,
+    PAGE_H - 28,
     { align: "center" },
   );
+  ecrirePiedIdentite(doc, MARGIN, PAGE_H - 24, PAGE_W - MARGIN * 2);
   doc.setTextColor(0, 0, 0);
 }
 

@@ -2,17 +2,26 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {
+  CENTRE_CORSE_DPE,
+  CIBLES_SERGE_CORSE,
   COULEURS_DPE,
+  CODE_POSTAL_ADEME_DEFAUT,
+  CODES_ZONE_CHALON_300,
   DEPARTEMENT_DPE_DEFAUT,
   DEPARTEMENTS_DPE,
+  estCorseDpe,
   libelleOptionDepartement,
+  libelleOptionTypeBatiment,
+  normaliserCodeDepartementDpe,
   TYPES_BATIMENT_DPE,
   TYPE_BATIMENT_DPE_DEFAUT,
   chargerDpeDepartement,
   trouverDepartementDpe,
   trouverTypeBatimentDpe,
   urlJsonDepartement,
+  VILLES_ADEME_CORSE,
 } from "../../lib/crm/dpeDepartements";
+import { departementDepuisCodePostal, LIMITE_ADEME } from "../../lib/crm/ademeDpe";
 import RechercheVilleBan from "./RechercheVilleBan";
 import PanneauSniperProptech from "./PanneauSniperProptech";
 import { chargerSniperViaApi } from "../../lib/proptech/sniper";
@@ -27,6 +36,17 @@ import { correspondFiltreB2b, estModeB2b, FILTRES_B2B } from "../../lib/proptech
 import { NB_CIBLES_B2B_42, NB_PARTICULIERS_42 } from "../../lib/proptech/packProspectionLoire42";
 import BannieresOpportunite from "./BannieresOpportunite";
 import StatutTransactionBloc from "./StatutTransactionBloc";
+import { ouvrirMessagerie } from "../messaging/navigation";
+import {
+  EMAIL_DAMIEN,
+  corpsPack,
+  dossierDepuisLogement,
+  fichesPdfPieces,
+  idLogement,
+  limiteCibles,
+  MAX_CIBLES_COMMANDO,
+  telechargerCourriers,
+} from "../../lib/crm/commandoDpe";
 
 const URL_CALCULATEUR_AIDES = "/?simulate=1";
 const URL_ANNONCES_DEMO = "/data/dpe/annonces_demo.json";
@@ -141,6 +161,8 @@ function iconeTypeBatiment(logement, typeBatiment) {
 
 export default function DpeMapper() {
   const [code, setCode] = useState(DEPARTEMENT_DPE_DEFAUT);
+  const [codePostal, setCodePostal] = useState(CODE_POSTAL_ADEME_DEFAUT);
+  const [saisieCp, setSaisieCp] = useState(CODE_POSTAL_ADEME_DEFAUT);
   const [payload, setPayload] = useState(null);
   const [chargement, setChargement] = useState(true);
   const [erreur, setErreur] = useState("");
@@ -163,6 +185,8 @@ export default function DpeMapper() {
   const [sniperErreur, setSniperErreur] = useState("");
   const [sniperMasque, setSniperMasque] = useState(false);
   const [cartePrete, setCartePrete] = useState(false);
+  const [cibleSergeId, setCibleSergeId] = useState(null);
+  const [ciblesCommando, setCiblesCommando] = useState([]);
   const carteRef = useRef(null);
   const mapRef = useRef(null);
   const calqueRef = useRef(null);
@@ -171,6 +195,8 @@ export default function DpeMapper() {
   const proptechLayerRef = useRef(null);
   const annoncesLayerRef = useRef(null);
   const derniereCibleIdRef = useRef(null);
+  const verrouCibleSergeRef = useRef(null);
+  const commandoLayerRef = useRef(null);
 
   const meta = trouverDepartementDpe(code);
 
@@ -223,7 +249,7 @@ export default function DpeMapper() {
     setSelection(null);
     setPayload(null);
 
-    chargerDpeDepartement(code, { signal: ac.signal, typeBatiment })
+    chargerDpeDepartement(code, { signal: ac.signal, typeBatiment, codePostal })
       .then((data) => {
         if (ac.signal.aborted) return;
         setPayload(data);
@@ -240,7 +266,7 @@ export default function DpeMapper() {
 
     calqueRef.current?.clearLayers();
     return () => ac.abort();
-  }, [code, typeBatiment]);
+  }, [code, typeBatiment, codePostal]);
 
   useEffect(() => {
     let actif = true;
@@ -325,12 +351,34 @@ export default function DpeMapper() {
     if (cibleVille) {
       if (derniereCibleIdRef.current !== cibleVille.id) {
         derniereCibleIdRef.current = cibleVille.id;
-        map.flyTo([cibleVille.lat, cibleVille.lng], 14, { duration: 0.7 });
+        map.flyTo([cibleVille.lat, cibleVille.lng], cibleVille.zoom || 14, { duration: 0.7 });
       }
       return;
     }
 
+    const verrou = CIBLES_SERGE_CORSE.find((item) => item.id === verrouCibleSergeRef.current);
+    if (verrou && estCorseDpe(code)) {
+      derniereCibleIdRef.current = null;
+      map.flyTo([verrou.lat, verrou.lng], verrou.zoom, { duration: 0.75 });
+      return;
+    }
+
     derniereCibleIdRef.current = null;
+    const points = (payload?.live ? payload.logements : [])
+      .filter((item) => Number.isFinite(item.lat) && Number.isFinite(item.lng))
+      .map((item) => [item.lat, item.lng]);
+    if (!cibleVille && points.length) {
+      const bornes = L.latLngBounds(points);
+      if (bornes.isValid()) {
+        map.fitBounds(bornes, { padding: [36, 36], maxZoom: codePostal ? 14 : 11 });
+        return;
+      }
+    }
+    if (estCorseDpe(code)) {
+      map.flyTo([CENTRE_CORSE_DPE.lat, CENTRE_CORSE_DPE.lng], CENTRE_CORSE_DPE.zoom, { duration: 0.85 });
+      return;
+    }
+
     const ville = payload?.villePrincipale;
     const fallback = meta;
     const lat = ville?.lat ?? fallback?.lat;
@@ -338,7 +386,7 @@ export default function DpeMapper() {
     const zoom = ville?.zoom ?? fallback?.zoom ?? 12;
     if (lat == null || lng == null) return;
     map.flyTo([lat, lng], zoom, { duration: 0.85 });
-  }, [code, payload, meta, cibleVille]);
+  }, [code, payload, meta, cibleVille, codePostal]);
 
   useEffect(() => {
     const calque = sniperRef.current;
@@ -381,6 +429,8 @@ export default function DpeMapper() {
         marqueur.on("click", (event) => {
           L.DomEvent.stopPropagation(event);
           mapRef.current?.closePopup();
+          verrouCibleSergeRef.current = null;
+          setCibleSergeId(null);
           setAnnonceActive(null);
           setCibleAdresse(null);
           setSniperMasque(false);
@@ -392,6 +442,26 @@ export default function DpeMapper() {
       }
     });
   }, [logementsAffiches, typeBatiment]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !cartePrete) return;
+    if (!commandoLayerRef.current) commandoLayerRef.current = L.layerGroup().addTo(map);
+    const calque = commandoLayerRef.current;
+    calque.clearLayers();
+    ciblesCommando.forEach((logement) => {
+      const lat = Number(logement?.lat);
+      const lng = Number(logement?.lng);
+      if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+      L.circleMarker([lat, lng], {
+        radius: 18,
+        color: "#f97316",
+        weight: 2,
+        fillColor: "#fb923c",
+        fillOpacity: 0.25,
+      }).addTo(calque);
+    });
+  }, [ciblesCommando, cartePrete]);
 
   useEffect(() => {
     if (!selection) return;
@@ -437,6 +507,8 @@ export default function DpeMapper() {
     const map = mapRef.current;
     if (!map) return undefined;
     const onClick = (event) => {
+      verrouCibleSergeRef.current = null;
+      setCibleSergeId(null);
       setSelection(null);
       setAnnonceActive(null);
       setCibleAdresse({
@@ -506,30 +578,80 @@ export default function DpeMapper() {
 
   const villeLabel = cibleVille
     ? `${cibleVille.nom}${cibleVille.codePostal ? ` (${cibleVille.codePostal})` : ""}`
-    : payload?.villePrincipale?.nom || meta?.villePrincipale || "—";
+    : estCorseDpe(code)
+      ? "la Corse"
+      : payload?.villePrincipale?.nom || meta?.villePrincipale || "—";
+
+  const typeSelecteur = typeBatiment === "industriel" ? "tertiaire" : typeBatiment;
+
+  useEffect(() => {
+    if (!cibleSergeId || !payload) return;
+    const logement = (payload.logements ?? []).find((item) => item.id === cibleSergeId);
+    if (logement) setSelection(logement);
+  }, [cibleSergeId, payload]);
 
   const choisirVille = (item) => {
     const brut = String(item.departement || "").trim();
+    const cp = String(item.codePostal || "").trim();
+    verrouCibleSergeRef.current = null;
+    setCibleSergeId(null);
     setNoticeVille("");
     setCibleVille(item);
     setSelection(null);
     setAnnonceActive(null);
     setCibleAdresse(null);
+    setSaisieCp(cp);
+    setCodePostal(/^\d{5}$/.test(cp) ? cp : "");
     derniereCibleIdRef.current = item.id;
-    mapRef.current?.flyTo([item.lat, item.lng], 14, { duration: 0.7 });
+    mapRef.current?.flyTo([item.lat, item.lng], item.zoom || 14, { duration: 0.7 });
 
-    const dept = /^\d+$/.test(brut) ? brut.padStart(2, "0") : brut;
-    if (!dept || dept === code) return;
-    if (trouverDepartementDpe(dept)) {
-      setCode(dept);
+    const dept = normaliserCodeDepartementDpe(brut || departementDepuisCodePostal(cp));
+    if (dept && dept !== code) setCode(dept);
+  };
+
+  const chargerCodePostal = () => {
+    const cp = saisieCp.trim();
+    if (!/^\d{5}$/.test(cp)) {
+      setNoticeVille("Indiquez un code postal à 5 chiffres pour interroger l'ADEME.");
       return;
     }
-    setNoticeVille(
-      `Aucun fichier DPE pour le département ${dept}. Carte centrée sur ${item.nom} (zoom 14).`,
-    );
+    const dept = departementDepuisCodePostal(cp);
+    verrouCibleSergeRef.current = null;
+    setCibleSergeId(null);
+    setCibleVille(null);
+    setNoticeVille("");
+    setSelection(null);
+    setCodePostal(cp);
+    if (dept && dept !== code) setCode(dept);
+  };
+
+  const chargerVilleAdeme = (ville) => {
+    verrouCibleSergeRef.current = null;
+    setCibleSergeId(null);
+    setNoticeVille("");
+    setSelection(null);
+    setAnnonceActive(null);
+    setCibleAdresse(null);
+    setSaisieCp(ville.codePostal);
+    setCodePostal(ville.codePostal);
+    const cible = {
+      id: `ademe-${ville.id}`,
+      nom: ville.nom,
+      lat: ville.lat,
+      lng: ville.lng,
+      zoom: ville.zoom,
+      codePostal: ville.codePostal,
+      departement: ville.code,
+    };
+    setCibleVille(cible);
+    derniereCibleIdRef.current = cible.id;
+    if (ville.code !== code) setCode(ville.code);
+    mapRef.current?.flyTo([ville.lat, ville.lng], ville.zoom, { duration: 0.7 });
   };
 
   const choisirAdresse = (item) => {
+    verrouCibleSergeRef.current = null;
+    setCibleSergeId(null);
     setNoticeVille("");
     setCibleVille(null);
     setAnnonceActive(null);
@@ -538,7 +660,7 @@ export default function DpeMapper() {
     setSniperMasque(false);
     mapRef.current?.flyTo([item.lat, item.lng], 18, { duration: 0.6 });
     const brut = String(item.departement || "").trim();
-    const dept = /^\d+$/.test(brut) ? brut.padStart(2, "0") : brut;
+    const dept = normaliserCodeDepartementDpe(brut);
     if (dept && dept !== code && trouverDepartementDpe(dept)) setCode(dept);
   };
 
@@ -558,8 +680,37 @@ export default function DpeMapper() {
     if (id === "passoires") setFiltre("passoires");
   };
 
+  const ouvrirCibleSerge = (cible) => {
+    verrouCibleSergeRef.current = cible.id;
+    setCibleSergeId(cible.id);
+    setCibleVille(null);
+    setNoticeVille("");
+    setAnnonceActive(null);
+    setCibleAdresse(null);
+    setSniperMasque(false);
+    setFiltre("tous");
+    setFiltreVente(false);
+    setFiltreBailleur(false);
+    setFiltreSolaire(false);
+    setFiltreTransaction("tous");
+    setFiltreB2b("tous");
+    setCodePostal("");
+    setSaisieCp("");
+    if (!estCorseDpe(code)) setCode("2A");
+    if (estCorseDpe(code) && typeBatiment === cible.typeBatiment) {
+      const deja = (payload?.logements ?? []).find((item) => item.id === cible.id);
+      if (deja) setSelection(deja);
+    }
+    setTypeBatiment(cible.typeBatiment);
+    mapRef.current?.flyTo([cible.lat, cible.lng], cible.zoom, { duration: 0.7 });
+  };
+
   const choisirPack42 = (type) => {
+    verrouCibleSergeRef.current = null;
+    setCibleSergeId(null);
     setSelection(null);
+    setCodePostal("");
+    setSaisieCp("");
     setTypeBatiment(type);
     setFiltre("tous");
     setFiltreVente(false);
@@ -574,6 +725,41 @@ export default function DpeMapper() {
       actif ? actifClasse : "border-slate-700 bg-slate-900 text-slate-300 hover:border-slate-500"
     }`;
 
+  const cibleEstSelectionnee = (logement) =>
+    ciblesCommando.some((item) => idLogement(item) === idLogement(logement));
+
+  const basculerCible = (logement) => {
+    const id = idLogement(logement);
+    if (!id) return;
+    setCiblesCommando((courant) => {
+      if (courant.some((item) => idLogement(item) === id)) {
+        return courant.filter((item) => idLogement(item) !== id);
+      }
+      if (courant.length >= MAX_CIBLES_COMMANDO) return courant;
+      return [...courant, logement];
+    });
+  };
+
+  const transfererCibles = (avecMessage) => {
+    const liste = limiteCibles(ciblesCommando);
+    if (liste.length === 0) return;
+    const dossiers = liste.map(dossierDepuisLogement);
+    ouvrirMessagerie({
+      dossiers,
+      dossierId: dossiers[0].id,
+      clientNom: dossiers[0].libelle,
+      destinataire: avecMessage ? EMAIL_DAMIEN : "",
+      sujet: avecMessage ? `Pack Commando DPE - ${liste.length} cibles` : "",
+      corps: avecMessage ? corpsPack(liste) : "",
+      pieces: fichesPdfPieces(liste),
+      contexte: {
+        clientNom: dossiers[0].libelle,
+        ville: dossiers[0].ville,
+        projet: dossiers[0].projet,
+      },
+    });
+  };
+
   return (
     <section className="rounded-2xl border border-slate-800 bg-slate-900/80 p-3">
       <div className="mb-3 flex flex-col gap-3 lg:flex-row lg:items-end">
@@ -586,9 +772,18 @@ export default function DpeMapper() {
             value={code}
             onChange={(e) => {
               const suivant = e.target.value;
+              verrouCibleSergeRef.current = null;
+              setCibleSergeId(null);
               setCibleVille(null);
               setNoticeVille("");
               setSelection(null);
+              if (suivant === "71") {
+                setCodePostal(CODE_POSTAL_ADEME_DEFAUT);
+                setSaisieCp(CODE_POSTAL_ADEME_DEFAUT);
+              } else {
+                setCodePostal("");
+                setSaisieCp("");
+              }
               setCode(suivant);
               if (suivant === "42") {
                 setTypeBatiment("individuel");
@@ -602,22 +797,68 @@ export default function DpeMapper() {
             }}
             className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
           >
-            {DEPARTEMENTS_DPE.map((dept) => (
-              <option key={dept.code} value={dept.code}>
-                {libelleOptionDepartement(dept)}
-              </option>
-            ))}
+            <optgroup label="Zone Chalon-sur-Saône (Rayon 300 km)">
+              {CODES_ZONE_CHALON_300.map((deptCode) => {
+                const dept = trouverDepartementDpe(deptCode);
+                if (!dept) return null;
+                return (
+                  <option key={dept.code} value={dept.code}>
+                    {libelleOptionDepartement(dept)}
+                  </option>
+                );
+              })}
+            </optgroup>
+            <optgroup label="Hors rayon">
+              {DEPARTEMENTS_DPE.filter((dept) => !CODES_ZONE_CHALON_300.includes(dept.code)).map((dept) => (
+                <option key={dept.code} value={dept.code}>
+                  {libelleOptionDepartement(dept)}
+                </option>
+              ))}
+            </optgroup>
+            {DEPARTEMENTS_DPE.some((dept) => dept.code === code) ? null : (
+              <option value={code}>{code} — ADEME</option>
+            )}
           </select>
         </label>
+        <form
+          className="block min-w-[11rem]"
+          onSubmit={(event) => {
+            event.preventDefault();
+            chargerCodePostal();
+          }}
+        >
+          <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
+            Code postal ADEME
+          </span>
+          <div className="flex gap-1.5">
+            <input
+              data-testid="filtre-code-postal"
+              inputMode="numeric"
+              maxLength={5}
+              value={saisieCp}
+              onChange={(event) => setSaisieCp(event.target.value.replace(/\D/g, "").slice(0, 5))}
+              placeholder={CODE_POSTAL_ADEME_DEFAUT}
+              className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
+            />
+            <button
+              type="submit"
+              className="shrink-0 rounded-xl border border-emerald-400/50 bg-emerald-500/15 px-3 text-xs font-semibold text-emerald-100 hover:bg-emerald-500/25"
+            >
+              Charger
+            </button>
+          </div>
+        </form>
         <label className="block min-w-[14rem] flex-1">
           <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
             Type de bâtiment
           </span>
           <select
             data-testid="select-type-batiment"
-            value={typeBatiment}
+            value={typeSelecteur}
             onChange={(e) => {
               const suivant = e.target.value;
+              verrouCibleSergeRef.current = null;
+              setCibleSergeId(null);
               setSelection(null);
               setTypeBatiment(suivant);
               setFiltre("tous");
@@ -629,12 +870,15 @@ export default function DpeMapper() {
             }}
             className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
           >
-            {TYPES_BATIMENT_DPE.map((item) => (
+            {TYPES_BATIMENT_DPE.filter((item) => item.selecteur !== false).map((item) => (
               <option key={item.id} value={item.id}>
-                {item.icone} {item.label}
+                {item.icone} {libelleOptionTypeBatiment(item)}
               </option>
             ))}
           </select>
+          <span className="mt-1 block text-[11px] leading-snug text-slate-400">
+            {trouverTypeBatimentDpe(typeSelecteur).detail}
+          </span>
         </label>
         <RechercheVilleBan onChoisir={choisirVille} latProximite={meta?.lat} lngProximite={meta?.lng} />
         <RechercheVilleBan mode="adresse" onChoisir={choisirAdresse} latProximite={meta?.lat} lngProximite={meta?.lng} />
@@ -668,7 +912,7 @@ export default function DpeMapper() {
               onClick={() => choisirPack42("individuel")}
               className={classeBadge(!modeB2b, "border-orange-300 bg-orange-500/25 text-orange-50")}
             >
-              {NB_PARTICULIERS_42} Particuliers F/G à rénover
+              {payload?.live ? "Maisons F/G — ADEME" : `${NB_PARTICULIERS_42} Particuliers F/G à rénover`}
             </button>
             <button
               type="button"
@@ -677,7 +921,7 @@ export default function DpeMapper() {
               onClick={() => choisirPack42("industriel")}
               className={classeBadge(modeB2b, "border-sky-300 bg-sky-500/25 text-sky-50")}
             >
-              {NB_CIBLES_B2B_42} Cibles B2B Décarbonation / Solaire
+              {payload?.live ? "Tertiaire F/G — ADEME" : `${NB_CIBLES_B2B_42} Cibles B2B Décarbonation / Solaire`}
             </button>
           </>
         ) : modeB2b ? (
@@ -752,18 +996,75 @@ export default function DpeMapper() {
           </>
         )}
       </div>
+      {estCorseDpe(code) ? (
+        <div className="mb-3 flex flex-col gap-2 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-3 py-2.5" data-testid="villes-ademe-corse">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-200">
+            ADEME en direct — Corse
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {VILLES_ADEME_CORSE.map((ville) => (
+              <button
+                key={ville.id}
+                type="button"
+                data-testid={`ville-ademe-${ville.id}`}
+                aria-pressed={codePostal === ville.codePostal}
+                onClick={() => chargerVilleAdeme(ville)}
+                className={classeBadge(
+                  codePostal === ville.codePostal,
+                  "border-emerald-300 bg-emerald-500/25 text-emerald-50",
+                )}
+              >
+                {ville.nom} ({ville.codePostal})
+              </button>
+            ))}
+          </div>
+          <p className="text-[11px] leading-relaxed text-emerald-100/80">
+            Chaque ville charge jusqu&apos;à {LIMITE_ADEME} vrais DPE F et G certifiés par l&apos;ADEME
+            (adresse BAN, étiquette, consommation, année de construction).
+          </p>
+        </div>
+      ) : null}
+      {estCorseDpe(code) ? (
+        <div className="mb-3 flex flex-col gap-2 rounded-xl border border-amber-400/30 bg-amber-500/10 px-3 py-2.5" data-testid="cibles-serge-corse">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-amber-200">
+            Cibles test Serge — Corse
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {CIBLES_SERGE_CORSE.map((cible) => (
+              <button
+                key={cible.id}
+                type="button"
+                data-testid={`cible-serge-${cible.id}`}
+                aria-pressed={cibleSergeId === cible.id}
+                onClick={() => ouvrirCibleSerge(cible)}
+                className={classeBadge(
+                  cibleSergeId === cible.id,
+                  "border-amber-300 bg-amber-500/25 text-amber-50",
+                )}
+              >
+                {cible.titre}
+              </button>
+            ))}
+          </div>
+          <p className="text-[11px] leading-relaxed text-amber-100/80">
+            {CIBLES_SERGE_CORSE.find((item) => item.id === cibleSergeId)?.resume ||
+              "Villa Afa (DPE F, double aide ZNI) et résidence Porto-Vecchio (DPE G, PAC + solaire). Aides à titre indicatif."}
+          </p>
+        </div>
+      ) : null}
       <p className="mb-3 text-xs text-slate-400" data-testid="compteur-marche-dpe">
         {chargement
-          ? "Chargement du fichier JSON…"
-          : code === "42"
+          ? `Interrogation ADEME — ${LIMITE_ADEME} passoires F/G${codePostal ? ` · ${codePostal}` : ""}…`
+          : code === "42" && !payload?.live
             ? `${NB_PARTICULIERS_42} Particuliers F/G à rénover · ${NB_CIBLES_B2B_42} Cibles B2B Décarbonation / Solaire`
-            : `${logementsAffiches.length} ${modeB2b ? "site(s) B2B" : "bâtiment(s)"}`}
-        {!chargement && payload && code !== "42" ? ` · ${nbPassoires} passoires F/G` : ""}
+            : `${logementsAffiches.length} ${modeB2b ? "site(s) B2B" : "bâtiment(s)"} affiché(s)`}
+        {!chargement && payload?.live ? ` · ${nbPassoires} passoires F/G ADEME` : ""}
         <span className="text-slate-500">
           {" "}
           · {trouverTypeBatimentDpe(typeBatiment)?.icone} {trouverTypeBatimentDpe(typeBatiment)?.label}
           · centrée sur {villeLabel}
-          {cibleVille ? " · zoom 14" : ""} · {urlJsonDepartement(code, typeBatiment).replace("/data/dpe/", "")} uniquement
+          {codePostal ? ` · CP ${codePostal}` : ""}
+          {payload?.source ? ` · ${payload.source}` : ""}
           {voirAnnonces ? ` · ${annonces.length} biens à vendre (démo)` : ""}
         </span>
       </p>
@@ -771,6 +1072,43 @@ export default function DpeMapper() {
 
       <div className="w-full h-[650px] relative rounded-xl overflow-hidden">
         <div ref={carteRef} className="dpe-mapper-carte absolute inset-0 z-0 h-full w-full" />
+        {ciblesCommando.length > 0 ? (
+          <div
+            data-testid="bandeau-commando"
+            className="absolute left-1/2 top-3 z-[3000] w-[min(100%-1.5rem,48rem)] -translate-x-1/2 rounded-2xl border border-orange-300/50 bg-slate-950/95 px-3 py-3 shadow-2xl"
+          >
+            <p className="text-sm font-semibold text-orange-100">
+              Sélection Commando : {ciblesCommando.length} cible{ciblesCommando.length > 1 ? "s" : ""} sélectionnée{ciblesCommando.length > 1 ? "s" : ""}
+              <span className="mt-0.5 block text-[11px] font-medium text-orange-200/80">Passoires F/G : lot utile de 6 à 10 cibles.</span>
+            </p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <button
+                type="button"
+                data-testid="commando-transferer"
+                onClick={() => transfererCibles(false)}
+                className="rounded-xl bg-cyan-300 px-3 py-2 text-xs font-semibold text-slate-950"
+              >
+                Transférer vers Messagerie
+              </button>
+              <button
+                type="button"
+                data-testid="commando-email"
+                onClick={() => transfererCibles(true)}
+                className="rounded-xl border border-emerald-300/50 bg-emerald-400/15 px-3 py-2 text-xs font-semibold text-emerald-50"
+              >
+                Envoyer la feuille de route à Damien
+              </button>
+              <button
+                type="button"
+                data-testid="commando-courriers"
+                onClick={() => telechargerCourriers(ciblesCommando)}
+                className="rounded-xl border border-slate-500 px-3 py-2 text-xs font-semibold text-white"
+              >
+                Télécharger les courriers A4 en lot
+              </button>
+            </div>
+          </div>
+        ) : null}
         <style>{`
           .dpe-mapper-carte.leaflet-container { background: #020617; font: inherit; }
           .dpe-mapper-carte img { max-width: none !important; }
@@ -928,15 +1266,16 @@ export default function DpeMapper() {
           ))}
         </div>
 
-        {chargement && !cibleVille ? (
+        {chargement ? (
           <div className="absolute inset-0 z-[1500] flex items-center justify-center bg-slate-950/40 text-sm text-slate-200">
-            Chargement de {meta?.nom ?? code}.json…
+            Interrogation ADEME — {meta?.nom ?? code}
+            {codePostal ? ` · ${codePostal}` : ""}…
           </div>
         ) : null}
 
         {erreur ? (
           <div className="absolute bottom-4 left-4 right-4 z-[2000] rounded-xl border border-rose-500/40 bg-rose-950/90 px-4 py-3 text-sm text-rose-100">
-            {erreur} Placez le fichier dans <code className="font-mono text-rose-200">public{urlJsonDepartement(code, typeBatiment)}</code>.
+            {erreur}
           </div>
         ) : null}
 
@@ -989,6 +1328,7 @@ export default function DpeMapper() {
             sniper={sniper}
             logement={selection}
             typeBatiment={typeBatiment}
+            codeDepartement={code}
             chargement={sniperChargement}
             erreur={sniperErreur}
             onFermer={() => {
@@ -1023,6 +1363,19 @@ export default function DpeMapper() {
             <p className="text-sm text-slate-300">
               {selection.codePostal} {selection.commune}
             </p>
+            <button
+              type="button"
+              role="checkbox"
+              aria-checked={cibleEstSelectionnee(selection)}
+              data-testid="cibler-commando"
+              onClick={() => basculerCible(selection)}
+              className={`mt-3 flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-left text-sm font-semibold ${cibleEstSelectionnee(selection) ? "border-orange-300/60 bg-orange-400/15 text-orange-50" : "border-slate-600 text-slate-100"}`}
+            >
+              <span className={`grid h-4 w-4 place-items-center rounded border text-[10px] ${cibleEstSelectionnee(selection) ? "border-orange-300 bg-orange-300 text-slate-950" : "border-slate-500"}`}>
+                {cibleEstSelectionnee(selection) ? "✓" : ""}
+              </span>
+              {cibleEstSelectionnee(selection) ? "Retirer la cible" : "+ Cibler"}
+            </button>
             <ul className="mt-3 space-y-1 text-xs text-slate-400">
               <li>Type : {trouverTypeBatimentDpe(typeBatiment).label}</li>
               {typeBatiment === "individuel" ? (
@@ -1038,24 +1391,21 @@ export default function DpeMapper() {
                   <li>Surface : {selection.surface ? `${selection.surface} m²` : "—"}</li>
                 </>
               ) : null}
-              {typeBatiment === "tertiaire" ? (
+              {typeBatiment === "tertiaire" || typeBatiment === "industriel" ? (
                 <>
                   <li>Surface : {selection.surface ? `${selection.surface} m²` : "—"}</li>
-                  <li>Décret tertiaire : {selection.decretTertiaire || "À vérifier"}</li>
-                </>
-              ) : null}
-              {typeBatiment === "industriel" ? (
-                <>
                   <li>Activité : {selection.activite || "—"}</li>
+                  <li>Décret tertiaire : {selection.decretTertiaire || "À vérifier"}</li>
                   <li>
                     Potentiel PV toiture (estimatif) :{" "}
                     {selection.potentielPvKwc != null ? `${selection.potentielPvKwc} kWc` : "—"}
                   </li>
-                  <li>Surface : {selection.surface ? `${selection.surface} m²` : "—"}</li>
                 </>
               ) : null}
               <li>Année : {selection.annee || "—"}</li>
               <li>Chauffage : {selection.chauffage || "—"}</li>
+              {selection.aides ? <li className="text-emerald-200">{selection.aides}</li> : null}
+              {selection.offre ? <li className="text-amber-200">{selection.offre}</li> : null}
               <li>Conso : {selection.conso ? `${selection.conso} kWh/m².an` : "—"}</li>
               <li className="font-mono text-sky-300">{selection.id}</li>
             </ul>
@@ -1063,10 +1413,13 @@ export default function DpeMapper() {
         ) : null}
       </div>
       <p className="border-t border-slate-800 px-4 py-3 text-[11px] leading-relaxed text-slate-500">
-        Données DPE de démonstration, à titre indicatif. Un seul fichier JSON est chargé à la fois
-        (public{urlJsonDepartement(code, typeBatiment)}) pour ne pas alourdir le navigateur. Remplacez ces extraits par
-        un dump ADEME local du même nom pour le département et le type concernés. Cadastre : IGN API Carto /
-        Parcellaire Express. Mutations : DVF DGFiP/Etalab. Risques : Géorisques.gouv.fr.
+        Passoires F et G chargées en direct depuis l&apos;API ouverte ADEME (data.ademe.fr, jeu logements existants
+        dpe03existant ou tertiaire dpe01tertiaire) : {LIMITE_ADEME} diagnostics les plus récents de la zone, avec adresse
+        BAN, étiquette, consommation et année de construction certifiées par l&apos;État. Si l&apos;ADEME ne répond pas,
+        l&apos;extrait local public{urlJsonDepartement(code, typeBatiment)} sert de secours. Cadastre : IGN. Mutations :
+        DVF. Risques : Géorisques. Société et gérant : recherche-entreprises.api.gouv.fr. Les aides éventuellement
+        citées restent une estimation à titre indicatif, à valider selon les revenus réels. Montants définitifs après
+        instruction ANAH et CEE.
       </p>
     </section>
   );

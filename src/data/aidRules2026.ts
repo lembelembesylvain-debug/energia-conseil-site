@@ -13,6 +13,8 @@ export const AID_RULES_2026 = {
     "Barèmes MaPrimeRénov’ Parcours / geste 2026 (ANAH) repris par ENERGIA-CONSEIL IA® — estimation à titre indicatif, montants définitifs après instruction ANAH et CEE.",
   disclaimer:
     "Aides financières 2026 (estimation à titre indicatif). Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.",
+  sourceVerificationUrl: "https://www.anah.gouv.fr",
+  dateVerificationWeb: null,
 
   profils: {
     bleu: { label: "Bleu — très modestes", tauxParcours: 0.8, max2classes: 24000, max3classes: 32000 },
@@ -39,7 +41,7 @@ export const AID_RULES_2026 = {
     coutMin: 2000,
     coutMax: 4000,
     plafondPrisEnCharge: 2000,
-    taux: { bleu: 1, jaune: 1, violet: 0.8, rose: 0.4 },
+    taux: { bleu: 1, jaune: 0.8, violet: 0.4, rose: 0.2 },
   },
 
   seuilsRfr: {
@@ -55,9 +57,9 @@ export const AID_RULES_2026 = {
       1: { bleu: 17363, jaune: 22259, violet: 31185 },
       2: { bleu: 25393, jaune: 32553, violet: 45842 },
       3: { bleu: 30540, jaune: 39148, violet: 55196 },
-      4: { bleu: 35634, jaune: 45673, violet: 64450 },
-      5: { bleu: 40728, jaune: 52198, violet: 73704 },
-      parPersonneSupplementaire: { bleu: 5094, jaune: 6525, violet: 9254 },
+      4: { bleu: 35676, jaune: 45735, violet: 64550 },
+      5: { bleu: 40835, jaune: 52348, violet: 73907 },
+      parPersonneSupplementaire: { bleu: 5151, jaune: 6598, violet: 9357 },
     },
   },
 
@@ -159,8 +161,8 @@ export function getSeuilsProfil(
 
 export function determinerProfil(rfr: number, householdSize: number, region: RegionCode): ProfilMpr {
   const seuils = getSeuilsProfil(region, householdSize);
-  if (rfr < seuils.bleu) return "bleu";
-  if (rfr < seuils.jaune) return "jaune";
-  if (rfr < seuils.violet) return "violet";
+  if (rfr <= seuils.bleu) return "bleu";
+  if (rfr <= seuils.jaune) return "jaune";
+  if (rfr <= seuils.violet) return "violet";
   return "rose";
 }

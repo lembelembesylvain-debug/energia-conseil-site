@@ -5,14 +5,25 @@ import {
   formatEuro,
   formatPct,
   formatUnite,
+  infererPrioriteTravaux,
+  OPTIONS_PRIORITE_TRAVAUX,
+  estPrioriteTravaux,
+  prioriteTravauxOuDefaut,
   round2,
   type CategoriePoste,
   type DevisClientChiffrage,
   type LigneDevisClientDetail,
   type PosteCatalogue,
   type PosteId,
+  type PrioriteTravaux,
   type UnitePoste,
 } from "../lib/chiffrage";
+import {
+  COMMISSION_RATE_DEFAULT,
+  libelleCommissionAgent,
+  tauxCommissionDecimal,
+} from "../lib/crm/finances";
+import { HONORAIRES_HUB_ADMIN_HT, libelleHonorairesAmoHubAdmin } from "../lib/crm/operationnelCrm";
 import tarifsFournisseurs from "../lib/chiffrage/tarifs-fournisseurs.2026.json";
 import { isAuditIdValide } from "../lib/auditId";
 import { estAuditIdLocal, getEstimationLocale, saveEstimationLocale } from "../lib/estimationLocale";
@@ -38,6 +49,7 @@ import ChiffragePhotovoltaiqueAssistant, {
 } from "./chiffrage/ChiffragePhotovoltaiqueAssistant";
 import SelecteurPrestationCatalogue from "./crm/SelecteurPrestationCatalogue";
 import DevisClientPanel from "./chiffrage/DevisClientChiffrage";
+import BadgePrioriteTravaux from "./chiffrage/BadgePrioriteTravaux";
 import {
   calculerPrestation,
   categoriePosteDepuisMetier,
@@ -45,6 +57,7 @@ import {
   getPrestationCatalogue,
   getSousCategorieMetier,
   LIBELLES_UNITE,
+  MENTIONS_AFFICHAGE_MARCHE,
   prestationParPosteLegacy,
   statutEstimationDepuisCatalogue,
   uniteChiffrageDepuisCatalogue,
@@ -52,10 +65,10 @@ import {
 } from "../lib/crm/catalogue";
 
 const TVA_DEFAUT = 0.055;
-const TAUX_COMMISSION_DAMIEN = 0.1;
+const TAUX_COMMISSION_DAMIEN = tauxCommissionDecimal(COMMISSION_RATE_DEFAULT);
 const PRESTATION_CLYVE_HT = {
   photovoltaique: 500,
-  renovation_globale: 1100,
+  renovation_globale: HONORAIRES_HUB_ADMIN_HT,
   autre: 0,
 } as const;
 
@@ -106,6 +119,7 @@ type LigneEstimation = {
   cataloguePrestationId?: string;
   categorieMetierId?: string;
   sousCategorieId?: string;
+  prioriteTravaux: PrioriteTravaux;
 };
 
 type LigneCalculee = LigneEstimation & {
@@ -152,6 +166,7 @@ type FormulaireLigne = {
   statut: StatutPrestation;
   artisan: string;
   montantDevisReel: number;
+  prioriteTravaux: PrioriteTravaux;
 };
 
 const FORMULAIRE_VIDE: FormulaireLigne = {
@@ -167,6 +182,7 @@ const FORMULAIRE_VIDE: FormulaireLigne = {
   statut: "estimation",
   artisan: "",
   montantDevisReel: 0,
+  prioriteTravaux: 2,
 };
 
 function nouveauId(): string {
@@ -303,6 +319,7 @@ function serialiserLigneJson(ligne: LigneEstimation) {
     cataloguePrestationId: ligne.cataloguePrestationId ?? "",
     categorieMetierId: ligne.categorieMetierId ?? "",
     sousCategorieId: ligne.sousCategorieId ?? "",
+    prioriteTravaux: ligne.prioriteTravaux,
   };
 }
 
@@ -360,6 +377,7 @@ function ligneDepuisFormulaire(form: FormulaireLigne, existante?: LigneEstimatio
     cataloguePrestationId: catalogue?.id ?? form.cataloguePrestationId,
     categorieMetierId: catalogue?.categorieId ?? form.categorieMetierId,
     sousCategorieId: catalogue?.sousCategorieId ?? form.sousCategorieId,
+    prioriteTravaux: prioriteTravauxOuDefaut(form.prioriteTravaux),
   };
 }
 
@@ -378,6 +396,7 @@ function formulaireDepuisLigne(ligne: LigneEstimation): FormulaireLigne {
     statut: ligne.statut,
     artisan: ligne.artisan,
     montantDevisReel: ligne.montantDevisReel,
+    prioriteTravaux: ligne.prioriteTravaux,
   };
 }
 
@@ -438,6 +457,7 @@ function hydraterLigne(raw: {
   cataloguePrestationId?: string;
   categorieMetierId?: string;
   sousCategorieId?: string;
+  prioriteTravaux?: number;
 }): LigneEstimation | null {
   const catalogue = resoudrePrestationCatalogue(raw.posteId, raw.cataloguePrestationId);
   const poste = isPosteId(raw.posteId)
@@ -476,6 +496,16 @@ function hydraterLigne(raw: {
     cataloguePrestationId: raw.cataloguePrestationId || undefined,
     categorieMetierId: raw.categorieMetierId || undefined,
     sousCategorieId: raw.sousCategorieId || undefined,
+    prioriteTravaux: infererPrioriteTravaux({
+      posteId,
+      categorieId: raw.categorieMetierId || catalogue?.categorieId,
+      sousCategorieId: raw.sousCategorieId || catalogue?.sousCategorieId,
+      nom: raw.nom || catalogue?.nom || poste?.nom,
+      description: raw.description || catalogue?.description || poste?.description,
+      prioriteCatalogue: estPrioriteTravaux(raw.prioriteTravaux)
+        ? raw.prioriteTravaux
+        : catalogue?.prioriteTravaux,
+    }),
   };
 }
 
@@ -639,6 +669,14 @@ function DetailPrestationCrm({
   voirCoutsInternes: boolean;
 }) {
   const calculee = calculerPrestation(prestation);
+  const priorite = infererPrioriteTravaux({
+    posteId: prestation.posteIdLegacy ?? prestation.id,
+    categorieId: prestation.categorieId,
+    sousCategorieId: prestation.sousCategorieId,
+    nom: prestation.nom,
+    description: prestation.description,
+    prioriteCatalogue: prestation.prioriteTravaux,
+  });
   return (
     <div className="rounded-xl border border-slate-700 bg-slate-950/70 p-3 text-sm text-slate-200">
       {prestation.demo ? (
@@ -646,6 +684,9 @@ function DetailPrestationCrm({
           Données de démonstration
         </p>
       ) : null}
+      <div className="mb-2">
+        <BadgePrioriteTravaux priorite={priorite} />
+      </div>
       <dl className="grid gap-2 sm:grid-cols-2">
         <div>
           <dt className="text-[11px] uppercase tracking-wide text-slate-500">Nom</dt>
@@ -683,6 +724,9 @@ function DetailPrestationCrm({
       {!calculee.tarifRenseigne ? (
         <p className="mt-2 text-xs text-amber-200">
           Tarif à renseigner — cette prestation n’est pas présentée comme chiffrée.
+          {prestation.referenceMarche
+            ? ` ${MENTIONS_AFFICHAGE_MARCHE[0]}. ${MENTIONS_AFFICHAGE_MARCHE[3]}. ${MENTIONS_AFFICHAGE_MARCHE[4]}. ${MENTIONS_AFFICHAGE_MARCHE[5]}. La fourchette n’est pas un devis ferme.`
+            : ""}
         </p>
       ) : prestation.statut === "estimation" ? (
         <p className="mt-2 text-xs text-amber-200">{MENTION_ESTIMATION_PV}</p>
@@ -857,6 +901,7 @@ export default function ProjectEstimation({
         tauxTva: ligne.tauxTva,
         montantTva: ligne.montantTva,
         montantTtc: ligne.prixVenteTtc,
+        priorite: ligne.prioriteTravaux,
       }));
     return {
       lignes: lignesDetaillees.map((ligne) => ({
@@ -1083,10 +1128,14 @@ export default function ProjectEstimation({
       quantite,
       coutMaterielUnitaireHt: editionId
         ? form.coutMaterielUnitaireHt
-        : (prestation.coutMaterielHt ?? prixFournisseur ?? 0),
+        : voirCoutsInternes
+          ? (prestation.coutMaterielHt ?? prixFournisseur ?? 0)
+          : 0,
       coutMainOeuvreUnitaireHt: editionId
         ? form.coutMainOeuvreUnitaireHt
-        : (prestation.coutMainOeuvreHt ?? 0),
+        : voirCoutsInternes
+          ? (prestation.coutMainOeuvreHt ?? 0)
+          : 0,
       prixVenteUnitaireHt: editionId
         ? form.prixVenteUnitaireHt
         : (prestation.prixVenteHt ?? 0),
@@ -1101,6 +1150,16 @@ export default function ProjectEstimation({
               (prestation.coutMaterielHt == null && prestation.coutMainOeuvreHt == null))
           ? "estimation"
           : statutEstimationDepuisCatalogue(prestation.statut),
+      prioriteTravaux: editionId
+        ? form.prioriteTravaux
+        : infererPrioriteTravaux({
+            posteId,
+            categorieId: prestation.categorieId,
+            sousCategorieId: prestation.sousCategorieId,
+            nom: prestation.nom,
+            description: prestation.description,
+            prioriteCatalogue: prestation.prioriteTravaux,
+          }),
     });
   }
 
@@ -1197,8 +1256,8 @@ export default function ProjectEstimation({
         unite: uniteChiffrageDepuisCatalogue(prestation.unite),
         description: prestation.description,
         quantite: brouillon.quantite,
-        coutMaterielUnitaireHt: prestation.coutMaterielHt ?? 0,
-        coutMainOeuvreUnitaireHt: prestation.coutMainOeuvreHt ?? 0,
+        coutMaterielUnitaireHt: voirCoutsInternes ? prestation.coutMaterielHt ?? 0 : 0,
+        coutMainOeuvreUnitaireHt: voirCoutsInternes ? prestation.coutMainOeuvreHt ?? 0 : 0,
         prixVenteUnitaireHt: prestation.prixVenteHt ?? 0,
         tauxTva: brouillon.tauxTva,
         statut: "estimation",
@@ -1207,6 +1266,14 @@ export default function ProjectEstimation({
         cataloguePrestationId: prestation.id,
         categorieMetierId: prestation.categorieId,
         sousCategorieId: prestation.sousCategorieId,
+        prioriteTravaux: infererPrioriteTravaux({
+          posteId,
+          categorieId: prestation.categorieId,
+          sousCategorieId: prestation.sousCategorieId,
+          nom: prestation.nom,
+          description: prestation.description,
+          prioriteCatalogue: prestation.prioriteTravaux,
+        }),
       });
     }
     if (nouvelles.length === 0) return;
@@ -1382,7 +1449,10 @@ export default function ProjectEstimation({
                     }`}
                   >
                     <td className="px-3 py-2">
-                      <p className="font-medium text-white">{ligne.nom}</p>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <BadgePrioriteTravaux priorite={ligne.prioriteTravaux} />
+                        <p className="font-medium text-white">{ligne.nom}</p>
+                      </div>
                       <p className="text-[11px] text-slate-500">
                         {CATEGORIE_LABEL[ligne.categorie]} · {formatUnite(ligne.unite)}
                       </p>
@@ -1477,7 +1547,10 @@ export default function ProjectEstimation({
                 }`}
               >
                 <div className="flex flex-wrap items-start justify-between gap-2">
-                  <p className="font-semibold text-white">{ligne.nom}</p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <BadgePrioriteTravaux priorite={ligne.prioriteTravaux} compact />
+                    <p className="font-semibold text-white">{ligne.nom}</p>
+                  </div>
                   <div className="flex flex-wrap gap-1">
                     <StatutBadge statut={ligne.statut} />
                     <SourceCoutBadge source={ligne.sourceCout} />
@@ -1654,7 +1727,7 @@ export default function ProjectEstimation({
               {typeProjetAConfirmer && voirCoutsInternes ? (
                 <span className="mt-1 block text-[11px] font-normal normal-case tracking-normal text-orange-300">
                   Choisissez Photovoltaïque ou Rénovation globale pour appliquer les frais
-                  Clyve (500 € ou 1 100 €) à la marge.
+                  Clyve (500 € HT, ou {HONORAIRES_HUB_ADMIN_HT.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} € HT — forfait Hub Admin) à la marge.
                 </span>
               ) : null}
             </label>
@@ -1675,8 +1748,8 @@ export default function ProjectEstimation({
             />
             <RecapCard label="Total vente HT" value={formatEuro(recap.totalVenteHt)} />
             <RecapCard
-              label="Commission commerciale Damien"
-              hint="10 % du total de vente HT des travaux"
+              label={libelleCommissionAgent(COMMISSION_RATE_DEFAULT)}
+              hint={`${COMMISSION_RATE_DEFAULT} % du total de vente HT des travaux — non ajouté au devis client`}
               value={formatEuro(recap.commissionDamienHt)}
             />
             <RecapCard
@@ -1685,7 +1758,7 @@ export default function ProjectEstimation({
                 typeProjet === "photovoltaique"
                   ? "500 € HT — Photovoltaïque — charge interne ENERGIA"
                   : typeProjet === "renovation_globale"
-                    ? "1 100 € HT — Rénovation globale — charge interne ENERGIA"
+                    ? `${libelleHonorairesAmoHubAdmin()} Charge interne ENERGIA, non facturée au client.`
                     : "0 € — Autre"
               }
               value={formatEuro(recap.prestationClyveHt)}
@@ -1776,7 +1849,31 @@ export default function ProjectEstimation({
                 sousCategorieId={form.sousCategorieId}
                 prestationId={form.cataloguePrestationId}
                 onChange={choisirPrestationCatalogue}
+                role={voirCoutsInternes ? "administrateur" : "commercial"}
               />
+
+              <label className={labelClass} htmlFor="priorite-travaux">
+                Priorité DPE
+                <select
+                  id="priorite-travaux"
+                  value={form.prioriteTravaux}
+                  className={inputClass}
+                  onChange={(event) =>
+                    patchForm({
+                      prioriteTravaux: prioriteTravauxOuDefaut(Number(event.target.value)),
+                    })
+                  }
+                >
+                  {OPTIONS_PRIORITE_TRAVAUX.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+                <span className="mt-1 block text-[11px] font-normal normal-case tracking-normal text-slate-500">
+                  Affichée sur le devis client. P1 = saut de classe / aides · P2 = confort · P3 = option.
+                </span>
+              </label>
 
               {prestationCatalogue ? (
                 <DetailPrestationCrm

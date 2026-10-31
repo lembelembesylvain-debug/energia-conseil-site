@@ -1,3 +1,4 @@
+import { MAX_PIECES_EMAIL } from "./packPdf";
 import { EXPEDITEUR_EMAIL } from "./signature";
 import type { ResultatEnvoi } from "./types";
 
@@ -129,7 +130,9 @@ export async function envoyerEmailProfessionnel(saisie: {
   const text = saisie.text.trim();
   const html = saisie.html;
   const from = saisie.from.trim();
-  const attachments = (saisie.attachments || []).filter((piece) => piece.filename && piece.content.length > 16 && piece.content.length < 1_800_000);
+  const attachments = (saisie.attachments || [])
+    .filter((piece) => piece.filename && piece.content.length > 16 && piece.content.length < 6_000_000)
+    .slice(0, MAX_PIECES_EMAIL);
   if (!EMAIL_RE.test(to)) {
     return { ok: false, canal: "simulation", message: "Adresse destinataire invalide." };
   }

@@ -12,6 +12,7 @@ import type {
   TauxTva,
   TypeVisiteEnergia,
 } from "./types";
+import { mentionLegaleAidesVerifiees } from "../aides/verificationLive.js";
 
 export const ANNEE_REFERENCE = 2026 as const;
 
@@ -64,7 +65,7 @@ export const UNITES_LABEL: Record<string, string> = {
   panneau: "Panneau",
 };
 
-export const LOGO_PUBLIC_PATH = "/assets/LOGO.png";
+export { LOGO_PUBLIC_PATH } from "../branding";
 
 export const CONTACT_CHIFFRAGE = {
   enseigne: "ENERGIA CONSEIL IA®",
@@ -158,6 +159,10 @@ export const DISCLAIMERS_AIDES = [
   "Aides à valider selon revenus réels du client et éligibilité en vigueur.",
   "Montants définitifs après instruction ANAH et CEE.",
 ] as const;
+
+export function disclaimersAidesComplets(au = new Date()): string[] {
+  return [...DISCLAIMERS_AIDES, mentionLegaleAidesVerifiees(au)];
+}
 
 export function parametresParDefaut(
   complexite: ParametresChiffrage["complexite"] = "standard",

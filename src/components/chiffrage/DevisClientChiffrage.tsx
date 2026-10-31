@@ -1,9 +1,13 @@
 import { useState } from "react";
 import {
+  AVERTISSEMENT_DEVIS_ARTISAN_RGE,
   CONDITIONS_PAIEMENT_DEVIS,
   CONTACT_CHIFFRAGE,
+  infererPrioriteTravaux,
   LOGO_PUBLIC_PATH,
   OBJET_TRAVAUX_DEFAUT,
+  PRIORITE_TRAVAUX,
+  PRIORITES_TRAVAUX,
   formatEuro,
   formatUnite,
   type DevisClientChiffrage as DevisClientData,
@@ -18,6 +22,7 @@ import {
   type DevisClientPdfGesteCommercial,
   type DevisClientPdfLigne,
 } from "../../lib/generateDevisPdf";
+import BadgePrioriteTravaux from "./BadgePrioriteTravaux";
 
 type Props = {
   devis: DevisClientData;
@@ -51,6 +56,7 @@ function lignesAffichees(devis: DevisClientData): LigneDevisClientDetail[] {
     tauxTva: 0.055,
     montantTva: 0,
     montantTtc: ligne.montantHt,
+    priorite: infererPrioriteTravaux({ designation: ligne.libelle }),
   }));
 }
 
@@ -65,6 +71,10 @@ function versPdfLignes(lignes: LigneDevisClientDetail[]): DevisClientPdfLigne[] 
     tauxTva: ligne.tauxTva,
     montantTva: ligne.montantTva,
     montantTtc: ligne.montantTtc,
+    priorite: ligne.priorite ?? infererPrioriteTravaux({
+      designation: ligne.designation,
+      description: ligne.description,
+    }),
   }));
 }
 
@@ -232,16 +242,18 @@ export default function DevisClientPanel({
         <div className="mx-6 mb-5 max-w-full overflow-hidden sm:mx-8">
           <table className="w-full max-w-full table-fixed border-collapse text-[12px] leading-snug sm:text-[13px]">
             <colgroup>
-              <col className="w-[22%]" />
-              <col className="w-[26%]" />
+              <col className="w-[8%]" />
+              <col className="w-[20%]" />
+              <col className="w-[24%]" />
               <col className="w-[7%]" />
               <col className="w-[8%]" />
-              <col className="w-[15%]" />
+              <col className="w-[13%]" />
               <col className="w-[7%]" />
-              <col className="w-[15%]" />
+              <col className="w-[13%]" />
             </colgroup>
             <thead className="bg-[#14532d] text-white">
               <tr>
+                <th className="px-1.5 py-2 text-left font-semibold break-words sm:px-2">Niv.</th>
                 <th className="px-1.5 py-2 text-left font-semibold break-words sm:px-2">Désignation</th>
                 <th className="px-1.5 py-2 text-left font-semibold break-words sm:px-2">Description</th>
                 <th className="px-1 py-2 text-right font-semibold break-words">Qté</th>
@@ -254,13 +266,28 @@ export default function DevisClientPanel({
             <tbody>
               {lignes.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-2 py-3 text-slate-500">
+                  <td colSpan={8} className="px-2 py-3 text-slate-500">
                     Aucune ligne commerciale : saisissez d’abord un coût de prestation.
                   </td>
                 </tr>
               ) : (
-                lignes.map((ligne, index) => (
-                  <tr key={ligne.id} className={index % 2 === 0 ? "bg-white" : "bg-slate-50"}>
+                lignes.map((ligne, index) => {
+                  const priorite =
+                    ligne.priorite ??
+                    infererPrioriteTravaux({
+                      designation: ligne.designation,
+                      description: ligne.description,
+                    });
+                  const style = PRIORITE_TRAVAUX[priorite];
+                  return (
+                  <tr
+                    key={ligne.id}
+                    className={index % 2 === 0 ? "bg-white" : "bg-slate-50"}
+                    style={{ backgroundColor: `rgb(${style.rowBg.join(",")})` }}
+                  >
+                    <td className="px-1 py-2 align-top">
+                      <BadgePrioriteTravaux priorite={priorite} compact />
+                    </td>
                     <td className="min-w-0 px-1.5 py-2 align-top font-semibold break-words text-slate-900 sm:px-2">
                       {ligne.designation}
                     </td>
@@ -281,10 +308,28 @@ export default function DevisClientPanel({
                       {formatEuro(ligne.montantHt)}
                     </td>
                   </tr>
-                ))
+                  );
+                })
               )}
             </tbody>
           </table>
+        </div>
+
+        <div className="mx-6 mb-5 rounded-xl border border-slate-200 bg-white px-4 py-3 sm:mx-8">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-[#1a3c5e]">
+            Légende — priorité des travaux
+          </p>
+          <ul className="mt-2 flex flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-1">
+            {PRIORITES_TRAVAUX.map((priorite) => (
+              <li key={priorite} className="flex items-center gap-2 text-[11px] text-slate-700">
+                <BadgePrioriteTravaux priorite={priorite} compact />
+                <span>{PRIORITE_TRAVAUX[priorite].libelle}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-[11px] italic leading-relaxed text-slate-500">
+            {AVERTISSEMENT_DEVIS_ARTISAN_RGE}
+          </p>
         </div>
 
         {gesteCommercial ? (

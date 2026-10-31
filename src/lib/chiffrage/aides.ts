@@ -7,9 +7,19 @@
  */
 
 import type { AideEstimative } from "./types";
+import { URL_ANAH_GOUV } from "../aides/verificationLive.js";
+
+function gabarit(aide: Omit<AideEstimative, "dateVerificationWeb" | "verifieeWeb" | "sourceVerificationUrl">): AideEstimative {
+  return {
+    ...aide,
+    dateVerificationWeb: null,
+    verifieeWeb: false,
+    sourceVerificationUrl: URL_ANAH_GOUV,
+  };
+}
 
 export const AIDES_GABARITS: AideEstimative[] = [
-  {
+  gabarit({
     id: "mpr-parcours",
     libelle: "MaPrimeRénov’ Parcours (aide estimative)",
     organisme: "ANAH — MaPrimeRénov’",
@@ -19,8 +29,8 @@ export const AIDES_GABARITS: AideEstimative[] = [
     montantEstimatif: null,
     montantRetenu: 0,
     commentaire: "Montant à renseigner après simulation MAR / barème 2026. Non garanti.",
-  },
-  {
+  }),
+  gabarit({
     id: "cee",
     libelle: "Certificats d’économies d’énergie (CEE)",
     organisme: "Obligé CEE / délégataire",
@@ -30,8 +40,8 @@ export const AIDES_GABARITS: AideEstimative[] = [
     montantEstimatif: null,
     montantRetenu: 0,
     commentaire: "Toujours afficher une fourchette. Montant retenu = hypothèse basse sauf devis CEE.",
-  },
-  {
+  }),
+  gabarit({
     id: "coup-de-pouce",
     libelle: "Coup de pouce rénovation d’ampleur",
     organisme: "CEE — Coup de pouce",
@@ -40,8 +50,8 @@ export const AIDES_GABARITS: AideEstimative[] = [
     montantEstimatif: null,
     montantRetenu: 0,
     commentaire: "Montants barème 2026 à confirmer selon le gain de classes réel.",
-  },
-  {
+  }),
+  gabarit({
     id: "mar",
     libelle: "Prise en charge MAR (Parcours accompagné)",
     organisme: "ANAH / France Rénov’",
@@ -50,8 +60,8 @@ export const AIDES_GABARITS: AideEstimative[] = [
     montantEstimatif: null,
     montantRetenu: 0,
     commentaire: "Coût MAR 2 000–4 000 € ; part prise en charge selon profil (Bleu/Jaune 100 %, Violet 80 %, Rose 40 %).",
-  },
-  {
+  }),
+  gabarit({
     id: "prime-autoconso-pv",
     libelle: "Prime à l’autoconsommation photovoltaïque (versement unique)",
     organisme: "État / EDF OA — barème septembre 2026",
@@ -62,8 +72,8 @@ export const AIDES_GABARITS: AideEstimative[] = [
     montantRetenu: 0,
     commentaire:
       "Tarif d’achat EDF OA unique 0,011 €/kWh (surplus ou total). Batterie 3,5–30 kWh indispensable pour le ROI.",
-  },
-  {
+  }),
+  gabarit({
     id: "locales",
     libelle: "Aides locales (commune, EPCI, département, région)",
     organisme: "Collectivité territoriale",
@@ -72,7 +82,7 @@ export const AIDES_GABARITS: AideEstimative[] = [
     montantEstimatif: null,
     montantRetenu: 0,
     commentaire: "Fourchette typique 500–5 000 € — à vérifier commune par commune.",
-  },
+  }),
 ];
 
 export function aidesInitiales(): AideEstimative[] {

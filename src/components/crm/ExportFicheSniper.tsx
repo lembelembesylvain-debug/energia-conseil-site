@@ -1,10 +1,10 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
+import ContactProprietaireSniper from "./ContactProprietaireSniper";
 import LogoEnergia from "./LogoEnergia";
 import {
   COULEURS_ADEME,
   ENTETE_FICHE,
-  peutExporterFiche,
   presenterFiche,
   telechargerFicheOpportunitePdf,
   type EtiquetteDpe,
@@ -112,7 +112,7 @@ function Cadre({ titre, children }: { titre: string; children: ReactNode }) {
   );
 }
 
-function ApercuFicheA4({ vue }: { vue: PresentationFiche }) {
+function ApercuFicheA4({ vue, fiche }: { vue: PresentationFiche; fiche: FicheOpportunite }) {
   return (
     <article
       id="fiche-sniper-a4"
@@ -146,6 +146,12 @@ function ApercuFicheA4({ vue }: { vue: PresentationFiche }) {
         <div className="grid grid-cols-2 gap-1.5">
           <Cadre titre="1 — Fiche d'identité du bien">
             <Paires lignes={vue.identite} />
+            <ContactProprietaireSniper
+              identifiant={fiche.reference}
+              typeBati={fiche.typeBati}
+              adresse={fiche.adresseComplete}
+              codeDep={fiche.codeDep}
+            />
           </Cadre>
           <Cadre titre="2 — Analyse foncière et cadastrale">
             <Paires lignes={vue.foncier} />
@@ -221,8 +227,12 @@ interface ExportFicheTerrainPdfProps {
 export default function ExportFicheTerrainPdf({ fiche }: ExportFicheTerrainPdfProps) {
   const [ouvert, setOuvert] = useState(false);
   const [erreur, setErreur] = useState("");
-  const actif = peutExporterFiche(fiche);
-  const vue = presenterFiche(fiche, "ecran");
+  let vue: PresentationFiche | null = null;
+  try {
+    vue = fiche ? presenterFiche(fiche, "pdf") : null;
+  } catch {
+    vue = null;
+  }
 
   useEffect(() => {
     if (!ouvert) return undefined;
@@ -243,6 +253,7 @@ export default function ExportFicheTerrainPdf({ fiche }: ExportFicheTerrainPdfPr
       telechargerFicheOpportunitePdf(fiche);
       setErreur("");
     } catch (err) {
+      setOuvert(false);
       setErreur(err instanceof Error ? err.message : "Export PDF impossible.");
     }
   };
@@ -252,12 +263,10 @@ export default function ExportFicheTerrainPdf({ fiche }: ExportFicheTerrainPdfPr
       <button
         type="button"
         data-testid="export-fiche-sniper"
-        disabled={!actif}
-        title={actif ? "Ouvrir la fiche A4 et la télécharger" : "Sélectionnez un bien ou une parcelle"}
         onClick={(event) => {
+          event.preventDefault();
           event.stopPropagation();
-          if (!actif) return;
-          setOuvert(true);
+          telecharger();
         }}
         className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-300/60 bg-amber-400 px-3 py-2.5 text-[12px] font-semibold text-slate-950 shadow-sm hover:bg-amber-300 disabled:cursor-not-allowed disabled:border-slate-700 disabled:bg-slate-800 disabled:text-slate-500"
       >
@@ -265,7 +274,7 @@ export default function ExportFicheTerrainPdf({ fiche }: ExportFicheTerrainPdfPr
         Exporter la Fiche Terrain PDF (A4)
       </button>
 
-      {ouvert
+      {ouvert && vue
         ? createPortal(
             <div
               id="fiche-sniper-print-root"
@@ -308,7 +317,7 @@ export default function ExportFicheTerrainPdf({ fiche }: ExportFicheTerrainPdfPr
               </div>
               {erreur ? <p className="no-print px-4 py-2 text-xs text-rose-200">{erreur}</p> : null}
               <div className="fiche-a4-scroll min-h-0 flex-1 overflow-auto px-4 py-4">
-                <ApercuFicheA4 vue={vue} />
+                <ApercuFicheA4 vue={vue} fiche={fiche} />
               </div>
             </div>,
             document.body,

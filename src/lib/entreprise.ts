@@ -1,16 +1,18 @@
-export const LOGO_PUBLIC_PATH = "/assets/LOGO.png";
+import { BRANDING } from "./branding";
+
+export { LOGO_PUBLIC_PATH } from "./branding";
 
 export const ENTREPRISE = {
-  enseigne: "ENERGIA CONSEIL IA\u00AE",
+  enseigne: BRANDING.nom,
   fondateurQualite: "Fondateur & CEO \u2014 Contractant G\u00e9n\u00e9ral Digital",
   statut: "Bureau d'\u00e9tudes & AMO",
-  adresse: "16 Rue Cuvier, 69006 Lyon",
-  telephone: "06 10 59 68 98",
-  email: "contact@energia-conseil-ia.com",
-  siret: "94181942700019",
-  rcs: "Lyon 941819427",
-  forme: "SASU",
-  capital: "100 \u20ac",
+  adresse: BRANDING.adresse,
+  telephone: BRANDING.telephone,
+  email: BRANDING.email,
+  siret: BRANDING.siret,
+  rcs: BRANDING.rcs,
+  forme: BRANDING.forme,
+  capital: BRANDING.capital,
   assurances:
     "Assurances des entreprises intervenantes : d\u00e9cennale et responsabilit\u00e9 civile professionnelle (attestations \u00e0 jour exig\u00e9es).",
 } as const;

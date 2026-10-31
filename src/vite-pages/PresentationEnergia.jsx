@@ -6,7 +6,6 @@ const SECTIONS = [
   { id: "ouverture", label: "Ouverture" },
   { id: "ecosysteme", label: "Écosystème" },
   { id: "crm", label: "CRM" },
-  { id: "kit-damien", label: "Kit Damien" },
   { id: "controle-interne", label: "Contrôle interne" },
   { id: "audit", label: "Audit IA" },
   { id: "piliers", label: "5 piliers" },
@@ -18,7 +17,6 @@ const SECTIONS = [
 
 const LIENS = {
   crm: "/test-dashboard-crm",
-  kitDamien: "/test-dashboard-crm#presentation",
   controleInterne: "/test-dashboard-crm#controle-interne",
   dossierClient: "/test-dashboard-crm#projets",
   maintenance: "/maintenance",
@@ -151,7 +149,6 @@ export default function PresentationEnergia() {
                   <NavLink href={LIENS.crm} primaire>
                     Retour au CRM
                   </NavLink>
-                  <NavLink href={LIENS.kitDamien}>Ouvrir le Kit Damien</NavLink>
                   <NavLink href={LIENS.controleInterne}>Ouvrir le Centre de Contrôle Interne</NavLink>
                   <NavLink href={LIENS.dossierClient}>Ouvrir un dossier client</NavLink>
                 </div>
@@ -163,7 +160,7 @@ export default function PresentationEnergia() {
         <section id="ecosysteme" className="mt-14 scroll-mt-28">
           <h2 className="text-2xl font-semibold text-[#0b3d2e]">Notre écosystème</h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-            Six espaces distincts. Les boutons ci-dessous n’ouvrent que des routes déjà
+            Cinq espaces distincts. Les boutons ci-dessous n’ouvrent que des routes déjà
             présentes dans l’application.
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -176,7 +173,6 @@ export default function PresentationEnergia() {
               texte="Mise en relation avec des artisans. Module d’écosystème, sans route dédiée dans cette application."
             />
             <Carte titre="CRM commercial" texte="Prospects, pipeline, projets, relances, partenaires, artisans et financements." />
-            <Carte titre="Kit Damien" texte="Présentation terrain sur tablette : logement, travaux, scénarios, budget client, aides indicatives et financement sous réserve." />
             <Carte
               titre="Centre de Contrôle Interne"
               texte="Pilotage des coûts et des marges. Accès réservé à l’administrateur propriétaire."
@@ -211,33 +207,6 @@ export default function PresentationEnergia() {
               </li>
             ))}
           </ul>
-        </section>
-
-        <section id="kit-damien" className="mt-14 scroll-mt-28">
-          <h2 className="text-2xl font-semibold text-[#0b3d2e]">Le Kit Damien</h2>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-            Outil de rendez-vous terrain. Vue commerciale uniquement : rien de ce qui suit
-            n’est un coût d’achat, un prix fournisseur, une marge ENERGIA, une commission
-            Damien, un coût Clyve ni un prix plancher.
-          </p>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              "Présentation client sur tablette",
-              "Logement et travaux",
-              "Scénarios",
-              "Budget client",
-              "Aides indicatives",
-              "Financement sous réserve",
-              "Signature des documents autorisés",
-            ].map((item) => (
-              <p
-                key={item}
-                className="rounded-xl border border-emerald-900/10 bg-white px-4 py-3 text-sm text-slate-700"
-              >
-                {item}
-              </p>
-            ))}
-          </div>
         </section>
 
         <section id="controle-interne" className="mt-14 scroll-mt-28">
@@ -393,7 +362,6 @@ export default function PresentationEnergia() {
             <NavLink href={LIENS.crm} primaire>
               Retour au CRM
             </NavLink>
-            <NavLink href={LIENS.kitDamien}>Ouvrir le Kit Damien</NavLink>
             <NavLink href={LIENS.controleInterne}>Ouvrir le Centre de Contrôle Interne</NavLink>
             <NavLink href={LIENS.dossierClient}>Ouvrir un dossier client</NavLink>
           </div>

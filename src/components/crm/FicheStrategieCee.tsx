@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { BRANDING } from "../../lib/branding";
+import { FICHES_RADAR_CEE } from "../../lib/crm/ceeRadarTravaux";
 import { ficheStrategiqueParCode, type FicheStrategiqueCee } from "../../lib/crm/fichesStrategiquesCee";
+import { telechargerNoteOpportuniteCee } from "../../lib/crm/noteOpportuniteCeePdf";
 import { ratioStrategiqueParCode } from "../../lib/crm/ratiosDirection";
+import { basculerFicheCee, useSelectedCeeFiches } from "../../lib/crm/selectionCee";
 import CartesRatiosDirection from "./CartesRatiosDirection";
 
 const MENTION_AIDES =
@@ -126,6 +129,9 @@ type Props = {
 
 export default function FicheStrategieCee({ code, onClose, voirMarges = false }: Props) {
   const fiche = code ? ficheStrategiqueParCode(code) : null;
+  const selectedCeeFiches = useSelectedCeeFiches();
+  const radar = fiche ? FICHES_RADAR_CEE.find((item) => item.code === fiche.code) : null;
+  const selectionnee = Boolean(radar && selectedCeeFiches.some((item) => item.id === radar.id));
 
   useEffect(() => {
     if (!fiche) return;
@@ -144,13 +150,39 @@ export default function FicheStrategieCee({ code, onClose, voirMarges = false }:
         <p id="titre-fiche-strategie" className="text-sm font-medium text-slate-200">
           Fiche technique {fiche.code} — {fiche.segment}
         </p>
-        <button
-          type="button"
-          onClick={onClose}
-          className="rounded-xl border border-slate-600 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-800"
-        >
-          ✕ Fermer
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              const radar = FICHES_RADAR_CEE.find((item) => item.code === fiche.code);
+              if (radar) void telechargerNoteOpportuniteCee({ fiche: radar, site: "" });
+            }}
+            className="rounded-xl bg-amber-300 px-3 py-2 text-sm font-semibold text-slate-950"
+          >
+            Télécharger la note A4
+          </button>
+          <button
+            type="button"
+            role="checkbox"
+            aria-checked={selectionnee}
+            data-testid="fiche-strategie-pack"
+            disabled={!radar}
+            onClick={() => {
+              if (!radar) return;
+              basculerFicheCee({ id: radar.id, code: radar.code, intitule: radar.intitule });
+            }}
+            className={`inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold ${selectionnee ? "border-emerald-300 bg-emerald-500 text-white" : "border-slate-600 text-slate-100 hover:bg-slate-800"}`}
+          >
+            {selectionnee ? "✅ Fiche sélectionnée pour l'envoi" : "Ajouter au pack B2B"}
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-xl border border-slate-600 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-800"
+          >
+            ✕ Fermer
+          </button>
+        </div>
       </div>
       <div className="min-h-0 flex-1 overflow-auto px-4 py-6 sm:px-8">
         <PresentationFicheStrategique fiche={fiche} voirMarges={voirMarges} />

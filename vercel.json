@@ -3,6 +3,32 @@
   "buildCommand": "npm run build:vite",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/estimer", "destination": "/immobilier-chagny/index.html" },
+    { "source": "/estimer/", "destination": "/immobilier-chagny/index.html" },
+    { "source": "/immobilier-chagny", "destination": "/immobilier-chagny/index.html" },
+    { "source": "/immobilier-chagny/", "destination": "/immobilier-chagny/index.html" },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "immobilier-chagny.fr" }],
+      "destination": "/immobilier-chagny/index.html"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.immobilier-chagny.fr" }],
+      "destination": "/immobilier-chagny/index.html"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "catarinamartins-immobilier.fr" }],
+      "destination": "/immobilier-chagny/index.html"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.catarinamartins-immobilier.fr" }],
+      "destination": "/immobilier-chagny/index.html"
+    },
+    { "source": "/diagnostic-rapide", "destination": "/diagnostic-rapide.html" },
+    { "source": "/diagnostic-rapide/", "destination": "/diagnostic-rapide.html" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }

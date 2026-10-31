@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import AuditEnergetiqueModule from "./AuditEnergetiqueModule";
+import BoutonRapportLaGenete from "./crm/BoutonRapportLaGenete";
 import ClyveTestBanner from "./ClyveTestBanner";
 import {
   clyveAuditData,
@@ -49,6 +50,7 @@ export default function TestMaisonClyve() {
         auditData={auditData}
         documentsList={clyveDocuments}
         scenarios={clyveScenarios}
+        rapportClient={<BoutonRapportLaGenete />}
       />
     </div>
   );

@@ -19,6 +19,8 @@ function jsPdfConstructor(mod: unknown): JsPdfCtor {
 
 const JsPDF = jsPdfConstructor(jsPDFModule);
 import { accrocheHero, dossierIngenierieCee } from "./dossiersIngenierieCee";
+import { ficheStrategiqueParCode, type FicheStrategiqueCee } from "./fichesStrategiquesCee";
+import { euroHt, ratioStrategiqueParCode } from "./ratiosDirection";
 import {
   COURS_EMMY_CLASSIQUE_EUR,
   COURS_EMMY_PRECARITE_EUR,
@@ -71,6 +73,7 @@ type OptionsNote = {
   site: string;
   date?: Date;
   logo?: LogoNote | null;
+  schema?: LogoNote | null;
 };
 
 function espaceFin(valeur: string) {
@@ -202,6 +205,269 @@ export function logoDepuisPng(bytes: Uint8Array): LogoNote | null {
     binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
   }
   return { dataUrl: `data:image/png;base64,${btoa(binary)}`, width, height };
+}
+
+export function imageDepuisOctets(bytes: Uint8Array): LogoNote | null {
+  if (bytes.length >= 24 && bytes[0] === 0x89 && bytes[1] === 0x50) return logoDepuisPng(bytes);
+  if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) return null;
+  let curseur = 2;
+  let width = 0;
+  let height = 0;
+  while (curseur + 8 < bytes.length) {
+    if (bytes[curseur] !== 0xff) {
+      curseur += 1;
+      continue;
+    }
+    const marqueur = bytes[curseur + 1];
+    if (marqueur === 0xd8 || marqueur === 0xd9) {
+      curseur += 2;
+      continue;
+    }
+    const longueur = (bytes[curseur + 2] << 8) + bytes[curseur + 3];
+    if (marqueur >= 0xc0 && marqueur <= 0xc2) {
+      height = (bytes[curseur + 5] << 8) + bytes[curseur + 6];
+      width = (bytes[curseur + 7] << 8) + bytes[curseur + 8];
+      break;
+    }
+    curseur += 2 + longueur;
+  }
+  if (width <= 0 || height <= 0) return null;
+  let binary = "";
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
+  }
+  return { dataUrl: `data:image/jpeg;base64,${btoa(binary)}`, width, height };
+}
+
+export async function chargerVisuel(chemin: string): Promise<LogoNote | null> {
+  if (typeof fetch !== "function" || !chemin) return null;
+  try {
+    const response = await fetch(chemin);
+    if (!response.ok) return null;
+    return imageDepuisOctets(new Uint8Array(await response.arrayBuffer()));
+  } catch {
+    return null;
+  }
+}
+
+const ETIQUETTES_SCHEMA: Record<string, string[]> = {
+  "IND-UT-117": [
+    "Compresseur — huile 90 °C",
+    "Échangeur — entrée 320 °C",
+    "Eau chaude — sortie 70 °C",
+    "Ballon tampon 1 000 L",
+  ],
+  "BAR-TH-104": [
+    "Unité extérieure — liaisons isolées",
+    "Module hydraulique intérieur",
+    "Ballon tampon isolé",
+    "Filtre à boues et émetteurs",
+  ],
+  "BAR-EN-101": [
+    "Laine soufflée — R ≥ 7",
+    "Pare-vapeur continu et scellé",
+    "Trappe d'accès isolée",
+    "Écart au feu autour du conduit",
+  ],
+  "BAR-EN-102": [
+    "PSE graphite — R ≥ 3,7",
+    "Chevilles à rosace",
+    "Sous-enduit armé fibre de verre",
+    "Retours de tableau isolés",
+  ],
+  "BAR-EN-103": [
+    "Panneaux rigides — R ≥ 3",
+    "Pare-vapeur aluminium",
+    "Rosaces en trame régulière",
+    "Sous-face sans pont thermique",
+  ],
+  "BAR-TH-148": [
+    "Ballon émaillé 250 L",
+    "PAC intégrée — gaines isolées",
+    "Groupe de sécurité 7 bar",
+    "Vase et raccords diélectriques",
+  ],
+  "BAR-TH-173": [
+    "Thermostat mural tactile",
+    "Têtes sur chaque radiateur",
+    "Passerelle et sonde extérieure",
+    "Application pièce par pièce",
+  ],
+};
+
+function formatImage(dataUrl: string) {
+  return dataUrl.includes("image/png") ? "PNG" : "JPEG";
+}
+
+function piedPage(doc: JsPdfDocument) {
+  remplir(doc, NAVY);
+  doc.rect(0, 291.2, PAGE_W, 5.8, "F");
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(6.4);
+  encre(doc, WHITE);
+  doc.text(`INPI n° ${BRANDING.inpi}    ·    ${BRANDING.site}    ·    ${BRANDING.email}`, PAGE_W / 2, 294.9, {
+    align: "center",
+  });
+}
+
+function enteteNuit(doc: JsPdfDocument, logo: LogoNote | null, code: string) {
+  remplir(doc, NAVY);
+  doc.rect(0, 0, PAGE_W, 24, "F");
+  const boite = logo ? fitLogo(logo.width, logo.height, 36, 14) : { width: 0, height: 0 };
+  if (logo && boite.width > 0) {
+    doc.addImage(logo.dataUrl, formatImage(logo.dataUrl), M, 5, boite.width, boite.height);
+  }
+  const x = logo && boite.width > 0 ? M + boite.width + 4 : M;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  encre(doc, WHITE);
+  doc.text("ENERGIA CONSEIL IA", x, 10);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7);
+  doc.text(`Marque déposée INPI n° ${BRANDING.inpi}`, x, 15.5);
+  doc.setFontSize(7);
+  doc.text(code, PAGE_W - M, 12, { align: "right" });
+}
+
+function dessinerSchema(doc: JsPdfDocument, schema: LogoNote | null, y: number) {
+  const largeur = INNER;
+  const hauteur = largeur * (9 / 16);
+  const x = M;
+  remplir(doc, NAVY);
+  doc.roundedRect(x, y, largeur, hauteur, 1.6, 1.6, "F");
+  if (schema) {
+    const ratio = schema.width / schema.height;
+    const cible = 16 / 9;
+    let w = largeur - 2;
+    let h = hauteur - 2;
+    if (ratio > cible) h = w / ratio;
+    else w = h * ratio;
+    doc.addImage(schema.dataUrl, formatImage(schema.dataUrl), x + (largeur - w) / 2, y + (hauteur - h) / 2, w, h);
+  } else {
+    encre(doc, WHITE);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.text("Schema d'ingenierie indisponible", PAGE_W / 2, y + hauteur / 2, { align: "center" });
+  }
+  return y + hauteur;
+}
+
+function dessinerFicheClient(
+  doc: JsPdfDocument,
+  note: NoteOpportuniteCee,
+  fiche: CeeFicheTravaux,
+  strategie: FicheStrategiqueCee | null,
+  logo: LogoNote | null,
+  schema: LogoNote | null,
+) {
+  enteteNuit(doc, logo, fiche.code);
+  doc.setFont("times", "bold");
+  doc.setFontSize(13);
+  encre(doc, NAVY);
+  const titre = uneLigne(doc, strategie?.titre || fiche.intitule, INNER);
+  doc.text(titre, M, 32);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  encre(doc, MUTED);
+  doc.text(`${fiche.code}  ·  ${strategie?.segment || note.actif}  ·  ${note.site}`, M, 37);
+
+  let y = dessinerSchema(doc, schema, 41);
+  y += 3;
+  const etiquettes = ETIQUETTES_SCHEMA[fiche.code] || note.schemaEtapes;
+  const col = (INNER - 3) / Math.max(etiquettes.length, 1);
+  etiquettes.slice(0, 4).forEach((etiquette, index) => {
+    const x = M + index * (col + 1);
+    carte(doc, x, y, col, 12);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(6.2);
+    encre(doc, NAVY);
+    doc.text(uneLigne(doc, etiquette, col - 4), x + 2, y + 7);
+  });
+  y += 16;
+  carte(doc, M, y, INNER, 28, true);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(7);
+  encre(doc, MUTED);
+  doc.text("PRIME CEE INDICATIVE", PAGE_W / 2, y + 7, { align: "center" });
+  doc.setFont("times", "bold");
+  doc.setFontSize(18);
+  encre(doc, GREEN);
+  doc.text(uneLigne(doc, strategie?.primeFourchette || note.montant, INNER - 8), PAGE_W / 2, y + 18, { align: "center" });
+
+  doc.addPage();
+  remplir(doc, hexToRgb("#F4F7FB"));
+  doc.rect(0, 0, PAGE_W, PAGE_H, "F");
+  enteteNuit(doc, logo, fiche.code);
+  y = 32;
+  const blocs: { titre: string; lignes: string[] }[] = [
+    {
+      titre: "Équipements majeurs requis",
+      lignes: strategie?.equipements?.length ? strategie.equipements : note.schemaEtapes,
+    },
+    {
+      titre: "Corps d'état recommandés",
+      lignes: strategie?.corpsEtat?.length ? strategie.corpsEtat : [note.decideur],
+    },
+    {
+      titre: "Éligibilité CEE et volume MWh cumac",
+      lignes: [
+        strategie?.volumeCumac || note.volume,
+        note.cours,
+        ...(strategie?.eligibilite || [note.enjeu]),
+      ],
+    },
+  ];
+  blocs.forEach((bloc) => {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    encre(doc, NAVY);
+    doc.text(bloc.titre, M, y);
+    y += 4;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    encre(doc, BODY);
+    bloc.lignes.forEach((ligne) => {
+      const morceaux = paragraphe(doc, ligne, INNER, 3);
+      ecrireLignes(doc, morceaux, M, y, 3.6);
+      y += morceaux.length * 3.6 + 1;
+    });
+    y += 3;
+  });
+
+  const ratio = ratioStrategiqueParCode(fiche.code);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  encre(doc, NAVY);
+  doc.text("Financement client", M, y);
+  y += 3;
+  const chiffres = [
+    { label: "Prix de vente conseillé", valeur: ratio?.venteHt != null ? euroHt(ratio.venteHt) : "À chiffrer au dossier" },
+    { label: "Prime CEE", valeur: ratio?.primeHt != null ? euroHt(ratio.primeHt) : note.montant },
+    { label: "Reste à charge net", valeur: ratio?.racHt != null ? euroHt(ratio.racHt) : "Après chiffrage" },
+  ];
+  const largeur = (INNER - 4) / 3;
+  chiffres.forEach((item, index) => {
+    const x = M + index * (largeur + 2);
+    carte(doc, x, y, largeur, 18, index === 1);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(6);
+    encre(doc, MUTED);
+    doc.text(item.label, x + 2, y + 6);
+    doc.setFont("times", "bold");
+    doc.setFontSize(9);
+    encre(doc, index === 1 ? GREEN : NAVY);
+    doc.text(uneLigne(doc, item.valeur, largeur - 4), x + 2, y + 13);
+  });
+  y += 24;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7);
+  encre(doc, MUTED);
+  const avertissement = `${MENTION_AIDES_NOTE} Ce document n'est pas un devis et ne vaut pas accord CEE.`;
+  ecrireLignes(doc, paragraphe(doc, avertissement, INNER, 3), M, y, 3.2);
+  piedPage(doc);
+  doc.setPage(1);
+  piedPage(doc);
 }
 
 export async function chargerLogoNote(): Promise<LogoNote | null> {
@@ -519,6 +785,7 @@ function pied(doc: JsPdfDocument) {
 export function creerNoteOpportuniteCee(options: OptionsNote) {
   const doc = new JsPDF({ unit: "mm", format: "a4", compress: true });
   const note = composerNoteOpportuniteCee(options);
+  const strategie = ficheStrategiqueParCode(options.fiche.code);
   doc.setProperties({
     title: note.titre,
     author: "ENERGIA CONSEIL IA",
@@ -527,22 +794,28 @@ export function creerNoteOpportuniteCee(options: OptionsNote) {
   });
   remplir(doc, hexToRgb("#F4F7FB"));
   doc.rect(0, 0, PAGE_W, PAGE_H, "F");
-  bandeau(doc, options.logo ?? null);
-  titreEtMeta(doc, note);
-  blocChiffre(doc, note);
-  carteCible(doc, note);
-  schemaPrincipe(doc, note);
-  frise(doc);
-  pied(doc);
-  if (doc.getNumberOfPages() !== 1) {
-    throw new Error("La note d'opportunité CEE doit tenir sur une seule page A4.");
+  dessinerFicheClient(doc, note, options.fiche, strategie, options.logo ?? null, options.schema ?? null);
+  if (doc.getNumberOfPages() > 2) {
+    throw new Error("La note d'opportunité CEE doit tenir sur deux pages A4.");
   }
   return doc;
 }
 
-export async function telechargerNoteOpportuniteCee(options: OptionsNote) {
+async function documentNote(options: OptionsNote) {
   const logo = options.logo === undefined ? await chargerLogoNote() : options.logo;
-  const doc = creerNoteOpportuniteCee({ ...options, logo });
+  const strategie = ficheStrategiqueParCode(options.fiche.code);
+  const schema =
+    options.schema === undefined && strategie?.image ? await chargerVisuel(strategie.image) : (options.schema ?? null);
+  return creerNoteOpportuniteCee({ ...options, logo, schema });
+}
+
+export async function noteOpportuniteCeeBase64(fiche: CeeFicheTravaux, site = "") {
+  const brut = (await documentNote({ fiche, site })).output("datauristring");
+  return brut.includes(",") ? brut.split(",")[1] : brut;
+}
+
+export async function telechargerNoteOpportuniteCee(options: OptionsNote) {
+  const doc = await documentNote(options);
   const slug = options.fiche.code.replace(/[^a-zA-Z0-9]+/g, "-");
   const jour = (options.date ?? new Date()).toISOString().slice(0, 10);
   doc.save(`Note_Opportunite_CEE_${slug}_${jour}.pdf`);

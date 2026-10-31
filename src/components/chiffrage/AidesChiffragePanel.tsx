@@ -1,11 +1,20 @@
+import { useMemo } from "react";
 import type { AideEstimative, RecapAides } from "../../lib/chiffrage";
-import { DISCLAIMERS_AIDES, formatEuro } from "../../lib/chiffrage";
+import { disclaimersAidesComplets, formatEuro } from "../../lib/chiffrage";
+import {
+  URL_ANAH_GOUV,
+  mentionLegaleAidesVerifiees,
+} from "../../lib/aides/verificationLive.js";
+import BadgeVerificationLive from "../aides/BadgeVerificationLive";
+
+const LIGNES_LIVE = new Set(["mpr-parcours", "cee", "coup-de-pouce"]);
 
 type Props = {
   aides: AideEstimative[];
   recap: RecapAides;
   budgetAffichable: boolean;
   onChange: (id: string, patch: Partial<AideEstimative>) => void;
+  admin?: boolean;
 };
 
 export default function AidesChiffragePanel({
@@ -13,7 +22,23 @@ export default function AidesChiffragePanel({
   recap,
   budgetAffichable,
   onChange,
+  admin = true,
 }: Props) {
+  const disclaimers = useMemo(() => disclaimersAidesComplets(), []);
+
+  const marquerLignesLive = () => {
+    const aujourdhui = new Date().toISOString().slice(0, 10);
+    aides
+      .filter((aide) => LIGNES_LIVE.has(aide.id))
+      .forEach((aide) =>
+        onChange(aide.id, {
+          dateVerificationWeb: aujourdhui,
+          verifieeWeb: true,
+          sourceVerificationUrl: aide.sourceVerificationUrl || URL_ANAH_GOUV,
+        }),
+      );
+  };
+
   return (
     <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       <h2 className="text-lg font-semibold text-[#1a3c5e]">Aides financières (séparées du prix des travaux)</h2>
@@ -22,19 +47,23 @@ export default function AidesChiffragePanel({
         pour la simulation, après vérification des conditions.
       </p>
       <ul className="mt-2 list-disc space-y-0.5 pl-5 text-xs text-slate-600">
-        {DISCLAIMERS_AIDES.map((texte) => (
+        {disclaimers.map((texte) => (
           <li key={texte}>{texte}</li>
         ))}
       </ul>
+      <p className="mt-3 rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 text-xs font-medium text-sky-950">
+        {mentionLegaleAidesVerifiees()}
+      </p>
 
       <div className="mt-4 overflow-x-auto">
-        <table className="min-w-[72rem] w-full border-collapse text-left text-xs">
+        <table className="min-w-[84rem] w-full border-collapse text-left text-xs">
           <thead className="bg-slate-100 text-slate-700">
             <tr>
               <th className="px-2 py-2">Aide estimative</th>
               <th className="px-2 py-2">Organisme</th>
               <th className="px-2 py-2">Conditions à vérifier</th>
               <th className="px-2 py-2">Validité</th>
+              <th className="px-2 py-2">Vérification live</th>
               <th className="px-2 py-2">Montant estimatif</th>
               <th className="px-2 py-2">Montant retenu</th>
               <th className="px-2 py-2">Commentaire</th>
@@ -52,6 +81,22 @@ export default function AidesChiffragePanel({
                     value={aide.dateValidite}
                     onChange={(event) => onChange(aide.id, { dateValidite: event.target.value })}
                     className="rounded border border-slate-300 px-1 py-1"
+                  />
+                </td>
+                <td className="px-2 py-2">
+                  <BadgeVerificationLive dateVerificationWeb={aide.dateVerificationWeb} compact />
+                  <input
+                    type="date"
+                    value={aide.dateVerificationWeb ?? ""}
+                    onChange={(event) => {
+                      const date = event.target.value || null;
+                      onChange(aide.id, {
+                        dateVerificationWeb: date,
+                        verifieeWeb: Boolean(date),
+                      });
+                    }}
+                    className="mt-1 rounded border border-slate-300 px-1 py-1"
+                    aria-label={`Date de vérification web — ${aide.libelle}`}
                   />
                 </td>
                 <td className="px-2 py-2">
@@ -97,6 +142,16 @@ export default function AidesChiffragePanel({
           </tbody>
         </table>
       </div>
+
+      {admin ? (
+        <button
+          type="button"
+          onClick={marquerLignesLive}
+          className="mt-3 rounded-lg bg-emerald-700 px-3 py-2 text-xs font-semibold text-white hover:bg-emerald-600"
+        >
+          Marquer MPR / CEE / Bonus « Vérifiées Web »
+        </button>
+      ) : null}
 
       <div className="mt-4 grid gap-3 sm:grid-cols-3">
         <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">

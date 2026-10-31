@@ -3,7 +3,7 @@
 export const NB_PARTICULIERS_42 = 5;
 export const NB_CIBLES_B2B_42 = 5;
 
-export const LIBELLE_DEPARTEMENT_42 = "42 — Loire (Roanne / Saint-Étienne / Bussières)";
+export const LIBELLE_DEPARTEMENT_42 = "42 — Loire (Roanne / Bussières / Nervieux)";
 
 export const CENTRE_LOIRE_42 = {
   lat: 45.74,

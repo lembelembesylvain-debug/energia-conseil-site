@@ -9,24 +9,43 @@ import {
   type ReactNode,
   type FormEvent,
 } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useSearchParams } from "react-router-dom";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import CarteVisite from "./components/CarteVisite";
+import { FlyerEnergia } from "./components/FlyerEnergia";
+import PageCatarina from "./components/PageCatarina";
 import MaisonMartinsShowcase from "./components/maison-martins/MaisonMartinsShowcase";
+import MaisonMartinsContract from "./components/maison-martins/MaisonMartinsContract";
 import TestMaisonClyve from "./components/TestMaisonClyve";
 import TestMaisonRoyer from "./components/TestMaisonRoyer";
 import TestMaisonPereira from "./components/TestMaisonPereira";
 import PresentationEnergia from "./vite-pages/PresentationEnergia.jsx";
 import TestDashboardCRM from "./vite-pages/TestDashboardCRM.jsx";
+import FicheLongereLaGenete from "./components/crm/FicheLongereLaGenete";
+import PageContratClyveLaGenete from "./components/crm/PageContratClyveLaGenete";
+import ContratCatarina from "./contracts/ContratCatarina";
 import RapportCompletMaisonClyve from "./components/RapportCompletMaisonClyve";
 import PresentationMaisonClyve from "./components/PresentationMaisonClyve";
 import ChiffrageAmpleurModule from "./components/chiffrage/ChiffrageAmpleurModule";
+import DevisPlafondSDB from "./components/crm/DevisPlafondSDB";
+import DevisGesnouin from "./components/devis/DevisGesnouin";
+import DevisPereira from "./components/devis/DevisPereira";
+import DevisGesnouinBatterieAc from "./components/devis/DevisGesnouinBatterieAc";
+import DevisGesnouinPDF from "./components/devis/DevisGesnouinPDF";
 import { MaintenanceLanding } from "./components/public/MaintenanceLanding";
+import PlumeDeSoiApp from "./marion/PlumeDeSoiApp";
 
+const PrepaRgeApp = lazy(() => import("./prepa-rge/PrepaRgeApp"));
+const KidsApp = lazy(() => import("./kids/KidsApp"));
+const LegionCelesteApp = lazy(() => import("./game/LegionCelesteApp"));
 const AdminDashboard = lazy(() => import("./vite-pages/AdminDashboard"));
 const DetailAudit = lazy(() => import("./vite-pages/DetailAudit"));
 const NouvelAudit = lazy(() => import("./vite-pages/NouvelAudit"));
+const DiagnosticRapide = lazy(() => import("./vite-pages/DiagnosticRapide.jsx"));
+const TerrainCatarina = lazy(() => import("./vite-pages/TerrainCatarina.jsx"));
+const NouveauClientDirect = lazy(() => import("./vite-pages/NouveauClientDirect.jsx"));
+const PartenairePage = lazy(() => import("./vite-pages/PartenairePage.jsx"));
 import {
   getNormeForYear,
   getDefaultDPEForYear,
@@ -37,6 +56,8 @@ import {
   estimateFactureFromNormes,
   computeFourchettesFreemium,
 } from "./lib/calculators/normes-thermiques";
+import { mentionLegaleAidesVerifiees } from "./lib/aides/verificationLive.js";
+import BadgeVerificationLive from "./components/aides/BadgeVerificationLive";
 
 /** Freemium : masque les détails financiers avancés et affiche le bloc conversion Premium */
 const FREEMIUM = true;
@@ -76,6 +97,9 @@ type CalculationResult = {
   totalAides: number;
   resteACharge: number;
   economiesAnnuelles: number;
+  mpr: number;
+  cee: number;
+  bonus: number | null;
   maPrimeRenov: { category: MaPrimeRenovCategory };
 };
 
@@ -97,9 +121,9 @@ const MPR_THRESHOLDS: Record<
     1: { bleu: 17363, jaune: 22259, violet: 31185 },
     2: { bleu: 25393, jaune: 32553, violet: 45842 },
     3: { bleu: 30540, jaune: 39148, violet: 55196 },
-    4: { bleu: 35676, jaune: 45743, violet: 64550 },
-    5: { bleu: 40802, jaune: 52338, violet: 73904 },
-    perAdditional: { bleu: 5126, jaune: 6595, violet: 9354 },
+    4: { bleu: 35676, jaune: 45735, violet: 64550 },
+    5: { bleu: 40835, jaune: 52348, violet: 73907 },
+    perAdditional: { bleu: 5151, jaune: 6598, violet: 9357 },
   },
 };
 
@@ -192,6 +216,9 @@ function calculateEnergyAids(
     totalAides,
     resteACharge,
     economiesAnnuelles,
+    mpr: Math.round(mpr),
+    cee,
+    bonus: null,
     maPrimeRenov: { category },
   };
 }
@@ -1105,6 +1132,7 @@ function LandingView({ onStartAudit }: LandingViewProps) {
         </div>
       </FadeSection>
 
+      {/* Passerelle Maintenance & SAV — juste au-dessus du footer */}
       <section className="border-t border-amber-500/20 bg-gradient-to-r from-slate-950 via-amber-950/30 to-slate-950 px-4 py-10 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 rounded-2xl border border-amber-500/30 bg-slate-900/70 px-6 py-8 shadow-[0_0_40px_rgba(245,158,11,0.08)] sm:px-8 md:flex-row md:items-center">
           <div className="max-w-2xl">
@@ -1830,6 +1858,23 @@ function AuditSimulatorView({ onBack }: AuditSimulatorViewProps) {
                 selon revenus réels du client. Montants définitifs après instruction
                 ANAH et CEE.
               </p>
+              <p className="text-xs text-sky-950 bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 mb-4">
+                {mentionLegaleAidesVerifiees()}
+              </p>
+              <ul className="mb-4 space-y-2 rounded-xl bg-white/80 p-4 text-sm">
+                <li>
+                  MaPrimeRénov’ : {fmt(result.mpr)}
+                  <BadgeVerificationLive dateVerificationWeb={null} compact />
+                </li>
+                <li>
+                  CEE : {fmt(result.cee)}
+                  <BadgeVerificationLive dateVerificationWeb={null} compact />
+                </li>
+                <li>
+                  Bonus : non calculé ici
+                  <BadgeVerificationLive dateVerificationWeb={null} compact />
+                </li>
+              </ul>
 
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="rounded-xl bg-white/70 p-4 text-center">
@@ -2019,8 +2064,34 @@ function AdminProtectedShell() {
   return <AdminRoutes />;
 }
 
+function PageEnfants() {
+  return (
+    <Suspense
+      fallback={
+        <div
+          style={{
+            minHeight: "100vh",
+            display: "grid",
+            placeItems: "center",
+            padding: 24,
+            background: "linear-gradient(165deg, #b7d8f2 0%, #f3e6bc 46%, #c7ead9 100%)",
+            color: "#2c4554",
+            fontFamily: "Nunito, Segoe UI, sans-serif",
+            fontSize: "1.35rem",
+          }}
+        >
+          Les îles d'aventure s'ouvrent…
+        </div>
+      }
+    >
+      <KidsApp />
+    </Suspense>
+  );
+}
+
 function PublicHome() {
-  const [showSimulator, setShowSimulator] = useState(false);
+  const [params] = useSearchParams();
+  const [showSimulator, setShowSimulator] = useState(() => params.get("simulate") === "1");
 
   if (showSimulator) {
     return <AuditSimulatorView onBack={() => setShowSimulator(false)} />;
@@ -2034,17 +2105,128 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/test-dashboard-crm" element={<TestDashboardCRM />} />
+        <Route
+          path="/terrain-catarina"
+          element={
+            <Suspense fallback={<p style={{ padding: 24, fontFamily: "sans-serif", background: "#020617", color: "#e2e8f0" }}>Chargement du relevé…</p>}>
+              <TerrainCatarina />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/nouveau-client"
+          element={
+            <Suspense fallback={<p style={{ padding: 24, fontFamily: "sans-serif", background: "#020617", color: "#e2e8f0" }}>Chargement du dossier…</p>}>
+              <NouveauClientDirect />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/diagnostic-rapide"
+          element={
+            <Suspense fallback={<p style={{ padding: 24, fontFamily: "sans-serif" }}>Chargement…</p>}>
+              <DiagnosticRapide />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/partenaire/:partnerId"
+          element={
+            <Suspense fallback={<p style={{ padding: 24, fontFamily: "sans-serif" }}>Chargement…</p>}>
+              <PartenairePage />
+            </Suspense>
+          }
+        />
         <Route path="/presentation-energia" element={<PresentationEnergia />} />
+        <Route path="/flyer" element={<FlyerEnergia />} />
+        <Route path="/catarina" element={<PageCatarina />} />
         <Route path="/maison-martins" element={<MaisonMartinsShowcase />} />
-        <Route path="/maintenance" element={<MaintenanceLanding />} />
-        <Route path="/sav-conformite" element={<MaintenanceLanding />} />
+        <Route path="/convention-maison-martins" element={<MaisonMartinsContract />} />
         <Route path="/carte-visite" element={<CarteVisite />} />
         <Route path="/test-maison-clyve/rapport-complet" element={<RapportCompletMaisonClyve />} />
         <Route path="/test-maison-clyve/presentation" element={<PresentationMaisonClyve />} />
         <Route path="/test-maison-clyve" element={<TestMaisonClyve />} />
+        <Route path="/longere-la-genete" element={<FicheLongereLaGenete />} />
+        <Route path="/contrat-lagenete" element={<PageContratClyveLaGenete />} />
+        <Route path="/contrat-catarina" element={<ContratCatarina />} />
         <Route path="/test-maison-royer" element={<TestMaisonRoyer />} />
         <Route path="/test-maison-pereira" element={<TestMaisonPereira />} />
         <Route path="/chiffrage" element={<ChiffrageAmpleurModule />} />
+        <Route path="/devis/plafond-sdb" element={<DevisPlafondSDB />} />
+        <Route path="/devis/pereira" element={<DevisPereira />} />
+        <Route path="/devis/gesnouin" element={<DevisGesnouin />} />
+        <Route path="/devis/gesnouin-batterie" element={<DevisGesnouinBatterieAc />} />
+        <Route path="/devis/gesnouin-pdf" element={<DevisGesnouinPDF />} />
+        <Route path="/maintenance" element={<MaintenanceLanding />} />
+        <Route path="/sav-conformite" element={<MaintenanceLanding />} />
+        <Route
+          path="/prepa-rge"
+          element={
+            <Suspense fallback={<p style={{ padding: 24, fontFamily: "sans-serif", background: "#070b12", color: "#e8c872" }}>Chargement de l&apos;Académie RGE…</p>}>
+              <PrepaRgeApp />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/academie-rge"
+          element={
+            <Suspense fallback={<p style={{ padding: 24, fontFamily: "sans-serif", background: "#070b12", color: "#e8c872" }}>Chargement de l&apos;Académie RGE…</p>}>
+              <PrepaRgeApp />
+            </Suspense>
+          }
+        />
+        <Route path="/plume-de-soi" element={<PlumeDeSoiApp />} />
+        <Route path="/marion" element={<PlumeDeSoiApp />} />
+        <Route path="/enfants" element={<PageEnfants />} />
+        <Route path="/kids" element={<PageEnfants />} />
+        <Route
+          path="/game"
+          element={
+            <Suspense
+              fallback={
+                <div
+                  style={{
+                    minHeight: "100vh",
+                    display: "grid",
+                    placeItems: "center",
+                    background: "#05010c",
+                    color: "#f6d98a",
+                    fontFamily: "Palatino, serif",
+                    letterSpacing: "0.14em",
+                  }}
+                >
+                  OUVERTURE DU SANCTUAIRE…
+                </div>
+              }
+            >
+              <LegionCelesteApp />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/legion-celeste"
+          element={
+            <Suspense
+              fallback={
+                <div
+                  style={{
+                    minHeight: "100vh",
+                    display: "grid",
+                    placeItems: "center",
+                    background: "#05010c",
+                    color: "#f6d98a",
+                    fontFamily: "Palatino, serif",
+                    letterSpacing: "0.14em",
+                  }}
+                >
+                  OUVERTURE DU SANCTUAIRE…
+                </div>
+              }
+            >
+              <LegionCelesteApp />
+            </Suspense>
+          }
+        />
         <Route path="/admin" element={<AdminProtectedShell />} />
         <Route path="/nouvel-audit" element={<AdminProtectedShell />} />
         <Route path="/audit/:id" element={<AdminProtectedShell />} />

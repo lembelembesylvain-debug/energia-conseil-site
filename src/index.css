@@ -150,6 +150,30 @@ body {
   animation: scan-pulse 2s ease-in-out infinite;
 }
 
+@keyframes energia-market-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.energia-ticker-track {
+  animation: energia-market-ticker 56s linear infinite;
+}
+
+.energia-ticker:hover .energia-ticker-track,
+.energia-ticker:focus-within .energia-ticker-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .energia-ticker-track {
+    animation: none;
+  }
+}
+
 /* --- SUPPRESSION MARQUE BLANCHE DU BADGE BOLT --- */
 a[href*="bolt.new"],
 div:has(> a[href*="bolt.new"]),

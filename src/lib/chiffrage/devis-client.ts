@@ -6,6 +6,7 @@
  */
 
 import { CATALOGUE_POSTES } from "./catalogue-postes";
+import { infererPrioriteTravaux } from "./priorite-travaux";
 import type {
   DevisClientChiffrage,
   LigneCommercialeClient,
@@ -171,6 +172,11 @@ export function construireLignesDevisClientDetaillees(
       tauxTva: ligne.tauxTva,
       montantTva,
       montantTtc: round2(ligne.prixSortantTtc ?? montantHt + montantTva),
+      priorite: infererPrioriteTravaux({
+        posteId: ligne.id,
+        nom: ligne.nom,
+        description: CATALOGUE_POSTES.find((poste) => poste.id === ligne.id)?.description,
+      }),
     });
   }
 
@@ -188,6 +194,7 @@ export function construireLignesDevisClientDetaillees(
       tauxTva: parametres.tauxTvaDefaut,
       montantTva: tva,
       montantTtc: round2(ht + tva),
+      priorite: 2,
     });
   }
 
@@ -205,6 +212,7 @@ export function construireLignesDevisClientDetaillees(
       tauxTva: parametres.tauxTvaDefaut,
       montantTva: tva,
       montantTtc: round2(ht + tva),
+      priorite: 2,
     });
   }
 

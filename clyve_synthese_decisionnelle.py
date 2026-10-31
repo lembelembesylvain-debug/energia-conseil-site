@@ -42,6 +42,14 @@ from generate_rapport_clyve import (
     MARQUE_LICENCE,
     C as CT,
 )
+from config.branding import (
+    FOOTER_LOGO_MAX_H,
+    FOOTER_LOGO_MAX_W,
+    HEADER_LOGO_MAX_H,
+    HEADER_LOGO_MAX_W,
+    PIED_DE_PAGE,
+    draw_logo,
+)
 
 
 # Charte synthèse (jaune léger pour mise en avant)
@@ -133,24 +141,29 @@ class SummaryCanvas(canvas_mod.Canvas):
             self.setFillColor(TEAL)
             self.rect(0, h - 26 * mm, w, 26 * mm, fill=1, stroke=0)
             self.setFillColor(WHITE)
+            self.roundRect(16 * mm, h - 22 * mm, 44 * mm, 16 * mm, 2, fill=1, stroke=0)
+            draw_logo(self, 18 * mm, h - 21 * mm, HEADER_LOGO_MAX_W, HEADER_LOGO_MAX_H)
+            self.setFillColor(WHITE)
             self.setFont(FONT_TITLE, 12)
-            self.drawCentredString(w / 2, h - 11 * mm, MARQUE)
+            self.drawRightString(w - 18 * mm, h - 11 * mm, MARQUE)
             self.setFont(FONT_BODY, 8.5)
-            self.drawCentredString(w / 2, h - 17 * mm, "Rénovation énergétique intelligente")
+            self.drawRightString(w - 18 * mm, h - 17 * mm, "Rénovation énergétique intelligente")
             self.restoreState()
             return
+        draw_logo(self, 18 * mm, h - 18 * mm, HEADER_LOGO_MAX_W, HEADER_LOGO_MAX_H)
         self.setFont(FONT_TITLE, 8)
         self.setFillColor(TEAL)
-        self.drawString(18 * mm, h - 12 * mm, MARQUE)
+        self.drawRightString(w - 18 * mm, h - 10 * mm, MARQUE)
         self.setStrokeColor(TEAL)
         self.setLineWidth(1)
-        self.line(18 * mm, h - 14 * mm, w - 18 * mm, h - 14 * mm)
+        self.line(18 * mm, h - 20 * mm, w - 18 * mm, h - 20 * mm)
         self.setStrokeColor(colors.HexColor("#CBD5E1"))
         self.setLineWidth(0.5)
-        self.line(18 * mm, 14 * mm, w - 18 * mm, 14 * mm)
-        self.setFont(FONT_BODY, 7)
+        self.line(18 * mm, 16 * mm, w - 18 * mm, 16 * mm)
+        lw, lh = draw_logo(self, 18 * mm, 6 * mm, FOOTER_LOGO_MAX_W, FOOTER_LOGO_MAX_H)
+        self.setFont(FONT_BODY, 6.2)
         self.setFillColor(MUTED)
-        self.drawString(18 * mm, 9 * mm, f"Synthèse décisionnelle — {MARQUE}")
+        self.drawString(18 * mm + lw + 3 * mm, 10 * mm, PIED_DE_PAGE)
         self.setFillColor(TEAL)
         self.setFont(FONT_BODY, 8)
         self.drawRightString(w - 18 * mm, 9 * mm, f"{page} / {total}")

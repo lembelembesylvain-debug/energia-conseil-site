@@ -33,6 +33,17 @@ import type {
   SourceDistance,
   VisiteEnergiaSaisie,
 } from "./types";
+import {
+  calculerFraisDeplacementArtisanHt,
+  TARIF_DEPASSEMENT_ARTISAN_HT_PAR_KM,
+  ZONE_INCLUSE_ARTISAN_KM,
+} from "./frais-deplacement-artisan.js";
+
+export {
+  calculerFraisDeplacementArtisanHt,
+  TARIF_DEPASSEMENT_ARTISAN_HT_PAR_KM,
+  ZONE_INCLUSE_ARTISAN_KM,
+} from "./frais-deplacement-artisan.js";
 
 function round2(value: number): number {
   return Math.round((value + Number.EPSILON) * 100) / 100;
@@ -58,6 +69,8 @@ export function creerArtisanVide(
     id: creerIdArtisan(),
     nomArtisan: "",
     adresseDepart: "",
+    distanceAllerKm: null,
+    joursDePose: 1,
     distanceAllerRetourKm: null,
     sourceDistance: "saisie_manuelle",
     nombreDeplacements: 0,
@@ -122,7 +135,16 @@ export function normaliserDeplacements(
   const fallback = creerDeplacementsInitiaux(parametres);
   if (!brut) return fallback;
   return {
-    artisans: Array.isArray(brut.artisans) ? brut.artisans : [],
+    artisans: Array.isArray(brut.artisans)
+      ? brut.artisans.map((artisan) => ({
+          ...creerArtisanVide(parametres.deplacement),
+          ...artisan,
+          distanceAllerKm:
+            artisan.distanceAllerKm ??
+            (artisan.distanceAllerRetourKm == null ? null : round2(artisan.distanceAllerRetourKm / 2)),
+          joursDePose: artisan.joursDePose ?? Math.max(1, artisan.nombreDeplacements - 1),
+        }))
+      : [],
     energia: {
       ...fallback.energia,
       ...(brut.energia ?? {}),
@@ -222,21 +244,27 @@ export function calculerDeplacementArtisan(
   adresseChantier: string,
   coutHoraireHt: number | null,
 ): DeplacementArtisanCalcule {
-  const distanceTotaleKm = calculerDistanceTotaleKm(
-    artisan.distanceAllerRetourKm,
-    artisan.nombreDeplacements,
-  );
-  const fraisKmHt = calculerFraisKmHt(distanceTotaleKm, artisan.coutKilometriqueHt);
+  const distanceAllerKm =
+    artisan.distanceAllerKm ??
+    (artisan.distanceAllerRetourKm == null ? null : round2(artisan.distanceAllerRetourKm / 2));
+  const joursDePose = artisan.joursDePose || 1;
+  const calculFrais = calculerFraisDeplacementArtisanHt(distanceAllerKm, joursDePose);
+  const trajetsAR = calculFrais?.trajetsAR ?? 1 + joursDePose;
+  const distanceHorsZoneKm = calculFrais?.distanceHorsZoneKm ?? null;
+  const distanceTotaleKm = distanceAllerKm == null ? null : round2(distanceAllerKm * 2 * trajetsAR);
+  const fraisDeplacementHt = calculFrais?.fraisDeplacementHt ?? null;
+  const fraisKmHt = fraisDeplacementHt;
   const fraisTempsHt = calculerFraisTempsHt(
     artisan.tempsTrajetHeures,
-    artisan.nombreDeplacements,
+    trajetsAR,
     coutHoraireHt,
   );
   const fraisEstimesHt =
-    artisan.nombreDeplacements > 0 ||
+    fraisDeplacementHt != null ||
     artisan.fraisFacturesArtisanHt > 0 ||
     artisan.coutPeageHt > 0 ||
-    artisan.coutStationnementHt > 0
+    artisan.coutStationnementHt > 0 ||
+    fraisTempsHt != null
       ? assemblerFraisHt({
           fraisKmHt,
           fraisTempsHt,
@@ -248,16 +276,20 @@ export function calculerDeplacementArtisan(
   const inclus = artisan.deplacementDejaInclusDansDevis;
   return {
     ...artisan,
+    nombreDeplacements: trajetsAR,
     adresseChantier,
+    distanceHorsZoneKm,
+    trajetsAR,
     distanceTotaleKm,
+    fraisDeplacementHt,
     fraisKmHt,
     fraisTempsHt,
     fraisEstimesHt,
     fraisAjoutesHt: inclus ? 0 : fraisEstimesHt,
     estimationComplete: estimationComplete({
-      nombre: artisan.nombreDeplacements,
-      distanceAllerRetourKm: artisan.distanceAllerRetourKm,
-      coutKilometriqueHt: artisan.coutKilometriqueHt,
+      nombre: trajetsAR,
+      distanceAllerRetourKm: distanceAllerKm == null ? null : distanceAllerKm * 2,
+      coutKilometriqueHt: TARIF_DEPASSEMENT_ARTISAN_HT_PAR_KM,
       sourceDistance: artisan.sourceDistance,
     }),
     statutFacturation: inclus ? "inclus_dans_devis" : "ajoute_separement",
@@ -361,7 +393,10 @@ export function construireAvertissementsDeplacement(
 ): AvertissementChiffrage[] {
   const avis: AvertissementChiffrage[] = [];
   const artisansActifs = resultat.artisans.filter(
-    (artisan) => artisan.nombreDeplacements > 0 || artisan.fraisFacturesArtisanHt > 0,
+    (artisan) =>
+      artisan.nomArtisan.trim() !== "" ||
+      artisan.distanceAllerKm != null ||
+      artisan.fraisFacturesArtisanHt > 0,
   );
 
   if (!parametres.adresseChantier.trim() && (artisansActifs.length > 0 || resultat.energia.nombreVisites > 0)) {
@@ -374,7 +409,7 @@ export function construireAvertissementsDeplacement(
   }
 
   const distanceInconnue = [
-    ...artisansActifs.filter((artisan) => artisan.distanceAllerRetourKm == null),
+    ...artisansActifs.filter((artisan) => artisan.distanceAllerKm == null),
     resultat.energia.nombreVisites > 0 && resultat.energia.distanceAllerRetourKm == null
       ? resultat.energia
       : null,
@@ -384,7 +419,7 @@ export function construireAvertissementsDeplacement(
       id: "distance-inconnue",
       niveau: "warning",
       message:
-        "Distance inconnue : aucun calcul cartographique n’est disponible. Saisissez manuellement les kilomètres aller-retour. Le résultat n’est pas définitif.",
+        "Distance inconnue : aucun calcul cartographique n’est disponible. Saisissez manuellement les kilomètres aller simple artisan → chantier. Le résultat n’est pas définitif.",
     });
   }
 
@@ -406,9 +441,9 @@ export function construireAvertissementsDeplacement(
   const kmManquantArtisan = artisansActifs.some(
     (artisan) =>
       !artisan.deplacementDejaInclusDansDevis &&
-      artisan.distanceAllerRetourKm != null &&
-      artisan.distanceAllerRetourKm > 0 &&
-      artisan.coutKilometriqueHt == null,
+      artisan.distanceAllerKm != null &&
+      artisan.distanceAllerKm > ZONE_INCLUSE_ARTISAN_KM &&
+      artisan.fraisDeplacementHt == null,
   );
   const kmManquantEnergia =
     resultat.energia.nombreVisites > 0 &&

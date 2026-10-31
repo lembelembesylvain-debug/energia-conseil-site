@@ -1,5 +1,6 @@
 /** Types du module d’audit énergétique — indépendants d’un client. Compatible JSONB Supabase. */
 
+import type { ReactNode } from "react";
 import type { FoyerAides } from "./aides";
 
 export type Origine = "photo" | "plan" | "devis" | "hypothèse" | "audit";
@@ -225,6 +226,8 @@ export type AuditEnergetiqueModuleProps = {
   auditData: Audit;
   documentsList: Document[];
   scenarios: Scenario[];
+  /** Bloc de téléchargement du rapport client, rendu en fin de section « 6. Pré-rapport ». */
+  rapportClient?: ReactNode;
 };
 
 export const DEFAULT_MISSING_LABEL = "Non communiqué — à confirmer.";

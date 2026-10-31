@@ -1,0 +1,172 @@
+/**
+ * Bon de commande de sous-traitance BMI — chantier MASSON Toulon.
+ * Document interne. Le prix de vente client n’y figure pas.
+ */
+
+import { ASSURANCE_CALIPSO, INPI_MARQUE } from "./paradesAntiFuite.js";
+import {
+  BDC_MASSON_REFERENCE,
+  EQUIPE_MASSON,
+  MASSON_REFERENCE,
+  SOUS_TRAITANCE_MASSON,
+} from "./massonToulonOfficiel.js";
+
+function euro(n) {
+  return Number(n)
+    .toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+    .replace(/[\u00a0\u202f]/g, " ");
+}
+
+export const LOT_BDC_MASSON =
+  "PAC / Chauffage — Remplacement complet chaudière murale gaz Saunier Duval Themafast Classic V 18/24 (VMC Gaz / Copropriété), dépose ancienne chaudière ELM Leblanc GLM 23 et mise en déchetterie, pack fumisterie D125 aluminium/inox rigide 3 mètres le long des meubles hauts + 2 coudes 90° + bouche BAZ et relais DSC, désembouage hydrodynamique machine sous pression du réseau de radiateurs avec filtre magnétique, pose thermostat et délivrance Certificat CC2 Qualigaz. Déplacement A/R Mâcon - Toulon (900 km, péages et carburant inclus).";
+
+export const MODALITE_BDC_MASSON = "Forfait Clé en Main (Fourniture + Pose + Déplacement inclus)";
+
+export function conditionsBdcMasson() {
+  const st = SOUS_TRAITANCE_MASSON;
+  return `Conditions de règlement & exigences Sûreté-6™ :
+- Acompte de 30 % au démarrage : ${euro(st.acompteDemarrage)} € (déclenché après encaissement de l'acompte client par ENERGIA CONSEIL IA®).
+- Solde de 70 % à réception : ${euro(st.soldeReception)} € (versé sous 48 h après signature du PV de réception sans réserve par le client et remise du Certificat de Conformité Gaz CC2 original visé).
+- Obligations du sous-traitant : remise des 10 photos obligatoires du chantier (avant/pendant/après/plaque/fumisterie/filtre/CC2) et respect strict de la clause de confidentialité et de non-contournement du client final (interdiction de démarchage direct 24 mois).`;
+}
+
+export function htmlBonDeCommandeMasson() {
+  const st = SOUS_TRAITANCE_MASSON;
+  const conditions = conditionsBdcMasson().replaceAll("\n", "<br>");
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${BDC_MASSON_REFERENCE} — Bon de commande sous-traitance BMI</title>
+  <style>
+    :root { --encre: #0f2744; --bleu: #0f4c81; --ligne: #d5e0ea; --fond: #f4f7fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #e8eef4; color: var(--encre); font-family: "Segoe UI", Calibri, sans-serif; font-size: 12.5px; line-height: 1.4; }
+    .page { width: 210mm; margin: 12px auto; background: #fff; padding: 10mm 12mm 14mm; box-shadow: 0 8px 28px rgba(15, 39, 68, 0.08); }
+    header { display: flex; justify-content: space-between; gap: 16px; border-bottom: 3px solid var(--bleu); padding-bottom: 8px; }
+    header img { height: 46px; }
+    .brand { font-size: 17px; font-weight: 800; color: var(--bleu); }
+    .company, .meta { font-size: 11.5px; line-height: 1.35; }
+    .meta { text-align: right; }
+    h1 { margin: 12px 0 4px; font-size: 16px; line-height: 1.3; color: var(--bleu); }
+    .interne { margin: 0 0 10px; padding: 6px 8px; background: #fff7ed; border-left: 4px solid #f97316; font-weight: 700; }
+    h2 { margin: 14px 0 6px; font-size: 13px; color: var(--bleu); border-bottom: 1px solid var(--ligne); padding-bottom: 2px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid var(--ligne); padding: 5px 7px; vertical-align: top; text-align: left; }
+    th { background: var(--bleu); color: #fff; }
+    td.num { text-align: right; white-space: nowrap; width: 36px; }
+    .total td { background: #e8f1f8; font-weight: 800; }
+    .alerte { margin: 8px 0 0; padding: 8px 10px; background: #fff7ed; border-left: 4px solid #f97316; }
+    .clause { margin: 0; padding: 8px 10px; background: var(--fond); border-left: 4px solid var(--bleu); }
+    ul { margin: 6px 0 0; padding-left: 18px; }
+    .signatures { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+    .sig { border: 1px solid var(--ligne); border-radius: 8px; min-height: 110px; padding: 10px; }
+    .sig-line { margin-top: 42px; border-bottom: 1px solid #94a3b8; }
+    .toolbar { width: 210mm; margin: 16px auto 0; text-align: right; }
+    .toolbar button { background: var(--bleu); color: #fff; border: 0; border-radius: 8px; padding: 8px 14px; font-weight: 700; cursor: pointer; }
+    @media print {
+      @page { size: A4 portrait; margin: 10mm 12mm; }
+      html, body { margin: 0 !important; padding: 0 !important; background: #fff !important; font-size: 11px !important; line-height: 1.3 !important; }
+      .toolbar { display: none !important; }
+      .page { width: auto; margin: 0; padding: 0; box-shadow: none; }
+      table, tr, td, th, .no-break { page-break-inside: avoid !important; break-inside: avoid !important; }
+      th, td { padding: 4px 6px !important; }
+      h1, h2 { margin: 8px 0 4px !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar"><button type="button" onclick="window.print()">Imprimer / Enregistrer en PDF</button></div>
+  <article class="page">
+    <header>
+      <div>
+        <img src="/logo.png" alt="ENERGIA-CONSEIL IA®">
+        <div class="brand">ENERGIA-CONSEIL IA®</div>
+        <div class="company">
+          SASU au capital de 100 € — 16 Rue Cuvier, 69006 Lyon<br>
+          SIRET 94181942700019 — RCS Lyon 941819427 — TVA FR01941819427<br>
+          Marque INPI n°${INPI_MARQUE} — Assurance Décennale ${ASSURANCE_CALIPSO}<br>
+          Direction : Sylvain LEMBELEMBE — 06 10 59 68 98 — contact@energia-conseil-ia.com
+        </div>
+      </div>
+      <div class="meta">
+        <strong>N° de Commande : ${BDC_MASSON_REFERENCE}</strong><br>
+        Date d’émission : 22 octobre 2026<br>
+        Réf. marché client lié : ${MASSON_REFERENCE}<br>
+        Net à payer : ${euro(st.netAPayer)} € HT
+      </div>
+    </header>
+
+    <h1>BON DE COMMANDE DE SOUS-TRAITANCE BTP — FORFAIT CLÉ EN MAIN</h1>
+    <p class="interne">Document interne. Ne pas remettre à la cliente. Le prix de vente du devis client n’est pas communiqué au sous-traitant.</p>
+
+    <h2>1. Parties</h2>
+    <table>
+      <tr>
+        <th>Donneur d’ordre</th>
+        <td>
+          <strong>ENERGIA-CONSEIL IA®</strong> SASU au capital de 100 €<br>
+          16 Rue Cuvier, 69006 Lyon — SIRET 94181942700019 — RCS Lyon 941819427<br>
+          Assurance Décennale : ${ASSURANCE_CALIPSO}<br>
+          Direction : Sylvain LEMBELEMBE (06 10 59 68 98) — contact@energia-conseil-ia.com
+        </td>
+      </tr>
+      <tr>
+        <th>Sous-traitant assigné</th>
+        <td>
+          <strong>Raison sociale :</strong> Entreprise BMI — Mohamed BENAOUDA<br>
+          <strong>SIREN :</strong> 488 327 784<br>
+          <strong>Adresse :</strong> 5 Grande Rue, 71260 LUGNY<br>
+          <strong>Assurance Décennale :</strong> Entoria n° CRCD04-001151<br>
+          <strong>Contact :</strong> ${EQUIPE_MASSON.coordinationTelephone} — kimo7125@hotmail.fr
+        </td>
+      </tr>
+      <tr>
+        <th>Lieu d’exécution</th>
+        <td>Chantier Mme Kristell MASSON — 176 Rue Bossuet, Bâtiment Orion 5, 83000 Toulon</td>
+      </tr>
+    </table>
+    <p class="alerte">La police décennale CRCD04-001151 est enregistrée comme valide jusqu’au 31 octobre 2026. Le sous-traitant produit l’attestation à jour avant le démarrage si l’intervention dépasse cette date.</p>
+
+    <h2>2. Prestations et montant forfaitaire</h2>
+    <table>
+      <thead><tr><th>N°</th><th>Lot &amp; spécifications</th><th>Modalité</th><th>Montant HT</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td>${LOT_BDC_MASSON}</td>
+          <td>${MODALITE_BDC_MASSON}</td>
+          <td class="num">${euro(st.montantHt)} € HT</td>
+        </tr>
+        <tr class="total"><td colspan="3">Total net à régler à l'artisan</td><td class="num">${euro(st.netAPayer)} € HT</td></tr>
+      </tbody>
+    </table>
+    <p>Autoliquidation de la TVA par le preneur — Article 283-2 nonies du Code Général des Impôts (TVA 0 % en sous-traitance BTP).</p>
+
+    <h2>3. Conditions de règlement et exigences Sûreté-6™</h2>
+    <p class="clause">${conditions}</p>
+
+    <h2>4. Bon pour accord</h2>
+    <p>Fait à ____________________________ , le ___ / ___ / 2026, en deux exemplaires.</p>
+    <div class="signatures no-break">
+      <div class="sig">
+        POUR ENERGIA CONSEIL IA®<br>
+        Sylvain LEMBELEMBE — Direction &amp; Contractant Général<br>
+        « Bon pour commande et exécution »
+        <div class="sig-line"></div>
+      </div>
+      <div class="sig">
+        POUR L'ARTISAN SOUS-TRAITANT<br>
+        Entreprise BMI — Mohamed BENAOUDA<br>
+        « Bon pour accord et acceptation de la commande »<br>
+        Date, lieu et signature
+        <div class="sig-line"></div>
+      </div>
+    </div>
+  </article>
+</body>
+</html>`;
+}

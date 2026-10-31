@@ -23,9 +23,10 @@ import {
   logoFromPngBytes,
   totauxDevisClient,
 } from "../src/lib/generateDevisPdf";
+import { resolveOfficialLogoPath } from "../src/lib/branding-fs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const logoPath = resolve(root, "public/assets/LOGO.png");
+const logoPath = resolveOfficialLogoPath(root);
 const outputDir = resolve(root, "clients/PEREIRA");
 const outputPath = resolve(outputDir, "Devis_AUDIT-PEREIRA-2026-001.pdf");
 

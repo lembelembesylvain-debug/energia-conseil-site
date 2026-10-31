@@ -103,7 +103,8 @@ export default function DeplacementsPanel({
           Les artisans sont calculés depuis <strong>leur adresse d’entreprise</strong> jusqu’au
           chantier. ENERGIA CONSEIL IA® est calculée depuis la{" "}
           <strong>base opérationnelle ENERGIA</strong>. Aucune adresse de Lyon n’est appliquée
-          automatiquement aux artisans. Aucune distance n’est inventée.
+          automatiquement aux artisans. Les 30 premiers km aller sont inclus; au-delà, le tarif
+          est de 2,00 € HT/km, avec une visite technique et les jours de pose.
         </p>
 
         <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -133,13 +134,12 @@ export default function DeplacementsPanel({
         </div>
 
         <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-slate-500">
-          Barèmes kilométriques (paramètres du module)
+          Barème kilométrique ENERGIA
         </h3>
         <p className="mt-1 text-xs text-slate-500">
-          Laissez vide plutôt que d’inventer un barème. Aucun 0,60 €/km n’est appliqué tant que
-          vous ne le saisissez pas.
+          Le barème artisan est fixe : 30 km aller inclus, puis 2,00 € HT/km.
         </p>
-        <div className="mt-3 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+        <div className="mt-3 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <label className="text-sm">
             €/km ENERGIA HT
             <NumberOrEmpty
@@ -149,14 +149,6 @@ export default function DeplacementsPanel({
                 patchEnergia({ coutKilometriqueHt: value });
               }}
               title="Coût kilométrique interne ENERGIA"
-            />
-          </label>
-          <label className="text-sm">
-            €/km artisan HT
-            <NumberOrEmpty
-              value={parametres.deplacement.coutKilometriqueArtisanHt}
-              onChange={(value) => patchDeplacement({ coutKilometriqueArtisanHt: value })}
-              title="Coût kilométrique artisan par défaut"
             />
           </label>
           <label className="text-sm">
@@ -269,39 +261,28 @@ export default function DeplacementsPanel({
                     />
                   </label>
                   <label className="text-sm">
-                    km aller-retour (saisie manuelle)
+                    Distance aller simple (km)
                     <NumberOrEmpty
-                      value={artisan.distanceAllerRetourKm}
+                      value={artisan.distanceAllerKm}
                       onChange={(value) =>
-                        patchArtisan(artisan.id, { distanceAllerRetourKm: value })
+                        patchArtisan(artisan.id, { distanceAllerKm: value })
                       }
-                      title="Distance artisan → chantier, aller-retour"
+                      title="Distance aller simple entre l’adresse de l’artisan et le chantier"
                     />
                   </label>
                   <label className="text-sm">
-                    Nombre de déplacements
+                    Jours de pose
                     <input
                       type="number"
-                      min={0}
+                      min={1}
                       step={1}
-                      value={artisan.nombreDeplacements || ""}
-                      placeholder="0"
+                      value={artisan.joursDePose || 1}
                       onChange={(event) =>
                         patchArtisan(artisan.id, {
-                          nombreDeplacements:
-                            event.target.value === "" ? 0 : Number(event.target.value),
+                          joursDePose: Math.max(1, Number(event.target.value) || 1),
                         })
                       }
                       className={inputClass}
-                    />
-                  </label>
-                  <label className="text-sm">
-                    €/km HT (cet artisan)
-                    <NumberOrEmpty
-                      value={artisan.coutKilometriqueHt}
-                      onChange={(value) =>
-                        patchArtisan(artisan.id, { coutKilometriqueHt: value })
-                      }
                     />
                   </label>
                   <label className="text-sm">

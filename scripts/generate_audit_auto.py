@@ -47,6 +47,19 @@ from reportlab.platypus import (
     TableStyle,
 )
 
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from config.branding import (
+    FOOTER_LOGO_MAX_H,
+    FOOTER_LOGO_MAX_W,
+    HEADER_LOGO_MAX_H,
+    HEADER_LOGO_MAX_W,
+    PIED_DE_PAGE,
+    draw_logo,
+)
+
 # ─────────────────────────────────────────────────────────────────────────────
 # CONSTANTES ENERGIA-CONSEIL IA®
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1080,21 +1093,24 @@ class AuditPDFGenerator:
                 y1 = h * (i + 1) / steps
                 canvas.rect(0, y0, w, y1 - y0, fill=1, stroke=0)
         if page > 1:
+            draw_logo(canvas, 20 * mm, h - 18 * mm, HEADER_LOGO_MAX_W, HEADER_LOGO_MAX_H)
             canvas.setFont(FONT_BODY, 7)
             canvas.setFillColor(C["primary"])
-            canvas.drawString(
-                20 * mm, h - 12 * mm,
-                f"{ENTREPRISE['nom']} — {AUDIT_HEADER_LABEL} | Réf. {self.ctx.ref}",
+            canvas.drawRightString(
+                w - 20 * mm, h - 10 * mm,
+                f"{ENTREPRISE['nom']} — {AUDIT_HEADER_LABEL}",
             )
             canvas.setFillColor(C["muted"])
-            canvas.drawRightString(w - 20 * mm, h - 12 * mm, f"Réf. {self.ctx.ref}")
+            canvas.drawRightString(w - 20 * mm, h - 14 * mm, f"Réf. {self.ctx.ref}")
             canvas.setStrokeColor(C["primary"])
             canvas.setLineWidth(1)
-            canvas.line(20 * mm, h - 14 * mm, w - 20 * mm, h - 14 * mm)
-        canvas.setFont(FONT_BODY, 7)
+            canvas.line(20 * mm, h - 20 * mm, w - 20 * mm, h - 20 * mm)
+        lw, lh = draw_logo(canvas, 20 * mm, 6 * mm, FOOTER_LOGO_MAX_W, FOOTER_LOGO_MAX_H)
+        canvas.setFont(FONT_BODY, 6.2)
         canvas.setFillColor(C["muted"])
+        canvas.drawString(20 * mm + lw + 3 * mm, 12 * mm, PIED_DE_PAGE)
         footer = f"© 2026 ENERGIA CONSEIL IA® — Confidentiel | Page {page}/{TOTAL_PAGES}"
-        canvas.drawCentredString(w / 2, 12 * mm, footer)
+        canvas.drawString(20 * mm + lw + 3 * mm, 7 * mm, footer)
         canvas.restoreState()
 
     def build_story(self) -> List[Any]:

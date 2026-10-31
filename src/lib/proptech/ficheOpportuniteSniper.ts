@@ -41,6 +41,8 @@ export interface LogementPourFiche {
   dateDpe?: string | null;
   couvertureDixAns?: boolean | null;
   mutationsDvf?: MutationParcelle[] | null;
+  /** Nombre de niveaux habitables, quand il est connu. */
+  niveaux?: number | null;
 }
 
 export interface SniperPourFiche {
@@ -100,6 +102,7 @@ export interface FicheOpportunite {
   dateEdition: string;
   source: string;
   adresseComplete: string;
+  codePostal: string;
   typeBati: string;
   surfaceHabitableM2: number | null;
   anneeConstruction: number | null;
@@ -111,6 +114,9 @@ export interface FicheOpportunite {
   numero: string;
   terrainM2: number | null;
   empriseM2: number | null;
+  /** Emprise renvoyée par le flux, avant correction. */
+  empriseIgnM2: number | null;
+  empriseSource: "releve" | "ign" | "estimee" | "absente";
   ratioOccupation: number | null;
   potentielFoncier: string;
   etiquette: EtiquetteDpe | null;
@@ -171,8 +177,53 @@ export const MENTION_AIDES =
 
 export const PIED_CONTACT = "contact@energia-conseil-ia.com | 06 10 59 68 98 | renovoptim-ia.com";
 
-export const PIED_EQUIPE =
-  "Sylvain LEMBELEMBE (AMO) 06 10 59 68 98 | DAMIEN (Commercial) 06 72 68 09 68 | FABIEN (VIVONS COURTIER) 06 71 19 96 45 | Julia (Juriste) | MAR Antoine BARATIER - Cabinet C2ET.";
+export function piedEquipePour(codeDep: string): string {
+  const commercial =
+    codeDep === "2A" || codeDep === "2B"
+      ? "SERGE (Commercial Corse) 06 XX XX XX XX"
+      : codeDep === "42"
+        ? "DAMIEN (Commercial Loire) 06 72 68 09 68"
+        : "DAMIEN (Commercial) 06 72 68 09 68";
+  return `Sylvain LEMBELEMBE (AMO) 06 10 59 68 98 | ${commercial} | FABIEN (VIVONS COURTIER) 06 71 19 96 45 | Julia (Juriste) | MAR Antoine BARATIER - Cabinet C2ET.`;
+}
+
+export const PIED_EQUIPE = piedEquipePour("71");
+
+/**
+ * L'emprise IGN vise parfois une dépendance (11 m²) au lieu du corps de bâtiment.
+ * On ne la garde que si elle tient dans la fourchette surface / niveaux.
+ * Maison 150 m² : 1 niveau → 150 m², 2 niveaux → 85 m².
+ */
+export function empriseAuSolCoherente(
+  surfaceHabitable: number | null,
+  niveaux: number | null,
+  typeBati: string,
+  empriseBrute: number | null,
+): { emprise: number | null; source: "ign" | "estimee" | "absente" } {
+  const surface = surfaceHabitable != null && surfaceHabitable > 0 ? surfaceHabitable : null;
+  if (surface == null) {
+    return { emprise: empriseBrute, source: empriseBrute != null ? "ign" : "absente" };
+  }
+  const immeuble = /immeuble/i.test(typeBati);
+  const n =
+    niveaux != null && niveaux >= 1
+      ? Math.min(8, Math.round(niveaux))
+      : immeuble
+        ? surface >= 800
+          ? 4
+          : 2
+        : surface >= 140
+          ? 2
+          : 1;
+  const ratioMin = immeuble ? 0.28 : 0.5667;
+  const borneBasse = Math.round(surface * ratioMin);
+  const borneHaute = Math.round(surface);
+  const estimee = Math.min(borneHaute, Math.max(borneBasse, Math.round(surface / n)));
+  if (empriseBrute != null && empriseBrute >= borneBasse && empriseBrute <= Math.round(borneHaute * 1.15)) {
+    return { emprise: Math.round(empriseBrute), source: "ign" };
+  }
+  return { emprise: estimee, source: "estimee" };
+}
 
 const PRECONISATIONS = [
   "Audit énergétique réglementaire et scénarios de travaux.",
@@ -192,10 +243,18 @@ export const COULEURS_ADEME: Record<EtiquetteDpe, { fond: string; texte: string;
 };
 
 const DEPARTEMENTS: Record<string, string> = {
+  "01": "Ain",
+  "03": "Allier",
+  "2A": "Corse-du-Sud",
+  "2B": "Haute-Corse",
   "21": "Côte-d'Or",
+  "25": "Doubs",
+  "39": "Jura",
   "42": "Loire",
+  "58": "Nièvre",
   "69": "Rhône",
   "71": "Saône-et-Loire",
+  "89": "Yonne",
 };
 
 const LETTRES: readonly EtiquetteDpe[] = ["A", "B", "C", "D", "E", "F", "G"];
@@ -422,6 +481,12 @@ function nombre(valeur: unknown): number | null {
   return null;
 }
 
+function anneePlausible(valeur: unknown): number | null {
+  const n = nombre(valeur);
+  if (n == null || n < 1800 || n > 2100) return null;
+  return Math.round(n);
+}
+
 export function cleAdresse(valeur: string): string {
   return valeur
     .toLowerCase()
@@ -435,8 +500,9 @@ function estEtiquette(valeur: string): valeur is EtiquetteDpe {
   return (LETTRES as readonly string[]).includes(valeur);
 }
 
-export function textePdf(valeur: string): string {
-  return valeur
+export function textePdf(valeur: unknown): string {
+  const brut = valeur == null ? "" : String(valeur);
+  return brut
     .replace(/\s*\u20AC/g, " EUR")
     .replace(/\u00AE/g, " (R)")
     .replace(/\u00B2/g, "2")
@@ -468,12 +534,25 @@ function numeroCadastre(brut: string): string {
   return /^\d+$/.test(v) ? v.padStart(4, "0") : v.toUpperCase();
 }
 
+function normaliserCodeDep(brut: string): string {
+  const v = brut.trim().toUpperCase();
+  if (/^2[AB]$/.test(v)) return v;
+  if (/^\d{2,3}$/.test(v)) return v.length === 3 ? v : v.padStart(2, "0");
+  return "";
+}
+
 function codeDepDepuis(cp: string, explicite: string): string {
-  const direct = explicite.trim();
-  if (/^\d{2,3}$/.test(direct)) return direct;
+  const direct = normaliserCodeDep(explicite);
+  if (direct) return direct;
   const code = cp.trim();
   if (code.startsWith("97") || code.startsWith("98")) return code.slice(0, 3);
+  if (/^20\d{3}$/.test(code)) return Number(code) < 20200 ? "2A" : "2B";
   return code.length >= 2 ? code.slice(0, 2) : "71";
+}
+
+function codePourReference(code: string): string {
+  if (code === "2A" || code === "2B" || code === "20") return "20";
+  return code || "71";
 }
 
 function nomDepartement(code: string): string {
@@ -623,12 +702,44 @@ function suffixeReference(id: string, section: string, numero: string): string {
   return trouve ? trouve[1] : "XXXX";
 }
 
+function cleLieu(valeur: string): string {
+  return valeur
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function contientLieu(voie: string, lieu: string): boolean {
+  const lieuNet = cleLieu(lieu);
+  if (!lieuNet) return false;
+  return ` ${cleLieu(voie)} `.includes(` ${lieuNet} `);
+}
+
+/** L'adresse BAN ADEME porte déjà « 71100 Chalon-sur-Saône » : ne pas le recopier. */
 function adresseCompleteDe(rue: string, cp: string, commune: string): string {
-  if (!rue && !commune) return "Adresse non renseignée";
-  const loc = [cp, commune].filter(Boolean).join(" ");
-  if (!rue) return loc || "Adresse non renseignée";
-  if (!loc) return rue;
-  return `${rue}, ${loc}`;
+  const voie = rue.trim();
+  const code = cp.trim();
+  const ville = commune.trim();
+  if (!voie && !code && !ville) return "Adresse non renseignée";
+  if (!voie) return [code, ville].filter(Boolean).join(" ") || "Adresse non renseignée";
+
+  const aDejaCp = (Boolean(code) && new RegExp(`\\b${code}\\b`).test(voie)) || /\b\d{5}\b/.test(voie);
+  const aDejaVille = contientLieu(voie, ville);
+  if (aDejaCp) {
+    if (!aDejaVille && ville && !/\b\d{5}\s+\S/.test(voie)) return `${voie} ${ville}`.replace(/\s+/g, " ").trim();
+    return voie;
+  }
+
+  const loc = [code, aDejaVille ? "" : ville].filter(Boolean).join(" ");
+  if (!loc) return voie;
+  return `${voie}, ${loc}`;
+}
+
+function codePostalDans(adresse: string): string {
+  const trouve = /\b(\d{5})\b/.exec(adresse);
+  return trouve ? trouve[1] : "";
 }
 
 function dateEditionFr(): string {
@@ -678,21 +789,29 @@ function transactionsLive(sniper: SniperPourFiche | null | undefined): Transacti
 export function composerFicheOpportunite(
   logement: LogementPourFiche | null | undefined,
   sniper: SniperPourFiche | null | undefined,
+  options?: { codeDepartement?: string },
 ): FicheOpportunite {
   const cible = trouverCible(logement);
   const parcelle = sniper?.cadastre?.parcelle ?? null;
   const annee = new Date().getFullYear();
 
   const rue = cible?.adresse || texte(logement?.adresse);
-  const cp = cible?.codePostal || texte(logement?.codePostal);
+  const cp = cible?.codePostal || texte(logement?.codePostal) || codePostalDans(rue);
   const commune = cible?.commune || texte(parcelle?.commune) || texte(logement?.commune);
-  const codeDep = cible?.codeDep || codeDepDepuis(cp, texte(parcelle?.codeDep));
+  const codeCarte = normaliserCodeDep(options?.codeDepartement || "");
+  const codeDep = codeCarte || cible?.codeDep || codeDepDepuis(cp, texte(parcelle?.codeDep));
   const section = (cible ? cible.section : texte(parcelle?.section)).toUpperCase();
   const numero = cible ? cible.numero : numeroCadastre(texte(parcelle?.numero));
   const terrain = cible ? cible.terrainM2 : nombre(parcelle?.surfaceTerrainM2);
-  const emprise = cible ? cible.empriseM2 : nombre(sniper?.cadastre?.bati?.empriseSolM2);
   const surface = cible?.surfaceHabitableM2 ?? nombre(logement?.surface);
-  const anneeConstruction = cible?.anneeConstruction ?? nombre(logement?.annee);
+  const typeBati = cible?.typeBati || typeBatiDepuis(texte(logement?.type));
+  const empriseBrute = cible ? cible.empriseM2 : nombre(sniper?.cadastre?.bati?.empriseSolM2);
+  const empriseCorrigee = cible
+    ? null
+    : empriseAuSolCoherente(surface, nombre(logement?.niveaux), typeBati, empriseBrute);
+  const emprise = cible ? empriseBrute : empriseCorrigee?.emprise ?? null;
+  const empriseSource = cible ? "releve" : empriseCorrigee?.source ?? "absente";
+  const anneeConstruction = anneePlausible(cible?.anneeConstruction ?? logement?.annee);
   const conso = cible?.consoKwhM2 ?? nombre(logement?.conso);
   const etiquetteBrute = texte(logement?.etiquette).toUpperCase();
   const etiquette: EtiquetteDpe | null = cible
@@ -703,7 +822,6 @@ export function composerFicheOpportunite(
         ? etiquetteDepuisConso(conso)
         : null;
   const chauffage = libelleChauffage(cible?.chauffage || texte(logement?.chauffage));
-  const typeBati = cible?.typeBati || typeBatiDepuis(texte(logement?.type));
   const prixM2 = cible ? cible.prixM2Median : nombre(sniper?.dvf?.prixM2Median);
   const transactions = cible ? cible.transactions : transactionsLive(sniper);
   const uplift = upliftDe(etiquette);
@@ -729,12 +847,13 @@ export function composerFicheOpportunite(
 
   return {
     ancreeSurReleve: cible != null,
-    reference: `SNIPER-${codeDep || "71"}-${annee}-${suffixeReference(id, section, numero)}`,
+    reference: `SNIPER-${codePourReference(codeDep || "71")}-${annee}-${suffixeReference(id, section, numero)}`,
     dateEdition: dateEditionFr(),
     source: cible
       ? "Relevé terrain ENERGIA - secteur Chagny / Corpeau"
       : "Flux ouvert IGN, DVF et DPE",
     adresseComplete: adresseCompleteDe(rue, cp, commune),
+    codePostal: cp,
     typeBati,
     surfaceHabitableM2: surface,
     anneeConstruction,
@@ -746,6 +865,8 @@ export function composerFicheOpportunite(
     numero,
     terrainM2: terrain,
     empriseM2: emprise,
+    empriseIgnM2: empriseSource === "estimee" ? empriseBrute : null,
+    empriseSource,
     ratioOccupation: ratio,
     potentielFoncier: cible?.potentielFoncier || potentielLive(terrain, emprise),
     etiquette,
@@ -800,12 +921,13 @@ function surfaceTexte(valeur: number | null, mode: ModeAffichage, hectares: bool
   return `${metres} (${ha} ha)`;
 }
 
-function formaterDateTransaction(brut: string): string {
-  if (/^\d{4}-\d{2}-\d{2}$/.test(brut)) {
-    const [annee, mois, jour] = brut.split("-");
+function formaterDateTransaction(brut: unknown): string {
+  const v = brut == null ? "" : String(brut);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) {
+    const [annee, mois, jour] = v.split("-");
     return `${jour}/${mois}/${annee}`;
   }
-  return brut;
+  return v;
 }
 
 function marque(mode: ModeAffichage): string {
@@ -819,23 +941,24 @@ export function presenterFiche(fiche: FicheOpportunite, mode: ModeAffichage): Pr
       ? "Consommation d'énergie primaire non renseignée."
       : `Consommation d'énergie primaire : ${Math.round(fiche.consoKwhM2).toLocaleString("fr-FR")} kWh/${unite}.an`;
 
+  const transactions = Array.isArray(fiche?.transactions) ? fiche.transactions.filter(Boolean) : [];
   const marche: string[] = [
-    fiche.perimetreMarche,
+    fiche?.perimetreMarche || "",
     fiche.prixM2Median == null
-      ? `Prix moyen au ${unite} : non constaté sur le secteur immédiat.`
+      ? `Prix moyen au ${unite} : -`
       : `Prix moyen au ${unite} constaté : ${montant(fiche.prixM2Median, mode)}/${unite}`,
   ];
 
-  if (fiche.transactions.length === 0) {
-    marche.push("Dernières transactions comparables : aucune mutation récente exploitable.");
+  if (transactions.length === 0) {
+    marche.push("-");
   } else {
     marche.push("Dernières transactions comparables :");
-    fiche.transactions.slice(0, 3).forEach((mutation) => {
+    transactions.slice(0, 3).forEach((mutation) => {
       const morceaux = [
-        formaterDateTransaction(mutation.date),
-        mutation.prixNet != null ? montant(mutation.prixNet, mode) : "",
-        mutation.surfaceM2 != null ? surfaceTexte(mutation.surfaceM2, mode, false) : "",
-        mutation.adresse,
+        formaterDateTransaction(mutation?.date),
+        mutation?.prixNet != null ? montant(mutation.prixNet, mode) : "",
+        mutation?.surfaceM2 != null ? surfaceTexte(mutation.surfaceM2, mode, false) : "",
+        mutation?.adresse == null ? "" : String(mutation.adresse),
       ].filter(Boolean);
       marche.push(morceaux.join(" | "));
     });
@@ -855,7 +978,7 @@ export function presenterFiche(fiche: FicheOpportunite, mode: ModeAffichage): Pr
   if (fiche.noteMarche) marche.push(fiche.noteMarche);
 
   const encadreMutation =
-    fiche.statutTransaction.id === "vendu_recent" && fiche.statutTransaction.prixNet != null
+    fiche.statutTransaction?.id === "vendu_recent" && fiche.statutTransaction.prixNet != null
       ? `Historique de mutation : Bien acquis le ${formaterDateTransaction(fiche.statutTransaction.dateMutation || "")} pour ${montant(fiche.statutTransaction.prixNet, mode)} - Profil : Acquéreur récent en phase de programmation travaux.`
       : "";
 
@@ -864,25 +987,31 @@ export function presenterFiche(fiche: FicheOpportunite, mode: ModeAffichage): Pr
     dateEdition: fiche.dateEdition,
     source: fiche.source,
     identite: [
-      { label: "Adresse", valeur: fiche.adresseComplete },
-      { label: "Motif DPE / Statut", valeur: fiche.libelleMotif },
-      { label: "Type de bâti", valeur: fiche.typeBati },
-      { label: "Surface habitable", valeur: surfaceTexte(fiche.surfaceHabitableM2, mode, false) },
+      { label: "Adresse", valeur: fiche.adresseComplete || "-" },
+      { label: "Motif DPE / Statut", valeur: fiche.libelleMotif || "-" },
+      { label: "Type de bâti", valeur: fiche.typeBati || "-" },
+      { label: "Surface habitable", valeur: fiche.surfaceHabitableM2 == null ? "-" : surfaceTexte(fiche.surfaceHabitableM2, mode, false) },
       {
         label: "Année",
-        valeur: fiche.anneeConstruction != null ? String(fiche.anneeConstruction) : "Non renseignée",
+        valeur: fiche.anneeConstruction != null ? String(fiche.anneeConstruction) : "-",
       },
-      { label: "Chauffage", valeur: fiche.chauffage },
+      { label: "Chauffage", valeur: fiche.chauffage || "-" },
     ],
     foncier: [
-      { label: "Commune", valeur: `${fiche.commune} - ${fiche.departement} (${fiche.codeDep})` },
-      { label: "Section", valeur: fiche.section || "Non communiquée" },
-      { label: "Parcelle", valeur: fiche.numero || "Non communiquée" },
-      { label: "Terrain", valeur: surfaceTexte(fiche.terrainM2, mode, true) },
-      { label: "Emprise au sol", valeur: surfaceTexte(fiche.empriseM2, mode, false) },
-      { label: "Ratio d'occupation", valeur: formaterRatio(fiche.ratioOccupation) },
+      {
+        label: "Commune",
+        valeur:
+          [fiche.codePostal, fiche.commune, fiche.departement, fiche.codeDep].some(Boolean)
+            ? `${[fiche.codePostal, fiche.commune].filter(Boolean).join(" ") || "-"} - ${fiche.departement || "-"} (${fiche.codeDep || "-"})`
+            : "-",
+      },
+      { label: "Section", valeur: fiche.section || "-" },
+      { label: "Parcelle", valeur: fiche.numero || "-" },
+      { label: "Terrain", valeur: fiche.terrainM2 == null ? "-" : surfaceTexte(fiche.terrainM2, mode, true) },
+      { label: "Emprise au sol", valeur: fiche.empriseM2 == null ? "-" : surfaceTexte(fiche.empriseM2, mode, false) },
+      { label: "Ratio d'occupation", valeur: fiche.ratioOccupation == null ? "-" : formaterRatio(fiche.ratioOccupation) },
     ],
-    potentiel: fiche.potentielFoncier,
+    potentiel: fiche.potentielFoncier || "-",
     etiquette: fiche.etiquette,
     conso,
     statut: fiche.statutClimat,
@@ -890,11 +1019,11 @@ export function presenterFiche(fiche: FicheOpportunite, mode: ModeAffichage): Pr
     impact: fiche.impactCombustible,
     marche,
     encadreMutation,
-    preconisations: fiche.preconisations,
+    preconisations: Array.isArray(fiche?.preconisations) ? fiche.preconisations : [],
     mentionAides: MENTION_AIDES,
     piedConfidentialite: `Document confidentiel d'aide à la décision immobilière et technique - Édité par ${marque(mode)}`,
     piedContact: `Contact : ${PIED_CONTACT}`,
-    piedEquipe: PIED_EQUIPE,
+    piedEquipe: piedEquipePour(fiche.codeDep),
   };
 }
 
@@ -1216,6 +1345,36 @@ export function mettreEnPageFiche(fiche: FicheOpportunite): { pdf: jsPDF; bas: n
 }
 
 export function telechargerFicheOpportunitePdf(fiche: FicheOpportunite): void {
-  const { pdf } = mettreEnPageFiche(fiche);
-  pdf.save(`${fiche.reference}.pdf`);
+  if (!fiche || typeof fiche !== "object") {
+    throw new Error("Fiche terrain indisponible.");
+  }
+  const sure: FicheOpportunite = {
+    ...fiche,
+    reference: textePdf(fiche?.reference || "fiche-terrain") || "fiche-terrain",
+    adresseComplete: fiche?.adresseComplete || "",
+    codePostal: fiche?.codePostal || "",
+    commune: fiche?.commune || "",
+    section: fiche?.section || "",
+    numero: fiche?.numero || "",
+    typeBati: fiche?.typeBati || "",
+    chauffage: fiche?.chauffage || "",
+    departement: fiche?.departement || "",
+    codeDep: fiche?.codeDep || "",
+    potentielFoncier: fiche?.potentielFoncier || "",
+    preconisations: Array.isArray(fiche?.preconisations) ? fiche.preconisations : [],
+    transactions: Array.isArray(fiche?.transactions) ? fiche.transactions : [],
+  };
+  const { pdf } = mettreEnPageFiche(sure);
+  pdf.save(nomFichierFicheTerrain(sure));
+}
+
+export function nomFichierFicheTerrain(fiche: Partial<FicheOpportunite> | null | undefined): string {
+  const adresse = textePdf(fiche?.adresseComplete || "adresse")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^A-Za-z0-9-]+/g, "_")
+    .replace(/^_+|_+$/g, "")
+    .slice(0, 80) || "adresse";
+  const dpe = textePdf(fiche?.etiquette || "-").replace(/[^A-Za-z0-9-]+/g, "") || "-";
+  return `Fiche_Terrain_${adresse}_${dpe}.pdf`;
 }

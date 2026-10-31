@@ -81,7 +81,20 @@
   "partenaires": [
     {"nom": "HUB ADMIN", "role": "Suivi administratif"},
     {"nom": "UMAFI", "role": "Courtage financement"},
-    {"nom": "MAR Léo-Energy", "role": "Parcours Accompagné / audit réglementaire"}
+    {"nom": "MAR France Rénov’", "role": "Parcours Accompagné / audit réglementaire"},
+    {
+      "nom": "Catarina Martins",
+      "entite": "iad France",
+      "role": "Partenaire apporteuse d'affaires",
+      "email": "contact@catarinamartins-immobilier.fr",
+      "telephone": "06 61 37 14 64",
+      "site": "https://catarinamartins-immobilier.fr",
+      "acces_crm": {
+        "email_connexion": "contact@catarinamartins-immobilier.fr",
+        "adresse_energia": false,
+        "perimetre": ["prospects_apportes", "dossiers_rattaches", "commissions"]
+      }
+    }
   ],
   "mentions_legales": {
     "titre_document": "Rapport de synthèse énergétique et financière personnalisé",

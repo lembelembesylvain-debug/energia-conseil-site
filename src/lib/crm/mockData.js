@@ -6,6 +6,20 @@
 
 import { PEREIRA_AUDIT_ID } from "../../data/pereiraAuditExtract";
 import { MARJOLLET_AUDIT_ID, MARJOLLET_HREF, MARJOLLET_IDENTITE } from "../../data/marjolletDossier";
+import {
+  COMMISSION_RATE_DEFAULT,
+  calculerFinancesProjet,
+} from "./finances";
+import {
+  HONORAIRES_HUB_ADMIN_HT,
+  SOURCE_APPORTEUR_CATARINA,
+  SOURCE_APPORTEUR_DIRECT,
+  SOURCE_APPORTEUR_EXTERNE,
+  etapeAnahDepuisStatut,
+  infererSourceApporteur,
+  libelleParcoursAnah,
+  libelleSourceApporteur,
+} from "./operationnelCrm.js";
 
 export const TAUX_TVA_RENOVATION = 0.055;
 export const TAUX_APPORTEUR = 0.1;
@@ -68,6 +82,21 @@ export function caPrevisionnelTtc(dossiers) {
 export function dossiersVersAuditsCrm(dossiers) {
   return (dossiers ?? []).map((dossier) => {
     const marges = calculerMarges(dossier);
+    const commercial_id = dossier.commercial_id !== undefined ? dossier.commercial_id : null;
+    const finances = calculerFinancesProjet({
+      commercial_id,
+      venteHt: marges.totalHt,
+      coutArtisanHt: dossier.coutArtisanHt ?? null,
+      partner_commission: dossier.partner_commission ?? 0,
+      partner_id: dossier.partenaire_id ?? null,
+      commission_rate_default:
+        dossier.commission_rate_default !== undefined ? dossier.commission_rate_default : COMMISSION_RATE_DEFAULT,
+    });
+    const apporteurId = infererSourceApporteur({
+      apporteurId: dossier.apporteur?.id,
+      apporteurNom: dossier.apporteur?.nom,
+    });
+    const etapeAnah = dossier.etapeAnah || etapeAnahDepuisStatut(dossier.statut);
     return {
       id: dossier.id,
       auditId: dossier.auditId ?? "",
@@ -77,21 +106,38 @@ export function dossiersVersAuditsCrm(dossiers) {
       adresse: dossier.adresse ?? "",
       statut: dossier.statut,
       etape: dossier.etape,
+      etapeAnah,
+      parcoursAnah: libelleParcoursAnah(etapeAnah),
       paye: Boolean(dossier.paye),
       date: dossier.date,
       href: dossier.href || "",
       source: "test-local",
       typeProjet: dossier.typeProjet,
-      apporteurNom: dossier.apporteur?.nom ?? "",
+      apporteurId,
+      apporteurNom: dossier.apporteur?.nom ?? libelleSourceApporteur(apporteurId),
       interlocuteur: dossier.pilotage?.intervenant ?? "",
       telephone: dossier.telephone ?? "",
       email: dossier.email ?? "",
       factureElectrique: dossier.factureElectrique ?? "",
       caHt: marges.totalHt,
       caTtc: marges.totalTtc,
+      commercial_id,
+      commission_rate_default: finances.commission_rate_default,
+      commission_amount: finances.commission_amount,
+      partner_commission: finances.partner_commission,
+      net_margin: finances.net_margin,
       travaux: dossier.travaux,
       marges,
+      finances,
       dossier,
+      echeancier: dossier.echeancier
+        ?? (marges.totalTtc
+          ? {
+              acompte: round2(marges.totalTtc * 0.3),
+              intermediaire: round2(marges.totalTtc * 0.4),
+              solde: round2(marges.totalTtc - round2(marges.totalTtc * 0.3) - round2(marges.totalTtc * 0.4)),
+            }
+          : null),
     };
   });
 }
@@ -109,6 +155,7 @@ export const DOSSIER_PEREIRA = {
   date: "2026-09-03",
   href: "/test-maison-pereira",
   apporteur: {
+    id: SOURCE_APPORTEUR_EXTERNE,
     nom: "Damien Richards",
     role: "Apporteur d'affaires",
     taux: TAUX_APPORTEUR,
@@ -172,7 +219,7 @@ export const DOSSIER_PEREIRA = {
       posteId: "prestation_administrative",
       label: "Prestation Administrative (Clyve)",
       ordre: 6,
-      ht: 1100.0,
+      ht: HONORAIRES_HUB_ADMIN_HT,
       quantite: 1,
       unite: "forfait",
     },
@@ -182,6 +229,18 @@ export const DOSSIER_PEREIRA = {
     ttc: 46758.4,
     tvaTaux: TAUX_TVA_RENOVATION,
   },
+  echeancier: {
+    acompte: 14027.52,
+    intermediaire: 18703.36,
+    solde: 14027.52,
+  },
+  commercial_id: null,
+  commission_rate_default: COMMISSION_RATE_DEFAULT,
+  /** Coût artisan non renseigné : les lignes travaux sont des prix de vente devis, pas des achats. */
+  coutArtisanHt: null,
+  /** Catarina non rattachée à ce dossier de test — commission partenaire configurée à part. */
+  partner_commission: 0,
+  partenaire_id: null,
 };
 
 /** Dossier de test — Monsieur Marjollet. Aucune prestation ni montant tant qu’une estimation n’est pas enregistrée. */
@@ -202,6 +261,7 @@ export const DOSSIER_MARJOLLET = {
   date: MARJOLLET_IDENTITE.date,
   href: MARJOLLET_HREF,
   apporteur: {
+    id: SOURCE_APPORTEUR_EXTERNE,
     nom: MARJOLLET_IDENTITE.apporteur,
     role: "Apporteur d'affaires",
     taux: TAUX_APPORTEUR,
@@ -212,10 +272,119 @@ export const DOSSIER_MARJOLLET = {
     taux: TAUX_PILOTAGE_ENERGIA,
   },
   travaux: [],
+  commercial_id: null,
+  commission_rate_default: COMMISSION_RATE_DEFAULT,
+  coutArtisanHt: null,
+  partner_commission: 0,
+  partenaire_id: null,
 };
 
-export const DOSSIERS_TEST_LOCAUX = [DOSSIER_PEREIRA, DOSSIER_MARJOLLET];
+/** Lead partenaire Catarina — hors CA prévisionnel (montant 0). */
+export const DOSSIER_CATARINA_QR = {
+  id: "demo-catarina-chagny",
+  auditId: "LEAD-QR-CATARINA-2026",
+  nom: "Lead QR · La Signature Immobilière",
+  typeProjet: "Consultation Duo 390 € — valorisation patrimoniale (QR flyer Catarina)",
+  statut: "Consultation Duo 390 € — à planifier",
+  etape: "nouveau",
+  paye: false,
+  ville: "Chagny (71)",
+  date: "2026-09-16",
+  href: "/immobilier-chagny/",
+  apporteur: {
+    id: SOURCE_APPORTEUR_CATARINA,
+    nom: "Catarina Martins · La Signature Immobilière",
+    role: "Apporteur d'affaires",
+    taux: TAUX_APPORTEUR,
+    ht: 0,
+  },
+  pilotage: {
+    nom: "ENERGIA CONSEIL IA",
+    intervenant: "Sylvain LEMBELEMBE",
+    taux: TAUX_PILOTAGE_ENERGIA,
+    ht: 0,
+  },
+  travaux: [],
+  totaux: {
+    ht: 0,
+    ttc: 0,
+    tvaTaux: TAUX_TVA_RENOVATION,
+  },
+  commercial_id: null,
+  commission_rate_default: COMMISSION_RATE_DEFAULT,
+  coutArtisanHt: null,
+  partner_commission: 0,
+  partenaire_id: "catarina-martins",
+};
+
+/**
+ * Maison Clyve — La Genête, phase 1 urgence hiver.
+ * Lots 7 350 € HT + direction sanctuarisée 1 500 € HT = 8 850 € HT / 9 735 € TTC (TVA 10 %).
+ */
+export const DOSSIER_CLYVE_LAGENETE = {
+  id: "demo-clyve-lagenete",
+  auditId: "DEV-2026-LAGENETE-P1",
+  nom: "Maison Clyve - La Genête",
+  typeProjet: "Urgence hiver — charpente, hors d'eau et plomberie (phase 1)",
+  statut: "Devis phase 1 en attente de signature",
+  etape: "devis",
+  paye: false,
+  ville: "La Genête (71)",
+  adresse: "654 route départementale 975, 71290 La Genête",
+  date: "2026-09-23",
+  href: "/longere-la-genete",
+  telephone: "",
+  email: "",
+  apporteur: {
+    id: SOURCE_APPORTEUR_DIRECT,
+    nom: "Direct / Aucun",
+    role: "Sans apporteur externe",
+    taux: 0,
+    ht: 0,
+  },
+  pilotage: {
+    nom: "ENERGIA CONSEIL IA",
+    intervenant: "Sylvain LEMBELEMBE",
+    taux: 0,
+    ht: 1500,
+  },
+  travaux: [
+    { id: "clyve-sablieres", posteId: "charpente", label: "Pannes sablières sur têtes de murs en pisé (B–D)", ordre: 1, ht: 1850, quantite: 1, unite: "forfait" },
+    { id: "clyve-pannes", posteId: "charpente", label: "Reprise des pannes dégradées (B–D)", ordre: 2, ht: 1650, quantite: 1, unite: "forfait" },
+    { id: "clyve-volige", posteId: "charpente", label: "Platelage / voligeage continu", ordre: 3, ht: 1450, quantite: 1, unite: "forfait" },
+    { id: "clyve-bache", posteId: "couverture", label: "Bâche armée — mise hors d'eau provisoire", ordre: 4, ht: 980, quantite: 1, unite: "forfait" },
+    { id: "clyve-pise", posteId: "plomberie", label: "Étanchéité nourrice / cuivre — protection du pisé (B)", ordre: 5, ht: 620, quantite: 1, unite: "forfait" },
+    { id: "clyve-groupe", posteId: "plomberie", label: "Groupe de sécurité ballon 200 L (A)", ordre: 6, ht: 280, quantite: 1, unite: "forfait" },
+    { id: "clyve-gel", posteId: "plomberie", label: "Calorifugeage compteur et vanne (E)", ordre: 7, ht: 220, quantite: 1, unite: "forfait" },
+    { id: "clyve-durgo", posteId: "plomberie", label: "Clapet aérateur Durgo", ordre: 8, ht: 300, quantite: 1, unite: "forfait" },
+  ],
+  totaux: {
+    ht: 8850,
+    ttc: 9735,
+    tvaTaux: 0.1,
+  },
+  echeancier: {
+    acompte: 2920.5,
+    intermediaire: 3894,
+    solde: 2920.5,
+  },
+  commercial_id: null,
+  commission_rate_default: 0,
+  coutArtisanHt: null,
+  partner_commission: 0,
+  partenaire_id: null,
+};
+
+export const DOSSIERS_TEST_LOCAUX = [
+  DOSSIER_PEREIRA,
+  DOSSIER_MARJOLLET,
+  DOSSIER_CATARINA_QR,
+  DOSSIER_CLYVE_LAGENETE,
+];
 
 export const AUDITS_TEST_LOCAUX = dossiersVersAuditsCrm(DOSSIERS_TEST_LOCAUX);
 
-export const CA_PREVISIONNEL_TEST_TTC = caPrevisionnelTtc(DOSSIERS_TEST_LOCAUX);
+/** Pereira seul dans ce libellé : Marjollet et Catarina sont à 0, La Genête a son propre CA. */
+export const CA_PREVISIONNEL_TEST_TTC = caPrevisionnelTtc(
+  DOSSIERS_TEST_LOCAUX.filter((dossier) => dossier.id !== DOSSIER_CLYVE_LAGENETE.id),
+);

@@ -1,20 +1,28 @@
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import { BADGES_OFFICIELS, fitLogo, IDENTITE_LEGALE, LOGO_BOX, LOGO_PUBLIC_PATH, MENTION_MARCHE_CONTRACTANT_GENERAL } from "./branding";
+import { ecrireMentionMarche, ecrirePiedIdentite } from "./piedLegalPdf";
 import {
   CONDITIONS_PAIEMENT_DEVIS,
   CONTACT_CHIFFRAGE,
-  LOGO_PUBLIC_PATH,
   OBJET_TRAVAUX_DEFAUT,
 } from "./chiffrage/constantes";
 import { espacesNombresFr, formatEuro, formatUnite } from "./chiffrage/format";
+import {
+  AVERTISSEMENT_DEVIS_ARTISAN_RGE,
+  infererPrioriteTravaux,
+  PRIORITE_TRAVAUX,
+  PRIORITES_TRAVAUX,
+  type PrioriteTravaux,
+} from "./chiffrage/priorite-travaux";
 
 const MARGIN = 14;
 const PAGE_W = 210;
 const PAGE_H = 297;
 const CONTENT_W = PAGE_W - MARGIN * 2;
-const FOOTER_H = 20;
+const FOOTER_H = 36;
 /** Largeurs fixes (mm) — somme = CONTENT_W, jamais plus large que la zone imprimable A4. */
-const TABLE_COL_WIDTHS = [48, 50, 10, 12, 24, 12, 26] as const;
+const TABLE_COL_WIDTHS = [10, 42, 46, 10, 12, 24, 12, 26] as const;
 
 const NAVY: [number, number, number] = [26, 60, 94];
 const GREEN: [number, number, number] = [20, 83, 45];
@@ -25,7 +33,6 @@ const SKY: [number, number, number] = [240, 249, 255];
 const SLATE: [number, number, number] = [71, 85, 105];
 const INK: [number, number, number] = [15, 23, 42];
 const LINE: [number, number, number] = [226, 232, 240];
-const ALT_ROW: [number, number, number] = [248, 250, 252];
 const ALERT: [number, number, number] = [185, 28, 28];
 const ALERT_BG: [number, number, number] = [254, 242, 242];
 const TTC_BG: [number, number, number] = [20, 83, 45];
@@ -40,6 +47,10 @@ export type DevisClientPdfLigne = {
   tauxTva: number | null;
   montantTva?: number | null;
   montantTtc?: number | null;
+  /** Priorité DPE : 1 pilier, 2 optimisation, 3 option. */
+  priorite?: 1 | 2 | 3;
+  posteId?: string;
+  categorieId?: string;
 };
 
 export type ConditionsPaiementPdf = {
@@ -176,6 +187,16 @@ export function formatTvaTaux(taux: number | null | undefined): string {
 function formatMontant(value: number | null | undefined): string {
   if (value == null || Number.isNaN(value)) return "À compléter";
   return formatEuro(value);
+}
+
+export function prioriteLigneDevis(ligne: DevisClientPdfLigne): PrioriteTravaux {
+  return infererPrioriteTravaux({
+    posteId: ligne.posteId,
+    categorieId: ligne.categorieId,
+    designation: ligne.designation,
+    description: ligne.description,
+    prioriteCatalogue: ligne.priorite,
+  });
 }
 
 function assertClientSafe(input: DevisClientPdfInput) {
@@ -328,9 +349,13 @@ export function logoFromPngBytes(bytes: Uint8Array): LogoPdf | null {
   };
 }
 
-function logoHeight(logo: LogoPdf | null, widthMm: number): number {
-  if (!logo || logo.width <= 0) return 0;
-  return widthMm * (logo.height / logo.width);
+function logoBox(
+  logo: LogoPdf | null,
+  maxWidthMm: number,
+  maxHeightMm: number,
+): { width: number; height: number } {
+  if (!logo || logo.width <= 0 || logo.height <= 0) return { width: 0, height: 0 };
+  return fitLogo(logo.width, logo.height, maxWidthMm, maxHeightMm);
 }
 
 function needPage(doc: jsPDF, y: number, needed: number): number {
@@ -368,10 +393,9 @@ function drawTopBar(doc: jsPDF) {
 function drawHeader(doc: jsPDF, logo: LogoPdf | null, input: DevisClientPdfInput): number {
   drawTopBar(doc);
   const y = 8;
-  const logoW = 62;
-  const logoH = logo ? logoHeight(logo, logoW) : 0;
+  const logoSize = logoBox(logo, LOGO_BOX.cover.maxWidthMm, LOGO_BOX.cover.maxHeightMm);
   if (logo) {
-    doc.addImage(logo.dataUrl, "PNG", MARGIN, y, logoW, logoH);
+    doc.addImage(logo.dataUrl, "PNG", MARGIN, y, logoSize.width, logoSize.height);
   }
 
   const cardW = 68;
@@ -404,9 +428,15 @@ function drawHeader(doc: jsPDF, logo: LogoPdf | null, input: DevisClientPdfInput
     metaY += 6.4;
   }
 
-  const bandY = Math.max(y + logoH, y + cardH) + 4;
+  const bandY = Math.max(y + logoSize.height, y + cardH) + 4;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(6.2);
   doc.setFillColor(...GREEN_SOFT);
-  doc.roundedRect(MARGIN, bandY, CONTENT_W, 16, 1.4, 1.4, "F");
+  const badges = doc.splitTextToSize(
+    pdfText(BADGES_OFFICIELS.join("   ·   ")),
+    CONTENT_W - 8,
+  ) as string[];
+  doc.roundedRect(MARGIN, bandY, CONTENT_W, 16 + badges.length * 3.2, 1.4, 1.4, "F");
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
   doc.setTextColor(...GREEN);
@@ -428,13 +458,15 @@ function drawHeader(doc: jsPDF, logo: LogoPdf | null, input: DevisClientPdfInput
   doc.setFontSize(7);
   doc.text(
     pdfText(
-      `SIRET ${CONTACT_CHIFFRAGE.siret}   ·   RCS ${CONTACT_CHIFFRAGE.rcs}   ·   ${CONTACT_CHIFFRAGE.forme}`,
+      `${IDENTITE_LEGALE.forme}`,
     ),
     MARGIN + 4,
     bandY + 13.4,
   );
+  doc.setFontSize(6.2);
+  doc.text(badges, MARGIN + 4, bandY + 17.2);
 
-  return bandY + 20;
+  return bandY + 18 + badges.length * 3.2;
 }
 
 function drawStatut(doc: jsPDF, y: number, statut: string): number {
@@ -886,6 +918,64 @@ function drawFinancement(doc: jsPDF, y: number, etude: DevisClientPdfEtudeFinanc
   return y;
 }
 
+function drawLegendePriorites(
+  doc: jsPDF,
+  y: number,
+  compact = false,
+): number {
+  const intro =
+    "Hierarchie DPE : P1 piliers (gain de classes / aides), P2 optimisation confort, P3 options.";
+  const avertissement = AVERTISSEMENT_DEVIS_ARTISAN_RGE;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(compact ? 6.2 : 6.6);
+  const warnH = wrapHeight(doc, avertissement, CONTENT_W - 8, compact ? 2.9 : 3.2);
+  const h = (compact ? 16 : 20) + warnH;
+  y = needPage(doc, y, h + 2);
+
+  doc.setFillColor(255, 255, 255);
+  doc.setDrawColor(...LINE);
+  doc.setLineWidth(0.3);
+  doc.roundedRect(MARGIN, y, CONTENT_W, h, 1.4, 1.4, "FD");
+
+  let iy = y + (compact ? 4 : 5);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(compact ? 7.2 : 7.6);
+  doc.setTextColor(...NAVY);
+  doc.text("Legende - priorite des travaux", MARGIN + 4, iy);
+  iy += compact ? 3.2 : 3.8;
+  doc.setFont("helvetica", "italic");
+  doc.setFontSize(compact ? 6.1 : 6.5);
+  doc.setTextColor(...SLATE);
+  doc.text(pdfText(intro), MARGIN + 4, iy);
+  iy += compact ? 3.4 : 4.2;
+
+  const colW = CONTENT_W / 3;
+  PRIORITES_TRAVAUX.forEach((priorite, index) => {
+    const style = PRIORITE_TRAVAUX[priorite];
+    const x = MARGIN + 4 + index * colW;
+    doc.setFillColor(...style.badgeBg);
+    doc.setDrawColor(...style.barRgb);
+    doc.setLineWidth(0.25);
+    doc.roundedRect(x, iy - 2.4, 8, 3.8, 0.6, 0.6, "FD");
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(5.8);
+    doc.setTextColor(...style.badgeRgb);
+    doc.text(style.code, x + 4, iy + 0.3, { align: "center" });
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(compact ? 5.9 : 6.3);
+    doc.setTextColor(...INK);
+    const label = doc.splitTextToSize(pdfText(style.libelleCourt), colW - 14) as string[];
+    doc.text(label[0] ?? "", x + 10, iy + 0.3);
+  });
+  iy += compact ? 4.2 : 5;
+
+  doc.setFont("helvetica", "italic");
+  doc.setFontSize(compact ? 6.1 : 6.4);
+  doc.setTextColor(...SLATE);
+  drawWrapped(doc, avertissement, MARGIN + 4, iy, CONTENT_W - 8, compact ? 2.9 : 3.2);
+  return y + h + (compact ? 2.5 : 4);
+}
+
 function drawPaiementEtMentions(
   doc: jsPDF,
   y: number,
@@ -932,6 +1022,8 @@ function drawPaiementEtMentions(
     doc.text(line, MARGIN, y);
     y += compact ? 2.9 : 3.3;
   }
+  y += 1.5;
+  y = ecrireMentionMarche(doc, MARGIN, y, CONTENT_W);
 
   y += compact ? 3.5 : 5;
   doc.setFont("helvetica", "bold");
@@ -960,30 +1052,28 @@ function footer(
   input: DevisClientPdfInput,
   logo: LogoPdf | null,
 ) {
-  const y = PAGE_H - 12;
+  const y = PAGE_H - 30;
   doc.setFillColor(...GREEN_SOFT);
-  doc.rect(0, PAGE_H - 18, PAGE_W, 18, "F");
+  doc.rect(0, PAGE_H - 34, PAGE_W, 34, "F");
   doc.setDrawColor(...GREEN_LINE);
   doc.setLineWidth(0.3);
-  doc.line(MARGIN, PAGE_H - 18, PAGE_W - MARGIN, PAGE_H - 18);
+  doc.line(MARGIN, PAGE_H - 34, PAGE_W - MARGIN, PAGE_H - 34);
 
+  const footerLogo = logo
+    ? logoBox(logo, LOGO_BOX.footer.maxWidthMm, LOGO_BOX.footer.maxHeightMm)
+    : { width: 0, height: 0 };
   if (logo) {
-    const w = 16;
-    const h = logoHeight(logo, w);
-    doc.addImage(logo.dataUrl, "PNG", MARGIN, PAGE_H - 16, w, h);
+    doc.addImage(logo.dataUrl, "PNG", MARGIN, PAGE_H - 32, footerLogo.width, footerLogo.height);
   }
+  const textX = MARGIN + (footerLogo.width ? footerLogo.width + 3 : 0);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(7);
-  doc.setTextColor(...GREEN);
-  doc.text(pdfText(CONTACT_CHIFFRAGE.enseigne), MARGIN + 18, y - 2);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(...SLATE);
-  doc.text(pdfText(CONTACT_CHIFFRAGE.adresse), MARGIN + 18, y + 2);
-  doc.text(pdfText(input.numero), PAGE_W / 2, y - 2, { align: "center" });
-  doc.text(pdfText(`Edition : ${input.date}`), PAGE_W / 2, y + 2, { align: "center" });
-  doc.setFont("helvetica", "bold");
+  doc.setFontSize(6.5);
   doc.setTextColor(...NAVY);
   doc.text(`Page ${page} / ${total}`, PAGE_W - MARGIN, y, { align: "right" });
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(...SLATE);
+  doc.text(pdfText(`${input.numero} · ${input.date}`), PAGE_W - MARGIN, y + 3.2, { align: "right" });
+  ecrirePiedIdentite(doc, textX, y, PAGE_W - textX - 36);
 }
 
 export function createDevisPdfDocument(input: DevisClientPdfInput, logo: LogoPdf | null): jsPDF {
@@ -998,7 +1088,9 @@ export function createDevisPdfDocument(input: DevisClientPdfInput, logo: LogoPdf
   y = drawClientBlock(doc, y, input);
   y = drawIntroduction(doc, y, input);
 
-  const body = input.lignes.map((ligne) => [
+  const priorites = input.lignes.map(prioriteLigneDevis);
+  const body = input.lignes.map((ligne, index) => [
+    PRIORITE_TRAVAUX[priorites[index]].code,
     pdfText(ligne.designation),
     pdfText(ligne.description?.trim() || "—"),
     espacesNombresFr(ligne.quantite.toLocaleString("fr-FR", { maximumFractionDigits: 2 })),
@@ -1020,10 +1112,10 @@ export function createDevisPdfDocument(input: DevisClientPdfInput, logo: LogoPdf
     margin: { left: MARGIN, right: MARGIN, bottom: FOOTER_H + 4 },
     tableWidth: CONTENT_W,
     horizontalPageBreak: false,
-    head: [["Désignation", "Description", "Qté", "Unité", "Prix unitaire HT", "TVA", "Total HT"]],
+    head: [["Niv.", "Désignation", "Description", "Qté", "Unité", "Prix unitaire HT", "TVA", "Total HT"]],
     body: body.length
       ? body
-      : [["Aucune prestation chiffrée", "À compléter", "—", "—", "À compléter", "—", "À compléter"]],
+      : [["—", "Aucune prestation chiffrée", "À compléter", "—", "—", "À compléter", "—", "À compléter"]],
     styles: {
       font: "helvetica",
       fontSize: compact ? 7 : 7.4,
@@ -1047,26 +1139,48 @@ export function createDevisPdfDocument(input: DevisClientPdfInput, logo: LogoPdf
         ? { top: 1.8, bottom: 1.8, left: 1.2, right: 1.2 }
         : { top: 2.6, bottom: 2.6, left: 1.3, right: 1.3 },
     },
-    alternateRowStyles: { fillColor: ALT_ROW },
     columnStyles: {
-      0: { cellWidth: TABLE_COL_WIDTHS[0], fontStyle: "bold", overflow: "linebreak" },
-      1: { cellWidth: TABLE_COL_WIDTHS[1], overflow: "linebreak" },
-      2: { cellWidth: TABLE_COL_WIDTHS[2], halign: "right", overflow: "linebreak" },
-      3: { cellWidth: TABLE_COL_WIDTHS[3], overflow: "linebreak" },
-      4: { cellWidth: TABLE_COL_WIDTHS[4], halign: "right", overflow: "linebreak" },
+      0: { cellWidth: TABLE_COL_WIDTHS[0], halign: "center", valign: "middle", fontStyle: "bold", overflow: "linebreak" },
+      1: { cellWidth: TABLE_COL_WIDTHS[1], fontStyle: "bold", overflow: "linebreak" },
+      2: { cellWidth: TABLE_COL_WIDTHS[2], overflow: "linebreak" },
+      3: { cellWidth: TABLE_COL_WIDTHS[3], halign: "right", overflow: "linebreak" },
+      4: { cellWidth: TABLE_COL_WIDTHS[4], overflow: "linebreak" },
       5: { cellWidth: TABLE_COL_WIDTHS[5], halign: "right", overflow: "linebreak" },
-      6: { cellWidth: TABLE_COL_WIDTHS[6], halign: "right", fontStyle: "bold", overflow: "linebreak" },
+      6: { cellWidth: TABLE_COL_WIDTHS[6], halign: "right", overflow: "linebreak" },
+      7: { cellWidth: TABLE_COL_WIDTHS[7], halign: "right", fontStyle: "bold", overflow: "linebreak" },
     },
     didParseCell: (data) => {
-      if (data.section === "head" && [2, 4, 5, 6].includes(data.column.index)) {
+      if (data.section === "head" && [3, 5, 6, 7].includes(data.column.index)) {
         data.cell.styles.halign = "right";
       }
+      if (data.section !== "body" || !priorites.length) return;
+      const priorite = priorites[data.row.index];
+      if (!priorite) return;
+      const style = PRIORITE_TRAVAUX[priorite];
+      if (data.column.index === 0) {
+        data.cell.styles.fillColor = style.badgeBg;
+        data.cell.styles.textColor = style.badgeRgb;
+        data.cell.styles.fontSize = compact ? 6.2 : 6.6;
+        data.cell.styles.halign = "center";
+        data.cell.styles.valign = "middle";
+        return;
+      }
+      data.cell.styles.fillColor = data.row.index % 2 === 0 ? style.rowBg : style.rowBgAlt;
+    },
+    didDrawCell: (data) => {
+      if (data.section !== "body" || data.column.index !== 0 || !priorites.length) return;
+      const priorite = priorites[data.row.index];
+      if (!priorite) return;
+      const style = PRIORITE_TRAVAUX[priorite];
+      doc.setFillColor(...style.barRgb);
+      doc.rect(data.cell.x, data.cell.y, 1.1, data.cell.height, "F");
     },
     showHead: "everyPage",
     rowPageBreak: "avoid",
   });
 
-  y = ((doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? y) + (compact ? 4 : 6);
+  y = ((doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? y) + (compact ? 3 : 4);
+  y = drawLegendePriorites(doc, y, compact);
 
   if (input.gesteCommercial) {
     y = drawGesteCommercial(doc, y, input.gesteCommercial, compact);

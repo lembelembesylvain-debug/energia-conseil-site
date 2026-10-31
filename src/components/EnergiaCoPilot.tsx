@@ -68,7 +68,7 @@ const REPONSE_SYNTHESE_DEFAUT = `Synthèse type — à coller sur le dossier ouv
 3. VMC (hygro B ou double flux) après étanchéité/isolation.
 4. PAC et ECS thermodynamique dimensionnés post-isolation.
 5. Aides 2026 : MaPrimeRénov’ parcours, CEE, Éco-PTZ — montants à titre indicatif, définitifs après ANAH / CEE.
-6. Financement : UMAFI (FABIEN) + MAR Léo-Energy. Travaux après accord ANAH.
+6. Financement : UMAFI (FABIEN) + MAR France Rénov’. Travaux après accord ANAH.
 
 Ouvre « Expliquer l'ITI Pisé », « Comparer les PAC » ou « Simuler le financement UMAFI » pour le détail.`;
 

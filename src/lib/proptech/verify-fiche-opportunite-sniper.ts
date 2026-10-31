@@ -8,6 +8,7 @@ import {
   composerFicheOpportunite,
   etiquetteDepuisConso,
   mettreEnPageFiche,
+  presenterFiche,
   textePdf,
   type LogementPourFiche,
 } from "./ficheOpportuniteSniper.ts";
@@ -123,6 +124,28 @@ assert.equal(corpeau.etiquette, "F");
 assert.equal(corpeau.terrainM2, 2796);
 assert.equal(corpeau.reference, `SNIPER-21-${annee}-AI0016`);
 assert.match(corpeau.adresseComplete, /21190 Corpeau/);
+assert.equal(presenterFiche(corpeau, "ecran").foncier[0]?.valeur, "21190 Corpeau - Côte-d'Or (21)");
+
+const banChalon = composerFicheOpportunite(
+  {
+    id: "ademe-71100",
+    adresse: "164 Avenue de Paris 71100 Chalon-sur-Saône",
+    commune: "Chalon-sur-Saône",
+    codePostal: "71100",
+    surface: 120,
+    annee: 1970,
+    type: "maison",
+    chauffage: "gaz",
+    conso: 380,
+    etiquette: "F",
+  },
+  null,
+  { codeDepartement: "71" },
+);
+assert.equal(banChalon.adresseComplete, "164 Avenue de Paris 71100 Chalon-sur-Saône");
+assert.equal(banChalon.codePostal, "71100");
+assert.equal(presenterFiche(banChalon, "ecran").identite[0]?.valeur, banChalon.adresseComplete);
+assert.match(presenterFiche(banChalon, "pdf").foncier[0]?.valeur || "", /^71100 Chalon-sur-Saône/);
 
 const live = composerFicheOpportunite(
   {
@@ -145,6 +168,8 @@ const live = composerFicheOpportunite(
   },
 );
 assert.equal(live.ancreeSurReleve, false);
+assert.equal(live.adresseComplete, "1 Rue du Test, 71000 Mâcon");
+assert.equal(live.codePostal, "71000");
 assert.equal(live.section, "CD");
 assert.equal(live.numero, "0012");
 assert.equal(live.etiquette, "E");
@@ -157,6 +182,52 @@ assert.equal(etiquetteDepuisConso(257), "E");
 assert.equal(etiquetteDepuisConso(306), "E");
 assert.equal(textePdf("1 375 € / m²"), "1 375 EUR / m2");
 assert.equal(textePdf("ENERGIA®").includes("\u20AC"), false);
+
+const villa = composerFicheOpportunite(
+  {
+    id: "2A-SERGE-AFA-001",
+    adresse: "Villa Les Oliviers, Route de Mezzavia",
+    commune: "Afa",
+    codePostal: "20167",
+    surface: 150,
+    annee: 1978,
+    niveaux: 1,
+    type: "maison",
+    chauffage: "fioul",
+    conso: 368,
+    etiquette: "F",
+  },
+  { cadastre: { parcelle: { section: "A", numero: "120", surfaceTerrainM2: 800 }, bati: { empriseSolM2: 11 } } },
+  { codeDepartement: "2A" },
+);
+assert.equal(villa.empriseM2, 150);
+assert.equal(villa.empriseSource, "estimee");
+assert.equal(villa.empriseIgnM2, 11);
+assert.equal(villa.reference.startsWith("SNIPER-20-"), true, villa.reference);
+assert.match(villa.departement, /Corse-du-Sud/);
+
+const villaR1 = composerFicheOpportunite(
+  { surface: 150, niveaux: 2, type: "maison", codePostal: "20167" },
+  { cadastre: { bati: { empriseSolM2: 11 } } },
+  { codeDepartement: "2A" },
+);
+assert.equal(villaR1.empriseM2, 85);
+
+const { pdf: pdfCorse } = mettreEnPageFiche(villa);
+const latinCorse = Buffer.from(pdfCorse.output("arraybuffer")).toString("latin1");
+assert.match(latinCorse, /SERGE/);
+assert.match(latinCorse, /Commercial Corse/);
+assert.doesNotMatch(latinCorse, /DAMIEN/);
+
+const loire = composerFicheOpportunite(
+  { surface: 100, type: "maison", codePostal: "42100" },
+  null,
+  { codeDepartement: "42" },
+);
+const { pdf: pdfLoire } = mettreEnPageFiche(loire);
+const latinLoire = Buffer.from(pdfLoire.output("arraybuffer")).toString("latin1");
+assert.match(latinLoire, /Commercial Loire/);
+assert.match(latinLoire, /06 72 68 09 68/);
 
 for (const cible of CIBLES_TERRAIN_CHAGNY) {
   const fiche = composerFicheOpportunite(

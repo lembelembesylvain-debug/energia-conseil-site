@@ -68,7 +68,10 @@ export type PrefillMessagerie = {
   destinataire?: string;
   modeleId?: ModeleEmailId;
   contexte?: ContexteEmail;
-  pieces?: { nom: string; url: string }[];
+  pieces?: { nom: string; url?: string; contenuBase64?: string }[];
+  dossiers?: DossierMessagerie[];
+  sujet?: string;
+  corps?: string;
 };
 
 export type ResultatEnvoi = {

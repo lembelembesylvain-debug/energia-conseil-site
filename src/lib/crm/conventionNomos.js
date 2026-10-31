@@ -1,0 +1,264 @@
+/**
+ * Convention cadre CONV-2026-BET-NOMOS-01 — modèle prêt à signer.
+ * Aucun pourcentage d'apport n'est figé : il n'a pas été convenu.
+ * Les honoraires d'apport naissent seulement d'un bon de commande écrit, réglé à réception.
+ */
+
+import { PRESTATAIRE_ENERGIA } from "./brunelDevisV3Officiel.js";
+import {
+  BET_NOMOS_CONVENTION_DATE,
+  BET_NOMOS_CONVENTION_REF,
+  PARTENAIRE_BET_NOMOS,
+  POLES_BET_NOMOS,
+} from "./betNomosOfficiel.js";
+
+function dateLongue(iso) {
+  const [y, m, d] = String(iso).split("-").map(Number);
+  return new Date(Date.UTC(y, (m || 1) - 1, d || 1)).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+export function htmlConventionNomos() {
+  const e = PRESTATAIRE_ENERGIA;
+  const n = PARTENAIRE_BET_NOMOS;
+  const dateTxt = dateLongue(BET_NOMOS_CONVENTION_DATE);
+  const poles = POLES_BET_NOMOS.map(
+    (pole) => `<li><strong>${pole.titre}.</strong> ${pole.missions.join(" ; ")}.</li>`,
+  ).join("\n");
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${BET_NOMOS_CONVENTION_REF} — Convention cadre BET NOMOS</title>
+  <style>
+    :root { --navy: #0B1F3A; --ink: #1e293b; --muted: #475569; --line: #cbd5e1; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #e2e8f0; color: var(--ink); font-family: "Segoe UI", Helvetica, Arial, sans-serif; font-size: 11px; line-height: 1.35; }
+    .toolbar { position: sticky; top: 0; z-index: 2; display: flex; justify-content: flex-end; padding: 10px 16px; background: #0f172a; }
+    .toolbar button { border: 0; border-radius: 8px; background: #059669; color: white; font-weight: 700; padding: 10px 14px; cursor: pointer; }
+    .page {
+      width: 210mm; height: 296mm; max-height: 296mm; margin: 8mm auto;
+      padding: 11mm 14mm; background: #fff; color: var(--ink);
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .entete, .entete-simple { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-shrink: 0; }
+    .entete-gauche { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .logo-energia { height: 62px; width: auto; object-fit: contain; }
+    .marque { margin: 0; color: var(--navy); font-size: 12px; font-weight: 700; line-height: 1.2; }
+    .mentions, .meta { margin: 2px 0 0; color: var(--muted); font-size: 9px; line-height: 1.3; }
+    .entete-droite { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .badge-nomos { display: flex; align-items: center; gap: 6px; }
+    .logo-nomos { height: 40px; width: auto; object-fit: contain; }
+    .nomos-nom { display: block; color: #0284c7; font-size: 11px; letter-spacing: 0.05em; }
+    .pill { display: inline-block; margin-top: 2px; border: 1px solid #0284c7; color: #0369a1; border-radius: 999px; padding: 0 6px; font-size: 8px; font-weight: 700; letter-spacing: 0.06em; }
+    .badge-officiel { display: inline-block; background: var(--navy); color: #f8fafc; font-size: 8px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; }
+    .ref { margin: 2px 0 0; color: var(--navy); font-weight: 700; font-size: 11px; text-align: right; }
+    .filet { border: 0; height: 1px; margin: 6px 0 7px; flex-shrink: 0; background: linear-gradient(90deg, #0B1F3A 0%, #D97706 58%, #0284c7 100%); }
+    h1 { margin: 0; color: var(--navy); font-size: 13px; line-height: 1.25; letter-spacing: 0.03em; }
+    h2 { margin: 0 0 2px; color: var(--navy); font-size: 11.5px; }
+    h3 { margin: 0 0 2px; color: var(--navy); font-size: 10.5px; }
+    p, li { margin: 0 0 3px; }
+    ul { margin: 0 0 2px 1.05em; padding: 0; }
+    .corps { flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 0; }
+    .meta { font-size: 10px; }
+    table { width: 100%; border-collapse: collapse; margin: 0; font-size: 10px; line-height: 1.3; }
+    th, td { border: 1px solid var(--line); padding: 3px 6px; vertical-align: top; text-align: left; }
+    th { width: 24%; background: #f8fafc; color: var(--navy); }
+    .encart { border-left: 3px solid #f97316; background: #fff7ed; padding: 4px 8px; }
+    .encart p:last-child { margin-bottom: 0; }
+    .annexe { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+    .page-2 { font-size: 11.5px; line-height: 1.4; }
+    .poles { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 5mm 7mm; align-content: space-evenly; min-height: 0; }
+    .poles section:last-child { grid-column: 1 / -1; }
+    .poles li { margin-bottom: 1px; }
+    .bas { flex-shrink: 0; margin-top: 4mm; }
+    .signatures { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 3mm; }
+    .sign { border: 1px solid var(--line); min-height: 28mm; padding: 6px 8px; }
+    .sign strong { display: block; margin-bottom: 2px; color: var(--navy); }
+    .ligne { margin-top: 12px; border-bottom: 1px solid #94a3b8; height: 14px; }
+    @page { size: A4 portrait; margin: 0; }
+    @media print {
+      body { background: #fff; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .toolbar { display: none; }
+      .page {
+        width: 210mm; height: 296mm; max-height: 296mm;
+        margin: 0; padding: 12mm 15mm; box-shadow: none;
+        page-break-after: always; break-after: page; overflow: hidden;
+      }
+      .page-2 { page-break-after: avoid; break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar"><button type="button" onclick="window.print()">Imprimer / Enregistrer en PDF</button></div>
+
+  <div class="page page-1">
+    <header class="entete">
+      <div class="entete-gauche">
+        <img class="logo-energia" src="/logo.png" alt="ENERGIA CONSEIL IA®" height="62"
+          onerror="this.onerror=null;this.src='/logo-energia.png';this.onerror=function(){this.onerror=null;this.src='/assets/LOGO.png';};" />
+        <div>
+          <p class="marque">${e.nom} — Contractant Général &amp; Bureau d'Études</p>
+          <p class="mentions">Marque déposée INPI n° ${e.inpi}<br />Garantie décennale ${e.assuranceDecennale}</p>
+        </div>
+      </div>
+      <div class="entete-droite">
+        <div class="badge-nomos">
+          <img class="logo-nomos" src="/assets/bet-nomos/logo-n.png" alt="BET NOMOS" height="40" />
+          <div>
+            <strong class="nomos-nom">BET NOMOS</strong>
+            <span class="pill">${n.certification}</span>
+          </div>
+        </div>
+        <div class="cartouche">
+          <span class="badge-officiel">Document officiel</span>
+          <p class="ref">${BET_NOMOS_CONVENTION_REF}</p>
+          <p class="meta">${dateTxt}</p>
+        </div>
+      </div>
+    </header>
+    <hr class="filet" />
+    <h1>PARTENARIAT BIPARTITE — CONVENTION CADRE DE PARTENARIAT</h1>
+    <p class="meta">Document prêt à signer · ${e.representant}, Contractant Général, et ${n.referent}, ${n.entite}.</p>
+
+    <div class="corps">
+      <section>
+        <h2>1. Parties</h2>
+        <table>
+          <tr>
+            <th>Contractant Général</th>
+            <td><strong>${e.nom}</strong> — ${e.forme} · ${e.adresse}<br />SIRET ${e.siret} · RCS ${e.rcs} · TVA ${e.tva}<br />${e.representant}, Président · ${e.telephone} · ${e.email}</td>
+          </tr>
+          <tr>
+            <th>Bureau d'études</th>
+            <td><strong>${n.entite}</strong> — ${n.nom}<br />Référent ${n.referent} · ${n.certification} · ${n.telephone} · ${n.email}<br />${n.site}</td>
+          </tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>2. Objet</h2>
+        <p>Partenariat d'apport d'affaires réciproque et de cotraitance sur les audits énergétiques, les études thermiques et les travaux d'efficacité énergétique. Deux régimes se distinguent.</p>
+        <p><strong>Maison individuelle relevant des aides publiques (Anah / MaPrimeRénov' / MAR).</strong> BET NOMOS conserve sa neutralité d'auditeur. Le particulier conserve son entière liberté de choix de l'entreprise de travaux. Aucune commission n'est assise sur les subventions publiques.</p>
+        <p><strong>Tous les autres marchés</strong> — tertiaire, copropriétés et logement collectif, industrie, rénovation privée hors parcours Anah. Dès que l'audit NOMOS est remis, ${e.nom} prend en charge et pilote l'intégralité des travaux préconisés, en Contractant Général unique, sous sa garantie décennale ${e.assuranceDecennale}. La nomenclature figure en annexe, page 2.</p>
+        <ul>${poles}</ul>
+      </section>
+
+      <section>
+        <h2>3. Indépendance de l'auditeur</h2>
+        <div class="encart">
+          <p><strong>Impartialité méthodologique.</strong> BET NOMOS conduit ses audits selon la norme NF EN 16247 et sa qualification RGE AFNOR. Le rapport ne mentionne aucune rétrocession commerciale. Les conclusions ne sont pas rédigées pour créer un conflit d'intérêts.</p>
+          <p><strong>Maison individuelle — Anah / MaPrimeRénov'.</strong> Sur ce seul secteur, BET NOMOS agit en stricte indépendance et impartialité, sans conflit d'intérêts. Le particulier conserve son entière liberté de choix. Cette liberté ne s'étend pas au tertiaire, aux copropriétés, à l'industrie ni à la rénovation privée hors parcours Anah, régis par l'article 4.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>4. Exécution Contractant Général</h2>
+        <p><strong>Réserve — maison individuelle aidée.</strong> ENERGIA-CONSEIL IA® peut être consultée pour un chiffrage. Cette consultation ne lie pas le particulier et n'altère pas l'indépendance de l'audit.</p>
+        <p><strong>Priorité exclusive — tous les autres marchés.</strong> Sur le tertiaire, les copropriétés, l'industrie et la rénovation privée hors parcours Anah, ENERGIA-CONSEIL IA® est l'interlocuteur Contractant Général de référence et le Contractant Général unique pour la consultation, le chiffrage clé en main et l'exécution des lots préconisés. Elle en répond au titre de la garantie décennale ${e.assuranceDecennale}.</p>
+      </section>
+
+      <section>
+        <h2>5. Honoraires d'apport</h2>
+        <p>L'apport est réciproque. Les honoraires ne sont dus que s'ils ont été acceptés, avant la mission, dans un bon de commande écrit propre au dossier. Ils sont réglés à réception : livraison de l'audit ou de l'étude, ou réception des travaux sans réserve.</p>
+        <p>Aucun pourcentage n'est figé par la présente convention. Sur la maison individuelle relevant de l'Anah ou de MaPrimeRénov', aucun honoraire d'apport n'est dû. Aucun honoraire n'est calculé sur les aides publiques (MaPrimeRénov', CEE, ANAH ou aides locales), ni prélevé sur la rémunération d'audit de BET NOMOS. À défaut de bon de commande chiffré, aucun honoraire d'apport n'est dû.</p>
+      </section>
+
+      <section>
+        <h2>6. Protection de clientèle et non-concurrence (24 mois)</h2>
+        <p>Chaque dossier présenté est partagé pendant vingt-quatre mois. Pendant ce délai, aucune des parties ne démarche le maître d'ouvrage, hors partenariat, pour la même mission d'audit ou le même marché déjà présenté. Cette réserve ne vise pas un dossier déjà en cours avant la présentation, et ne retire pas au particulier, sur une maison individuelle Anah ou MaPrimeRénov', la liberté de choix de l'article 4.</p>
+      </section>
+    </div>
+  </div>
+
+  <div class="page page-2">
+    <header class="entete-simple">
+      <div>
+        <p class="marque">CONVENTION CADRE DE PARTENARIAT</p>
+        <p class="mentions">${e.nom} · ${n.entite}</p>
+      </div>
+      <div>
+        <span class="badge-officiel">Document officiel</span>
+        <p class="ref">${BET_NOMOS_CONVENTION_REF}</p>
+      </div>
+    </header>
+    <hr class="filet" />
+
+    <section class="annexe">
+      <h2>Annexe — Lots pris en charge par le Contractant Général</h2>
+      <p>Hors maison individuelle relevant de l'Anah ou de MaPrimeRénov', ${e.nom} chiffre et exécute les lots suivants en Contractant Général unique, garantie décennale ${e.assuranceDecennale}.</p>
+      <div class="poles">
+        <section>
+          <h3>Pôle 1 — CVC et fluides</h3>
+          <ul>
+            <li>PAC tertiaires et résidentielles : air/eau, air/air réversible, eau/eau géothermie.</li>
+            <li>CTA, VMC double flux tertiaire et simple flux hygroréglable.</li>
+            <li>Chaleur fatale industrielle : compresseurs, fours, circuits de refroidissement.</li>
+            <li>Chaufferies collectives, sous-stations, désembouage DTU 65.16 et équilibrage.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Pôle 2 — GTB, Décret BACS et électricité</h3>
+          <ul>
+            <li>GTB / GTC classe A et B, bâtiments de plus de 70 kW et de plus de 290 kW.</li>
+            <li>Relamping LED tertiaire et éclairage à détecteurs de présence.</li>
+            <li>TGBT, colonnes montantes et mise en conformité NF C 15-100.</li>
+            <li>Bornes de recharge IRVE.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Pôle 3 — Enveloppe et isolation</h3>
+          <ul>
+            <li>ITE sous enduit ou bardage ventilé, façades tertiaires et de copropriété.</li>
+            <li>Toitures, combles, sarking et toitures-terrasses avec étanchéité.</li>
+            <li>Planchers bas et calorifugeage des réseaux d'eau chaude et de vapeur.</li>
+            <li>Menuiseries grand format : murs-rideaux, baies aluminium, double et triple vitrage, portes à rupture de pont thermique.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Pôle 4 — Énergies renouvelables</h3>
+          <ul>
+            <li>Photovoltaïque en toiture industrielle ou ombrières de parking, autoconsommation ou revente.</li>
+            <li>Solaire thermique pour l'eau chaude collective.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Pôle 5 — Gros œuvre et second œuvre</h3>
+          <ul>
+            <li>Maçonnerie structurelle, renforts IPN, reprises en sous-œuvre et dalles béton.</li>
+            <li>Plâtrerie, cloisons acoustiques, faux-plafonds démontables, peintures dépolluantes.</li>
+            <li>Sols grand passage : LVT clipsable, carrelage technique, résine industrielle. Agencement intérieur clé en main.</li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <div class="bas">
+      <h2>7. Durée et cadre juridique</h2>
+      <p>La convention est conclue pour un an à compter de sa signature, renouvelable par tacite reconduction. Elle est régie par le droit français. Tout litige est soumis aux tribunaux de Lyon après une tentative de résolution amiable de quinze jours. Fait à Lyon, le ${dateTxt}, en deux exemplaires.</p>
+      <div class="signatures">
+        <div class="sign">
+          <strong>ENERGIA-CONSEIL IA®</strong>
+          ${e.representant} — Contractant Général
+          <div class="ligne"></div>
+          <p class="meta">Lu et approuvé — Bon pour accord · ${dateTxt}</p>
+        </div>
+        <div class="sign">
+          <strong>BET NOMOS</strong>
+          ${n.referent} — Bureau d'études ${n.certification}
+          <div class="ligne"></div>
+          <p class="meta">Lu et approuvé — Bon pour accord · ${dateTxt}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
+}

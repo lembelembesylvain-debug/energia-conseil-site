@@ -11,6 +11,13 @@ import { telechargerNoteOpportuniteCee } from "../../lib/crm/noteOpportuniteCeeP
 import CeeTrendBadge from "./CeeTrendBadge";
 import FicheStrategieCee from "./FicheStrategieCee";
 import { ficheStrategiqueParCode } from "../../lib/crm/fichesStrategiquesCee";
+import { ouvrirMessagerie } from "../messaging/navigation";
+import { euroPack, potentielCumule, telechargerPackCee } from "../../lib/crm/packCeeB2b";
+import {
+  basculerFicheCee,
+  corpsSelectionCee,
+  useSelectedCeeFiches,
+} from "../../lib/crm/selectionCee";
 
 type Filtre = "tous" | SegmentCee;
 type ActifNote = SegmentCee;
@@ -47,10 +54,41 @@ export default function RadarCeeMarches({ voirMarges = false }: { voirMarges?: b
   const [actif, setActif] = useState<ActifNote>("industrie");
   const [operationId, setOperationId] = useState("ind-ut-117");
   const [site, setSite] = useState("");
+  const selectedCeeFiches = useSelectedCeeFiches();
 
   const fiches = useMemo(() => fichesRadarParSegment(filtre), [filtre]);
   const toutesOperations = useMemo(() => fichesRadarParSegment("tous"), []);
   const operation = toutesOperations.find((fiche) => fiche.id === operationId) ?? toutesOperations[0];
+  const selection = useMemo(
+    () => fichesRadarParSegment("tous").filter((fiche) => selectedCeeFiches.some((item) => item.id === fiche.id)),
+    [selectedCeeFiches],
+  );
+  const potentiel = potentielCumule(selection);
+
+  const basculerMessagerie = () => {
+    if (selectedCeeFiches.length === 0) return;
+    const n = selectedCeeFiches.length;
+    ouvrirMessagerie({
+      dossiers: [
+        {
+          id: "pack-cee-b2b",
+          libelle: "Fiches techniques CEE",
+          nom: "CEE",
+          civilite: "",
+          email: "",
+          telephone: "",
+          ville: "Industrie / Tertiaire",
+          projet: `${n} fiche(s) technique(s) 3D`,
+          lienDocument: "",
+        },
+      ],
+      clientNom: "Fiches techniques CEE",
+      dossierId: "pack-cee-b2b",
+      sujet: `Fiches techniques CEE — ${n} opération${n > 1 ? "s" : ""}`,
+      corps: corpsSelectionCee(selectedCeeFiches),
+      contexte: { clientNom: "Fiches techniques CEE", projet: `Potentiel CEE indicatif ${euroPack(potentiel)}` },
+    });
+  };
 
   const choisirActif = (next: ActifNote) => {
     setActif(next);
@@ -238,6 +276,7 @@ export default function RadarCeeMarches({ voirMarges = false }: { voirMarges?: b
             </caption>
             <thead className="bg-slate-950/80 text-xs uppercase tracking-wide text-slate-400">
               <tr>
+                <th className="px-4 py-3 font-medium">Pack</th>
                 <th className="px-4 py-3 font-medium">Fiche</th>
                 <th className="px-4 py-3 font-medium">Travaux</th>
                 <th className="px-4 py-3 font-medium">Prime / prise en charge</th>
@@ -248,8 +287,22 @@ export default function RadarCeeMarches({ voirMarges = false }: { voirMarges?: b
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800">
-              {fiches.map((fiche) => (
-                <tr key={fiche.id} id={fiche.id} className="align-top">
+              {fiches.map((fiche) => {
+                const cochee = selectedCeeFiches.some((item) => item.id === fiche.id);
+                return (
+                <tr key={fiche.id} id={fiche.id} className={`align-top ${cochee ? "bg-emerald-400/10" : ""}`}>
+                  <td className="px-4 py-4">
+                    <input
+                      type="checkbox"
+                      checked={cochee}
+                      aria-label={`Ajouter ${fiche.code} au pack B2B`}
+                      data-testid={`pack-cee-${fiche.id}`}
+                      onChange={() =>
+                        basculerFicheCee({ id: fiche.id, code: fiche.code, intitule: fiche.intitule })
+                      }
+                      className="h-4 w-4 cursor-pointer accent-emerald-400"
+                    />
+                  </td>
                   <td className="whitespace-nowrap px-4 py-4">
                     <span className="mr-2" aria-hidden>
                       {fiche.emoji}
@@ -287,7 +340,8 @@ export default function RadarCeeMarches({ voirMarges = false }: { voirMarges?: b
                   </td>
                   <td className="px-4 py-4 text-xs leading-relaxed text-slate-300">{fiche.cibles}</td>
                 </tr>
-              ))}
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -300,6 +354,37 @@ export default function RadarCeeMarches({ voirMarges = false }: { voirMarges?: b
         </p>
       </section>
       <FicheStrategieCee code={ficheCode} onClose={() => setFicheCode(null)} voirMarges={voirMarges} />
+      {selectedCeeFiches.length > 0 ? (
+        <div
+          data-testid="bandeau-pack-cee"
+          className="fixed bottom-4 left-1/2 z-[100] flex w-[min(100%-1.5rem,64rem)] -translate-x-1/2 flex-wrap items-center justify-between gap-3 rounded-2xl border border-emerald-300/50 bg-slate-950/95 px-4 py-3 shadow-2xl"
+        >
+          <p className="text-sm font-semibold text-emerald-50">
+            💼 {selectedCeeFiches.length} fiche(s) CEE sélectionnée(s) — Potentiel cumulé : {euroPack(potentiel)}
+            <span className="mt-1 block text-[11px] font-normal text-slate-400">
+              Aides financières 2026 (estimation à titre indicatif).
+            </span>
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              data-testid="pack-cee-messagerie"
+              onClick={basculerMessagerie}
+              className="rounded-xl bg-emerald-400 px-3 py-2 text-xs font-semibold text-slate-950"
+            >
+              ✉️ Basculer en Messagerie
+            </button>
+            <button
+              type="button"
+              data-testid="pack-cee-pdf"
+              onClick={() => telechargerPackCee(selection)}
+              className="rounded-xl border border-slate-500 px-3 py-2 text-xs font-semibold text-white"
+            >
+              📄 Télécharger le pack PDF
+            </button>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -14,6 +14,7 @@ export * from "./aides";
 export * from "./format";
 export * from "./deplacements";
 export * from "./devis-client";
+export * from "./priorite-travaux";
 export {
   round2,
   prixSortantDepuisCoutInterne,

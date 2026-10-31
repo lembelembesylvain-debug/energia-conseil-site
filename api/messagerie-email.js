@@ -79,10 +79,10 @@ function expediteur(from) {
 function piecesJointes(liste) {
   if (!Array.isArray(liste)) return undefined;
   const pieces = [];
-  for (const item of liste.slice(0, 2)) {
+  for (const item of liste.slice(0, 25)) {
     const filename = texte(item?.filename).replace(/[^\w.\- ()àâäéèêëïîôùûüç]/gi, "").slice(0, 80);
     const content = typeof item?.content === "string" ? item.content : "";
-    if (!filename || content.length < 16 || content.length > 1_800_000) continue;
+    if (!filename || content.length < 16 || content.length > 6_000_000) continue;
     pieces.push({ filename, content });
   }
   return pieces.length > 0 ? pieces : undefined;

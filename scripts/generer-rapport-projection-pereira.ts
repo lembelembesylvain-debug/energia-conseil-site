@@ -18,6 +18,8 @@ import {
   PEREIRA_PAIRES_MENUISERIES,
   PEREIRA_QUANTITES_MENUISERIE,
 } from "../src/data/pereiraProjection";
+import { fitLogo, LOGO_BOX } from "../src/lib/branding";
+import { resolveOfficialLogoPath } from "../src/lib/branding-fs";
 import { logoFromPngBytes, type LogoPdf } from "../src/lib/generateDevisPdf";
 
 const PAGE_W = 210;
@@ -61,10 +63,6 @@ function fitBox(srcW: number, srcH: number, maxW: number, maxH: number): { w: nu
   return { w: srcW * ratio, h: srcH * ratio };
 }
 
-function logoHeight(logo: LogoPdf, widthMm: number): number {
-  return widthMm * (logo.height / logo.width);
-}
-
 function drawCover(doc: jsPDF, logo: LogoPdf) {
   doc.setFillColor(...NAVY);
   doc.rect(0, 0, PAGE_W, PAGE_H, "F");
@@ -72,18 +70,18 @@ function drawCover(doc: jsPDF, logo: LogoPdf) {
   doc.rect(0, 0, PAGE_W, 4, "F");
   doc.rect(0, PAGE_H - 4, PAGE_W, 4, "F");
 
-  const logoW = 92;
-  const logoH = logoHeight(logo, logoW);
-  doc.addImage(logo.dataUrl, "PNG", (PAGE_W - logoW) / 2, 38, logoW, logoH);
+  const logoSize = fitLogo(logo.width, logo.height, 90, 54);
+  const logoX = (PAGE_W - logoSize.width) / 2;
+  doc.addImage(logo.dataUrl, "PNG", logoX, 38, logoSize.width, logoSize.height);
 
   doc.setDrawColor(...GOLD);
   doc.setLineWidth(0.4);
-  doc.line(40, 38 + logoH + 10, PAGE_W - 40, 38 + logoH + 10);
+  doc.line(40, 38 + logoSize.height + 10, PAGE_W - 40, 38 + logoSize.height + 10);
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
   doc.setTextColor(253, 230, 138);
-  doc.text("ENERGIA-CONSEIL IA", PAGE_W / 2, 38 + logoH + 20, { align: "center" });
+  doc.text("ENERGIA-CONSEIL IA", PAGE_W / 2, 38 + logoSize.height + 20, { align: "center" });
 
   doc.setFontSize(16);
   doc.setTextColor(255, 255, 255);
@@ -91,7 +89,7 @@ function drawCover(doc: jsPDF, logo: LogoPdf) {
     pdfText("PROJECTION VISUELLE : VOTRE FUTUR CONFORT THERMIQUE"),
     150,
   ) as string[];
-  let y = 38 + logoH + 36;
+  let y = 38 + logoSize.height + 36;
   for (const line of titre) {
     doc.text(line, PAGE_W / 2, y, { align: "center" });
     y += 8;
@@ -136,11 +134,10 @@ function drawCover(doc: jsPDF, logo: LogoPdf) {
 
 function drawFooter(doc: jsPDF, logo: LogoPdf, page: number, total: number) {
   const y = PAGE_H - 16;
-  const w = 22;
-  const h = logoHeight(logo, w);
-  doc.addImage(logo.dataUrl, "PNG", MARGIN, PAGE_H - 14 - h, w, h);
+  const size = fitLogo(logo.width, logo.height, LOGO_BOX.footer.maxWidthMm, LOGO_BOX.footer.maxHeightMm);
+  doc.addImage(logo.dataUrl, "PNG", MARGIN, PAGE_H - 14 - size.height, size.width, size.height);
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(8);
+  doc.setFontSize(7);
   doc.setTextColor(...SLATE);
   doc.text(`${page} / ${total}`, PAGE_W / 2, y, { align: "center" });
   doc.text(EMAIL, PAGE_W - MARGIN, y, { align: "right" });
@@ -304,7 +301,7 @@ function drawMenuiseriesIntro(doc: jsPDF) {
 function main() {
   const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
   const galerie = resolve(root, "public/test-maison-pereira/galerie");
-  const logoPath = resolve(root, "public/assets/LOGO-report-projection.png");
+  const logoPath = resolveOfficialLogoPath(root);
   const outputDir = resolve(root, "clients/PEREIRA");
   const outputPath = resolve(outputDir, "Rapport_Projection_Visuelle_PEREIRA.pdf");
 

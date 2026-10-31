@@ -14,10 +14,10 @@ const assert = (ok, message) => {
 };
 
 const nbCats = (categoriesSrc.match(/id: "/g) || []).length;
-assert(nbCats === 30, `30 catégories attendues, ${nbCats} trouvées`);
+assert(nbCats === 31, `31 catégories attendues, ${nbCats} trouvées`);
 
 const sousCats = [...categoriesSrc.matchAll(/sousCategories: \[([\s\S]*?)\],/g)];
-assert(sousCats.length === 30, `30 blocs de sous-catégories attendus, ${sousCats.length}`);
+assert(sousCats.length === 31, `31 blocs de sous-catégories attendus, ${sousCats.length}`);
 const nbSous = sousCats.reduce((n, m) => n + (m[1].match(/"/g) || []).length / 2, 0);
 assert(nbSous >= 180, `Au moins 180 sous-catégories attendues, ${nbSous} trouvées`);
 
@@ -43,6 +43,14 @@ assert(seedSrc.includes("Protections complémentaires"), "Protections manquantes
 assert(seedSrc.includes("Démarches administratives"), "Démarches manquantes");
 assert(seedSrc.includes("Coordination ENERGIA"), "Coordination ENERGIA manquante");
 assert(seedSrc.includes("Frais administratifs Clyve"), "Frais Clyve manquants");
+assert(categoriesSrc.includes("Cuisines & Agencement Italien Direct Usine"), "Catégorie cuisines manquante");
+assert(seedSrc.includes("Pack Meubles Usine Italie"), "Pack meubles Italie manquant");
+assert(seedSrc.includes("coutMaterielHt: 4500") && seedSrc.includes("prixVenteHt: 9500"), "Pack meubles 4 500 / 9 500");
+assert(seedSrc.includes("coutMaterielHt: 180") && seedSrc.includes("prixVenteHt: 380"), "Plan de travail 180 / 380");
+assert(seedSrc.includes("coutMainOeuvreHt: 140") && seedSrc.includes("prixVenteHt: 240"), "Pose 140 / 240");
+assert(seedSrc.includes("coutMainOeuvreHt: 1250") && seedSrc.includes("prixVenteHt: 2500"), "Raccordements Momo 1 250 / 2 500");
+assert(seedSrc.includes("coutMainOeuvreHt: 350") && seedSrc.includes("prixVenteHt: 750"), "Démolition 350 / 750");
+assert(seedSrc.includes("coutMainOeuvreHt: 2200") && seedSrc.includes("prixVenteHt: 4500"), "IPN Mustafa 2 200 / 4 500");
 assert((seedSrc.match(/id: "pv-/g) || []).length === 36, "36 prestations photovoltaïques attendues");
 
 function round2(n) {

@@ -125,6 +125,9 @@ export type DeplacementArtisanSaisie = {
   id: string;
   nomArtisan: string;
   adresseDepart: string;
+  distanceAllerKm: number | null;
+  joursDePose: number;
+  /** Compatibilité avec les devis enregistrés avant le calcul à l’aller simple. */
   distanceAllerRetourKm: number | null;
   sourceDistance: SourceDistance;
   nombreDeplacements: number;
@@ -160,7 +163,10 @@ export type DeplacementsSaisie = {
 
 export type DeplacementArtisanCalcule = DeplacementArtisanSaisie & {
   adresseChantier: string;
+  distanceHorsZoneKm: number | null;
+  trajetsAR: number;
   distanceTotaleKm: number | null;
+  fraisDeplacementHt: number | null;
   fraisKmHt: number | null;
   fraisTempsHt: number | null;
   fraisEstimesHt: number | null;
@@ -208,6 +214,8 @@ export type LigneDevisClientDetail = {
   tauxTva: number;
   montantTva: number;
   montantTtc: number;
+  /** Priorité DPE (1 pilier, 2 optimisation, 3 option). */
+  priorite?: 1 | 2 | 3;
 };
 
 export type DevisClientChiffrage = {
@@ -270,6 +278,9 @@ export type AideEstimative = {
   organisme: string;
   conditionsAVerifier: string;
   dateValidite: string;
+  dateVerificationWeb: string | null;
+  verifieeWeb: boolean;
+  sourceVerificationUrl: string;
   montantEstimatif: number | null;
   montantRetenu: number;
   commentaire: string;

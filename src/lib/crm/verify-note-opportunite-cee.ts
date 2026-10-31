@@ -3,15 +3,17 @@
  * Exécution : npx tsx src/lib/crm/verify-note-opportunite-cee.ts
  */
 
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { DOSSIERS_INGENIERIE_CEE } from "./dossiersIngenierieCee.js";
 import { ficheStrategiqueParCode } from "./fichesStrategiquesCee.js";
 import { FICHES_CEE_ABROGEES_JO_20261028, FICHES_RADAR_CEE } from "./ceeRadarTravaux.js";
+import { corpsSelectionCee } from "./selectionCee.js";
 import {
   composerNoteOpportuniteCee,
   creerNoteOpportuniteCee,
+  imageDepuisOctets,
   logoDepuisPng,
   MENTION_AIDES_NOTE,
 } from "./noteOpportuniteCeePdf.js";
@@ -99,6 +101,21 @@ for (const fiche of FICHES_RADAR_CEE) {
   assert(technique.volumeCumac.toLowerCase().includes("mwh"), `${fiche.code} : volume`);
   assert(technique.principe.length > 20, `${fiche.code} : principe`);
   assert(technique.equipements.length >= 1 && technique.eligibilite.length >= 1, `${fiche.code} : blocs`);
+  assert(technique.image, `${fiche.code} : visuel`);
+  const relatif = technique.image.replace(/^\//, "");
+  const visuel = join(dirname(fileURLToPath(import.meta.url)), "../../../public", relatif);
+  assert(existsSync(visuel), `${fiche.code} : fichier image ${technique.image}`);
+}
+assert(new Set(FICHES_RADAR_CEE.map((fiche) => fiche.id)).size === 25, "identifiants uniques");
+const corpsCatalogue = corpsSelectionCee(
+  FICHES_RADAR_CEE.map((fiche) => ({ id: fiche.id, code: fiche.code, intitule: fiche.intitule })),
+);
+assert(corpsCatalogue.length >= 20 && corpsCatalogue.length <= 20000, `lettre trop longue : ${corpsCatalogue.length}`);
+for (const fiche of FICHES_RADAR_CEE) {
+  const technique = ficheStrategiqueParCode(fiche.code);
+  assert(corpsCatalogue.includes(`${fiche.code} — ${fiche.intitule}`), `lettre ${fiche.code}`);
+  assert(corpsCatalogue.includes(technique!.primeFourchette), `prime dans la lettre ${fiche.code}`);
+  assert(corpsCatalogue.includes(technique!.corpsEtat[0]), `corps d'état dans la lettre ${fiche.code}`);
 }
 
 for (const fiche of FICHES_RADAR_CEE) {
@@ -141,7 +158,7 @@ for (const fiche of FICHES_RADAR_CEE) {
     date: new Date("2026-10-20T12:00:00Z"),
     logo,
   });
-  assert(pdf.getNumberOfPages() === 1, `${fiche.code} : ${pdf.getNumberOfPages()} pages`);
+  assert(pdf.getNumberOfPages() === 2, `${fiche.code} : ${pdf.getNumberOfPages()} pages`);
   const brutTexte = Buffer.from(pdf.output("arraybuffer")).toString("latin1");
   assert(brutTexte.includes("/Subtype") || brutTexte.includes("Image"), `${fiche.code} : logo absent`);
   if (apercus.includes(fiche.code)) {
@@ -157,5 +174,124 @@ assert(noteResidentielle.site === "Site à préciser", noteResidentielle.site);
 assert(noteResidentielle.actif === "Résidentiel", noteResidentielle.actif);
 assert(MENTION_AIDES_NOTE.includes("à titre indicatif"), "mention aides");
 
-console.log(`OK — ${FICHES_RADAR_CEE.length} notes CEE sur une page A4.`);
+const ind = FICHES_RADAR_CEE.find((fiche) => fiche.code === "IND-UT-117");
+assert(ind, "IND-UT-117");
+const schema = imageDepuisOctets(
+  new Uint8Array(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "../../../public/assets/cee/ind-ut-117.jpg"))),
+);
+assert(schema && schema.width > 400, "schéma 3D IND-UT-117");
+const pdfImage = creerNoteOpportuniteCee({
+  fiche: ind!,
+  site: "Usine test",
+  date: new Date("2026-10-20T12:00:00Z"),
+  logo,
+  schema,
+});
+const brutImage = Buffer.from(pdfImage.output("arraybuffer")).toString("latin1");
+assert(brutImage.includes("DCTDecode"), "le schéma JPEG doit être intégré au PDF");
+assert(!brutImage.includes("32 500") && !brutImage.includes("72 %"), "la marge interne ne doit pas figurer");
+
+const pac = FICHES_RADAR_CEE.find((fiche) => fiche.code === "BAR-TH-104");
+assert(pac, "BAR-TH-104");
+const schemaPac = imageDepuisOctets(
+  new Uint8Array(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "../../../public/assets/cee/bar-th-104.jpg"))),
+);
+assert(schemaPac && schemaPac.width > 400, "schéma 3D BAR-TH-104");
+const pdfPac = creerNoteOpportuniteCee({
+  fiche: pac!,
+  site: "Maison test",
+  date: new Date("2026-10-20T12:00:00Z"),
+  logo,
+  schema: schemaPac,
+});
+const brutPac = Buffer.from(pdfPac.output("arraybuffer")).toString("latin1");
+assert(brutPac.includes("DCTDecode"), "le schéma PAC doit être intégré au PDF");
+assert(pdfPac.getNumberOfPages() === 2, "BAR-TH-104 : deux pages");
+
+const combles = FICHES_RADAR_CEE.find((fiche) => fiche.code === "BAR-EN-101");
+assert(combles, "BAR-EN-101");
+const schemaCombles = imageDepuisOctets(
+  new Uint8Array(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "../../../public/assets/cee/bar-en-101.jpg"))),
+);
+assert(schemaCombles && schemaCombles.width > 400, "schéma 3D BAR-EN-101");
+const pdfCombles = creerNoteOpportuniteCee({
+  fiche: combles!,
+  site: "Maison test",
+  date: new Date("2026-10-20T12:00:00Z"),
+  logo,
+  schema: schemaCombles,
+});
+const brutCombles = Buffer.from(pdfCombles.output("arraybuffer")).toString("latin1");
+assert(brutCombles.includes("DCTDecode"), "le schéma combles doit être intégré au PDF");
+assert(pdfCombles.getNumberOfPages() === 2, "BAR-EN-101 : deux pages");
+
+const murs = FICHES_RADAR_CEE.find((fiche) => fiche.code === "BAR-EN-102");
+assert(murs, "BAR-EN-102");
+const schemaMurs = imageDepuisOctets(
+  new Uint8Array(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "../../../public/assets/cee/bar-en-102.jpg"))),
+);
+assert(schemaMurs && schemaMurs.width > 400, "schéma 3D BAR-EN-102");
+const pdfMurs = creerNoteOpportuniteCee({
+  fiche: murs!,
+  site: "Maison test",
+  date: new Date("2026-10-20T12:00:00Z"),
+  logo,
+  schema: schemaMurs,
+});
+const brutMurs = Buffer.from(pdfMurs.output("arraybuffer")).toString("latin1");
+assert(brutMurs.includes("DCTDecode"), "le schéma ITE doit être intégré au PDF");
+assert(pdfMurs.getNumberOfPages() === 2, "BAR-EN-102 : deux pages");
+
+const plancher = FICHES_RADAR_CEE.find((fiche) => fiche.code === "BAR-EN-103");
+assert(plancher, "BAR-EN-103");
+const schemaPlancher = imageDepuisOctets(
+  new Uint8Array(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "../../../public/assets/cee/bar-en-103.jpg"))),
+);
+assert(schemaPlancher && schemaPlancher.width > 400, "schéma 3D BAR-EN-103");
+const pdfPlancher = creerNoteOpportuniteCee({
+  fiche: plancher!,
+  site: "Maison test",
+  date: new Date("2026-10-20T12:00:00Z"),
+  logo,
+  schema: schemaPlancher,
+});
+const brutPlancher = Buffer.from(pdfPlancher.output("arraybuffer")).toString("latin1");
+assert(brutPlancher.includes("DCTDecode"), "le schéma plancher bas doit être intégré au PDF");
+assert(pdfPlancher.getNumberOfPages() === 2, "BAR-EN-103 : deux pages");
+
+const cet = FICHES_RADAR_CEE.find((fiche) => fiche.code === "BAR-TH-148");
+assert(cet, "BAR-TH-148");
+const schemaCet = imageDepuisOctets(
+  new Uint8Array(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "../../../public/assets/cee/bar-th-148.jpg"))),
+);
+assert(schemaCet && schemaCet.width > 400, "schéma 3D BAR-TH-148");
+const pdfCet = creerNoteOpportuniteCee({
+  fiche: cet!,
+  site: "Maison test",
+  date: new Date("2026-10-20T12:00:00Z"),
+  logo,
+  schema: schemaCet,
+});
+const brutCet = Buffer.from(pdfCet.output("arraybuffer")).toString("latin1");
+assert(brutCet.includes("DCTDecode"), "le schéma CET doit être intégré au PDF");
+assert(pdfCet.getNumberOfPages() === 2, "BAR-TH-148 : deux pages");
+
+const thermostat = FICHES_RADAR_CEE.find((fiche) => fiche.code === "BAR-TH-173");
+assert(thermostat, "BAR-TH-173");
+const schemaThermostat = imageDepuisOctets(
+  new Uint8Array(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "../../../public/assets/cee/bar-th-173.jpg"))),
+);
+assert(schemaThermostat && schemaThermostat.width > 400, "schéma 3D BAR-TH-173");
+const pdfThermostat = creerNoteOpportuniteCee({
+  fiche: thermostat!,
+  site: "Maison test",
+  date: new Date("2026-10-20T12:00:00Z"),
+  logo,
+  schema: schemaThermostat,
+});
+const brutThermostat = Buffer.from(pdfThermostat.output("arraybuffer")).toString("latin1");
+assert(brutThermostat.includes("DCTDecode"), "le schéma thermostat doit être intégré au PDF");
+assert(pdfThermostat.getNumberOfPages() === 2, "BAR-TH-173 : deux pages");
+
+console.log(`OK — ${FICHES_RADAR_CEE.length} notes CEE sur deux pages A4.`);
 console.log(`Aperçus : ${dossierApercu}`);

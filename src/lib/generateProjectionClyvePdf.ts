@@ -1,4 +1,5 @@
 import jsPDF from "jspdf";
+import { ecrirePiedIdentite } from "./piedLegalPdf";
 import {
   BANDEAU_PROJECTION,
   FILIGRANE_PROJECTION,
@@ -229,8 +230,9 @@ export async function generateProjectionClyvePdf(input: {
     doc.setPage(i);
     doc.setFontSize(7);
     doc.setTextColor(100);
-    doc.text(t(FILIGRANE_PROJECTION), PAGE_W / 2, PAGE_H - 8, { align: "center" });
-    doc.text(`Page ${i}/${total}`, PAGE_W - MARGIN, PAGE_H - 8, { align: "right" });
+    doc.text(t(FILIGRANE_PROJECTION), PAGE_W / 2, PAGE_H - 28, { align: "center" });
+    ecrirePiedIdentite(doc, MARGIN, PAGE_H - 24, PAGE_W - MARGIN * 2);
+    doc.text(`Page ${i}/${total}`, PAGE_W - MARGIN, PAGE_H - 6, { align: "right" });
   }
 
   const name =

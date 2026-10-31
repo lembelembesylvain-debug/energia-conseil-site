@@ -25,6 +25,14 @@ from reportlab.platypus import (
 )
 from reportlab.pdfgen import canvas
 
+from config.branding import (
+    PIED_DE_PAGE,
+    draw_logo,
+    FOOTER_LOGO_MAX_H,
+    FOOTER_LOGO_MAX_W,
+    NOM,
+)
+
 # =============================================================================
 # CHARTE GRAPHIQUE ENERGIA-CONSEIL IA®
 # =============================================================================
@@ -119,11 +127,12 @@ def add_footer(canvas, doc, footer_band_color=None):
     if footer_band_color:
         canvas.setFillColor(footer_band_color)
         canvas.rect(0, 0, A4[0], 30, fill=1, stroke=0)
+    logo_w, logo_h = draw_logo(canvas, 36, 8, FOOTER_LOGO_MAX_W, FOOTER_LOGO_MAX_H)
     canvas.setFillColor(C["blanc"] if footer_band_color else C["gris"])
-    canvas.setFont("Helvetica", 8)
-    canvas.drawString(50, 12, f"{ENTREPRISE['nom']} | SIRET {ENTREPRISE['siret']} | {ENTREPRISE['telephone']}")
-    canvas.drawRightString(A4[0] - 50, 12, f"Page {page_num}")
-    canvas.drawCentredString(A4[0] / 2, 12, "© 2026 ENERGIA-CONSEIL IA - Tous droits réservés")
+    canvas.setFont("Helvetica", 7)
+    canvas.drawString(36 + logo_w + 8, 14, PIED_DE_PAGE)
+    canvas.drawRightString(A4[0] - 50, 14, f"Page {page_num}")
+    canvas.drawCentredString(A4[0] / 2, 6, f"© 2026 {NOM} - Tous droits réservés")
     canvas.restoreState()
 
 

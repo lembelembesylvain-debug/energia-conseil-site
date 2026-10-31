@@ -44,6 +44,14 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import cm, mm
 from reportlab.pdfgen import canvas as canvas_mod
+from config.branding import (
+    FOOTER_LOGO_MAX_H,
+    FOOTER_LOGO_MAX_W,
+    HEADER_LOGO_MAX_H,
+    HEADER_LOGO_MAX_W,
+    PIED_DE_PAGE,
+    draw_logo,
+)
 from reportlab.platypus import (
     Flowable,
     Image,
@@ -590,39 +598,45 @@ class NumberedCanvas(canvas_mod.Canvas):
         is_cover = bool(getattr(self, "cover_first", True)) and (page == 1)
         self.saveState()
         if is_cover:
-            # Bandeau supérieur pleine largeur — texte blanc uniquement
+            # Bandeau supérieur — logo officiel proportionné + marque
             banner_h = 28 * mm
             self.setFillColor(C["teal"])
             self.rect(0, h - banner_h, w, banner_h, fill=1, stroke=0)
             self.setFillColor(C["white"])
+            self.roundRect(18 * mm, h - banner_h + 5 * mm, 46 * mm, 18 * mm, 2, fill=1, stroke=0)
+            draw_logo(self, 20 * mm, h - banner_h + 6 * mm, HEADER_LOGO_MAX_W, HEADER_LOGO_MAX_H)
+            self.setFillColor(C["white"])
             self.setFont(FONT_TITLE, 13)
-            self.drawCentredString(w / 2, h - 12 * mm, MARQUE)
+            self.drawRightString(w - 20 * mm, h - 12 * mm, MARQUE)
             self.setFont(FONT_BODY, 9)
-            self.drawCentredString(w / 2, h - 19 * mm, "Rénovation énergétique intelligente")
-            # Pas de pied pâle : les coordonnées figurent dans le flux (bleu nuit)
+            self.drawRightString(w - 20 * mm, h - 19 * mm, "Rénovation énergétique intelligente")
             self.restoreState()
             return
         # En-tête
+        draw_logo(self, 20 * mm, h - 18 * mm, HEADER_LOGO_MAX_W, HEADER_LOGO_MAX_H)
         self.setFont(FONT_TITLE, 8.5)
         self.setFillColor(C["teal"])
-        self.drawString(20 * mm, h - 12 * mm, MARQUE)
+        self.drawRightString(w - 20 * mm, h - 10 * mm, MARQUE)
         self.setFont(FONT_BODY, 7.5)
         self.setFillColor(C["muted"])
-        self.drawRightString(w - 20 * mm, h - 12 * mm,
+        self.drawRightString(w - 20 * mm, h - 14 * mm,
                              f"Rapport rénovation énergétique — Réf. {CLIENT['ref']}")
         self.setStrokeColor(C["teal"])
         self.setLineWidth(1.2)
-        self.line(20 * mm, h - 14 * mm, w - 20 * mm, h - 14 * mm)
+        self.line(20 * mm, h - 16 * mm, w - 20 * mm, h - 16 * mm)
         # Pied de page
         self.setStrokeColor(colors.HexColor("#CBD5E1"))
         self.setLineWidth(0.6)
-        self.line(20 * mm, 15 * mm, w - 20 * mm, 15 * mm)
-        self.setFont(FONT_BODY, 7)
+        self.line(20 * mm, 16 * mm, w - 20 * mm, 16 * mm)
+        lw, lh = draw_logo(self, 20 * mm, 6 * mm, FOOTER_LOGO_MAX_W, FOOTER_LOGO_MAX_H)
+        self.setFont(FONT_BODY, 6.2)
         self.setFillColor(C["muted"])
-        self.drawString(20 * mm, 11 * mm, FOOTER_TEXT)
+        self.drawString(20 * mm + lw + 3 * mm, 11 * mm, PIED_DE_PAGE)
+        self.setFont(FONT_BODY, 6.5)
+        self.drawString(20 * mm + lw + 3 * mm, 7 * mm, FOOTER_TEXT)
         self.setFont(FONT_BODY, 7.5)
         self.setFillColor(C["teal"])
-        self.drawRightString(w - 20 * mm, 11 * mm, f"Page {page} / {total}")
+        self.drawRightString(w - 20 * mm, 9 * mm, f"Page {page} / {total}")
         self.restoreState()
 
 

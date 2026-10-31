@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { ClyveJeuTest } from "../hooks/useClyveTestJeu";
 import type { AidEstimateResult } from "../types/aides";
 
@@ -45,6 +46,10 @@ export default function ClyveTestBanner({
         {controleMoteur.fictif.totalAides != null
           ? ` · aides scénario B (indicatif) ${controleMoteur.fictif.totalAides.toLocaleString("fr-FR")} €`
           : ""}
+        {" · "}
+        <Link to="/longere-la-genete" className="underline">
+          Fiche longère et devis contractant général
+        </Link>
       </p>
     </div>
   );

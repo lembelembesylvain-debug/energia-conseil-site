@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { CheckCircle2, Clock3, Download, Eye, Mail, Search, Send, Settings2, TriangleAlert } from "lucide-react";
-import { pacPdfBase64, telechargerPacPdf } from "../hvac/exportPdf";
+import { CheckCircle2, Clock3, Download, Eye, Mail, Paperclip, Search, Send, Settings2, Trash2, TriangleAlert } from "lucide-react";
+import { telechargerPacPdf } from "../hvac/exportPdf";
 import ApercuDevisA4 from "./ApercuDevisA4";
 import { DOSSIERS_MESSAGERIE, dossierPonctuel, trouverDossier } from "./annuaire";
 import { envoyerEmailProfessionnel } from "./envoyerEmail";
@@ -10,6 +10,9 @@ import { MARQUE_DEFAUT, enregistrerMarque, enteteFrom, lireMarque } from "./marq
 import type { MarqueEmail } from "./marque";
 import { MODELES_EMAIL, composerModele } from "./modeles";
 import { EVENEMENT_PREFILL, lirePrefillCourant } from "./navigation";
+import { MAX_OCTETS_FICHIER, MAX_PIECES_EMAIL, PACK_OPTIONS, packPourModele, packVide, piecePack } from "./packPdf";
+import { libellePieceCee, piecesPdfSelectionCee, retirerFicheCee, useSelectedCeeFiches } from "../../lib/crm/selectionCee";
+import type { PackId } from "./packPdf";
 import { rendreEmailHtml, texteAvecSignature } from "./renduHtml";
 import type { ContexteEmail, DossierMessagerie, EmailEnregistre, ModeleEmailId, PieceJointe, ResultatEnvoi } from "./types";
 
@@ -21,8 +24,8 @@ type Props = {
 const CHAMP =
   "mt-1.5 w-full rounded-xl border border-cyan-400/20 bg-[#070b16] px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300/70";
 
-const NOM_DEVIS = "Devis officiel de travaux — Contractant Général";
-const NOM_RAPPORT = "Rapport d'ingénierie thermique & dimensionnement PAC";
+const NOM_DEVIS = "Devis officiel A4 Contractant Général (PDF)";
+const NOM_RAPPORT = "Rapport technique de dimensionnement PAC / Photovoltaïque";
 
 function modeleJointLesDeux(id: ModeleEmailId | null | undefined): boolean {
   return id === "etude-pac" || id === "calpinage-solaire" || id === "relance-j4";
@@ -90,8 +93,9 @@ export default function EmailHub({ dossierIdInitial = null, clientNomInitial = "
   const [modeleActif, setModeleActif] = useState<ModeleEmailId | null>(null);
   const [contexte, setContexte] = useState<ContexteEmail | undefined>(undefined);
   const [pieces, setPieces] = useState<PieceJointe[]>([]);
-  const [joindreDevis, setJoindreDevis] = useState(false);
-  const [joindreRapport, setJoindreRapport] = useState(false);
+  const [pack, setPack] = useState<Record<PackId, boolean>>(() => packVide());
+  const [fichiersLibres, setFichiersLibres] = useState<PieceJointe[]>([]);
+  const [alerteFichier, setAlerteFichier] = useState<string | null>(null);
   const [cibleApercu, setCibleApercu] = useState<"devis" | "rapport">("devis");
   const [toast, setToast] = useState<string | null>(null);
   const [historique, setHistorique] = useState<EmailEnregistre[]>(() => lireHistorique());
@@ -106,12 +110,21 @@ export default function EmailHub({ dossierIdInitial = null, clientNomInitial = "
   const dossier = trouverDossier(dossierId, annuaire) ?? annuaire[0];
   const lienAction = pieces.find((piece) => piece.url)?.url || contexte?.lien || dossier?.lienDocument || "";
   const feuille = useMemo(() => (dossier ? etudePourDossier(dossier) : null), [dossier]);
+  const fichierLibreRef = useRef<HTMLInputElement | null>(null);
+  const selectedCeeFiches = useSelectedCeeFiches();
   const piecesVisibles = useMemo(() => {
-    const liste: PieceJointe[] = [];
-    if (joindreDevis) liste.push({ id: "devis-officiel-a4", nom: NOM_DEVIS, taille: 0 });
-    if (joindreRapport) liste.push({ id: "rapport-ingenierie-pac", nom: NOM_RAPPORT, taille: 0 });
-    return liste;
-  }, [joindreDevis, joindreRapport]);
+    const liste: PieceJointe[] = PACK_OPTIONS.filter((option) => pack[option.id]).map((option) => ({
+      id: option.id,
+      nom: option.libelle,
+      taille: 0,
+    }));
+    const fichesCee: PieceJointe[] = selectedCeeFiches.map((fiche) => ({
+      id: `cee-${fiche.id}`,
+      nom: libellePieceCee(fiche),
+      taille: 0,
+    }));
+    return [...liste, ...fichesCee, ...fichiersLibres];
+  }, [pack, fichiersLibres, selectedCeeFiches]);
 
   useEffect(() => {
     if (!feuillePleine) return undefined;
@@ -181,8 +194,8 @@ export default function EmailHub({ dossierIdInitial = null, clientNomInitial = "
     setModeleActif(null);
     setContexte(undefined);
     setPieces([]);
-    setJoindreDevis(false);
-    setJoindreRapport(false);
+    setPack(packVide());
+    setFichiersLibres([]);
     setResultat(null);
   };
 
@@ -194,8 +207,7 @@ export default function EmailHub({ dossierIdInitial = null, clientNomInitial = "
     setCorps(compose.corps);
     setContexte(suivant);
     const joints = modeleJointLesDeux(id);
-    setJoindreDevis(joints);
-    setJoindreRapport(joints);
+    setPack(packPourModele(joints));
     setResultat(null);
   };
 
@@ -210,6 +222,33 @@ export default function EmailHub({ dossierIdInitial = null, clientNomInitial = "
       if (!prefill || prefill.jeton === jetonApplique.current) return;
       jetonApplique.current = prefill.jeton;
       setAnnuaire((courant) => {
+        if (prefill.dossiers && prefill.dossiers.length > 0) {
+          const ids = new Set(prefill.dossiers.map((dossier) => dossier.id));
+          const premier = prefill.dossiers[0];
+          setDossierId(premier.id);
+          setDestinataire(prefill.destinataire || premier.email || "");
+          setContexte({
+            clientNom: premier.libelle,
+            ville: premier.ville,
+            projet: premier.projet,
+          });
+          setSujet(prefill.sujet || "");
+          setCorps(prefill.corps || "");
+          setModeleActif(null);
+          setFichiersLibres(
+            (prefill.pieces || [])
+              .filter((piece) => piece.nom && piece.contenuBase64)
+              .map((piece) => ({
+                id: crypto.randomUUID(),
+                nom: piece.nom,
+                contenuBase64: piece.contenuBase64,
+                taille: piece.contenuBase64?.length || 0,
+              })),
+          );
+          setPack(packVide());
+          setResultat(null);
+          return [...prefill.dossiers, ...courant.filter((dossier) => !ids.has(dossier.id))];
+        }
         const resolution = dossierDepuisPrefill(courant, prefill.dossierId, prefill.clientNom, prefill.destinataire);
         const cible = trouverDossier(resolution.id, resolution.annuaire);
         if (cible) {
@@ -226,13 +265,17 @@ export default function EmailHub({ dossierIdInitial = null, clientNomInitial = "
             .map((piece) => pieceDepuisUrl(piece.nom, piece.url));
           setPieces(jointes);
           const joints = modeleJointLesDeux(prefill.modeleId) || jointes.length > 0;
-          setJoindreDevis(joints);
-          setJoindreRapport(modeleJointLesDeux(prefill.modeleId));
+          setPack(packPourModele(joints));
           if (prefill.modeleId) {
             const compose = composerModele(prefill.modeleId, cible, contexteSuivant);
             setModeleActif(prefill.modeleId);
             setSujet(compose.sujet);
             setCorps(compose.corps);
+            setResultat(null);
+          } else if (prefill.sujet || prefill.corps) {
+            setModeleActif(null);
+            setSujet(prefill.sujet || "");
+            setCorps(prefill.corps || "");
             setResultat(null);
           }
         }
@@ -268,51 +311,96 @@ export default function EmailHub({ dossierIdInitial = null, clientNomInitial = "
     if (!dossier || envoi) return;
     setEnvoi(true);
     setResultat(null);
-    const texte = texteAvecSignature(corps, marque.signature);
-    const joints: { filename: string; content: string }[] = [];
-    if (feuille && joindreDevis) {
-      joints.push({
-        filename: "Devis-officiel-A4.pdf",
-        content: pacPdfBase64(feuille.etude, dossier.libelle, feuille.etat.tint, "devis"),
+    try {
+      const texte = texteAvecSignature(corps, marque.signature);
+      const joints: { filename: string; content: string }[] = [];
+      for (const piece of await piecesPdfSelectionCee(selectedCeeFiches)) {
+        if (joints.length >= MAX_PIECES_EMAIL || piece.content.length < 16) continue;
+        joints.push(piece);
+      }
+      if (feuille && dossier) {
+        (Object.keys(pack) as PackId[]).forEach((id) => {
+          if (!pack[id] || joints.length >= MAX_PIECES_EMAIL) return;
+          joints.push(piecePack(id, dossier, feuille.etat, feuille.etude));
+        });
+      }
+      for (const piece of fichiersLibres) {
+        if (joints.length >= MAX_PIECES_EMAIL || !piece.contenuBase64) continue;
+        joints.push({ filename: piece.nom, content: piece.contenuBase64 });
+      }
+      if (piecesVisibles.length > joints.length) {
+        setAlerteFichier(`L'email part avec ${joints.length} pièce(s) sur ${piecesVisibles.length} (plafond ${MAX_PIECES_EMAIL}).`);
+      }
+      const reponse = await envoyerEmailProfessionnel({
+        to: destinataire,
+        subject: sujet,
+        text: texte,
+        html,
+        from: enteteFrom(marque),
+        attachments: joints,
+      });
+      const enregistre: EmailEnregistre = {
+        id: crypto.randomUUID(),
+        dossierId: dossier.id,
+        destinataire: destinataire.trim(),
+        sujet: sujet.trim(),
+        corps: texte,
+        modeleId: modeleActif,
+        envoyeLe: new Date().toISOString(),
+        statut: reponse.ok ? (reponse.canal === "simulation" ? "simule" : "envoye") : "echec",
+        canal: reponse.canal,
+        resendId: reponse.resendId,
+        detail: reponse.detail || reponse.message,
+      };
+      if (reponse.ok || reponse.canal !== "simulation") {
+        const suivant = await archiverEmail(enregistre);
+        setHistorique(suivant);
+      }
+      setResultat(reponse);
+    } catch (error) {
+      setResultat({
+        ok: false,
+        canal: "simulation",
+        message: "Les pièces jointes n'ont pas pu être préparées.",
+        detail: error instanceof Error ? error.message : "Erreur de génération PDF.",
+      });
+    } finally {
+      setEnvoi(false);
+    }
+  };
+
+  const ajouterFichiers = async (liste: FileList | null) => {
+    const fichiers = Array.from(liste || []);
+    if (fichierLibreRef.current) fichierLibreRef.current.value = "";
+    if (fichiers.length === 0) return;
+    const places = MAX_PIECES_EMAIL - piecesVisibles.length;
+    if (places <= 0) {
+      setAlerteFichier(`Maximum ${MAX_PIECES_EMAIL} pièces jointes.`);
+      return;
+    }
+    const retenus: PieceJointe[] = [];
+    for (const fichier of fichiers.slice(0, places)) {
+      if (fichier.size > MAX_OCTETS_FICHIER) {
+        setAlerteFichier(`${fichier.name} dépasse 4 Mo.`);
+        continue;
+      }
+      const contenu = await fichier.arrayBuffer();
+      const octets = new Uint8Array(contenu);
+      let binaire = "";
+      octets.forEach((octet) => {
+        binaire += String.fromCharCode(octet);
+      });
+      retenus.push({
+        id: crypto.randomUUID(),
+        nom: fichier.name.replace(/[^\w.\- ()àâäéèêëïîôùûüç]/gi, "").slice(0, 80) || "piece-jointe",
+        contenuBase64: btoa(binaire),
+        taille: fichier.size,
       });
     }
-    if (feuille && joindreRapport) {
-      joints.push({
-        filename: "Rapport-ingenierie-PAC.pdf",
-        content: pacPdfBase64(feuille.etude, dossier.libelle, feuille.etat.tint, "rapport"),
-      });
+    if (retenus.length > 0) {
+      setAlerteFichier(null);
+      setFichiersLibres((courant) => [...courant, ...retenus]);
     }
-    for (const piece of pieces) {
-      if (joints.length >= 2 || !piece.contenuBase64) continue;
-      joints.push({ filename: piece.nom, content: piece.contenuBase64 });
-    }
-    const reponse = await envoyerEmailProfessionnel({
-      to: destinataire,
-      subject: sujet,
-      text: texte,
-      html,
-      from: enteteFrom(marque),
-      attachments: joints,
-    });
-    const enregistre: EmailEnregistre = {
-      id: crypto.randomUUID(),
-      dossierId: dossier.id,
-      destinataire: destinataire.trim(),
-      sujet: sujet.trim(),
-      corps: texte,
-      modeleId: modeleActif,
-      envoyeLe: new Date().toISOString(),
-      statut: reponse.ok ? (reponse.canal === "simulation" ? "simule" : "envoye") : "echec",
-      canal: reponse.canal,
-      resendId: reponse.resendId,
-      detail: reponse.detail || reponse.message,
-    };
-    if (reponse.ok || reponse.canal !== "simulation") {
-      const suivant = await archiverEmail(enregistre);
-      setHistorique(suivant);
-    }
-    setResultat(reponse);
-    setEnvoi(false);
   };
 
   return (
@@ -415,7 +503,7 @@ export default function EmailHub({ dossierIdInitial = null, clientNomInitial = "
                         <span className="block text-sm font-semibold text-white">{item.libelle}</span>
                         <span className="font-mono text-[10px] text-slate-500">{compte}</span>
                       </span>
-                      <span className="mt-0.5 block truncate text-[11px] text-slate-500">{item.email || "Email à renseigner"}</span>
+                      <span className="mt-0.5 block truncate text-[11px] text-slate-500">{item.email || item.projet || item.ville || "Email à renseigner"}</span>
                     </button>
                   </li>
                 );
@@ -481,30 +569,53 @@ export default function EmailHub({ dossierIdInitial = null, clientNomInitial = "
           </label>
           <p className="mt-2 text-[11px] text-slate-500">La signature, le logo et le bouton d'action sont ajoutés dans l'aperçu et dans l'email HTML.</p>
           <div className="mt-3 space-y-2">
-            <button
-              type="button"
-              role="checkbox"
-              aria-checked={joindreDevis}
-              data-testid="joindre-devis"
-              onClick={() => setJoindreDevis((coche) => !coche)}
-              className={`flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-left text-sm ${joindreDevis ? "border-emerald-300/50 bg-emerald-400/10 text-emerald-50" : "border-slate-700 text-slate-200"}`}
-            >
-              <span className={`grid h-4 w-4 place-items-center rounded border text-[10px] ${joindreDevis ? "border-emerald-300 bg-emerald-300 text-[#0a0f1d]" : "border-slate-500"}`}>{joindreDevis ? "✓" : ""}</span>
-              Joindre le Devis officiel A4 (PDF)
-            </button>
-            <button
-              type="button"
-              role="checkbox"
-              aria-checked={joindreRapport}
-              data-testid="joindre-rapport"
-              onClick={() => setJoindreRapport((coche) => !coche)}
-              className={`flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-left text-sm ${joindreRapport ? "border-emerald-300/50 bg-emerald-400/10 text-emerald-50" : "border-slate-700 text-slate-200"}`}
-            >
-              <span className={`grid h-4 w-4 place-items-center rounded border text-[10px] ${joindreRapport ? "border-emerald-300 bg-emerald-300 text-[#0a0f1d]" : "border-slate-500"}`}>{joindreRapport ? "✓" : ""}</span>
-              Joindre le Rapport d'ingénierie thermique / PAC (PDF)
-            </button>
-            <ul className="space-y-1">
-              {joindreDevis ? (
+            {PACK_OPTIONS.map((option) => {
+              const coche = pack[option.id];
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  role="checkbox"
+                  aria-checked={coche}
+                  data-testid={option.testid}
+                  onClick={() => setPack((courant) => ({ ...courant, [option.id]: !courant[option.id] }))}
+                  className={`flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-left text-sm ${coche ? "border-emerald-300/50 bg-emerald-400/10 text-emerald-50" : "border-slate-700 text-slate-200"}`}
+                >
+                  <span className={`grid h-4 w-4 shrink-0 place-items-center rounded border text-[10px] ${coche ? "border-emerald-300 bg-emerald-300 text-[#0a0f1d]" : "border-slate-500"}`}>{coche ? "✓" : ""}</span>
+                  {option.libelle}
+                </button>
+              );
+            })}
+            <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-cyan-300/40 bg-cyan-400/10 px-3 py-2 text-sm font-semibold text-cyan-50">
+              <Paperclip className="h-4 w-4" aria-hidden />
+              Joindre un document libre (PDF, scan, photo)
+              <input
+                ref={fichierLibreRef}
+                data-testid="joindre-fichier-libre"
+                type="file"
+                accept="application/pdf,image/png,image/jpeg,image/webp"
+                multiple
+                className="sr-only"
+                onChange={(event) => void ajouterFichiers(event.target.files)}
+              />
+            </label>
+            <ul className="space-y-1" data-testid="pieces-cee-selection">
+              {selectedCeeFiches.map((fiche) => (
+                <li key={fiche.id}>
+                  <button
+                    type="button"
+                    role="checkbox"
+                    aria-checked
+                    data-testid={`piece-cee-${fiche.id}`}
+                    onClick={() => retirerFicheCee(fiche.id)}
+                    className="flex w-full items-center gap-2 rounded-xl border border-emerald-300/50 bg-emerald-400/10 px-3 py-2 text-left text-sm text-emerald-50"
+                  >
+                    <span className="grid h-4 w-4 shrink-0 place-items-center rounded border border-emerald-300 bg-emerald-300 text-[10px] text-[#0a0f1d]">✓</span>
+                    <span className="truncate">{libellePieceCee(fiche)}</span>
+                  </button>
+                </li>
+              ))}
+              {pack.devis ? (
                 <li className="flex items-center justify-between gap-2 rounded-lg border border-slate-800 bg-[#070b16] px-2 py-1.5 text-xs">
                   <span className="truncate">{NOM_DEVIS}</span>
                   <button type="button" data-testid="apercu-piece-devis" onClick={() => ouvrirApercuPiece("devis")} className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-slate-600 px-2 py-1 text-[11px] font-semibold text-slate-100">
@@ -513,7 +624,7 @@ export default function EmailHub({ dossierIdInitial = null, clientNomInitial = "
                   </button>
                 </li>
               ) : null}
-              {joindreRapport ? (
+              {pack.rapport ? (
                 <li className="flex items-center justify-between gap-2 rounded-lg border border-slate-800 bg-[#070b16] px-2 py-1.5 text-xs">
                   <span className="truncate">{NOM_RAPPORT}</span>
                   <button type="button" data-testid="apercu-piece-rapport" onClick={() => ouvrirApercuPiece("rapport")} className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-slate-600 px-2 py-1 text-[11px] font-semibold text-slate-100">
@@ -523,6 +634,19 @@ export default function EmailHub({ dossierIdInitial = null, clientNomInitial = "
                 </li>
               ) : null}
             </ul>
+            <ul className="space-y-1">
+              {fichiersLibres.map((fichier) => (
+                <li key={fichier.id} className="flex items-center justify-between gap-2 rounded-lg border border-slate-800 bg-[#070b16] px-2 py-1.5 text-xs">
+                  <span className="truncate">{fichier.nom}</span>
+                  <button type="button" aria-label={`Retirer ${fichier.nom}`} onClick={() => setFichiersLibres((courant) => courant.filter((item) => item.id !== fichier.id))} className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-slate-600 px-2 py-1 text-[11px] font-semibold text-slate-100">
+                    <Trash2 className="h-3.5 w-3.5" aria-hidden />
+                    Retirer
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <p className="text-[11px] text-slate-500">Jusqu'à {MAX_PIECES_EMAIL} pièces, 4 Mo par fichier. Elles partent en base64 avec l'email.</p>
+            {alerteFichier ? <p className="text-xs text-rose-200">{alerteFichier}</p> : null}
           </div>
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <button type="submit" disabled={envoi} data-testid="messagerie-envoyer" className="inline-flex items-center gap-2 rounded-xl bg-cyan-300 px-4 py-2 text-sm font-semibold text-[#0a0f1d] disabled:opacity-60">

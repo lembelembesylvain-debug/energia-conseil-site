@@ -1,4 +1,4 @@
-import type { ContexteEmail, ModeleEmailId, PrefillMessagerie } from "./types";
+import type { ContexteEmail, DossierMessagerie, ModeleEmailId, PrefillMessagerie } from "./types";
 
 export const HASH_MESSAGERIE = "messagerie-crm";
 export const EVENEMENT_PREFILL = "energia-messagerie-prefill";
@@ -12,7 +12,10 @@ export function ouvrirMessagerie(saisie: {
   destinataire?: string;
   modeleId?: ModeleEmailId;
   contexte?: ContexteEmail;
-  pieces?: { nom: string; url: string }[];
+  pieces?: { nom: string; url?: string; contenuBase64?: string }[];
+  dossiers?: DossierMessagerie[];
+  sujet?: string;
+  corps?: string;
 }): void {
   const prefill: PrefillMessagerie = {
     jeton: crypto.randomUUID(),
@@ -22,6 +25,9 @@ export function ouvrirMessagerie(saisie: {
     modeleId: saisie.modeleId,
     contexte: saisie.contexte,
     pieces: saisie.pieces,
+    dossiers: saisie.dossiers,
+    sujet: saisie.sujet,
+    corps: saisie.corps,
   };
   memoire = prefill;
   try {

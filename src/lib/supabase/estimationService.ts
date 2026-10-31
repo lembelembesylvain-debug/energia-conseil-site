@@ -22,6 +22,7 @@ export type LigneEstimationJson = {
   artisan: string;
   montantDevisReel: number;
   montant_devis_reel: number;
+  prioriteTravaux?: 1 | 2 | 3;
 };
 
 export type TotauxEstimation = {

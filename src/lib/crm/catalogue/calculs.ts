@@ -1,4 +1,6 @@
 import type { PrestationCalculee, PrestationCatalogue, StatutCatalogue } from "./types";
+import { extraMargePrestation, baseChiffrageHt, margeVsBaseHt } from "../sousTraitanceDoubleMode";
+import { coutRevientSelonMode } from "../gardeFouMarge";
 
 export function round2(n: number): number {
   return Math.round((Number(n) + Number.EPSILON) * 100) / 100;
@@ -56,12 +58,21 @@ export function tarifEstRenseigne(
 }
 
 export function calculerPrestation(prestation: PrestationCatalogue): PrestationCalculee {
-  const revient = coutRevientHt(prestation.coutMaterielHt, prestation.coutMainOeuvreHt);
+  const revientCompose = coutRevientHt(prestation.coutMaterielHt, prestation.coutMainOeuvreHt);
+  const revient =
+    coutRevientSelonMode({
+      modeSousTraitance: prestation.modeSousTraitance,
+      coutFourniturePoseHt: prestation.coutFourniturePoseHt,
+      coutMaterielDirectHt: prestation.coutMaterielHt,
+      coutPoseArtisanHt: prestation.coutMainOeuvreHt,
+    }) ?? revientCompose;
   const vente = montantOuNull(prestation.prixVenteHt);
   const tva = montantTva(vente, prestation.tauxTva);
   const ttc = prixVenteTtc(vente, tva);
   const marge = margeBruteHt(vente, revient);
   const renseigne = tarifEstRenseigne(revient, vente);
+  const base = baseChiffrageHt(prestation);
+  const margeBase = margeVsBaseHt(prestation);
   return {
     ...prestation,
     coutRevientHt: revient,
@@ -71,6 +82,10 @@ export function calculerPrestation(prestation: PrestationCatalogue): PrestationC
     tauxMarge: tauxMarge(marge, vente),
     tarifRenseigne: renseigne,
     venteInferieureAuCout: Boolean(renseigne && marge != null && marge < 0),
+    extraMargeAchatDirectHt: extraMargePrestation(prestation),
+    baseChiffrageHt: base,
+    margeVsBaseHt: margeBase,
+    tauxMargeVsBase: tauxMarge(margeBase, base),
   };
 }
 
@@ -84,6 +99,9 @@ export function peutValiderPrestation(prestation: PrestationCatalogue): {
   }
   if (calculee.prixVenteHt == null || calculee.prixVenteHt <= 0) {
     return { ok: false, motif: "Prix de vente à définir." };
+  }
+  if (calculee.venteInferieureAuCout) {
+    return { ok: false, motif: "Vente à perte interdite — marge brute HT négative." };
   }
   return { ok: true, motif: null };
 }
@@ -124,3 +142,15 @@ export const LIBELLES_STATUT: Record<StatutCatalogue, string> = {
   realise: "Réalisé",
   archive: "Archivé",
 };
+
+export function formatEuroCourt(value: number): string {
+  return value.toLocaleString("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: value >= 100 ? 0 : 2,
+  });
+}
+
+export function formatFourchetteMarcheTtc(min: number, median: number, max: number): string {
+  return `${formatEuroCourt(min)} – ${formatEuroCourt(max)} (médian ${formatEuroCourt(median)})`;
+}

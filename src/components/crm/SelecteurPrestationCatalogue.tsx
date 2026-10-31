@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import {
   CATEGORIES_METIERS,
   getCategorieMetier,
+  prestationPourRole,
   prestationsDeSousCategorie,
   sousCategoriesDe,
   type PrestationCatalogue,
@@ -22,6 +23,7 @@ type Props = {
     prestation: PrestationCatalogue | null;
   }) => void;
   inclureInactifs?: boolean;
+  role?: string;
 };
 
 export default function SelecteurPrestationCatalogue({
@@ -30,6 +32,7 @@ export default function SelecteurPrestationCatalogue({
   prestationId,
   onChange,
   inclureInactifs = false,
+  role = "administrateur",
 }: Props) {
   const sousCategories = useMemo(
     () => (categorieId ? sousCategoriesDe(categorieId) : []),
@@ -39,8 +42,10 @@ export default function SelecteurPrestationCatalogue({
     () =>
       categorieId && sousCategorieId
         ? prestationsDeSousCategorie(categorieId, sousCategorieId, { inclureInactifs })
+            .map((item) => prestationPourRole(item, role))
+            .filter((item): item is PrestationCatalogue => item != null)
         : [],
-    [categorieId, sousCategorieId, inclureInactifs],
+    [categorieId, sousCategorieId, inclureInactifs, role],
   );
 
   const categorie = categorieId ? getCategorieMetier(categorieId) : undefined;
@@ -128,6 +133,9 @@ export default function SelecteurPrestationCatalogue({
           {prestations.map((item) => (
             <option key={item.id} value={item.id}>
               {item.demo ? `[DÉMO] ${item.nom}` : item.nom}
+              {item.referenceMarche
+                ? ` — indicatif ${item.referenceMarche.priceMinTTC.toLocaleString("fr-FR")}–${item.referenceMarche.priceMaxTTC.toLocaleString("fr-FR")} € TTC/${item.referenceMarche.unit}`
+                : ""}
             </option>
           ))}
         </select>

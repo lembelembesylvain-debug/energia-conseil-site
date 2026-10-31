@@ -3,6 +3,7 @@ import EnergiaCoPilot from "./EnergiaCoPilot";
 import ProjectEstimation from "./ProjectEstimation";
 import DevisClientPanel from "./chiffrage/DevisClientChiffrage";
 import ProjectionAvantApresPereira from "./ProjectionAvantApresPereira";
+import Projection3DWow from "./Projection3DWow";
 import {
   PEREIRA_A_RELEVER,
   PEREIRA_AUDIT_ID,
@@ -175,6 +176,7 @@ export default function TestMaisonPereira() {
 
         <TableauChamps titre="Identité et adresse" champs={PEREIRA_IDENTITE} />
         <TableauChamps titre="Logement" champs={PEREIRA_LOGEMENT} />
+        <Projection3DWow dossierId="demo-pereira" titre="Pereira — Projection 3D WOW (façade)" />
         <ProjectionAvantApresPereira />
         <TableauChamps titre="DPE et consommations" champs={PEREIRA_DPE} />
         <TableauChamps titre="Chauffage, ECS, ventilation, isolation" champs={PEREIRA_EQUIPEMENTS} />

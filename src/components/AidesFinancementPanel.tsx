@@ -4,6 +4,16 @@ import { UMAFI } from "../data/umafi";
 import { formatEuro } from "../types/audit";
 import type { Scenario } from "../types/audit";
 import type { AidEstimateResult, ChampFoyer, FinancementStatus, FoyerAides } from "../types/aides";
+import { mentionLegaleAidesVerifiees } from "../lib/aides/verificationLive.js";
+import BadgeVerificationLive from "./aides/BadgeVerificationLive";
+import ModuleVerificationLive from "./aides/ModuleVerificationLive";
+import { useMemo, useState } from "react";
+import {
+  appliquerDateLigne,
+  creerVerificationAidesDossier,
+  marquerAidesVerifieesWeb,
+  mettreAJourSourceVerification,
+} from "../lib/aides/verificationLive.js";
 
 const CHAMP_CLASS: Record<ChampFoyer["statut"], string> = {
   EXTRAIT: "bg-emerald-100 text-emerald-900 border-emerald-300",
@@ -40,12 +50,16 @@ export function AidesFinancementPanel({
   scenarios,
   alertesCorpus,
   financementStatus = "ÉTUDE FINANCIÈRE REQUISE",
+  admin = false,
 }: {
   foyer: FoyerAides;
   scenarios: Scenario[];
   alertesCorpus?: string[];
   financementStatus?: FinancementStatus;
+  admin?: boolean;
 }) {
+  const [verification, setVerification] = useState(() => creerVerificationAidesDossier());
+  const mention = useMemo(() => mentionLegaleAidesVerifiees(), []);
   const results: { scenario: Scenario; estimate: AidEstimateResult }[] = scenarios.map((scenario) => ({
     scenario,
     estimate: calculateAidEstimate({
@@ -68,6 +82,9 @@ export function AidesFinancementPanel({
           Barème {AID_RULES_2026.version} — entrée en vigueur {AID_RULES_2026.dateEntreeEnVigueur}.{" "}
           {AID_RULES_2026.disclaimer}
         </p>
+        <p className="mt-2 rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 text-xs font-medium text-sky-950">
+          {mention}
+        </p>
         <div className="mt-2 flex flex-wrap gap-2">
           {first ? (
             <Badge
@@ -79,6 +96,16 @@ export function AidesFinancementPanel({
           <Badge label="VALIDATION_MAR_REQUISE" className="border-transparent bg-orange-600 text-white" />
         </div>
       </div>
+
+      <ModuleVerificationLive
+        verification={verification}
+        admin={admin}
+        onDateLigne={(ligneId, date) => setVerification((actuel) => appliquerDateLigne(actuel, ligneId, date))}
+        onMarquerVerifieesWeb={(url) =>
+          setVerification((actuel) => marquerAidesVerifieesWeb(actuel, { auteur: "administrateur", url }))
+        }
+        onSourceUrl={(url) => setVerification((actuel) => mettreAJourSourceVerification(actuel, url))}
+      />
 
       <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
         <h3 className="text-lg font-semibold">Données nécessaires pour calculer les aides</h3>
@@ -186,11 +213,29 @@ export function AidesFinancementPanel({
                     {scenario.id} — estimation contrôlée ({estimate.baremeVersion}) — {estimate.profileLabel}
                   </p>
                   <p className="mt-1 text-xs text-emerald-900">{estimate.profileMessage}</p>
-                  <ul className="mt-2 grid gap-1 sm:grid-cols-2">
-                    <li>MaPrimeRénov’ : {montantOuBloque(estimate.mpr, "—")}</li>
-                    <li>CEE : {montantOuBloque(estimate.cee, "—")}</li>
+                  <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+                    <li>
+                      MaPrimeRénov’ : {montantOuBloque(estimate.mpr, "—")}
+                      <BadgeVerificationLive
+                        dateVerificationWeb={verification.lignes.find((l) => l.id === "mpr")?.dateVerificationWeb}
+                        compact
+                      />
+                    </li>
+                    <li>
+                      CEE : {montantOuBloque(estimate.cee, "—")}
+                      <BadgeVerificationLive
+                        dateVerificationWeb={verification.lignes.find((l) => l.id === "cee")?.dateVerificationWeb}
+                        compact
+                      />
+                    </li>
+                    <li>
+                      Bonus : {montantOuBloque(estimate.autres, "—")}
+                      <BadgeVerificationLive
+                        dateVerificationWeb={verification.lignes.find((l) => l.id === "bonus")?.dateVerificationWeb}
+                        compact
+                      />
+                    </li>
                     <li>Aides locales : {montantOuBloque(estimate.locales, "0,00 €")}</li>
-                    <li>Autres (coup de pouce indicatif) : {montantOuBloque(estimate.autres, "—")}</li>
                     <li>Total aides (après cumul / écrêtement) : {montantOuBloque(estimate.totalAides, "—")}</li>
                     <li>Reste à charge : {montantOuBloque(estimate.resteACharge, "—")}</li>
                   </ul>

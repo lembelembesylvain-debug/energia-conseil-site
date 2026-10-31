@@ -43,22 +43,32 @@ export default function RecapDeplacements({ deplacements, adresseChantier }: Pro
                     <dd>{chantier}</dd>
                   </div>
                   <div>
-                    <dt className="text-slate-500">Kilomètres aller-retour</dt>
+                    <dt className="text-slate-500">Distance aller simple</dt>
                     <dd>
-                      {formatKm(artisan.distanceAllerRetourKm)}{" "}
+                      {formatKm(artisan.distanceAllerKm)}{" "}
                       <span className="text-amber-800">
                         ({LABEL_SOURCE_DISTANCE[artisan.sourceDistance] ?? artisan.sourceDistance})
                       </span>
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-slate-500">Nombre de déplacements</dt>
-                    <dd>{artisan.nombreDeplacements}</dd>
+                    <dt className="text-slate-500">Jours de pose · trajets aller-retour</dt>
+                    <dd>{artisan.joursDePose} · {artisan.trajetsAR}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-slate-500">Distance hors zone incluse</dt>
+                    <dd>{formatKm(artisan.distanceHorsZoneKm)}</dd>
                   </div>
                   <div>
                     <dt className="text-slate-500">Frais estimés HT</dt>
                     <dd className="font-semibold">{formatEuro(artisan.fraisEstimesHt)}</dd>
                   </div>
+                  {artisan.fraisDeplacementHt != null && artisan.fraisDeplacementHt > 0 ? (
+                    <p className="sm:col-span-2 font-semibold text-slate-800">
+                      Frais de déplacement et logistique chantier (&gt; 30 km) :{" "}
+                      {formatEuro(artisan.fraisDeplacementHt)} HT
+                    </p>
+                  ) : null}
                   <div>
                     <dt className="text-slate-500">Comptabilisation</dt>
                     <dd className={artisan.deplacementDejaInclusDansDevis ? "text-teal-800" : "text-orange-800"}>
