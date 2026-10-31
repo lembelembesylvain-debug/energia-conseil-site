@@ -218,10 +218,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        'immobilier-chagny': resolve(__dirname, 'immobilier-chagny.html'),
-        'upload-audit': resolve(__dirname, 'src/vite-pages/upload-audit.html'),
         'maison-3d': resolve(__dirname, 'maison-3d-thermique-interactive.html'),
-        'devis-brunel-final': resolve(__dirname, 'DEVIS_BRUNEL_Indivision_COUBLE_2026_FINAL.html'),
       },
     },
   },
