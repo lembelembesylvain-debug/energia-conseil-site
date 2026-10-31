@@ -412,13 +412,21 @@ export function GmaoHub() {
             </p>
           </div>
         </div>
-        <button
-          type="button"
-          onClick={() => setIsAddModalOpen(true)}
-          className="flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 font-bold text-slate-950 shadow-lg shadow-amber-500/20 transition hover:bg-amber-600"
-        >
-          <Plus className="h-4 w-4" /> Nouvel Abonné PAC
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          <a
+            href="/maintenance"
+            className="flex items-center gap-2 rounded-xl border border-amber-500/40 bg-slate-900 px-4 py-2.5 text-sm font-semibold text-amber-400 transition hover:border-amber-400 hover:bg-slate-800"
+          >
+            <Wrench className="h-4 w-4" /> Vitrine Entretien &amp; SAV
+          </a>
+          <button
+            type="button"
+            onClick={() => setIsAddModalOpen(true)}
+            className="flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 font-bold text-slate-950 shadow-lg shadow-amber-500/20 transition hover:bg-amber-600"
+          >
+            <Plus className="h-4 w-4" /> Nouvel Abonné PAC
+          </button>
+        </div>
       </div>
 
       <div className="my-6 grid grid-cols-1 gap-4 md:grid-cols-4">

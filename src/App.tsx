@@ -22,6 +22,7 @@ import TestDashboardCRM from "./vite-pages/TestDashboardCRM.jsx";
 import RapportCompletMaisonClyve from "./components/RapportCompletMaisonClyve";
 import PresentationMaisonClyve from "./components/PresentationMaisonClyve";
 import ChiffrageAmpleurModule from "./components/chiffrage/ChiffrageAmpleurModule";
+import { MaintenanceLanding } from "./components/public/MaintenanceLanding";
 
 const AdminDashboard = lazy(() => import("./vite-pages/AdminDashboard"));
 const DetailAudit = lazy(() => import("./vite-pages/DetailAudit"));
@@ -790,19 +791,30 @@ function LandingView({ onStartAudit }: LandingViewProps) {
               ["#", "Accueil"],
               ["#comment-ca-marche", "Comment ça marche"],
               ["#aides-2026", "Aides 2026"],
+              ["/maintenance", "Entretien & SAV"],
               ["/maison-martins", "Maison Martins"],
               ["#contact", "Nous contacter"],
             ].map(([href, label]) => (
               <a
                 key={label}
                 href={href}
-                className="transition hover:text-emerald-400"
+                className={
+                  href === "/maintenance"
+                    ? "font-semibold text-amber-400 transition hover:text-amber-300"
+                    : "transition hover:text-emerald-400"
+                }
               >
                 {label}
               </a>
             ))}
           </nav>
 
+          <a
+            href="/maintenance"
+            className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-400 transition hover:text-amber-300 md:hidden"
+          >
+            SAV
+          </a>
           <a
             href="/maison-martins"
             className="shrink-0 text-[11px] font-medium uppercase tracking-[0.16em] text-[#D4AF37] transition hover:text-[#F6E7B2] md:hidden"
@@ -1093,6 +1105,29 @@ function LandingView({ onStartAudit }: LandingViewProps) {
         </div>
       </FadeSection>
 
+      <section className="border-t border-amber-500/20 bg-gradient-to-r from-slate-950 via-amber-950/30 to-slate-950 px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 rounded-2xl border border-amber-500/30 bg-slate-900/70 px-6 py-8 shadow-[0_0_40px_rgba(245,158,11,0.08)] sm:px-8 md:flex-row md:items-center">
+          <div className="max-w-2xl">
+            <p className="text-xs font-bold uppercase tracking-wider text-amber-400">
+              Entretien réglementaire &amp; conformité
+            </p>
+            <p className="mt-2 text-lg font-semibold leading-snug text-white sm:text-xl">
+              Vous possédez déjà une Pompe à Chaleur ou un Poêle ?
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400 sm:text-base">
+              Restez conforme au Décret 2020-912 avec nos Packs ENERGIA Sérénité dès{" "}
+              <span className="font-semibold text-amber-300">15,90&nbsp;€/mois</span>.
+            </p>
+          </div>
+          <a
+            href="/maintenance"
+            className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-bold text-slate-950 shadow-lg shadow-amber-500/20 transition hover:bg-amber-400"
+          >
+            Découvrir nos offres Entretien &amp; SAV →
+          </a>
+        </div>
+      </section>
+
       <footer
         id="contact"
         className="scroll-mt-24 border-t border-slate-800/80 bg-slate-950/90 px-4 py-14 text-slate-400 sm:px-6 lg:px-8"
@@ -1119,6 +1154,11 @@ function LandingView({ onStartAudit }: LandingViewProps) {
             <div className="text-sm">
               <p className="font-semibold text-white">Informations légales</p>
               <ul className="mt-3 space-y-2">
+                <li>
+                  <a href="/maintenance" className="font-medium text-amber-400 transition hover:text-amber-300">
+                    Entretien &amp; SAV
+                  </a>
+                </li>
                 {["CGV", "Mentions Légales", "Politique de confidentialité"].map((link) => (
                   <li key={link}>
                     <a href="#" className="transition hover:text-emerald-400">{link}</a>
@@ -1996,6 +2036,8 @@ export default function App() {
         <Route path="/test-dashboard-crm" element={<TestDashboardCRM />} />
         <Route path="/presentation-energia" element={<PresentationEnergia />} />
         <Route path="/maison-martins" element={<MaisonMartinsShowcase />} />
+        <Route path="/maintenance" element={<MaintenanceLanding />} />
+        <Route path="/sav-conformite" element={<MaintenanceLanding />} />
         <Route path="/carte-visite" element={<CarteVisite />} />
         <Route path="/test-maison-clyve/rapport-complet" element={<RapportCompletMaisonClyve />} />
         <Route path="/test-maison-clyve/presentation" element={<PresentationMaisonClyve />} />

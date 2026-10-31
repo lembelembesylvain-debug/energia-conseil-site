@@ -21,6 +21,7 @@ const LIENS = {
   kitDamien: "/test-dashboard-crm#presentation",
   controleInterne: "/test-dashboard-crm#controle-interne",
   dossierClient: "/test-dashboard-crm#projets",
+  maintenance: "/maintenance",
 };
 
 function NavLink({ href, children, primaire = false }) {
@@ -89,6 +90,7 @@ export default function PresentationEnergia() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <NavLink href={LIENS.maintenance}>Entretien &amp; SAV</NavLink>
             <NavLink href={LIENS.crm}>Retour au CRM</NavLink>
             <button
               type="button"
