@@ -338,12 +338,13 @@ export const PROJET_OUSSARA_DEFAUT = {
 
 /** Devis A4 signable — forfait, RIB, signature. Sans prix de revient ni interlocuteur commercial. */
 export function htmlDevisOussara() {
-  const lignes = POSTES_OUSSARA_DEVIS.map(
-    (ligne) => `<tr>
+  const ligneHtml = (ligne) => `<tr>
       <td class="num">${ligne.ordreContractuel}</td>
       <td><strong>${escapeHtml(ligne.nom)}</strong><br><span class="detail">${escapeHtml(ligne.specifications)}</span></td>
-    </tr>`,
-  ).join("\n");
+      <td class="col-inclus">Inclus dans marché forfaitaire</td>
+    </tr>`;
+  const lignesPage1 = POSTES_OUSSARA_DEVIS.filter((ligne) => ligne.ordreContractuel <= 9).map(ligneHtml).join("\n");
+  const lignesPage2 = POSTES_OUSSARA_DEVIS.filter((ligne) => ligne.ordreContractuel >= 10).map(ligneHtml).join("\n");
 
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -379,19 +380,81 @@ export function htmlDevisOussara() {
     .mention { font-family: "Segoe Script", "Segoe Print", cursive; font-size: 14px; color: #1e3a5f; }
     .julia { background: #fff7ed; border-left: 4px solid var(--orange); padding: 8px 10px; }
     .avert { font-size: 10px; color: #334155; }
+    .barre { flex-wrap: wrap; align-items: center; }
+    .barre button.st { margin-right: auto; background: #9a3412; border-color: #fdba74; }
+    body.mode-st .barre button.st { background: #166534; border-color: #86efac; }
+    .bandeau-st, .encadre-st { display: none; }
+    .bandeau-st { margin: 10px 0 0; padding: 8px 10px; background: #fff7ed; border-left: 4px solid var(--orange); font-weight: 700; color: #9a3412; }
+    .encadre-st { margin-top: 14px; border: 2px solid var(--bleu); background: #f8fafc; padding: 10px 12px; page-break-inside: avoid; }
+    .encadre-st h2 { margin-top: 0; }
+    .encadre-st .ligne-contrat { margin: 8px 0; padding: 8px 10px; background: #f0fdf4; border-left: 4px solid #16a34a; font-weight: 750; }
+    .encadre-st .exigence { margin: 8px 0 0; padding: 8px 10px; background: #fff7ed; border-left: 4px solid var(--orange); font-weight: 650; }
+    .sign-st { display: none; }
+    .col-inclus { display: none; }
+    .bandeau-st .bdc-titre { margin: 0; font-size: 12px; letter-spacing: .01em; }
+    .bandeau-st .bdc-num { margin: 2px 0 0; }
+    body.mode-st .col-inclus { display: table-cell; width: 38mm; font-size: 9px; font-weight: 650; }
+    body:not(.mode-st) .postes-suite { margin-top: -1px; }
+    body:not(.mode-st) .postes-suite thead { display: none; }
+    body.mode-st .prix-vente,
+    body.mode-st .col-prix,
+    body.mode-st th.prix,
+    body.mode-st td.prix,
+    body.mode-st .hors-st { display: none !important; }
+    body.mode-st .bandeau-st,
+    body.mode-st .encadre-st,
+    body.mode-st .sign-st { display: block; }
+    body.mode-st .page { background: transparent; box-shadow: none; padding: 0; min-height: 0; width: 210mm; }
+    body.mode-st .feuille {
+      background: white; width: 210mm; min-height: 297mm; margin: 0 auto 14px;
+      padding: 8mm 11mm; box-shadow: 0 8px 28px rgba(11,31,58,.12);
+      font-size: 10.5px; line-height: 1.25;
+    }
+    body.mode-st .feuille h1 { font-size: 11.5px; }
+    body.mode-st .feuille h2 { margin: 6px 0 3px; font-size: 11px; }
+    body.mode-st .feuille .meta { font-size: 8.5px; }
+    body.mode-st .feuille header { gap: 4px 8px; padding-bottom: 4px; }
+    body.mode-st .feuille header img { width: 42mm; }
+    body.mode-st .feuille th, body.mode-st .feuille td { padding: 3px 5px; }
+    body.mode-st .bandeau-st { margin: 4px 0 0; padding: 4px 8px; font-size: 10px; }
+    body.mode-st .encadre-st { margin-top: 8px; padding: 8px 10px; }
+    body.mode-st .encadre-st p { margin: 4px 0; }
+    body.mode-st .sign-st .cadre { min-height: 28mm; }
+    body.mode-st tr,
+    body.mode-st .encadre-st,
+    body.mode-st .sign-st { break-inside: avoid; page-break-inside: avoid; }
     @media print {
       body { background: white; }
       .barre { display: none; }
       .page { margin: 0; box-shadow: none; width: auto; min-height: auto; }
+      body.mode-st .prix-vente,
+      body.mode-st .col-prix,
+      body.mode-st th.prix,
+      body.mode-st td.prix,
+      body.mode-st .hors-st { display: none !important; }
+      body.mode-st .bandeau-st,
+      body.mode-st .encadre-st,
+      body.mode-st .sign-st { display: block !important; }
+      body.mode-st .col-inclus { display: table-cell !important; }
+      body.mode-st .page { width: auto; background: white; }
+      body.mode-st .feuille {
+        box-shadow: none; margin: 0; width: auto; min-height: 0; padding: 0;
+        break-after: auto; page-break-after: auto;
+      }
+      body.mode-st .feuille-2 {
+        break-before: page; page-break-before: always;
+      }
     }
   </style>
 </head>
 <body>
   <div class="barre">
+    <button type="button" class="st" id="btn-st" aria-pressed="false" onclick="basculerSousTraitant()">👷‍♂️ Version Consultation Sous-Traitant (Sans prix de vente)</button>
     <button type="button" onclick="window.print()">Imprimer le Devis</button>
     <a href="${CHEMIN_PDF_OUSSARA}" download>Télécharger le Devis Officiel PDF A4</a>
   </div>
   <article class="page">
+    <div class="feuille feuille-1">
     <header>
       <img src="${LOGO_ARBRES_OUSSARA}" alt="ENERGIA CONSEIL IA — trois arbres verts">
       <div>
@@ -405,6 +468,11 @@ export function htmlDevisOussara() {
       </div>
     </header>
 
+    <div class="bandeau-st">
+      <p class="bdc-titre">BON DE COMMANDE DE SOUS-TRAITANCE — MARCHÉ FORFAITAIRE FOURNITURE &amp; POSE</p>
+      <p class="bdc-num">Numéro : BDC-ST-2026-OUSSARA-MEN-01</p>
+    </div>
+
     <h2>Identité du client</h2>
     <table>
       <tr><th>Maîtres d'ouvrage</th><td>${escapeHtml(CLIENT_OUSSARA.libelleSignature)}</td></tr>
@@ -416,14 +484,49 @@ export function htmlDevisOussara() {
     </table>
 
     <h2>Détail des postes techniques</h2>
-    <p class="avert">Forfait unique. Les quatorze postes ci-dessous sont inclus dans le montant net, sans prix unitaire séparé.</p>
+    <p class="avert hors-st">Forfait unique. Les quatorze postes ci-dessous sont inclus dans le montant net, sans prix unitaire séparé.</p>
     <table>
-      <thead><tr><th style="width:14mm">N°</th><th>Désignation</th></tr></thead>
+      <thead><tr><th style="width:14mm">N°</th><th>Désignation</th><th class="col-inclus">PU / Total</th></tr></thead>
       <tbody>
-        ${lignes}
+        ${lignesPage1}
+      </tbody>
+    </table>
+    </div>
+
+    <div class="feuille feuille-2 st-page-2">
+    <table class="postes-suite">
+      <thead><tr><th style="width:14mm">N°</th><th>Désignation</th><th class="col-inclus">PU / Total</th></tr></thead>
+      <tbody>
+        ${lignesPage2}
       </tbody>
     </table>
 
+    <aside class="encadre-st" aria-label="Marché de sous-traitance">
+      <h2>Marché de sous-traitance</h2>
+      <p><strong>Prestation confiée :</strong> Fourniture complète, livraison sur chantier et pose soignée selon DTU 36.5 des 14 menuiseries extérieures aluminium et PVC avec volets roulants motorisés selon le descriptif technique des postes 1 à 14.</p>
+      <p class="ligne-contrat">Montant forfaitaire arrêté (fourniture &amp; pose) : 10 500,00 € HT (TVA 20 % : 2 100,00 € | Total TTC : 12 600,00 €).</p>
+      <p><strong>Conditions de règlement :</strong> 30 % au lancement de fabrication usine (après encaissement de l'acompte client) / Solde à réception de chantier et levée de réserves.</p>
+      <p class="exigence">Obligation légale : fourniture obligatoire d'une attestation d'assurance décennale et RC Pro en cours de validité couvrant la fourniture et pose de menuiseries extérieures avant tout démarrage.</p>
+    </aside>
+
+    <section class="sign-st">
+      <h2>Signatures</h2>
+      <div class="sign">
+        <div class="cadre">
+          <p><strong>L'Artisan Sous-Traitant</strong></p>
+          <p>Bon pour commande Fourniture et Pose</p>
+          <p>Date et signature</p>
+        </div>
+        <div class="cadre">
+          <p><strong>Pour ENERGIA CONSEIL IA®</strong></p>
+          <p>Sylvain LEMBELEMBE</p>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <div class="hors-st">
+    <section class="prix-vente">
     <h2>Récapitulatif financier</h2>
     <table class="bilan">
       <tr><td>Montant total des travaux HT</td><td class="num">${euroOussara(TOTAUX_OUSSARA.totalHtBrut)} € HT</td></tr>
@@ -432,13 +535,16 @@ export function htmlDevisOussara() {
       <tr><td>TVA applicable 20 % (construction neuve)</td><td class="num">${euroOussara(TOTAUX_OUSSARA.totalTva)} €</td></tr>
       <tr class="net"><td>Montant total net TTC</td><td class="num">${euroOussara(TOTAUX_OUSSARA.totalTtc)} € TTC</td></tr>
     </table>
+    </section>
 
+    <section class="prix-vente">
     <h2>Échéancier d'appels de fonds</h2>
     <table class="bilan">
       <tr><td>${escapeHtml(FINANCEMENT_OUSSARA.libelleAcompte)}</td><td class="num">${euroOussara(FINANCEMENT_OUSSARA.acompte)} € TTC</td></tr>
       <tr><td>${escapeHtml(FINANCEMENT_OUSSARA.libelleIntermediaire)}</td><td class="num">${euroOussara(FINANCEMENT_OUSSARA.intermediaire)} € TTC</td></tr>
       <tr><td>${escapeHtml(FINANCEMENT_OUSSARA.libelleSolde)}</td><td class="num">${euroOussara(FINANCEMENT_OUSSARA.solde)} € TTC</td></tr>
     </table>
+    </section>
     <p class="avert">${escapeHtml(CLAUSE_NEUF_OUSSARA)} ${escapeHtml(MENTION_HORS_AIDES_OUSSARA)}</p>
 
     <h2>Coordonnées bancaires — virement de l'acompte</h2>
@@ -479,7 +585,26 @@ export function htmlDevisOussara() {
       <li>MAR : Antoine BARATIER – Cabinet C2ET</li>
     </ul>
     <p class="avert">Données traitées pour la gestion du projet. Conservation 5 ans. Droits : contact@energia-conseil-ia.com. Réclamation possible auprès de la CNIL.</p>
+    </div>
   </article>
+  <script>
+    function appliquerModeSousTraitant(actif) {
+      document.body.classList.toggle("mode-st", actif);
+      var bouton = document.getElementById("btn-st");
+      if (!bouton) return;
+      bouton.setAttribute("aria-pressed", actif ? "true" : "false");
+      bouton.textContent = actif
+        ? "👷‍♂️ Consultation sous-traitant active — revenir au devis client"
+        : "👷‍♂️ Version Consultation Sous-Traitant (Sans prix de vente)";
+    }
+    function basculerSousTraitant() {
+      appliquerModeSousTraitant(!document.body.classList.contains("mode-st"));
+    }
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("st") === "1") appliquerModeSousTraitant(true);
+    })();
+  </script>
 </body>
 </html>`;
 }

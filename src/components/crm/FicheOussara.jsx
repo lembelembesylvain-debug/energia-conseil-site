@@ -25,6 +25,10 @@ function imprimerDevis() {
   fenetre.addEventListener("load", () => fenetre.print());
 }
 
+function ouvrirConsultationSousTraitant() {
+  window.open(`${CHEMIN_DEVIS_OUSSARA}?st=1`, "_blank");
+}
+
 export default function FicheOussara() {
   return (
     <div className="mt-4 space-y-4" data-testid="fiche-oussara">
@@ -63,6 +67,14 @@ export default function FicheOussara() {
           >
             <Printer className="h-3.5 w-3.5" aria-hidden />
             Imprimer le Devis
+          </button>
+          <button
+            type="button"
+            onClick={ouvrirConsultationSousTraitant}
+            className="inline-flex min-h-10 items-center gap-1.5 rounded-xl border border-orange-300/60 bg-orange-500/15 px-3 text-xs font-semibold text-orange-50 hover:bg-orange-500/25"
+            data-testid="consultation-sous-traitant-oussara"
+          >
+            👷‍♂️ Version Consultation Sous-Traitant (Sans prix de vente)
           </button>
         </div>
       </div>
