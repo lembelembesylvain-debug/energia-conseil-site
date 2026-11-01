@@ -818,8 +818,8 @@ function LandingView({ onStartAudit }: LandingViewProps) {
               ["#", "Accueil"],
               ["#comment-ca-marche", "Comment ça marche"],
               ["#aides-2026", "Aides 2026"],
+              ["#resultats", "Résultats"],
               ["/maintenance", "Entretien & SAV"],
-              ["/maison-martins", "Maison Martins"],
               ["#contact", "Nous contacter"],
             ].map(([href, label]) => (
               <a
@@ -827,7 +827,7 @@ function LandingView({ onStartAudit }: LandingViewProps) {
                 href={href}
                 className={
                   href === "/maintenance"
-                    ? "font-semibold text-amber-400 transition hover:text-amber-300"
+                    ? "font-semibold text-emerald-300 transition hover:text-emerald-200"
                     : "transition hover:text-emerald-400"
                 }
               >
@@ -838,15 +838,9 @@ function LandingView({ onStartAudit }: LandingViewProps) {
 
           <a
             href="/maintenance"
-            className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-400 transition hover:text-amber-300 md:hidden"
+            className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-300 transition hover:text-emerald-200 md:hidden"
           >
-            SAV
-          </a>
-          <a
-            href="/maison-martins"
-            className="shrink-0 text-[11px] font-medium uppercase tracking-[0.16em] text-[#D4AF37] transition hover:text-[#F6E7B2] md:hidden"
-          >
-            Martins
+            Entretien
           </a>
           <button
             type="button"
@@ -1079,7 +1073,7 @@ function LandingView({ onStartAudit }: LandingViewProps) {
         </div>
       </FadeSection>
 
-      <FadeSection className="px-4 py-20 sm:px-6 lg:px-8">
+      <FadeSection id="resultats" className="scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <h2 className={`text-center text-3xl font-bold tracking-tight sm:text-4xl ${gradientTitle}`}>
             Ils nous font confiance
