@@ -1,0 +1,13 @@
+{
+  "departement": "2B",
+  "nom": "Haute-Corse",
+  "villePrincipale": {
+    "nom": "Bastia / Calvi",
+    "lat": 42.0396,
+    "lng": 9.0129,
+    "zoom": 9
+  },
+  "type_batiment": "tertiaire",
+  "source": "aucun site tertiaire de démonstration en Haute-Corse",
+  "logements": []
+}

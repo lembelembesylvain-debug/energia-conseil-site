@@ -1,0 +1,31 @@
+{
+  "departement": "01",
+  "nom": "Ain",
+  "villePrincipale": {
+    "nom": "Bourg-en-Bresse / Val de Saône",
+    "lat": 46.05,
+    "lng": 5.05,
+    "zoom": 9
+  },
+  "type_batiment": "tertiaire",
+  "source": "extrait de démonstration — tertiaire Ain",
+  "logements": [
+    {
+      "id": "01-TER-0001",
+      "adresse": "Pôle tertiaire de la Chambière",
+      "commune": "Bourg-en-Bresse",
+      "code_postal": "01000",
+      "etiquette_dpe": "E",
+      "surface_habitable": 2400,
+      "annee_construction": 1992,
+      "type_batiment": "tertiaire",
+      "decret_tertiaire": "Assujetti",
+      "potentiel_pv_kwc": 180,
+      "lat": 46.1988,
+      "lng": 5.2462,
+      "conso_energie": 248,
+      "type_chauffage": "gaz",
+      "activite": "bureaux"
+    }
+  ]
+}

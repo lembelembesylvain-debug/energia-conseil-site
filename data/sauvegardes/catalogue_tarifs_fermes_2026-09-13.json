@@ -1,0 +1,176 @@
+{
+  "date": "2026-09-13",
+  "note": "Sauvegarde logique des 34 tarifs fermes. Ne pas écraser.",
+  "tarifs": {
+    "pv-dualsun-flash-500": {
+      "coutMaterielHt": 200,
+      "coutMainOeuvreHt": 50,
+      "prixVenteHt": 350
+    },
+    "pv-dualsun-spring-500": {
+      "coutMaterielHt": 280,
+      "coutMainOeuvreHt": 60,
+      "prixVenteHt": 450
+    },
+    "pv-enphase-iq8plus": {
+      "coutMaterielHt": 160,
+      "coutMainOeuvreHt": 40,
+      "prixVenteHt": 280
+    },
+    "pv-enphase-iq8m": {
+      "coutMaterielHt": 190,
+      "coutMainOeuvreHt": 40,
+      "prixVenteHt": 320
+    },
+    "pv-huawei-sun2000-3-6": {
+      "coutMaterielHt": 900,
+      "coutMainOeuvreHt": 250,
+      "prixVenteHt": 1600
+    },
+    "pv-huawei-sun2000-9-12": {
+      "coutMaterielHt": 1400,
+      "coutMainOeuvreHt": 300,
+      "prixVenteHt": 2300
+    },
+    "pv-pylontech-h2-3-5": {
+      "coutMaterielHt": 1200,
+      "coutMainOeuvreHt": 200,
+      "prixVenteHt": 1900
+    },
+    "pv-pylontech-h2-7": {
+      "coutMaterielHt": 2100,
+      "coutMainOeuvreHt": 250,
+      "prixVenteHt": 3200
+    },
+    "pv-pylontech-h2-10": {
+      "coutMaterielHt": 2900,
+      "coutMainOeuvreHt": 300,
+      "prixVenteHt": 4400
+    },
+    "pv-pylontech-h2-15": {
+      "coutMaterielHt": 4800,
+      "coutMainOeuvreHt": 450,
+      "prixVenteHt": 7200
+    },
+    "pv-pylontech-h2-20": {
+      "coutMaterielHt": 7200,
+      "coutMainOeuvreHt": 550,
+      "prixVenteHt": 10500
+    },
+    "pv-pylontech-h2-30": {
+      "coutMaterielHt": 10800,
+      "coutMainOeuvreHt": 750,
+      "prixVenteHt": 15750
+    },
+    "pv-huawei-luna-5": {
+      "coutMaterielHt": 1800,
+      "coutMainOeuvreHt": 250,
+      "prixVenteHt": 2800
+    },
+    "pv-huawei-luna-10": {
+      "coutMaterielHt": 3200,
+      "coutMainOeuvreHt": 300,
+      "prixVenteHt": 4800
+    },
+    "pv-huawei-luna-15": {
+      "coutMaterielHt": 5400,
+      "coutMainOeuvreHt": 550,
+      "prixVenteHt": 7800
+    },
+    "pv-huawei-luna-20": {
+      "coutMaterielHt": 7200,
+      "coutMainOeuvreHt": 650,
+      "prixVenteHt": 10200
+    },
+    "pv-huawei-luna-30": {
+      "coutMaterielHt": 10800,
+      "coutMainOeuvreHt": 850,
+      "prixVenteHt": 15000
+    },
+    "pv-coffret-ac-dc": {
+      "coutMaterielHt": 220,
+      "coutMainOeuvreHt": 180,
+      "prixVenteHt": 520
+    },
+    "pv-rails-fixations": {
+      "coutMaterielHt": 28,
+      "coutMainOeuvreHt": 18,
+      "prixVenteHt": 65
+    },
+    "pv-cables-connectique": {
+      "coutMaterielHt": 85,
+      "coutMainOeuvreHt": 45,
+      "prixVenteHt": 180
+    },
+    "pv-cables-forfait-base": {
+      "coutMaterielHt": 85,
+      "coutMainOeuvreHt": 45,
+      "prixVenteHt": 180
+    },
+    "pv-mise-a-la-terre": {
+      "coutMaterielHt": 90,
+      "coutMainOeuvreHt": 160,
+      "prixVenteHt": 390
+    },
+    "pv-calepinage": {
+      "coutMaterielHt": 0,
+      "coutMainOeuvreHt": 220,
+      "prixVenteHt": 380
+    },
+    "pv-raccordement-enedis-consuel": {
+      "coutMaterielHt": 150,
+      "coutMainOeuvreHt": 120,
+      "prixVenteHt": 400
+    },
+    "pv-consuel": {
+      "coutMaterielHt": 80,
+      "coutMainOeuvreHt": 80,
+      "prixVenteHt": 250
+    },
+    "pv-mise-en-service": {
+      "coutMaterielHt": 0,
+      "coutMainOeuvreHt": 150,
+      "prixVenteHt": 280
+    },
+    "pv-monitoring-production": {
+      "coutMaterielHt": 90,
+      "coutMainOeuvreHt": 50,
+      "prixVenteHt": 220
+    },
+    "pv-deplacement": {
+      "coutMaterielHt": 0,
+      "coutMainOeuvreHt": 80,
+      "prixVenteHt": 180
+    },
+    "pv-maintenance-annuelle": {
+      "coutMaterielHt": 0,
+      "coutMainOeuvreHt": 180,
+      "prixVenteHt": 350
+    },
+    "demo-isolation-combles-soufflee": {
+      "coutMaterielHt": 12,
+      "coutMainOeuvreHt": 8,
+      "prixVenteHt": 28
+    },
+    "demo-plafond-tendu-pvc": {
+      "coutMaterielHt": 35,
+      "coutMainOeuvreHt": 25,
+      "prixVenteHt": 85
+    },
+    "demo-peinture-interieure": {
+      "coutMaterielHt": 4,
+      "coutMainOeuvreHt": 12,
+      "prixVenteHt": 22
+    },
+    "demo-pac-air-eau": {
+      "coutMaterielHt": 4500,
+      "coutMainOeuvreHt": 2200,
+      "prixVenteHt": 8900
+    },
+    "demo-coordination-amo": {
+      "coutMaterielHt": 0,
+      "coutMainOeuvreHt": 800,
+      "prixVenteHt": 1200
+    }
+  }
+}

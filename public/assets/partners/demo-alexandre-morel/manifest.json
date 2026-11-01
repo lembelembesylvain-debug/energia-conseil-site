@@ -1,0 +1,17 @@
+{
+  "id": "demo-alexandre-morel",
+  "crmPartnerId": "demo-alexandre-morel",
+  "sourceLabel": "Alexandre Morel / QR partenaire (démo)",
+  "qrTarget": "https://www.energia-conseil-ia.com/partenaire/demo-alexandre-morel",
+  "hasPhoto": false,
+  "generatedAt": "2026-09-13T12:47:55.355Z",
+  "files": [
+    "qr.svg",
+    "carte_visite.html",
+    "carte_visite_sans_photo.html",
+    "flyer_A5.html",
+    "flyer_A5_sans_photo.html",
+    "carte_visite_sans_photo.pdf",
+    "flyer_A5_sans_photo.pdf"
+  ]
+}

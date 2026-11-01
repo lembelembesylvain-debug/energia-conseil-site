@@ -1,0 +1,472 @@
+<!--
+  Photo officielle Catarina Martins : portrait original (1920 px).
+  Recadrage portrait uniquement en CSS, sans retouche du visage ni des couleurs.
+  Usage réservé aux supports imprimés et numériques avec l’accord de Catarina Martins.
+  BAT imprimeur Top Office : 85 × 54 mm (350 g) + fond perdu 3 mm (page 91 × 60 mm).
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carte de visite — Catarina Martins</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent: #147a6b;
+      --navy: #0b1f3a;
+      --navy-deep: #071526;
+      --ink: #122033;
+      --anthracite: #3a4553;
+      --muted: #5b6b7c;
+      --line: #e6edf4;
+      --paper: #ffffff;
+      --energia: #15803d;
+      --energia-soft: #f0fdf4;
+      --bleed: 0mm;
+      --photo: 26.2mm;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #d7dee6; }
+
+    body {
+      font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .studio { min-height: 100vh; padding: 28px 24px 48px; }
+
+    .studio-bar {
+      max-width: 1200px;
+      margin: 0 auto 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+    }
+
+    .studio-bar h1 {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+
+    .studio-bar p {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .print-btn {
+      border: 0;
+      background: var(--navy);
+      color: #fff;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .board {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, calc(85mm * 1.85));
+      justify-content: center;
+      gap: 42px;
+    }
+
+    .slot { display: flex; flex-direction: column; gap: 10px; height: calc(54mm * 1.85 + 22px); }
+    .slot > span {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .card {
+      width: calc(85mm + var(--bleed) * 2);
+      height: calc(54mm + var(--bleed) * 2);
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(11, 31, 58, 0.16);
+      transform: scale(1.85);
+      transform-origin: top left;
+    }
+
+    .card--back {
+      background: radial-gradient(120% 90% at 50% 20%, #143056 0%, var(--navy-deep) 72%);
+      color: #fff;
+    }
+
+    .pad {
+      height: 100%;
+      padding: calc(3.6mm + var(--bleed)) calc(4.2mm + var(--bleed)) calc(2.8mm + var(--bleed));
+      display: flex;
+      flex-direction: column;
+    }
+
+    .recto-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) var(--photo);
+      gap: 3mm;
+      align-items: stretch;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    .copy {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 0;
+      height: 100%;
+    }
+
+    .portrait {
+      margin: 0;
+      width: var(--photo);
+      height: 38.2mm;
+      overflow: hidden;
+      background: transparent;
+      flex-shrink: 0;
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 54% 6%;
+      display: block;
+    }
+
+    .identity { min-width: 0; }
+
+    .name {
+      font-size: 5.35mm;
+      font-weight: 800;
+      letter-spacing: -0.055em;
+      color: var(--navy);
+      line-height: 0.92;
+    }
+
+    .name span { display: block; }
+
+    .role {
+      margin-top: 1.7mm;
+      display: grid;
+      gap: 0.45mm;
+      max-width: 54mm;
+    }
+
+    .role-main {
+      font-size: 2.05mm;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--anthracite);
+    }
+
+    .role-spec {
+      font-size: 1.85mm;
+      font-weight: 700;
+      line-height: 1.28;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+
+    .coords {
+      margin-top: 2.6mm;
+      display: grid;
+      gap: 0.72mm;
+      font-size: 2.05mm;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    .coords div {
+      display: grid;
+      grid-template-columns: 10.2mm 1fr;
+      align-items: baseline;
+      column-gap: 1.4mm;
+    }
+
+    .coords dt {
+      font-size: 1.55mm;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .coords dd {
+      min-width: 0;
+      overflow-wrap: normal;
+      hyphens: none;
+      white-space: nowrap;
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      font-size: 1.72mm;
+      line-height: 1.28;
+    }
+
+    .coords a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .footer {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.7mm;
+      margin-top: auto;
+      padding-top: 1.2mm;
+      border-top: 0.18mm solid var(--line);
+    }
+
+    .partner-label {
+      display: flex;
+      align-items: center;
+      gap: 1.3mm;
+      min-width: 0;
+    }
+
+    .partner-label img {
+      height: 4mm;
+      width: auto;
+      display: block;
+      object-fit: contain;
+      object-position: left center;
+      flex-shrink: 0;
+    }
+
+    .partner-label p {
+      font-size: 1.5mm;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+
+    .partner-label strong {
+      font-weight: 700;
+      color: #3f6a4a;
+    }
+
+    .rsac {
+      flex-shrink: 0;
+      margin: 0;
+      font-size: 5.8pt;
+      font-weight: 400;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #8b98a6;
+      text-align: right;
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      opacity: 0.92;
+    }
+
+    .hyphen-fine {
+      font-size: 0.85em;
+      font-weight: 400;
+      opacity: 0.8;
+      letter-spacing: -0.04em;
+    }
+
+    .back-pad {
+      align-items: center;
+      text-align: center;
+      padding-top: calc(5.2mm + var(--bleed));
+      padding-bottom: calc(3.6mm + var(--bleed));
+    }
+
+    .hook {
+      margin: 0 2.4mm;
+      text-align: center;
+      font-size: 3.15mm;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.22;
+      max-width: 68mm;
+    }
+
+    .qr-wrap {
+      margin: auto;
+      width: 24.4mm;
+      height: 24.4mm;
+      background: #fff;
+      border-radius: 1.4mm;
+      padding: 2.2mm;
+      display: grid;
+      place-items: center;
+    }
+
+    .qr-wrap img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .back-foot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1mm;
+    }
+
+    .back-foot .partner-label img { height: 5.2mm; filter: brightness(1.08); }
+
+    .back-foot .partner-label p {
+      white-space: normal;
+      text-align: left;
+      color: rgba(255,255,255,0.78);
+    }
+
+    .back-foot .partner-label strong { color: #fff; font-weight: 700; }
+
+    .back-site {
+      font-size: 1.55mm;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.55);
+    }
+
+    @media screen and (max-width: 720px) {
+      :root { --photo: 24.5mm; }
+      .portrait { height: 38mm; }
+    }
+
+    @page { size: 91mm 60mm; margin: 0; }
+
+    @media print {
+      :root {
+        --bleed: 3mm;
+        --photo: 27mm;
+      }
+      .studio-bar, .slot > span { display: none !important; }
+      body, html { background: #fff; }
+      .studio { padding: 0; }
+      .board { display: block; max-width: none; }
+      .slot { gap: 0; height: auto; }
+      .card {
+        box-shadow: none;
+        transform: none;
+        page-break-after: always;
+        break-after: page;
+      }
+      .card:last-child { page-break-after: auto; }
+      .portrait {
+        height: auto;
+        min-height: 0;
+        align-self: stretch;
+        margin-right: calc(-4.2mm - var(--bleed));
+        margin-top: calc(-0.6mm);
+      }
+      .card:not(.card--back) .pad {
+        padding-top: calc(3.4mm + var(--bleed));
+        padding-bottom: calc(3.4mm + var(--bleed));
+      }
+      .card:not(.card--back) .name { font-size: 5.15mm; }
+      .card:not(.card--back) .role { margin-top: 1.4mm; }
+      .card:not(.card--back) .coords { margin-top: 2.1mm; gap: 0.58mm; }
+      .card:not(.card--back) .footer { margin-top: 1.3mm; padding-top: 1.2mm; }
+      .back-pad {
+        padding-top: calc(5.6mm + var(--bleed));
+        padding-bottom: calc(4mm + var(--bleed));
+      }
+      body { font-family: Arial, Helvetica, sans-serif; }
+    }
+  </style>
+</head>
+<body>
+  <main class="studio">
+    <div class="studio-bar">
+      <div>
+        <h1>Carte de visite — Catarina Martins</h1>
+        <p>Trim 85 × 54 mm · 350 g · fond perdu 3 mm · Top Office · Catarina au premier plan</p>
+      </div>
+      <button class="print-btn" type="button" onclick="window.print()">Imprimer / PDF imprimeur</button>
+    </div>
+
+    <div class="board">
+      <div class="slot">
+        <span>Recto — Catarina</span>
+        <article class="card" aria-label="Recto de la carte de visite">
+          <div class="pad">
+            <div class="recto-grid">
+              <div class="copy">
+                <div class="identity">
+                  <p class="name"><span>Catarina</span><span>Martins</span></p>
+                  <p class="role">
+                    <span class="role-main">Conseillère en Immobilier&nbsp;&amp;<br />Aménagement d’Intérieur</span>
+                  </p>
+                </div>
+
+                <div class="coords">
+                  <div>
+                    <dt>Tél.</dt>
+                    <dd>06 61 37 14 64</dd>
+                  </div>
+                  <div>
+                    <dt>Mail</dt>
+                    <dd><a href="mailto:contact@catarinamartins-immobilier.fr">contact@catarinamartins<span class="hyphen-fine">-</span>immobilier.fr</a></dd>
+                  </div>
+                  <div>
+                    <dt>Secteur</dt>
+                    <dd>Chagny, Côte&#8209;d’Or &amp; Saône&#8209;et&#8209;Loire</dd>
+                  </div>
+                  <div>
+                    <dt>Site</dt>
+                    <dd><a href="https://catarinamartins-immobilier.fr">catarinamartins<span class="hyphen-fine">-</span>immobilier.fr</a></dd>
+                  </div>
+                </div>
+              </div>
+
+              <figure class="portrait">
+                <img src="assets/catarina-martins.png" alt="Catarina Martins, conseillère en immobilier et aménagement d'intérieur" />
+              </figure>
+            </div>
+            <div class="footer">
+              <aside class="partner-label" aria-label="Partenaire technique">
+                <img src="assets/energia-logo-arbres.png" alt="" />
+                <p>Avec l’expertise technique d’<strong>ENERGIA CONSEIL IA®</strong></p>
+              </aside>
+              <p class="rsac">Agent commercial EI - RSAC Dijon 819 244 328</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="slot">
+        <span>Verso — Accroche</span>
+        <article class="card card--back" aria-label="Verso de la carte de visite">
+          <div class="pad back-pad">
+            <h2 class="hook">Valorisez votre bien avant de vendre, acheter ou rénover.</h2>
+            <div class="qr-wrap">
+              <img src="assets/qr-immobilier-chagny.svg" alt="QR code vers https://catarinamartins-immobilier.fr" />
+            </div>
+            <div class="back-foot">
+              <aside class="partner-label">
+                <img src="assets/energia-logo-arbres.png" alt="" />
+                <p>Avec l’expertise technique d’<br /><strong>ENERGIA CONSEIL IA®</strong></p>
+              </aside>
+              <p class="back-site">catarinamartins<span class="hyphen-fine">-</span>immobilier.fr</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

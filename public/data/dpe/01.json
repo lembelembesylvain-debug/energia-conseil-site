@@ -1,0 +1,71 @@
+{
+  "departement": "01",
+  "nom": "Ain",
+  "villePrincipale": {
+    "nom": "Bourg-en-Bresse / Val de Saône",
+    "lat": 46.05,
+    "lng": 5.05,
+    "zoom": 9
+  },
+  "source": "extrait de démonstration — bassin Ain / Val de Saône",
+  "logements": [
+    {
+      "id": "01-DPE-0001",
+      "adresse": "14 Rue de la République",
+      "commune": "Bourg-en-Bresse",
+      "code_postal": "01000",
+      "etiquette_dpe": "F",
+      "surface_habitable": 118,
+      "annee_construction": 1971,
+      "type_batiment": "maison",
+      "lat": 46.2052,
+      "lng": 5.2254,
+      "conso_energie": 352,
+      "type_chauffage": "fioul"
+    },
+    {
+      "id": "01-DPE-0002",
+      "adresse": "8 Grande Rue",
+      "commune": "Pont-de-Vaux",
+      "code_postal": "01190",
+      "etiquette_dpe": "G",
+      "surface_habitable": 96,
+      "annee_construction": 1956,
+      "type_batiment": "maison",
+      "lat": 46.4318,
+      "lng": 4.9395,
+      "conso_energie": 468,
+      "type_chauffage": "fioul",
+      "motif_dpe": "location",
+      "statut_occupation": "bailleur"
+    },
+    {
+      "id": "01-DPE-0003",
+      "adresse": "22 Rue du Général de Gaulle",
+      "commune": "Trévoux",
+      "code_postal": "01600",
+      "etiquette_dpe": "F",
+      "surface_habitable": 124,
+      "annee_construction": 1968,
+      "type_batiment": "maison",
+      "lat": 45.9407,
+      "lng": 4.7748,
+      "conso_energie": 341,
+      "type_chauffage": "électrique"
+    },
+    {
+      "id": "01-DPE-0004",
+      "adresse": "5 Place Carnot",
+      "commune": "Montluel",
+      "code_postal": "01120",
+      "etiquette_dpe": "E",
+      "surface_habitable": 102,
+      "annee_construction": 1982,
+      "type_batiment": "maison",
+      "lat": 45.8515,
+      "lng": 5.0562,
+      "conso_energie": 268,
+      "type_chauffage": "gaz"
+    }
+  ]
+}

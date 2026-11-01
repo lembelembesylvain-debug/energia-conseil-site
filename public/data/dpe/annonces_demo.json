@@ -1,0 +1,152 @@
+[
+  {
+    "id": "immo-1",
+    "title": "Maison de caractère à rénover",
+    "price": 165000,
+    "city": "Chalon-sur-Saône",
+    "lat": 46.785,
+    "lng": 4.852,
+    "dpe": "G",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-2",
+    "title": "Pavillon années 70, chauffage fioul",
+    "price": 189000,
+    "city": "Chalon-sur-Saône",
+    "lat": 46.7764,
+    "lng": 4.8612,
+    "dpe": "G",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-3",
+    "title": "Maison de village proche gare",
+    "price": 142000,
+    "city": "Chalon-sur-Saône",
+    "lat": 46.7918,
+    "lng": 4.8446,
+    "dpe": "F",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-4",
+    "title": "Longère à isoler, combles perdus",
+    "price": 198000,
+    "city": "Chalon-sur-Saône",
+    "lat": 46.7692,
+    "lng": 4.8398,
+    "dpe": "G",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-5",
+    "title": "Maison mitoyenne à valoriser",
+    "price": 175000,
+    "city": "Chalon-sur-Saône",
+    "lat": 46.7826,
+    "lng": 4.8684,
+    "dpe": "F",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-6",
+    "title": "Maison de ville à rénover",
+    "price": 210000,
+    "city": "Dijon",
+    "lat": 47.3248,
+    "lng": 5.0382,
+    "dpe": "G",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-7",
+    "title": "Pavillon Chenôve, DPE F",
+    "price": 168000,
+    "city": "Dijon",
+    "lat": 47.3126,
+    "lng": 5.0294,
+    "dpe": "F",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-8",
+    "title": "Maison années 60 à Talant",
+    "price": 225000,
+    "city": "Dijon",
+    "lat": 47.3364,
+    "lng": 5.0128,
+    "dpe": "G",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-9",
+    "title": "Maison de maître à reprendre",
+    "price": 289000,
+    "city": "Dijon",
+    "lat": 47.3182,
+    "lng": 5.0516,
+    "dpe": "F",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-10",
+    "title": "Petite maison Dijon sud",
+    "price": 159000,
+    "city": "Dijon",
+    "lat": 47.3058,
+    "lng": 5.0442,
+    "dpe": "G",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-11",
+    "title": "Maison de ville Lyon 8e",
+    "price": 320000,
+    "city": "Lyon",
+    "lat": 45.7486,
+    "lng": 4.8614,
+    "dpe": "G",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-12",
+    "title": "Maison Caluire à isoler",
+    "price": 385000,
+    "city": "Lyon",
+    "lat": 45.7942,
+    "lng": 4.8468,
+    "dpe": "F",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-13",
+    "title": "Pavillon Vénissieux, passoire G",
+    "price": 245000,
+    "city": "Lyon",
+    "lat": 45.7058,
+    "lng": 4.8806,
+    "dpe": "G",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-14",
+    "title": "Maison Villeurbanne DPE F",
+    "price": 298000,
+    "city": "Lyon",
+    "lat": 45.7698,
+    "lng": 4.8884,
+    "dpe": "F",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  },
+  {
+    "id": "immo-15",
+    "title": "Maison Lyon 3e à rénover",
+    "price": 410000,
+    "city": "Lyon",
+    "lat": 45.7542,
+    "lng": 4.8426,
+    "dpe": "G",
+    "url": "https://catarina-martins-rea-1jdp.bolt.host"
+  }
+]

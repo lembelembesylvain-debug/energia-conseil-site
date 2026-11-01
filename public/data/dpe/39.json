@@ -1,0 +1,57 @@
+{
+  "departement": "39",
+  "nom": "Jura",
+  "villePrincipale": {
+    "nom": "Lons-le-Saunier",
+    "lat": 46.6754,
+    "lng": 5.555,
+    "zoom": 11
+  },
+  "source": "extrait de démonstration — Jura",
+  "logements": [
+    {
+      "id": "39-DPE-0001",
+      "adresse": "10 Rue du Commerce",
+      "commune": "Lons-le-Saunier",
+      "code_postal": "39000",
+      "etiquette_dpe": "G",
+      "surface_habitable": 108,
+      "annee_construction": 1962,
+      "type_batiment": "maison",
+      "lat": 46.6754,
+      "lng": 5.555,
+      "conso_energie": 490,
+      "type_chauffage": "fioul"
+    },
+    {
+      "id": "39-DPE-0002",
+      "adresse": "18 Rue de Besançon",
+      "commune": "Dole",
+      "code_postal": "39100",
+      "etiquette_dpe": "F",
+      "surface_habitable": 132,
+      "annee_construction": 1954,
+      "type_batiment": "maison",
+      "lat": 47.0922,
+      "lng": 5.4916,
+      "conso_energie": 374,
+      "type_chauffage": "gaz"
+    },
+    {
+      "id": "39-DPE-0003",
+      "adresse": "4 Rue du Pré",
+      "commune": "Saint-Claude",
+      "code_postal": "39200",
+      "etiquette_dpe": "F",
+      "surface_habitable": 94,
+      "annee_construction": 1948,
+      "type_batiment": "maison",
+      "lat": 46.3872,
+      "lng": 5.8648,
+      "conso_energie": 389,
+      "type_chauffage": "fioul",
+      "motif_dpe": "location",
+      "statut_occupation": "bailleur"
+    }
+  ]
+}

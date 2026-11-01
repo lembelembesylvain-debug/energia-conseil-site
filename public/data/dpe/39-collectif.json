@@ -1,0 +1,32 @@
+{
+  "departement": "39",
+  "nom": "Jura",
+  "villePrincipale": {
+    "nom": "Lons-le-Saunier",
+    "lat": 46.6754,
+    "lng": 5.555,
+    "zoom": 11
+  },
+  "type_batiment": "collectif",
+  "source": "extrait de démonstration — copropriété Jura",
+  "logements": [
+    {
+      "id": "39-COL-0001",
+      "adresse": "Résidence des Cordeliers",
+      "commune": "Lons-le-Saunier",
+      "code_postal": "39000",
+      "etiquette_dpe": "G",
+      "dpe_immeuble": "G",
+      "surface_habitable": 1420,
+      "annee_construction": 1970,
+      "type_batiment": "collectif",
+      "nb_lots": 18,
+      "lat": 46.6728,
+      "lng": 5.5512,
+      "conso_energie": 448,
+      "type_chauffage": "gaz collectif",
+      "motif_dpe": "location",
+      "statut_occupation": "bailleur"
+    }
+  ]
+}

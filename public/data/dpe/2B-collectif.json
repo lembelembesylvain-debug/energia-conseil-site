@@ -1,0 +1,35 @@
+{
+  "departement": "2B",
+  "nom": "Haute-Corse",
+  "villePrincipale": {
+    "nom": "Bastia / Calvi",
+    "lat": 42.0396,
+    "lng": 9.0129,
+    "zoom": 9
+  },
+  "type_batiment": "collectif",
+  "source": "cible test Serge — résidence touristique Porto-Vecchio, visible depuis 2B",
+  "logements": [
+    {
+      "id": "2A-SERGE-PVEC-001",
+      "adresse": "Résidence U Lioni, Route de Bonifacio",
+      "commune": "Porto-Vecchio",
+      "code_postal": "20137",
+      "etiquette_dpe": "G",
+      "dpe_immeuble": "G",
+      "surface_habitable": 310,
+      "niveaux": 2,
+      "type_batiment": "collectif",
+      "nb_lots": 6,
+      "lat": 41.5835,
+      "lng": 9.2758,
+      "conso_energie": 472,
+      "type_chauffage": "électrique",
+      "motif_dpe": "location",
+      "statut_occupation": "bailleur",
+      "cible_serge": true,
+      "activite": "Petite résidence touristique",
+      "offre": "Pack PAC réversible + solaire toiture"
+    }
+  ]
+}

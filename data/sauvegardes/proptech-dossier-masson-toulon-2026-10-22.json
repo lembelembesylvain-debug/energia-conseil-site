@@ -1,0 +1,104 @@
+{
+  "reference": "DEV-2026-MASSON-01",
+  "date_emission": "2026-10-22",
+  "date_validite": "2026-11-06",
+  "validite_jours": 15,
+  "client": {
+    "civilite": "Mme",
+    "nom": "MASSON",
+    "prenom": "Kristell",
+    "telephone": "0768862082",
+    "email": "kristem@hotmail.fr",
+    "adresse": "176 Rue Bossuet - Bâtiment Orion 5",
+    "code_postal": "83000",
+    "ville": "Toulon",
+    "type_logement": "Appartement"
+  },
+  "prestation": {
+    "titre": "Remplacement chaudière murale gaz - Pack Complet Copropriété",
+    "depose": "Chaudière ELM LEBLANC GLM 23 existante — plaque relevée GLM23-1H",
+    "fourniture_pose": "Saunier Duval Themafast Classic V 18/24 (VMC Gaz / Conduit)",
+    "fumisterie": "Pack complet conduit D125 aluminium M0, bouche BAZ VMC gaz, raccordement condensats et sécurité DSC",
+    "desembouage": "Machine hydrodynamique + filtre à boue magnétique + inhibiteur",
+    "conformite": "Certificat Qualigaz CC2 inclus",
+    "logistique": "Déplacement A/R Mâcon - Toulon (900 km)"
+  },
+  "postes": [
+    {
+      "ordre": 1,
+      "designation": "Dépose & Évacuation",
+      "montant_ht": 180
+    },
+    {
+      "ordre": 2,
+      "designation": "Chaudière Saunier Duval Themafast Classic V 18/24",
+      "montant_ht": 1690
+    },
+    {
+      "ordre": 3,
+      "designation": "Pack Fumisterie Complète Copro & Bouche BAZ D125 & Sécurité DSC",
+      "montant_ht": 320
+    },
+    {
+      "ordre": 4,
+      "designation": "Désembouage hydrodynamique machine + Filtre à boue magnétique",
+      "montant_ht": 390
+    },
+    {
+      "ordre": 5,
+      "designation": "Thermostat d’ambiance + Certificat CC2 Qualigaz",
+      "montant_ht": 180
+    },
+    {
+      "ordre": 6,
+      "designation": "Forfait Logistique Déplacement Mâcon → Toulon (900 km A/R)",
+      "montant_ht": 390
+    }
+  ],
+  "finances": {
+    "montant_ht": 3150.0,
+    "taux_tva": 10.0,
+    "montant_tva": 315.0,
+    "montant_ttc": 3465.0,
+    "acompte_30_ttc": 1039.5,
+    "solde_70_ttc": 2425.5
+  },
+  "sous_traitance": {
+    "entreprise": "BMI",
+    "dirigeant": "Mohamed BENAOUDA",
+    "adresse": "5 Grande Rue, 71260 Lugny",
+    "siren": "488327784",
+    "decennale": "Entoria (Fidelidade) n° CRCD04-001151",
+    "decennale_validite_au": "2026-10-31",
+    "montant_ht": 2450.0,
+    "tva": 0,
+    "net_a_payer": 2450.0,
+    "acompte_30": 735.0,
+    "solde_70": 1715.0,
+    "regime": "Autoliquidation de la TVA — article 283-2 nonies du CGI",
+    "couverture": "Fourniture chaudière Saunier Duval, pack fumisterie complète D125 (3 ml + 2 coudes 90° + colliers), dépose/pose, désembouage machine, certificat CC2 Qualigaz et forfait déplacement A/R Mâcon-Toulon (900 km).",
+    "bon_de_commande": {
+      "reference": "BDC-2026-ST-MASSON-01",
+      "date_emission": "2026-10-22",
+      "devis_client": "DEV-2026-MASSON-01",
+      "fichier": "BDC_MOMO_TOULON_2026.html",
+      "lots": [
+        "Fourniture chaudière Saunier Duval Themafast Classic V 18/24",
+        "Pack fumisterie D125 (3 m rigide + 2 coudes 90° + bouche BAZ + sécurité DSC)",
+        "Dépose ancienne chaudière, pose, raccordements cuivre/gaz et déchetterie",
+        "Désembouage machine + produit inhibiteur + filtre à boue magnétique",
+        "Thermostat d’ambiance et Certificat CC2 Qualigaz",
+        "Forfait déplacement A/R Mâcon - Toulon (900 km, péages et carburant inclus)",
+        "Protocole Sûreté-6™ (10 photos de traçabilité et PV de fin de chantier sans réserve)"
+      ]
+    }
+  },
+  "marge_nette_ht": 700.0,
+  "photos": [
+    "photo_facade_chaudiere.jpg",
+    "photo_plaque_technique.jpg",
+    "PHOTO3.jpg"
+  ],
+  "statut": "DEVIS_ENVOYE",
+  "coordination_travaux": "MOHAMED_BENAOUDA"
+}

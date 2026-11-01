@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "date": "2026-10-05T17:30:11.692Z",
+  "dossierId": "lead-massardier-cuisine-2026",
+  "role": "commercial",
+  "edition": {
+    "version": 1,
+    "client": {
+      "nom": "Roger Massardier",
+      "prenom": "Roger",
+      "telephone": "06 59 39 82 26",
+      "email": "",
+      "adresse": "",
+      "anneeConstruction": "",
+      "surfaceHabitable": "",
+      "statutOccupation": ""
+    },
+    "travaux": [],
+    "aides": {
+      "profil": "",
+      "parcours": "parcours",
+      "gainClasses": 2,
+      "region": "",
+      "overrides": {
+        "mpr": null,
+        "cee": null,
+        "locales": null,
+        "coupDePouce": null
+      }
+    },
+    "financement": {
+      "ecoPtzMontant": 15000,
+      "ecoPtzDuree": 15,
+      "apportPersonnel": null
+    },
+    "pieces": {
+      "photo_facades": {
+        "id": "photo_facades",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "photo_chaufferie": {
+        "id": "photo_chaufferie",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "photo_combles": {
+        "id": "photo_combles",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "photo_tableau": {
+        "id": "photo_tableau",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "avis_imposition": {
+        "id": "avis_imposition",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "facture_energie_dpe": {
+        "id": "facture_energie_dpe",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      }
+    },
+    "finances": {
+      "coutMaterielHt": null,
+      "coutPoseRgeHt": null,
+      "tauxCommission": null
+    },
+    "valorisation": {
+      "prixM2Constate": null,
+      "dpeActuel": "",
+      "dpeCible": ""
+    },
+    "verrouillageOfficiel": false,
+    "devisOfficiel": null,
+    "mentionsJuridiques": [],
+    "prestataire": null,
+    "mar": null,
+    "offreActive": "performance"
+  },
+  "sniper": null,
+  "tunnel": {
+    "surfaces": {
+      "surfaceHabitable": null,
+      "surfaceLignesM2": null,
+      "surfaceRef": null
+    },
+    "totaux": {
+      "lignes": [],
+      "totalHt": 0,
+      "totalTva": 0,
+      "totalTtc": 0
+    },
+    "aides": {
+      "profil": "",
+      "parcours": "parcours",
+      "mpr": 0,
+      "cee": 0,
+      "locales": 0,
+      "mar": 0,
+      "coupDePouce": 0,
+      "totalAides": 0,
+      "mention": "Aides financières 2026 (estimation à titre indicatif). Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.",
+      "mentionCee": null,
+      "nonCumulCeeParcours": false,
+      "verrouillageOfficiel": false
+    },
+    "resteACharge": 0,
+    "ecoPtzAuto": {
+      "montant": 0,
+      "duree": 20,
+      "mensualite": 0,
+      "mensualite15": 0,
+      "mensualite20": 0,
+      "canal": "eco_ptz_etat"
+    },
+    "plusValue": {
+      "calculable": false,
+      "surface": 0,
+      "prixM2": 1850,
+      "prime": 0.14,
+      "valeurActuelle": 0,
+      "montant": 0,
+      "mention": "Plus-value vénale et ROI propriétaire : estimation indicative 2026, hors frais de notaire. À valider par une expertise immobilière. Ne constitue pas une garantie de prix de vente."
+    },
+    "roi": {
+      "pourcentage": null,
+      "multiple": null
+    }
+  },
+  "controles": {
+    "financesInternesIncluses": false,
+    "mention": "Onglet Finances et marges masqué pour le mode commercial / partenaire. Snapshot sans coûts d’achat ni marge nette hors administrateur."
+  }
+}

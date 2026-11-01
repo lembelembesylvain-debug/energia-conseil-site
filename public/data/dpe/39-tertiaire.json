@@ -1,0 +1,31 @@
+{
+  "departement": "39",
+  "nom": "Jura",
+  "villePrincipale": {
+    "nom": "Lons-le-Saunier",
+    "lat": 46.6754,
+    "lng": 5.555,
+    "zoom": 11
+  },
+  "type_batiment": "tertiaire",
+  "source": "extrait de démonstration — tertiaire Jura",
+  "logements": [
+    {
+      "id": "39-TER-0001",
+      "adresse": "Immeuble tertiaire Place de la Liberté",
+      "commune": "Lons-le-Saunier",
+      "code_postal": "39000",
+      "etiquette_dpe": "D",
+      "surface_habitable": 1600,
+      "annee_construction": 1988,
+      "type_batiment": "tertiaire",
+      "decret_tertiaire": "Assujetti",
+      "potentiel_pv_kwc": 140,
+      "lat": 46.6741,
+      "lng": 5.5534,
+      "conso_energie": 210,
+      "type_chauffage": "gaz",
+      "activite": "bureaux"
+    }
+  ]
+}

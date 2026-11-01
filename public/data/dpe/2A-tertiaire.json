@@ -1,0 +1,13 @@
+{
+  "departement": "2A",
+  "nom": "Corse-du-Sud",
+  "villePrincipale": {
+    "nom": "Ajaccio / Porto-Vecchio",
+    "lat": 42.0396,
+    "lng": 9.0129,
+    "zoom": 9
+  },
+  "type_batiment": "tertiaire",
+  "source": "aucun site tertiaire de démonstration en Corse-du-Sud",
+  "logements": []
+}

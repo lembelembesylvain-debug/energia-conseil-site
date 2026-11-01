@@ -1,0 +1,179 @@
+{
+  "version": 1,
+  "annee": 2026,
+  "mentionAutoliquidation": "Sous-traitance de travaux de bâtiment — TVA autoliquidée par le preneur assujetti (Article 283-2 nonies du Code Général des Impôts)",
+  "ratiosMarche2026": {
+    "materiel_lourd": { "materiel": 0.6, "pose": 0.22, "marge": 0.18 },
+    "second_oeuvre": { "materiel": 0.28, "pose": 0.5, "marge": 0.22 },
+    "menuiseries": { "materiel": 0.45, "pose": 0.275, "marge": 0.275 },
+    "electricite": { "materiel": 0.38, "pose": 0.42, "marge": 0.2 },
+    "isolation": { "materiel": 0.4, "pose": 0.38, "marge": 0.22 }
+  },
+  "profilParCategorie": {
+    "photovoltaique": "materiel_lourd",
+    "pompe-a-chaleur": "materiel_lourd",
+    "chauffage": "materiel_lourd",
+    "climatisation": "materiel_lourd",
+    "poele-bois-granules": "materiel_lourd",
+    "mobilite-electrique": "materiel_lourd",
+    "chauffe-eau-solaire": "materiel_lourd",
+    "peinture": "second_oeuvre",
+    "plafonds-tendus": "second_oeuvre",
+    "carrelage": "second_oeuvre",
+    "maconnerie": "second_oeuvre",
+    "demolition": "second_oeuvre",
+    "ravalement-facade": "second_oeuvre",
+    "terrassement": "second_oeuvre",
+    "paysagisme": "second_oeuvre",
+    "toiture": "second_oeuvre",
+    "charpente": "second_oeuvre",
+    "piscine": "second_oeuvre",
+    "renovation-globale": "second_oeuvre",
+    "menuiserie": "menuiseries",
+    "menuiserie-interieure": "menuiseries",
+    "double-vitrage": "menuiseries",
+    "serrurerie": "menuiseries",
+    "vitrerie": "menuiseries",
+    "plomberie": "menuiseries",
+    "plomberie-sanitaire": "menuiseries",
+    "electricite": "electricite",
+    "isolation": "isolation"
+  },
+  "categoriesStrategiques": [
+    {
+      "id": "isolation",
+      "ordre": 7,
+      "label": "07 — Isolation",
+      "categorieIds": ["isolation"]
+    },
+    {
+      "id": "menuiserie",
+      "ordre": 9,
+      "label": "09 — Menuiserie",
+      "categorieIds": ["menuiserie", "double-vitrage"]
+    },
+    {
+      "id": "pac",
+      "ordre": 23,
+      "label": "23 / 06 — Pompe à chaleur",
+      "categorieIds": ["pompe-a-chaleur", "chauffage"]
+    },
+    {
+      "id": "ecs-vmc",
+      "label": "Chauffe-eau & Ventilation",
+      "categorieIds": ["plomberie-sanitaire", "electricite"]
+    }
+  ],
+  "prestations": [
+    {
+      "id": "combles-r7",
+      "categorieId": "isolation",
+      "motsCles": ["comble", "souffl"],
+      "metier": "Combles perdus R≥7",
+      "unite": "m²",
+      "modeSousTraitanceDefaut": "fourniture_pose",
+      "coutFourniturePoseHt": 22,
+      "coutMaterielDirectHt": 11,
+      "coutPoseRgeHt": 8
+    },
+    {
+      "id": "planchers-r3",
+      "categorieId": "isolation",
+      "motsCles": ["plancher"],
+      "metier": "Planchers bas R≥3",
+      "unite": "m²",
+      "modeSousTraitanceDefaut": "fourniture_pose",
+      "coutFourniturePoseHt": 45,
+      "coutMaterielDirectHt": 22,
+      "coutPoseRgeHt": 18
+    },
+    {
+      "id": "ite",
+      "categorieId": "isolation",
+      "motsCles": ["ite", "exterieur"],
+      "metier": "ITE murs",
+      "unite": "m²",
+      "modeSousTraitanceDefaut": "fourniture_pose",
+      "coutFourniturePoseHt": 95,
+      "coutMaterielDirectHt": 48,
+      "coutPoseRgeHt": 35
+    },
+    {
+      "id": "fenetres-pvc",
+      "categorieId": "menuiserie",
+      "motsCles": ["fenetre", "pvc"],
+      "metier": "Fenêtres PVC Uw≤1,30",
+      "unite": "u",
+      "modeSousTraitanceDefaut": "fourniture_pose",
+      "coutFourniturePoseHt": 480,
+      "coutMaterielDirectHt": 280,
+      "coutPoseRgeHt": 130
+    },
+    {
+      "id": "portes-entree",
+      "categorieId": "menuiserie",
+      "motsCles": ["porte"],
+      "metier": "Portes d’entrée Ud≤1,50",
+      "unite": "u",
+      "modeSousTraitanceDefaut": "fourniture_pose",
+      "coutFourniturePoseHt": 1200,
+      "coutMaterielDirectHt": 850,
+      "coutPoseRgeHt": 180
+    },
+    {
+      "id": "volets-solaires",
+      "categorieId": "menuiserie",
+      "motsCles": ["volet"],
+      "metier": "Volets solaires",
+      "unite": "u",
+      "modeSousTraitanceDefaut": "fourniture_pose",
+      "coutFourniturePoseHt": 420,
+      "coutMaterielDirectHt": 260,
+      "coutPoseRgeHt": 90
+    },
+    {
+      "id": "pac-aa",
+      "categorieId": "pompe-a-chaleur",
+      "motsCles": ["air/air", "air-air", "split"],
+      "metier": "PAC Air/Air",
+      "unite": "forfait",
+      "modeSousTraitanceDefaut": "fourniture_pose",
+      "coutFourniturePoseHt": 8900,
+      "coutMaterielDirectHt": 6100,
+      "coutPoseRgeHt": 1800
+    },
+    {
+      "id": "pac-ae-ht",
+      "categorieId": "pompe-a-chaleur",
+      "motsCles": ["air/eau", "air-eau", "haute temperature", "pac"],
+      "metier": "PAC Air/Eau Haute Température",
+      "unite": "forfait",
+      "modeSousTraitanceDefaut": "fourniture_pose",
+      "coutFourniturePoseHt": 10500,
+      "coutMaterielDirectHt": 7500,
+      "coutPoseRgeHt": 2500
+    },
+    {
+      "id": "ballon-250",
+      "categorieId": "plomberie-sanitaire",
+      "motsCles": ["ballon", "cet", "250"],
+      "metier": "Ballon thermodynamique 250 L",
+      "unite": "forfait",
+      "modeSousTraitanceDefaut": "fourniture_pose",
+      "coutFourniturePoseHt": 2800,
+      "coutMaterielDirectHt": 1250,
+      "coutPoseRgeHt": 550
+    },
+    {
+      "id": "vmc-hygro-b",
+      "categorieId": "electricite",
+      "motsCles": ["vmc", "hygro"],
+      "metier": "VMC simple flux Hygro B",
+      "unite": "forfait",
+      "modeSousTraitanceDefaut": "fourniture_pose",
+      "coutFourniturePoseHt": 1800,
+      "coutMaterielDirectHt": 980,
+      "coutPoseRgeHt": 450
+    }
+  ]
+}

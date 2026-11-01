@@ -1,0 +1,969 @@
+{
+  "version": 1,
+  "date": "2026-09-15T19:33:04.972Z",
+  "dossierId": "projet-manuel-brunel-emrick",
+  "role": "commercial",
+  "edition": {
+    "version": 1,
+    "client": {
+      "nom": "Emrick Brunel",
+      "prenom": "Christophe Kévin",
+      "telephone": "",
+      "email": "",
+      "adresse": "",
+      "anneeConstruction": "",
+      "surfaceHabitable": "",
+      "statutOccupation": ""
+    },
+    "travaux": [],
+    "aides": {
+      "profil": "",
+      "parcours": "parcours",
+      "gainClasses": 2,
+      "region": "AURA",
+      "overrides": {
+        "mpr": null,
+        "cee": null,
+        "locales": null,
+        "coupDePouce": null
+      }
+    },
+    "financement": {
+      "ecoPtzMontant": 15000,
+      "ecoPtzDuree": 15,
+      "apportPersonnel": null
+    },
+    "pieces": {
+      "photo_facades": {
+        "id": "photo_facades",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "photo_chaufferie": {
+        "id": "photo_chaufferie",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "photo_combles": {
+        "id": "photo_combles",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "photo_tableau": {
+        "id": "photo_tableau",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "avis_imposition": {
+        "id": "avis_imposition",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "facture_energie_dpe": {
+        "id": "facture_energie_dpe",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      }
+    },
+    "finances": {
+      "coutMaterielHt": null,
+      "coutPoseRgeHt": null,
+      "tauxCommission": null
+    },
+    "valorisation": {
+      "prixM2Constate": null,
+      "dpeActuel": "",
+      "dpeCible": ""
+    }
+  },
+  "sniper": {
+    "version": 1,
+    "date": "2026-09-15T19:23:21.693Z",
+    "lat": 46.77349412345439,
+    "lng": 4.843300335312821,
+    "cadastre": {
+      "source": "IGN API Carto (Parcellaire Express) + Géoplateforme BD TOPO",
+      "parcelle": {
+        "section": "AI",
+        "numero": "0039",
+        "feuille": "1",
+        "codeInsee": "71475",
+        "commune": "Saint-Rémy",
+        "codeDep": "71",
+        "contenanceM2": 110783,
+        "idu": "71475000AI0039",
+        "surfaceTerrainM2": 110783,
+        "surfaceCalculeeM2": 110899,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  4.84146141,
+                  46.76866055
+                ],
+                [
+                  4.84135037,
+                  46.76871411
+                ],
+                [
+                  4.84132444,
+                  46.76872642
+                ],
+                [
+                  4.84128948,
+                  46.7687431
+                ],
+                [
+                  4.84126252,
+                  46.76875596
+                ],
+                [
+                  4.84122035,
+                  46.76877636
+                ],
+                [
+                  4.84119211,
+                  46.76879005
+                ],
+                [
+                  4.84115767,
+                  46.76880645
+                ],
+                [
+                  4.84112878,
+                  46.76882025
+                ],
+                [
+                  4.84106815,
+                  46.76884905
+                ],
+                [
+                  4.84104673,
+                  46.76885903
+                ],
+                [
+                  4.84099731,
+                  46.76888225
+                ],
+                [
+                  4.84094803,
+                  46.76890546
+                ],
+                [
+                  4.84090417,
+                  46.76892634
+                ],
+                [
+                  4.84084381,
+                  46.76895523
+                ],
+                [
+                  4.84072619,
+                  46.76901178
+                ],
+                [
+                  4.84067962,
+                  46.76903387
+                ],
+                [
+                  4.84060647,
+                  46.76906864
+                ],
+                [
+                  4.84055462,
+                  46.76909324
+                ],
+                [
+                  4.8404994,
+                  46.76911926
+                ],
+                [
+                  4.84045438,
+                  46.7691406
+                ],
+                [
+                  4.84039542,
+                  46.76916848
+                ],
+                [
+                  4.84034537,
+                  46.76919233
+                ],
+                [
+                  4.84029507,
+                  46.76921638
+                ],
+                [
+                  4.84021922,
+                  46.76925263
+                ],
+                [
+                  4.8401657,
+                  46.76927834
+                ],
+                [
+                  4.83999809,
+                  46.76936073
+                ],
+                [
+                  4.83987274,
+                  46.7694175
+                ],
+                [
+                  4.8396786,
+                  46.76950995
+                ],
+                [
+                  4.83967445,
+                  46.76969294
+                ],
+                [
+                  4.83969037,
+                  46.77068033
+                ],
+                [
+                  4.83977289,
+                  46.7711114
+                ],
+                [
+                  4.84000546,
+                  46.77159124
+                ],
+                [
+                  4.84008819,
+                  46.77176184
+                ],
+                [
+                  4.8401806,
+                  46.77186988
+                ],
+                [
+                  4.84036868,
+                  46.77205853
+                ],
+                [
+                  4.84097124,
+                  46.77298032
+                ],
+                [
+                  4.84114741,
+                  46.77306117
+                ],
+                [
+                  4.8412613,
+                  46.77311464
+                ],
+                [
+                  4.84141815,
+                  46.77330189
+                ],
+                [
+                  4.84143869,
+                  46.77351709
+                ],
+                [
+                  4.84161162,
+                  46.7737492
+                ],
+                [
+                  4.84154869,
+                  46.77377228
+                ],
+                [
+                  4.84181302,
+                  46.77394376
+                ],
+                [
+                  4.84187911,
+                  46.77396765
+                ],
+                [
+                  4.84192533,
+                  46.7739851
+                ],
+                [
+                  4.84203331,
+                  46.77403047
+                ],
+                [
+                  4.84209992,
+                  46.77405786
+                ],
+                [
+                  4.84222918,
+                  46.77411974
+                ],
+                [
+                  4.84231954,
+                  46.7741635
+                ],
+                [
+                  4.84241851,
+                  46.77421739
+                ],
+                [
+                  4.8424872,
+                  46.77425601
+                ],
+                [
+                  4.84248894,
+                  46.77425697
+                ],
+                [
+                  4.8425513,
+                  46.77429434
+                ],
+                [
+                  4.84256431,
+                  46.77430296
+                ],
+                [
+                  4.84262705,
+                  46.77434401
+                ],
+                [
+                  4.84265319,
+                  46.77436097
+                ],
+                [
+                  4.84272673,
+                  46.77441122
+                ],
+                [
+                  4.84275296,
+                  46.77443062
+                ],
+                [
+                  4.84281842,
+                  46.77448225
+                ],
+                [
+                  4.8428731,
+                  46.77452506
+                ],
+                [
+                  4.84290694,
+                  46.77455649
+                ],
+                [
+                  4.84295513,
+                  46.7746012
+                ],
+                [
+                  4.84298654,
+                  46.77463078
+                ],
+                [
+                  4.84301621,
+                  46.77466281
+                ],
+                [
+                  4.84302519,
+                  46.7746724
+                ],
+                [
+                  4.84305946,
+                  46.77470877
+                ],
+                [
+                  4.84308101,
+                  46.77473346
+                ],
+                [
+                  4.84310956,
+                  46.77476732
+                ],
+                [
+                  4.84313346,
+                  46.77479567
+                ],
+                [
+                  4.84314654,
+                  46.77481401
+                ],
+                [
+                  4.84315811,
+                  46.77483049
+                ],
+                [
+                  4.84316249,
+                  46.77483969
+                ],
+                [
+                  4.84316979,
+                  46.77484624
+                ],
+                [
+                  4.8431875,
+                  46.77486208
+                ],
+                [
+                  4.8432417,
+                  46.77490994
+                ],
+                [
+                  4.84330239,
+                  46.77497552
+                ],
+                [
+                  4.84334497,
+                  46.77502887
+                ],
+                [
+                  4.84352106,
+                  46.77525355
+                ],
+                [
+                  4.84353798,
+                  46.77528462
+                ],
+                [
+                  4.84365703,
+                  46.77549716
+                ],
+                [
+                  4.84373552,
+                  46.77563874
+                ],
+                [
+                  4.84376572,
+                  46.77556305
+                ],
+                [
+                  4.8438497,
+                  46.77537257
+                ],
+                [
+                  4.84394526,
+                  46.77515281
+                ],
+                [
+                  4.84404853,
+                  46.77491653
+                ],
+                [
+                  4.84417265,
+                  46.7746421
+                ],
+                [
+                  4.84425139,
+                  46.77451745
+                ],
+                [
+                  4.84430358,
+                  46.77446761
+                ],
+                [
+                  4.8441411,
+                  46.77421525
+                ],
+                [
+                  4.84399025,
+                  46.77398107
+                ],
+                [
+                  4.84398817,
+                  46.77397795
+                ],
+                [
+                  4.84398001,
+                  46.7739652
+                ],
+                [
+                  4.84385664,
+                  46.77377219
+                ],
+                [
+                  4.84373346,
+                  46.77358053
+                ],
+                [
+                  4.84364266,
+                  46.77343924
+                ],
+                [
+                  4.84361858,
+                  46.77340171
+                ],
+                [
+                  4.84352374,
+                  46.77325345
+                ],
+                [
+                  4.84337423,
+                  46.77301988
+                ],
+                [
+                  4.84337354,
+                  46.77301881
+                ],
+                [
+                  4.84324544,
+                  46.77281741
+                ],
+                [
+                  4.84323049,
+                  46.77279027
+                ],
+                [
+                  4.84323007,
+                  46.77278938
+                ],
+                [
+                  4.8431445,
+                  46.77263215
+                ],
+                [
+                  4.84313561,
+                  46.77261743
+                ],
+                [
+                  4.84309063,
+                  46.77254367
+                ],
+                [
+                  4.84302175,
+                  46.77243003
+                ],
+                [
+                  4.84289826,
+                  46.77222531
+                ],
+                [
+                  4.84278421,
+                  46.77203612
+                ],
+                [
+                  4.84270603,
+                  46.77190723
+                ],
+                [
+                  4.84261745,
+                  46.77175752
+                ],
+                [
+                  4.84254943,
+                  46.77164603
+                ],
+                [
+                  4.84248698,
+                  46.77150563
+                ],
+                [
+                  4.84245867,
+                  46.77144385
+                ],
+                [
+                  4.84244848,
+                  46.77142177
+                ],
+                [
+                  4.84236249,
+                  46.77123671
+                ],
+                [
+                  4.84229068,
+                  46.77109061
+                ],
+                [
+                  4.84227359,
+                  46.77105459
+                ],
+                [
+                  4.84222951,
+                  46.77096064
+                ],
+                [
+                  4.8421543,
+                  46.77080333
+                ],
+                [
+                  4.84209834,
+                  46.77068417
+                ],
+                [
+                  4.84207348,
+                  46.77058892
+                ],
+                [
+                  4.84202406,
+                  46.77039977
+                ],
+                [
+                  4.84195075,
+                  46.77010148
+                ],
+                [
+                  4.84190288,
+                  46.7699232
+                ],
+                [
+                  4.84188874,
+                  46.76986578
+                ],
+                [
+                  4.84187536,
+                  46.76981151
+                ],
+                [
+                  4.8418724,
+                  46.7697975
+                ],
+                [
+                  4.84183335,
+                  46.76962043
+                ],
+                [
+                  4.84178919,
+                  46.76941994
+                ],
+                [
+                  4.84175953,
+                  46.7692837
+                ],
+                [
+                  4.84174092,
+                  46.76919897
+                ],
+                [
+                  4.84170558,
+                  46.76903832
+                ],
+                [
+                  4.84169072,
+                  46.76897119
+                ],
+                [
+                  4.84167837,
+                  46.76895482
+                ],
+                [
+                  4.84167713,
+                  46.76895313
+                ],
+                [
+                  4.84155302,
+                  46.76878787
+                ],
+                [
+                  4.84149891,
+                  46.76871506
+                ],
+                [
+                  4.84146141,
+                  46.76866055
+                ]
+              ]
+            ]
+          ]
+        }
+      },
+      "bati": {
+        "empriseSolM2": 3338,
+        "usage": "Industriel",
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  4.84424086,
+                  46.77336731,
+                  183.3
+                ],
+                [
+                  4.84428367,
+                  46.77335402,
+                  183.3
+                ],
+                [
+                  4.84441596,
+                  46.77331227,
+                  183.3
+                ],
+                [
+                  4.84443977,
+                  46.77335692,
+                  183.3
+                ],
+                [
+                  4.84448048,
+                  46.77343642,
+                  183.3
+                ],
+                [
+                  4.84442217,
+                  46.77345627,
+                  183.3
+                ],
+                [
+                  4.84449928,
+                  46.77360364,
+                  183.3
+                ],
+                [
+                  4.84455912,
+                  46.77359007,
+                  183.3
+                ],
+                [
+                  4.84460118,
+                  46.77367045,
+                  183.3
+                ],
+                [
+                  4.8446348,
+                  46.77373386,
+                  183.3
+                ],
+                [
+                  4.8443392,
+                  46.77383047,
+                  183.3
+                ],
+                [
+                  4.84412141,
+                  46.77390241,
+                  183.3
+                ],
+                [
+                  4.84398269,
+                  46.77394787,
+                  183.3
+                ],
+                [
+                  4.84386923,
+                  46.77377226,
+                  183.3
+                ],
+                [
+                  4.84374605,
+                  46.7735806,
+                  183.3
+                ],
+                [
+                  4.84365602,
+                  46.77343884,
+                  183.3
+                ],
+                [
+                  4.84363115,
+                  46.77340141,
+                  183.3
+                ],
+                [
+                  4.84377389,
+                  46.7733586,
+                  183.3
+                ],
+                [
+                  4.84407881,
+                  46.77326634,
+                  183.3
+                ],
+                [
+                  4.84415915,
+                  46.77339294,
+                  183.3
+                ],
+                [
+                  4.84416692,
+                  46.77339012,
+                  183.3
+                ],
+                [
+                  4.84424086,
+                  46.77336731,
+                  183.3
+                ]
+              ]
+            ]
+          ]
+        },
+        "distanceM": 68
+      }
+    },
+    "dvf": {
+      "perimetre": "proximite",
+      "mutations": [
+        {
+          "date": "2023-12-22",
+          "prixNet": 1,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Local",
+          "adresse": "2 RUE DE LA COMBE",
+          "idParcelle": "71475000AX0204",
+          "lat": 0,
+          "lng": 0
+        },
+        {
+          "date": "2023-12-22",
+          "prixNet": 1,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Local",
+          "adresse": "RUE DE LA COMBE",
+          "idParcelle": "71475000AX0303",
+          "lat": 0,
+          "lng": 0
+        },
+        {
+          "date": "2023-12-22",
+          "prixNet": 1,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Local",
+          "adresse": "RUE DE LA COMBE",
+          "idParcelle": "71475000AX0316",
+          "lat": 0,
+          "lng": 0
+        },
+        {
+          "date": "2023-07-20",
+          "prixNet": 100000,
+          "surfaceM2": 68,
+          "prixM2": 1471,
+          "typeLocal": "Appartement",
+          "adresse": "5 PL DU PONT PARON",
+          "idParcelle": "71475000AH0056",
+          "lat": 0,
+          "lng": 0
+        },
+        {
+          "date": "2023-07-20",
+          "prixNet": 100000,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Dépendance",
+          "adresse": "5 PL DU PONT PARON",
+          "idParcelle": "71475000AH0056",
+          "lat": 0,
+          "lng": 0
+        },
+        {
+          "date": "2023-01-05",
+          "prixNet": 1,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Local",
+          "adresse": "TERRE DE L ECORCHERIE",
+          "idParcelle": "71475000AL0353",
+          "lat": 0,
+          "lng": 0
+        },
+        {
+          "date": "2023-01-05",
+          "prixNet": 1,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Local",
+          "adresse": "TERRE DE L ECORCHERIE",
+          "idParcelle": "71475000AL0494",
+          "lat": 0,
+          "lng": 0
+        },
+        {
+          "date": "2023-01-05",
+          "prixNet": 1,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Local",
+          "adresse": "CITE FIEUX",
+          "idParcelle": "71475000AL0513",
+          "lat": 0,
+          "lng": 0
+        }
+      ],
+      "prixM2Median": 1471,
+      "attribution": "DVF — DGFiP / Etalab (données ouvertes)"
+    },
+    "georisques": {
+      "resume": {
+        "rga": {
+          "libelle": "Retrait-gonflement des argiles (RGA / sécheresse)",
+          "niveau": "Exposition moyenne"
+        },
+        "inondation": {
+          "libelle": "Inondation",
+          "niveau": "Pas de signalement API à cette coordonnée",
+          "expose": false
+        },
+        "sismicite": {
+          "libelle": "Sismicité",
+          "niveau": "Zone 2 - FAIBLE",
+          "zone": null
+        },
+        "radon": {
+          "libelle": "Radon",
+          "niveau": "Classe 1",
+          "classe": "1"
+        },
+        "source": "API Géorisques (georisques.gouv.fr)"
+      },
+      "brutDisponible": {
+        "rga": true,
+        "sismique": true,
+        "gaspar": true,
+        "rapport": true,
+        "radon": true
+      }
+    },
+    "mention": "Données ouvertes à titre indicatif (IGN, DGFiP/Etalab, Géorisques). Elles ne remplacent pas un bornage, une expertise ni un état des risques (ERP).",
+    "prixM2Applique": 1471
+  },
+  "tunnel": {
+    "surfaces": {
+      "surfaceHabitable": null,
+      "surfaceLignesM2": null,
+      "surfaceRef": null
+    },
+    "totaux": {
+      "lignes": [],
+      "totalHt": 0,
+      "totalTva": 0,
+      "totalTtc": 0
+    },
+    "aides": {
+      "profil": "",
+      "parcours": "parcours",
+      "mpr": 0,
+      "cee": 0,
+      "locales": 0,
+      "coupDePouce": 0,
+      "totalAides": 0,
+      "mention": "Aides financières 2026 (estimation à titre indicatif). Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE."
+    },
+    "resteACharge": 0,
+    "ecoPtzAuto": {
+      "montant": 0,
+      "duree": 15,
+      "mensualite": 0
+    },
+    "plusValue": {
+      "calculable": false,
+      "surface": 0,
+      "prixM2": 1471,
+      "prime": 0.14,
+      "valeurActuelle": 0,
+      "montant": 0,
+      "mention": "Plus-value vénale et ROI propriétaire : estimation indicative 2026, hors frais de notaire. À valider par une expertise immobilière. Ne constitue pas une garantie de prix de vente."
+    },
+    "roi": {
+      "pourcentage": null,
+      "multiple": null
+    }
+  },
+  "controles": {
+    "financesInternesIncluses": false,
+    "mention": "Onglet Finances et marges masqué pour le mode commercial / partenaire. Snapshot sans coûts d’achat ni marge nette hors administrateur."
+  }
+}

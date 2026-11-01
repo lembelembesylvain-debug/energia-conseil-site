@@ -1,0 +1,32 @@
+{
+  "departement": "01",
+  "nom": "Ain",
+  "villePrincipale": {
+    "nom": "Bourg-en-Bresse / Val de Saône",
+    "lat": 46.05,
+    "lng": 5.05,
+    "zoom": 9
+  },
+  "type_batiment": "collectif",
+  "source": "extrait de démonstration — copropriété Ain",
+  "logements": [
+    {
+      "id": "01-COL-0001",
+      "adresse": "Résidence de la Reyssouze",
+      "commune": "Bourg-en-Bresse",
+      "code_postal": "01000",
+      "etiquette_dpe": "G",
+      "dpe_immeuble": "G",
+      "surface_habitable": 1860,
+      "annee_construction": 1974,
+      "type_batiment": "collectif",
+      "nb_lots": 28,
+      "lat": 46.2084,
+      "lng": 5.2188,
+      "conso_energie": 455,
+      "type_chauffage": "gaz collectif",
+      "motif_dpe": "location",
+      "statut_occupation": "bailleur"
+    }
+  ]
+}

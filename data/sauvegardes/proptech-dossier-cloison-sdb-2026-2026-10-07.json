@@ -1,0 +1,349 @@
+{
+  "version": 1,
+  "date": "2026-10-07T13:17:46.197Z",
+  "dossierId": "dossier-cloison-sdb-2026",
+  "role": "commercial",
+  "edition": {
+    "version": 1,
+    "client": {
+      "nom": "GOURDON",
+      "prenom": "Monsieur et Madame",
+      "telephone": "07 69 44 85 98",
+      "email": "",
+      "adresse": "512 Route de Saint-Laurent-les-Bains, 07140 Chambonas",
+      "anneeConstruction": "",
+      "surfaceHabitable": "",
+      "statutOccupation": "proprietaire_occupant",
+      "adresseChantier": "512 Route de Saint-Laurent-les-Bains, 07140 Chambonas"
+    },
+    "travaux": [
+      {
+        "id": "cloison-sdb-lot-depose",
+        "ordreContractuel": 1,
+        "nom": "Dépose et démolition soignée cloison existante (3,50 ml), évacuation gravats",
+        "specifications": "Dépose soignée 3,50 ml · protection zones attenantes · évacuation gravats",
+        "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+        "quantite": 3.5,
+        "unite": "ml",
+        "puHt": 185.71,
+        "tauxTva": 0.1,
+        "totalHt": 650,
+        "totalTva": 65,
+        "totalTtc": 715,
+        "verrouillageOfficiel": true,
+        "familleId": "second-oeuvre",
+        "categorieId": "demolition",
+        "prestationId": "cloison-sdb-lot-depose"
+      },
+      {
+        "id": "cloison-sdb-lot-cloison",
+        "ordreContractuel": 2,
+        "nom": "Nouvelle cloison Placostil 72/48 hydrofuge/phonique décalée de 30 cm (3,50 ml)",
+        "specifications": "Placostil 72/48 hydrofuge côté SDB + acoustique · décalage 30 cm",
+        "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+        "quantite": 3.5,
+        "unite": "ml",
+        "puHt": 357.14,
+        "tauxTva": 0.1,
+        "totalHt": 1250,
+        "totalTva": 125,
+        "totalTtc": 1375,
+        "verrouillageOfficiel": true,
+        "familleId": "second-oeuvre",
+        "categorieId": "isolation",
+        "prestationId": "cloison-sdb-lot-cloison"
+      },
+      {
+        "id": "cloison-sdb-lot-faux-plafond",
+        "ordreContractuel": 3,
+        "nom": "Faux-plafond autoportant hydrofuge abaissé à 2,52 m (~6 m²), bandes et peinture velours",
+        "specifications": "Autoportant hydrofuge ~6 m² · fini 2,52 m · bandes + peinture velours",
+        "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+        "quantite": 6,
+        "unite": "m²",
+        "puHt": 158.33,
+        "tauxTva": 0.1,
+        "totalHt": 950,
+        "totalTva": 95,
+        "totalTtc": 1045,
+        "verrouillageOfficiel": true,
+        "familleId": "second-oeuvre",
+        "categorieId": "peinture",
+        "prestationId": "cloison-sdb-lot-faux-plafond"
+      },
+      {
+        "id": "cloison-sdb-lot-electricite",
+        "ordreContractuel": 4,
+        "nom": "Électricité — Fourniture et pose de 3 spots LED IP65 étanches",
+        "specifications": "3 spots LED IP65 · raccordement NF C 15-100 · intégration faux-plafond",
+        "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+        "quantite": 3,
+        "unite": "u",
+        "puHt": 150,
+        "tauxTva": 0.1,
+        "totalHt": 450,
+        "totalTva": 45,
+        "totalTtc": 495,
+        "verrouillageOfficiel": true,
+        "familleId": "second-oeuvre",
+        "categorieId": "electricite",
+        "prestationId": "cloison-sdb-lot-electricite"
+      }
+    ],
+    "aides": {
+      "profil": "",
+      "parcours": "",
+      "gainClasses": 0,
+      "region": "",
+      "overrides": {
+        "mpr": null,
+        "cee": null,
+        "locales": null,
+        "coupDePouce": null
+      },
+      "rfr": 0,
+      "parts": 0,
+      "verrouillageOfficiel": true
+    },
+    "financement": {
+      "ecoPtzMontant": 0,
+      "ecoPtzDuree": 15,
+      "apportPersonnel": 3630,
+      "acompte": 1089,
+      "intermediaire": 1452,
+      "solde": 1089
+    },
+    "pieces": {
+      "photo_facades": {
+        "id": "photo_facades",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "photo_chaufferie": {
+        "id": "photo_chaufferie",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "photo_combles": {
+        "id": "photo_combles",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "photo_tableau": {
+        "id": "photo_tableau",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "avis_imposition": {
+        "id": "avis_imposition",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "facture_energie_dpe": {
+        "id": "facture_energie_dpe",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      }
+    },
+    "finances": {
+      "coutMaterielHt": null,
+      "coutPoseRgeHt": null,
+      "tauxCommission": null
+    },
+    "valorisation": {
+      "prixM2Constate": null,
+      "dpeActuel": "",
+      "dpeCible": ""
+    },
+    "verrouillageOfficiel": true,
+    "devisOfficiel": {
+      "numero": "CONTRAT-2026-SO-CLOISON-SDB-01",
+      "date": "2026-10-04",
+      "reference": "EC-2026-SO-CLOISON-SDB-01"
+    },
+    "mentionsJuridiques": [
+      "Travaux de second œuvre (cloison / faux-plafond / électricité) — non éligibles MaPrimeRénov’ Parcours. Aucune aide ANAH déduite. Reste à charge client = montant ferme TTC du marché."
+    ],
+    "prestataire": null,
+    "mar": null,
+    "offreActive": "performance",
+    "photos": {
+      "paires": [
+        {
+          "id": "cloison-sdb-photo-chambre",
+          "titre": "Chambre — vue cloison",
+          "avantSrc": "./photo1.jpg",
+          "apresSrc": null,
+          "legendAvant": "Photo 1 — Chambre / entrée — repérage cloison existante 3,50 ml",
+          "legendApres": ""
+        },
+        {
+          "id": "cloison-sdb-photo-sdb-haute",
+          "titre": "SDB — vue haute",
+          "avantSrc": "./photo2.jpg",
+          "apresSrc": null,
+          "legendAvant": "Photo 2 — SDB vue haute — faux-plafond autoportant hydrofuge",
+          "legendApres": ""
+        },
+        {
+          "id": "cloison-sdb-photo-porte-clim",
+          "titre": "SDB — porte & split clim",
+          "avantSrc": "./photo3.jpg",
+          "apresSrc": null,
+          "legendAvant": "Photo 3 — SDB porte et split clim — contraintes techniques",
+          "legendApres": ""
+        },
+        {
+          "id": "cloison-sdb-photo-vasque",
+          "titre": "Détail vasque & cloison",
+          "avantSrc": "./PHOTO-2026-10-04-18-09-52.jpg",
+          "apresSrc": null,
+          "legendAvant": "Photo 4 — Détail vasque et cloison — bandes de reprise 30 cm",
+          "legendApres": ""
+        }
+      ],
+      "ajouts": {}
+    }
+  },
+  "sniper": null,
+  "tunnel": {
+    "surfaces": {
+      "surfaceHabitable": null,
+      "surfaceLignesM2": 6,
+      "surfaceRef": 6
+    },
+    "totaux": {
+      "lignes": [
+        {
+          "id": "cloison-sdb-lot-depose",
+          "ordreContractuel": 1,
+          "nom": "Dépose et démolition soignée cloison existante (3,50 ml), évacuation gravats",
+          "specifications": "Dépose soignée 3,50 ml · protection zones attenantes · évacuation gravats",
+          "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+          "quantite": 3.5,
+          "unite": "ml",
+          "puHt": 185.71,
+          "tauxTva": 0.1,
+          "totalHt": 650,
+          "totalTva": 65,
+          "totalTtc": 715,
+          "verrouillageOfficiel": true,
+          "familleId": "second-oeuvre",
+          "categorieId": "demolition",
+          "prestationId": "cloison-sdb-lot-depose",
+          "ordreThermique": 9,
+          "ordreLabel": "Autre"
+        },
+        {
+          "id": "cloison-sdb-lot-cloison",
+          "ordreContractuel": 2,
+          "nom": "Nouvelle cloison Placostil 72/48 hydrofuge/phonique décalée de 30 cm (3,50 ml)",
+          "specifications": "Placostil 72/48 hydrofuge côté SDB + acoustique · décalage 30 cm",
+          "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+          "quantite": 3.5,
+          "unite": "ml",
+          "puHt": 357.14,
+          "tauxTva": 0.1,
+          "totalHt": 1250,
+          "totalTva": 125,
+          "totalTtc": 1375,
+          "verrouillageOfficiel": true,
+          "familleId": "second-oeuvre",
+          "categorieId": "isolation",
+          "prestationId": "cloison-sdb-lot-cloison",
+          "ordreThermique": 2,
+          "ordreLabel": "Murs"
+        },
+        {
+          "id": "cloison-sdb-lot-faux-plafond",
+          "ordreContractuel": 3,
+          "nom": "Faux-plafond autoportant hydrofuge abaissé à 2,52 m (~6 m²), bandes et peinture velours",
+          "specifications": "Autoportant hydrofuge ~6 m² · fini 2,52 m · bandes + peinture velours",
+          "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+          "quantite": 6,
+          "unite": "m²",
+          "puHt": 158.33,
+          "tauxTva": 0.1,
+          "totalHt": 950,
+          "totalTva": 95,
+          "totalTtc": 1045,
+          "verrouillageOfficiel": true,
+          "familleId": "second-oeuvre",
+          "categorieId": "peinture",
+          "prestationId": "cloison-sdb-lot-faux-plafond",
+          "ordreThermique": 9,
+          "ordreLabel": "Autre"
+        },
+        {
+          "id": "cloison-sdb-lot-electricite",
+          "ordreContractuel": 4,
+          "nom": "Électricité — Fourniture et pose de 3 spots LED IP65 étanches",
+          "specifications": "3 spots LED IP65 · raccordement NF C 15-100 · intégration faux-plafond",
+          "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+          "quantite": 3,
+          "unite": "u",
+          "puHt": 150,
+          "tauxTva": 0.1,
+          "totalHt": 450,
+          "totalTva": 45,
+          "totalTtc": 495,
+          "verrouillageOfficiel": true,
+          "familleId": "second-oeuvre",
+          "categorieId": "electricite",
+          "prestationId": "cloison-sdb-lot-electricite",
+          "ordreThermique": 9,
+          "ordreLabel": "Autre"
+        }
+      ],
+      "totalHt": 3300,
+      "totalTva": 330,
+      "totalTtc": 3630
+    },
+    "aides": {
+      "profil": "",
+      "parcours": "parcours",
+      "mpr": 0,
+      "cee": 0,
+      "locales": 0,
+      "mar": 0,
+      "coupDePouce": 0,
+      "totalAides": 0,
+      "mention": "Aides financières 2026 (estimation à titre indicatif). Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.",
+      "mentionCee": null,
+      "nonCumulCeeParcours": false,
+      "verrouillageOfficiel": false
+    },
+    "resteACharge": 3630,
+    "ecoPtzAuto": {
+      "montant": 3630,
+      "duree": 15,
+      "mensualite": 20.17,
+      "mensualite15": 20.17,
+      "mensualite20": 15.13,
+      "canal": "eco_ptz_etat"
+    },
+    "plusValue": {
+      "calculable": true,
+      "surface": 6,
+      "prixM2": 1850,
+      "prime": 0.14,
+      "valeurActuelle": 11100,
+      "montant": 1554,
+      "mention": "Plus-value vénale et ROI propriétaire : estimation indicative 2026, hors frais de notaire. À valider par une expertise immobilière. Ne constitue pas une garantie de prix de vente."
+    },
+    "roi": {
+      "pourcentage": 42.81,
+      "multiple": 0.43
+    }
+  },
+  "controles": {
+    "financesInternesIncluses": false,
+    "mention": "Onglet Finances et marges masqué pour le mode commercial / partenaire. Snapshot sans coûts d’achat ni marge nette hors administrateur."
+  }
+}

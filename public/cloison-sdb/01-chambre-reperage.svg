@@ -1,0 +1,14 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Chambre — cloison 3,50 ml">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#064e3b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#g)"/>
+  <rect x="40" y="40" width="720" height="520" rx="24" fill="none" stroke="#34d399" stroke-width="3" opacity="0.55"/>
+  <text x="400" y="250" text-anchor="middle" fill="#a7f3d0" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Repérage technique</text>
+  <text x="400" y="300" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="600">Chambre — cloison 3,50 ml</text>
+  <text x="400" y="360" text-anchor="middle" fill="#94a3b8" font-family="Segoe UI, Arial, sans-serif" font-size="18">EC-2026-SO-CLOISON-SDB-01 · ENERGIA CONSEIL IA</text>
+  <text x="400" y="400" text-anchor="middle" fill="#64748b" font-family="Segoe UI, Arial, sans-serif" font-size="14">Remplacer par la photo terrain (JPG) dans /public/cloison-sdb/</text>
+</svg>

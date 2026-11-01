@@ -1,0 +1,550 @@
+{
+  "version": 1,
+  "date": "2026-10-12T09:42:28.077Z",
+  "dossierId": "dossier-cloison-sdb-2026",
+  "role": "commercial",
+  "edition": {
+    "version": 1,
+    "client": {
+      "nom": "GOURDON",
+      "prenom": "Monsieur et Madame",
+      "telephone": "07 69 44 85 98",
+      "email": "",
+      "adresse": "512 Route de Saint-Laurent-les-Bains, 07140 Chambonas",
+      "anneeConstruction": "",
+      "surfaceHabitable": "",
+      "statutOccupation": "proprietaire_occupant",
+      "adresseChantier": "512 Route de Saint-Laurent-les-Bains, 07140 Chambonas"
+    },
+    "travaux": [
+      {
+        "id": "cloison-sdb-lot-depose",
+        "ordreContractuel": 1,
+        "nom": "Dépose et démolition soignée cloison existante (3,50 ml), évacuation gravats",
+        "specifications": "Dépose soignée 3,50 ml · protection zones attenantes · évacuation gravats",
+        "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+        "quantite": 3.5,
+        "unite": "ml",
+        "puHt": 185.71,
+        "tauxTva": 0.1,
+        "totalHt": 650,
+        "totalTva": 65,
+        "totalTtc": 715,
+        "verrouillageOfficiel": true,
+        "familleId": "second-oeuvre",
+        "categorieId": "demolition",
+        "prestationId": "cloison-sdb-lot-depose"
+      },
+      {
+        "id": "cloison-sdb-lot-cloison",
+        "ordreContractuel": 2,
+        "nom": "Nouvelle cloison Placostil 72/48 hydrofuge/phonique décalée de 30 cm (3,50 ml)",
+        "specifications": "Placostil 72/48 hydrofuge côté SDB + acoustique · décalage 30 cm",
+        "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+        "quantite": 3.5,
+        "unite": "ml",
+        "puHt": 357.14,
+        "tauxTva": 0.1,
+        "totalHt": 1250,
+        "totalTva": 125,
+        "totalTtc": 1375,
+        "verrouillageOfficiel": true,
+        "familleId": "second-oeuvre",
+        "categorieId": "isolation",
+        "prestationId": "cloison-sdb-lot-cloison"
+      },
+      {
+        "id": "cloison-sdb-lot-faux-plafond",
+        "ordreContractuel": 3,
+        "nom": "Faux-plafond autoportant hydrofuge abaissé à 2,52 m (~6 m²), bandes et peinture velours",
+        "specifications": "Autoportant hydrofuge ~6 m² · fini 2,52 m · bandes + peinture velours",
+        "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+        "quantite": 6,
+        "unite": "m²",
+        "puHt": 158.33,
+        "tauxTva": 0.1,
+        "totalHt": 950,
+        "totalTva": 95,
+        "totalTtc": 1045,
+        "verrouillageOfficiel": true,
+        "familleId": "second-oeuvre",
+        "categorieId": "peinture",
+        "prestationId": "cloison-sdb-lot-faux-plafond"
+      },
+      {
+        "id": "cloison-sdb-lot-electricite",
+        "ordreContractuel": 4,
+        "nom": "Électricité — Fourniture et pose de 3 spots LED IP65 étanches",
+        "specifications": "3 spots LED IP65 · raccordement NF C 15-100 · intégration faux-plafond",
+        "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+        "quantite": 3,
+        "unite": "u",
+        "puHt": 150,
+        "tauxTva": 0.1,
+        "totalHt": 450,
+        "totalTva": 45,
+        "totalTtc": 495,
+        "verrouillageOfficiel": true,
+        "familleId": "second-oeuvre",
+        "categorieId": "electricite",
+        "prestationId": "cloison-sdb-lot-electricite"
+      }
+    ],
+    "aides": {
+      "profil": "",
+      "parcours": "",
+      "gainClasses": 0,
+      "region": "",
+      "overrides": {
+        "mpr": null,
+        "cee": null,
+        "locales": null,
+        "coupDePouce": null
+      },
+      "rfr": 0,
+      "parts": 0,
+      "verrouillageOfficiel": true
+    },
+    "financement": {
+      "ecoPtzMontant": 0,
+      "ecoPtzDuree": 15,
+      "apportPersonnel": 3630,
+      "acompte": 1089,
+      "intermediaire": 1452,
+      "solde": 1089
+    },
+    "pieces": {
+      "photo_facades": {
+        "id": "photo_facades",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "photo_chaufferie": {
+        "id": "photo_chaufferie",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "photo_combles": {
+        "id": "photo_combles",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "photo_tableau": {
+        "id": "photo_tableau",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "avis_imposition": {
+        "id": "avis_imposition",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      },
+      "facture_energie_dpe": {
+        "id": "facture_energie_dpe",
+        "statut": "manquante",
+        "nomFichier": "",
+        "documentId": null
+      }
+    },
+    "finances": {
+      "coutMaterielHt": null,
+      "coutPoseRgeHt": null,
+      "tauxCommission": null
+    },
+    "valorisation": {
+      "prixM2Constate": null,
+      "dpeActuel": "",
+      "dpeCible": ""
+    },
+    "verrouillageOfficiel": true,
+    "devisOfficiel": {
+      "numero": "CONTRAT-2026-SO-CLOISON-SDB-01",
+      "date": "2026-10-04",
+      "reference": "EC-2026-SO-CLOISON-SDB-01"
+    },
+    "mentionsJuridiques": [
+      "Travaux de second œuvre (cloison / faux-plafond / électricité) — non éligibles MaPrimeRénov’ Parcours. Aucune aide ANAH déduite. Reste à charge client = montant ferme TTC du marché."
+    ],
+    "prestataire": null,
+    "mar": null,
+    "offreActive": "performance",
+    "photos": {
+      "paires": [
+        {
+          "id": "cloison-sdb-photo-chambre",
+          "titre": "Chambre — vue cloison",
+          "avantSrc": "./photo1.jpg",
+          "apresSrc": null,
+          "legendAvant": "Photo 1 — Chambre / entrée — repérage cloison existante 3,50 ml",
+          "legendApres": ""
+        },
+        {
+          "id": "cloison-sdb-photo-sdb-haute",
+          "titre": "SDB — vue haute",
+          "avantSrc": "./photo2.jpg",
+          "apresSrc": null,
+          "legendAvant": "Photo 2 — SDB vue haute — faux-plafond autoportant hydrofuge",
+          "legendApres": ""
+        },
+        {
+          "id": "cloison-sdb-photo-porte-clim",
+          "titre": "SDB — porte & split clim",
+          "avantSrc": "./photo3.jpg",
+          "apresSrc": null,
+          "legendAvant": "Photo 3 — SDB porte et split clim — contraintes techniques",
+          "legendApres": ""
+        },
+        {
+          "id": "cloison-sdb-photo-vasque",
+          "titre": "Détail vasque & cloison",
+          "avantSrc": "./PHOTO-2026-10-04-18-09-52.jpg",
+          "apresSrc": null,
+          "legendAvant": "Photo 4 — Détail vasque et cloison — bandes de reprise 30 cm",
+          "legendApres": ""
+        }
+      ],
+      "ajouts": {}
+    }
+  },
+  "sniper": {
+    "version": 1,
+    "date": "2026-10-12T08:10:40.206Z",
+    "lat": 46.802655500273545,
+    "lng": 5.065803865184707,
+    "cadastre": {
+      "source": "IGN API Carto (Parcellaire Express) + Géoplateforme BD TOPO",
+      "parcelle": {
+        "section": "0F",
+        "numero": "0152",
+        "feuille": "2",
+        "codeInsee": "71456",
+        "commune": "Saint-Martin-en-Bresse",
+        "codeDep": "71",
+        "contenanceM2": 4331,
+        "idu": "714560000F0152",
+        "surfaceTerrainM2": 4331,
+        "surfaceCalculeeM2": 4264,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  5.06569397,
+                  46.80234885
+                ],
+                [
+                  5.06542833,
+                  46.80235506
+                ],
+                [
+                  5.06543744,
+                  46.80258376
+                ],
+                [
+                  5.06544404,
+                  46.80267768
+                ],
+                [
+                  5.06699195,
+                  46.80264662
+                ],
+                [
+                  5.06704306,
+                  46.802525
+                ],
+                [
+                  5.06709023,
+                  46.80232762
+                ],
+                [
+                  5.06666287,
+                  46.80234089
+                ],
+                [
+                  5.06608322,
+                  46.80235752
+                ],
+                [
+                  5.0657016,
+                  46.80236654
+                ],
+                [
+                  5.06569397,
+                  46.80234885
+                ]
+              ]
+            ]
+          ]
+        }
+      },
+      "bati": null
+    },
+    "dvf": {
+      "perimetre": "proximite",
+      "mutations": [
+        {
+          "date": "2024-09-13",
+          "prixNet": 170000,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Local",
+          "adresse": "LES PAUCOUPS",
+          "idParcelle": "714560000F0175",
+          "lat": 46.802245,
+          "lng": 5.064727
+        },
+        {
+          "date": "2024-09-13",
+          "prixNet": 170000,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Local",
+          "adresse": "LES PAUCOUPS",
+          "idParcelle": "714560000F0176",
+          "lat": 46.802249,
+          "lng": 5.064934
+        },
+        {
+          "date": "2024-09-13",
+          "prixNet": 170000,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Dépendance",
+          "adresse": "21 CHE DES PAUCOUPS",
+          "idParcelle": "714560000F0177",
+          "lat": 46.801902,
+          "lng": 5.064717
+        },
+        {
+          "date": "2024-09-13",
+          "prixNet": 170000,
+          "surfaceM2": 65,
+          "prixM2": 2615,
+          "typeLocal": "Maison",
+          "adresse": "21 CHE DES PAUCOUPS",
+          "idParcelle": "714560000F0177",
+          "lat": 46.801902,
+          "lng": 5.064717
+        },
+        {
+          "date": "2024-09-13",
+          "prixNet": 170000,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Dépendance",
+          "adresse": "21 CHE DES PAUCOUPS",
+          "idParcelle": "714560000F0177",
+          "lat": 46.801902,
+          "lng": 5.064717
+        },
+        {
+          "date": "2024-09-13",
+          "prixNet": 170000,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Dépendance",
+          "adresse": "21 CHE DES PAUCOUPS",
+          "idParcelle": "714560000F0177",
+          "lat": 46.801902,
+          "lng": 5.064717
+        },
+        {
+          "date": "2024-09-13",
+          "prixNet": 170000,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Local",
+          "adresse": "LES PAUCOUPS",
+          "idParcelle": "714560000F0179",
+          "lat": 46.80145,
+          "lng": 5.066559
+        },
+        {
+          "date": "2024-09-13",
+          "prixNet": 170000,
+          "surfaceM2": null,
+          "prixM2": null,
+          "typeLocal": "Local",
+          "adresse": "LES PAUCOUPS",
+          "idParcelle": "714560000F0596",
+          "lat": 46.80142,
+          "lng": 5.065107
+        }
+      ],
+      "prixM2Median": 2615,
+      "attribution": "DVF — DGFiP / Etalab (données ouvertes)"
+    },
+    "georisques": {
+      "resume": {
+        "rga": {
+          "libelle": "Retrait-gonflement des argiles (RGA / sécheresse)",
+          "niveau": "Exposition forte"
+        },
+        "inondation": {
+          "libelle": "Inondation",
+          "niveau": "Pas de signalement API à cette coordonnée",
+          "expose": false
+        },
+        "sismicite": {
+          "libelle": "Sismicité",
+          "niveau": "Zone 2 - FAIBLE",
+          "zone": null
+        },
+        "radon": {
+          "libelle": "Radon",
+          "niveau": "Classe 1",
+          "classe": "1"
+        },
+        "source": "API Géorisques (georisques.gouv.fr)"
+      },
+      "brutDisponible": {
+        "rga": true,
+        "sismique": true,
+        "gaspar": true,
+        "rapport": false,
+        "radon": true
+      }
+    },
+    "mention": "Données ouvertes à titre indicatif (IGN, DGFiP/Etalab, Géorisques). Elles ne remplacent pas un bornage, une expertise ni un état des risques (ERP)."
+  },
+  "tunnel": {
+    "surfaces": {
+      "surfaceHabitable": null,
+      "surfaceLignesM2": 6,
+      "surfaceRef": 6
+    },
+    "totaux": {
+      "lignes": [
+        {
+          "id": "cloison-sdb-lot-depose",
+          "ordreContractuel": 1,
+          "nom": "Dépose et démolition soignée cloison existante (3,50 ml), évacuation gravats",
+          "specifications": "Dépose soignée 3,50 ml · protection zones attenantes · évacuation gravats",
+          "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+          "quantite": 3.5,
+          "unite": "ml",
+          "puHt": 185.71,
+          "tauxTva": 0.1,
+          "totalHt": 650,
+          "totalTva": 65,
+          "totalTtc": 715,
+          "verrouillageOfficiel": true,
+          "familleId": "second-oeuvre",
+          "categorieId": "demolition",
+          "prestationId": "cloison-sdb-lot-depose",
+          "ordreThermique": 9,
+          "ordreLabel": "Autre"
+        },
+        {
+          "id": "cloison-sdb-lot-cloison",
+          "ordreContractuel": 2,
+          "nom": "Nouvelle cloison Placostil 72/48 hydrofuge/phonique décalée de 30 cm (3,50 ml)",
+          "specifications": "Placostil 72/48 hydrofuge côté SDB + acoustique · décalage 30 cm",
+          "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+          "quantite": 3.5,
+          "unite": "ml",
+          "puHt": 357.14,
+          "tauxTva": 0.1,
+          "totalHt": 1250,
+          "totalTva": 125,
+          "totalTtc": 1375,
+          "verrouillageOfficiel": true,
+          "familleId": "second-oeuvre",
+          "categorieId": "isolation",
+          "prestationId": "cloison-sdb-lot-cloison",
+          "ordreThermique": 2,
+          "ordreLabel": "Murs"
+        },
+        {
+          "id": "cloison-sdb-lot-faux-plafond",
+          "ordreContractuel": 3,
+          "nom": "Faux-plafond autoportant hydrofuge abaissé à 2,52 m (~6 m²), bandes et peinture velours",
+          "specifications": "Autoportant hydrofuge ~6 m² · fini 2,52 m · bandes + peinture velours",
+          "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+          "quantite": 6,
+          "unite": "m²",
+          "puHt": 158.33,
+          "tauxTva": 0.1,
+          "totalHt": 950,
+          "totalTva": 95,
+          "totalTtc": 1045,
+          "verrouillageOfficiel": true,
+          "familleId": "second-oeuvre",
+          "categorieId": "peinture",
+          "prestationId": "cloison-sdb-lot-faux-plafond",
+          "ordreThermique": 9,
+          "ordreLabel": "Autre"
+        },
+        {
+          "id": "cloison-sdb-lot-electricite",
+          "ordreContractuel": 4,
+          "nom": "Électricité — Fourniture et pose de 3 spots LED IP65 étanches",
+          "specifications": "3 spots LED IP65 · raccordement NF C 15-100 · intégration faux-plafond",
+          "artisan": "Sous-traitance RGE — Direction & Coordination Technique : ENERGIA CONSEIL IA®",
+          "quantite": 3,
+          "unite": "u",
+          "puHt": 150,
+          "tauxTva": 0.1,
+          "totalHt": 450,
+          "totalTva": 45,
+          "totalTtc": 495,
+          "verrouillageOfficiel": true,
+          "familleId": "second-oeuvre",
+          "categorieId": "electricite",
+          "prestationId": "cloison-sdb-lot-electricite",
+          "ordreThermique": 9,
+          "ordreLabel": "Autre"
+        }
+      ],
+      "totalHt": 3300,
+      "totalTva": 330,
+      "totalTtc": 3630
+    },
+    "aides": {
+      "profil": "",
+      "parcours": "parcours",
+      "mpr": 0,
+      "cee": 0,
+      "locales": 0,
+      "mar": 0,
+      "coupDePouce": 0,
+      "totalAides": 0,
+      "mention": "Aides financières 2026 (estimation à titre indicatif). Aides à valider selon revenus réels du client et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.",
+      "mentionCee": null,
+      "nonCumulCeeParcours": false,
+      "verrouillageOfficiel": false
+    },
+    "resteACharge": 3630,
+    "ecoPtzAuto": {
+      "montant": 3630,
+      "duree": 15,
+      "mensualite": 20.17,
+      "mensualite15": 20.17,
+      "mensualite20": 15.13,
+      "canal": "eco_ptz_etat"
+    },
+    "plusValue": {
+      "calculable": true,
+      "surface": 6,
+      "prixM2": 2615,
+      "prime": 0.14,
+      "valeurActuelle": 15690,
+      "montant": 2196.6,
+      "mention": "Plus-value vénale et ROI propriétaire : estimation indicative 2026, hors frais de notaire. À valider par une expertise immobilière. Ne constitue pas une garantie de prix de vente."
+    },
+    "roi": {
+      "pourcentage": 60.51,
+      "multiple": 0.61
+    }
+  },
+  "controles": {
+    "financesInternesIncluses": false,
+    "mention": "Onglet Finances et marges masqué pour le mode commercial / partenaire. Snapshot sans coûts d’achat ni marge nette hors administrateur."
+  }
+}

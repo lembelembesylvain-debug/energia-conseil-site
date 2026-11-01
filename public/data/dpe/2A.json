@@ -1,0 +1,33 @@
+{
+  "departement": "2A",
+  "nom": "Corse-du-Sud",
+  "villePrincipale": {
+    "nom": "Ajaccio / Porto-Vecchio",
+    "lat": 42.0396,
+    "lng": 9.0129,
+    "zoom": 9
+  },
+  "source": "cibles test Serge — Corse-du-Sud — démonstration, aides à titre indicatif",
+  "logements": [
+    {
+      "id": "2A-SERGE-AFA-001",
+      "adresse": "Villa Les Oliviers, Route de Mezzavia",
+      "commune": "Afa",
+      "code_postal": "20167",
+      "etiquette_dpe": "F",
+      "surface_habitable": 150,
+      "annee_construction": 1978,
+      "niveaux": 1,
+      "type_batiment": "maison",
+      "lat": 41.9844,
+      "lng": 8.7931,
+      "conso_energie": 368,
+      "type_chauffage": "fioul / électrique",
+      "motif_dpe": "autre",
+      "statut_occupation": "occupant",
+      "cible_serge": true,
+      "aides": "Éligible double aide EDF Agir Plus ZNI + MaPrimeRénov' — estimation à titre indicatif, à valider selon revenus réels et éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.",
+      "offre": "Option Solaire + Tesla Powerwall 3"
+    }
+  ]
+}

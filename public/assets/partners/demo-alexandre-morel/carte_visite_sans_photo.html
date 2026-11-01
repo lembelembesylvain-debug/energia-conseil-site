@@ -1,0 +1,207 @@
+<!--
+  Template duplicable — carte de visite partenaire ENERGIA CONSEIL IA®
+  Trim 85 × 55 mm · fond perdu 3 mm · page imprimeur 91 × 61 mm
+  Partenaire en première ligne · Energia Conseil IA® = partenaire technique
+  Placeholders remplis par scripts/generate_partner_assets.js
+  Ne jamais y coller la photo, le QR ou les coordonnées Catarina.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carte de visite — Alexandre Morel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --partner: #0b1f3a;
+      --navy: #0b1f3a;
+      --navy-deep: #071526;
+      --ink: #122033;
+      --muted: #5b6b7c;
+      --line: #e6edf4;
+      --paper: #ffffff;
+      --energia: #15803d;
+      --energia-soft: #f0fdf4;
+      --bleed: 0mm;
+      --photo: 26.5mm;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #d7dee6; }
+    body {
+      font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+    .studio { min-height: 100vh; padding: 28px 24px 48px; }
+    .studio-bar {
+      max-width: 1200px; margin: 0 auto 28px;
+      display: flex; justify-content: space-between; align-items: flex-end; gap: 16px;
+    }
+    .studio-bar h1 { font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: var(--navy); }
+    .studio-bar p { margin-top: 4px; font-size: 12px; color: var(--muted); }
+    .print-btn {
+      border: 0; background: var(--navy); color: #fff; font: inherit; font-size: 12px;
+      font-weight: 700; padding: 10px 16px; border-radius: 999px; cursor: pointer;
+    }
+    .board {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(2, calc(85mm * 1.85));
+      justify-content: center; gap: 42px;
+    }
+    .slot { display: flex; flex-direction: column; gap: 10px; height: calc(55mm * 1.85 + 22px); }
+    .slot > span {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+    }
+    .card {
+      width: calc(85mm + var(--bleed) * 2); height: calc(55mm + var(--bleed) * 2);
+      background: var(--paper); position: relative; overflow: hidden;
+      box-shadow: 0 18px 40px rgba(11, 31, 58, 0.16);
+      transform: scale(1.85); transform-origin: top left;
+    }
+    .card--back {
+      background: radial-gradient(120% 90% at 50% 20%, #143056 0%, var(--navy-deep) 72%);
+      color: #fff;
+    }
+    .pad {
+      height: 100%;
+      padding: calc(4.2mm + var(--bleed)) calc(4.4mm + var(--bleed)) calc(3.8mm + var(--bleed));
+      display: flex; flex-direction: column;
+    }
+    .recto-grid {
+      display: grid; grid-template-columns: minmax(0, 1fr) var(--photo);
+      gap: 3.2mm; align-items: stretch; flex: 1 1 auto; min-height: 0;
+    }
+    .no-photo .recto-grid { grid-template-columns: 1fr; }
+    .no-photo .portrait { display: none; }
+    .copy { display: flex; flex-direction: column; min-width: 0; min-height: 0; height: 100%; }
+    .portrait {
+      margin: 0; width: var(--photo); height: 42mm; border-radius: 1.2mm;
+      overflow: hidden; background: #f3f6f8; flex-shrink: 0;
+    }
+    .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .top { display: flex; flex-direction: column; align-items: flex-start; gap: 1.4mm; }
+    .network-logo { height: 8.2mm; width: auto; display: block; }
+    .network-text {
+      font-size: 2.4mm; font-weight: 800; letter-spacing: 0.04em;
+      text-transform: uppercase; color: var(--partner);
+    }
+    .badge {
+      display: flex; align-items: center; gap: 1.4mm;
+      padding: 0.85mm 1.6mm 0.85mm 1.2mm;
+      border: 0.18mm solid #cfe6d4; background: var(--energia-soft); border-radius: 1.1mm;
+    }
+    .badge img { width: 7.6mm; height: 5.2mm; object-fit: contain; object-position: center top; display: block; }
+    .badge small { display: block; line-height: 1.2; color: var(--energia); }
+    .badge small:first-child { font-size: 1.7mm; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+    .badge small:last-child { font-size: 1.65mm; font-weight: 700; color: #3f6a4a; }
+    .identity { margin-top: 2.2mm; }
+    .name { font-size: 4mm; font-weight: 800; letter-spacing: -0.03em; color: var(--navy); line-height: 1.05; }
+    .role { margin-top: 1.2mm; font-size: 2.05mm; font-weight: 500; line-height: 1.32; color: var(--muted); }
+    .role strong { font-weight: 700; color: var(--partner); }
+    .coords { margin-top: 2.2mm; display: grid; gap: 0.85mm; font-size: 2.15mm; font-weight: 500; color: var(--ink); }
+    .coords div { display: grid; grid-template-columns: 13mm 1fr; align-items: baseline; column-gap: 1.8mm; }
+    .coords dt {
+      font-size: 1.75mm; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--partner);
+    }
+    .coords dd { min-width: 0; overflow-wrap: break-word; white-space: nowrap; }
+    .site { margin-top: auto; padding-top: 1.6mm; border-top: 0.22mm solid var(--line); }
+    .site a {
+      color: var(--partner); text-decoration: none; font-size: 2.15mm; font-weight: 800;
+      letter-spacing: -0.02em; white-space: nowrap;
+    }
+    .rsac {
+      flex-shrink: 0; margin: 1.15mm 0 0; font-size: 7.5pt; font-weight: 500;
+      font-family: Arial, Helvetica, sans-serif; color: #3a4553; text-align: right; line-height: 1.15;
+    }
+    .back-top .network-logo, .back-top .network-text { height: 6.6mm; opacity: 0.92; color: #fff; }
+    .hook {
+      margin: 3.8mm 2mm 0; text-align: center; font-size: 3.2mm; font-weight: 800;
+      letter-spacing: -0.028em; line-height: 1.22;
+    }
+    .qr-wrap {
+      margin: auto; width: 25.8mm; height: 25.8mm; background: #fff;
+      border-radius: 1.6mm; padding: 2.6mm; display: grid; place-items: center;
+    }
+    .qr-wrap img { width: 100%; height: 100%; display: block; }
+    .partner {
+      text-align: center; font-size: 1.75mm; font-weight: 500; letter-spacing: 0.02em;
+      line-height: 1.35; color: rgba(255,255,255,0.78);
+    }
+    @page { size: 91mm 61mm; margin: 0; }
+    @media print {
+      :root { --bleed: 3mm; --photo: 27.2mm; }
+      .studio-bar, .slot > span { display: none !important; }
+      body, html { background: #fff; }
+      .studio { padding: 0; }
+      .board { display: block; max-width: none; }
+      .slot { gap: 0; height: auto; }
+      .card { box-shadow: none; transform: none; page-break-after: always; break-after: page; }
+      .card:last-child { page-break-after: auto; }
+    }
+  </style>
+</head>
+<body class="no-photo">
+  <main class="studio">
+    <div class="studio-bar">
+      <div>
+        <h1>Carte de visite — Alexandre Morel</h1>
+        <p>Trim 85 × 55 mm · fond perdu 3 mm · partenaire en première ligne</p>
+      </div>
+      <button class="print-btn" type="button" onclick="window.print()">Imprimer / PDF imprimeur</button>
+    </div>
+    <div class="board">
+      <div class="slot">
+        <span>Recto — L’experte</span>
+        <article class="card" aria-label="Recto de la carte de visite">
+          <div class="pad">
+            <div class="recto-grid">
+              <div class="copy">
+                <div class="top">
+                  <p class="network-text">Réseau partenaire (démo)</p>
+                  <aside class="badge" aria-label="Partenaire technique">
+                    <img src="energia-logo-arbres.png" alt="" />
+                    <div>
+                      <small>Partenaire technique</small>
+                      <small>Energia Conseil IA®</small>
+                    </div>
+                  </aside>
+                </div>
+                <div class="identity">
+                  <p class="name">Alexandre Morel</p>
+                  <p class="role"><strong>Conseiller immobilier — valorisation énergétique</strong></p>
+                </div>
+                <div class="coords">
+                  <div><dt>Tél.</dt><dd>[À COMPLÉTER]</dd></div>
+                  <div><dt>Mail</dt><dd>demo.partenaire@example.com</dd></div>
+                  <div><dt>Secteur</dt><dd>[À COMPLÉTER]</dd></div>
+                </div>
+                <div class="site"><a href="#">[À COMPLÉTER]</a></div>
+              </div>
+              <figure class="portrait">
+                <img src="qr.svg" alt="Alexandre Morel" />
+              </figure>
+            </div>
+            <p class="rsac">[À COMPLÉTER]</p>
+          </div>
+        </article>
+      </div>
+      <div class="slot">
+        <span>Verso — L’accroche</span>
+        <article class="card card--back" aria-label="Verso de la carte de visite">
+          <div class="pad">
+            <div class="back-top"><p class="network-text" style="color:#fff">Réseau partenaire (démo)</p></div>
+            <h2 class="hook">Valorisez votre bien avant de vendre, acheter ou rénover.</h2>
+            <div class="qr-wrap">
+              <img src="qr.svg" alt="QR code vers https://www.energia-conseil-ia.com/partenaire/demo-alexandre-morel" />
+            </div>
+            <p class="partner">Avec l’expertise technique d’Energia Conseil IA®<br />[À COMPLÉTER]</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

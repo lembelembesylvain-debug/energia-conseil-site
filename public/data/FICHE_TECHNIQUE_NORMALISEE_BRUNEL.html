@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fiche technique normalisée &amp; conformité réglementaire Anah — M. Brunel</title>
+  <style>
+    @page { size: A4; margin: 8mm 10mm; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", Calibri, "Avenir Next", Arial, Helvetica, sans-serif;
+      color: #1c1917;
+      background: #e7e5e4;
+      font-size: 10pt;
+      line-height: 1.35;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px 16px;
+      background: #1b4332;
+    }
+    .toolbar button {
+      border: 0;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      color: #1b4332;
+      background: #d8f3dc;
+    }
+    .sheet {
+      width: min(210mm, calc(100% - 24px));
+      margin: 12px auto 24px;
+      background: #fff;
+      box-shadow: 0 8px 28px rgba(27, 67, 50, 0.12);
+    }
+    header.bandeau {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: #1b4332;
+      color: #f8faf8;
+      padding: 10px 14px;
+    }
+    header.bandeau img { height: 46px; width: auto; background: #fff; border-radius: 6px; padding: 3px; }
+    .marque { font-weight: 800; letter-spacing: 0.02em; font-size: 12pt; }
+    .coords { font-size: 8pt; line-height: 1.35; color: #d8f3dc; }
+    .corps { padding: 10px 14px 12px; }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 12.5pt;
+      line-height: 1.25;
+      color: #1b4332;
+      letter-spacing: 0.01em;
+    }
+    h2 {
+      margin: 8px 0 4px;
+      font-size: 9.5pt;
+      color: #1b4332;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    .identite th, .identite td, .lots th, .lots td {
+      border: 1px solid #d6d3d1;
+      padding: 3px 6px;
+      vertical-align: top;
+      text-align: left;
+    }
+    .identite th { width: 34%; background: #f0fdf4; color: #1b4332; font-weight: 700; }
+    .lots thead th { background: #1b4332; color: #fff; font-size: 8pt; letter-spacing: 0.04em; text-transform: uppercase; }
+    .lot {
+      background: #1b4332;
+      color: #fff;
+      font-weight: 700;
+      font-size: 8.5pt;
+      letter-spacing: 0.02em;
+    }
+    .lots td:first-child { width: 32%; font-weight: 650; color: #14532d; background: #f7fef9; }
+    .lots tr, .identite tr, .mention, .bloc-sign { break-inside: avoid; page-break-inside: avoid; }
+    .mention {
+      margin-top: 8px;
+      border-left: 4px solid #1b4332;
+      background: #f0fdf4;
+      padding: 6px 8px;
+      font-size: 8.5pt;
+    }
+    .signature {
+      margin-top: 8px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .bloc-sign {
+      width: 78mm;
+      border: 1px solid #1b4332;
+      border-radius: 6px;
+      padding: 6px 8px 18px;
+      font-size: 8.5pt;
+    }
+    .bloc-sign strong { color: #1b4332; }
+    footer {
+      margin-top: 8px;
+      border-top: 1px solid #d6d3d1;
+      padding-top: 4px;
+      font-size: 7.5pt;
+      color: #57534e;
+      line-height: 1.35;
+    }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { width: auto; margin: 0; box-shadow: none; }
+      .lot, header.bandeau, .lots thead th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+    @media (max-width: 720px) {
+      .identite th { width: 42%; }
+      header.bandeau { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">Imprimer / Enregistrer en PDF</button>
+  </div>
+  <article class="sheet">
+    <header class="bandeau">
+      <img src="/assets/partners/_shared/energia-logo-arbres.png" alt="ENERGIA-CONSEIL IA" />
+      <div>
+        <div class="marque">ENERGIA-CONSEIL IA®</div>
+        <div class="coords">
+          Audit Énergétique Intelligence Artificielle · Marque déposée INPI · Bureau d'études &amp; Contractant Général<br>
+          16 Rue Cuvier, 69006 Lyon · 06 10 59 68 98 · contact@energia-conseil-ia.com<br>
+          SIRET 94181942700019 · RCS Lyon 941819427 · SASU au capital de 100 €
+        </div>
+      </div>
+    </header>
+    <div class="corps">
+      <p style="margin:0 0 2px;font-size:8pt;letter-spacing:.06em;text-transform:uppercase;color:#40916c;font-weight:700;">Fiche technique normalisée &amp; conformité réglementaire Anah</p>
+      <h1>Fiche de prescription technique &amp; conformité réglementaire — Audit MAR</h1>
+
+      <h2>1. En-tête &amp; identification du chantier</h2>
+      <table class="identite">
+        <tr>
+          <th>Maître d'ouvrage</th>
+          <td>M. Emrick BRUNEL / Indivision COUBLE — 48 Impasse des Lagunes, 42510 BUSSIÈRES</td>
+        </tr>
+        <tr>
+          <th>Contractant Général</th>
+          <td>ENERGIA-CONSEIL IA® (SASU au capital de 100 €, 16 Rue Cuvier, 69006 Lyon — SIRET 94181942700019)</td>
+        </tr>
+        <tr>
+          <th>Auditeur MAR</th>
+          <td>Antoine Baratier — Cabinet C2ET</td>
+        </tr>
+        <tr>
+          <th>Référence marché</th>
+          <td>Marché de rénovation globale clé en main — Parcours Accompagné — Scénario n°3 (DPE G → C)</td>
+        </tr>
+      </table>
+
+      <h2>2. Tableau de prescription technique lot par lot (conformité Anah)</h2>
+      <table class="lots">
+        <thead>
+          <tr><th>Critère</th><th>Prescription</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="lot" colspan="2">Lot 1 — Isolation des combles perdus habitables (35 m²)</td></tr>
+          <tr><td>Matériau</td><td>Laine de roche minérale à souffler (incombustible Euroclasse A1).</td></tr>
+          <tr><td>Épaisseur minimale posée</td><td>300 mm après tassement.</td></tr>
+          <tr><td>Performance thermique certifiée</td><td>R ≥ 7,00 m².K/W (conforme exigences Anah / DTU 45.11).</td></tr>
+          <tr><td>Certification exigée</td><td>Certificat officiel ACERMI en cours de validité (norme NF EN 13162).</td></tr>
+          <tr><td>Poseur qualifié RGE</td><td>C2L Isolation (Qualibat RGE n° E-E102269).</td></tr>
+
+          <tr><td class="lot" colspan="2">Lot 2 — Menuiseries extérieures, baie &amp; porte d'entrée</td></tr>
+          <tr><td>Menuiseries PVC entrée (2 unités)</td><td>Profils double vitrage 4/16/4 gaz Argon avec intercalaire Warm Edge, Uw ≤ 1,30 W/m².K, Sw ≥ 0,36, vitrage certifié CEKAL.</td></tr>
+          <tr><td>Porte d'entrée isolée</td><td>Ouvrant monobloc haute performance thermique Ud ≤ 1,30 W/m².K, serrure de sécurité A2P, rupture de pont thermique.</td></tr>
+          <tr><td>Baie vitrée alu 215×240</td><td>Coulissant alu à rupture de pont thermique complète, Uw ≤ 1,40 W/m².K, vitrage thermique de sécurité.</td></tr>
+          <tr><td>Ouverture mur porteur</td><td>Reprise de charges par linteau acier IPN/HEB avec sommiers béton armé selon règles de l'art DTU maçonnerie.</td></tr>
+          <tr><td>Poseur qualifié RGE</td><td>Bonheur d'Amarante (RGE Menuiseries extérieures).</td></tr>
+
+          <tr><td class="lot" colspan="2">Lot 3 — Système de ventilation mécanique (VMC)</td></tr>
+          <tr><td>Système</td><td>VMC Hygro B hygroréglable basse consommation (micro-watt).</td></tr>
+          <tr><td>Consommation électrique</td><td>Pvelec &lt; 15 W-Th-C.</td></tr>
+          <tr><td>Réseau aéraulique</td><td>Gaines isolées thermiquement en comble non chauffé (DTU 68.3), bouches d'extraction et entrées d'air hygroréglables certifiées CSTBat.</td></tr>
+          <tr><td>Poseur qualifié RGE</td><td>SMN Énergies (Mustafa HEZEN — Qualibat RGE).</td></tr>
+
+          <tr><td class="lot" colspan="2">Lot 4 — Système de production d'eau chaude sanitaire (ECS)</td></tr>
+          <tr><td>Équipement</td><td>Chauffe-eau thermodynamique individuel sur air extrait/ambiant.</td></tr>
+          <tr><td>Volume nominal</td><td>200 litres, cuve émaillée avec anode de protection titane/magnésium.</td></tr>
+          <tr><td>Performance certifiée</td><td>COP ≥ 2,50 mesuré à 7 °C selon la norme d'essai NF EN 16147, étiquette énergétique A+.</td></tr>
+          <tr><td>Poseur qualifié RGE</td><td>SMN Énergies (Mustafa HEZEN — RGE QualiPAC / Chauffage).</td></tr>
+
+          <tr><td class="lot" colspan="2">Lot 5 — Système de chauffage principal (PAC air/air)</td></tr>
+          <tr><td>Équipement</td><td>Pompe à chaleur Air/Air Multi-Split Inverter réversible DAIKIN (1 groupe extérieur + 5 unités intérieures splits).</td></tr>
+          <tr><td>Fluide frigorigène</td><td>R32 à faible impact environnemental (PRP réduit).</td></tr>
+          <tr><td>Performance saisonnière certifiée</td><td>SCOP ≥ 4,20 (classe énergétique saisonnière A++ en mode chauffage).</td></tr>
+          <tr><td>Poseur qualifié RGE</td><td>SMN Énergies (Mustafa HEZEN — RGE QualiPAC).</td></tr>
+        </tbody>
+      </table>
+
+      <h2>3. Validation &amp; engagement du Contractant Général</h2>
+      <div class="mention">
+        ENERGIA-CONSEIL IA® certifie que l'ensemble des équipements et matériaux prescrits ci-dessus répondent strictement aux critères techniques d'éligibilité du dispositif MaPrimeRénov' Parcours Accompagné (Rénovation d'ampleur 2026). Les attestations RGE, assurances décennales et fiches d'homologation fabricants sont annexées au présent dossier.
+      </div>
+      <div class="signature">
+        <div class="bloc-sign">
+          <strong>Pour ENERGIA-CONSEIL IA®</strong><br>
+          Sylvain LEMBELEMBE<br>
+          Direction de projet<br>
+          <span style="display:inline-block;margin-top:14px;">Signature :</span>
+        </div>
+      </div>
+      <footer>
+        Sylvain LEMBELEMBE (AMO) 06 10 59 68 98 · DAMIEN (Commercial) 06 72 68 09 68 · FABIEN — VIVONS COURTIER 06 71 19 96 45 · Julia (Juriste) · MAR Antoine Baratier — Cabinet C2ET.<br>
+        Document de prescription technique. Les aides MaPrimeRénov' restent une estimation à titre indicatif, à valider selon les revenus réels et l'éligibilité en vigueur. Montants définitifs après instruction ANAH et CEE.
+      </footer>
+    </div>
+  </article>
+</body>
+</html>
